@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.codehaus.plexus:plexus-interactivity-jline:1.0-alpha-5">
+    <CLASSES>
+      <root url="jar://E:/Program Files/apache-maven-3.5.2/repository/org/codehaus/plexus/plexus-interactivity-jline/1.0-alpha-5/plexus-interactivity-jline-1.0-alpha-5.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://E:/Program Files/apache-maven-3.5.2/repository/org/codehaus/plexus/plexus-interactivity-jline/1.0-alpha-5/plexus-interactivity-jline-1.0-alpha-5-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://E:/Program Files/apache-maven-3.5.2/repository/org/codehaus/plexus/plexus-interactivity-jline/1.0-alpha-5/plexus-interactivity-jline-1.0-alpha-5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
