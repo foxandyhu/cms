@@ -1,30 +1,10 @@
 package com.jeecms.cms.api.front;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.lang.RandomStringUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.jeecms.cms.api.ResponseCode;
 import com.jeecms.cms.annotation.SignValidate;
 import com.jeecms.cms.api.ApiResponse;
 import com.jeecms.cms.api.ApiValidate;
 import com.jeecms.cms.api.Constants;
+import com.jeecms.cms.api.ResponseCode;
 import com.jeecms.cms.entity.assist.CmsWebservice;
 import com.jeecms.cms.entity.main.ApiAccount;
 import com.jeecms.cms.entity.main.ApiRecord;
@@ -40,28 +20,39 @@ import com.jeecms.common.security.encoder.PwdEncoder;
 import com.jeecms.common.util.AES128Util;
 import com.jeecms.common.util.DateUtils;
 import com.jeecms.common.util.Num62;
-import com.jeecms.common.util.PropertyUtils;
 import com.jeecms.common.web.HttpClientUtil;
 import com.jeecms.common.web.LoginUtils;
 import com.jeecms.common.web.RequestUtils;
 import com.jeecms.common.web.ResponseUtils;
 import com.jeecms.common.web.session.SessionProvider;
 import com.jeecms.common.web.springmvc.RealPathResolver;
-import com.jeecms.core.entity.CmsConfig;
-import com.jeecms.core.entity.CmsSite;
-import com.jeecms.core.entity.CmsUser;
-import com.jeecms.core.entity.CmsUserExt;
-import com.jeecms.core.entity.Ftp;
+import com.jeecms.config.SocialInfoConfig;
+import com.jeecms.core.entity.*;
 import com.jeecms.core.manager.CmsConfigMng;
 import com.jeecms.core.manager.CmsUserMng;
 import com.jeecms.core.manager.UnifiedUserMng;
 import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
+import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller("frontUserApiAct")
 public class UserApiAct {
-	
-	private final String WEIXIN_JSCODE_2_SESSION_URL="weixin.jscode2sessionUrl";
 	
 	/**
 	 * 添加会员用户
@@ -75,9 +66,6 @@ public class UserApiAct {
 	 * @param mobile 手机 非必选
 	 * @param qq qq号  非必选
 	 * @param userImg 用户头像  非必选
-	 * @param appId appID 必选
-	 * @param nonce_str 随机字符串 必选
-	 * @param sign 签名必选
 	 */
 	@SignValidate
 	@RequestMapping(value = "/user/add")
@@ -375,14 +363,13 @@ public class UserApiAct {
 				message=Constants.API_MESSAGE_REQUEST_REPEAT;
 				code=ResponseCode.API_CODE_REQUEST_REPEAT;
 			}else{
-				initWeiXinJsCode2SessionUrl();
 				Map<String,String>params=new HashMap<String, String>();
 				CmsConfig config=configMng.get();
 				params.put("appid", config.getWeixinAppId());
 				params.put("secret", config.getWeixinAppSecret());
 				params.put("js_code",js_code);
 				params.put("grant_type",grant_type);
-				String result=HttpClientUtil.postParams(getWeiXinJsCode2SessionUrl(),
+				String result=HttpClientUtil.postParams(socialInfoConfig.getWeixin().getJscode2sessionUrl(),
 						params);
 				JSONObject json;
 				Object openId = null;
@@ -585,24 +572,9 @@ public class UserApiAct {
 			return false;
 		}
 	}
-	
-	private void initWeiXinJsCode2SessionUrl(){
-		if(getWeiXinJsCode2SessionUrl()==null){
-			setWeiXinJsCode2SessionUrl(PropertyUtils.getPropertyValue(
-					new File(realPathResolver.get(com.jeecms.cms.Constants.JEECMS_CONFIG)),WEIXIN_JSCODE_2_SESSION_URL));
-		}
-	}
-	
-	private String weiXinJsCode2SessionUrl;
-	
-	public String getWeiXinJsCode2SessionUrl() {
-		return weiXinJsCode2SessionUrl;
-	}
 
-	public void setWeiXinJsCode2SessionUrl(String weiXinJsCode2SessionUrl) {
-		this.weiXinJsCode2SessionUrl = weiXinJsCode2SessionUrl;
-	}
-
+	@Autowired
+	private SocialInfoConfig socialInfoConfig;
 	@Autowired
 	private ApiRecordMng apiRecordMng;
 	@Autowired
@@ -625,8 +597,5 @@ public class UserApiAct {
 	private CmsConfigMng configMng;
 	@Autowired
 	private PwdEncoder pwdEncoder;
-	@Autowired
-	private RealPathResolver realPathResolver;
-	
 }
 

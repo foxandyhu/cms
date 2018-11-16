@@ -20,10 +20,12 @@ import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
+import org.springframework.stereotype.Component;
 
 /**
  * 投票标签
  */
+@Component("cms_vote")
 public class CmsVoteDirective implements TemplateDirectiveModel {
 	/**
 	 * 输入参数，投票ID。可以为空，为空则获取站点的默认投票。

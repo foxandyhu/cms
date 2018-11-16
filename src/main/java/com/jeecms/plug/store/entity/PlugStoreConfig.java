@@ -1,39 +1,61 @@
 package com.jeecms.plug.store.entity;
 
-import com.jeecms.plug.store.entity.base.BasePlugStoreConfig;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import javax.persistence.*;
+import java.io.Serializable;
 
 
+@Entity
+@Table(name = "jc_plug_store_config")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
+public class PlugStoreConfig implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-public class PlugStoreConfig extends BasePlugStoreConfig {
-	private static final long serialVersionUID = 1L;
+    @Id
+    @Column(name="config_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
 
-/*[CONSTRUCTOR MARKER BEGIN]*/
-	public PlugStoreConfig () {
-		super();
-	}
+    /**
+     * 接口根地址
+     */
+    @Column(name = "server_url")
+    private String serverUrl;
 
-	/**
-	 * Constructor for primary key
-	 */
-	public PlugStoreConfig (java.lang.Integer id) {
-		super(id);
-	}
+    /**
+     * 应用商店密码
+     */
+    @Column(name = "password")
+    private String password;
 
-	/**
-	 * Constructor for required fields
-	 */
-	public PlugStoreConfig (
-		java.lang.Integer id,
-		java.lang.String serverUrl,
-		java.lang.String passwod) {
+    public Integer getId() {
+        return id;
+    }
 
-		super (
-			id,
-			serverUrl,
-			passwod);
-	}
 
-/*[CONSTRUCTOR MARKER END]*/
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+
+    public String getServerUrl() {
+        return serverUrl;
+    }
+
+    public void setServerUrl(String serverUrl) {
+        this.serverUrl = serverUrl;
+    }
+
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
 
 }

@@ -11,10 +11,12 @@ import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
+import org.springframework.stereotype.Component;
 
 /**
  * UUID生成器
  */
+@Component("uuid")
 public class UUIDDirective implements TemplateDirectiveModel {
 	@SuppressWarnings("unchecked")
 	public void execute(Environment env, Map params, TemplateModel[] loopVars,

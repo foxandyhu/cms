@@ -7,7 +7,9 @@ import com.jeecms.common.hibernate4.HibernateBaseDao;
 import com.jeecms.common.page.Pagination;
 import com.jeecms.plug.weixin.dao.WeixinMessageDao;
 import com.jeecms.plug.weixin.entity.WeixinMessage;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class WeixinMessageDaoImpl extends HibernateBaseDao<WeixinMessage, Integer> implements WeixinMessageDao {
 	
 	public Pagination getPage(Integer siteId,int pageNo,int pageSize){

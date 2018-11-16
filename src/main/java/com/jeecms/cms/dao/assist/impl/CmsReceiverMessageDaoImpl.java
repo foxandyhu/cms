@@ -10,11 +10,12 @@ import com.jeecms.cms.entity.assist.CmsReceiverMessage;
 import com.jeecms.common.hibernate4.Finder;
 import com.jeecms.common.hibernate4.HibernateBaseDao;
 import com.jeecms.common.page.Pagination;
+import org.springframework.stereotype.Repository;
 
 /**
  *江西金磊科技发展有限公司jeecms研发
  */
-
+@Repository
 public class CmsReceiverMessageDaoImpl extends
 		HibernateBaseDao<CmsReceiverMessage, Integer> implements
 		CmsReceiverMessageDao {

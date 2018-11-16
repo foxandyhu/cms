@@ -1,25 +1,19 @@
 package com.jeecms.cms.task.job;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import net.sf.ehcache.Ehcache;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-
-import com.aliyun.oss.common.utils.DateUtil;
 import com.jeecms.cms.api.Constants;
 import com.jeecms.cms.manager.main.ApiUserLoginMng;
 import com.jeecms.common.util.DateUtils;
 import com.jeecms.core.entity.CmsSite;
 import com.jeecms.core.manager.CmsSiteMng;
 import com.jeecms.core.manager.CmsUserExtMng;
+import net.sf.ehcache.Ehcache;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.ehcache.EhCacheCache;
+import org.springframework.cache.ehcache.EhCacheCacheManager;
+
+import java.util.*;
 
 /**
  * @Description 每日任务(执行每日pv、每日访客量清空)
@@ -66,10 +60,15 @@ public class SiteDayJob{
 	@Autowired
 	private CmsUserExtMng userExtMng;
 	
-	@Autowired 
-	@Qualifier("cmsDayPvTotalCache")
 	private Ehcache dayPvTotalCache;
-	@Autowired 
-	@Qualifier("cmsDayVisitorTotalCache")
 	private Ehcache dayVisitorTotalCache;
+
+	@Autowired
+	public void setCache(EhCacheCacheManager cacheManager) {
+		EhCacheCache ehcache = (EhCacheCache) cacheManager.getCache("cmsDayPvTotalCache");
+		dayPvTotalCache = ehcache.getNativeCache();
+
+		ehcache = (EhCacheCache) cacheManager.getCache("cmsDayVisitorTotalCache");
+		dayVisitorTotalCache = ehcache.getNativeCache();
+	}
 }

@@ -26,10 +26,12 @@ import freemarker.core.Environment;
 import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
+import org.springframework.stereotype.Component;
 
 /**
  * 内容分页标签
  */
+@Component("cms_content_page")
 public class ContentPageDirective extends AbstractContentDirective {
 	/**
 	 * 模板名称

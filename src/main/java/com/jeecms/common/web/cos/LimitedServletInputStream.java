@@ -3,6 +3,7 @@ package com.jeecms.common.web.cos;
 import java.io.IOException;
 
 //import javax.servlet.ReadListener;
+import javax.servlet.ReadListener;
 import javax.servlet.ServletInputStream;
 
 /**
@@ -114,7 +115,6 @@ public class LimitedServletInputStream extends ServletInputStream {
 		return result;
 	}
 
-	/*
 	public boolean isFinished() {
 		return in.isFinished();
 	}
@@ -126,5 +126,4 @@ public class LimitedServletInputStream extends ServletInputStream {
 	public void setReadListener(ReadListener readListener) {
 		in.setReadListener(readListener);
 	}
-	*/
 }

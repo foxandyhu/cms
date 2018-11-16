@@ -7,7 +7,9 @@ import com.jeecms.common.hibernate4.HibernateBaseDao;
 import com.jeecms.common.page.Pagination;
 import com.jeecms.plug.weixin.dao.WeixinMenuDao;
 import com.jeecms.plug.weixin.entity.WeixinMenu;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class WeixinMenuDaoImpl extends HibernateBaseDao<WeixinMenu, Integer> implements WeixinMenuDao {
 	
 	public Pagination getPage(Integer siteId,Integer parentId,int pageNo,int pageSize){

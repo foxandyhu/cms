@@ -1,14 +1,16 @@
 package com.jeecms.cms.entity.assist;
 
+import com.jeecms.core.entity.CmsSite;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.jeecms.cms.entity.assist.base.BaseCmsSearchWords;
 
+import java.io.Serializable;
 
 
-public class CmsSearchWords extends BaseCmsSearchWords {
+public class CmsSearchWords implements Serializable {
 	private static final long serialVersionUID = 1L;
 	/**
 	 * 搜索次数降序
@@ -69,37 +71,71 @@ public class CmsSearchWords extends BaseCmsSearchWords {
 		}
 	}
 
-/*[CONSTRUCTOR MARKER BEGIN]*/
-	public CmsSearchWords () {
-		super();
+	// primary key
+	private Integer id;
+
+	// fields
+	private String name;
+	private Integer hitCount;
+	private Integer priority;
+	private String nameInitial;
+	private Boolean recommend;
+	private CmsSite site;
+
+	public Integer getId () {
+		return id;
 	}
 
-	/**
-	 * Constructor for primary key
-	 */
-	public CmsSearchWords (java.lang.Integer id) {
-		super(id);
+	public void setId (Integer id) {
+		this.id = id;
 	}
 
-	/**
-	 * Constructor for required fields
-	 */
-	public CmsSearchWords (
-		java.lang.Integer id,
-		java.lang.String name,
-		java.lang.Integer hitCount,
-		java.lang.Integer priority,
-		java.lang.String nameInitial) {
-
-		super (
-			id,
-			name,
-			hitCount,
-			priority,
-			nameInitial);
+	public String getName () {
+		return name;
 	}
 
-/*[CONSTRUCTOR MARKER END]*/
+	public void setName (String name) {
+		this.name = name;
+	}
 
+	public Integer getHitCount () {
+		return hitCount;
+	}
+
+	public void setHitCount (Integer hitCount) {
+		this.hitCount = hitCount;
+	}
+
+	public Integer getPriority () {
+		return priority;
+	}
+
+	public void setPriority (Integer priority) {
+		this.priority = priority;
+	}
+
+	public String getNameInitial () {
+		return nameInitial;
+	}
+
+	public void setNameInitial (String nameInitial) {
+		this.nameInitial = nameInitial;
+	}
+
+	public Boolean getRecommend() {
+		return recommend;
+	}
+
+	public void setRecommend(Boolean recommend) {
+		this.recommend = recommend;
+	}
+
+	public CmsSite getSite() {
+		return site;
+	}
+
+	public void setSite(CmsSite site) {
+		this.site = site;
+	}
 
 }

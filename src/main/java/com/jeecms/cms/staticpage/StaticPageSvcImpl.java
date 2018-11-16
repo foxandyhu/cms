@@ -189,11 +189,7 @@ public class StaticPageSvcImpl  implements StaticPageSvc, InitializingBean {
 	public void index(CmsSite site) throws IOException, TemplateException {
 		Map<String, Object> data = new HashMap<String, Object>();
 		FrontUtils.frontData(data, site, null, site.getUrlStatic(), null);
-		/*
-		String tpl = FrontUtils.getTplPath(tplMessageSource, site
-				.getLocaleAdmin(), site.getSolutionPath(), TPLDIR_INDEX,
-				TPL_INDEX);
-		*/
+
 		String tpl=site.getTplIndexOrDef();
 		index(site, tpl, data,false);
 		if(site.getMobileStaticSync()){
@@ -289,9 +285,11 @@ public class StaticPageSvcImpl  implements StaticPageSvc, InitializingBean {
 		}
 	}
 
-	private MessageSource tplMessageSource;
+	@Autowired
 	private RealPathResolver realPathResolver;
+	@Autowired
 	private StaticPageDao staticPageDao;
+	@Autowired
 	private Configuration conf;
 	@Autowired
 	private FtpMng ftpMng;
@@ -302,28 +300,5 @@ public class StaticPageSvcImpl  implements StaticPageSvc, InitializingBean {
 
 	public void afterPropertiesSet() throws Exception {
 		Assert.notNull(conf, "freemarker configuration cannot be null!");
-		Assert.notNull(tplMessageSource,
-				"tplMessageSource configuration cannot be null!");
 	}
-
-	public void setFreeMarkerConfigurer(
-			FreeMarkerConfigurer freeMarkerConfigurer) {
-		this.conf = freeMarkerConfigurer.getConfiguration();
-	}
-
-	public void setTplMessageSource(MessageSource tplMessageSource) {
-		this.tplMessageSource = tplMessageSource;
-	}
-
-	@Autowired
-	public void setStaticPageDao(StaticPageDao staticPageDao) {
-		this.staticPageDao = staticPageDao;
-	}
-
-	@Autowired
-	public void setRealPathResolver(RealPathResolver realPathResolver) {
-		this.realPathResolver = realPathResolver;
-	}
-
-
 }

@@ -1,6 +1,6 @@
 package com.jeecms.cms.web;
 
-import static com.jeecms.cms.web.AdminContextInterceptor.PERMISSION_MODEL;
+import static com.context.admin.AdminContextInterceptor.PERMISSION_MODEL;
 
 import java.io.IOException;
 import java.util.Map;
@@ -17,10 +17,12 @@ import freemarker.template.TemplateModel;
 import freemarker.template.TemplateModelException;
 import freemarker.template.TemplateScalarModel;
 import freemarker.template.TemplateSequenceModel;
+import org.springframework.stereotype.Component;
 
 /**
  * 后台管理员权限许可
  */
+@Component("cms_perm")
 public class PermistionDirective implements TemplateDirectiveModel {
 	/**
 	 * 此url必须和perm中url一致。

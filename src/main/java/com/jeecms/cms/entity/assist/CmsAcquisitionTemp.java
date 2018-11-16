@@ -1,45 +1,96 @@
 package com.jeecms.cms.entity.assist;
 
-import com.jeecms.cms.entity.assist.base.BaseCmsAcquisitionTemp;
+import com.jeecms.core.entity.CmsSite;
+
+import java.io.Serializable;
 
 
+public class CmsAcquisitionTemp implements Serializable {
+    private static final long serialVersionUID = 1L;
+    // primary key
+    private Integer id;
 
-public class CmsAcquisitionTemp extends BaseCmsAcquisitionTemp {
-	private static final long serialVersionUID = 1L;
+    // fields
+    private String channelUrl;
+    private String contentUrl;
+    private String title;
+    private Integer percent;
+    private String description;
+    private Integer seq;
 
-/*[CONSTRUCTOR MARKER BEGIN]*/
-	public CmsAcquisitionTemp () {
-		super();
-	}
+    // many to one
+    private CmsSite site;
 
-	/**
-	 * Constructor for primary key
-	 */
-	public CmsAcquisitionTemp (java.lang.Integer id) {
-		super(id);
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	/**
-	 * Constructor for required fields
-	 */
-	public CmsAcquisitionTemp (
-		java.lang.Integer id,
-		java.lang.String channelUrl,
-		java.lang.String contentUrl,
-		java.lang.Integer percent,
-		java.lang.String description,
-		java.lang.Integer seq) {
 
-		super (
-			id,
-			channelUrl,
-			contentUrl,
-			percent,
-			description,
-			seq);
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-/*[CONSTRUCTOR MARKER END]*/
+    public String getChannelUrl() {
+        return channelUrl;
+    }
+
+    public void setChannelUrl(String channelUrl) {
+        this.channelUrl = channelUrl;
+    }
+
+    public String getContentUrl() {
+        return contentUrl;
+    }
+
+    public void setContentUrl(String contentUrl) {
+        this.contentUrl = contentUrl;
+    }
+
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Integer getPercent() {
+        return percent;
+    }
+
+    public void setPercent(Integer percent) {
+        this.percent = percent;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+
+    public Integer getSeq() {
+        return seq;
+    }
+
+
+    public void setSeq(Integer seq) {
+        this.seq = seq;
+    }
+
+
+    public CmsSite getSite() {
+        return site;
+    }
+
+
+    public void setSite(CmsSite site) {
+        this.site = site;
+    }
 
 
 }

@@ -13,6 +13,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.config.SocialInfoConfig;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.client.ClientProtocolException;
@@ -251,12 +252,7 @@ public class ThirdLoginAct {
 	public String weixinLogin(HttpServletRequest request,
 			HttpServletResponse response, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
-		String codeUrl="";
-		if(getWeixinAuthCodeUrl()==null){
-			codeUrl=PropertyUtils.getPropertyValue(
-					new File(realPathResolver.get(com.jeecms.cms.Constants.JEECMS_CONFIG)),WEIXIN_AUTH_CODE_URL);
-			setWeixinAuthCodeUrl(codeUrl);
-		}
+		String codeUrl;
 		CmsConfig config=cmsConfigMng.get();
 		String auth_url="/weixin_auth.jspx";
 		String redirect_uri=site.getUrlPrefixWithNoDefaultPort();
@@ -264,7 +260,7 @@ public class ThirdLoginAct {
 			redirect_uri+=site.getContextPath();
 		}
 		redirect_uri+=auth_url;
-		codeUrl=getWeixinAuthCodeUrl()+"&appid="+config.getWeixinLoginId()+"&redirect_uri="+redirect_uri
+		codeUrl=socialInfoConfig.getWeixin().getAuth().getCodeUrl()+"&appid="+config.getWeixinLoginId()+"&redirect_uri="+redirect_uri
 				+"&state="+RandomStringUtils.random(10,Num62.N36_CHARS)+"#wechat_redirect";
 		return "redirect:"+codeUrl;
 	}
@@ -274,16 +270,8 @@ public class ThirdLoginAct {
 			HttpServletResponse response, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
 		FrontUtils.frontData(request, model, site);
-		if(getWeixinAuthTokenUrl()==null){
-			setWeixinAuthTokenUrl(PropertyUtils.getPropertyValue(
-					new File(realPathResolver.get(com.jeecms.cms.Constants.JEECMS_CONFIG)),WEIXIN_AUTH_TOKEN_URL));
-		}
-		if(getWeixinAuthUserUrl()==null){
-			setWeixinAuthUserUrl(PropertyUtils.getPropertyValue(
-					new File(realPathResolver.get(com.jeecms.cms.Constants.JEECMS_CONFIG)),WEIXIN_AUTH_USER_URL));
-		}
 		CmsConfig config=cmsConfigMng.get();
-		String tokenUrl=getWeixinAuthTokenUrl()+"&appid="+config.getWeixinLoginId()+"&secret="+config.getWeixinLoginSecret()+"&code="+code;
+		String tokenUrl=socialInfoConfig.getWeixin().getAuth().getAccessTokenUrl()+"&appid="+config.getWeixinLoginId()+"&secret="+config.getWeixinLoginSecret()+"&code="+code;
 		JSONObject json=null;
 		try {
 			//获取openid和access_token
@@ -304,7 +292,7 @@ public class ThirdLoginAct {
 						loginByKey(md5OpenId, request, response, model);
 						return FrontUtils.getTplPath(request, site.getSolutionPath(),TPLDIR_INDEX, TPL_INDEX);
 					}else{
-						String userUrl=getWeixinAuthUserUrl()+"&access_token="+access_token+"&openid="+openid;
+						String userUrl=socialInfoConfig.getWeixin().getAuth().getUserInfoUrl()+"&access_token="+access_token+"&openid="+openid;
 						try {
 							//获取用户信息
 							json = new JSONObject(HttpClientUtil.getInstance().get(userUrl));
@@ -493,35 +481,6 @@ public class ThirdLoginAct {
 			accountMng.save(account);
 		}
 	}
-	
-	private String weixinAuthCodeUrl;
-	private String weixinAuthTokenUrl;
-	private String weixinAuthUserUrl;
-	
-
-	public String getWeixinAuthCodeUrl() {
-		return weixinAuthCodeUrl;
-	}
-
-	public void setWeixinAuthCodeUrl(String weixinAuthCodeUrl) {
-		this.weixinAuthCodeUrl = weixinAuthCodeUrl;
-	}
-
-	public String getWeixinAuthTokenUrl() {
-		return weixinAuthTokenUrl;
-	}
-
-	public void setWeixinAuthTokenUrl(String weixinAuthTokenUrl) {
-		this.weixinAuthTokenUrl = weixinAuthTokenUrl;
-	}
-	
-	public String getWeixinAuthUserUrl() {
-		return weixinAuthUserUrl;
-	}
-
-	public void setWeixinAuthUserUrl(String weixinAuthUserUrl) {
-		this.weixinAuthUserUrl = weixinAuthUserUrl;
-	}
 
 	@Autowired
 	private UnifiedUserMng unifiedUserMng;
@@ -539,4 +498,6 @@ public class ThirdLoginAct {
 	private RealPathResolver realPathResolver;
 	@Autowired
 	private ImageSvc imgSvc;
+	@Autowired
+	private SocialInfoConfig socialInfoConfig;
 }

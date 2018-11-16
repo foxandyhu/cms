@@ -20,11 +20,13 @@ import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
+import org.springframework.stereotype.Component;
 
 /**
  * 模型对象标签
  * 
  */
+@Component("cms_model")
 public class CmsModelDirective implements TemplateDirectiveModel {
 	/**
 	 * 输入参数，栏目ID。

@@ -2,7 +2,7 @@ package com.jeecms.common.web.cos;
 
 import java.io.IOException;
 
-//import javax.servlet.ReadListener;
+import javax.servlet.ReadListener;
 import javax.servlet.ServletInputStream;
 
 /**
@@ -205,7 +205,6 @@ public class BufferedServletInputStream extends ServletInputStream {
 		return total;
 	}
 
-	/*
 	public boolean isFinished() {
 		return in.isFinished();
 	}
@@ -217,5 +216,4 @@ public class BufferedServletInputStream extends ServletInputStream {
 	public void setReadListener(ReadListener readListener) {
 		in.setReadListener(readListener);
 	}
-	*/
 }

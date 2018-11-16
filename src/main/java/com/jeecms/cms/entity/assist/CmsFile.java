@@ -1,41 +1,59 @@
 package com.jeecms.cms.entity.assist;
 
-import com.jeecms.cms.entity.assist.base.BaseCmsFile;
+import com.jeecms.cms.entity.main.Content;
+
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import java.io.Serializable;
 
 
+public class CmsFile implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-public class CmsFile extends BaseCmsFile {
-	private static final long serialVersionUID = 1L;
+    // primary key
+    private String filePath;
 
-/*[CONSTRUCTOR MARKER BEGIN]*/
-	public CmsFile () {
-		super();
-	}
+    // fields
+    private String fileName;
+    private boolean fileIsvalid;
 
-	/**
-	 * Constructor for primary key
-	 */
-	public CmsFile (java.lang.String filePath) {
-		super(filePath);
-	}
+    @ManyToOne
+    @JoinColumn(name = "content_id")
+    private Content content;
 
-	/**
-	 * Constructor for required fields
-	 */
-	public CmsFile (
-		java.lang.String filePath,
-		boolean fileIsvalid) {
+    public String getFilePath() {
+        return filePath;
+    }
 
-		super (
-			filePath,
-			fileIsvalid);
-	}
-	
-	public Boolean getFileIsvalid(){
-		return super.isFileIsvalid();
-	}
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
 
-/*[CONSTRUCTOR MARKER END]*/
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public boolean isFileIsvalid() {
+        return fileIsvalid;
+    }
+
+
+    public void setFileIsvalid(boolean fileIsvalid) {
+        this.fileIsvalid = fileIsvalid;
+    }
+
+
+    public Content getContent() {
+        return content;
+    }
+
+    public void setContent(Content content) {
+        this.content = content;
+    }
 
 
 }

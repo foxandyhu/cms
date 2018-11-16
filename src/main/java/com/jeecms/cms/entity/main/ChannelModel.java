@@ -1,19 +1,49 @@
 package com.jeecms.cms.entity.main;
 
-import com.jeecms.cms.entity.main.base.BaseChannelModel;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import java.io.Serializable;
 
 /**
  * @author Tom
  */
-public class ChannelModel extends BaseChannelModel {
+@Embeddable
+public class ChannelModel implements Serializable {
 
-	public ChannelModel() {
-		super();
-	}
+    @Column(name = "tpl_content")
+    private String tplContent;
 
-	public ChannelModel(String tplContent, CmsModel model) {
-		super(tplContent, model);
-	}
-	
+    @Column(name = "tpl_mobile_content")
+    private String tplMoibleContent;
 
+    @ManyToOne
+    @JoinColumn(name = "model_id")
+    private CmsModel model;
+
+
+    public String getTplContent() {
+        return tplContent;
+    }
+
+    public void setTplContent(String tplContent) {
+        this.tplContent = tplContent;
+    }
+
+    public String getTplMoibleContent() {
+        return tplMoibleContent;
+    }
+
+    public void setTplMoibleContent(String tplMoibleContent) {
+        this.tplMoibleContent = tplMoibleContent;
+    }
+
+    public CmsModel getModel() {
+        return model;
+    }
+
+    public void setModel(CmsModel model) {
+        this.model = model;
+    }
 }

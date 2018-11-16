@@ -22,10 +22,12 @@ import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
+import org.springframework.stereotype.Component;
 
 /**
  * 栏目对象标签
  */
+@Component("cms_channel")
 public class ChannelDirective implements TemplateDirectiveModel {
 	
 	/**

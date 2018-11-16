@@ -64,7 +64,7 @@ public class MysqlDataApiAct {
 	
 	@RequestMapping("/mysql/data/list")
 	public void list(HttpServletRequest request, HttpServletResponse response){
-		List<String> tables = new ArrayList<String>();
+		List<String> tables = new ArrayList<>();
 		String body = "\"\"";
 		String message = Constants.API_MESSAGE_SUCCESS;
 		String code = ResponseCode.API_CODE_CALL_SUCCESS;

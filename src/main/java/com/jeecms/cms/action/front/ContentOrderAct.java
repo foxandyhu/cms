@@ -1,34 +1,6 @@
 package com.jeecms.cms.action.front;
 
 
-import static com.jeecms.cms.Constants.TPLDIR_SPECIAL;
-import static com.jeecms.common.page.SimplePage.cpn;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.lang.RandomStringUtils;
-import org.apache.commons.lang.StringUtils;
-import org.jdom.JDOMException;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.alipay.api.response.AlipayTradeQueryResponse;
 import com.jeecms.cms.entity.assist.CmsConfigContentCharge;
 import com.jeecms.cms.entity.main.Content;
@@ -38,15 +10,15 @@ import com.jeecms.cms.manager.assist.CmsConfigContentChargeMng;
 import com.jeecms.cms.manager.main.ContentBuyMng;
 import com.jeecms.cms.manager.main.ContentChargeMng;
 import com.jeecms.cms.manager.main.ContentMng;
-import com.jeecms.common.util.PropertyUtils;
-import com.jeecms.common.util.StrUtils;
-import com.jeecms.common.util.WeixinPay;
+import com.jeecms.common.page.Pagination;
+import com.jeecms.common.util.*;
 import com.jeecms.common.web.Constants;
 import com.jeecms.common.web.CookieUtils;
 import com.jeecms.common.web.HttpClientUtil;
 import com.jeecms.common.web.ResponseUtils;
 import com.jeecms.common.web.session.SessionProvider;
 import com.jeecms.common.web.springmvc.RealPathResolver;
+import com.jeecms.config.SocialInfoConfig;
 import com.jeecms.core.entity.CmsSite;
 import com.jeecms.core.entity.CmsUser;
 import com.jeecms.core.manager.CmsUserAccountMng;
@@ -54,14 +26,29 @@ import com.jeecms.core.manager.CmsUserMng;
 import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
 import com.jeecms.core.web.util.FrontUtils;
-
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
+import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang.StringUtils;
+import org.jdom.JDOMException;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.ehcache.EhCacheCache;
+import org.springframework.cache.ehcache.EhCacheCacheManager;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.jeecms.common.page.Pagination;
-import com.jeecms.common.util.AliPay;
-import com.jeecms.common.util.Num62;
-import com.jeecms.common.util.PayUtil;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.*;
+
+import static com.jeecms.cms.Constants.TPLDIR_SPECIAL;
+import static com.jeecms.common.page.SimplePage.cpn;
 
 @Controller
 public class ContentOrderAct {
@@ -69,15 +56,11 @@ public class ContentOrderAct {
 	public static final Integer CONTENT_PAY_MODEL_CHARGE=1;
 	//打赏
 	public static final Integer CONTENT_PAY_MODEL_REWARD=2;
-	public static final String WEIXIN_PAY_URL="weixin.pay.url";
-	public static final String ALI_PAY_URL="alipay.openapi.url";
-	
 
 	public static final String CONTENT_REWARD="tpl.content.reward";
 	public static final String CONTENT_ALIPAY_MOBILE="tpl.content.alipay.mobile";
 	public static final String CONTENT_ORDERS="tpl.content.orders";
-	public static final String WEIXIN_AUTH_CODE_URL ="weixin.auth.getCodeUrl";
-	
+
 	//支付购买（先选择支付方式，在进行支付）
 	@RequestMapping(value = "/content/buy.jspx")
 	public String contentBuy(Integer contentId,
@@ -275,8 +258,6 @@ public class ContentOrderAct {
 		WebErrors errors=WebErrors.create(request);
 		CmsUser user=CmsUtils.getUser(request);
 		CmsSite site=CmsUtils.getSite(request);
-		initWeiXinPayUrl();
-		initAliPayUrl();
 		if(contentId==null){
 			errors.addErrorCode("error.required","contentId");
 			return FrontUtils.showError(request, response, model, errors);
@@ -307,11 +288,11 @@ public class ContentOrderAct {
   	    			}
 		  	    	if(payMethod!=null){
 		  	    		if(payMethod==1){
-		  	    			return WeixinPay.enterWeiXinPay(getWeiXinPayUrl(),config,content,
+		  	    			return WeixinPay.enterWeiXinPay(socialInfoConfig.getWeixin().getOrder().getPayUrl(),config,content,
 									orderNumber,rewardAmount,request, response, model);
 		  	    		}else if(payMethod==3){
 		  	    			String openId=(String) session.getAttribute(request, "wxopenid");
-		  	    			return WeixinPay.weixinPayByMobile(getWeiXinPayUrl(),config,
+		  	    			return WeixinPay.weixinPayByMobile(socialInfoConfig.getWeixin().getOrder().getPayUrl(),config,
 		  	    					openId,content, orderNumber, rewardAmount,
 		  	    					request, response, model);
 		  	    		}else if(payMethod==2){
@@ -319,7 +300,7 @@ public class ContentOrderAct {
 									request, response, model);
 		  	    		}else if(payMethod==4){
 		  	    			return AliPay.enterAlipayScanCode(request,response, model,
-		  	    					getAliPayUrl(), config, content, 
+									socialInfoConfig.getAlipay().getOpenapiUrl(), config, content,
 		  	    					orderNumber, totalAmount);
 		  	    		}else if(payMethod==5){
 		  	    			model.addAttribute("orderNumber",orderNumber);
@@ -346,7 +327,6 @@ public class ContentOrderAct {
 			Double rewardAmount,HttpServletRequest request,
 			HttpServletResponse response,ModelMap model) throws JSONException {
 		WebErrors errors=WebErrors.create(request);
-		initAliPayUrl();
 		if(contentId==null){
 			errors.addErrorCode("error.required","contentId");
 			return FrontUtils.showError(request, response, model, errors);
@@ -359,7 +339,7 @@ public class ContentOrderAct {
     				totalAmount=rewardAmount;
     			}
 				AliPay.enterAlipayInMobile(request, response,
-						getAliPayUrl(), config, content, orderNumber, totalAmount);
+						socialInfoConfig.getAlipay().getOpenapiUrl(), config, content, orderNumber, totalAmount);
 				return "";
 			}else{
 		    	errors.addErrorCode("error.beanNotFound","content");
@@ -371,7 +351,6 @@ public class ContentOrderAct {
 	
 	/**
 	 * 微信回调
-	 * @param code
 	 */
 	@RequestMapping(value = "/order/payCallByWeiXin.jspx")
 	public void orderPayCallByWeiXin(String orderNumber,
@@ -383,7 +362,7 @@ public class ContentOrderAct {
 			ContentBuy order=contentBuyMng.findByOrderNumber(orderNumber);
 			if (order!=null&&StringUtils.isNotBlank(order.getOrderNumWeiXin())) {
 				//已成功支付过
-				WeixinPay.noticeWeChatSuccess(getWeiXinPayUrl());
+				WeixinPay.noticeWeChatSuccess(socialInfoConfig.getWeixin().getOrder().getPayUrl());
 				json.put("status", 4);
 			} else {
 				//订单未成功支付
@@ -418,7 +397,7 @@ public class ContentOrderAct {
 								// 商户系统的订单号，与请求一致。
 								String out_trade_no = result_map.get("out_trade_no");
 								// 通知微信该订单已处理
-								WeixinPay.noticeWeChatSuccess(getWeiXinPayUrl());
+								WeixinPay.noticeWeChatSuccess(socialInfoConfig.getWeixin().getOrder().getPayUrl());
 								payAfter(out_trade_no,config.getChargeRatio(),transaction_id, null);
 								//支付成功
 								json.put("status", 0);
@@ -439,7 +418,7 @@ public class ContentOrderAct {
 					// 将参数转成xml格式
 					String xmlWeChat = PayUtil.assembParamToXml(parames);
 					try {
-						HttpClientUtil.post(getWeiXinPayUrl(), xmlWeChat, Constants.UTF8);
+						HttpClientUtil.post(socialInfoConfig.getWeixin().getOrder().getPayUrl(), xmlWeChat, Constants.UTF8);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -513,9 +492,8 @@ public class ContentOrderAct {
 		CmsConfigContentCharge config=configContentChargeMng.getDefault();
 		JSONObject json = new JSONObject();
 		CmsSite site=CmsUtils.getSite(request);
-		initAliPayUrl();
 		FrontUtils.frontData(request, model, site);
-		AlipayTradeQueryResponse res=AliPay.query(getAliPayUrl(), config,
+		AlipayTradeQueryResponse res=AliPay.query(socialInfoConfig.getAlipay().getOpenapiUrl(), config,
 				orderNumber,null);
 		try {
 			if (null != res && res.isSuccess()) {
@@ -626,48 +604,6 @@ public class ContentOrderAct {
 	    return content;
 	}
 	
-	private void initAliPayUrl(){
-		if(getAliPayUrl()==null){
-			setAliPayUrl(PropertyUtils.getPropertyValue(
-					new File(realPathResolver.get(com.jeecms.cms.Constants.JEECMS_CONFIG)),ALI_PAY_URL));
-		}
-	}
-	
-	private void initWeiXinPayUrl(){
-		if(getWeiXinPayUrl()==null){
-			setWeiXinPayUrl(PropertyUtils.getPropertyValue(
-					new File(realPathResolver.get(com.jeecms.cms.Constants.JEECMS_CONFIG)),WEIXIN_PAY_URL));
-		}
-	}
-	
-	private String weiXinPayUrl;
-	
-	private String aliPayUrl;
-	private String weixinAuthCodeUrl;
-	
-	public String getWeiXinPayUrl() {
-		return weiXinPayUrl;
-	}
-
-	public void setWeiXinPayUrl(String weiXinPayUrl) {
-		this.weiXinPayUrl = weiXinPayUrl;
-	}
-
-	public String getAliPayUrl() {
-		return aliPayUrl;
-	}
-
-	public void setAliPayUrl(String aliPayUrl) {
-		this.aliPayUrl = aliPayUrl;
-	}
-	
-	public String getWeixinAuthCodeUrl() {
-		return weixinAuthCodeUrl;
-	}
-
-	public void setWeixinAuthCodeUrl(String weixinAuthCodeUrl) {
-		this.weixinAuthCodeUrl = weixinAuthCodeUrl;
-	}
 
 	@Autowired
 	private ContentMng contentMng;
@@ -678,15 +614,19 @@ public class ContentOrderAct {
 	@Autowired
 	private CmsConfigContentChargeMng configContentChargeMng;
 	@Autowired
-	private RealPathResolver realPathResolver;
-	@Autowired
 	private CmsUserAccountMng userAccountMng;
 	@Autowired
 	private CmsUserMng userMng;
 	@Autowired
 	private SessionProvider session;
 	@Autowired
-	@Qualifier("contentOrderTemp")
+	private SocialInfoConfig socialInfoConfig;
 	private Ehcache cache;
+
+	@Autowired
+	public void setCache(EhCacheCacheManager cacheManager){
+		EhCacheCache ehcache=(EhCacheCache)cacheManager.getCache("contentOrderTemp");
+		cache=ehcache.getNativeCache();
+	}
 }
 

@@ -8,6 +8,7 @@ import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -22,11 +23,14 @@ import com.jeecms.core.entity.CmsUser;
 import com.jeecms.core.entity.UnifiedUser;
 import com.jeecms.core.manager.CmsUserMng;
 import com.jeecms.core.manager.UnifiedUserMng;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
 /**
  * 自定义DB Realm
  * 
  */
+@Component("authorizingRealm")
 public class CmsAuthorizingRealm extends AuthorizingRealm {
 
 	/**
@@ -69,17 +73,15 @@ public class CmsAuthorizingRealm extends AuthorizingRealm {
 		  super.clearCachedAuthorizationInfo(pc);
 	}
 
+	@Autowired
 	protected CmsUserMng cmsUserMng;
+	@Autowired
 	protected UnifiedUserMng unifiedUserMng;
 
+	@Override
 	@Autowired
-	public void setCmsUserMng(CmsUserMng cmsUserMng) {
-		this.cmsUserMng = cmsUserMng;
+	@Qualifier("hashedCredentialsMatcher")
+	public void setCredentialsMatcher(CredentialsMatcher credentialsMatcher) {
+		super.setCredentialsMatcher(credentialsMatcher);
 	}
-
-	@Autowired
-	public void setUnifiedUserMng(UnifiedUserMng unifiedUserMng) {
-		this.unifiedUserMng = unifiedUserMng;
-	}
-
 }

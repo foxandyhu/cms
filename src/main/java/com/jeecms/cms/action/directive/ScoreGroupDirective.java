@@ -20,10 +20,12 @@ import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
+import org.springframework.stereotype.Component;
 
 /**
  * 评分组对象标签
  */
+@Component("cms_score_group")
 public class ScoreGroupDirective implements TemplateDirectiveModel {
 	
 	/**

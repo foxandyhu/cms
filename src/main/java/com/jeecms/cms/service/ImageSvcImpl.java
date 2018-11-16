@@ -30,10 +30,12 @@ import com.jeecms.core.entity.CmsOss;
 import com.jeecms.core.entity.CmsSite;
 import com.jeecms.core.entity.Ftp;
 import com.jeecms.core.manager.DbFileMng;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Tom
  */
+@Service
 public class ImageSvcImpl implements ImageSvc {
 	public String crawlImg(String imgUrl,CmsSite  site) {
 		HttpClientBuilder httpClientBuilder = HttpClientBuilder.create();  

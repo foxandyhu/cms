@@ -20,10 +20,12 @@ import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
+import org.springframework.stereotype.Component;
 
 /**
  * 友情链接类别列表标签
  */
+@Component("cms_friendlink_ctg_list")
 public class CmsFriendlinkCtgListDirective implements TemplateDirectiveModel {
 	/**
 	 * 输入参数，站点ID。

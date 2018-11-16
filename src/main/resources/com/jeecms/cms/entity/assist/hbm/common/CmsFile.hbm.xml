@@ -30,13 +30,7 @@
 			type="boolean"
 			not-null="true"
 		/>
-		<many-to-one
-			name="content"
-			column="content_id"
-			class="com.jeecms.cms.entity.main.Content"
-			not-null="false"
-		>
-		</many-to-one>
+
 
 
 	</class>	

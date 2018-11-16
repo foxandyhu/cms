@@ -18,10 +18,12 @@ import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
+import org.springframework.stereotype.Component;
 
 /**
  * 广告对象标签
  */
+@Component("cms_advertising")
 public class CmsAdvertisingDirective implements TemplateDirectiveModel {
 	/**
 	 * 输入参数，广告ID。

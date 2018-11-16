@@ -1,44 +1,72 @@
 package com.jeecms.cms.entity.assist;
 
-import com.jeecms.cms.entity.assist.base.BaseCmsSiteAccessCount;
+import com.jeecms.core.entity.CmsSite;
+
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import java.io.Serializable;
+import java.util.Date;
 
 
+public class CmsSiteAccessCount implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-public class CmsSiteAccessCount extends BaseCmsSiteAccessCount {
-	private static final long serialVersionUID = 1L;
-	
 
-/*[CONSTRUCTOR MARKER BEGIN]*/
-	public CmsSiteAccessCount () {
-		super();
-	}
+    // primary key
+    private Integer id;
 
-	/**
-	 * Constructor for primary key
-	 */
-	public CmsSiteAccessCount (java.lang.Integer id) {
-		super(id);
-	}
+    // fields
+    private Integer pageCount;
+    private Integer visitors;
+    private Date statisticDate;
 
-	/**
-	 * Constructor for required fields
-	 */
-	public CmsSiteAccessCount (
-		java.lang.Integer id,
-		com.jeecms.core.entity.CmsSite site,
-		java.lang.Integer pageCount,
-		java.lang.Integer visitors,
-		java.util.Date statisticDate) {
+    @ManyToOne
+    @JoinColumn(name = "site_id")
+    private CmsSite site;
 
-		super (
-			id,
-			site,
-			pageCount,
-			visitors,
-			statisticDate);
-	}
 
-/*[CONSTRUCTOR MARKER END]*/
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getPageCount() {
+        return pageCount;
+    }
+
+    public void setPageCount(Integer pageCount) {
+        this.pageCount = pageCount;
+    }
+
+    public Integer getVisitors() {
+        return visitors;
+    }
+
+    public void setVisitors(Integer visitors) {
+        this.visitors = visitors;
+    }
+
+
+    public Date getStatisticDate() {
+        return statisticDate;
+    }
+
+    public void setStatisticDate(Date statisticDate) {
+        this.statisticDate = statisticDate;
+    }
+
+
+    public CmsSite getSite() {
+        return site;
+    }
+
+
+    public void setSite(CmsSite site) {
+        this.site = site;
+    }
 
 
 }

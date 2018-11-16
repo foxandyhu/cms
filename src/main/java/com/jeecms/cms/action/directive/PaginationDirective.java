@@ -22,10 +22,12 @@ import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
+import org.springframework.stereotype.Component;
 
 /**
  * 翻页包含标签
  */
+@Component("cms_pagination")
 public class PaginationDirective implements TemplateDirectiveModel {
 	/**
 	 * 是否为内容分页。1：内容分页；0：栏目分页。默认栏目分页。

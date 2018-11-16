@@ -3,55 +3,70 @@ package com.jeecms.cms.entity.assist;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONObject;
 
-import com.jeecms.cms.entity.assist.base.BaseCmsAcquisitionShield;
+import java.io.Serializable;
 
-public class CmsAcquisitionShield extends BaseCmsAcquisitionShield {
-	
-	public JSONObject convertToJson(){
-		JSONObject json = new JSONObject();
-		if (getId()!=null) {
-			json.put("id", getId());
-		}else{
-			json.put("id", "");
-		}
-		if (StringUtils.isNotBlank(getShieldStart())) {
-			json.put("shieldStart", getShieldStart());
-		}else{
-			json.put("shieldStart", "");
-		}
-		if (StringUtils.isNotBlank(getShieldEnd())) {
-			json.put("shieldEnd", getShieldEnd());
-		}else{
-			json.put("shieldEnd", "");
-		}
-		return json;
-	}
-	
-	public CmsAcquisitionShield() {
-		// TODO Auto-generated constructor stub
-		super();
-	}
+public class CmsAcquisitionShield implements Serializable {
 
-	/**
-	 * Constructor for primary key
-	 */
-	public CmsAcquisitionShield (java.lang.Integer id) {
-		super(id);
-	}
+    public JSONObject convertToJson() {
+        JSONObject json = new JSONObject();
+        if (getId() != null) {
+            json.put("id", getId());
+        } else {
+            json.put("id", "");
+        }
+        if (StringUtils.isNotBlank(getShieldStart())) {
+            json.put("shieldStart", getShieldStart());
+        } else {
+            json.put("shieldStart", "");
+        }
+        if (StringUtils.isNotBlank(getShieldEnd())) {
+            json.put("shieldEnd", getShieldEnd());
+        } else {
+            json.put("shieldEnd", "");
+        }
+        return json;
+    }
 
-	/**
-	 * Constructor for required fields
-	 */
-	public CmsAcquisitionShield (
-		java.lang.Integer id,
-		com.jeecms.cms.entity.assist.CmsAcquisition acquisition,
-		java.lang.String shieldStart,
-		java.lang.String shieldEnd) {
+    // primary key
+    private Integer id;
 
-		super (
-			id,
-			acquisition,
-			shieldStart,
-			shieldEnd);
-	}
+    // fields
+    private String shieldStart;
+    private String shieldEnd;
+
+    // many to one
+    private CmsAcquisition acquisition;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getShieldStart() {
+        return shieldStart;
+    }
+
+    public void setShieldStart(String shieldStart) {
+        this.shieldStart = shieldStart;
+    }
+
+    public String getShieldEnd() {
+        return shieldEnd;
+    }
+
+    public void setShieldEnd(String shieldEnd) {
+        this.shieldEnd = shieldEnd;
+    }
+
+    public CmsAcquisition getAcquisition() {
+        return acquisition;
+    }
+
+    public void setAcquisition(CmsAcquisition acquisition) {
+        this.acquisition = acquisition;
+    }
+
 }

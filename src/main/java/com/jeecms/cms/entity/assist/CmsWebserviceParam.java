@@ -3,44 +3,48 @@ package com.jeecms.cms.entity.assist;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONObject;
 
-import com.jeecms.cms.entity.assist.base.BaseCmsWebserviceParam;
+import java.io.Serializable;
 
 
+public class CmsWebserviceParam implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-public class CmsWebserviceParam extends BaseCmsWebserviceParam {
-	private static final long serialVersionUID = 1L;
-	
-	public JSONObject convertToJson(){
-		JSONObject json = new JSONObject();
-		if (StringUtils.isNotBlank(getParamName())) {
-			json.put("paramName", getParamName());
-		}else{
-			json.put("paramName", "");
-		}
-		if (StringUtils.isNotBlank(getDefaultValue())) {
-			json.put("defaultValue", getDefaultValue());
-		}else{
-			json.put("defaultValue", "");
-		}
-		return json;
-	}
-	
-/*[CONSTRUCTOR MARKER BEGIN]*/
-	public CmsWebserviceParam () {
-		super();
-	}
+    public JSONObject convertToJson() {
+        JSONObject json = new JSONObject();
+        if (StringUtils.isNotBlank(getParamName())) {
+            json.put("paramName", getParamName());
+        } else {
+            json.put("paramName", "");
+        }
+        if (StringUtils.isNotBlank(getDefaultValue())) {
+            json.put("defaultValue", getDefaultValue());
+        } else {
+            json.put("defaultValue", "");
+        }
+        return json;
+    }
 
-	/**
-	 * Constructor for required fields
-	 */
-	public CmsWebserviceParam (
-		java.lang.String paramName) {
+    // fields
+    private String paramName;
+    private String defaultValue;
 
-		super (
-			paramName);
-	}
+    public String getParamName() {
+        return paramName;
+    }
 
-/*[CONSTRUCTOR MARKER END]*/
+    public void setParamName(String paramName) {
+        this.paramName = paramName;
+    }
+
+
+    public String getDefaultValue() {
+        return defaultValue;
+    }
+
+
+    public void setDefaultValue(String defaultValue) {
+        this.defaultValue = defaultValue;
+    }
 
 
 }

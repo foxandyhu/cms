@@ -1,117 +1,158 @@
 package com.jeecms.cms.entity.assist;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-
+import com.jeecms.core.entity.CmsSite;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONObject;
 
-import com.jeecms.cms.entity.assist.base.BaseCmsScoreGroup;
+import java.io.Serializable;
+import java.util.*;
 
 
+public class CmsScoreGroup implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-public class CmsScoreGroup extends BaseCmsScoreGroup {
-	private static final long serialVersionUID = 1L;
-	
-	public JSONObject convertToJson(){
-		JSONObject json = new JSONObject();
-		if (getId()!=null) {
-			json.put("id", getId());
-		}else{
-			json.put("id", "");
-		}
-		if (StringUtils.isNotBlank(getName())) {
-			json.put("name", getName());
-		}else{
-			json.put("name", "");
-		}
-		if (StringUtils.isNotBlank(getDescription())) {
-			json.put("description", getDescription());
-		}else{
-			json.put("description", "");
-		}
-		if (getEnable()!=null) {
-			json.put("enable", getEnable());
-		}else{
-			json.put("enable", "");
-		}
-		if (getDef()!=null) {
-			json.put("def", getDef());
-		}else{
-			json.put("def", "");
-		}
-		return json;
-	}
-	
-	public void init(){
-		if (getEnable()==null) {
-			setEnable(false);
-		}
-		if (getDef()==null) {
-			setDef(false);
-		}
-	}
-	
-	public List<CmsScoreItem>getOrderItems(){
-		Set<CmsScoreItem>items=super.getItems();
-		Iterator<CmsScoreItem>it=items.iterator();
-		List<CmsScoreItem>list=new ArrayList<CmsScoreItem>();
-		while(it.hasNext()){
-			list.add(it.next());
-		}
-		Collections.sort(list, new ItemComparator());
-		return list;
-	}
-	
-	private class ItemComparator implements Comparator<CmsScoreItem> {
-		public int compare(CmsScoreItem o1, CmsScoreItem o2) {
-			return o1.getPriority()-o2.getPriority();  
-		}  
-	}
-	
-	public Boolean getEnable(){
-		return super.isEnable();
-	}
-	
-	public Boolean getDef(){
-		return super.isDef();
-	}
+    // primary key
+    private Integer id;
 
-/*[CONSTRUCTOR MARKER BEGIN]*/
-	public CmsScoreGroup () {
-		super();
-	}
+    // fields
+    private String name;
+    private String description;
+    private boolean enable;
+    private boolean def;
 
-	/**
-	 * Constructor for primary key
-	 */
-	public CmsScoreGroup (java.lang.Integer id) {
-		super(id);
-	}
+    // many to one
+    private CmsSite site;
 
-	/**
-	 * Constructor for required fields
-	 */
-	public CmsScoreGroup (
-		java.lang.Integer id,
-		com.jeecms.core.entity.CmsSite site,
-		java.lang.String name,
-		boolean enable,
-		boolean def) {
-
-		super (
-			id,
-			site,
-			name,
-			enable,
-			def);
-	}
-
-/*[CONSTRUCTOR MARKER END]*/
+    // collections
+    private Set<CmsScoreItem> items;
 
 
+    public Integer getId() {
+        return id;
+    }
+
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+
+    public String getName() {
+        return name;
+    }
+
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+
+    public boolean isEnable() {
+        return enable;
+    }
+
+    public void setEnable(boolean enable) {
+        this.enable = enable;
+    }
+
+
+    public boolean isDef() {
+        return def;
+    }
+
+    public void setDef(boolean def) {
+        this.def = def;
+    }
+
+    public CmsSite getSite() {
+        return site;
+    }
+
+    public void setSite(CmsSite site) {
+        this.site = site;
+    }
+
+
+    public Set<CmsScoreItem> getItems() {
+        return items;
+    }
+
+
+    public void setItems(Set<CmsScoreItem> items) {
+        this.items = items;
+    }
+
+
+    public JSONObject convertToJson() {
+        JSONObject json = new JSONObject();
+        if (getId() != null) {
+            json.put("id", getId());
+        } else {
+            json.put("id", "");
+        }
+        if (StringUtils.isNotBlank(getName())) {
+            json.put("name", getName());
+        } else {
+            json.put("name", "");
+        }
+        if (StringUtils.isNotBlank(getDescription())) {
+            json.put("description", getDescription());
+        } else {
+            json.put("description", "");
+        }
+        if (getEnable() != null) {
+            json.put("enable", getEnable());
+        } else {
+            json.put("enable", "");
+        }
+        if (getDef() != null) {
+            json.put("def", getDef());
+        } else {
+            json.put("def", "");
+        }
+        return json;
+    }
+
+    public void init() {
+        if (getEnable() == null) {
+            setEnable(false);
+        }
+        if (getDef() == null) {
+            setDef(false);
+        }
+    }
+
+    public List<CmsScoreItem> getOrderItems() {
+        Set<CmsScoreItem> items = getItems();
+        Iterator<CmsScoreItem> it = items.iterator();
+        List<CmsScoreItem> list = new ArrayList<>();
+        while (it.hasNext()) {
+            list.add(it.next());
+        }
+        Collections.sort(list, new ItemComparator());
+        return list;
+    }
+
+    private class ItemComparator implements Comparator<CmsScoreItem> {
+        public int compare(CmsScoreItem o1, CmsScoreItem o2) {
+            return o1.getPriority() - o2.getPriority();
+        }
+    }
+
+    public Boolean getEnable() {
+        return isEnable();
+    }
+
+    public Boolean getDef() {
+        return isDef();
+    }
 }

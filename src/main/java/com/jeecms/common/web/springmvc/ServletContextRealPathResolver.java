@@ -6,7 +6,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.ServletContextAware;
 
-@Component
+@Component("realPathResolver")
 public class ServletContextRealPathResolver implements RealPathResolver,
 		ServletContextAware {
 	public String get(String path) {

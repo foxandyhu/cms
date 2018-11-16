@@ -1,85 +1,108 @@
 package com.jeecms.cms.entity.assist;
 
+import com.jeecms.cms.entity.main.Content;
+import com.jeecms.common.util.DateUtils;
+import com.jeecms.core.entity.CmsUser;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONObject;
 
-import com.jeecms.cms.entity.assist.base.BaseCmsJobApply;
-import com.jeecms.common.util.DateUtils;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import java.io.Serializable;
 
 
+public class CmsJobApply implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-public class CmsJobApply extends BaseCmsJobApply {
-	private static final long serialVersionUID = 1L;
-	
-	public JSONObject convertToJson(){
-		JSONObject json=new JSONObject();
-		if (getId()!=null) {
-			json.put("id", getId());
-		}else{
-			json.put("id", "");
-		}
-		if (getApplyTime()!=null) {
-			json.put("applyTime", DateUtils.parseDateToTimeStr(getApplyTime()));
-		}else{
-			json.put("applyTime","");
-		}
-		if (getContent()!=null&&getContent().getId()!=null) {
-			json.put("contentId",getContent().getId());
-		}else{
-			json.put("contentId", "");
-		}
-		if (getContent()!=null&&StringUtils.isNotBlank(getContent().getTitle())) {
-			json.put("contentTitle",getContent().getTitle());
-		}else{
-			json.put("contentTitle","");
-		}
-		if (getContent()!=null&&StringUtils.isNotBlank(getContent().getUrl())) {
-			json.put("contentURL", getContent().getUrl());
-		}else{
-			json.put("contentURL", "");
-		}
-		if (getUser()!=null && getUser().getId()!=null) {
-			json.put("userId", getUser().getId());
-		}else{
-			json.put("userId", "");
-		}
-		if (getUser()!=null && StringUtils.isNotBlank(getUser().getUsername())) {
-			json.put("username", getUser().getUsername());
-		}else{
-			json.put("username", "");
-		}
-		return json;
-	}
+    public JSONObject convertToJson() {
+        JSONObject json = new JSONObject();
+        if (getId() != null) {
+            json.put("id", getId());
+        } else {
+            json.put("id", "");
+        }
+        if (getApplyTime() != null) {
+            json.put("applyTime", DateUtils.parseDateToTimeStr(getApplyTime()));
+        } else {
+            json.put("applyTime", "");
+        }
+        if (getContent() != null && getContent().getId() != null) {
+            json.put("contentId", getContent().getId());
+        } else {
+            json.put("contentId", "");
+        }
+        if (getContent() != null && StringUtils.isNotBlank(getContent().getTitle())) {
+            json.put("contentTitle", getContent().getTitle());
+        } else {
+            json.put("contentTitle", "");
+        }
+        if (getContent() != null && StringUtils.isNotBlank(getContent().getUrl())) {
+            json.put("contentURL", getContent().getUrl());
+        } else {
+            json.put("contentURL", "");
+        }
+        if (getUser() != null && getUser().getId() != null) {
+            json.put("userId", getUser().getId());
+        } else {
+            json.put("userId", "");
+        }
+        if (getUser() != null && StringUtils.isNotBlank(getUser().getUsername())) {
+            json.put("username", getUser().getUsername());
+        } else {
+            json.put("username", "");
+        }
+        return json;
+    }
 
-/*[CONSTRUCTOR MARKER BEGIN]*/
-	public CmsJobApply () {
-		super();
-	}
+    // primary key
+    private Integer id;
 
-	/**
-	 * Constructor for primary key
-	 */
-	public CmsJobApply (java.lang.Integer id) {
-		super(id);
-	}
+    // fields
+    private java.util.Date applyTime;
 
-	/**
-	 * Constructor for required fields
-	 */
-	public CmsJobApply (
-		java.lang.Integer id,
-		com.jeecms.cms.entity.main.Content content,
-		com.jeecms.core.entity.CmsUser user,
-		java.util.Date applyTime) {
+    @ManyToOne
+    @JoinColumn(name = "content_id")
+    private Content content;
 
-		super (
-			id,
-			content,
-			user,
-			applyTime);
-	}
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private CmsUser user;
 
-/*[CONSTRUCTOR MARKER END]*/
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+
+    public java.util.Date getApplyTime() {
+        return applyTime;
+    }
+
+    public void setApplyTime(java.util.Date applyTime) {
+        this.applyTime = applyTime;
+    }
+
+
+    public Content getContent() {
+        return content;
+    }
+
+
+    public void setContent(Content content) {
+        this.content = content;
+    }
+
+    public CmsUser getUser() {
+        return user;
+    }
+
+    public void setUser(CmsUser user) {
+        this.user = user;
+    }
 
 
 }

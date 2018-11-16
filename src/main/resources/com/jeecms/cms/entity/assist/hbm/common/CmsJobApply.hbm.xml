@@ -25,20 +25,7 @@
 			not-null="true"
 			length="19"
 		/>
-		<many-to-one
-			name="content"
-			column="content_id"
-			class="com.jeecms.cms.entity.main.Content"
-			not-null="true"
-		>
-		</many-to-one>
-		<many-to-one
-			name="user"
-			column="user_id"
-			class="com.jeecms.core.entity.CmsUser"
-			not-null="true"
-		>
-		</many-to-one>
+
 
 
 	</class>	

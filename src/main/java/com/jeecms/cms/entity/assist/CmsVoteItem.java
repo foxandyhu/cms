@@ -1,69 +1,112 @@
 package com.jeecms.cms.entity.assist;
 
-import java.util.Set;
-
-import com.jeecms.cms.entity.assist.base.BaseCmsVoteItem;
 import com.jeecms.common.hibernate4.PriorityInterface;
 
-public class CmsVoteItem extends BaseCmsVoteItem implements PriorityInterface {
-	private static final long serialVersionUID = 1L;
+import java.io.Serializable;
+import java.util.Set;
 
-	/* 311版本调查只有选项 没有题目的情况
-	public int getPercent() {
-		Integer totalCount = getTopic().getTotalCount();
-		if (totalCount != null && totalCount != 0) {
-			return (getVoteCount() * 100) / totalCount;
-		} else {
-			return 0;
-		}
-	}
-	*/
-	//调查多题目情况下
-	public int getPercent() {
-		Integer totalCount = 0;
-		Set<CmsVoteItem> subTopicVoteItems=getSubTopic().getVoteItems();
-		for(CmsVoteItem vote:subTopicVoteItems){
-			totalCount+=vote.getVoteCount();
-		}
-		if (totalCount != null && totalCount != 0) {
-			return (getVoteCount() * 100) / totalCount;
-		} else {
-			return 0;
-		}
-	}
+public class CmsVoteItem implements PriorityInterface, Serializable {
+    private static final long serialVersionUID = 1L;
 
-	public void init() {
-		if (getPriority() == null) {
-			setPriority(10);
-		}
-		if (getVoteCount() == null) {
-			setVoteCount(0);
-		}
-	}
 
-	/* [CONSTRUCTOR MARKER BEGIN] */
-	public CmsVoteItem() {
-		super();
-	}
+    //调查多题目情况下
+    public int getPercent() {
+        Integer totalCount = 0;
+        Set<CmsVoteItem> subTopicVoteItems = getSubTopic().getVoteItems();
+        for (CmsVoteItem vote : subTopicVoteItems) {
+            totalCount += vote.getVoteCount();
+        }
+        if (totalCount != null && totalCount != 0) {
+            return (getVoteCount() * 100) / totalCount;
+        } else {
+            return 0;
+        }
+    }
 
-	/**
-	 * Constructor for primary key
-	 */
-	public CmsVoteItem(java.lang.Integer id) {
-		super(id);
-	}
+    public void init() {
+        if (getPriority() == null) {
+            setPriority(10);
+        }
+        if (getVoteCount() == null) {
+            setVoteCount(0);
+        }
+    }
 
-	/**
-	 * Constructor for required fields
-	 */
-	public CmsVoteItem(java.lang.Integer id,
-			com.jeecms.cms.entity.assist.CmsVoteTopic topic,
-			java.lang.String title, java.lang.Integer voteCount,
-			java.lang.Integer priority) {
+    // primary key
+    private Integer id;
 
-		super(id, topic, title, voteCount, priority);
-	}
+    // fields
+    private String title;
+    private Integer voteCount;
+    private Integer priority;
+    private String picture;
 
-	/* [CONSTRUCTOR MARKER END] */
+    // many to one
+    private CmsVoteTopic topic;
+    private CmsVoteSubTopic subTopic;
+
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+
+    public String getTitle() {
+        return title;
+    }
+
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Integer getVoteCount() {
+        return voteCount;
+    }
+
+
+    public void setVoteCount(Integer voteCount) {
+        this.voteCount = voteCount;
+    }
+
+    public Integer getPriority() {
+        return priority;
+    }
+
+
+    public void setPriority(Integer priority) {
+        this.priority = priority;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public CmsVoteTopic getTopic() {
+        return topic;
+    }
+
+
+    public void setTopic(CmsVoteTopic topic) {
+        this.topic = topic;
+    }
+
+
+    public CmsVoteSubTopic getSubTopic() {
+        return subTopic;
+    }
+
+    public void setSubTopic(CmsVoteSubTopic subTopic) {
+        this.subTopic = subTopic;
+    }
+
 
 }

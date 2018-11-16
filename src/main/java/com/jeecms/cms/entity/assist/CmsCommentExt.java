@@ -1,25 +1,67 @@
 package com.jeecms.cms.entity.assist;
 
-import com.jeecms.cms.entity.assist.base.BaseCmsCommentExt;
+import java.io.Serializable;
 
 
+public class CmsCommentExt implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-public class CmsCommentExt extends BaseCmsCommentExt {
-	private static final long serialVersionUID = 1L;
+    // primary key
+    private Integer id;
 
-/*[CONSTRUCTOR MARKER BEGIN]*/
-	public CmsCommentExt () {
-		super();
-	}
+    // fields
+    private String ip;
+    private String text;
+    private String reply;
 
-	/**
-	 * Constructor for primary key
-	 */
-	public CmsCommentExt (java.lang.Integer id) {
-		super(id);
-	}
+    // one to one
+    private CmsComment comment;
 
-/*[CONSTRUCTOR MARKER END]*/
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+
+    public void setIp(String ip) {
+        this.ip = ip;
+    }
+
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public String getReply() {
+        return reply;
+    }
+
+
+    public void setReply(String reply) {
+        this.reply = reply;
+    }
+
+
+    public CmsComment getComment() {
+        return comment;
+    }
+
+
+    public void setComment(CmsComment comment) {
+        this.comment = comment;
+    }
 
 
 }

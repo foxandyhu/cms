@@ -1,16 +1,22 @@
 package com.jeecms.cms.service;
 
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
+import com.jeecms.cms.api.Constants;
+import com.jeecms.cms.entity.assist.*;
+import com.jeecms.cms.entity.assist.CmsAcquisition.AcquisitionResultType;
+import com.jeecms.cms.entity.main.Content;
+import com.jeecms.cms.entity.main.ContentCount;
+import com.jeecms.cms.manager.assist.CmsAcquisitionHistoryMng;
+import com.jeecms.cms.manager.assist.CmsAcquisitionMng;
+import com.jeecms.cms.manager.assist.CmsAcquisitionTempMng;
+import com.jeecms.cms.manager.main.ContentCountMng;
+import com.jeecms.common.image.ImageUtils;
+import com.jeecms.core.entity.CmsConfig;
+import com.jeecms.core.entity.CmsOss;
+import com.jeecms.core.entity.CmsSite;
+import com.jeecms.core.entity.Ftp;
+import com.jeecms.core.manager.CmsConfigMng;
+import com.jeecms.core.manager.CmsSiteMng;
+import com.jeecms.core.manager.FtpMng;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -28,29 +34,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ibm.db2.jcc.am.s;
-import com.jeecms.cms.api.Constants;
-import com.jeecms.cms.entity.assist.CmsAcquisition;
-import com.jeecms.cms.entity.assist.CmsAcquisitionHistory;
-import com.jeecms.cms.entity.assist.CmsAcquisitionReplace;
-import com.jeecms.cms.entity.assist.CmsAcquisitionShield;
-import com.jeecms.cms.entity.assist.CmsAcquisitionTemp;
-import com.jeecms.cms.entity.assist.CmsAcquisition.AcquisitionResultType;
-import com.jeecms.cms.entity.main.Content;
-import com.jeecms.cms.entity.main.ContentCount;
-import com.jeecms.cms.manager.assist.CmsAcquisitionHistoryMng;
-import com.jeecms.cms.manager.assist.CmsAcquisitionMng;
-import com.jeecms.cms.manager.assist.CmsAcquisitionTempMng;
-import com.jeecms.cms.manager.main.ContentCountMng;
-import com.jeecms.common.image.ImageUtils;
-import com.jeecms.core.entity.CmsConfig;
-import com.jeecms.core.entity.CmsOss;
-import com.jeecms.core.entity.CmsSite;
-import com.jeecms.core.entity.Config;
-import com.jeecms.core.entity.Ftp;
-import com.jeecms.core.manager.CmsConfigMng;
-import com.jeecms.core.manager.CmsSiteMng;
-import com.jeecms.core.manager.FtpMng;
+import java.io.IOException;
+import java.net.URI;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 public class AcquisitionSvcImpl implements AcquisitionSvc {

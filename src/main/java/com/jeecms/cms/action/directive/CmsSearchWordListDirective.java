@@ -20,10 +20,12 @@ import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
+import org.springframework.stereotype.Component;
 
 /**
  * 搜索热词列表标签
  */
+@Component("cms_searchword_list")
 public class CmsSearchWordListDirective implements TemplateDirectiveModel {
 	/**
 	 * 输入参数siteId，站点ID。

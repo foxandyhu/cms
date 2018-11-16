@@ -146,15 +146,11 @@ public class Constants {
 	/**
 	 * 防火墙配置文件
 	 */
-	public static String FIREWALL_CONFIGPATH = "/WEB-INF/config/firewall.properties";
+	public static String FIREWALL_CONFIGPATH = "firewall.properties";
 	/**
 	 * 类--错误国际化信息配置
 	 */
-	public static String CLASS_ERROR_CODE = "/WEB-INF/config/classes-error.properties";
-	/**
-	 * 配置文件
-	 */
-	public static String JEECMS_CONFIG = "/WEB-INF/config/jeecms/jeecms.properties";
+	public static String CLASS_ERROR_CODE = "classpath*:classes-error.properties";
 	/**
 	 * 插件路径
 	 */

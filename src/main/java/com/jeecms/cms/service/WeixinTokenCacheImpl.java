@@ -10,6 +10,8 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.cache.ehcache.EhCacheCache;
+import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.stereotype.Service;
 
 
@@ -80,8 +82,9 @@ public class WeixinTokenCacheImpl implements WeixinTokenCache {
 	}
 
 	@Autowired
-	public void setCache(@Qualifier("tokenCache") Ehcache cache) {
-		this.cache = cache;
+	public void setCache(EhCacheCacheManager cacheManager) {
+		EhCacheCache ehcache = (EhCacheCache) cacheManager.getCache("tokenCache");
+		cache = ehcache.getNativeCache();
 	}
 
 	

@@ -1,43 +1,78 @@
 package com.jeecms.cms.entity.assist;
 
-import com.jeecms.cms.entity.assist.base.BaseCmsVoteRecord;
+import com.jeecms.core.entity.CmsUser;
+
+import java.io.Serializable;
+import java.util.Date;
 
 
+public class CmsVoteRecord implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-public class CmsVoteRecord extends BaseCmsVoteRecord {
-	private static final long serialVersionUID = 1L;
+    // primary key
+    private Integer id;
 
-/*[CONSTRUCTOR MARKER BEGIN]*/
-	public CmsVoteRecord () {
-		super();
-	}
+    // fields
+    private Date time;
+    private String ip;
+    private String cookie;
 
-	/**
-	 * Constructor for primary key
-	 */
-	public CmsVoteRecord (java.lang.Integer id) {
-		super(id);
-	}
+    // many to one
+    private CmsUser user;
+    private CmsVoteTopic topic;
 
-	/**
-	 * Constructor for required fields
-	 */
-	public CmsVoteRecord (
-		java.lang.Integer id,
-		com.jeecms.cms.entity.assist.CmsVoteTopic topic,
-		java.util.Date time,
-		java.lang.String ip,
-		java.lang.String cookie) {
 
-		super (
-			id,
-			topic,
-			time,
-			ip,
-			cookie);
-	}
+    public Integer getId() {
+        return id;
+    }
 
-/*[CONSTRUCTOR MARKER END]*/
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Date getTime() {
+        return time;
+    }
+
+    public void setTime(Date time) {
+        this.time = time;
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+
+    public void setIp(String ip) {
+        this.ip = ip;
+    }
+
+    public String getCookie() {
+        return cookie;
+    }
+
+    public void setCookie(String cookie) {
+        this.cookie = cookie;
+    }
+
+
+    public CmsUser getUser() {
+        return user;
+    }
+
+
+    public void setUser(CmsUser user) {
+        this.user = user;
+    }
+
+
+    public CmsVoteTopic getTopic() {
+        return topic;
+    }
+
+    public void setTopic(CmsVoteTopic topic) {
+        this.topic = topic;
+    }
 
 
 }

@@ -1,41 +1,60 @@
 package com.jeecms.cms.entity.assist;
 
-import com.jeecms.cms.entity.assist.base.BaseCmsScoreRecord;
+import com.jeecms.cms.entity.main.Content;
+
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import java.io.Serializable;
 
 
+public class CmsScoreRecord implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-public class CmsScoreRecord extends BaseCmsScoreRecord {
-	private static final long serialVersionUID = 1L;
+    // primary key
+    private Integer id;
 
-/*[CONSTRUCTOR MARKER BEGIN]*/
-	public CmsScoreRecord () {
-		super();
-	}
+    // fields
+    private Integer count;
 
-	/**
-	 * Constructor for primary key
-	 */
-	public CmsScoreRecord (java.lang.Integer id) {
-		super(id);
-	}
+    // many to one
+    private CmsScoreItem item;
 
-	/**
-	 * Constructor for required fields
-	 */
-	public CmsScoreRecord (
-		java.lang.Integer id,
-		com.jeecms.cms.entity.assist.CmsScoreItem item,
-		com.jeecms.cms.entity.main.Content content,
-		java.lang.Integer count) {
+    @ManyToOne
+    @JoinColumn(name = "content_id")
+    private Content content;
 
-		super (
-			id,
-			item,
-			content,
-			count);
-	}
+    public Integer getId() {
+        return id;
+    }
 
-/*[CONSTRUCTOR MARKER END]*/
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
+    public CmsScoreItem getItem() {
+        return item;
+    }
+
+    public void setItem(CmsScoreItem item) {
+        this.item = item;
+    }
+
+
+    public Content getContent() {
+        return content;
+    }
+
+
+    public void setContent(Content content) {
+        this.content = content;
+    }
 
 }

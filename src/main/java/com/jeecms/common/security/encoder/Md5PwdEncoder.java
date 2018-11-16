@@ -5,10 +5,14 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import org.apache.commons.codec.binary.Hex;
+import org.springframework.stereotype.Component;
 
 /**
  * MD5密码加密
+ * @author andy_hulibo@163.com
+ * @date 2018/11/14 14:25
  */
+@Component("pwdEncoder")
 public class Md5PwdEncoder implements PwdEncoder {
 	public String encodePassword(String rawPass) {
 		return encodePassword(rawPass, defaultSalt);

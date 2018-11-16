@@ -26,10 +26,12 @@ import freemarker.core.Environment;
 import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
+import org.springframework.stereotype.Component;
 
 /**
  * 评论列表标签
  */
+@Component("cms_guestbook_list")
 public class CmsGuestbookListDirective extends AbstractCmsGuestbookDirective {
 	/**
 	 * 模板名称

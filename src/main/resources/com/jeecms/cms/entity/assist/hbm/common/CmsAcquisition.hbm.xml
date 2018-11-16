@@ -11,7 +11,8 @@
 		<property name="currNum" column="curr_num" type="integer" not-null="true" length="10"/>
 		<property name="currItem" column="curr_item" type="integer" not-null="true" length="10"/>
 		<property name="totalItem" column="total_item" type="integer" not-null="true" length="10"/>
-		<property name="pauseTime" column="pause_time" type="integer" not-null="true" length="10"/>
+
+			<property name="pauseTime" column="pause_time" type="integer" not-null="true" length="10"/>
 		<property name="imgAcqu" column="img_acqu" type="java.lang.Boolean" not-null="true" length="10"/>
 		<property name="pageEncoding" column="page_encoding" type="string" not-null="true" length="20"/>
 		<property name="planList" column="plan_list" type="string" not-null="false"/>

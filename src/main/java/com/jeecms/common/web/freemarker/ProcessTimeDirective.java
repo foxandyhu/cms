@@ -1,6 +1,6 @@
 package com.jeecms.common.web.freemarker;
 
-import static com.jeecms.common.web.ProcessTimeFilter.START_TIME;
+import static com.jeecms.core.servlet.ProcessTimeFilter.START_TIME;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -17,12 +17,14 @@ import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
 import freemarker.template.TemplateModelException;
 import freemarker.template.TemplateNumberModel;
+import org.springframework.stereotype.Component;
 
 /**
  * 执行时间标签
  * 
  * 需要拦截器com.jeecms.common.web.ProcessTimeFilter支持
  */
+@Component("process_time")
 public class ProcessTimeDirective implements TemplateDirectiveModel {
 	private static final Logger log = LoggerFactory
 			.getLogger(ProcessTimeDirective.class);

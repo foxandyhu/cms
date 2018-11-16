@@ -100,7 +100,7 @@ public class CmsTopicDaoImpl extends HibernateBaseDao<CmsTopic, Integer>
 	}
 
 	public int deleteContentRef(Integer id) {
-		Query query = getSession().getNamedQuery("CmsTopic.deleteContentRef");
+		Query query = getSession().createSQLQuery("delete from jc_content_topic where topic_id=?");
 		return query.setParameter(0, id).executeUpdate();
 	}
 

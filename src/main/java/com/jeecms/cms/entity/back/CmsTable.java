@@ -1,15 +1,60 @@
 package com.jeecms.cms.entity.back;
 
-import com.jeecms.cms.entity.back.base.BaseCmsTable;
+import java.io.Serializable;
 
-public class CmsTable extends BaseCmsTable {
-	private static final long serialVersionUID = 1L;
+/**
+ * 
+ * @author andy_hulibo@163.com
+ * @date 2018/11/16 9:38
+ */
+public class CmsTable implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-	/* [CONSTRUCTOR MARKER BEGIN] */
-	public CmsTable() {
-		super();
-	}
+    private String name;
+    private String comment;
+    private String engine;
+    private Integer rows;
+    private Integer auto_increment;
 
-	/* [CONSTRUCTOR MARKER END] */
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public String getEngine() {
+        return engine;
+    }
+
+    public void setEngine(String engine) {
+        this.engine = engine;
+    }
+
+    public Integer getRows() {
+        return rows;
+    }
+
+    public void setRows(Integer rows) {
+        this.rows = rows;
+    }
+
+    public Integer getAuto_increment() {
+        return auto_increment;
+    }
+
+    public void setAuto_increment(Integer auto_increment) {
+        this.auto_increment = auto_increment;
+    }
+
 
 }

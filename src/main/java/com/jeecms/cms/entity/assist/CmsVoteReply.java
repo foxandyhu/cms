@@ -1,25 +1,46 @@
 package com.jeecms.cms.entity.assist;
 
-import com.jeecms.cms.entity.assist.base.BaseCmsVoteReply;
+import java.io.Serializable;
 
 
+public class CmsVoteReply implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-public class CmsVoteReply extends BaseCmsVoteReply {
-	private static final long serialVersionUID = 1L;
+    // primary key
+    private Integer id;
 
-/*[CONSTRUCTOR MARKER BEGIN]*/
-	public CmsVoteReply () {
-		super();
-	}
+    // fields
+    private String reply;
 
-	/**
-	 * Constructor for primary key
-	 */
-	public CmsVoteReply (java.lang.Integer id) {
-		super(id);
-	}
+    // many to one
+    private CmsVoteSubTopic subTopic;
 
-/*[CONSTRUCTOR MARKER END]*/
+
+    public Integer getId() {
+        return id;
+    }
+
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getReply() {
+        return reply;
+    }
+
+
+    public void setReply(String reply) {
+        this.reply = reply;
+    }
+
+    public CmsVoteSubTopic getSubTopic() {
+        return subTopic;
+    }
+
+    public void setSubTopic(CmsVoteSubTopic subTopic) {
+        this.subTopic = subTopic;
+    }
 
 
 }

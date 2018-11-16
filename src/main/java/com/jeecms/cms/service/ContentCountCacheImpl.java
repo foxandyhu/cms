@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.cache.ehcache.EhCacheCache;
+import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.stereotype.Service;
 
 import com.jeecms.cms.entity.main.ContentCount;
@@ -87,10 +89,10 @@ public class ContentCountCacheImpl implements ContentCountCache, DisposableBean 
 	}
 
 	@Autowired
-	public void setCache(@Qualifier("contentCount") Ehcache cache) {
-		this.cache = cache;
+	public void setCache(EhCacheCacheManager cacheManager) {
+		EhCacheCache ehcache = (EhCacheCache) cacheManager.getCache("contentCount");
+		cache = ehcache.getNativeCache();
 	}
-	
 	
 
 }

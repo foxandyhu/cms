@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.cache.ehcache.EhCacheCache;
+import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.stereotype.Service;
 
 import com.jeecms.cms.manager.assist.CmsSearchWordsMng;
@@ -65,9 +67,11 @@ public class SearchWordsCacheImpl implements SearchWordsCache, DisposableBean {
 
 	@Autowired
 	private CmsSearchWordsMng manager;
-
-	@Autowired 
-	@Qualifier("cmsSearchWords")
 	private Ehcache cache;
 
+	@Autowired
+	public void setCache(EhCacheCacheManager cacheManager) {
+		EhCacheCache ehcache = (EhCacheCache) cacheManager.getCache("cmsSearchWords");
+		cache = ehcache.getNativeCache();
+	}
 }

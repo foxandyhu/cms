@@ -28,10 +28,12 @@ import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
+import org.springframework.stereotype.Component;
 
 /**
  * TAG分页标签
  */
+@Component("cms_tag_page")
 public class ContentTagPageDirective implements TemplateDirectiveModel {
 	/**
 	 * 模板名称

@@ -1,125 +1,178 @@
 package com.jeecms.cms.entity.main;
 
+import com.jeecms.common.util.DateUtils;
+import com.jeecms.core.entity.CmsUser;
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.json.JSONObject;
 
-import com.jeecms.cms.entity.main.base.BaseContentRecord;
-import com.jeecms.common.util.DateUtils;
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Date;
+
+/**
+ * 文章操作记录
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/11/16 13:31
+ */
+@Entity
+@Table(name = "jc_content_record")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
+public class ContentRecord implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    public enum ContentOperateType {
+        /**
+         * 新增
+         */
+        add,
+        /**
+         * 修改
+         */
+        edit,
+        /**
+         * 审核
+         */
+        check,
+        /**
+         * 退回
+         */
+        rejected,
+        /**
+         * 移动
+         */
+        move,
+        /**
+         * 生成静态页
+         */
+        createPage,
+        /**
+         * 回收
+         */
+        cycle,
+        /**
+         * 归档
+         */
+        pigeonhole,
+        /**
+         * 出档
+         */
+        reuse,
+        /**
+         * 共享
+         */
+        shared
+    }
+
+    public static final byte add = 0;
+    public static final byte edit = 1;
+    public static final byte check = 2;
+    public static final byte rejected = 3;
+    public static final byte move = 4;
+    public static final byte createPage = 5;
+    public static final byte cycle = 6;
+    public static final byte pigeonhole = 7;
+    public static final byte reuse = 8;
+    public static final byte shared = 9;
+
+    public JSONObject convertToJson() {
+        JSONObject json = new JSONObject();
+        if (getId() != null) {
+            json.put("id", getId());
+        } else {
+            json.put("id", "");
+        }
+        if (getOperateTime() != null) {
+            json.put("operateTime", DateUtils.parseDateToDateStr(getOperateTime()));
+        } else {
+            json.put("operateTime", "");
+        }
+        if (getOperateType() != null) {
+            json.put("operateType", getOperateType());
+        } else {
+            json.put("operateType", "");
+        }
+        if (getUser() != null && StringUtils.isNotBlank(getUser().getUsername())) {
+            json.put("username", getUser().getUsername());
+        } else {
+            json.put("username", "");
+        }
+        return json;
+    }
+
+    @Id
+    @Column(name = "content_record_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    /**
+     * 操作时间
+     */
+    @Column(name = "operate_time")
+    private Date operateTime;
+
+    /**
+     * 0 新增 1修改 2审核 3退回 4移动 5生成静态页 6删除到回收站 7归档 8出档 9推送共享
+     */
+    @Column(name = "operate_type")
+    private Byte operateType;
+
+    @ManyToOne
+    @JoinColumn(name = "content_id")
+    private Content content;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private CmsUser user;
+
+    public Long getId() {
+        return id;
+    }
 
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-public class ContentRecord extends BaseContentRecord {
-	private static final long serialVersionUID = 1L;
-	public enum ContentOperateType {
-		/**
-		 * 新增
-		 */
-		add,
-		/**
-		 * 修改
-		 */
-		edit,
-		/**
-		 * 审核
-		 */
-		check,
-		/**
-		 * 退回
-		 */
-		rejected,
-		/**
-		 * 移动
-		 */
-		move,
-		/**
-		 * 生成静态页
-		 */
-		createPage,
-		/**
-		 * 回收
-		 */
-		cycle,
-		/**
-		 * 归档
-		 */
-		pigeonhole,
-		/**
-		 * 出档
-		 */
-		reuse,
-		/**
-		 * 共享
-		 */
-		shared
-	};
-	
-	public static final byte add = 0;
-	public static final byte edit = 1;
-	public static final byte check = 2;
-	public static final byte rejected = 3;
-	public static final byte move = 4;
-	public static final byte createPage = 5;
-	public static final byte cycle = 6;
-	public static final byte pigeonhole = 7;
-	public static final byte reuse = 8;
-	public static final byte shared = 9;
-	
-	public JSONObject convertToJson(){
-		JSONObject json = new JSONObject();
-		if (getId()!=null) {
-			json.put("id", getId());
-		}else{
-			json.put("id", "");
-		}
-		if (getOperateTime()!=null) {
-			json.put("operateTime", DateUtils.parseDateToDateStr(getOperateTime()));
-		}else{
-			json.put("operateTime", "");
-		}
-		if (getOperateType()!=null) {
-			json.put("operateType", getOperateType());
-		}else{
-			json.put("operateType", "");
-		}
-		if (getUser()!=null&&StringUtils.isNotBlank(getUser().getUsername())) {
-			json.put("username", getUser().getUsername());
-		}else{
-			json.put("username", "");
-		}
-		return json;
-	}
 
-/*[CONSTRUCTOR MARKER BEGIN]*/
-	public ContentRecord () {
-		super();
-	}
+    public Date getOperateTime() {
+        return operateTime;
+    }
 
-	/**
-	 * Constructor for primary key
-	 */
-	public ContentRecord (java.lang.Long id) {
-		super(id);
-	}
 
-	/**
-	 * Constructor for required fields
-	 */
-	public ContentRecord (
-		java.lang.Long id,
-		com.jeecms.cms.entity.main.Content content,
-		com.jeecms.core.entity.CmsUser user,
-		java.util.Date operateTime,
-		java.lang.Byte operateType) {
+    public void setOperateTime(Date operateTime) {
+        this.operateTime = operateTime;
+    }
 
-		super (
-			id,
-			content,
-			user,
-			operateTime,
-			operateType);
-	}
 
-/*[CONSTRUCTOR MARKER END]*/
+    public Byte getOperateType() {
+        return operateType;
+    }
+
+
+    public void setOperateType(Byte operateType) {
+        this.operateType = operateType;
+    }
+
+
+    public Content getContent() {
+        return content;
+    }
+
+
+    public void setContent(Content content) {
+        this.content = content;
+    }
+
+    public CmsUser getUser() {
+        return user;
+    }
+
+    public void setUser(CmsUser user) {
+        this.user = user;
+    }
 
 
 }

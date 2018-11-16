@@ -9,13 +9,17 @@ import javax.servlet.ServletContext;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.context.ServletContextAware;
+import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 本地文件存储
  */
-public class FileRepository implements ServletContextAware {
+@Component("fileRepository")
+public class FileRepository{
 	private Logger log = LoggerFactory.getLogger(FileRepository.class);
 
 	public String storeByExt(String path, String ext, MultipartFile file)
@@ -91,10 +95,11 @@ public class FileRepository implements ServletContextAware {
 	}
 
 	public File retrieve(String name) {
-		return new File(ctx.getRealPath(name));
+		return new File(applicationContext.getServletContext().getRealPath(name));
 	}
 	
 	private String getRealPath(String name){
+		ServletContext ctx=applicationContext.getServletContext();
 		String realpath=ctx.getRealPath(name);
 		if(realpath==null){
 			realpath=ctx.getRealPath("/")+name;
@@ -102,9 +107,6 @@ public class FileRepository implements ServletContextAware {
 		return realpath;
 	}
 
-	private ServletContext ctx;
-
-	public void setServletContext(ServletContext servletContext) {
-		this.ctx = servletContext;
-	}
+	@Autowired
+	private WebApplicationContext applicationContext;
 }

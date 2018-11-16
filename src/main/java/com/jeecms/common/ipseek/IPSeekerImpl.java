@@ -1,16 +1,12 @@
 package com.jeecms.common.ipseek;
 
-import java.io.File;
+import org.springframework.core.io.ClassPathResource;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.HashMap;
 import java.util.Map;
-
-
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.jeecms.common.web.springmvc.RealPathResolver;
 
 public class IPSeekerImpl implements IPSeeker{
 	// 用来做为cache，查询一个ip时首先查看cache，以减少不必要的重复查找
@@ -27,8 +23,13 @@ public class IPSeekerImpl implements IPSeeker{
 	private String filename;
 
 	public void init(){
-		String file = realPathResolver.get(dir) + File.separator + filename;
-		ipCache = new HashMap<String, IPLocation>();
+		String file = null;
+		try {
+			file = new ClassPathResource(filename).getFile().getPath();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		ipCache = new HashMap<>();
 		loc = new IPLocation();
 		b4 = new byte[4];
 		b3 = new byte[3];
@@ -415,9 +416,6 @@ public class IPSeekerImpl implements IPSeeker{
 		return "";
 	}
 	
-	@Autowired
-	private RealPathResolver realPathResolver;
-
 	public void setDir(String dir) {
 		this.dir = dir;
 	}

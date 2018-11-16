@@ -19,6 +19,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.cache.ehcache.EhCacheCache;
+import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.stereotype.Service;
 
 import com.jeecms.cms.entity.assist.CmsSiteAccess;
@@ -59,14 +61,6 @@ import static com.jeecms.cms.entity.assist.CmsSiteAccessStatistic.STATISTIC_AREA
 public class CmsSiteFlowCacheImpl implements CmsSiteFlowCache, DisposableBean {
 	private final String VISIT_COUNT="visitCount";
 	private final String LAST_VISIT_TIME="lastVisitTime";
-//	private final String CACHE_KEY_PV_WEEK="pvWeek_";
-//	private final String CACHE_KEY_PV_MONTH="pvMonth_";
-//	private final String CACHE_KEY_VISITOR_WEEK="visitorWeek_";
-//	private final String CACHE_KEY_VISITOR_MONTH="visitorMonth_";
-//	private final String CACHE_KEY_PV_DAY="pvDay_";
-//	private final String CACHE_KEY_PV_TOTAL="pvTotal_";
-//	private final String CACHE_KEY_VISITOR_DAY="visitorDay_";
-//	private final String CACHE_KEY_VISITOR_TOTAL="visitorTotal_";
 	private final String CACHE_KEY_SPLIT="_";
 	private Logger log = LoggerFactory.getLogger(CmsSiteFlowCacheImpl.class);
 
@@ -632,26 +626,35 @@ public class CmsSiteFlowCacheImpl implements CmsSiteFlowCache, DisposableBean {
 	@Autowired
 	private CmsConfigMng cmsConfigMng;
 
-	@Autowired 
-	@Qualifier("cmsAccessCache")
 	private Ehcache accessCache;
-	@Autowired 
-	@Qualifier("cmsLastAccessCache")
 	private Ehcache lastAccessCache;
-	@Autowired 
-	@Qualifier("cmsAccessPageCache")
 	private Ehcache accessPageCache;
-	@Autowired 
-	@Qualifier("cmsPvTotalCache")
 	private Ehcache pvTotalCache;
-	@Autowired 
-	@Qualifier("cmsVisitorTotalCache")
 	private Ehcache visitorTotalCache;
-	@Autowired 
-	@Qualifier("cmsDayPvTotalCache")
 	private Ehcache dayPvTotalCache;
-	@Autowired 
-	@Qualifier("cmsDayVisitorTotalCache")
 	private Ehcache dayVisitorTotalCache;
 
+	@Autowired
+	public void setCache(EhCacheCacheManager cacheManager) {
+		EhCacheCache ehcache = (EhCacheCache) cacheManager.getCache("cmsDayVisitorTotalCache");
+		dayVisitorTotalCache = ehcache.getNativeCache();
+
+		ehcache = (EhCacheCache) cacheManager.getCache("cmsDayPvTotalCache");
+		dayPvTotalCache = ehcache.getNativeCache();
+
+		ehcache = (EhCacheCache) cacheManager.getCache("cmsVisitorTotalCache");
+		visitorTotalCache = ehcache.getNativeCache();
+
+		ehcache = (EhCacheCache) cacheManager.getCache("cmsPvTotalCache");
+		pvTotalCache = ehcache.getNativeCache();
+
+		ehcache = (EhCacheCache) cacheManager.getCache("cmsAccessPageCache");
+		accessPageCache = ehcache.getNativeCache();
+
+		ehcache = (EhCacheCache) cacheManager.getCache("cmsLastAccessCache");
+		lastAccessCache = ehcache.getNativeCache();
+
+		ehcache = (EhCacheCache) cacheManager.getCache("cmsAccessCache");
+		accessCache = ehcache.getNativeCache();
+	}
 }

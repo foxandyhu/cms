@@ -11,12 +11,14 @@ import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
+import org.springframework.stereotype.Component;
 
 /**
  * 文本字符串截断
  * 
  * 需要拦截器com.jeecms.common.web.ProcessTimeFilter支持
  */
+@Component("text_cut")
 public class TextCutDirective implements TemplateDirectiveModel {
 	public static final String PARAM_S = "s";
 	public static final String PARAM_LEN = "len";

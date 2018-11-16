@@ -16,6 +16,7 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+import com.jeecms.config.SocialInfoConfig;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -84,7 +85,7 @@ public class WeiXinSvcImpl implements WeiXinSvc {
 	public static final Integer USERS_QUERY_MAX=10000;
 	
 	public Map<String, String> getToken() {
-		String tokenGetUrl=PropertyUtils.getPropertyValue(new File(realPathResolver.get(Constants.JEECMS_CONFIG)),TOKEN_KEY);
+		String tokenGetUrl=socialInfoConfig.getWeixin().getAddress().getToken();
 		String appid="";
 		String secret="";
 		CmsSite site=CmsThreadVariable.getSite();
@@ -116,7 +117,7 @@ public class WeiXinSvcImpl implements WeiXinSvc {
 	}
 
 	public Set<String> getUsers(String access_token) {
-		String usersGetUrl=PropertyUtils.getPropertyValue(new File(realPathResolver.get(Constants.JEECMS_CONFIG)),USERS_KEY);
+		String usersGetUrl=socialInfoConfig.getWeixin().getAddress().getUsers();
 		usersGetUrl+="?access_token="+access_token;
 		JSONObject data=getUrlResponse(usersGetUrl);
 		Set<String>openIds=new HashSet<String>();
@@ -145,7 +146,7 @@ public class WeiXinSvcImpl implements WeiXinSvc {
 
 	
 	public String  uploadFile(String access_token,String filePath,String type){
-		String sendGetUrl=PropertyUtils.getPropertyValue(new File(realPathResolver.get(Constants.JEECMS_CONFIG)),UPLOAD_KEY);
+		String sendGetUrl=socialInfoConfig.getWeixin().getAddress().getUpload();
 		String url = sendGetUrl+"?access_token=" + access_token;
 		String result = null;
 		String mediaId="";
@@ -166,7 +167,7 @@ public class WeiXinSvcImpl implements WeiXinSvc {
 	
 
 	public void sendText(String access_token,String content) {
-		String sendGetUrl=PropertyUtils.getPropertyValue(new File(realPathResolver.get(Constants.JEECMS_CONFIG)),SEND_KEY);
+		String sendGetUrl=socialInfoConfig.getWeixin().getAddress().getSend();
         String url = sendGetUrl+"?access_token=" + access_token;
 		Set<String> openIds=getUsers(access_token);
 		content=filterCharacters(content);
@@ -180,10 +181,11 @@ public class WeiXinSvcImpl implements WeiXinSvc {
 		    post(url, strJson,"application/json");
 		}
 	}
-	
+
+	@Override
 	public void sendContent(String access_token,String title, String description, String url,
 			String picurl) {
-		String sendUrl=PropertyUtils.getPropertyValue(new File(realPathResolver.get(Constants.JEECMS_CONFIG)),SEND_KEY);
+		String sendUrl=socialInfoConfig.getWeixin().getAddress().getSend();
         sendUrl = sendUrl+"?access_token=" + access_token;
 		Set<String> openIds=getUsers(access_token);
 		if(description==null){
@@ -207,7 +209,7 @@ public class WeiXinSvcImpl implements WeiXinSvc {
 	}
 
 	public void sendVedio(String access_token,String title, String description, String media_id) {
-		String sendGetUrl=PropertyUtils.getPropertyValue(new File(realPathResolver.get(Constants.JEECMS_CONFIG)),SEND_KEY);
+		String sendGetUrl=socialInfoConfig.getWeixin().getAddress().getSend();
         String url = sendGetUrl+"?access_token=" + access_token;
 		Set<String> openIds=getUsers(access_token);
 		if(description==null){
@@ -257,7 +259,7 @@ public class WeiXinSvcImpl implements WeiXinSvc {
 		Map<String, String> msg=weixinTokenCache.getToken();
 		String token=msg.get("token");
 		if(StringUtils.isNotBlank(token)){
-			String createMenuUrl=PropertyUtils.getPropertyValue(new File(realPathResolver.get(Constants.JEECMS_CONFIG)),MENU_KEY);
+			String createMenuUrl=socialInfoConfig.getWeixin().getAddress().getMenu();
 			String url = createMenuUrl+"?access_token=" + token;
 			Map<String, String> menuCodeRes=getWeiXinMenuCode(url, menus,"application/json");
 			status=Integer.parseInt(menuCodeRes.get("weixinMenuCode"));	
@@ -284,7 +286,7 @@ public class WeiXinSvcImpl implements WeiXinSvc {
 		String token=msg.get("token");		
 		if(StringUtils.isNotBlank(token)){
 			//上传内容到微信
-			String articalUploadUrl=PropertyUtils.getPropertyValue(new File(realPathResolver.get(Constants.JEECMS_CONFIG)),UPLOAD_NEWS);
+			String articalUploadUrl=socialInfoConfig.getWeixin().getAddress().getUploadNews();
 			String url = articalUploadUrl+"?access_token=" + token;
 			
 			String[] str = articalUpload(token, beans);
@@ -317,7 +319,7 @@ public class WeiXinSvcImpl implements WeiXinSvc {
 			           }
 			           log.info("send json->"+json);
 			           if(StringUtils.isNotBlank(media_id)){
-			        	   String sendAllMessageUrl=PropertyUtils.getPropertyValue(new File(realPathResolver.get(Constants.JEECMS_CONFIG)),SEND_ALL_MESSAGE);
+			        	   String sendAllMessageUrl=socialInfoConfig.getWeixin().getAddress().getSendAllMessage();
 				   		   String url_send = sendAllMessageUrl+"?access_token=" + token;
 				   		   String str_send = "{\"filter\":{\"is_to_all\":true},\"mpnews\":{\"media_id\":\""+media_id+"\"},\"msgtype\":\"mpnews\"}";
 				   		   post(url_send, str_send,"application/json");
@@ -344,7 +346,7 @@ public class WeiXinSvcImpl implements WeiXinSvc {
 	
 	
 	private String  uploadImg(String access_token,String filePath){
-		String sendGetUrl=PropertyUtils.getPropertyValue(new File(realPathResolver.get(Constants.JEECMS_CONFIG)),UPLOAD_IMG_URL);
+		String sendGetUrl=socialInfoConfig.getWeixin().getAddress().getUploadImg();
         String url = sendGetUrl+"?access_token=" + access_token;
 		String result = null;
 		String mediaId="";
@@ -591,5 +593,7 @@ public class WeiXinSvcImpl implements WeiXinSvc {
 	private CmsConfigMng cmsConfigMng;
 	@Autowired
 	private ImageSvc imgSvc;
+	@Autowired
+	private SocialInfoConfig socialInfoConfig;
 
 }

@@ -1,28 +1,23 @@
 package com.jeecms.cms.entity.main;
 
-import com.jeecms.cms.entity.main.base.BaseContentRewardFix;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import java.io.Serializable;
+
+@Embeddable
+public class ContentRewardFix implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    @Column(name = "reward_fix")
+    private Double fixVal;
 
 
+    public Double getFixVal() {
+        return fixVal;
+    }
 
-public class ContentRewardFix extends BaseContentRewardFix {
-	private static final long serialVersionUID = 1L;
-
-/*[CONSTRUCTOR MARKER BEGIN]*/
-	public ContentRewardFix () {
-		super();
-	}
-
-	/**
-	 * Constructor for required fields
-	 */
-	public ContentRewardFix (
-		java.lang.Double fixVal) {
-
-		super (
-				fixVal);
-	}
-
-/*[CONSTRUCTOR MARKER END]*/
-
+    public void setFixVal(Double fixVal) {
+        this.fixVal = fixVal;
+    }
 
 }

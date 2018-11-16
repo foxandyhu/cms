@@ -12,10 +12,13 @@ import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.jeecms.common.web.springmvc.RealPathResolver;
 
+@Component("tplManager")
 public class FileTplManagerImpl implements TplManager {
 	private static Logger log = LoggerFactory
 			.getLogger(FileTplManagerImpl.class);

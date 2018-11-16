@@ -30,7 +30,9 @@ import freemarker.core.Environment;
 import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
+import org.springframework.stereotype.Component;
 
+@Component("cms_lucene_list")
 public class LuceneDirectiveList extends LuceneDirectiveAbstract {
 	/**
 	 * 模板名称

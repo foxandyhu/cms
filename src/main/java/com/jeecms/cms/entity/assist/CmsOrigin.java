@@ -3,60 +3,66 @@ package com.jeecms.cms.entity.assist;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONObject;
 
-import com.jeecms.cms.entity.assist.base.BaseCmsOrigin;
+import java.io.Serializable;
 
 
+public class CmsOrigin implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-public class CmsOrigin extends BaseCmsOrigin {
-	private static final long serialVersionUID = 1L;
+    public JSONObject convertToJson() {
+        JSONObject json = new JSONObject();
+        if (getId() != null) {
+            json.put("id", getId());
+        } else {
+            json.put("id", "");
+        }
+        if (StringUtils.isNotBlank(getName())) {
+            json.put("name", getName());
+        } else {
+            json.put("name", "");
+        }
+        if (getRefCount() != null) {
+            json.put("refCount", getRefCount());
+        } else {
+            json.put("refCount", "");
+        }
+        return json;
+    }
 
-	public JSONObject convertToJson(){
-		JSONObject json = new JSONObject();
-		if (getId()!=null) {
-			json.put("id", getId());
-		}else{
-			json.put("id", "");
-		}
-		if (StringUtils.isNotBlank(getName())) {
-			json.put("name", getName());
-		}else{
-			json.put("name", "");
-		}
-		if (getRefCount()!=null) {
-			json.put("refCount", getRefCount());
-		}else{
-			json.put("refCount", "");
-		}
-		return json;
-	}
-	
-/*[CONSTRUCTOR MARKER BEGIN]*/
-	public CmsOrigin () {
-		super();
-	}
+    // primary key
+    private Integer id;
 
-	/**
-	 * Constructor for primary key
-	 */
-	public CmsOrigin (java.lang.Integer id) {
-		super(id);
-	}
+    // fields
+    private String name;
+    private Integer refCount;
 
-	/**
-	 * Constructor for required fields
-	 */
-	public CmsOrigin (
-		java.lang.Integer id,
-		java.lang.String name,
-		java.lang.Integer refCount) {
 
-		super (
-			id,
-			name,
-			refCount);
-	}
+    public Integer getId() {
+        return id;
+    }
 
-/*[CONSTRUCTOR MARKER END]*/
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+
+    public String getName() {
+        return name;
+    }
+
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getRefCount() {
+        return refCount;
+    }
+
+
+    public void setRefCount(Integer refCount) {
+        this.refCount = refCount;
+    }
 
 
 }

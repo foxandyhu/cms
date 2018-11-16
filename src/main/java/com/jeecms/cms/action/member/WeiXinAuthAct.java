@@ -9,6 +9,7 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.config.SocialInfoConfig;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,8 +45,6 @@ public class WeiXinAuthAct {
 	
 	public static final String MEMBER_WEIXIN_AUTH = "tpl.weixinAuth";
 	public static final String MEMBER_WEIXIN_AUTH_ENTER = "tpl.weixinAuthEnter";
-	public static final String WEIXIN_AUTH_CODE_URL ="weixin.auth.getCodeUrl";
-	public static final String WEIXIN_AUTH_TOKEN_URL ="weixin.auth.getAccessTokenUrl";
 	private static final Logger log = LoggerFactory.getLogger(WeiXinAuthAct.class);
 	
 	//进入微信授权登录二维码页面(需要先登陆在进入扫码)
@@ -80,12 +79,7 @@ public class WeiXinAuthAct {
 		if (user == null) {
 			return FrontUtils.showLogin(request, model, site);
 		}
-		String codeUrl="";
-		if(getWeixinAuthCodeUrl()==null){
-			codeUrl=PropertyUtils.getPropertyValue(
-					new File(realPathResolver.get(com.jeecms.cms.Constants.JEECMS_CONFIG)),WEIXIN_AUTH_CODE_URL);
-			setWeixinAuthCodeUrl(codeUrl);
-		}
+		String codeUrl;
 		CmsConfigContentCharge config=configContentChargeMng.getDefault();
 		String redirect_uri="/member/weixin_auth_call.jspx";
 		if(StringUtils.isNotBlank(site.getContextPath())){
@@ -93,7 +87,7 @@ public class WeiXinAuthAct {
 		}else{
 			redirect_uri=site.getUrlPrefixWithNoDefaultPort()+redirect_uri;
 		}
-		codeUrl=getWeixinAuthCodeUrl()+"?appid="+config.getWeixinAppId()+"&redirect_uri="+redirect_uri
+		codeUrl=socialInfoConfig.getWeixin().getAuth().getCodeUrl()+"?appid="+config.getWeixinAppId()+"&redirect_uri="+redirect_uri
 				+"&response_type=code&scope=snsapi_userinfo&state=jeecms#wechat_redirect";
 		model.addAttribute("codeUrl", codeUrl);
 		return FrontUtils.getTplPath(request, site.getSolutionPath(),
@@ -120,12 +114,8 @@ public class WeiXinAuthAct {
 		if (user == null) {
 			return FrontUtils.showLogin(request, model, site);
 		}
-		if(getWeixinAuthTokenUrl()==null){
-			setWeixinAuthTokenUrl(PropertyUtils.getPropertyValue(
-					new File(realPathResolver.get(com.jeecms.cms.Constants.JEECMS_CONFIG)),WEIXIN_AUTH_TOKEN_URL));
-		}
 		CmsConfigContentCharge config=configContentChargeMng.getDefault();
-		String tokenUrl=getWeixinAuthTokenUrl()+"&appid="+config.getWeixinAppId()+"&secret="+config.getWeixinSecret()+"&code="+code;
+		String tokenUrl=socialInfoConfig.getWeixin().getAuth().getCodeUrl()+"&appid="+config.getWeixinAppId()+"&secret="+config.getWeixinSecret()+"&code="+code;
 		JSONObject json=null;
 		try {
 			json = new JSONObject(HttpClientUtil.getInstance().get(tokenUrl));
@@ -166,11 +156,6 @@ public class WeiXinAuthAct {
 		FrontUtils.frontData(request, model, site);
 		String codeUrl="";
 		JSONObject json=new JSONObject();
-		if(getWeixinAuthCodeUrl()==null){
-			codeUrl=PropertyUtils.getPropertyValue(
-					new File(realPathResolver.get(com.jeecms.cms.Constants.JEECMS_CONFIG)),WEIXIN_AUTH_CODE_URL);
-			setWeixinAuthCodeUrl(codeUrl);
-		}
 		CmsConfigContentCharge config=configContentChargeMng.getDefault();
 		String redirect_uri="/common/setOpenId.jspx";
 		if(StringUtils.isNotBlank(site.getContextPath())){
@@ -178,7 +163,7 @@ public class WeiXinAuthAct {
 		}else{
 			redirect_uri=site.getUrlPrefixWithNoDefaultPort()+redirect_uri;
 		}
-		codeUrl=getWeixinAuthCodeUrl()+"?appid="+config.getWeixinAppId()+"&redirect_uri="+redirect_uri
+		codeUrl=socialInfoConfig.getWeixin().getAuth().getCodeUrl()+"?appid="+config.getWeixinAppId()+"&redirect_uri="+redirect_uri
 				+"&response_type=code&scope=snsapi_base&state=jeecms#wechat_redirect";
 		try {
 			json.put("url", codeUrl);
@@ -202,17 +187,12 @@ public class WeiXinAuthAct {
 			HttpServletResponse response, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
 		FrontUtils.frontData(request, model, site);
-		if(getWeixinAuthTokenUrl()==null){
-			setWeixinAuthTokenUrl(PropertyUtils.getPropertyValue(
-					new File(realPathResolver.get(com.jeecms.cms.Constants.JEECMS_CONFIG)),WEIXIN_AUTH_TOKEN_URL));
-		}
 		CmsConfigContentCharge config=configContentChargeMng.getDefault();
-		String tokenUrl=getWeixinAuthTokenUrl()+"&appid="+config.getWeixinAppId()+"&secret="+config.getWeixinSecret()+"&code="+code;
+		String tokenUrl=socialInfoConfig.getWeixin().getAuth().getCodeUrl()+"&appid="+config.getWeixinAppId()+"&secret="+config.getWeixinSecret()+"&code="+code;
 		JSONObject json=null;
 		try {
 			json = new JSONObject(HttpClientUtil.getInstance().get(tokenUrl));
 		} catch (JSONException e2) {
-			//e2.printStackTrace();
 			log.error("get token ->",e2.getMessage());
 		}
 		FrontUtils.frontData(request, model, site);
@@ -241,27 +221,6 @@ public class WeiXinAuthAct {
 			}
 		}
 	}
-	
-
-	private String weixinAuthCodeUrl;
-	private String weixinAuthTokenUrl;
-	
-
-	public String getWeixinAuthCodeUrl() {
-		return weixinAuthCodeUrl;
-	}
-
-	public void setWeixinAuthCodeUrl(String weixinAuthCodeUrl) {
-		this.weixinAuthCodeUrl = weixinAuthCodeUrl;
-	}
-
-	public String getWeixinAuthTokenUrl() {
-		return weixinAuthTokenUrl;
-	}
-
-	public void setWeixinAuthTokenUrl(String weixinAuthTokenUrl) {
-		this.weixinAuthTokenUrl = weixinAuthTokenUrl;
-	}
 
 	@Autowired
 	private RealPathResolver realPathResolver;
@@ -271,4 +230,6 @@ public class WeiXinAuthAct {
 	private CmsUserAccountMng userAccountMng;
 	@Autowired
 	private SessionProvider session;
+	@Autowired
+	private SocialInfoConfig socialInfoConfig;
 }

@@ -8,6 +8,8 @@ import java.util.Map;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
+
+import com.jeecms.config.SocialInfoConfig;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -87,18 +89,15 @@ public class ContentPushListener extends ContentListenerAbstract {
 
 	/** 
      * 百度链接实时推送 
-     * @param PostUrl 
-     * @param Parameters 
-     * @return 
+     * @return
      */  
 	public String pushPost(String parameters,String domain, String bdToken){
-		   String linkSubmitUrl=PropertyUtils.getPropertyValue(new File(realPathResolver.get(Constants.JEECMS_CONFIG)),LINK_KEY);	
-		   String host=PropertyUtils.getPropertyValue(new File(realPathResolver.get(Constants.JEECMS_CONFIG)),LINK_HOST);
+		   String linkSubmitUrl=socialInfoConfig.getBaidu().getLinksubmit().getAddress();
+		   String host=socialInfoConfig.getBaidu().getLinksubmit().getHost();
 		   linkSubmitUrl+="?site="+domain+"&token="+bdToken;	
 		   String result="";	
 		   HttpClientBuilder httpClientBuilder = HttpClientBuilder.create();  
-	       //HttpClient  
-	       CloseableHttpClient client = httpClientBuilder.build();  
+	       CloseableHttpClient client = httpClientBuilder.build();
 	       client = (CloseableHttpClient) wrapClient(client);	       
 	       Map<String, String> msg=new HashMap<>();
 	       HttpPost post = new HttpPost(linkSubmitUrl);	
@@ -154,6 +153,7 @@ public class ContentPushListener extends ContentListenerAbstract {
 	}
 	@Autowired
 	private RealPathResolver realPathResolver;
-
+	@Autowired
+	private SocialInfoConfig socialInfoConfig;
 	
 }

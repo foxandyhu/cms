@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -14,6 +16,8 @@ import org.springframework.stereotype.Repository;
 import com.jeecms.cms.dao.assist.CmsMysqlDataBackDao;
 import com.jeecms.cms.entity.back.CmsField;
 import com.jeecms.cms.Constants;
+
+import javax.sql.DataSource;
 
 @Repository
 public class CmsMysqlDataBackDaoImpl extends JdbcDaoSupport implements
@@ -116,4 +120,13 @@ public class CmsMysqlDataBackDaoImpl extends JdbcDaoSupport implements
 		return true;
 	}
 
+	@Override
+	@Autowired
+	protected JdbcTemplate createJdbcTemplate(DataSource dataSource) {
+		return super.createJdbcTemplate(dataSource);
+	}
+
+	@Override
+	protected void checkDaoConfig() {
+	}
 }

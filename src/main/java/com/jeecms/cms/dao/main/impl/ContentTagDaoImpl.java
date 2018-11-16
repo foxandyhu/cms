@@ -66,12 +66,12 @@ public class ContentTagDaoImpl extends HibernateBaseDao<ContentTag, Integer>
 	}
 
 	public int deleteContentRef(Integer id) {
-		Query query = getSession().getNamedQuery("ContentTag.deleteContentRef");
+		Query query = getSession().createSQLQuery("delete from jc_contenttag where tag_id=?");
 		return query.setParameter(0, id).executeUpdate();
 	}
 
 	public int countContentRef(Integer id) {
-		Query query = getSession().getNamedQuery("ContentTag.countContentRef");
+		Query query = getSession().createSQLQuery("select count(*) from jc_contenttag where tag_id=?");
 		return ((Number) (query.setParameter(0, id).list().iterator().next()))
 				.intValue();
 	}

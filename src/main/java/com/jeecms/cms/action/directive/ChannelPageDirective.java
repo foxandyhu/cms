@@ -25,10 +25,12 @@ import freemarker.core.Environment;
 import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
+import org.springframework.stereotype.Component;
 
 /**
  * 栏目分页标签
  */
+@Component("cms_channel_page")
 public class ChannelPageDirective extends AbstractChannelDirective {
 	/**
 	 * 模板名称

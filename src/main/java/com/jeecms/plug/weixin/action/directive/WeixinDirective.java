@@ -20,7 +20,9 @@ import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
+import org.springframework.stereotype.Component;
 
+@Component("cms_weixin")
 public class WeixinDirective implements TemplateDirectiveModel {
 
 	@SuppressWarnings("unchecked")

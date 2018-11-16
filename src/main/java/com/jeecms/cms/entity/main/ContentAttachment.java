@@ -1,29 +1,68 @@
 package com.jeecms.cms.entity.main;
 
-import com.jeecms.cms.entity.main.base.BaseContentAttachment;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import java.io.Serializable;
 
-public class ContentAttachment extends BaseContentAttachment {
-	private static final long serialVersionUID = 1L;
+@Embeddable
+public class ContentAttachment implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-	/* [CONSTRUCTOR MARKER BEGIN] */
-	public ContentAttachment () {
-		super();
-	}
+    public ContentAttachment(){ }
 
-	/**
-	 * Constructor for required fields
-	 */
-	public ContentAttachment (
-		java.lang.String path,
-		java.lang.String name,
-		java.lang.Integer count) {
+    public ContentAttachment(String path, String name, Integer count) {
+        this.path = path;
+        this.name = name;
+        this.count = count;
+    }
 
-		super (
-			path,
-			name,
-			count);
-	}
+    @Column(name = "attachment_path")
+    private String path;
 
-	/* [CONSTRUCTOR MARKER END] */
+    @Column(name = "attachment_name")
+    private String name;
+
+    @Column(name = "filename")
+    private String filename;
+
+    @Column(name = "download_count")
+    private Integer count;
+
+    public String getPath() {
+        return path;
+    }
+
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
+
+
+    public Integer getCount() {
+        return count;
+    }
+
+    
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
 
 }

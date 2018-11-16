@@ -19,6 +19,7 @@ import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
+import org.springframework.stereotype.Component;
 
 /**
  * 网上调查列表标签
@@ -26,6 +27,7 @@ import freemarker.template.TemplateModel;
  * @author tom
  * 
  */
+@Component("cms_vote_list")
 public class CmsVoteListDirective implements TemplateDirectiveModel {
 	/**
 	 * 输入参数,调查数量。可以为空，为空则获取站点的所有调查。

@@ -31,7 +31,6 @@
 			not-null="true"
 		>
 		</many-to-one>
-		<many-to-one name="content" column="content_id" class="com.jeecms.cms.entity.main.Content" not-null="true"></many-to-one>
 
 
 	</class>	

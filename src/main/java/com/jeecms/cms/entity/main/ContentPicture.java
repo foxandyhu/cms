@@ -1,28 +1,37 @@
 package com.jeecms.cms.entity.main;
 
-import com.jeecms.cms.entity.main.base.BaseContentPicture;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import java.io.Serializable;
+
+@Embeddable
+public class ContentPicture implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    @Column(name = "img_path")
+    private String imgPath;
+
+    @Column(name = "description")
+    private String description;
 
 
+    public String getImgPath() {
+        return imgPath;
+    }
 
-public class ContentPicture extends BaseContentPicture {
-	private static final long serialVersionUID = 1L;
 
-/*[CONSTRUCTOR MARKER BEGIN]*/
-	public ContentPicture () {
-		super();
-	}
+    public void setImgPath(String imgPath) {
+        this.imgPath = imgPath;
+    }
 
-	/**
-	 * Constructor for required fields
-	 */
-	public ContentPicture (
-		java.lang.String imgPath) {
 
-		super (
-			imgPath);
-	}
+    public String getDescription() {
+        return description;
+    }
 
-/*[CONSTRUCTOR MARKER END]*/
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
 
 }

@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.config.SocialInfoConfig;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
@@ -109,10 +110,7 @@ public class CmsAccountPayApiAct {
 					message = Constants.API_MESSAGE_OBJECT_NOT_FOUND;
 					code = ResponseCode.API_CODE_NOT_FOUND;
 				}else{
-					if (StringUtils.isBlank(getWeixinPayUrl())) {
-						setWeixinPayUrl(PropertyUtils.getPropertyValue(new File(realPathResolver.get(com.jeecms.cms.Constants.JEECMS_CONFIG)), WEIXIN_PAY_URL));
-					}
-					String statu = accountPayMng.weixinTransferPay(getWeixinPayUrl(), drawId, bean.getDrawUser(), user, bean.getApplyAmount() 
+					String statu = accountPayMng.weixinTransferPay(socialInfoConfig.getWeixin().getOrder().getPayUrl(), drawId, bean.getDrawUser(), user, bean.getApplyAmount()
 							,System.currentTimeMillis()+RandomStringUtils.random(5,Num62.N10_CHARS), request, response, null);
 					body = "{\"status\":\""+statu+"\"}";
 					if (MessageResolver.getMessage(request,"transferPay.success").equals(statu)) {
@@ -172,16 +170,6 @@ public class CmsAccountPayApiAct {
 		return errors;
 	}
 
-	private String weixinPayUrl;
-
-	public String getWeixinPayUrl() {
-		return weixinPayUrl;
-	}
-
-	public void setWeixinPayUrl(String weixinPayUrl) {
-		this.weixinPayUrl = weixinPayUrl;
-	}
-	
 	@Autowired
 	private CmsAccountDrawMng accountDrawMng;
 	@Autowired
@@ -194,4 +182,6 @@ public class CmsAccountPayApiAct {
 	private CmsConfigContentChargeMng configContentChargeMng;
 	@Autowired
 	private CmsUserMng userMng;
+	@Autowired
+	private SocialInfoConfig socialInfoConfig;
 }

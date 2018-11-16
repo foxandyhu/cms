@@ -23,17 +23,16 @@
  */
 package com.jeecms.common.web;
 
-import java.util.Date;
-import java.util.Properties;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import net.sf.ehcache.CacheManager;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.cache.CacheException;
 import org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory;
 import org.hibernate.cfg.Settings;
+import org.springframework.stereotype.Component;
+
+import java.util.Properties;
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 /**
@@ -44,6 +43,7 @@ import org.hibernate.cfg.Settings;
  * @author Emmanuel Bernard
  * @author Alex Snaps
  */
+@Component("cacheRegionFactory")
 public class WebSingletonEhCacheRegionFactory extends SingletonEhCacheRegionFactory {
 	/*
 	private static final WebSingletonEhCacheRegionFactory LOG = Logger.getMessageLogger(

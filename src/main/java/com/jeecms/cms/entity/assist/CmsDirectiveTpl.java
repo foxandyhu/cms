@@ -1,14 +1,16 @@
 package com.jeecms.cms.entity.assist;
 
+import com.jeecms.core.entity.CmsUser;
 import org.apache.commons.lang.StringUtils;
 
 import com.jeecms.cms.entity.assist.base.BaseCmsDirectiveTpl;
 
 import net.sf.json.JSONObject;
 
+import java.io.Serializable;
 
 
-public class CmsDirectiveTpl extends BaseCmsDirectiveTpl {
+public class CmsDirectiveTpl implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	public JSONObject convertToJson(){
@@ -41,34 +43,64 @@ public class CmsDirectiveTpl extends BaseCmsDirectiveTpl {
 		
 		return json;
 	}
-	
-/*[CONSTRUCTOR MARKER BEGIN]*/
-	public CmsDirectiveTpl () {
-		super();
+
+	// primary key
+	private Integer id;
+
+	// fields
+	private String name;
+	private String description;
+	private String code;
+
+	// many to one
+	private CmsUser user;
+
+
+	public Integer getId () {
+		return id;
 	}
 
-	/**
-	 * Constructor for primary key
-	 */
-	public CmsDirectiveTpl (java.lang.Integer id) {
-		super(id);
+
+	public void setId (Integer id) {
+		this.id = id;
 	}
 
-	/**
-	 * Constructor for required fields
-	 */
-	public CmsDirectiveTpl (
-		java.lang.Integer id,
-		com.jeecms.core.entity.CmsUser user,
-		java.lang.String name) {
 
-		super (
-			id,
-			user,
-			name);
+	public String getName () {
+		return name;
 	}
 
-/*[CONSTRUCTOR MARKER END]*/
 
+	public void setName (String name) {
+		this.name = name;
+	}
+
+
+	public String getDescription () {
+		return description;
+	}
+
+
+	public void setDescription (String description) {
+		this.description = description;
+	}
+
+
+	public String getCode () {
+		return code;
+	}
+
+	public void setCode (String code) {
+		this.code = code;
+	}
+
+
+	public CmsUser getUser () {
+		return user;
+	}
+
+	public void setUser (CmsUser user) {
+		this.user = user;
+	}
 
 }

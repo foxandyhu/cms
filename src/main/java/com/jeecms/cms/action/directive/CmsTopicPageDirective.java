@@ -28,10 +28,12 @@ import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
+import org.springframework.stereotype.Component;
 
 /**
  * 专题分页标签
  */
+@Component("cms_topic_page")
 public class CmsTopicPageDirective implements TemplateDirectiveModel {
 	/**
 	 * 模板名称

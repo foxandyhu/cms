@@ -1,105 +1,152 @@
 package com.jeecms.core.entity;
 
-import static com.jeecms.common.web.Constants.SPT;
+import com.jeecms.common.web.Constants;
+import com.jeecms.core.tpl.Tpl;
+import org.apache.commons.lang.StringUtils;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.springframework.util.Assert;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
-import org.springframework.util.Assert;
+import static com.jeecms.common.web.Constants.SPT;
 
-import com.jeecms.common.web.Constants;
-import com.jeecms.core.entity.base.BaseDbTpl;
-import com.jeecms.core.tpl.Tpl;
+/**
+ * 模板类
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/11/15 22:54
+ */
+@Entity
+@Table(name = "jo_template")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
+public class DbTpl implements Tpl, Serializable {
+    private static final long serialVersionUID = 1L;
 
-public class DbTpl extends BaseDbTpl implements Tpl {
-	private static final long serialVersionUID = 1L;
+    /**
+     * 模板名称
+     */
+    @Id
+    @Column(name = "tpl_name")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private String id;
 
-	/**
-	 * 获得文件夹或文件的所有父文件夹
-	 * 
-	 * @param path
-	 * @return
-	 */
-	public static String[] getParentDir(String path) {
-		Assert.notNull(path);
-		if (!path.startsWith(SPT)) {
-			throw new IllegalArgumentException("path must start with /");
-		}
-		List<String> list = new ArrayList<String>();
-		int index = path.indexOf(SPT, 1);
-		while (index >= 0) {
-			list.add(path.substring(0, index));
-			index = path.indexOf(SPT, index + 1);
-		}
-		String[] arr = new String[list.size()];
-		return list.toArray(arr);
-	}
+    /**
+     * 模板内容
+     */
+    @Column(name = "tpl_source")
+    private String source;
 
-	public String getName() {
-		return getId();
-	}
+    /**
+     * 最后修改时间
+     */
+    @Column(name = "last_modified")
+    private long lastModified;
 
-	public String getPath() {
-		String name = getId();
-		return getId().substring(0, name.lastIndexOf("/"));
-	}
+    /**
+     * 是否目录
+     */
+    @Column(name = "is_directory")
+    private boolean directory;
 
-	public String getFilename() {
-		String name = getId();
-		if (!StringUtils.isBlank(name)) {
-			int index = name.lastIndexOf(Constants.SPT);
-			if (index != -1) {
-				return name.substring(index + 1, name.length());
-			}
-		}
-		return name;
-	}
 
-	public long getLength() {
-		if (isDirectory() || getSource() == null) {
-			return 128;
-		} else {
-			// 一个英文字符占1个字节，而一个中文则占3-4字节，这里取折中一个字符1.5个字节
-			return (long) (getSource().length() * 1.5);
-		}
-	}
+    public String getId() {
+        return id;
+    }
 
-	public int getSize() {
-		return (int) (getLength() / 1024) + 1;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public Date getLastModifiedDate() {
-		return new Timestamp(getLastModified());
-	}
+    public String getSource() {
+        return source;
+    }
 
-	/* [CONSTRUCTOR MARKER BEGIN] */
-	public DbTpl () {
-		super();
-	}
+    public void setSource(String source) {
+        this.source = source;
+    }
 
-	/**
-	 * Constructor for primary key
-	 */
-	public DbTpl (java.lang.String id) {
-		super(id);
-	}
 
-	/**
-	 * Constructor for required fields
-	 */
-	public DbTpl (
-		java.lang.String id,
-		long lastModified,
-		boolean directory) {
+    public long getLastModified() {
+        return lastModified;
+    }
 
-		super (
-			id,
-			lastModified,
-			directory);
-	}
 
-	/* [CONSTRUCTOR MARKER END] */
+    public void setLastModified(long lastModified) {
+        this.lastModified = lastModified;
+    }
+
+
+    public boolean isDirectory() {
+        return directory;
+    }
+
+    public void setDirectory(boolean directory) {
+        this.directory = directory;
+    }
+
+
+    /**
+     * 获得文件夹或文件的所有父文件夹
+     *
+     * @param path
+     * @return
+     */
+    public static String[] getParentDir(String path) {
+        Assert.notNull(path);
+        if (!path.startsWith(SPT)) {
+            throw new IllegalArgumentException("path must start with /");
+        }
+        List<String> list = new ArrayList<String>();
+        int index = path.indexOf(SPT, 1);
+        while (index >= 0) {
+            list.add(path.substring(0, index));
+            index = path.indexOf(SPT, index + 1);
+        }
+        String[] arr = new String[list.size()];
+        return list.toArray(arr);
+    }
+
+    public String getName() {
+        return getId();
+    }
+
+    public String getPath() {
+        String name = getId();
+        return getId().substring(0, name.lastIndexOf("/"));
+    }
+
+    public String getFilename() {
+        String name = getId();
+        if (!StringUtils.isBlank(name)) {
+            int index = name.lastIndexOf(Constants.SPT);
+            if (index != -1) {
+                return name.substring(index + 1, name.length());
+            }
+        }
+        return name;
+    }
+
+    public long getLength() {
+        if (isDirectory() || getSource() == null) {
+            return 128;
+        } else {
+            // 一个英文字符占1个字节，而一个中文则占3-4字节，这里取折中一个字符1.5个字节
+            return (long) (getSource().length() * 1.5);
+        }
+    }
+
+    public int getSize() {
+        return (int) (getLength() / 1024) + 1;
+    }
+
+    public Date getLastModifiedDate() {
+        return new Timestamp(getLastModified());
+    }
+
 }
