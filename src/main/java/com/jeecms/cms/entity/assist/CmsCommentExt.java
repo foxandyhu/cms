@@ -1,20 +1,47 @@
 package com.jeecms.cms.entity.assist;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import javax.persistence.*;
 import java.io.Serializable;
 
-
+/**
+ * CMS评论扩展
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/11/16 16:59
+ */
+@Entity
+@Table(name = "jc_comment_ext")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class CmsCommentExt implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    // primary key
+    @Column(name = "comment_id")
     private Integer id;
 
-    // fields
+    /**
+     * IP地址
+     */
+    @Column(name = "ip")
     private String ip;
+
+    /**
+     * 评论内容
+     */
+    @Column(name = "text")
     private String text;
+
+    /**
+     * 回复内容
+     */
+    @Column(name = "reply")
     private String reply;
 
-    // one to one
+    @Id
+    @OneToOne
+    @JoinColumn(name = "comment_id")
     private CmsComment comment;
 
 

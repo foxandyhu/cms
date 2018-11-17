@@ -8,10 +8,19 @@ import com.jeecms.core.entity.CmsUser;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONObject;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
+/**
+ * CMS采集类
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/11/16 16:14
+ */
+@Entity
+@Table(name = "jc_acquisition")
 public class CmsAcquisition implements Serializable {
     private static final long serialVersionUID = 1L;
     /**
@@ -31,11 +40,11 @@ public class CmsAcquisition implements Serializable {
      */
     public static final int PAUSE = 2;
 
-    public static enum AcquisitionResultType {
+    public enum AcquisitionResultType {
         SUCCESS, TITLESTARTNOTFOUND, TITLEENDNOTFOUND, CONTENTSTARTNOTFOUND, CONTENTENDNOTFOUND, VIEWSTARTNOTFOUND, VIEWENDNOTFOUND, AUTHORSTARTNOTFOUND, AUTHORENDNOTFOUND, ORIGINSTARTNOTFOUND, ORIGINENDNOTFOUND, TYPEIMGSTARTNOTFOUND, TYPEIMGENDNOTFOUND, DESCRISTARTNOTFOUND, DESCRIENDNOTFOUND, RELEASESTARTNOTFOUND, RELEASEENDNOTFOUND, PAGESTARTNOTFOUND, PAGEENDNOTFOUND, VIEWIDSTARTNOTFOUND, VIEWIDENDNOTFOUND, TITLEEXIST, URLEXIST, UNKNOW
     }
 
-    public static enum AcquisitionRepeatCheckType {
+    public enum AcquisitionRepeatCheckType {
         NONE, TITLE, URL
     }
 
@@ -420,71 +429,343 @@ public class CmsAcquisition implements Serializable {
         }
     }
 
-    // primary key
+    @Id
+    @Column(name = "acquisition_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    // fields
+    /**
+     * 采集名称
+     */
+    @Column(name = "acq_name")
     private String name;
+
+    /**
+     * 开始时间
+     */
+    @Column(name = "start_time")
     private Date startTime;
+
+    /**
+     * 停止时间
+     */
+    @Column(name = "end_time")
     private Date endTime;
+
+    /**
+     * 当前状态(0:静止;1:采集;2:暂停)
+     */
+    @Column(name = "status")
     private Integer status;
+
+    /**
+     * 当前号码
+     */
+    @Column(name = "curr_num")
     private Integer currNum;
+
+    /**
+     * 当前条数
+     */
+    @Column(name = "curr_item")
     private Integer currItem;
+
+    /**
+     * 每页总条数
+     */
+    @Column(name = "total_item")
     private Integer totalItem;
+
+    /**
+     * 暂停时间(毫秒)
+     */
+    @Column(name = "pause_time")
     private Integer pauseTime;
+
+    /**
+     * 是否采集图片
+     */
+    @Column(name = "img_acqu")
     private Boolean imgAcqu;
+
+    /**
+     * 页面编码
+     */
+    @Column(name = "page_encoding")
     private String pageEncoding;
+
+    /**
+     * 采集列表
+     */
+    @Column(name = "plan_list")
     private String planList;
+
+    /**
+     * 动态地址
+     */
+    @Column(name = "dynamic_addr")
     private String dynamicAddr;
+
+    /**
+     * 页码开始
+     */
+    @Column(name = "dynamic_start")
     private Integer dynamicStart;
+
+    /**
+     * 页码结束
+     */
+    @Column(name = "dynamic_end")
     private Integer dynamicEnd;
+
+    /**
+     * 内容链接区开始
+     */
+    @Column(name = "linkset_start")
     private String linksetStart;
+
+    /**
+     * 内容链接区结束
+     */
+    @Column(name = "linkset_end")
     private String linksetEnd;
+
+    /**
+     * 内容链接开始
+     */
+    @Column(name = "link_start")
     private String linkStart;
+
+    /**
+     * 内容链接结束
+     */
+    @Column(name = "link_end")
     private String linkEnd;
+
+    /**
+     * 标题开始
+     */
+    @Column(name = "title_start")
     private String titleStart;
+
+    /**
+     * 标题结束
+     */
+    @Column(name = "title_end")
     private String titleEnd;
+
+    /**
+     * 关键字开始
+     */
+    @Column(name = "keywords_start")
     private String keywordsStart;
+
+    /**
+     * 关键字结束
+     */
+    @Column(name = "keywords_end")
     private String keywordsEnd;
+
+    /**
+     * 描述开始
+     */
+    @Column(name = "description_start")
     private String descriptionStart;
+
+    /**
+     * 描述结束
+     */
+    @Column(name = "description_end")
     private String descriptionEnd;
+
+    /**
+     * 内容开始
+     */
+    @Column(name = "content_start")
     private String contentStart;
+
+    /**
+     * 内容结束
+     */
+    @Column(name = "content_end")
     private String contentEnd;
+
+    /**
+     * 内容分页开始
+     */
+    @Column(name = "pagination_start")
     private String paginationStart;
+
+    /**
+     * 内容分页结束
+     */
+    @Column(name = "pagination_end")
     private String paginationEnd;
+
+    /**
+     * 浏览量开始
+     */
+    @Column(name = "view_start")
     private String viewStart;
+
+    /**
+     * 浏览量结束
+     */
+    @Column(name = "view_end")
     private String viewEnd;
+
+    /**
+     * id前缀
+     */
+    @Column(name = "view_id_start")
     private String viewIdStart;
+
+    /**
+     * id后缀
+     */
+    @Column(name = "view_id_end")
     private String viewIdEnd;
+
+    /**
+     * 浏览量动态访问地址
+     */
+    @Column(name = "view_link")
     private String viewLink;
+
+    /**
+     * 发布时间开始
+     */
+    @Column(name = "releaseTime_start")
     private String releaseTimeStart;
+
+    /**
+     * 发布时间结束
+     */
+    @Column(name = "releaseTime_end")
     private String releaseTimeEnd;
+
+    /**
+     * 发布时间格式
+     */
+    @Column(name = "releaseTime_format")
     private String releaseTimeFormat;
+
+    /**
+     * 作者开始
+     */
+    @Column(name = "author_start")
     private String authorStart;
+
+    /**
+     * 作者结束
+     */
+    @Column(name = "author_end")
     private String authorEnd;
+
+    /**
+     * 来源开始
+     */
+    @Column(name = "origin_start")
     private String originStart;
+
+    /**
+     * 来源结束
+     */
+    @Column(name = "origin_end")
     private String originEnd;
+
+    /**
+     * 内容地址补全url
+     */
+    @Column(name = "content_prefix")
     private String contentPrefix;
+
+    /**
+     * 图片地址补全url
+     */
+    @Column(name = "img_prefix")
     private String imgPrefix;
+
+    /**
+     * 队列
+     */
+    @Column(name = "queue")
     private Integer queue;
+
+    /**
+     * 指定来源
+     */
+    @Column(name = "origin_appoint")
     private String originAppoint;
+
+    /**
+     * 是否默认类型图0：否1：是
+     */
+    @Column(name = "def_type_img")
     private Boolean defTypeImg;
+
+    /**
+     * 类型图开始
+     */
+    @Column(name = "type_img_start")
     private String typeImgStart;
+
+    /**
+     * 类型图结束
+     */
+    @Column(name = "type_img_end")
     private String typeImgEnd;
+
+    /**
+     * 内容分页地址补全
+     */
+    @Column(name = "content_page_prefix")
     private String contentPagePrefix;
+
+    /**
+     * 内容分页开始
+     */
+    @Column(name = "content_page_start")
     private String contentPageStart;
+
+    /**
+     * 内容分页结束
+     */
+    @Column(name = "content_page_end")
     private String contentPageEnd;
+
+    /**
+     * 内容分页链接开始
+     */
+    @Column(name = "page_link_start")
     private String pageLinkStart;
+
+    /**
+     * 内容分页链接结束
+     */
+    @Column(name = "page_link_end")
     private String pageLinkEnd;
 
-    // many to one
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private CmsUser user;
+
+    @ManyToOne
+    @JoinColumn(name = "type_id")
     private ContentType type;
+
+    @ManyToOne
+    @JoinColumn(name = "site_id")
     private CmsSite site;
+
+    @ManyToOne
+    @JoinColumn(name = "channel_id")
     private Channel channel;
 
-    // ont to many
+    @OneToMany(mappedBy = "acquisition",cascade = CascadeType.REMOVE,orphanRemoval = true)
     private Set<CmsAcquisitionReplace> replaceWords;
+
+    @OneToMany(mappedBy = "acquisition",cascade = CascadeType.REMOVE,orphanRemoval = true)
     private Set<CmsAcquisitionShield> shields;
 
 

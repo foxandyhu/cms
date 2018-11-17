@@ -1,22 +1,37 @@
 package com.jeecms.cms.entity.assist;
 
 import com.jeecms.cms.entity.main.Content;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.io.Serializable;
 
-
+/**
+ * 评分纪录
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/11/17 9:49
+ */
+@Entity
+@Table(name = "jc_score_record")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class CmsScoreRecord implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    // primary key
+    @Id
+    @Column(name = "score_record_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    // fields
+    /**
+     * 评分次数
+     */
+    @Column(name = "score_count")
     private Integer count;
 
-    // many to one
+    @ManyToOne
+    @JoinColumn(name = "score_item_id")
     private CmsScoreItem item;
 
     @ManyToOne

@@ -2,27 +2,49 @@ package com.jeecms.cms.entity.assist;
 
 import com.jeecms.core.entity.CmsSite;
 
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
-
+@Entity
+@Table(name = "jc_site_flow")
 public class CmsSiteFlow implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    // primary key
+    @Id
+    @Column(name = "flow_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    // fields
+    @Column(name = "access_ip")
     private String accessIp;
+
+    @Column(name = "access_date")
     private String accessDate;
-    private java.util.Date accessTime;
+
+    @Column(name = "access_time")
+    private Date accessTime;
+
+    @Column(name = "access_page")
     private String accessPage;
+
+    @Column(name = "referer_website")
     private String refererWebSite;
+
+    @Column(name = "referer_page")
     private String refererPage;
+
+    @Column(name = "referer_keyword")
     private String refererKeyword;
+
+    @Column(name = "area")
     private String area;
+
+    @Column(name = "session_id")
     private String sessionId;
 
-    // many to one
+    @ManyToOne
+    @JoinColumn(name = "site_id")
     private CmsSite site;
 
     public Integer getId() {
@@ -49,11 +71,11 @@ public class CmsSiteFlow implements Serializable {
         this.accessDate = accessDate;
     }
 
-    public java.util.Date getAccessTime() {
+    public Date getAccessTime() {
         return accessTime;
     }
 
-    public void setAccessTime(java.util.Date accessTime) {
+    public void setAccessTime(Date accessTime) {
         this.accessTime = accessTime;
     }
 

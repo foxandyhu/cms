@@ -1,9 +1,21 @@
 package com.jeecms.cms.entity.assist;
 
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
+/**
+ * CMS留言内容
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/11/16 17:26
+ */
+@Entity
+@Table(name = "jc_guestbook_ext")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class CmsGuestbookExt implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -32,18 +44,48 @@ public class CmsGuestbookExt implements Serializable {
         }
     }
 
-    // primary key
+    @Column(name = "guestbook_id")
     private Integer id;
 
-    // fields
+    /**
+     * 留言标题
+     */
+    @Column(name = "title")
     private String title;
+
+    /**
+     * 留言内容
+     */
+    @Column(name = "content")
     private String content;
+
+    /**
+     * 回复内容
+     */
+    @Column(name = "reply")
     private String reply;
+
+    /**
+     * 电子邮件
+     */
+    @Column(name = "email")
     private String email;
+
+    /**
+     * 电话
+     */
+    @Column(name = "phone")
     private String phone;
+
+    /**
+     * QQ
+     */
+    @Column(name = "qq")
     private String qq;
 
-    // one to one
+    @Id
+    @OneToOne
+    @JoinColumn(name = "guestbook_id")
     private CmsGuestbook guestbook;
 
 

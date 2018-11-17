@@ -1,12 +1,23 @@
 package com.jeecms.cms.entity.assist;
 
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.json.JSONObject;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
 
-
+/**
+ * webservices认证
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/11/17 10:52
+ */
+@Entity
+@Table(name = "jc_webservice_auth")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class CmsWebserviceAuth implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -40,16 +51,37 @@ public class CmsWebserviceAuth implements Serializable {
         return isEnable();
     }
 
-    // primary key
+    @Id
+    @Column(name = "auth_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    // fields
+    /**
+     * 用户名
+     */
+    @Column(name = "username")
     private String username;
+
+    /**
+     * 密码
+     */
+    @Column(name = "password")
     private String password;
+
+    /**
+     * 系统
+     */
+    @Column(name = "system")
     private String system;
+
+    /**
+     * 是否启用
+     */
+    @Column(name = "is_enable")
     private boolean enable;
 
-    // collections
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "auth")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
     private Set<CmsWebserviceCallRecord> webserviceCallRecords;
 
 

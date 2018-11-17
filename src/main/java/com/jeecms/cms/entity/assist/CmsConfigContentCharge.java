@@ -2,10 +2,23 @@ package com.jeecms.cms.entity.assist;
 
 import com.jeecms.common.util.DateUtils;
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.json.JSONObject;
 
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
+/**
+ * 内容收费配置
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/11/16 17:01
+ */
+@Entity
+@Table(name = "jc_config_content_charge")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class CmsConfigContentCharge implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -129,33 +142,141 @@ public class CmsConfigContentCharge implements Serializable {
         return json;
     }
 
-    // primary key
+    @Id
+    @Column(name = "config_content_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    // fields
+    /**
+     * 微信服务号APPID
+     */
+    @Column(name = "weixin_appid")
     private String weixinAppId;
+
+    /**
+     * 微信公众号secret
+     */
+    @Column(name = "weixin_secret")
     private String weixinSecret;
+
+    /**
+     * 微信支付商户号
+     */
+    @Column(name = "weixin_account")
     private String weixinAccount;
+
+    /**
+     * 微信支付商户密钥
+     */
+    @Column(name = "weixin_password")
     private String weixinPassword;
+
+    /**
+     * 支付宝合作者ID
+     */
+    @Column(name = "alipay_partner_id")
     private String alipayPartnerId;
+
+    /**
+     * 支付宝签约账户
+     */
+    @Column(name = "alipay_account")
     private String alipayAccount;
+
+    /**
+     * 支付宝公钥
+     */
+    @Column(name = "alipay_key")
     private String alipayKey;
 
+    /**
+     * 支付宝应用ID
+     */
+    @Column(name = "alipay_appid")
     private String alipayAppId;
+
+    /**
+     * 支付宝RSA公钥
+     */
+    @Column(name = "alipay_public_key")
     private String alipayPublicKey;
+
+    /**
+     * 支付宝RSA私钥
+     */
+    @Column(name = "alipay_private_key")
     private String alipayPrivateKey;
 
+    /**
+     * 抽成比例
+     */
+    @Column(name = "charge_ratio")
     private Double chargeRatio;
+
+    /**
+     * 最小提现额
+     */
+    @Column(name = "min_draw_amount")
     private Double minDrawAmount;
+
+    /**
+     * 佣金抽成总金额
+     */
+    @Column(name = "commission_total")
     private Double commissionTotal;
+
+    /**
+     * 佣金抽成年金额
+     */
+    @Column(name = "commission_year")
     private Double commissionYear;
+
+    /**
+     * 佣金抽成月金额
+     */
+    @Column(name = "commission_month")
     private Double commissionMonth;
+
+    /**
+     * 佣金抽成日金额
+     */
+    @Column(name = "commission_day")
     private Double commissionDay;
-    private java.util.Date lastBuyTime;
+
+    /**
+     * 最后购买时间
+     */
+    @Column(name = "last_buy_time")
+    private Date lastBuyTime;
+
+    /**
+     * 转账支付密码（管理后台验证）
+     */
+    @Column(name = "pay_transfer_password")
     private String payTransferPassword;
+
+    /**
+     * 企业转账接口API密钥
+     */
+    @Column(name = "transfer_api_password")
     private String transferApiPassword;
+
+    /**
+     * 打赏随机数最小值
+     */
+    @Column(name = "reward_min")
     private Double rewardMin;
+
+    /**
+     * 打赏随机数最小值
+     */
+    @Column(name = "reward_max")
     private Double rewardMax;
+
+    /**
+     * 打赏模式(0随机 1固定)
+     */
+    @Column(name = "reward_pattern")
     private Boolean rewardPattern;
 
 
@@ -295,11 +416,11 @@ public class CmsConfigContentCharge implements Serializable {
         this.commissionDay = commissionDay;
     }
 
-    public java.util.Date getLastBuyTime() {
+    public Date getLastBuyTime() {
         return lastBuyTime;
     }
 
-    public void setLastBuyTime(java.util.Date lastBuyTime) {
+    public void setLastBuyTime(Date lastBuyTime) {
         this.lastBuyTime = lastBuyTime;
     }
 

@@ -1,12 +1,23 @@
 package com.jeecms.cms.entity.assist;
 
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.json.JSONObject;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
 
-
+/**
+ * 评分项
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/11/17 9:45
+ */
+@Entity
+@Table(name = "jc_score_item")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class CmsScoreItem implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -56,19 +67,43 @@ public class CmsScoreItem implements Serializable {
         }
     }
 
-    // primary key
+    @Id
+    @Column(name = "score_item_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    // fields
+    /**
+     * 评分名
+     */
+    @Column(name = "name")
     private String name;
+
+    /**
+     * 分值
+     */
+    @Column(name = "score")
     private Integer score;
+
+    /**
+     * 评分图标路径
+     */
+    @Column(name = "image_path")
     private String imagePath;
+
+    /**
+     * 排序
+     */
+    @Column(name = "priority")
     private Integer priority;
 
-    // many to one
+    /**
+     * 评分组
+     */
+    @ManyToOne
+    @JoinColumn(name = "score_group_id")
     private CmsScoreGroup group;
 
-    // collections
+    @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
     private Set<CmsScoreRecord> records;
 
 

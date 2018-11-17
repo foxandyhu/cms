@@ -2,11 +2,23 @@ package com.jeecms.cms.entity.assist;
 
 import com.jeecms.core.entity.CmsSite;
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
+/**
+ * CMS友情链接
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/11/16 17:12
+ */
+@Entity
+@Table(name = "jc_friendlink")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class CmsFriendlink implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -90,21 +102,65 @@ public class CmsFriendlink implements Serializable {
         return json;
     }
 
-    // primary key
+    @Id
+    @Column(name = "friendlink_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    // fields
+    /**
+     * 网站名称
+     */
+    @Column(name = "site_name")
     private String name;
+
+    /**
+     * 网站地址
+     */
+    @Column(name = "domain")
     private String domain;
+
+    /**
+     * 图标
+     */
+    @Column(name = "logo")
     private String logo;
+
+    /**
+     * 站长邮箱
+     */
+    @Column(name = "email")
     private String email;
+
+    /**
+     * 描述
+     */
+    @Column(name = "description")
     private String description;
+
+    /**
+     * 点击次数
+     */
+    @Column(name = "views")
     private Integer views;
+
+    /**
+     * 排列顺序
+     */
+    @Column(name = "priority")
     private Integer priority;
+
+    /**
+     * 是否显示
+     */
+    @Column(name = "is_enabled")
     private Boolean enabled;
 
-    // many to one
+    @ManyToOne
+    @JoinColumn(name = "friendlinkctg_id")
     private CmsFriendlinkCtg category;
+
+    @ManyToOne
+    @JoinColumn(name = "site_id")
     private CmsSite site;
 
     public Integer getId() {

@@ -2,21 +2,34 @@ package com.jeecms.cms.entity.assist;
 
 import com.jeecms.cms.entity.main.Content;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.io.Serializable;
 
-
+@Entity
+@Table(name = "jc_file")
 public class CmsFile implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    // primary key
+    @Id
+    @Column(name = "file_path")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private String filePath;
 
-    // fields
+    /**
+     * 文件名字
+     */
+    @Column(name = "file_name")
     private String fileName;
+
+    /**
+     * 是否有效
+     */
+    @Column(name = "file_isvalid")
     private boolean fileIsvalid;
 
+    /**
+     * 所属内容
+     */
     @ManyToOne
     @JoinColumn(name = "content_id")
     private Content content;

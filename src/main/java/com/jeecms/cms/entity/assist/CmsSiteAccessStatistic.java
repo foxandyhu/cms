@@ -1,13 +1,22 @@
 package com.jeecms.cms.entity.assist;
 
 import com.jeecms.core.entity.CmsSite;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
-
+/**
+ * 访问统计
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/11/17 10:08
+ */
+@Entity
+@Table(name = "jc_site_access_statistic")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class CmsSiteAccessStatistic implements Serializable {
     public static final String STATISTIC_ALL = "all";
     public static final String STATISTIC_SOURCE = "source";
@@ -24,17 +33,57 @@ public class CmsSiteAccessStatistic implements Serializable {
     public static final int STATISTIC_TARGET_VISITSECOND = 3;
     public static final int STATISTIC_TARGET_ALL = 4;
 
-    // primary key
+    @Id
+    @Column(name = "access_statistic_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    // fields
+    /**
+     * 统计日期
+     */
+    @Column(name = "statistic_date")
     private Date statisticDate;
+
+    /**
+     * pv量
+     */
+    @Column(name = "pv")
     private Long pv;
+
+    /**
+     * ip量
+     */
+    @Column(name = "ip")
     private Long ip;
+
+    /**
+     * 访客数量
+     */
+    @Column(name = "visitors")
     private Long visitors;
+
+    /**
+     * 人均浏览次数
+     */
+    @Column(name = "pages_aver")
     private Long pagesAver;
+
+    /**
+     * 人均访问时长（秒）
+     */
+    @Column(name = "visit_second_aver")
     private Long visitSecondAver;
+
+    /**
+     * 统计分类（all代表当天所有访问量的统计）
+     */
+    @Column(name = "statisitc_type")
     private String statisitcType;
+
+    /**
+     * 统计列值
+     */
+    @Column(name = "statistic_column_value")
     private String statisticColumnValue;
 
     @ManyToOne

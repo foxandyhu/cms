@@ -3,13 +3,24 @@ package com.jeecms.cms.entity.assist;
 import com.jeecms.common.util.DateUtils;
 import com.jeecms.common.web.springmvc.MessageResolver;
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.json.JSONObject;
 
+import javax.persistence.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.util.Date;
 
-
+/**
+ * 接口调用记录
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/11/17 10:56
+ */
+@Entity
+@Table(name = "jc_webservice_call_record")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class CmsWebserviceCallRecord implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -43,14 +54,25 @@ public class CmsWebserviceCallRecord implements Serializable {
         return json;
     }
 
-    // primary key
+    @Id
+    @Column(name = "record_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    // fields
+    /**
+     * 接口识别码
+     */
+    @Column(name = "service_code")
     private String serviceCode;
+
+    /**
+     * 调用时间
+     */
+    @Column(name = "record_time")
     private Date recordTime;
 
-    // many to one
+    @ManyToOne
+    @JoinColumn(name = "auth_id")
     private CmsWebserviceAuth auth;
 
 

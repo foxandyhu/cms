@@ -2,28 +2,62 @@ package com.jeecms.cms.entity.assist;
 
 import com.jeecms.core.entity.CmsSite;
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.json.JSONObject;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
 
-
+/**
+ * 评分组
+ * @author andy_hulibo@163.com
+ * @date 2018/11/17 9:45
+ */
+@Entity
+@Table(name = "jc_score_group")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class CmsScoreGroup implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    // primary key
+    @Id
+    @Column(name = "score_group_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    // fields
+    /**
+     * 分组名
+     */
+    @Column(name = "name")
     private String name;
+
+    /**
+     * 描述
+     */
+    @Column(name = "description")
     private String description;
+
+    /**
+     * 是否启用
+     */
+    @Column(name = "enable")
     private boolean enable;
+
+    /**
+     * 是否默认
+     */
+    @Column(name = "def")
     private boolean def;
 
-    // many to one
+    /**
+     * 所属站点
+     */
+    @ManyToOne
+    @JoinColumn(name = "site_id")
     private CmsSite site;
 
-    // collections
+    @OneToMany(mappedBy = "group", fetch = FetchType.LAZY)
     private Set<CmsScoreItem> items;
 
 

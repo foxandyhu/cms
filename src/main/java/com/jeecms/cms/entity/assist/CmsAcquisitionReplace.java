@@ -1,11 +1,22 @@
 package com.jeecms.cms.entity.assist;
 
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.json.JSONObject;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
-
+/**
+ * 采集内容替换
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/11/16 16:35
+ */
+@Entity
+@Table(name = "jc_acquisition_replace")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class CmsAcquisitionReplace implements Serializable {
 
     public JSONObject convertToJson() {
@@ -32,14 +43,25 @@ public class CmsAcquisitionReplace implements Serializable {
 
     }
 
-    // primary key
+    @Id
+    @Column(name = "replace_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    // fields
+    /**
+     * 关键词
+     */
+    @Column(name = "keyword")
     private String keyword;
+
+    /**
+     * 替换词
+     */
+    @Column(name = "replace_word")
     private String replaceWord;
 
-    // many to one
+    @ManyToOne
+    @JoinColumn(name = "acquisition_id")
     private CmsAcquisition acquisition;
 
     public Integer getId() {

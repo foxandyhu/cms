@@ -8,20 +8,53 @@ import org.apache.commons.lang.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
+/**
+ * 站内信收信表
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/11/16 17:46
+ */
+@Entity
+@Table(name = "jc_receiver_message")
 public class CmsReceiverMessage implements Serializable {
 
-    // primary key
+    @Id
+    @Column(name = "msg_re_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    // fields
+    /**
+     * 标题
+     */
+    @Column(name = "msg_title")
     private String msgTitle;
+
+    /**
+     * 站内信息内容
+     */
+    @Column(name = "msg_content")
     private String msgContent;
-    private java.util.Date sendTime;
+
+    /**
+     * 发送时间
+     */
+    @Column(name = "send_time")
+    private Date sendTime;
+
+    /**
+     * 消息状态0未读，1已读
+     */
+    @Column(name = "msg_status")
     private boolean msgStatus;
+
+    /**
+     * 消息信箱 0收件箱 1发件箱 2草稿箱 3垃圾箱
+     */
+    @Column(name = "msg_box")
     private Integer msgBox;
 
 
@@ -33,7 +66,12 @@ public class CmsReceiverMessage implements Serializable {
     @JoinColumn(name = "msg_receiver_user")
     private CmsUser msgSendUser;
 
+    @ManyToOne
+    @JoinColumn(name = "site_id")
     private CmsSite site;
+
+    @ManyToOne
+    @JoinColumn(name = "msg_id")
     private CmsMessage message;
 
     public Integer getId() {
@@ -60,11 +98,11 @@ public class CmsReceiverMessage implements Serializable {
         this.msgContent = msgContent;
     }
 
-    public java.util.Date getSendTime() {
+    public Date getSendTime() {
         return sendTime;
     }
 
-    public void setSendTime(java.util.Date sendTime) {
+    public void setSendTime(Date sendTime) {
         this.sendTime = sendTime;
     }
 

@@ -1,10 +1,22 @@
 package com.jeecms.cms.entity.assist;
 
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.json.JSONObject;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
+/**
+ * 采集内容屏蔽
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/11/16 16:38
+ */
+@Entity
+@Table(name = "jc_acquisition_shield")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class CmsAcquisitionShield implements Serializable {
 
     public JSONObject convertToJson() {
@@ -27,14 +39,25 @@ public class CmsAcquisitionShield implements Serializable {
         return json;
     }
 
-    // primary key
+    @Id
+    @Column(name = "shield_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    // fields
+    /**
+     * 屏蔽开始
+     */
+    @Column(name = "shield_start")
     private String shieldStart;
+
+    /**
+     * 屏蔽结束
+     */
+    @Column(name = "shield_end")
     private String shieldEnd;
 
-    // many to one
+    @ManyToOne
+    @JoinColumn(name = "acquisition_id")
     private CmsAcquisition acquisition;
 
     public Integer getId() {

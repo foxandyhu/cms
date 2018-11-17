@@ -1,24 +1,54 @@
 package com.jeecms.cms.entity.assist;
 
 import com.jeecms.core.entity.CmsUser;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
-
+/**
+ * CMS投票记录
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/11/17 10:31
+ */
+@Entity
+@Table(name = "jc_vote_record")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class CmsVoteRecord implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    // primary key
+    @Id
+    @Column(name = "voterecored_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    // fields
+    /**
+     *投票时间
+     */
+    @Column(name = "vote_time")
     private Date time;
+
+    /**
+     *投票IP
+     */
+    @Column(name = "vote_ip")
     private String ip;
+
+    /**
+     *投票COOKIE
+     */
+    @Column(name = "vote_cookie")
     private String cookie;
 
-    // many to one
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private CmsUser user;
+
+    @ManyToOne
+    @JoinColumn(name = "votetopic_id")
     private CmsVoteTopic topic;
 
 

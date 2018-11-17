@@ -1,9 +1,17 @@
 package com.jeecms.cms.entity.assist;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
-
+/**
+ * 插件
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/11/16 17:42
+ */
+@Entity
+@Table(name = "jc_plug")
 public class CmsPlug implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -33,65 +41,120 @@ public class CmsPlug implements Serializable {
         }
     }
 
-    // primary key
-    private java.lang.Integer id;
+    @Id
+    @Column(name = "plug_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-    // fields
-    private java.lang.String name;
-    private java.lang.String path;
-    private java.lang.String description;
-    private java.lang.String author;
+    /**
+     * 插件名称
+     */
+    @Column(name = "name")
+    private String name;
+
+    /**
+     * 文件路径
+     */
+    @Column(name = "path")
+    private String path;
+
+    /**
+     * 描述
+     */
+    @Column(name = "description")
+    private String description;
+
+    /**
+     * 作者
+     */
+    @Column(name = "author")
+    private String author;
+
+    /**
+     * 上传时间
+     */
+    @Column(name = "upload_time")
     private Date uploadTime;
+
+    /**
+     * 安装时间
+     */
+    @Column(name = "install_time")
     private Date installTime;
+
+    /**
+     * 卸载时间
+     */
+    @Column(name = "uninstall_time")
     private Date uninstallTime;
+
+    /**
+     * 包含文件是否冲突
+     */
+    @Column(name = "file_conflict")
     private Boolean fileConflict;
+
+    /**
+     * 使用状态(0未使用,1使用中)
+     */
+    @Column(name = "is_used")
     private Boolean used;
-    private java.lang.String plugPerms;
+
+    /**
+     * 插件权限（,分隔各个权限配置）
+     */
+    @Column(name = "plug_perms")
+    private String plugPerms;
+
+    /**
+     * 是否修复类插件(0 新功能插件 1修复类)
+     */
+    @Column(name = "plug_repair")
     private boolean plugRepair;
 
 
-    public java.lang.Integer getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(java.lang.Integer id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public java.lang.String getName() {
+    public String getName() {
         return name;
     }
 
 
-    public void setName(java.lang.String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public java.lang.String getPath() {
+    public String getPath() {
         return path;
     }
 
-    public void setPath(java.lang.String path) {
+    public void setPath(String path) {
         this.path = path;
     }
 
 
-    public java.lang.String getDescription() {
+    public String getDescription() {
         return description;
     }
 
 
-    public void setDescription(java.lang.String description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
 
-    public java.lang.String getAuthor() {
+    public String getAuthor() {
         return author;
     }
 
 
-    public void setAuthor(java.lang.String author) {
+    public void setAuthor(String author) {
         this.author = author;
     }
 
@@ -143,12 +206,12 @@ public class CmsPlug implements Serializable {
     }
 
 
-    public java.lang.String getPlugPerms() {
+    public String getPlugPerms() {
         return plugPerms;
     }
 
 
-    public void setPlugPerms(java.lang.String plugPerms) {
+    public void setPlugPerms(String plugPerms) {
         this.plugPerms = plugPerms;
     }
 

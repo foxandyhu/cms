@@ -1,14 +1,25 @@
 package com.jeecms.cms.entity.assist;
 
+import org.hibernate.annotations.Cache;
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import javax.persistence.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 接口表
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/11/17 10:47
+ */
+@Entity
+@Table(name = "jc_webservice")
 public class CmsWebservice implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -71,17 +82,42 @@ public class CmsWebservice implements Serializable {
         return json;
     }
 
-    // primary key
+    @Id
+    @Column(name = "service_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    // fields
+    /**
+     * 接口地址
+     */
+    @Column(name = "service_address")
     private String address;
+
+    @Column(name = "target_namespace")
     private String targetNamespace;
+
+    /**
+     * 正确返回值
+     */
+    @Column(name = "success_result")
     private String successResult;
+
+    /**
+     * 接口类型
+     */
+    @Column(name = "service_type")
     private String type;
+
+    /**
+     * 接口操作
+     */
+    @Column(name = "service_operate")
     private String operate;
 
-    // collections
+    @ElementCollection
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE,region = "beanCache")
+    @OrderColumn(name = "priority")
+    @CollectionTable(name = "jc_webservice_param",joinColumns = @JoinColumn(name = "service_id"))
     private List<CmsWebserviceParam> params;
 
 

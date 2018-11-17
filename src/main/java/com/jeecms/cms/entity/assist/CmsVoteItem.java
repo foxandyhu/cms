@@ -1,10 +1,22 @@
 package com.jeecms.cms.entity.assist;
 
 import com.jeecms.common.hibernate4.PriorityInterface;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
 
+/**
+ * CMS投票项
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/11/17 10:25
+ */
+@Entity
+@Table(name = "jc_vote_item")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class CmsVoteItem implements PriorityInterface, Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -32,17 +44,41 @@ public class CmsVoteItem implements PriorityInterface, Serializable {
         }
     }
 
-    // primary key
+    @Id
+    @Column(name = "voteitem_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    // fields
+    /**
+     * 标题
+     */
+    @Column(name = "title")
     private String title;
+
+    /**
+     * 投票数量
+     */
+    @Column(name = "vote_count")
     private Integer voteCount;
+
+    /**
+     * 排列顺序
+     */
+    @Column(name = "priority")
     private Integer priority;
+
+    /**
+     * 图片
+     */
+    @Column(name = "picture")
     private String picture;
 
-    // many to one
+    @ManyToOne
+    @JoinColumn(name = "votetopic_id")
     private CmsVoteTopic topic;
+
+    @ManyToOne
+    @JoinColumn(name = "subtopic_id")
     private CmsVoteSubTopic subTopic;
 
 

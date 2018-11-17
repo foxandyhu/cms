@@ -2,10 +2,22 @@ package com.jeecms.cms.entity.assist;
 
 import com.jeecms.core.entity.CmsSite;
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.json.JSONObject;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
+/**
+ * CMS内容关键词
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/11/16 17:31
+ */
+@Entity
+@Table(name = "jc_keyword")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class CmsKeyword implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -40,15 +52,31 @@ public class CmsKeyword implements Serializable {
         return json;
     }
 
-    // primary key
+    @Id
+    @Column(name = "keyword_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    // fields
+    /**
+     * 名称
+     */
+    @Column(name = "keyword_name")
     private String name;
+
+    /**
+     * 链接
+     */
+    @Column(name = "url")
     private String url;
+
+    /**
+     * 是否禁用
+     */
+    @Column(name = "is_disabled")
     private Boolean disabled;
 
-    // many to one
+    @ManyToOne
+    @JoinColumn(name = "site_id")
     private CmsSite site;
 
     public Integer getId() {

@@ -5,39 +5,86 @@ import com.jeecms.common.util.StrUtils;
 import com.jeecms.core.entity.CmsSite;
 import com.jeecms.core.entity.CmsUser;
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-
+/**
+ * 站内信
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/11/16 17:34
+ */
+@Entity
+@Table(name = "jc_message")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class CmsMessage implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    // primary key
+    @Id
+    @Column(name = "msg_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    // fields
+    /**
+     * 标题
+     */
+    @Column(name = "msg_title")
     private String msgTitle;
+
+    /**
+     * 站内信息内容
+     */
+    @Column(name = "msg_content")
     private String msgContent;
+
+    /**
+     * 发送时间
+     */
+    @Column(name = "send_time")
     private Date sendTime;
+
+    /**
+     * 消息状态0未读，1已读
+     */
+    @Column(name = "msg_status")
     private Boolean msgStatus;
+
+    /**
+     * 消息信箱 0收件箱 1发件箱 2草稿箱 3垃圾箱
+     */
+    @Column(name = "msg_box")
     private Integer msgBox;
 
+    /**
+     * 接收人
+     */
     @ManyToOne
     @JoinColumn(name = "msg_receiver_user")
     private CmsUser msgReceiverUser;
 
+    /**
+     * 发送人
+     */
     @ManyToOne
     @JoinColumn(name = "msg_send_user")
     private CmsUser msgSendUser;
+
+    /**
+     * 所属站点
+     */
+    @ManyToOne
+    @JoinColumn(name = "site_id")
     private CmsSite site;
 
-    // collections
+    @OneToMany(mappedBy = "message")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
     private Set<CmsReceiverMessage> receiverMsgs;
 
 

@@ -1,13 +1,25 @@
 package com.jeecms.cms.entity.assist;
 
 
+import com.jeecms.common.hibernate4.PriorityComparator;
 import com.jeecms.common.hibernate4.PriorityInterface;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.SortComparator;
 
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
 
-
+/**
+ * 投票子题目
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/11/17 10:38
+ */
+@Entity
+@Table(name = "jc_vote_subtopic")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class CmsVoteSubTopic implements PriorityInterface, Comparable<Object>, Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -15,19 +27,40 @@ public class CmsVoteSubTopic implements PriorityInterface, Comparable<Object>, S
     @Transient
     private Integer voteIndex;
 
-    // primary key
+    @Id
+    @Column(name = "subtopic_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    // fields
+    /**
+     * 标题
+     */
+    @Column(name = "title")
     private String title;
+
+    /**
+     * 类型（1单选，2多选，3文本）
+     */
+    @Column(name = "subtopic_type")
     private Integer type;
+
+    @Column(name = "priority")
     private Integer priority;
 
-    // many to one
+    /**
+     * 投票（调查）
+     */
+    @ManyToOne
+    @JoinColumn(name = "votetopic_id")
     private CmsVoteTopic voteTopic;
 
-    // collections
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
+    @OneToMany(mappedBy = "subTopic", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @SortComparator(value = PriorityComparator.class)
     private Set<CmsVoteItem> voteItems;
+
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
+    @OneToMany(mappedBy = "subTopic", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Set<CmsVoteReply> voteReplys;
 
     public Integer getId() {

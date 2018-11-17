@@ -1,11 +1,22 @@
 package com.jeecms.cms.entity.assist;
 
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.json.JSONObject;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
-
+/**
+ * CMS敏感词
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/11/17 9:54
+ */
+@Entity
+@Table(name = "jc_sensitivity")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class CmsSensitivity implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -29,11 +40,21 @@ public class CmsSensitivity implements Serializable {
         return json;
     }
 
-    // primary key
+    @Id
+    @Column(name = "sensitivity_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    // fields
+    /**
+     * 敏感词
+     */
+    @Column(name = "search")
     private String search;
+
+    /**
+     * 替换词
+     */
+    @Column(name = "replacement")
     private String replacement;
 
 

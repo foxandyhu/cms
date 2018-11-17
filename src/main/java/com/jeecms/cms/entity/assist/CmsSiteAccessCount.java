@@ -1,23 +1,47 @@
 package com.jeecms.cms.entity.assist;
 
 import com.jeecms.core.entity.CmsSite;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
-
+/**
+ * 每日统计页数访问情况
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/11/17 10:01
+ */
+@Entity
+@Table(name = "jc_site_access_count")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class CmsSiteAccessCount implements Serializable {
     private static final long serialVersionUID = 1L;
 
 
-    // primary key
+    @Id
+    @Column(name = "access_count")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    // fields
+    /**
+     * 访问页数
+     */
+    @Column(name = "page_count")
     private Integer pageCount;
+
+    /**
+     * 用户数
+     */
+    @Column(name = "visitors")
     private Integer visitors;
+
+    /**
+     * 统计日期
+     */
+    @Column(name = "statistic_date")
     private Date statisticDate;
 
     @ManyToOne

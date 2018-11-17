@@ -5,9 +5,17 @@ import org.apache.commons.lang.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
-
+/**
+ * CMS广告版位
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/11/16 16:47
+ */
+@Entity
+@Table(name = "jc_advertising_space")
 public class CmsAdvertisingSpace implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -43,15 +51,31 @@ public class CmsAdvertisingSpace implements Serializable {
         }
     }
 
-    // primary key
+    @Id
+    @Column(name = "adspace_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    // fields
+    /**
+     * 名称
+     */
+    @Column(name = "ad_name")
     private String name;
+
+    /**
+     * 描述
+     */
+    @Column(name = "description")
     private String description;
+
+    /**
+     * 是否启用
+     */
+    @Column(name = "is_enabled")
     private Boolean enabled;
 
-    // many to one
+    @ManyToOne
+    @JoinColumn(name = "site_id")
     private CmsSite site;
 
 

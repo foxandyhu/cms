@@ -4,9 +4,16 @@ import com.jeecms.cms.entity.main.Content;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONObject;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
-
+/**
+ * 采集历史记录
+ * @author andy_hulibo@163.com
+ * @date 2018/11/16 16:32
+ */
+@Entity
+@Table(name = "jc_acquisition_history")
 public class CmsAcquisitionHistory implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -57,17 +64,47 @@ public class CmsAcquisitionHistory implements Serializable {
         return json;
     }
 
-    // primary key
+    @Id
+    @Column(name = "history_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    // fields
+    /**
+     *栏目地址
+     */
+    @Column(name = "channel_url")
     private String channelUrl;
+
+    /**
+     *内容地址
+     */
+    @Column(name = "content_url")
     private String contentUrl;
+
+    /**
+     *标题
+     */
+    @Column(name = "title")
     private String title;
+
+    /**
+     *描述
+     */
+    @Column(name = "description")
     private String description;
 
-    // many to one
+    /**
+     * 采集源
+     */
+    @ManyToOne
+    @JoinColumn(name = "acquisition_id")
     private CmsAcquisition acquisition;
+
+    /**
+     * 内容
+     */
+    @ManyToOne
+    @JoinColumn(name = "content_id")
     private Content content;
 
 

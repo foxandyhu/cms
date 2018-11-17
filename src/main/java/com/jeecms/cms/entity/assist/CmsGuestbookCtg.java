@@ -2,12 +2,23 @@ package com.jeecms.cms.entity.assist;
 
 import com.jeecms.core.entity.CmsSite;
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
-
+/**
+ * CMS留言类别
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/11/16 17:23
+ */
+@Entity
+@Table(name = "jc_guestbook_ctg")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class CmsGuestbookCtg implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -43,15 +54,31 @@ public class CmsGuestbookCtg implements Serializable {
         }
     }
 
-    // primary key
+    @Id
+    @Column(name = "guestbookctg_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    // fields
+    /**
+     * 名称
+     */
+    @Column(name = "ctg_name")
     private String name;
+
+    /**
+     * 排列顺序
+     */
+    @Column(name = "priority")
     private Integer priority;
+
+    /**
+     * 描述
+     */
+    @Column(name = "description")
     private String description;
 
-    // many to one
+    @ManyToOne
+    @JoinColumn(name = "site_id")
     private CmsSite site;
 
 

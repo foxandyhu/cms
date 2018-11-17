@@ -1,18 +1,36 @@
 package com.jeecms.cms.entity.assist;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import javax.persistence.*;
 import java.io.Serializable;
 
-
+/**
+ * 投票文本题目回复
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/11/17 10:36
+ */
+@Entity
+@Table(name = "jc_vote_reply")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class CmsVoteReply implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    // primary key
+    @Id
+    @Column(name = "votereply_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    // fields
+    /**
+     * 回复内容
+     */
+    @Column(name = "reply")
     private String reply;
 
-    // many to one
+    @ManyToOne
+    @JoinColumn(name = "subtopic_id")
     private CmsVoteSubTopic subTopic;
 
 

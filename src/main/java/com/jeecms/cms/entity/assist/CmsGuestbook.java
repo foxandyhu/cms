@@ -5,32 +5,80 @@ import com.jeecms.common.util.StrUtils;
 import com.jeecms.core.entity.CmsSite;
 import com.jeecms.core.entity.CmsUser;
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Date;
 
+/**
+ * CMS留言
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/11/16 17:18
+ */
+@Entity
+@Table(name = "jc_guestbook")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class CmsGuestbook implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    // primary key
+    @Id
+    @Column(name = "guestbook_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    // fields
+    /**
+     * 留言IP
+     */
+    @Column(name = "ip")
     private String ip;
-    private java.util.Date createTime;
-    private java.util.Date replayTime;
+
+    /**
+     * 留言时间
+     */
+    @Column(name = "create_time")
+    private Date createTime;
+
+    /**
+     * 回复时间
+     */
+    @Column(name = "replay_time")
+    private Date replayTime;
+
+    /**
+     * 是否审核
+     */
+    @Column(name = "is_checked")
     private Short checked;
+
+    /**
+     * 是否推荐
+     */
+    @Column(name = "is_recommend")
     private Boolean recommend;
 
-    // one to one
+    @OneToOne(mappedBy = "guestbook", cascade = CascadeType.REMOVE)
     private CmsGuestbookExt ext;
 
-    // many to one
+    @ManyToOne
+    @JoinColumn(name = "member_id")
     private CmsUser member;
+
+    @ManyToOne
+    @JoinColumn(name = "admin_id")
     private CmsUser admin;
+
+    @ManyToOne
+    @JoinColumn(name = "site_id")
     private CmsSite site;
+
+    @ManyToOne
+    @JoinColumn(name = "guestbookctg_id")
     private CmsGuestbookCtg ctg;
 
 
@@ -53,19 +101,19 @@ public class CmsGuestbook implements Serializable {
     }
 
 
-    public java.util.Date getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(java.util.Date createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
-    public java.util.Date getReplayTime() {
+    public Date getReplayTime() {
         return replayTime;
     }
 
-    public void setReplayTime(java.util.Date replayTime) {
+    public void setReplayTime(Date replayTime) {
         this.replayTime = replayTime;
     }
 

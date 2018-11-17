@@ -1,17 +1,31 @@
 package com.jeecms.cms.entity.assist;
 
+import com.jeecms.common.hibernate4.PriorityComparator;
 import com.jeecms.common.util.DateUtils;
 import com.jeecms.core.entity.CmsSite;
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.SortComparator;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Set;
 
+/**
+ * CMS投票主题
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/11/17 10:42
+ */
+@Entity
+@Table(name = "jc_vote_topic")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class CmsVoteTopic implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -253,31 +267,110 @@ public class CmsVoteTopic implements Serializable {
         }
     }
 
-    // primary key
+    @Id
+    @Column(name = "votetopic_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    // fields
+    /**
+     * 标题
+     */
+    @Column(name = "title")
     private String title;
+
+    /**
+     * 描述
+     */
+    @Column(name = "description")
     private String description;
+
+    /**
+     * 开始时间
+     */
+    @Column(name = "start_time")
     private Date startTime;
+
+    /**
+     * 结束时间
+     */
+    @Column(name = "end_time")
     private Date endTime;
+
+    /**
+     * 重复投票限制时间，单位小时，为空不允许重复投票
+     */
+    @Column(name = "repeate_hour")
     private Integer repeateHour;
+
+    /**
+     * 总投票数
+     */
+    @Column(name = "total_count")
     private Integer totalCount;
+
+    /**
+     * 最多可以选择几项
+     */
+    @Column(name = "multi_select")
     private Integer multiSelect;
+
+    /**
+     * 是否限制会员
+     */
+    @Column(name = "is_restrict_member")
     private Boolean restrictMember;
+
+    /**
+     * 是否限制IP
+     */
+    @Column(name = "is_restrict_ip")
     private Boolean restrictIp;
+
+    /**
+     * 是否限制COOKIE
+     */
+    @Column(name = "is_restrict_cookie")
     private Boolean restrictCookie;
+
+    /**
+     * 是否禁用
+     */
+    @Column(name = "is_disabled")
     private Boolean disabled;
+
+    /**
+     * 是否默认主题
+     */
+    @Column(name = "is_def")
     private Boolean def;
+
+    /**
+     * 是否限制微信
+     */
+    @Column(name = "limit_weixin")
     private Boolean limitWeiXin;
+
+    /**
+     * 限定微信投票每个用户每日投票次数,为0时则投票期内限定投票一次
+     */
+    @Column(name = "vote_day")
     private Integer voteDay;
 
-    // many to one
+    @ManyToOne
+    @JoinColumn(name = "site_id")
     private CmsSite site;
 
-    // collections
+    @OneToMany(mappedBy = "topic", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @SortComparator(value = PriorityComparator.class)
     private Set<CmsVoteItem> items;
+
+    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @SortComparator(value = PriorityComparator.class)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
     private Set<CmsVoteSubTopic> subtopics;
+
+    @OneToMany(mappedBy = "topic", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
     private Set<CmsVoteRecord> records;
 
     public Integer getId() {

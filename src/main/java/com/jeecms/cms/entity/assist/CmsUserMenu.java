@@ -1,21 +1,42 @@
 package com.jeecms.cms.entity.assist;
 
 import com.jeecms.core.entity.CmsUser;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.io.Serializable;
 
-
+/**
+ * 用户常用菜单
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/11/17 10:23
+ */
+@Entity
+@Table(name = "jc_user_menu")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class CmsUserMenu implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    // primary key
+    @Id
+    @Column(name = "menu_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    // fields
+    /**
+     * 菜单名称
+     */
+    @Column(name = "menu_name")
     private String name;
+
+    /**
+     * 菜单地址
+     */
+    @Column(name = "menu_url")
     private String url;
+
+    @Column(name = "priority")
     private Integer priority;
 
     @ManyToOne

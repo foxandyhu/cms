@@ -4,13 +4,22 @@ import com.jeecms.cms.entity.main.Content;
 import com.jeecms.common.util.DateUtils;
 import com.jeecms.core.entity.CmsUser;
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.json.JSONObject;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
-
+/**
+ * 职位申请表
+ * @author andy_hulibo@163.com
+ * @date 2018/11/16 17:29
+ */
+@Entity
+@Table(name = "jc_job_apply")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE,region = "beanCache")
 public class CmsJobApply implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -54,16 +63,27 @@ public class CmsJobApply implements Serializable {
         return json;
     }
 
-    // primary key
+    @Id
+    @Column(name = "job_apply_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    // fields
-    private java.util.Date applyTime;
+    /**
+     *申请时间
+     */
+    @Column(name = "apply_time")
+    private Date applyTime;
 
+    /**
+     * 职位信息
+     */
     @ManyToOne
     @JoinColumn(name = "content_id")
     private Content content;
 
+    /**
+     * 所属用户
+     */
     @ManyToOne
     @JoinColumn(name = "user_id")
     private CmsUser user;
@@ -78,11 +98,11 @@ public class CmsJobApply implements Serializable {
     }
 
 
-    public java.util.Date getApplyTime() {
+    public Date getApplyTime() {
         return applyTime;
     }
 
-    public void setApplyTime(java.util.Date applyTime) {
+    public void setApplyTime(Date applyTime) {
         this.applyTime = applyTime;
     }
 

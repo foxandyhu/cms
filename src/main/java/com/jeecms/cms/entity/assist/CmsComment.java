@@ -6,46 +6,108 @@ import com.jeecms.common.util.StrUtils;
 import com.jeecms.core.entity.CmsSite;
 import com.jeecms.core.entity.CmsUser;
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Set;
 
+/**
+ * CMS评论
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/11/16 16:50
+ */
+@Entity
+@Table(name = "jc_comment")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class CmsComment implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    // primary key
+    @Id
+    @Column(name = "comment_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    // fields
-    private java.util.Date createTime;
-    private java.util.Date replayTime;
+    /**
+     * 评论时间
+     */
+    @Column(name = "create_time")
+    private Date createTime;
+
+    /**
+     * 回复时间
+     */
+    @Column(name = "reply_time")
+    private Date replayTime;
+
+    /**
+     * 支持数
+     */
+    @Column(name = "ups")
     private Short ups;
+
+    /**
+     * 反对数
+     */
+    @Column(name = "downs")
     private Short downs;
+
+    /**
+     * 是否推荐
+     */
+    @Column(name = "is_recommend")
     private Boolean recommend;
+
+    /**
+     * 是否审核
+     */
+    @Column(name = "is_checked")
     private Short checked;
+
+    /**
+     * 评分
+     */
+    @Column(name = "score")
     private Integer score;
 
+    /**
+     * 回复数
+     */
+    @Column(name = "reply_count")
     private Integer replyCount;
+
+    @ManyToOne
+    @JoinColumn(name = "parent_id")
     private CmsComment parent;
 
-    // one to one
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.REMOVE)
+    private Set<CmsComment> child;
+
+    @OneToOne(cascade = CascadeType.REMOVE, mappedBy = "comment")
     private CmsCommentExt commentExt;
 
-    // many to one
+    @ManyToOne
+    @JoinColumn(name = "reply_user_id")
     private CmsUser replayUser;
 
     @ManyToOne
     @JoinColumn(name = "content_id")
     private Content content;
+
+    @ManyToOne
+    @JoinColumn(name = "comment_user_id")
     private CmsUser commentUser;
+
+    @ManyToOne
+    @JoinColumn(name = "site_id")
     private CmsSite site;
 
-    private Set<CmsComment> child;
 
     public Integer getId() {
         return id;
@@ -56,19 +118,19 @@ public class CmsComment implements Serializable {
     }
 
 
-    public java.util.Date getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(java.util.Date createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
-    public java.util.Date getReplayTime() {
+    public Date getReplayTime() {
         return replayTime;
     }
 
-    public void setReplayTime(java.util.Date replayTime) {
+    public void setReplayTime(Date replayTime) {
         this.replayTime = replayTime;
     }
 
