@@ -202,7 +202,6 @@ public class LuceneContentSvcImpl implements LuceneContentSvc {
     }
 
     @Autowired
-    @Qualifier("myServletRealPathResolver")
     private RealPathResolver realPathResolver;
     @Autowired
     private ContentMng contentMng;

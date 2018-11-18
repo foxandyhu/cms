@@ -513,7 +513,6 @@ public class AdminApiInterceptor extends HandlerInterceptorAdapter implements In
 	@Autowired
 	private CmsAuthorizingRealm authorizingRealm;
 	@Autowired
-	@Qualifier("myServletRealPathResolver")
 	private RealPathResolver realPathResolver;
 	@Autowired
 	private SessionProvider session;

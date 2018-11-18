@@ -165,7 +165,6 @@ public class FileTplManagerImpl implements TplManager {
     private RealPathResolver realPathResolver;
 
     @Autowired
-    @Qualifier("myServletRealPathResolver")
     public void setRealPathResolver(RealPathResolver realPathResolver) {
         this.realPathResolver = realPathResolver;
         root = realPathResolver.get("");

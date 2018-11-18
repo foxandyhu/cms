@@ -453,7 +453,6 @@ public class UeditorAct {
 	@Autowired
 	private ImageScale imageScale;
 	@Autowired
-	@Qualifier("myServletRealPathResolver")
 	private RealPathResolver realPathResolver;
 	@Autowired
 	private CmsUserMng cmsUserMng;

@@ -1717,7 +1717,6 @@ public class ContentApiAct {
 	@Autowired
 	private WeiXinSvc weiXinSvc;
 	@Autowired
-	@Qualifier("myServletRealPathResolver")
 	private RealPathResolver realPathResolver;
 	@Autowired
 	private FtpMng ftpMng;

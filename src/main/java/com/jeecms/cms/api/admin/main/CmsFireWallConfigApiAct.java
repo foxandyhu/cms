@@ -176,7 +176,6 @@ public class CmsFireWallConfigApiAct {
 	}
 	
 	@Autowired
-	@Qualifier("myServletRealPathResolver")
 	private RealPathResolver realPathResolver;
 	@Autowired
 	private CmsSiteMng siteManager;

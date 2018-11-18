@@ -1,6 +1,7 @@
 package com.jeecms.config;
 
 import com.jeecms.common.web.springmvc.RealPathResolver;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.ServletContextAware;
 
@@ -11,13 +12,12 @@ public class ServletContextRealPathResolver implements RealPathResolver, Servlet
 
     @Override
     public String get(String path) {
-//        String realpath = context.getRealPath(path);
-//        //tomcat8.0获取不到真实路径，通过/获取路径
-//        if (StringUtils.isBlank(realpath)) {
-//            realpath = context.getRealPath("/") + path;
-//        }
-//        return realpath;
-        return "";
+        String realpath = context.getRealPath(path);
+        //tomcat8.0获取不到真实路径，通过/获取路径
+        if (StringUtils.isBlank(realpath)) {
+            realpath = context.getRealPath("/") + path;
+        }
+        return realpath;
     }
 
     @Override

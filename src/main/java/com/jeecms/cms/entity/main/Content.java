@@ -629,6 +629,7 @@ public class Content implements ContentInterface, Serializable {
 
     public static int DATA_CONTENT = 0;
 
+    @Transient
     private DateFormat df = new SimpleDateFormat("/yyyyMMdd");
 
     public Boolean getStaticContent() {

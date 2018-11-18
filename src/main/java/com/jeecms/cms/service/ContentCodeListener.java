@@ -101,7 +101,6 @@ public class ContentCodeListener extends ContentListenerAbstract {
             file.delete();
         }
     }
-    @Qualifier("myServletRealPathResolver")
     @Autowired
     private RealPathResolver realPathResolver;
     @Autowired

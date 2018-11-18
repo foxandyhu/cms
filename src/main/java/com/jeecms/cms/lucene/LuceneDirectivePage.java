@@ -97,7 +97,6 @@ public class LuceneDirectivePage extends LuceneDirectiveAbstract {
 	@Autowired
 	private LuceneContentSvc luceneContentSvc;
 	@Autowired
-	@Qualifier("myServletRealPathResolver")
 	private RealPathResolver realPathResolver;
 
 }

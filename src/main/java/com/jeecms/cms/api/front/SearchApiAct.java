@@ -104,7 +104,6 @@ public class SearchApiAct {
 	@Autowired
 	private LuceneContentSvc luceneContentSvc;
 	@Autowired
-	@Qualifier("myServletRealPathResolver")
 	private RealPathResolver realPathResolver;
 }
 

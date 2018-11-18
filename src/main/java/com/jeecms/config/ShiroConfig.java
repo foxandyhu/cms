@@ -113,7 +113,7 @@ public class ShiroConfig {
         return authc;
     }
 
-    //@Bean("shiroFilter")
+    @Bean("shiroFilter")
     public ShiroFilterFactoryBean shiroFilter(WebSecurityManager securityManager) {
         ShiroFilterFactoryBean bean = new ShiroFilterFactoryBean();
         bean.setSecurityManager(securityManager);
@@ -137,11 +137,10 @@ public class ShiroConfig {
     }
 
     @Bean
-    public WebSecurityManager securityManager(EhCacheManager cacheManager, RememberMeManager rememberMeManager, CmsAuthorizingRealm realm) {
+    public WebSecurityManager securityManager(EhCacheManager cacheManager, RememberMeManager rememberMeManager) {
         DefaultWebSecurityManager manager = new DefaultWebSecurityManager();
         manager.setCacheManager(cacheManager);
         manager.setRememberMeManager(rememberMeManager);
-        manager.setRealm(realm);
         return manager;
     }
 

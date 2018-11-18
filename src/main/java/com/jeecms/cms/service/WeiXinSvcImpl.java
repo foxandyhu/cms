@@ -566,7 +566,6 @@ public class WeiXinSvcImpl implements WeiXinSvc {
     }
 
     @Autowired
-    @Qualifier("myServletRealPathResolver")
     private RealPathResolver realPathResolver;
     @Autowired
     private WeixinTokenCache weixinTokenCache;

@@ -505,7 +505,6 @@ public class MysqlDataApiAct {
     }
 
     @Autowired
-    @Qualifier("myServletRealPathResolver")
     private RealPathResolver realPathResolver;
     @Autowired
     private CmsMysqlDataBackMng dataBackMng;

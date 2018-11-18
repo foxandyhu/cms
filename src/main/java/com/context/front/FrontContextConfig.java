@@ -119,7 +119,6 @@ public class FrontContextConfig extends WebMvcConfigurerAdapter {
         FreeMarkerConfigurer config = context.getBean(FreeMarkerConfigurer.class);
         Map<String, Object> map = new HashMap<String, Object>(15) {
             private static final long serialVersionUID = 723383891389861471L;
-
             {
                 for (String key : directives) {
                     Object obj = context.getBean(key);

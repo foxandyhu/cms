@@ -567,7 +567,6 @@ public class CmsResourceMngImpl implements CmsResourceMng {
     };
 
     @Autowired
-    @Qualifier("myServletRealPathResolver")
     private RealPathResolver realPathResolver;
     @Autowired
     private CmsFileMng fileMng;

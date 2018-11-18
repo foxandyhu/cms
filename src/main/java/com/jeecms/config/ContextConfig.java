@@ -93,7 +93,7 @@ public class ContextConfig{
 		return registrationBean;
 	}
 
-	//@Bean
+	@Bean
 	public ServletRegistrationBean dispatcherServlet(){
 		AnnotationConfigWebApplicationContext context=new AnnotationConfigWebApplicationContext();
 		context.scan("com.context.front");
@@ -103,7 +103,7 @@ public class ContextConfig{
 
 		ServletRegistrationBean registrationBean= new ServletRegistrationBean(bbsFrontServlet);
 		registrationBean.setLoadOnStartup(8);
-		registrationBean.addUrlMappings("*.jhtml","*.jspx","*.jsp","*.htm","/api/front/*");
+		registrationBean.addUrlMappings("/");
 		registrationBean.setName("dispatcherServlet");
 		return registrationBean;
 	}
