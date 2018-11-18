@@ -46,11 +46,6 @@ public class CmsVoteRecordMngImpl implements CmsVoteRecordMng {
 		CmsVoteRecord record = dao.findByCookie(cookie, topicId);
 		return record != null ? record.getTime() : null;
 	}
-
-	private CmsVoteRecordDao dao;
-
 	@Autowired
-	public void setDao(CmsVoteRecordDao dao) {
-		this.dao = dao;
-	}
+	private CmsVoteRecordDao dao;
 }

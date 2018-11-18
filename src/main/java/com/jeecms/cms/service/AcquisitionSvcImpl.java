@@ -68,8 +68,11 @@ public class AcquisitionSvcImpl implements AcquisitionSvc {
 		}
 	}
 
+	@Autowired
 	private CmsAcquisitionMng cmsAcquisitionMng;
+	@Autowired
 	private CmsAcquisitionHistoryMng cmsAcquisitionHistoryMng;
+	@Autowired
 	private CmsAcquisitionTempMng cmsAcquisitionTempMng;
 	@Autowired
 	private CmsSiteMng siteMng;
@@ -81,23 +84,6 @@ public class AcquisitionSvcImpl implements AcquisitionSvc {
 	private ContentCountMng contentCountMng;
 	@Autowired
 	private FtpMng ftpMng;
-
-	@Autowired
-	public void setCmsAcquisitionMng(CmsAcquisitionMng cmsAcquisitionMng) {
-		this.cmsAcquisitionMng = cmsAcquisitionMng;
-	}
-
-	@Autowired
-	public void setCmsAcquisitionHistoryMng(
-			CmsAcquisitionHistoryMng cmsAcquisitionHistoryMng) {
-		this.cmsAcquisitionHistoryMng = cmsAcquisitionHistoryMng;
-	}
-
-	@Autowired
-	public void setCmsAcquisitionTempMng(
-			CmsAcquisitionTempMng cmsAcquisitionTempMng) {
-		this.cmsAcquisitionTempMng = cmsAcquisitionTempMng;
-	}
 
 	private class AcquisitionThread extends Thread {
 		private CmsAcquisition acqu;

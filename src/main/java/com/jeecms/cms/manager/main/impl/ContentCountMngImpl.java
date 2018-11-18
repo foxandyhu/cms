@@ -118,7 +118,9 @@ public class ContentCountMngImpl implements ContentCountMng {
 
 	// 间隔时间
 	private int interval = 60 * 60 * 1000; // 一小时
+	@Autowired
 	private CmsConfigMng cmsConfigMng;
+	@Autowired
 	private ContentCountDao dao;
 
 	/**
@@ -131,14 +133,5 @@ public class ContentCountMngImpl implements ContentCountMng {
 		this.interval = interval * 60 * 1000;
 	}
 
-	@Autowired
-	public void setCmsConfigMng(CmsConfigMng cmsConfigMng) {
-		this.cmsConfigMng = cmsConfigMng;
-	}
-
-	@Autowired
-	public void setDao(ContentCountDao dao) {
-		this.dao = dao;
-	}
 
 }

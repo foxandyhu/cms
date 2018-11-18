@@ -282,11 +282,17 @@ public class CmsAcquisitionMngImpl implements CmsAcquisitionMng,
 		return acquisition;
 	}
 
+	@Autowired
 	private ChannelMng channelMng;
+	@Autowired
 	private ContentMng contentMng;
+	@Autowired
 	private ContentTypeMng contentTypeMng;
+	@Autowired
 	private CmsSiteMng cmsSiteMng;
+	@Autowired
 	private CmsUserMng cmsUserMng;
+	@Autowired
 	private CmsAcquisitionDao dao;
 	@Autowired
 	private CmsModelMng modelMng;
@@ -296,36 +302,4 @@ public class CmsAcquisitionMngImpl implements CmsAcquisitionMng,
 	private CmsAcquisitionReplaceMng cmsAcquisitionReplaceMng;
 	@Autowired
 	private CmsAcquisitionShieldMng cmsAcquisitionShieldMng;
-
-	@Autowired
-	public void setChannelMng(ChannelMng channelMng) {
-		this.channelMng = channelMng;
-	}
-
-	@Autowired
-	public void setContentMng(ContentMng contentMng) {
-		this.contentMng = contentMng;
-	}
-
-	@Autowired
-	public void setContentTypeMng(ContentTypeMng contentTypeMng) {
-		this.contentTypeMng = contentTypeMng;
-	}
-
-	@Autowired
-	public void setCmsSiteMng(CmsSiteMng cmsSiteMng) {
-		this.cmsSiteMng = cmsSiteMng;
-	}
-
-	@Autowired
-	public void setCmsUserMng(CmsUserMng cmsUserMng) {
-		this.cmsUserMng = cmsUserMng;
-	}
-
-	@Autowired
-	public void setDao(CmsAcquisitionDao dao) {
-		this.dao = dao;
-	}
-
-
 }

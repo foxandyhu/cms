@@ -36,19 +36,19 @@ public class ChannelTxt implements Cloneable, Serializable {
     /**
      * 扩展内容1
      */
-    @Column(name = "txt")
+    @Column(name = "txt1")
     private String txt1;
 
     /**
      * 扩展内容2
      */
-    @Column(name = "txt")
+    @Column(name = "txt2")
     private String txt2;
 
     /**
      * 扩展内容3
      */
-    @Column(name = "txt")
+    @Column(name = "txt3")
     private String txt3;
 
     @Id

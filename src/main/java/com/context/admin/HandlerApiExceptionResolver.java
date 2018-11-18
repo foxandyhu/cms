@@ -1,4 +1,4 @@
-package com.context.member;
+package com.context.admin;
 
 import com.jeecms.cms.api.ApiResponse;
 import com.jeecms.cms.api.Constants;
@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author Tom
  */
-@Component("handlerApiExceptionResolver")
+@Component("handlerAdminApiExceptionResolver")
 public class HandlerApiExceptionResolver implements HandlerExceptionResolver {
 	private static final Logger log = LoggerFactory.getLogger(HandlerApiExceptionResolver.class);
 

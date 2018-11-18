@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 
 /**
  * CMS留言类别
@@ -52,6 +53,18 @@ public class CmsGuestbookCtg implements Serializable {
         if (getPriority() == null) {
             setPriority(10);
         }
+    }
+
+    public static Integer[] fetchIds(Collection<CmsGuestbookCtg> guestBookCtgs) {
+        if (guestBookCtgs == null) {
+            return null;
+        }
+        Integer[] ids = new Integer[guestBookCtgs.size()];
+        int i = 0;
+        for (CmsGuestbookCtg c : guestBookCtgs) {
+            ids[i++] = c.getId();
+        }
+        return ids;
     }
 
     @Id

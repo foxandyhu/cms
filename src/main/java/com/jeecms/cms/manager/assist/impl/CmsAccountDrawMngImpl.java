@@ -84,10 +84,6 @@ public class CmsAccountDrawMngImpl implements CmsAccountDrawMng {
 		return beans;
 	}
 
-	private CmsAccountDrawDao dao;
-
 	@Autowired
-	public void setDao(CmsAccountDrawDao dao) {
-		this.dao = dao;
-	}
+	private CmsAccountDrawDao dao;
 }

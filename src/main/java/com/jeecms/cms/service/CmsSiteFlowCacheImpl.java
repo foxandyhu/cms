@@ -612,7 +612,7 @@ public class CmsSiteFlowCacheImpl implements CmsSiteFlowCache, DisposableBean {
 	public void setInterval(int interval) {
 		this.interval = interval * 1000;
 	}
-	
+
 	@Autowired
 	private CmsSiteMng cmsSiteMng;
 	@Autowired

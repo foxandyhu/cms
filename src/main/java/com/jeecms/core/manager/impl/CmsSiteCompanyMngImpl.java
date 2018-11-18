@@ -26,10 +26,6 @@ public class CmsSiteCompanyMngImpl implements CmsSiteCompanyMng {
 		return bean;
 	}
 
-	private CmsSiteCompanyDao dao;
-
 	@Autowired
-	public void setDao(CmsSiteCompanyDao dao) {
-		this.dao = dao;
-	}
+	private CmsSiteCompanyDao dao;
 }

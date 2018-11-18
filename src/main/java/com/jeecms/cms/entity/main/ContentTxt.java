@@ -1,6 +1,8 @@
 package com.jeecms.cms.entity.main;
 
+import org.hibernate.annotations.Cache;
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,6 +15,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "jc_content_txt")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class ContentTxt implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -139,7 +142,7 @@ public class ContentTxt implements Serializable {
     /**
      * 扩展内容3
      */
-    @Column(name = "txt2")
+    @Column(name = "txt3")
     private String txt3;
 
     @Id

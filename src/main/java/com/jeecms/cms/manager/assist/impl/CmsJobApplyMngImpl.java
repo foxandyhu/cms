@@ -57,10 +57,6 @@ public class CmsJobApplyMngImpl implements CmsJobApplyMng {
 		return beans;
 	}
 
-	private CmsJobApplyDao dao;
-
 	@Autowired
-	public void setDao(CmsJobApplyDao dao) {
-		this.dao = dao;
-	}
+	private CmsJobApplyDao dao;
 }

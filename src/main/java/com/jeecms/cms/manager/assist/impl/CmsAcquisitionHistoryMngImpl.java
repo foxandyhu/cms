@@ -64,11 +64,6 @@ public class CmsAcquisitionHistoryMngImpl implements CmsAcquisitionHistoryMng {
 		return dao.checkExistByProperties(title, value);
 	}
 
-	private CmsAcquisitionHistoryDao dao;
-
 	@Autowired
-	public void setDao(CmsAcquisitionHistoryDao dao) {
-		this.dao = dao;
-	}
-
+	private CmsAcquisitionHistoryDao dao;
 }

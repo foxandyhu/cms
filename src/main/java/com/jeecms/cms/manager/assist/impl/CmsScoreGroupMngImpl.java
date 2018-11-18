@@ -53,11 +53,6 @@ public class CmsScoreGroupMngImpl implements CmsScoreGroupMng {
 		}
 		return beans;
 	}
-
-	private CmsScoreGroupDao dao;
-
 	@Autowired
-	public void setDao(CmsScoreGroupDao dao) {
-		this.dao = dao;
-	}
+	private CmsScoreGroupDao dao;
 }

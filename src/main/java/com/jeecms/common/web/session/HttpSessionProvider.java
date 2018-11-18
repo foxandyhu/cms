@@ -13,6 +13,7 @@ import java.io.Serializable;
  */
 public class HttpSessionProvider implements SessionProvider {
 
+    @Override
     public Serializable getAttribute(HttpServletRequest request, String name) {
         HttpSession session = request.getSession(false);
         if (session != null) {
@@ -22,17 +23,20 @@ public class HttpSessionProvider implements SessionProvider {
         }
     }
 
+    @Override
     public void setAttribute(HttpServletRequest request,
                              HttpServletResponse response, String name, Serializable value) {
         HttpSession session = request.getSession();
         session.setAttribute(name, value);
     }
 
+    @Override
     public String getSessionId(HttpServletRequest request,
                                HttpServletResponse response) {
         return request.getSession().getId();
     }
 
+    @Override
     public void logout(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession(false);
         if (session != null) {

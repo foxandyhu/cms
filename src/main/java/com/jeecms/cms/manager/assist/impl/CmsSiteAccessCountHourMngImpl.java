@@ -61,15 +61,10 @@ public class CmsSiteAccessCountHourMngImpl implements CmsSiteAccessCountHourMng 
 		return bean;
 	}
 
-	
+	@Autowired
 	private CmsSiteAccessCountHourDao dao;
 	@Autowired
 	private CmsSiteAccessDao  cmsAccessDao;
 	@Autowired
 	private CmsSiteMng siteMng;
-
-	@Autowired
-	public void setDao(CmsSiteAccessCountHourDao dao) {
-		this.dao = dao;
-	}
 }

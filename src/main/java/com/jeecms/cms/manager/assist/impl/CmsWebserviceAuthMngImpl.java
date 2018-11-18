@@ -86,10 +86,6 @@ public class CmsWebserviceAuthMngImpl implements CmsWebserviceAuthMng {
 	
 	@Autowired
 	private PwdEncoder pwdEncoder;
-	private CmsWebserviceAuthDao dao;
-
 	@Autowired
-	public void setDao(CmsWebserviceAuthDao dao) {
-		this.dao = dao;
-	}
+	private CmsWebserviceAuthDao dao;
 }

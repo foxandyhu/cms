@@ -61,12 +61,8 @@ public class PlugStoreConfigMngImpl implements PlugStoreConfigMng {
 		return beans;
 	}
 
+	@Autowired
 	private PlugStoreConfigDao dao;
 	@Autowired
 	private PwdEncoder pwdEncoder;
-
-	@Autowired
-	public void setDao(PlugStoreConfigDao dao) {
-		this.dao = dao;
-	}
 }

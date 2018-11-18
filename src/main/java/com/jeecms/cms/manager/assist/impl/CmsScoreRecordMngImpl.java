@@ -94,14 +94,10 @@ public class CmsScoreRecordMngImpl implements CmsScoreRecordMng {
 		return beans;
 	}
 
+	@Autowired
 	private CmsScoreRecordDao dao;
 	@Autowired
 	private ContentMng contentMng;
 	@Autowired
 	private CmsScoreItemMng scoreItemMng;
-
-	@Autowired
-	public void setDao(CmsScoreRecordDao dao) {
-		this.dao = dao;
-	}
 }

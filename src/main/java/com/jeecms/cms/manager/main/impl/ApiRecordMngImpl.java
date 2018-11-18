@@ -110,15 +110,10 @@ public class ApiRecordMngImpl implements ApiRecordMng {
 		}
 		return beans;
 	}
-
+	@Autowired
 	private ApiRecordDao dao;
 	@Autowired
 	private ApiInfoMng apiInfoMng;
 	@Autowired
 	private ApiAccountMng apiAccountMng;
-
-	@Autowired
-	public void setDao(ApiRecordDao dao) {
-		this.dao = dao;
-	}
 }

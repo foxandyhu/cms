@@ -56,10 +56,6 @@ public class CmsDirectiveTplMngImpl implements CmsDirectiveTplMng {
 		return beans;
 	}
 
-	private CmsDirectiveTplDao dao;
-
 	@Autowired
-	public void setDao(CmsDirectiveTplDao dao) {
-		this.dao = dao;
-	}
+	private CmsDirectiveTplDao dao;
 }

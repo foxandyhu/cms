@@ -16,7 +16,6 @@ import com.jeecms.common.page.Pagination;
 import com.jeecms.common.util.AliPay;
 import com.jeecms.common.util.Num62;
 import com.jeecms.common.util.WeixinPay;
-import com.jeecms.common.web.springmvc.RealPathResolver;
 import com.jeecms.config.SocialInfoConfig;
 import com.jeecms.core.entity.CmsUser;
 import com.jeecms.core.manager.CmsUserAccountMng;
@@ -229,6 +228,7 @@ public class ContentBuyMngImpl implements ContentBuyMng {
         return orderAmount;
     }
 
+    @Autowired
     private ContentBuyDao dao;
     @Autowired
     private ContentMng contentMng;
@@ -243,12 +243,5 @@ public class ContentBuyMngImpl implements ContentBuyMng {
     @Autowired
     private CmsUserMng userMng;
     @Autowired
-    private RealPathResolver realPathResolver;
-    @Autowired
     private SocialInfoConfig socialInfoConfig;
-
-    @Autowired
-    public void setDao(ContentBuyDao dao) {
-        this.dao = dao;
-    }
 }

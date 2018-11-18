@@ -28,10 +28,6 @@ public class CmsGuestbookExtMngImpl implements CmsGuestbookExtMng {
 		return entity;
 	}
 
-	private CmsGuestbookExtDao dao;
-
 	@Autowired
-	public void setDao(CmsGuestbookExtDao dao) {
-		this.dao = dao;
-	}
+	private CmsGuestbookExtDao dao;
 }

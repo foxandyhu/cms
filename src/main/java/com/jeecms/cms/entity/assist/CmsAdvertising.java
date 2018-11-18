@@ -24,6 +24,10 @@ import java.util.Map;
 public class CmsAdvertising implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    public static String PROP_CODE = "code";
+    public static String PROP_END_TIME = "endTime";
+    public static String PROP_START_TIME = "startTime";
+
     @Id
     @Column(name = "advertising_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -92,7 +96,7 @@ public class CmsAdvertising implements Serializable {
     private CmsSite site;
 
     @ElementCollection
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE,region = "beanCache")
     @CollectionTable(name = "jc_advertising_attr",joinColumns = @JoinColumn(name = "advertising_id"))
     @MapKeyColumn(name = "attr_name")
     @Column(name="attr_value")

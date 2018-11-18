@@ -201,11 +201,6 @@ public class ContentTagMngImpl implements ContentTagMng {
 		}
 		return beans;
 	}
-
-	private ContentTagDao dao;
-
 	@Autowired
-	public void setDao(ContentTagDao dao) {
-		this.dao = dao;
-	}
+	private ContentTagDao dao;
 }

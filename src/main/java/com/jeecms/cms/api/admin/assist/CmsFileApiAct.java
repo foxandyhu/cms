@@ -265,12 +265,8 @@ public class CmsFileApiAct {
 	private CmsLogMng cmsLogMng;
 	@Autowired
 	private CmsFileMng fileMng;
+	@Autowired
 	private CmsResourceMng resourceMng;
 	@Autowired
 	private RealPathResolver realPathResolver;
-
-	@Autowired
-	public void setResourceMng(CmsResourceMng resourceMng) {
-		this.resourceMng = resourceMng;
-	}
 }

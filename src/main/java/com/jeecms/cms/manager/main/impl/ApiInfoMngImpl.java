@@ -54,11 +54,6 @@ public class ApiInfoMngImpl implements ApiInfoMng {
 		}
 		return beans;
 	}
-
-	private ApiInfoDao dao;
-
 	@Autowired
-	public void setDao(ApiInfoDao dao) {
-		this.dao = dao;
-	}
+	private ApiInfoDao dao;
 }

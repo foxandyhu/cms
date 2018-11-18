@@ -86,11 +86,6 @@ public class CmsVoteItemMngImpl implements CmsVoteItemMng {
 		}
 		return beans;
 	}
-
-	private CmsVoteItemDao dao;
-
 	@Autowired
-	public void setDao(CmsVoteItemDao dao) {
-		this.dao = dao;
-	}
+	private CmsVoteItemDao dao;
 }

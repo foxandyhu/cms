@@ -1,4 +1,4 @@
-package com.jeecms.cms.web;
+package com.jeecms.core.servlet;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,6 +13,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.jeecms.cms.Constants;
@@ -23,6 +24,7 @@ import com.jeecms.common.web.springmvc.RealPathResolver;
  * 网站防火墙拦截器
  * 
  */
+//@Component
 public class FireWallInterceptor extends HandlerInterceptorAdapter implements InitializingBean ,DisposableBean {
 	private  static  String property_firewall_open = "firewall.open";
 	private  static  String property_firewall_domain = "firewall.domain";

@@ -50,10 +50,6 @@ public class CmsAdvertisingSpaceMngImpl implements CmsAdvertisingSpaceMng {
 		return beans;
 	}
 
-	private CmsAdvertisingSpaceDao dao;
-
 	@Autowired
-	public void setDao(CmsAdvertisingSpaceDao dao) {
-		this.dao = dao;
-	}
+	private CmsAdvertisingSpaceDao dao;
 }

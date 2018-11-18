@@ -136,18 +136,10 @@ public class AuthenticationMngImpl implements AuthenticationMng {
 	private long refreshTime = getNextRefreshTime(System.currentTimeMillis(),
 			this.interval);
 
+	@Autowired
 	private UnifiedUserMng unifiedUserMng;
+	@Autowired
 	private AuthenticationDao dao;
-
-	@Autowired
-	public void setDao(AuthenticationDao dao) {
-		this.dao = dao;
-	}
-
-	@Autowired
-	public void setUserMng(UnifiedUserMng unifiedUserMng) {
-		this.unifiedUserMng = unifiedUserMng;
-	}
 
 	/**
 	 * 设置认证过期时间。默认30分钟。

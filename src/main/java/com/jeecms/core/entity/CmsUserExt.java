@@ -48,9 +48,9 @@ public class CmsUserExt implements Serializable {
     private String intro;
 
     /**
-     * comefrom
+     * 来自
      */
-    @Column(name = "来自")
+    @Column(name = "comefrom")
     private String comefrom;
 
     /**

@@ -16,7 +16,7 @@ import org.springframework.stereotype.Controller;
  */
 @SpringBootApplication
 @ServletComponentScan
-@ComponentScan(basePackages="com.jeecms",excludeFilters=@Filter(type=FilterType.ANNOTATION,value=Controller.class))
+@ComponentScan(basePackages="com.jeecms",excludeFilters=@ComponentScan.Filter(type= FilterType.ANNOTATION,value=Controller.class))
 public class CmsApp {
 
 	public static void main(String[] args) {

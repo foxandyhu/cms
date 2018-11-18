@@ -123,8 +123,6 @@ public class MessageApiAct {
 	/**
 	 * 信息读取API
 	 * @param id 信息ID 必选
-	 * @param appId   appid 必选
-	 * @param sessionKey 会话标识 必选
 	 */
 	@RequestMapping(value = "/message/get")
 	public void messageRead(
@@ -207,10 +205,6 @@ public class MessageApiAct {
 	 * @param title  标题  非必选
 	 * @param content 内容  非必选
 	 * @param siteId 站点id 非必选  默认当前站id
-	 * @param appId appid 必选
-	 * @param nonce_str 随机字符串  必选
-	 * @param sign 签名 必选
-	 * @param sessionKey 会话标识 必选
 	 */
 	@SignValidate
 	@RequestMapping(value = "/message/draftUpdate")
@@ -230,10 +224,6 @@ public class MessageApiAct {
 	/**
 	 * 草稿信息发送API
 	 * @param id 信息id 必选
-	 * @param appId appid 必选
-	 * @param nonce_str 随机字符串  必选
-	 * @param sign 签名 必选
-	 * @param sessionKey 会话标识 必选
 	 */
 	@SignValidate
 	@RequestMapping(value = "/message/draftToSend")
@@ -247,8 +237,6 @@ public class MessageApiAct {
 	/**
 	 * 删除信息到回收站API
 	 * @param ids 信息id 逗号,分隔 
-	 * @param appId appid 必选
-	 * @param sessionKey 会话标识 必选 
 	 */
 	@SignValidate
 	@RequestMapping(value = "/message/trash")
@@ -261,8 +249,6 @@ public class MessageApiAct {
 	/**
 	 * 回收站还原API
 	 * @param ids 信息id 逗号,分隔 
-	 * @param appId appid 必选
-	 * @param sessionKey 会话标识 必选 
 	 */
 	@SignValidate
 	@RequestMapping(value = "/message/revert")

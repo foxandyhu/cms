@@ -49,10 +49,6 @@ public class CmsGuestbookCtgMngImpl implements CmsGuestbookCtgMng {
 		return beans;
 	}
 
-	private CmsGuestbookCtgDao dao;
-
 	@Autowired
-	public void setDao(CmsGuestbookCtgDao dao) {
-		this.dao = dao;
-	}
+	private CmsGuestbookCtgDao dao;
 }

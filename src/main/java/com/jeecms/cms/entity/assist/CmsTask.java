@@ -316,7 +316,7 @@ public class CmsTask implements Serializable {
     private CmsSite site;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE,region = "beanCache")
     @CollectionTable(name = "jc_task_attr", joinColumns = @JoinColumn(name = "task_id"))
     @MapKeyColumn(name = "param_name")
     @Column(name = "param_value")

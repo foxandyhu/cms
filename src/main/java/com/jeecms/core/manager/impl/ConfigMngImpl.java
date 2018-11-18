@@ -74,7 +74,8 @@ public class ConfigMngImpl implements ConfigMng {
 		if (config != null) {
 			config.setValue(value);
 		} else {
-			config = new Config(key);
+			config = new Config();
+			config.setId(key);
 			config.setValue(value);
 			dao.save(config);
 		}
@@ -94,10 +95,6 @@ public class ConfigMngImpl implements ConfigMng {
 		return beans;
 	}
 
-	private ConfigDao dao;
-
 	@Autowired
-	public void setDao(ConfigDao dao) {
-		this.dao = dao;
-	}
+	private ConfigDao dao;
 }

@@ -167,11 +167,6 @@ public class ContentChargeMngImpl implements ContentChargeMng {
 		content.setContentCharge(charge);
 		return charge;
 	}
-
-	private ContentChargeDao dao;
-
 	@Autowired
-	public void setDao(ContentChargeDao dao) {
-		this.dao = dao;
-	}
+	private ContentChargeDao dao;
 }

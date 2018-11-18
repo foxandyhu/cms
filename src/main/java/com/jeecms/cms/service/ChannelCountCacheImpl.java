@@ -66,9 +66,11 @@ public class ChannelCountCacheImpl implements ChannelCountCache, DisposableBean 
 	private int interval = 10 * 60 * 1000; // 10分钟
 	// 最后刷新时间
 	private long refreshTime = System.currentTimeMillis();
-	
+
+	@Autowired
 	private ChannelCountMng channelCountMng;
-	
+
+	@Autowired
 	private ChannelMng channelMng;
 	
 	private Ehcache cache;
@@ -81,16 +83,6 @@ public class ChannelCountCacheImpl implements ChannelCountCache, DisposableBean 
 	 */
 	public void setInterval(int interval) {
 		this.interval = interval * 60 * 1000;
-	}
-	
-	@Autowired
-	public void setChannelCountMng(ChannelCountMng channelCountMng) {
-		this.channelCountMng = channelCountMng;
-	}
-
-	@Autowired
-	public void setChannelMng(ChannelMng channelMng) {
-		this.channelMng = channelMng;
 	}
 
 	@Autowired

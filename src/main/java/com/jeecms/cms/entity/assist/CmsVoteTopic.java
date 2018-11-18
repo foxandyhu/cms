@@ -28,6 +28,9 @@ import java.util.Set;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class CmsVoteTopic implements Serializable {
     private static final long serialVersionUID = 1L;
+    public static String PROP_REPEATE_HOUR = "repeateHour";
+    public static String PROP_END_TIME = "endTime";
+    public static String PROP_START_TIME = "startTime";
 
     public void init() {
         if (getTotalCount() == null) {

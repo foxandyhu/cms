@@ -33,7 +33,7 @@ public class CmsUserAccount implements Serializable {
     /**
      * 微信账号openid
      */
-    @Column(name = "account_weixin_openId")
+    @Column(name = "account_weixin_open_id")
     private String accountWeixinOpenId;
 
     /**

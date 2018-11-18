@@ -77,13 +77,9 @@ public class CmsSmsMngImpl implements CmsSmsMng {
 		}
 		return beans;
 	}
-	
-	private CmsSmsDao dao;
-	
+
 	@Autowired
-	public void setDao(CmsSmsDao dao){
-		this.dao = dao;
-	}
+	private CmsSmsDao dao;
 
 	@Override
 	public CmsSms findBySource(Byte source) {

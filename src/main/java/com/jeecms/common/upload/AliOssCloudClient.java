@@ -173,7 +173,7 @@ public class AliOssCloudClient {
 			e.printStackTrace();
 		}
 		CmsOss oss = new CmsOss("LTAIIgZrqWiA4A7R", "GX8PEMMVIEWTmlzsDdPFyrR9SAELMk",
-				"LTAIIgZrqWiA4A7R1", "testaddbucket", "bucketArea3", 
+				"LTAIIgZrqWiA4A7R1", "testaddbucket", "bucketArea3",
 				"oss-cn-beijing.aliyuncs.com","oss-cn-beijing.aliyuncs.com",(byte) 2);
 		// uploadFileByInputStream(oss, "/u/cms/www/3.jpg", fileInput);
 	}

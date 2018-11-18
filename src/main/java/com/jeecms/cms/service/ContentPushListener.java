@@ -1,6 +1,5 @@
 package com.jeecms.cms.service;
 
-import java.io.File;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.HashMap;
@@ -24,9 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import com.jeecms.cms.Constants;
 import com.jeecms.cms.entity.main.Content;
-import com.jeecms.common.util.PropertyUtils;
 import com.jeecms.common.web.springmvc.RealPathResolver;
 
 

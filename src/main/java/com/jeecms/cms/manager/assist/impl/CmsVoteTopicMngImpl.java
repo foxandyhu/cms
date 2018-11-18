@@ -186,31 +186,14 @@ public class CmsVoteTopicMngImpl implements CmsVoteTopicMng {
 		return beans;
 	}
 
+	@Autowired
 	private CmsVoteSubTopicMng cmsVoteSubtopicMng;
+	@Autowired
 	private CmsVoteReplyMng cmsVoteReplyMng;
+	@Autowired
 	private CmsVoteRecordMng cmsVoteRecordMng;
+	@Autowired
 	private CmsVoteTopicDao dao;
 	@Autowired
 	private CmsVoteItemMng cmsVoteItemMng;
-
-	@Autowired
-	public void setCmsVoteSubTopicMng(CmsVoteSubTopicMng cmsVoteSubTopicMng) {
-		this.cmsVoteSubtopicMng = cmsVoteSubTopicMng;
-	}
-	
-	@Autowired
-	public void setCmsVoteReplyMng(CmsVoteReplyMng cmsVoteReplyMng) {
-		this.cmsVoteReplyMng = cmsVoteReplyMng;
-	}
-
-	@Autowired
-	public void setCmsVoteRecordMng(CmsVoteRecordMng cmsVoteRecordMng) {
-		this.cmsVoteRecordMng = cmsVoteRecordMng;
-	}
-
-	@Autowired
-	public void setDao(CmsVoteTopicDao dao) {
-		this.dao = dao;
-	}
-
 }

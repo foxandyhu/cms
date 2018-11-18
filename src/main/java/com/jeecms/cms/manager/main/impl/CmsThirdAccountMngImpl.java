@@ -53,11 +53,6 @@ public class CmsThirdAccountMngImpl implements CmsThirdAccountMng {
 		}
 		return beans;
 	}
-
-	private CmsThirdAccountDao dao;
-
 	@Autowired
-	public void setDao(CmsThirdAccountDao dao) {
-		this.dao = dao;
-	}
+	private CmsThirdAccountDao dao;
 }

@@ -10,6 +10,7 @@ import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -103,6 +104,7 @@ public class SearchApiAct {
 	@Autowired
 	private LuceneContentSvc luceneContentSvc;
 	@Autowired
+	@Qualifier("myServletRealPathResolver")
 	private RealPathResolver realPathResolver;
 }
 

@@ -30,6 +30,7 @@ import freemarker.core.Environment;
 import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component("cms_lucene_page")
@@ -96,6 +97,7 @@ public class LuceneDirectivePage extends LuceneDirectiveAbstract {
 	@Autowired
 	private LuceneContentSvc luceneContentSvc;
 	@Autowired
+	@Qualifier("myServletRealPathResolver")
 	private RealPathResolver realPathResolver;
 
 }

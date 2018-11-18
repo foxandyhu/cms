@@ -25,7 +25,6 @@ import com.jeecms.common.web.LoginUtils;
 import com.jeecms.common.web.RequestUtils;
 import com.jeecms.common.web.ResponseUtils;
 import com.jeecms.common.web.session.SessionProvider;
-import com.jeecms.common.web.springmvc.RealPathResolver;
 import com.jeecms.config.SocialInfoConfig;
 import com.jeecms.core.entity.*;
 import com.jeecms.core.manager.CmsConfigMng;

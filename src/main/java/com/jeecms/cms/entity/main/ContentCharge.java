@@ -1,14 +1,13 @@
 package com.jeecms.cms.entity.main;
 
+import org.hibernate.annotations.Cache;
 import com.jeecms.common.util.DateUtils;
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -18,6 +17,9 @@ import java.util.Date;
  * @author andy_hulibo@163.com
  * @date 2018/11/16 13:03
  */
+@Entity
+@Table(name = "jc_content_charge")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class ContentCharge implements Serializable {
     private static final long serialVersionUID = 1L;
     public static final Short MODEL_FREE = 0;

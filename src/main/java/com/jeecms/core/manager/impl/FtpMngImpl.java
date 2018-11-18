@@ -1,16 +1,15 @@
 package com.jeecms.core.manager.impl;
 
-import java.util.List;
-
+import com.jeecms.common.hibernate4.Updater;
+import com.jeecms.core.dao.FtpDao;
+import com.jeecms.core.entity.Ftp;
+import com.jeecms.core.manager.FtpMng;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.jeecms.common.hibernate4.Updater;
-import com.jeecms.core.dao.FtpDao;
-import com.jeecms.core.entity.Ftp;
-import com.jeecms.core.manager.FtpMng;
+import java.util.List;
 
 @Service
 @Transactional
@@ -53,10 +52,6 @@ public class FtpMngImpl implements FtpMng {
 		return beans;
 	}
 
-	private FtpDao dao;
-
 	@Autowired
-	public void setDao(FtpDao dao) {
-		this.dao = dao;
-	}
+	private FtpDao dao;
 }

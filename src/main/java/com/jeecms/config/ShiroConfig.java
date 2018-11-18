@@ -14,12 +14,16 @@ import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.mgt.WebSecurityManager;
 import org.apache.shiro.web.servlet.Cookie;
 import org.apache.shiro.web.servlet.SimpleCookie;
+import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.web.filter.DelegatingFilterProxy;
 
 import javax.servlet.Filter;
 import java.util.HashMap;
@@ -32,6 +36,49 @@ import java.util.HashMap;
  */
 @Configuration
 public class ShiroConfig {
+
+    @Bean
+    public LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
+        LifecycleBeanPostProcessor lifecycleBeanPostProcessor = new LifecycleBeanPostProcessor();
+        return lifecycleBeanPostProcessor;
+    }
+
+    @Bean
+    public FilterRegistrationBean delegatingFilterProxy() {
+        FilterRegistrationBean filter = new FilterRegistrationBean();
+        filter.setFilter(new DelegatingFilterProxy());
+        filter.addUrlPatterns("/*");
+        filter.addInitParameter("targetFilterLifecycle", "true");
+        filter.setName("shiroFilter");
+        return filter;
+    }
+
+    @Bean
+    public FilterRegistrationBean bbsUserFilterRegistration(CmsUserFilter userFilter) {
+        FilterRegistrationBean filter = new FilterRegistrationBean();
+        filter.setFilter(userFilter);
+        //不注册到FilterChain中
+        filter.setEnabled(false);
+        return filter;
+    }
+
+    @Bean
+    public FilterRegistrationBean authcFilterRegistration(CmsAuthenticationFilter authcFilter) {
+        FilterRegistrationBean filter = new FilterRegistrationBean(authcFilter);
+        filter.setFilter(authcFilter);
+        //不注册到FilterChain中
+        filter.setEnabled(false);
+        return filter;
+    }
+
+    @Bean
+    public FilterRegistrationBean logoutFilterRegistration(CmsLogoutFilter logoutFilter) {
+        FilterRegistrationBean filter = new FilterRegistrationBean(logoutFilter);
+        filter.setFilter(logoutFilter);
+        //不注册到FilterChain中
+        filter.setEnabled(false);
+        return filter;
+    }
 
     @Bean
     public CmsAdminUrl adminUrlBean() {
@@ -66,7 +113,7 @@ public class ShiroConfig {
         return authc;
     }
 
-    @Bean("shiroFilter")
+    //@Bean("shiroFilter")
     public ShiroFilterFactoryBean shiroFilter(WebSecurityManager securityManager) {
         ShiroFilterFactoryBean bean = new ShiroFilterFactoryBean();
         bean.setSecurityManager(securityManager);
@@ -76,11 +123,11 @@ public class ShiroConfig {
             private static final long serialVersionUID = -4794995092802667876L;
 
             {
-                put("*.jspx","anon");
+                put("*.jspx", "anon");
                 put("*.jhtml", "anon");
                 put("/member/forgot_password.jspx", "anon");
                 put("/member/password_reset.jspx", "anon");
-                put("/member/jobapply.jspx","anon");
+                put("/member/jobapply.jspx", "anon");
                 put("/login.jspx", "authc");
                 put("/logout.jspx", "logout");
                 put("/member/**", "user");
@@ -90,14 +137,7 @@ public class ShiroConfig {
     }
 
     @Bean
-    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(WebSecurityManager securityManager) {
-        AuthorizationAttributeSourceAdvisor advisor = new AuthorizationAttributeSourceAdvisor();
-        advisor.setSecurityManager(securityManager);
-        return advisor;
-    }
-
-    @Bean
-    public WebSecurityManager securityManager(EhCacheManager cacheManager, RememberMeManager rememberMeManager,CmsAuthorizingRealm realm) {
+    public WebSecurityManager securityManager(EhCacheManager cacheManager, RememberMeManager rememberMeManager, CmsAuthorizingRealm realm) {
         DefaultWebSecurityManager manager = new DefaultWebSecurityManager();
         manager.setCacheManager(cacheManager);
         manager.setRememberMeManager(rememberMeManager);
@@ -131,6 +171,7 @@ public class ShiroConfig {
 
     /**
      * rememberMe管理器
+     *
      * @author andy_hulibo@163.com
      * @date 2018/11/14 15:07
      */
@@ -143,9 +184,18 @@ public class ShiroConfig {
     }
 
     @Bean
-    public LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
-        LifecycleBeanPostProcessor lifecycleBeanPostProcessor = new LifecycleBeanPostProcessor();
-        return lifecycleBeanPostProcessor;
+    @ConditionalOnMissingBean
+    public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {
+        DefaultAdvisorAutoProxyCreator creator = new DefaultAdvisorAutoProxyCreator();
+        creator.setProxyTargetClass(true);
+        return creator;
+    }
+
+    @Bean
+    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(WebSecurityManager securityManager) {
+        AuthorizationAttributeSourceAdvisor advisor = new AuthorizationAttributeSourceAdvisor();
+        advisor.setSecurityManager(securityManager);
+        return advisor;
     }
 
     @EventListener

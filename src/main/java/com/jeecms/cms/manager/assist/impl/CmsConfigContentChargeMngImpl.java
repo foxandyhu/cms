@@ -86,14 +86,10 @@ public class CmsConfigContentChargeMngImpl implements CmsConfigContentChargeMng 
 	}
 
 
+	@Autowired
 	private CmsConfigContentChargeDao dao;
 	@Autowired
 	private Md5PwdEncoder pwdEncoder;
 	@Autowired
 	private CmsConfigMng cmsConfigMng;
-
-	@Autowired
-	public void setDao(CmsConfigContentChargeDao dao) {
-		this.dao = dao;
-	}
 }

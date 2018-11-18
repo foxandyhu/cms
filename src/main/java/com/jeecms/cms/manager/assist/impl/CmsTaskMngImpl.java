@@ -93,11 +93,6 @@ public class CmsTaskMngImpl implements CmsTaskMng {
 			return excep;
 		}
 	}
-
-	private CmsTaskDao dao;
-
 	@Autowired
-	public void setDao(CmsTaskDao dao) {
-		this.dao = dao;
-	}
+	private CmsTaskDao dao;
 }

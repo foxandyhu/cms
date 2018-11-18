@@ -85,11 +85,6 @@ public class CmsSensitivityMngImpl implements CmsSensitivityMng {
 		}
 		return beans;
 	}
-
-	private CmsSensitivityDao dao;
-
 	@Autowired
-	public void setDao(CmsSensitivityDao dao) {
-		this.dao = dao;
-	}
+	private CmsSensitivityDao dao;
 }

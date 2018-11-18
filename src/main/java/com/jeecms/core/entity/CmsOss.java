@@ -23,7 +23,7 @@ import java.util.Map;
  */
 @Entity
 @Table(name = "jc_oss")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE,region = "beanCache")
 public class CmsOss implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -52,7 +52,21 @@ public class CmsOss implements Serializable {
         BAIDUCLOUD
     }
 
-    ;
+    public CmsOss () { }
+
+    public CmsOss(String ossAppId, String secretId,
+                  String appKey, String bucketName, String bucketArea,
+                  String endPoint, String accessDomain, Byte ossType) {
+        this.ossAppId=ossAppId;
+        this.secretId=secretId;
+        this.appKey=appKey;
+        this.bucketName=bucketName;
+        this.bucketArea=bucketArea;
+        this.endPoint=endPoint;
+        this.accessDomain=accessDomain;
+        this.ossType=ossType;
+    }
+
 
 
     @Id

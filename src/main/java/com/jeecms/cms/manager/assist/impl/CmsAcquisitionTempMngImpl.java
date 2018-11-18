@@ -63,10 +63,6 @@ public class CmsAcquisitionTempMngImpl implements CmsAcquisitionTempMng {
 		dao.clear(siteId, channelUrl);
 	}
 
-	private CmsAcquisitionTempDao dao;
-
 	@Autowired
-	public void setDao(CmsAcquisitionTempDao dao) {
-		this.dao = dao;
-	}
+	private CmsAcquisitionTempDao dao;
 }

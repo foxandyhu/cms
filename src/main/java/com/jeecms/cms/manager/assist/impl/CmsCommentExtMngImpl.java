@@ -33,10 +33,6 @@ public class CmsCommentExtMngImpl implements CmsCommentExtMng {
 		return dao.deleteByContentId(contentId);
 	}
 
-	private CmsCommentExtDao dao;
-
 	@Autowired
-	public void setDao(CmsCommentExtDao dao) {
-		this.dao = dao;
-	}
+	private CmsCommentExtDao dao;
 }

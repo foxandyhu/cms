@@ -156,19 +156,10 @@ public class FrontContextInterceptor extends HandlerInterceptorAdapter {
 		}
 	}
 
+	@Autowired
 	private CmsSiteMng cmsSiteMng;
+	@Autowired
 	private CmsUserMng cmsUserMng;
 	@Autowired
 	private SessionProvider session;
-
-
-	@Autowired
-	public void setCmsSiteMng(CmsSiteMng cmsSiteMng) {
-		this.cmsSiteMng = cmsSiteMng;
-	}
-
-	@Autowired
-	public void setCmsUserMng(CmsUserMng cmsUserMng) {
-		this.cmsUserMng = cmsUserMng;
-	}
 }

@@ -129,18 +129,8 @@ public class ChannelCountMngImpl implements ChannelCountMng {
 		ChannelCount entity = dao.updateByUpdater(updater);
 		return entity;
 	}
-
+	@Autowired
 	private CmsConfigMng cmsConfigMng;
+	@Autowired
 	private ChannelCountDao dao;
-
-	@Autowired
-	public void setCmsConfigMng(CmsConfigMng cmsConfigMng) {
-		this.cmsConfigMng = cmsConfigMng;
-	}
-
-	@Autowired
-	public void setDao(ChannelCountDao dao) {
-		this.dao = dao;
-	}
-
 }

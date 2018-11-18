@@ -140,7 +140,7 @@ public class CmsUser implements PriorityInterface, Serializable {
     private CmsGroup group;
 
     @ElementCollection
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
     @CollectionTable(name = "jc_user_attr", joinColumns = @JoinColumn(name = "user_id"))
     @MapKeyColumn(name = "attr_name")
     @Column(name = "attr_value")

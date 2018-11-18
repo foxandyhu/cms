@@ -183,6 +183,7 @@ public class CmsAccountPayMngImpl implements CmsAccountPayMng {
 	public void setPkcFile(File pkcFile) {
 		this.pkcFile = pkcFile;
 	}
+	@Autowired
 	private CmsAccountPayDao dao;
 	@Autowired
 	private CmsAccountDrawMng accountDrawMng;
@@ -194,9 +195,4 @@ public class CmsAccountPayMngImpl implements CmsAccountPayMng {
 	private RealPathResolver realPathResolver;
 	@Autowired
 	private CmsUserAccountMng userAccountMng;
-
-	@Autowired
-	public void setDao(CmsAccountPayDao dao) {
-		this.dao = dao;
-	}
 }

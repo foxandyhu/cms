@@ -226,8 +226,8 @@ public class MemberApiInterceptor extends HandlerInterceptorAdapter {
 		result[1]=code;
 		return result;
 	}
-	
 
+	@Autowired
 	private CmsSiteMng cmsSiteMng;
 
 	@Autowired
@@ -236,10 +236,5 @@ public class MemberApiInterceptor extends HandlerInterceptorAdapter {
 	private ApiUserLoginMng apiUserLoginMng;
 	@Autowired
 	private ApiRecordMng apiRecordMng;
-	
-	@Autowired
-	public void setCmsSiteMng(CmsSiteMng cmsSiteMng) {
-		this.cmsSiteMng = cmsSiteMng;
-	}
 
 }

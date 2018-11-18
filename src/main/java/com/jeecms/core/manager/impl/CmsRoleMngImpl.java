@@ -55,7 +55,7 @@ public class CmsRoleMngImpl implements CmsRoleMng {
 	}
 	
 	public void deleteMembers(CmsRole role, Integer[] userIds) {
-		Updater<CmsRole> updater = new Updater<CmsRole>(role);
+		Updater<CmsRole> updater = new Updater<>(role);
 		role = dao.updateByUpdater(updater);
 		if (userIds != null) {
 			CmsUser user;

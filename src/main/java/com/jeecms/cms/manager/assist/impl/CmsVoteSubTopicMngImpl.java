@@ -136,17 +136,8 @@ public class CmsVoteSubTopicMngImpl implements CmsVoteSubTopicMng {
 		return beans;
 	}
 
+	@Autowired
 	private CmsVoteItemMng cmsVoteItemMng;
+	@Autowired
 	private CmsVoteSubTopicDao dao;
-
-	@Autowired
-	public void setCmsVoteItemMng(CmsVoteItemMng cmsVoteItemMng) {
-		this.cmsVoteItemMng = cmsVoteItemMng;
-	}
-	
-	@Autowired
-	public void setDao(CmsVoteSubTopicDao dao) {
-		this.dao = dao;
-	}
-
 }

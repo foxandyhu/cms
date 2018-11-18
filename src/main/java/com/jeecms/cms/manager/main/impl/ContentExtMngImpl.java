@@ -39,11 +39,6 @@ public class ContentExtMngImpl implements ContentExtMng {
 		bean.setNeedRegenerate(true);
 		return bean;
 	}
-
-	private ContentExtDao dao;
-
 	@Autowired
-	public void setDao(ContentExtDao dao) {
-		this.dao = dao;
-	}
+	private ContentExtDao dao;
 }

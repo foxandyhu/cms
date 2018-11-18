@@ -29,11 +29,6 @@ public class ChannelExtMngImpl implements ChannelExtMng {
 		entity.blankToNull();
 		return entity;
 	}
-
-	private ChannelExtDao dao;
-
 	@Autowired
-	public void setDao(ChannelExtDao dao) {
-		this.dao = dao;
-	}
+	private ChannelExtDao dao;
 }

@@ -26,11 +26,6 @@ public class ContentCheckMngImpl implements ContentCheckMng {
 		bean = dao.updateByUpdater(updater);
 		return bean;
 	}
-
-	private ContentCheckDao dao;
-
 	@Autowired
-	public void setDao(ContentCheckDao dao) {
-		this.dao = dao;
-	}
+	private ContentCheckDao dao;
 }

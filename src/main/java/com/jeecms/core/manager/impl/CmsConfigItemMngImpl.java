@@ -66,12 +66,7 @@ public class CmsConfigItemMngImpl implements CmsConfigItemMng {
 		}
 		return beans;
 	}
-	private CmsConfigItemDao dao;
 
 	@Autowired
-	public void setDao(CmsConfigItemDao dao) {
-		this.dao = dao;
-	}
-
-
+	private CmsConfigItemDao dao;
 }

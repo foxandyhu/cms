@@ -89,9 +89,9 @@ public class ContentCheck implements Serializable {
     private Boolean rejected;
 
     /**
-     * 审核步数
+     * 终审时间
      */
-    @Column(name = "check_step")
+    @Column(name = "check_date")
     private Date checkDate;
 
     /**

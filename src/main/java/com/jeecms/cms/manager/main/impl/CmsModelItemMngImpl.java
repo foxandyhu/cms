@@ -75,18 +75,9 @@ public class CmsModelItemMngImpl implements CmsModelItemMng {
 		}
 		return beans;
 	}
-
+	@Autowired
 	private CmsModelMng cmsModelMng;
+	@Autowired
 	private CmsModelItemDao dao;
-
-	@Autowired
-	public void setCmsModelMng(CmsModelMng cmsModelMng) {
-		this.cmsModelMng = cmsModelMng;
-	}
-
-	@Autowired
-	public void setDao(CmsModelItemDao dao) {
-		this.dao = dao;
-	}
 
 }

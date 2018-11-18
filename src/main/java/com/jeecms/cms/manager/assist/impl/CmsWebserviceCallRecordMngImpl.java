@@ -62,10 +62,6 @@ public class CmsWebserviceCallRecordMngImpl implements CmsWebserviceCallRecordMn
 
 	@Autowired
 	private CmsWebserviceAuthMng bbsWebserviceAuthMng;
-	private CmsWebserviceCallRecordDao dao;
-
 	@Autowired
-	public void setDao(CmsWebserviceCallRecordDao dao) {
-		this.dao = dao;
-	}
+	private CmsWebserviceCallRecordDao dao;
 }

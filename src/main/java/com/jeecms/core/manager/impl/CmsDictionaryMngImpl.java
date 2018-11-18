@@ -74,10 +74,6 @@ public class CmsDictionaryMngImpl implements CmsDictionaryMng {
 		return dao.countByValue(value,type) > 0;
 	}
 
-	private CmsDictionaryDao dao;
-
 	@Autowired
-	public void setDao(CmsDictionaryDao dao) {
-		this.dao = dao;
-	}
+	private CmsDictionaryDao dao;
 }

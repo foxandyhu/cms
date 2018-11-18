@@ -100,10 +100,6 @@ public class CmsKeywordMngImpl implements CmsKeywordMng {
 		return beans;
 	}
 
-	private CmsKeywordDao dao;
-
 	@Autowired
-	public void setDao(CmsKeywordDao dao) {
-		this.dao = dao;
-	}
+	private CmsKeywordDao dao;
 }

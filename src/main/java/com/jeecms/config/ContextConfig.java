@@ -31,16 +31,6 @@ public class ContextConfig{
 		ServletListenerRegistrationBean<EventListener> listener=new ServletListenerRegistrationBean<>(new IntrospectorCleanupListener());
 		return listener;
 	}
-
-	@Bean
-	public FilterRegistrationBean delegatingFilterProxy() {
-		FilterRegistrationBean filter=new FilterRegistrationBean();
-		filter.setFilter(new DelegatingFilterProxy());
-		filter.addUrlPatterns("/*");
-		filter.addInitParameter("targetFilterLifecycle","true");
-		filter.setName("shiroFilter");
-		return filter;
-	}
 	
 	@Bean
 	public FilterRegistrationBean openSessionInViewFilter() {
@@ -103,7 +93,7 @@ public class ContextConfig{
 		return registrationBean;
 	}
 
-	@Bean
+	//@Bean
 	public ServletRegistrationBean dispatcherServlet(){
 		AnnotationConfigWebApplicationContext context=new AnnotationConfigWebApplicationContext();
 		context.scan("com.context.front");
@@ -116,32 +106,5 @@ public class ContextConfig{
 		registrationBean.addUrlMappings("*.jhtml","*.jspx","*.jsp","*.htm","/api/front/*");
 		registrationBean.setName("dispatcherServlet");
 		return registrationBean;
-	}
-	
-	@Bean
-	public FilterRegistrationBean bbsUserFilterRegistration(CmsUserFilter userFilter) {
-		FilterRegistrationBean filter=new FilterRegistrationBean();
-		filter.setFilter(userFilter);
-		//不注册到FilterChain中
-		filter.setEnabled(false);
-		return filter;
-	}
-	
-	@Bean
-	public FilterRegistrationBean authcFilterRegistration(CmsAuthenticationFilter authcFilter) {
-		FilterRegistrationBean filter=new FilterRegistrationBean(authcFilter);
-		filter.setFilter(authcFilter);
-		//不注册到FilterChain中
-		filter.setEnabled(false);
-		return filter;
-	}
-
-	@Bean
-	public FilterRegistrationBean logoutFilterRegistration(CmsLogoutFilter logoutFilter) {
-		FilterRegistrationBean filter=new FilterRegistrationBean(logoutFilter);
-		filter.setFilter(logoutFilter);
-		//不注册到FilterChain中
-		filter.setEnabled(false);
-		return filter;
 	}
 }

@@ -53,11 +53,7 @@ public class CmsMysqlDataBackMngImpl implements CmsMysqlDataBackMng {
 		return dao.executeSQL(sql);
 	}
 
-	private CmsMysqlDataBackDao dao;
-
 	@Autowired
-	public void setDao(CmsMysqlDataBackDao dao) {
-		this.dao = dao;
-	}
+	private CmsMysqlDataBackDao dao;
 
 }

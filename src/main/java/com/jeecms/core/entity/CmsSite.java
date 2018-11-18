@@ -232,21 +232,21 @@ public class CmsSite implements Serializable {
     @CollectionTable(name = "jc_site_attr", joinColumns = @JoinColumn(name = "site_id"))
     @MapKeyColumn(name = "attr_name")
     @Column(name = "attr_value")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
     private Map<String, String> attr;
 
     @ElementCollection
     @CollectionTable(name = "jc_site_txt", joinColumns = @JoinColumn(name = "site_id"))
     @MapKeyColumn(name = "txt_name")
     @Column(name = "txt_value")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
     private Map<String, String> txt;
 
     @ElementCollection
     @CollectionTable(name = "jc_site_cfg", joinColumns = @JoinColumn(name = "site_id"))
     @MapKeyColumn(name = "cfg_name")
     @Column(name = "cfg_value")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
     private Map<String, String> cfg;
 
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "site")

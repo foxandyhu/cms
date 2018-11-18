@@ -225,35 +225,14 @@ public class FckAct {
 		return tempFile;
 	}
 
+	@Autowired
 	private CmsUserMng cmsUserMng;
+	@Autowired
 	private FileRepository fileRepository;
+	@Autowired
 	private DbFileMng dbFileMng;
+	@Autowired
 	private ImageScale imageScale;
+	@Autowired
 	private RealPathResolver realPathResolver;
-
-	@Autowired
-	public void setCmsUserMng(CmsUserMng cmsUserMng) {
-		this.cmsUserMng = cmsUserMng;
-	}
-
-	@Autowired
-	public void setFileRepository(FileRepository fileRepository) {
-		this.fileRepository = fileRepository;
-	}
-
-	@Autowired
-	public void setDbFileMng(DbFileMng dbFileMng) {
-		this.dbFileMng = dbFileMng;
-	}
-
-	@Autowired
-	public void setImageScale(ImageScale imageScale) {
-		this.imageScale = imageScale;
-	}
-
-	@Autowired
-	public void setRealPathResolver(RealPathResolver realPathResolver) {
-		this.realPathResolver = realPathResolver;
-	}
-
 }

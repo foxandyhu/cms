@@ -202,49 +202,20 @@ public class CmsCommentMngImpl implements CmsCommentMng {
 		comment.setDowns((short) (comment.getDowns() + 1));
 	}
 
+	@Autowired
 	private CmsSensitivityMng cmsSensitivityMng;
+	@Autowired
 	private CmsUserMng cmsUserMng;
+	@Autowired
 	private CmsSiteMng cmsSiteMng;
+	@Autowired
 	private ContentMng contentMng;
+	@Autowired
 	private ContentCountMng contentCountMng;
+	@Autowired
 	private CmsCommentExtMng cmsCommentExtMng;
+	@Autowired
 	private CmsCommentDao dao;
 	@Autowired
 	private CmsUserExtMng userExtMng;
-
-	@Autowired
-	public void setCmsSensitivityMng(CmsSensitivityMng cmsSensitivityMng) {
-		this.cmsSensitivityMng = cmsSensitivityMng;
-	}
-
-	@Autowired
-	public void setCmsUserMng(CmsUserMng cmsUserMng) {
-		this.cmsUserMng = cmsUserMng;
-	}
-
-	@Autowired
-	public void setCmsSiteMng(CmsSiteMng cmsSiteMng) {
-		this.cmsSiteMng = cmsSiteMng;
-	}
-
-	@Autowired
-	public void setContentMng(ContentMng contentMng) {
-		this.contentMng = contentMng;
-	}
-
-	@Autowired
-	public void setCmsCommentExtMng(CmsCommentExtMng cmsCommentExtMng) {
-		this.cmsCommentExtMng = cmsCommentExtMng;
-	}
-
-	@Autowired
-	public void setContentCountMng(ContentCountMng contentCountMng) {
-		this.contentCountMng = contentCountMng;
-	}
-
-	@Autowired
-	public void setDao(CmsCommentDao dao) {
-		this.dao = dao;
-	}
-
 }

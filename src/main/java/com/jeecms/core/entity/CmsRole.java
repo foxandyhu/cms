@@ -57,15 +57,15 @@ public class CmsRole implements Serializable {
     @JoinColumn(name = "site_id")
     private CmsSite site;
 
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
     @ElementCollection
-    @CollectionTable(name = "jc_role_permission",joinColumns = @JoinColumn(name = "role_id"))
+    @CollectionTable(name = "jc_role_permission", joinColumns = @JoinColumn(name = "role_id"))
     @Column(name = "uri")
     private Set<String> perms;
 
     @ManyToMany
-    @JoinTable(name = "jc_user_role",joinColumns = @JoinColumn(name = "role_id",referencedColumnName = "role_id"),inverseJoinColumns = @JoinColumn(name = "user_id",referencedColumnName = "user_id"))
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JoinTable(name = "jc_user_role", joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "role_id"), inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"))
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
     private Set<CmsUser> users;
 
 
@@ -197,5 +197,16 @@ public class CmsRole implements Serializable {
             ids[i++] = r.getId();
         }
         return ids;
+    }
+
+    public void delFromUsers(CmsUser user) {
+        if (user == null) {
+            return;
+        }
+        Set<CmsUser> set = getUsers();
+        if (set == null) {
+            return;
+        }
+        set.remove(user);
     }
 }

@@ -1,10 +1,8 @@
 package com.context.front;
 
-import com.jeecms.common.web.springmvc.SimpleFreeMarkerView;
 import freemarker.template.SimpleHash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -25,7 +23,6 @@ import org.springframework.web.servlet.handler.SimpleUrlHandlerMapping;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.resource.DefaultServletHttpRequestHandler;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
-import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 
 import javax.servlet.ServletContext;
 import java.util.HashMap;
@@ -34,96 +31,102 @@ import java.util.Map;
 import java.util.Properties;
 
 /**
-*  @Description: 页面访问上下文配置
-*  @Author: andy_hulibo@163.com
-*  @CreateDate: 2018/11/9 11:20
-*/
+ * @Description: 页面访问上下文配置
+ * @Author: andy_hulibo@163.com
+ * @CreateDate: 2018/11/9 11:20
+ */
 @Configuration
-@ComponentScan(basePackages= {"com.jeecms.cms.action","com.jeecms.cms.api.front","com.jeecms.plug.weixin.action.front"},includeFilters=@Filter(type=FilterType.ANNOTATION,value=Controller.class),useDefaultFilters=false)
+@ComponentScan(basePackages = {"com.jeecms.cms.action", "com.jeecms.cms.api.front", "com.jeecms.plug.weixin.action.front"}, includeFilters = @Filter(type = FilterType.ANNOTATION, value = Controller.class), useDefaultFilters = false)
 @EnableWebMvc
-public class FrontContextConfig extends WebMvcConfigurerAdapter{
+public class FrontContextConfig extends WebMvcConfigurerAdapter {
 
-	@Autowired
-	private FrontContextInterceptor frontContextInterceptor;
+    @Autowired
+    private FrontContextInterceptor frontContextInterceptor;
 
-	@Autowired
-	private FrontLocaleInterceptor frontLocaleInterceptor;
+    @Autowired
+    private FrontLocaleInterceptor frontLocaleInterceptor;
 
-	@Override
-	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(frontContextInterceptor).addPathPatterns("/**");
-		registry.addInterceptor(frontLocaleInterceptor).addPathPatterns("/**");
-	}
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(frontContextInterceptor).addPathPatterns("/**");
+        registry.addInterceptor(frontLocaleInterceptor).addPathPatterns("/**");
+    }
 
-	@Bean
-	public CookieLocaleResolver localeResolver() {
-		CookieLocaleResolver resolver=new CookieLocaleResolver();
-		resolver.setCookieName("clientlanguage");
-		resolver.setCookieMaxAge(-1);
-		return resolver;
-	}
-	
-	@Bean
-	public SimpleMappingExceptionResolver simpleMappingExceptionResolver() {
-		SimpleMappingExceptionResolver resolver=new SimpleMappingExceptionResolver();
-		
-		Properties p=new Properties();
-		p.setProperty("org.springframework.web.bind.MissingServletRequestParameterException", "/WEB-INF/error/requiredParameter.html");
-		p.setProperty("org.springframework.beans.TypeMismatchException", "/WEB-INF/error/mismatchParameter.html");
-		p.setProperty("org.springframework.web.bind.ServletRequestBindingException","/WEB-INF/error/bindException.html");
-		p.setProperty("com.jeecms.cms.web.SiteNotFoundException","/WEB-INF/error/siteNotFoundException.html");
-		resolver.setExceptionMappings(p);
-		return resolver;
-	}
+    @Bean
+    public CookieLocaleResolver localeResolver() {
+        CookieLocaleResolver resolver = new CookieLocaleResolver();
+        resolver.setCookieName("clientlanguage");
+        resolver.setCookieMaxAge(-1);
+        resolver.setCookieSecure(true);
+        resolver.setCookieHttpOnly(true);
+        return resolver;
+    }
 
-	@Value("#{'${spring.resource.suffix}'.split(',')}")
-	private List<String> suffixs;
+    @Bean
+    public SimpleMappingExceptionResolver simpleMappingExceptionResolver() {
+        SimpleMappingExceptionResolver resolver = new SimpleMappingExceptionResolver();
 
-	/**
-	 * 手动开启Servlet容器默认的Servlet对静态资源的处理
-	 * @author: andy_hulibo@163.com
-	 * @date: 2018/11/13 15:01
-	 */
-	@Bean
-	public HandlerMapping defaultServletHandlerMapping(ServletContext ctx) {
-		DefaultServletHttpRequestHandler handler=new DefaultServletHttpRequestHandler();
-		handler.setServletContext(ctx);
-		Map<String, HttpRequestHandler> urlMap = new HashMap<>(15);
-		for (String suffix:suffixs){
-			urlMap.put("/**/"+suffix, handler);
-		}
-		SimpleUrlHandlerMapping handlerMapping = new SimpleUrlHandlerMapping();
-		handlerMapping.setOrder(Integer.MIN_VALUE);
-		handlerMapping.setUrlMap(urlMap);
-		return handlerMapping;
-	}
+        Properties p = new Properties();
+        p.setProperty("org.springframework.web.bind.MissingServletRequestParameterException", "/WEB-INF/error/requiredParameter.html");
+        p.setProperty("org.springframework.beans.TypeMismatchException", "/WEB-INF/error/mismatchParameter.html");
+        p.setProperty("org.springframework.web.bind.ServletRequestBindingException", "/WEB-INF/error/bindException.html");
+        p.setProperty("com.jeecms.cms.web.SiteNotFoundException", "/WEB-INF/error/siteNotFoundException.html");
+        resolver.setExceptionMappings(p);
+        return resolver;
+    }
 
-	/**
-	 * 当前端表单提交类型是enctype="multipart/form-data"时 HttpServletRequest
-	 * 获取不到数据，启用该bean即可
-	 * @author: andy_hulibo@163.com
-	 * @date: 2018/11/13 16:03
-	 */
-	@Bean
-	public CommonsMultipartResolver multipartResolver(){
-		return new CommonsMultipartResolver();
-	}
+    @Value("#{'${spring.resource.suffix}'.split(',')}")
+    private List<String> suffixs;
 
-	@Value("#{'${spring.view.directive}'.split(',')}")
-	private List<String> directives;
+    /**
+     * 手动开启Servlet容器默认的Servlet对静态资源的处理
+     *
+     * @author: andy_hulibo@163.com
+     * @date: 2018/11/13 15:01
+     */
+    @Bean
+    public HandlerMapping defaultServletHandlerMapping(ServletContext ctx) {
+        DefaultServletHttpRequestHandler handler = new DefaultServletHttpRequestHandler();
+        handler.setServletContext(ctx);
+        Map<String, HttpRequestHandler> urlMap = new HashMap<>(15);
+        for (String suffix : suffixs) {
+            urlMap.put("/**/" + suffix, handler);
+        }
+        SimpleUrlHandlerMapping handlerMapping = new SimpleUrlHandlerMapping();
+        handlerMapping.setOrder(Integer.MIN_VALUE);
+        handlerMapping.setUrlMap(urlMap);
+        return handlerMapping;
+    }
 
-	@EventListener
-	public void handleContextRefresh(ContextRefreshedEvent event) throws Exception {
-		ApplicationContext context = event.getApplicationContext();
-		FreeMarkerConfigurer config=context.getBean(FreeMarkerConfigurer.class);
-		Map<String,Object> map =new HashMap<String,Object>(15) {
-			private static final long serialVersionUID = 723383891389861471L;
-			{
-				for (String key:directives) {
-					Object obj=context.getBean(key);
-					put(key,obj);
-				}
-			}};
-		config.getConfiguration().setAllSharedVariables(new SimpleHash(map, config.getConfiguration().getObjectWrapper()));
-	}
+    /**
+     * 当前端表单提交类型是enctype="multipart/form-data"时 HttpServletRequest
+     * 获取不到数据，启用该bean即可
+     *
+     * @author: andy_hulibo@163.com
+     * @date: 2018/11/13 16:03
+     */
+    @Bean
+    public CommonsMultipartResolver multipartResolver() {
+        return new CommonsMultipartResolver();
+    }
+
+    @Value("#{'${spring.view.directive}'.split(',')}")
+    private List<String> directives;
+
+    @EventListener
+    public void handleContextRefresh(ContextRefreshedEvent event) throws Exception {
+        ApplicationContext context = event.getApplicationContext();
+        FreeMarkerConfigurer config = context.getBean(FreeMarkerConfigurer.class);
+        Map<String, Object> map = new HashMap<String, Object>(15) {
+            private static final long serialVersionUID = 723383891389861471L;
+
+            {
+                for (String key : directives) {
+                    Object obj = context.getBean(key);
+                    put(key, obj);
+                }
+            }
+        };
+        config.getConfiguration().setAllSharedVariables(new SimpleHash(map, config.getConfiguration().getObjectWrapper()));
+    }
 }

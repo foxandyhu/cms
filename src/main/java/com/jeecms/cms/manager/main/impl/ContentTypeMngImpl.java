@@ -53,11 +53,6 @@ public class ContentTypeMngImpl implements ContentTypeMng {
 		}
 		return beans;
 	}
-
-	private ContentTypeDao dao;
-
 	@Autowired
-	public void setDao(ContentTypeDao dao) {
-		this.dao = dao;
-	}
+	private ContentTypeDao dao;
 }

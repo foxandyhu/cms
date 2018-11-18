@@ -60,10 +60,6 @@ public class CmsPlugMngImpl implements CmsPlugMng {
 		return beans;
 	}
 
-	private CmsPlugDao dao;
-
 	@Autowired
-	public void setDao(CmsPlugDao dao) {
-		this.dao = dao;
-	}
+	private CmsPlugDao dao;
 }

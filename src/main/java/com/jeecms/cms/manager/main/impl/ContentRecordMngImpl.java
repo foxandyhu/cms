@@ -89,11 +89,6 @@ public class ContentRecordMngImpl implements ContentRecordMng {
 		}
 		return beans;
 	}
-
-	private ContentRecordDao dao;
-
 	@Autowired
-	public void setDao(ContentRecordDao dao) {
-		this.dao = dao;
-	}
+	private ContentRecordDao dao;
 }

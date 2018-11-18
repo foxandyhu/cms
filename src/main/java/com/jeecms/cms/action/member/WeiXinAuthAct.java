@@ -23,11 +23,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.jeecms.cms.entity.assist.CmsConfigContentCharge;
 import com.jeecms.cms.manager.assist.CmsConfigContentChargeMng;
-import com.jeecms.common.util.PropertyUtils;
 import com.jeecms.common.web.HttpClientUtil;
 import com.jeecms.common.web.ResponseUtils;
 import com.jeecms.common.web.session.SessionProvider;
-import com.jeecms.common.web.springmvc.RealPathResolver;
 import com.jeecms.core.entity.CmsSite;
 import com.jeecms.core.entity.CmsUser;
 import com.jeecms.core.entity.MemberConfig;
@@ -222,8 +220,6 @@ public class WeiXinAuthAct {
 		}
 	}
 
-	@Autowired
-	private RealPathResolver realPathResolver;
 	@Autowired
 	private CmsConfigContentChargeMng configContentChargeMng;
 	@Autowired

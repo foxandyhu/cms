@@ -252,28 +252,12 @@ public class ImageUploadAct {
 		return tempFile;
 	}
 
+	@Autowired
 	private FileRepository fileRepository;
+	@Autowired
 	private DbFileMng dbFileMng;
+	@Autowired
 	private ImageScale imageScale;
+	@Autowired
 	private RealPathResolver realPathResolver;
-
-	@Autowired
-	public void setFileRepository(FileRepository fileRepository) {
-		this.fileRepository = fileRepository;
-	}
-
-	@Autowired
-	public void setDbFileMng(DbFileMng dbFileMng) {
-		this.dbFileMng = dbFileMng;
-	}
-
-	@Autowired
-	public void setImageScale(ImageScale imageScale) {
-		this.imageScale = imageScale;
-	}
-
-	@Autowired
-	public void setRealPathResolver(RealPathResolver realPathResolver) {
-		this.realPathResolver = realPathResolver;
-	}
 }

@@ -35,6 +35,7 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -445,31 +446,15 @@ public class UeditorAct {
 		return tempFile;
 	}
 
+	@Autowired
 	private FileRepository fileRepository;
+	@Autowired
 	private DbFileMng dbFileMng;
+	@Autowired
 	private ImageScale imageScale;
+	@Autowired
+	@Qualifier("myServletRealPathResolver")
 	private RealPathResolver realPathResolver;
 	@Autowired
 	private CmsUserMng cmsUserMng;
-
-	@Autowired
-	public void setFileRepository(FileRepository fileRepository) {
-		this.fileRepository = fileRepository;
-	}
-
-	@Autowired
-	public void setDbFileMng(DbFileMng dbFileMng) {
-		this.dbFileMng = dbFileMng;
-	}
-
-	@Autowired
-	public void setImageScale(ImageScale imageScale) {
-		this.imageScale = imageScale;
-	}
-
-	@Autowired
-	public void setRealPathResolver(RealPathResolver realPathResolver) {
-		this.realPathResolver = realPathResolver;
-	}
-
 }

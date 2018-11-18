@@ -54,7 +54,7 @@ public class WeixinMenu implements Serializable {
     private WeixinMenu parent;
 
     @OneToMany(mappedBy = "parent",cascade = CascadeType.REMOVE)
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE,region = "beanCache")
     private Set<WeixinMenu> child;
 
     /**

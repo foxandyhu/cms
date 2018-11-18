@@ -55,11 +55,7 @@ public class CmsUserMenuMngImpl implements CmsUserMenuMng {
 		}
 		return beans;
 	}
-
+	@Autowired
 	private CmsUserMenuDao dao;
 
-	@Autowired
-	public void setDao(CmsUserMenuDao dao) {
-		this.dao = dao;
-	}
 }

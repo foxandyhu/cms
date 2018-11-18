@@ -85,17 +85,9 @@ public class CmsAdvertisingMngImpl implements CmsAdvertisingMng {
 		}
 	}
 
+	@Autowired
 	private CmsAdvertisingSpaceMng cmsAdvertisingSpaceMng;
+	@Autowired
 	private CmsAdvertisingDao dao;
 
-	@Autowired
-	public void setCmsAdvertisingSpaceMng(
-			CmsAdvertisingSpaceMng cmsAdvertisingSpaceMng) {
-		this.cmsAdvertisingSpaceMng = cmsAdvertisingSpaceMng;
-	}
-
-	@Autowired
-	public void setDao(CmsAdvertisingDao dao) {
-		this.dao = dao;
-	}
 }

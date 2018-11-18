@@ -21,8 +21,6 @@ import com.jeecms.core.manager.CmsSmsRecordMng;
 @Transactional
 public class CmsSmsRecordMngImpl implements CmsSmsRecordMng {
 
-
-
 	@Override
 	public List<CmsSmsRecord> getList(Integer smsId) {
 		return dao.getList(smsId);
@@ -61,13 +59,9 @@ public class CmsSmsRecordMngImpl implements CmsSmsRecordMng {
 		CmsSmsRecord smsRecord = dao.deleteById(id);
 		return smsRecord;
 	}
-	
-	
-	private CmsSmsRecordDao dao;
+
 	@Autowired
-	public void setDao(CmsSmsRecordDao dao) {
-		this.dao = dao;
-	}
+	private CmsSmsRecordDao dao;
 
 	@Override
 	public CmsSmsRecord[] deleteByIds(Integer[] ids) {

@@ -56,10 +56,6 @@ public class CmsOriginMngImpl implements CmsOriginMng {
 		return beans;
 	}
 
-	private CmsOriginDao dao;
-
 	@Autowired
-	public void setDao(CmsOriginDao dao) {
-		this.dao = dao;
-	}
+	private CmsOriginDao dao;
 }

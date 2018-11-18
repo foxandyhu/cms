@@ -474,7 +474,9 @@ public class StaticPageDaoImpl extends HibernateSimpleDao implements
 		}
 	}
 
+	@Autowired
 	private CmsKeywordMng cmsKeywordMng;
+	@Autowired
 	private RealPathResolver realPathResolver;
 	@Autowired
 	private CmsModelMng modelMng;
@@ -482,14 +484,4 @@ public class StaticPageDaoImpl extends HibernateSimpleDao implements
 	private FtpMng ftpMng;
 	@Autowired
 	private SessionProvider sessionProvider;
-
-	@Autowired
-	public void setCmsKeywordMng(CmsKeywordMng cmsKeywordMng) {
-		this.cmsKeywordMng = cmsKeywordMng;
-	}
-
-	@Autowired
-	public void setRealPathResolver(RealPathResolver realPathResolver) {
-		this.realPathResolver = realPathResolver;
-	}
 }

@@ -22,6 +22,30 @@ import java.util.Date;
 @Table(name = "jc_receiver_message")
 public class CmsReceiverMessage implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
+    public CmsReceiverMessage() {
+    }
+
+    public CmsReceiverMessage(Integer id, CmsUser msgReceiverUser, CmsUser msgSendUser, CmsSite site, String msgTitle, String msgContent, Date sendTime, boolean msgStatus, Integer msgBox) {
+        this.id = id;
+        this.msgReceiverUser = msgReceiverUser;
+        this.msgSendUser = msgSendUser;
+        this.site = site;
+        this.msgTitle = msgTitle;
+        this.msgContent = msgContent;
+        this.sendTime = sendTime;
+        this.msgStatus = msgStatus;
+        this.msgBox = msgBox;
+    }
+
+    public CmsReceiverMessage(CmsMessage message) {
+        this(message.getId(), message.getMsgReceiverUser(), message
+                        .getMsgSendUser(), message.getSite(), message.getMsgTitle(),
+                message.getMsgContent(), message.getSendTime(), message
+                        .getMsgStatus(), message.getMsgBox());
+    }
+
     @Id
     @Column(name = "msg_re_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -63,7 +87,7 @@ public class CmsReceiverMessage implements Serializable {
     private CmsUser msgReceiverUser;
 
     @ManyToOne
-    @JoinColumn(name = "msg_receiver_user")
+    @JoinColumn(name = "msg_send_user")
     private CmsUser msgSendUser;
 
     @ManyToOne
@@ -210,9 +234,6 @@ public class CmsReceiverMessage implements Serializable {
         }
         return json;
     }
-
-    private static final long serialVersionUID = 1L;
-
 
     public String getTitleHtml() {
         return StrUtils.txt2htm(getMsgTitle());

@@ -101,12 +101,6 @@ public class CmsFileMngImpl implements CmsFileMng {
 		return bean;
 	}
 
-	
-	private CmsFileDao dao;
-
 	@Autowired
-	public void setDao(CmsFileDao dao) {
-		this.dao = dao;
-	}
-
+	private CmsFileDao dao;
 }

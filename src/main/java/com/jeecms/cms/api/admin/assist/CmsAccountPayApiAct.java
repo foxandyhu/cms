@@ -14,6 +14,7 @@ import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -35,7 +36,6 @@ import com.jeecms.common.util.PropertyUtils;
 import com.jeecms.common.util.StrUtils;
 import com.jeecms.common.web.ResponseUtils;
 import com.jeecms.common.web.springmvc.MessageResolver;
-import com.jeecms.common.web.springmvc.RealPathResolver;
 import com.jeecms.core.entity.CmsUser;
 import com.jeecms.core.manager.CmsUserMng;
 import com.jeecms.core.web.WebErrors;
@@ -176,8 +176,6 @@ public class CmsAccountPayApiAct {
 	private CmsAccountPayMng accountPayMng;
 	@Autowired
 	private Md5PwdEncoder pwdEncoder;
-	@Autowired
-	private RealPathResolver realPathResolver;
 	@Autowired
 	private CmsConfigContentChargeMng configContentChargeMng;
 	@Autowired

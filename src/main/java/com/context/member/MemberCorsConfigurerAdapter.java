@@ -1,10 +1,5 @@
 package com.context.member;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +9,8 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import com.jeecms.common.util.PropertyUtils;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -60,14 +56,14 @@ public class MemberCorsConfigurerAdapter extends WebMvcConfigurerAdapter {
 
     @Override
     public void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> exceptionResolvers) {
-        exceptionResolvers.add(handlerExceptionResolver);
+        exceptionResolvers.add(handlerApiExceptionResolver);
         super.configureHandlerExceptionResolvers(exceptionResolvers);
     }
 
     @Autowired
     private MemberApiInterceptor memberApiInterceptor;
     @Autowired
-    private HandlerApiExceptionResolver handlerExceptionResolver;
+    private HandlerApiExceptionResolver handlerApiExceptionResolver;
 
 }
 

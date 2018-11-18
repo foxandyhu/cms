@@ -939,19 +939,33 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 		return listenerList;
 	}
 
+	@Autowired
 	private ChannelMng channelMng;
+	@Autowired
 	private ContentExtMng contentExtMng;
+	@Autowired
 	private ContentTxtMng contentTxtMng;
+	@Autowired
 	private ContentTypeMng contentTypeMng;
+	@Autowired
 	private ContentCountMng contentCountMng;
+	@Autowired
 	private ContentCheckMng contentCheckMng;
+	@Autowired
 	private ContentTagMng contentTagMng;
+	@Autowired
 	private CmsGroupMng cmsGroupMng;
+	@Autowired
 	private CmsUserMng cmsUserMng;
+	@Autowired
 	private CmsTopicMng cmsTopicMng;
+	@Autowired
 	private CmsCommentMng cmsCommentMng;
+	@Autowired
 	private ContentDao dao;
+	@Autowired
 	private StaticPageSvc staticPageSvc;
+	@Autowired
 	private CmsFileMng fileMng;
 	@Autowired
 	private ContentRecordMng contentRecordMng;
@@ -959,74 +973,4 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 	private ChannelCountMng channelCountMng;
 	@Autowired
 	private ContentChargeMng contentChargeMng;
-
-	@Autowired
-	public void setChannelMng(ChannelMng channelMng) {
-		this.channelMng = channelMng;
-	}
-
-	@Autowired
-	public void setContentTypeMng(ContentTypeMng contentTypeMng) {
-		this.contentTypeMng = contentTypeMng;
-	}
-
-	@Autowired
-	public void setContentCountMng(ContentCountMng contentCountMng) {
-		this.contentCountMng = contentCountMng;
-	}
-
-	@Autowired
-	public void setContentExtMng(ContentExtMng contentExtMng) {
-		this.contentExtMng = contentExtMng;
-	}
-
-	@Autowired
-	public void setContentTxtMng(ContentTxtMng contentTxtMng) {
-		this.contentTxtMng = contentTxtMng;
-	}
-
-	@Autowired
-	public void setContentCheckMng(ContentCheckMng contentCheckMng) {
-		this.contentCheckMng = contentCheckMng;
-	}
-
-	@Autowired
-	public void setCmsTopicMng(CmsTopicMng cmsTopicMng) {
-		this.cmsTopicMng = cmsTopicMng;
-	}
-
-	@Autowired
-	public void setContentTagMng(ContentTagMng contentTagMng) {
-		this.contentTagMng = contentTagMng;
-	}
-
-	@Autowired
-	public void setCmsGroupMng(CmsGroupMng cmsGroupMng) {
-		this.cmsGroupMng = cmsGroupMng;
-	}
-
-	@Autowired
-	public void setCmsUserMng(CmsUserMng cmsUserMng) {
-		this.cmsUserMng = cmsUserMng;
-	}
-
-	@Autowired
-	public void setCmsCommentMng(CmsCommentMng cmsCommentMng) {
-		this.cmsCommentMng = cmsCommentMng;
-	}
-	
-	@Autowired
-	public void setFileMng(CmsFileMng fileMng) {
-		this.fileMng = fileMng;
-	}
-
-	@Autowired
-	public void setDao(ContentDao dao) {
-		this.dao = dao;
-	}
-
-	@Autowired
-	public void setStaticPageSvc(StaticPageSvc staticPageSvc) {
-		this.staticPageSvc = staticPageSvc;
-	}
 }

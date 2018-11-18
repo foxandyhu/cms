@@ -98,10 +98,6 @@ public class CmsSearchWordsMngImpl implements CmsSearchWordsMng {
 		return count;
 	}
 
-	private CmsSearchWordsDao dao;
-
 	@Autowired
-	public void setDao(CmsSearchWordsDao dao) {
-		this.dao = dao;
-	}
+	private CmsSearchWordsDao dao;
 }

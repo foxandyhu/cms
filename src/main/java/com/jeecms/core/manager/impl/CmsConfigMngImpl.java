@@ -110,12 +110,8 @@ public class CmsConfigMngImpl implements CmsConfigMng {
 		oldAttr.putAll(fixAttr);
 	}
 
+	@Autowired
 	private CmsConfigDao dao;
 	@Autowired
 	private ContentQueryFreshTimeCache contentQueryFreshTimeCache;
-
-	@Autowired
-	public void setDao(CmsConfigDao dao) {
-		this.dao = dao;
-	}
 }

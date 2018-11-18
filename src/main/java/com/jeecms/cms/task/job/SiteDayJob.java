@@ -52,7 +52,7 @@ public class SiteDayJob{
 	private void clearDayCount(){
 		userExtMng.clearDayCount();
 	}
-	
+
 	@Autowired
 	private CmsSiteMng cmsSiteMng;
 	@Autowired

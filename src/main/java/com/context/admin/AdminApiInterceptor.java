@@ -21,6 +21,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -499,7 +500,7 @@ public class AdminApiInterceptor extends HandlerInterceptorAdapter implements In
 		session.setAttribute(request, response, FIREWALL_CONFIG_LASTMODIFIED,
 				Calendar.getInstance().getTime().getTime());
 	}
-
+	@Autowired
 	private CmsSiteMng cmsSiteMng;
 
 	private String[] excludeUrls;
@@ -512,14 +513,10 @@ public class AdminApiInterceptor extends HandlerInterceptorAdapter implements In
 	@Autowired
 	private CmsAuthorizingRealm authorizingRealm;
 	@Autowired
+	@Qualifier("myServletRealPathResolver")
 	private RealPathResolver realPathResolver;
 	@Autowired
 	private SessionProvider session;
-
-	@Autowired
-	public void setCmsSiteMng(CmsSiteMng cmsSiteMng) {
-		this.cmsSiteMng = cmsSiteMng;
-	}
 
 	public void setExcludeUrls(String[] excludeUrls) {
 		this.excludeUrls = excludeUrls;

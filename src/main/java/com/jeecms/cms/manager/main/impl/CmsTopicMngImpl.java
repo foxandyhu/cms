@@ -116,16 +116,8 @@ public class CmsTopicMngImpl implements CmsTopicMng, ChannelDeleteChecker {
 		}
 	}
 
+	@Autowired
 	private ChannelMng channelMng;
+	@Autowired
 	private CmsTopicDao dao;
-
-	@Autowired
-	public void setDao(CmsTopicDao dao) {
-		this.dao = dao;
-	}
-
-	@Autowired
-	public void setChannelMng(ChannelMng channelMng) {
-		this.channelMng = channelMng;
-	}
 }

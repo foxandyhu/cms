@@ -150,11 +150,6 @@ public class CmsWebserviceMngImpl implements CmsWebserviceMng {
 		}
 		return beans;
 	}
-
-	private CmsWebserviceDao dao;
-
 	@Autowired
-	public void setDao(CmsWebserviceDao dao) {
-		this.dao = dao;
-	}
+	private CmsWebserviceDao dao;
 }

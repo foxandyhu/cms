@@ -73,11 +73,6 @@ public class ContentStaticPageListener extends ContentListenerAbstract {
 		}
 	}
 
-	private StaticPageSvc staticPageSvc;
-
 	@Autowired
-	public void setStaticPageSvc(StaticPageSvc staticPageSvc) {
-		this.staticPageSvc = staticPageSvc;
-	}
-
+	private StaticPageSvc staticPageSvc;
 }

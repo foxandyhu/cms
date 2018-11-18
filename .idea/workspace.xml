@@ -2,96 +2,172 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2f3edc67-cc8f-4618-a901-7cdf459bae87" name="Default Changelist" comment="代码优化">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsAcquisition.hbm.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsAcquisitionHistory.hbm.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsAcquisitionReplace.hbm.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsAcquisitionShield.hbm.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsAcquisitionTemp.hbm.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsAdvertising.hbm.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsAdvertisingSpace.hbm.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsComment.hbm.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsCommentExt.hbm.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsConfigContentCharge.hbm.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsDirectiveTpl.hbm.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsFile.hbm.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsFriendlink.hbm.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsFriendlinkCtg.hbm.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsGuestbook.hbm.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsGuestbookCtg.hbm.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsGuestbookExt.hbm.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsJobApply.hbm.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsKeyword.hbm.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsMessage.hbm.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsOrigin.hbm.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsPlug.hbm.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsReceiverMessage.hbm.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsScoreGroup.hbm.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsScoreItem.hbm.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsScoreRecord.hbm.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsSearchWords.hbm.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsSensitivity.hbm.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsSiteAccess.hbm.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsSiteAccessCount.hbm.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsSiteAccessCountHour.hbm.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsSiteAccessPages.hbm.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsSiteAccessStatistic.hbm.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsSiteFlow.hbm.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsTask.hbm.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsUserMenu.hbm.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsVoteItem.hbm.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsVoteRecord.hbm.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsVoteReply.hbm.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsVoteSubTopic.hbm.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsVoteTopic.hbm.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsWebservice.hbm.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsWebserviceAuth.hbm.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsWebserviceCallRecord.hbm.xml" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/artifacts/cms_war.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/artifacts/cms_war_exploded.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_configuration_processor_1_5_4_RELEASE.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/context/admin/HandlerApiExceptionResolver.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/config/ServletContextRealPathResolver.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/config/ServletContextRealPathResolver1.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/common/web/springmvc/HandlerExceptionResolver.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/common/web/springmvc/ServletContextRealPathResolver.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/common/web/springmvc/SimpleFreeMarkerViewResolver.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/jeecmsv9f_war_exploded.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/jeecmsv9f_war_exploded.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsAcquisition.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsAcquisition.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsAcquisitionHistory.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsAcquisitionHistory.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsAcquisitionReplace.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsAcquisitionReplace.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsAcquisitionShield.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsAcquisitionShield.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsAcquisitionTemp.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsAcquisitionTemp.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/CmsApp.java" afterPath="$PROJECT_DIR$/src/main/java/com/CmsApp.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/context/admin/AdminApiInterceptor.java" afterPath="$PROJECT_DIR$/src/main/java/com/context/admin/AdminApiInterceptor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/context/admin/AdminContextConfig.java" afterPath="$PROJECT_DIR$/src/main/java/com/context/admin/AdminContextConfig.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/context/admin/AdminContextInterceptor.java" afterPath="$PROJECT_DIR$/src/main/java/com/context/admin/AdminContextInterceptor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/context/admin/AdminCorsConfigurerAdapter.java" afterPath="$PROJECT_DIR$/src/main/java/com/context/admin/AdminCorsConfigurerAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/context/front/FrontContextConfig.java" afterPath="$PROJECT_DIR$/src/main/java/com/context/front/FrontContextConfig.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/context/front/FrontContextInterceptor.java" afterPath="$PROJECT_DIR$/src/main/java/com/context/front/FrontContextInterceptor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/context/member/HandlerApiExceptionResolver.java" afterPath="$PROJECT_DIR$/src/main/java/com/context/member/HandlerApiExceptionResolver.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/context/member/MemberApiInterceptor.java" afterPath="$PROJECT_DIR$/src/main/java/com/context/member/MemberApiInterceptor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/context/member/MemberContextConfig.java" afterPath="$PROJECT_DIR$/src/main/java/com/context/member/MemberContextConfig.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/context/member/MemberCorsConfigurerAdapter.java" afterPath="$PROJECT_DIR$/src/main/java/com/context/member/MemberCorsConfigurerAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/front/DynamicPageAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/front/DynamicPageAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/FckAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/FckAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/ImageUploadAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/ImageUploadAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/UeditorAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/UeditorAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/WeiXinAuthAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/WeiXinAuthAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/admin/assist/CmsAccountPayApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/admin/assist/CmsAccountPayApiAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/admin/assist/CmsFileApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/admin/assist/CmsFileApiAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/admin/assist/MysqlDataApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/admin/assist/MysqlDataApiAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/admin/main/CmsFireWallConfigApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/admin/main/CmsFireWallConfigApiAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/admin/main/ContentApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/admin/main/ContentApiAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/front/SearchApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/front/SearchApiAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/front/UserApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/front/UserApiAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/member/MessageApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/member/MessageApiAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/member/UeditorApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/member/UeditorApiAct.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsAdvertising.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsAdvertising.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsAdvertisingSpace.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsAdvertisingSpace.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsComment.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsComment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsCommentExt.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsCommentExt.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsConfigContentCharge.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsConfigContentCharge.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsDirectiveTpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsDirectiveTpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsFile.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsFile.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsFriendlink.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsFriendlink.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsFriendlinkCtg.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsFriendlinkCtg.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsGuestbook.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsGuestbook.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsGuestbookCtg.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsGuestbookCtg.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsGuestbookExt.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsGuestbookExt.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsJobApply.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsJobApply.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsKeyword.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsKeyword.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsMessage.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsMessage.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsOrigin.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsOrigin.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsPlug.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsPlug.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsReceiverMessage.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsReceiverMessage.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsScoreGroup.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsScoreGroup.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsScoreItem.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsScoreItem.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsScoreRecord.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsScoreRecord.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsSearchWords.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsSearchWords.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsSensitivity.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsSensitivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsSiteAccess.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsSiteAccess.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsSiteAccessCount.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsSiteAccessCount.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsSiteAccessCountHour.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsSiteAccessCountHour.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsSiteAccessPages.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsSiteAccessPages.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsSiteAccessStatistic.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsSiteAccessStatistic.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsSiteFlow.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsSiteFlow.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsTask.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsTask.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsUserMenu.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsUserMenu.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsVoteItem.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsVoteItem.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsVoteRecord.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsVoteRecord.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsVoteReply.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsVoteReply.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsVoteSubTopic.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsVoteSubTopic.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsVoteTopic.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsVoteTopic.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsWebservice.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsWebservice.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsWebserviceAuth.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsWebserviceAuth.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsWebserviceCallRecord.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsWebserviceCallRecord.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsWebserviceParam.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsWebserviceParam.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ChannelExt.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ChannelExt.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ChannelTxt.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ChannelTxt.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ContentCharge.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ContentCharge.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ContentCheck.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ContentCheck.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ContentTxt.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ContentTxt.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/lucene/LuceneContentSvcImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/lucene/LuceneContentSvcImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/lucene/LuceneDirectiveList.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/lucene/LuceneDirectiveList.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/lucene/LuceneDirectivePage.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/lucene/LuceneDirectivePage.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsAccountDrawMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsAccountDrawMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsAccountPayMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsAccountPayMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsAcquisitionHistoryMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsAcquisitionHistoryMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsAcquisitionMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsAcquisitionMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsAcquisitionTempMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsAcquisitionTempMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsAdvertisingMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsAdvertisingMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsAdvertisingSpaceMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsAdvertisingSpaceMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsCommentExtMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsCommentExtMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsCommentMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsCommentMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsConfigContentChargeMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsConfigContentChargeMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsDirectiveTplMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsDirectiveTplMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsFileMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsFileMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsFriendlinkCtgMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsFriendlinkCtgMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsFriendlinkMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsFriendlinkMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsGuestbookCtgMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsGuestbookCtgMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsGuestbookExtMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsGuestbookExtMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsGuestbookMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsGuestbookMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsJobApplyMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsJobApplyMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsKeywordMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsKeywordMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsMysqlDataBackMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsMysqlDataBackMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsOriginMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsOriginMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsPlugMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsPlugMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsResourceMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsResourceMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsScoreGroupMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsScoreGroupMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsScoreItemMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsScoreItemMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsScoreRecordMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsScoreRecordMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsSearchWordsMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsSearchWordsMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsSensitivityMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsSensitivityMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsSiteAccessCountHourMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsSiteAccessCountHourMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsTaskMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsTaskMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsUserMenuMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsUserMenuMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsVoteItemMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsVoteItemMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsVoteRecordMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsVoteRecordMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsVoteReplyMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsVoteReplyMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsVoteSubTopicMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsVoteSubTopicMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsVoteTopicMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsVoteTopicMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsWebserviceAuthMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsWebserviceAuthMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsWebserviceCallRecordMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsWebserviceCallRecordMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsWebserviceMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsWebserviceMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ApiAccountMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ApiAccountMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ApiInfoMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ApiInfoMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ApiRecordMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ApiRecordMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ApiUserLoginMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ApiUserLoginMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ChannelCountMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ChannelCountMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ChannelExtMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ChannelExtMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ChannelMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ChannelMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ChannelTxtMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ChannelTxtMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/CmsModelItemMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/CmsModelItemMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/CmsModelMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/CmsModelMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/CmsThirdAccountMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/CmsThirdAccountMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/CmsTopicMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/CmsTopicMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ContentBuyMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ContentBuyMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ContentChargeMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ContentChargeMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ContentCheckMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ContentCheckMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ContentCountMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ContentCountMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ContentExtMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ContentExtMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ContentMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ContentMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ContentRecordMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ContentRecordMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ContentTagMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ContentTagMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ContentTxtMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ContentTxtMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ContentTypeMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ContentTypeMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/service/AcquisitionSvcImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/service/AcquisitionSvcImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/service/ChannelCountCacheImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/service/ChannelCountCacheImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/service/CmsSiteFlowCacheImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/service/CmsSiteFlowCacheImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/service/ContentCodeListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/service/ContentCodeListener.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/service/ContentCountCacheImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/service/ContentCountCacheImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/service/ContentPushListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/service/ContentPushListener.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/service/WeiXinSvcImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/service/WeiXinSvcImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/staticpage/ContentStaticPageListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/staticpage/ContentStaticPageListener.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/staticpage/StaticPageDaoImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/staticpage/StaticPageDaoImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/staticpage/StaticPageSvcImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/staticpage/StaticPageSvcImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/statistic/workload/CmsWorkLoadStatisticAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/statistic/workload/CmsWorkLoadStatisticAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/task/job/SiteDayJob.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/task/job/SiteDayJob.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/common/hibernate4/HibernateSimpleDao.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/common/hibernate4/HibernateSimpleDao.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/common/upload/AliOssCloudClient.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/common/upload/AliOssCloudClient.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/common/web/session/HttpSessionProvider.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/common/web/session/HttpSessionProvider.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/config/ApplicationConfig.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/config/ApplicationConfig.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/config/ContextConfig.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/config/ContextConfig.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/config/ShiroConfig.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/config/ShiroConfig.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsOss.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsOss.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsRole.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsRole.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsSite.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsSite.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsUser.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsUser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsUserAccount.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsUserAccount.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsUserExt.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsUserExt.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/AuthenticationMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/AuthenticationMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/CmsConfigItemMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/CmsConfigItemMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/CmsConfigMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/CmsConfigMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/CmsDictionaryMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/CmsDictionaryMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/CmsGroupMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/CmsGroupMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/CmsLogMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/CmsLogMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/CmsOssMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/CmsOssMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/CmsRoleMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/CmsRoleMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/CmsSiteCompanyMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/CmsSiteCompanyMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/CmsSiteMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/CmsSiteMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/CmsSmsMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/CmsSmsMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/CmsSmsRecordMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/CmsSmsRecordMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/CmsUserAccountMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/CmsUserAccountMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/CmsUserExtMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/CmsUserExtMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/CmsUserMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/CmsUserMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/CmsUserResumeMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/CmsUserResumeMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/CmsUserSiteMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/CmsUserSiteMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/ConfigMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/ConfigMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/DbFileMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/DbFileMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/DbTplMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/DbTplMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/FtpMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/FtpMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/UnifiedUserMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/UnifiedUserMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/servlet/SnapScreenServlet.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/servlet/SnapScreenServlet.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/tpl/FileTplManagerImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/tpl/FileTplManagerImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/plug/store/manager/impl/PlugStoreConfigMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/plug/store/manager/impl/PlugStoreConfigMngImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/plug/weixin/entity/WeixinMenu.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/plug/weixin/entity/WeixinMenu.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/application.properties" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/jeecmsv9f.iml" afterPath="$PROJECT_DIR$/cms.iml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/web/FireWallInterceptor.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/servlet/FireWallInterceptor.java" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -164,7 +240,69 @@
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="ServletContextRealPathResolver1.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/config/ServletContextRealPathResolver1.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="91">
+              <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#789#790#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ShiroConfig.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/config/ShiroConfig.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="449">
+              <caret line="45" column="9" lean-forward="true" selection-start-line="45" selection-start-column="9" selection-end-line="45" selection-end-column="9" />
+              <folding>
+                <element signature="method#lifecycleBeanPostProcessor#0;class#ShiroConfig#0" expanded="false" />
+                <element signature="method#delegatingFilterProxy#0;class#ShiroConfig#0" expanded="false" />
+                <element signature="method#bbsUserFilterRegistration#0;class#ShiroConfig#0" expanded="false" />
+                <element signature="method#authcFilterRegistration#0;class#ShiroConfig#0" expanded="false" />
+                <element signature="method#logoutFilterRegistration#0;class#ShiroConfig#0" expanded="false" />
+                <element signature="method#adminUrlBean#0;class#ShiroConfig#0" expanded="false" />
+                <element signature="method#userFilter#0;class#ShiroConfig#0" expanded="false" />
+                <element signature="method#logoutFilter#0;class#ShiroConfig#0" expanded="false" />
+                <element signature="method#authcFilter#0;class#ShiroConfig#0" expanded="false" />
+                <element signature="class#4636:5171" expanded="false" />
+                <element signature="method#securityManager#0;class#ShiroConfig#0" expanded="false" />
+                <element signature="method#shiroEhcacheManager#0;class#ShiroConfig#0" expanded="false" />
+                <element signature="method#hashedCredentialsMatcher#0;class#ShiroConfig#0" expanded="false" />
+                <element signature="method#rememberMeCookie#0;class#ShiroConfig#0" expanded="false" />
+                <element signature="method#rememberMeManager#0;class#ShiroConfig#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ServletContextRealPathResolver.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/config/ServletContextRealPathResolver.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="194">
+              <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+              <folding>
+                <element signature="e#798#799#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ApplicationConfig.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/config/ApplicationConfig.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="63">
+              <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -175,36 +313,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>check</find>
-      <find>com.jeecms.cms.entity.main</find>
-      <find>ContentTag.deleteContentRef</find>
-      <find>ContentTag.countContentRef</find>
-      <find>java.util.`</find>
-      <find>accountd</find>
-      <find>accountD</find>
-      <find>pay</find>
-      <find>com.jeecms.cms.entity.main.</find>
-      <find>com.jeecms.core.entity.</find>
-      <find>com.jeecms.cms.entity.assist.</find>
-      <find>acqui</find>
-      <find>acq</find>
-      <find>histo</find>
-      <find>sh</find>
-      <find>spac</find>
-      <find>parent</find>
       <find>`</find>
-      <find>tpl</find>
-      <find>book</find>
-      <find>key</find>
-      <find>keyw</find>
-      <find>java.lang.</find>
-      <find>tasl</find>
-      <find>task</find>
-      <find>tas</find>
-      <find>group</find>
-      <find>java.util.</find>
-      <find>voteItems``</find>
-      <find>dao.txt</find>
+      <find>setResou</find>
+      <find>setst</find>
+      <find>setRealp</find>
+      <find>setreso</find>
+      <find>InitializingBean</find>
+      <find>resourcemng</find>
+      <find>setcmssi</find>
+      <find>CmsUserSiteMng</find>
+      <find>AdminContextInterceptor</find>
+      <find>//aa</find>
+      <find>cmssitemng</find>
+      <find>cmsfire</find>
+      <find>CmsResourceMng</find>
+      <find>CmsSiteMng</find>
+      <find>///aaa</find>
+      <find>//aaa</find>
+      <find>//aaaa</find>
+      <find>///</find>
+      <find>lifecycleBeanPostProcessor</find>
+      <find>DefaultAdvisorAutoProxyCreator `</find>
+      <find>shiro</find>
+      <find>shiro`</find>
+      <find>org.apache.shiro.web.</find>
+      <find>DefaultAdvisorAutoProxyCreator</find>
+      <find>CredentialsMatcher</find>
+      <find>spring-boot-starter-aop</find>
+      <find>RequiresPermissions</find>
+      <find>aop</find>
+      <find>targetFilterLifecycle</find>
     </findStrings>
     <dirStrings>
       <dir>G:\Develop\JEE\cms\src\main\java\com\jeecms\plug</dir>
@@ -217,57 +355,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsMessage.hbm.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsMessage.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsOrigin.hbm.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsOrigin.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsPlug.hbm.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsPlug.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsReceiverMessage.hbm.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsReceiverMessage.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsTask.hbm.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsTask.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsScoreGroup.hbm.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsScoreGroup.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsScoreItem.hbm.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsScoreItem.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsScoreRecord.hbm.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsScoreRecord.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsSearchWords.hbm.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsSearchWords.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsSensitivity.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsSensitivity.hbm.xml" />
-        <option value="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsSiteAccess.hbm.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsSiteAccess.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsSiteAccessCount.hbm.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsSiteAccessCount.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsSiteAccessCountHour.hbm.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsSiteAccessCountHour.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsSiteAccessPages.hbm.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsSiteAccessPages.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsSiteAccessStatistic.hbm.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsSiteAccessStatistic.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsSiteFlow.hbm.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsSiteFlow.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsUserMenu.hbm.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsUserMenu.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsVoteItem.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsVoteItem.hbm.xml" />
-        <option value="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsVoteRecord.hbm.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsVoteRecord.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsVoteReply.hbm.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsVoteReply.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsVoteSubTopic.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsVoteSubTopic.hbm.xml" />
-        <option value="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsVoteTopic.hbm.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsVoteTopic.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsWebservice.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsWebserviceParam.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsWebservice.hbm.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsWebserviceAuth.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsWebserviceAuth.hbm.xml" />
-        <option value="$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsWebserviceCallRecord.hbm.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsWebserviceCallRecord.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ContentExtMngImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ContentCountMngImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ContentCheckMngImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ContentChargeMngImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ContentBuyMngImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/CmsTopicMngImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/CmsThirdAccountMngImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/CmsModelMngImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/CmsModelItemMngImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ContentTypeMngImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ContentTxtMngImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ContentTagMngImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ContentRecordMngImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/service/AcquisitionSvcImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/service/ChannelCountCacheImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/service/ContentCountCacheImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/statistic/workload/CmsWorkLoadStatisticAct.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/front/SearchApiAct.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/WeiXinAuthAct.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/admin/assist/MysqlDataApiAct.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/admin/assist/CmsAccountPayApiAct.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/lucene/LuceneContentSvcImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/admin/main/ContentApiAct.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/lucene/LuceneDirectiveList.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/service/WeiXinSvcImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/UeditorAct.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/lucene/LuceneDirectivePage.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/admin/assist/CmsFileApiAct.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/core/servlet/FireWallInterceptor.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsResourceMngImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/CmsUserMngImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/directive/abs/AbstractContentDirective.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/context/admin/AdminContextInterceptor.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/context/admin/AdminContextConfig.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/context/admin/AdminApiInterceptor.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/context/admin/AdminCorsConfigurerAdapter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/context/front/FrontContextInterceptor.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/context/front/FrontLocaleInterceptor.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/context/member/MemberApiInterceptor.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/context/member/MemberContextConfig.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/context/member/MemberCorsConfigurerAdapter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/admin/main/CmsFireWallConfigApiAct.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/context/front/FrontContextConfig.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/config/SchedulConfig.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/staticpage/StaticPageSvcImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/CmsSiteMngImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/config/ContextConfig.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/config/ApplicationConfig.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/config/ShiroConfig.java" />
       </list>
     </option>
   </component>
@@ -427,7 +565,22 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
+      <pane id="Scratches">
+        <subPane>
+          <expand>
+            <path>
+              <item name="" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
+              <item name="Extensions" type="d62648e6:ScratchProjectViewPane$MyRootNode" />
+            </path>
+            <path>
+              <item name="" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
+              <item name="Extensions" type="d62648e6:ScratchProjectViewPane$MyRootNode" />
+              <item name="com.intellij.database" type="61db50fb:ScratchProjectViewPane$MyPsiNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -468,7 +621,7 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="jeecms" type="462c0819:PsiDirectoryNode" />
+              <item name="context" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="jeecmsv9f" type="b2602c69:ProjectViewProjectNode" />
@@ -478,71 +631,29 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="com" type="462c0819:PsiDirectoryNode" />
               <item name="jeecms" type="462c0819:PsiDirectoryNode" />
-              <item name="cms" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="jeecmsv9f" type="b2602c69:ProjectViewProjectNode" />
               <item name="cms" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="jeecms" type="462c0819:PsiDirectoryNode" />
-              <item name="cms" type="462c0819:PsiDirectoryNode" />
-              <item name="entity" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="jeecmsv9f" type="b2602c69:ProjectViewProjectNode" />
-              <item name="cms" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="jeecms" type="462c0819:PsiDirectoryNode" />
-              <item name="cms" type="462c0819:PsiDirectoryNode" />
-              <item name="entity" type="462c0819:PsiDirectoryNode" />
-              <item name="assist" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="jeecmsv9f" type="b2602c69:ProjectViewProjectNode" />
-              <item name="cms" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="jeecms" type="462c0819:PsiDirectoryNode" />
-              <item name="plug" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scratches">
-        <subPane>
-          <expand>
-            <path>
-              <item name="" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
-              <item name="Extensions" type="d62648e6:ScratchProjectViewPane$MyRootNode" />
-            </path>
-            <path>
-              <item name="" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
-              <item name="Extensions" type="d62648e6:ScratchProjectViewPane$MyRootNode" />
-              <item name="com.intellij.database" type="61db50fb:ScratchProjectViewPane$MyPsiNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/com/jeecms/core/servlet" />
+    <property name="last_opened_file_path" value="G:/test/boot-issue-sample-master" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="editing.templates" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.tabs" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -558,6 +669,7 @@
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.jeecms.core.servlet" />
       <recent name="com.context.member" />
+      <recent name="com.jeecms.config" />
       <recent name="com.context.admin" />
       <recent name="com.context.front" />
     </key>
@@ -568,12 +680,15 @@
       <recent name="G:\创业\cms\src\main\java\com\context\front" />
       <recent name="G:\创业\cms\src\main\java\com\" />
     </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.context.admin" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="G:\创业\cms\src\main\java\com\jeecms\config" />
+      <recent name="G:\创业\cms\src\main\java\com\jeecms\common\web\springmvc" />
       <recent name="G:\创业\cms\src\main\java\com\jeecms\core\servlet" />
       <recent name="G:\创业\cms\src\main\java\com\context\front" />
       <recent name="G:\创业\cms\src\main\resources\i18n" />
-      <recent name="G:\Develop\JEE\cms\src\main\resources" />
-      <recent name="G:\Develop\JEE\cms\src\main\resources\com\jeecms\plug\weixin\entity\hbm\common" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -597,40 +712,165 @@
         </pattern>
       </extension>
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.CmsApp" />
+      <module name="cms" />
+      <envs />
+    </configuration>
+    <configuration default="true" type="PyBehaveRunConfigurationType" factoryName="Behave">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="jeecmsv9f" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="ADDITIONAL_ARGS" value="" />
+    </configuration>
+    <configuration default="true" type="DjangoTestsConfigurationType" factoryName="Django tests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="jeecmsv9f" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="TARGET" value="" />
+      <option name="SETTINGS_FILE" value="" />
+      <option name="CUSTOM_SETTINGS" value="false" />
+      <option name="USE_OPTIONS" value="false" />
+      <option name="OPTIONS" value="" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Doctests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="jeecmsv9f" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType" factoryName="Kotlin">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
       <module name="jeecmsv9f" />
       <envs />
     </configuration>
-    <configuration name="jeecmsv9f [tomcat7:run]" type="MavenRunConfiguration" factoryName="Maven" temporary="true">
-      <MavenSettings>
-        <option name="myGeneralSettings" />
-        <option name="myRunnerSettings" />
-        <option name="myRunnerParameters">
-          <MavenRunnerParameters>
-            <option name="profiles">
-              <set />
-            </option>
-            <option name="goals">
-              <list>
-                <option value="tomcat7:run" />
-              </list>
-            </option>
-            <option name="profilesMap">
-              <map />
-            </option>
-            <option name="resolveToWorkspace" value="false" />
-            <option name="workingDirPath" value="$PROJECT_DIR$" />
-          </MavenRunnerParameters>
-        </option>
-      </MavenSettings>
+    <configuration default="true" type="PyLettuceRunConfigurationType" factoryName="Lettuce">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="jeecmsv9f" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="ADDITIONAL_ARGS" value="" />
     </configuration>
-    <list size="2">
-      <item index="0" class="java.lang.String" itemvalue="Maven.jeecmsv9f [tomcat7:run]" />
-      <item index="1" class="java.lang.String" itemvalue="Spring Boot.CmsApp" />
-    </list>
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="jeecmsv9f" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+    </configuration>
+    <configuration default="true" type="Tox" factoryName="Tox">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <module name="jeecmsv9f" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Nosetests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="jeecmsv9f" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="_new_regexPattern" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Unittests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="jeecmsv9f" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="py.test">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="jeecmsv9f" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+    </configuration>
     <recent_temporary>
-      <list size="2">
+      <list size="1">
         <item index="0" class="java.lang.String" itemvalue="Spring Boot.CmsApp" />
-        <item index="1" class="java.lang.String" itemvalue="Maven.jeecmsv9f [tomcat7:run]" />
       </list>
     </recent_temporary>
   </component>
@@ -665,7 +905,12 @@
       <workItem from="1542198783146" duration="10906000" />
       <workItem from="1542246562363" duration="37350000" />
       <workItem from="1542331867064" duration="27458000" />
-      <workItem from="1542418506798" duration="4963000" />
+      <workItem from="1542418506798" duration="21352000" />
+      <workItem from="1542516125943" duration="7445000" />
+      <workItem from="1542523668559" duration="46000" />
+      <workItem from="1542525184283" duration="49000" />
+      <workItem from="1542525243970" duration="628000" />
+      <workItem from="1542525975596" duration="19695000" />
     </task>
     <task id="LOCAL-00001" summary="代码优化">
       <created>1542355815388</created>
@@ -674,11 +919,18 @@
       <option name="project" value="LOCAL" />
       <updated>1542355815388</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="代码优化">
+      <created>1542423642608</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1542423642608</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="147533000" />
+    <option name="totallyTimeSpent" value="191785000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -693,16 +945,17 @@
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32784185" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32894737" sideWeight="0.4969743" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5030257" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.7265239" sideWeight="0.5030257" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.48434925" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32784185" sideWeight="0.4969743" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23903178" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1785174" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32980332" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32980332" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -710,43 +963,14 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.24962178" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5733114" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.46622735" sideWeight="0.4969743" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32980332" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32784185" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
-    <layout-to-restore>
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5030257" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32980332" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.24962178" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5733114" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32980332" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32784185" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32894737" sideWeight="0.4969743" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.48434925" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32784185" sideWeight="0.4969743" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23524962" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32980332" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294893" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -789,13 +1013,37 @@
           <option name="timeStamp" value="47" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/jeecms/common/web/springmvc/ServletContextRealPathResolver.java</url>
-          <line>21</line>
+          <url>file://$PROJECT_DIR$/src/main/java/com/jeecms/config/ServletContextRealPathResolver.java</url>
+          <line>24</line>
           <properties />
           <option name="timeStamp" value="57" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/jeecms/config/ServletContextRealPathResolver1.java</url>
+          <line>23</line>
+          <properties />
+          <option name="timeStamp" value="76" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://E:/Program Files/apache-maven-3.5.2/repository/org/springframework/spring-webmvc/4.3.9.RELEASE/spring-webmvc-4.3.9.RELEASE-sources.jar!/org/springframework/web/servlet/handler/SimpleServletPostProcessor.java</url>
+          <line>89</line>
+          <properties />
+          <option name="timeStamp" value="81" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/task/job/ContentStaticJob.java</url>
+          <line>31</line>
+          <properties />
+          <option name="timeStamp" value="84" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/task/job/IndexStaticJob.java</url>
+          <line>28</line>
+          <properties />
+          <option name="timeStamp" value="85" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="68" />
+      <option name="time" value="89" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="SpringBootApplicationConfigurationType">
@@ -857,571 +1105,441 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsPlug.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/lucene/LuceneDirectiveList.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2937">
-          <caret line="109" column="28" lean-forward="false" selection-start-line="109" selection-start-column="28" selection-end-line="109" selection-end-column="28" />
-          <folding>
-            <element signature="method#getCanInstall#0;class#CmsPlug#0" expanded="false" />
-            <element signature="method#getCanUnInstall#0;class#CmsPlug#0" expanded="false" />
-            <element signature="e#2089#2090#0" expanded="false" />
-            <element signature="e#2114#2115#0" expanded="false" />
-            <element signature="e#2151#2152#0" expanded="false" />
-            <element signature="e#2179#2180#0" expanded="false" />
-            <element signature="e#2210#2211#0" expanded="false" />
-            <element signature="e#2237#2238#0" expanded="false" />
-            <element signature="e#2278#2279#0" expanded="false" />
-            <element signature="e#2310#2311#0" expanded="false" />
-            <element signature="e#2341#2342#0" expanded="false" />
-            <element signature="e#2368#2369#0" expanded="false" />
-            <element signature="e#2408#2409#0" expanded="false" />
-            <element signature="e#2440#2441#0" expanded="false" />
-            <element signature="e#2479#2480#0" expanded="false" />
-            <element signature="e#2513#2514#0" expanded="false" />
-            <element signature="e#2568#2569#0" expanded="false" />
-            <element signature="e#2614#2615#0" expanded="false" />
-            <element signature="e#2648#2649#0" expanded="false" />
-            <element signature="e#2677#2678#0" expanded="false" />
-            <element signature="e#2722#2723#0" expanded="false" />
-            <element signature="e#2758#2759#0" expanded="false" />
-            <element signature="e#2794#2795#0" expanded="false" />
-            <element signature="e#2827#2828#0" expanded="false" />
-            <element signature="e#2878#2879#0" expanded="false" />
-            <element signature="e#2922#2923#0" expanded="false" />
-            <element signature="e#2958#2959#0" expanded="false" />
-            <element signature="e#2992#2993#0" expanded="false" />
-            <element signature="e#3045#3046#0" expanded="false" />
-            <element signature="e#3091#3092#0" expanded="false" />
-            <element signature="e#3129#3130#0" expanded="false" />
-            <element signature="e#3165#3166#0" expanded="false" />
-            <element signature="e#3222#3223#0" expanded="false" />
-            <element signature="e#3272#3273#0" expanded="false" />
-            <element signature="e#3312#3313#0" expanded="false" />
-            <element signature="e#3347#3348#0" expanded="false" />
-            <element signature="e#3404#3405#0" expanded="false" />
-            <element signature="e#3452#3453#0" expanded="false" />
-            <element signature="e#3484#3485#0" expanded="false" />
-            <element signature="e#3511#3512#0" expanded="false" />
-            <element signature="e#3553#3554#0" expanded="false" />
-            <element signature="e#3585#3586#0" expanded="false" />
-            <element signature="e#3622#3623#0" expanded="false" />
-            <element signature="e#3654#3655#0" expanded="false" />
-            <element signature="e#3705#3706#0" expanded="false" />
-            <element signature="e#3747#3748#0" expanded="false" />
-            <marker date="1542361515895" expanded="false" signature="3784:3795" ph=" { " />
-            <marker date="1542361515895" expanded="false" signature="3813:3819" ph=" }" />
-            <marker date="1542361515895" expanded="false" signature="3870:3881" ph=" { " />
-            <marker date="1542361515895" expanded="false" signature="3910:3916" ph=" }" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsReceiverMessage.hbm.xml" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsReceiverMessage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1349">
-          <caret line="54" column="31" lean-forward="false" selection-start-line="54" selection-start-column="31" selection-end-line="54" selection-end-column="31" />
-          <folding>
-            <element signature="e#1540#1541#0" expanded="false" />
-            <element signature="e#1565#1566#0" expanded="false" />
-            <element signature="e#1602#1603#0" expanded="false" />
-            <element signature="e#1630#1631#0" expanded="false" />
-            <element signature="e#1665#1666#0" expanded="false" />
-            <element signature="e#1696#1697#0" expanded="false" />
-            <element signature="e#1744#1745#0" expanded="false" />
-            <element signature="e#1784#1785#0" expanded="false" />
-            <element signature="e#1821#1822#0" expanded="false" />
-            <element signature="e#1854#1855#0" expanded="false" />
-            <element signature="e#1906#1907#0" expanded="false" />
-            <element signature="e#1950#1951#0" expanded="false" />
-            <element signature="e#1983#1984#0" expanded="false" />
-            <element signature="e#2014#2015#0" expanded="false" />
-            <element signature="e#2060#2061#0" expanded="false" />
-            <element signature="e#2100#2101#0" expanded="false" />
-            <marker date="1542361736461" expanded="false" signature="2136:2147" ph=" { " />
-            <marker date="1542361736461" expanded="false" signature="2164:2170" ph=" }" />
-            <marker date="1542361736461" expanded="false" signature="2219:2230" ph=" { " />
-            <marker date="1542361736461" expanded="false" signature="2257:2263" ph=" }" />
-            <marker date="1542361736461" expanded="false" signature="2295:2306" ph=" { " />
-            <marker date="1542361736461" expanded="false" signature="2320:2326" ph=" }" />
-            <marker date="1542361736461" expanded="false" signature="2370:2381" ph=" { " />
-            <marker date="1542361736461" expanded="false" signature="2402:2408" ph=" }" />
-            <marker date="1542361736461" expanded="false" signature="2444:2455" ph=" { " />
-            <marker date="1542361736461" expanded="false" signature="2470:2476" ph=" }" />
-            <marker date="1542361736461" expanded="false" signature="2525:2536" ph=" { " />
-            <marker date="1542361736461" expanded="false" signature="2559:2565" ph=" }" />
-            <marker date="1542361736461" expanded="false" signature="2607:2618" ph=" { " />
-            <marker date="1542361736461" expanded="false" signature="2641:2647" ph=" }" />
-            <marker date="1542361736461" expanded="false" signature="2708:2719" ph=" { " />
-            <marker date="1542361736461" expanded="false" signature="2758:2764" ph=" }" />
-            <marker date="1542361736461" expanded="false" signature="2801:2812" ph=" { " />
-            <marker date="1542361736461" expanded="false" signature="2831:2837" ph=" }" />
-            <marker date="1542361736461" expanded="false" signature="2891:2902" ph=" { " />
-            <marker date="1542361736461" expanded="false" signature="2933:2939" ph=" }" />
-            <marker date="1542361736461" expanded="false" signature="2969:2980" ph=" { " />
-            <marker date="1542361736461" expanded="false" signature="2992:2998" ph=" }" />
-            <marker date="1542361736461" expanded="false" signature="3037:3048" ph=" { " />
-            <marker date="1542361736461" expanded="false" signature="3065:3071" ph=" }" />
-            <marker date="1542361736461" expanded="false" signature="5092:5103" ph=" { " />
-            <marker date="1542361736461" expanded="false" signature="5142:5148" ph=" }" />
-            <marker date="1542361736461" expanded="false" signature="5184:5195" ph=" { " />
-            <marker date="1542361736461" expanded="false" signature="5236:5242" ph=" }" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsTask.hbm.xml" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsUser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="31" column="15" lean-forward="false" selection-start-line="31" selection-start-column="15" selection-end-line="31" selection-end-column="15" />
+        <state relative-caret-position="96">
+          <caret line="92" column="43" lean-forward="true" selection-start-line="92" selection-start-column="43" selection-end-line="92" selection-end-column="43" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsTask.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/service/ContentCodeListener.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="323" column="0" lean-forward="true" selection-start-line="323" selection-start-column="0" selection-end-line="323" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#init#0;class#CmsTask#0" expanded="false" />
-            <element signature="method#convertToJson#0;class#CmsTask#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsSite.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="27" column="13" lean-forward="false" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
+        <state relative-caret-position="195">
+          <caret line="108" column="1" lean-forward="true" selection-start-line="108" selection-start-column="1" selection-end-line="108" selection-end-column="1" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsScoreGroup.hbm.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/lucene/LuceneContentSvcImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="7" column="16" lean-forward="false" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="16" />
+        <state relative-caret-position="96">
+          <caret line="204" column="43" lean-forward="false" selection-start-line="204" selection-start-column="43" selection-end-line="204" selection-end-column="43" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsScoreGroup.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/admin/main/ContentApiAct.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="13" column="6" lean-forward="false" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
+        <state relative-caret-position="95">
+          <caret line="1695" column="4" lean-forward="true" selection-start-line="1695" selection-start-column="4" selection-end-line="1695" selection-end-column="4" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsScoreItem.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/lucene/LuceneDirectivePage.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="16" column="3" lean-forward="true" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
-          <folding>
-            <element signature="method#convertToJson#0;class#CmsScoreItem#0" expanded="false" />
-            <element signature="method#init#0;class#CmsScoreItem#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsScoreItem.hbm.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="515">
-          <caret line="49" column="0" lean-forward="true" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
+        <state relative-caret-position="96">
+          <caret line="99" column="43" lean-forward="false" selection-start-line="99" selection-start-column="43" selection-end-line="99" selection-end-column="43" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsScoreRecord.hbm.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/context/admin/AdminContextConfig.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="26" column="0" lean-forward="true" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+        <state relative-caret-position="138">
+          <caret line="19" column="2" lean-forward="true" selection-start-line="19" selection-start-column="2" selection-end-line="19" selection-end-column="2" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsScoreRecord.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1122">
-          <caret line="39" column="0" lean-forward="true" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsSearchWords.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="36" column="33" lean-forward="false" selection-start-line="36" selection-start-column="33" selection-end-line="36" selection-end-column="33" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#convertToJson#0;class#CmsSearchWords#0" expanded="false" />
-            <element signature="method#init#0;class#CmsSearchWords#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsSearchWords.hbm.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="326">
-          <caret line="46" column="24" lean-forward="true" selection-start-line="46" selection-start-column="24" selection-end-line="46" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsSensitivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="792">
-          <caret line="54" column="10" lean-forward="false" selection-start-line="54" selection-start-column="10" selection-end-line="54" selection-end-column="10" />
-          <folding>
-            <element signature="method#convertToJson#0;class#CmsSensitivity#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsSensitivity.hbm.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="6" column="24" lean-forward="true" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsSiteAccess.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="14" column="24" lean-forward="false" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsSiteAccess.hbm.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="124" column="10" lean-forward="true" selection-start-line="124" selection-start-column="10" selection-end-line="124" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsSiteAccessCount.hbm.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="41" column="0" lean-forward="true" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsSiteAccessCount.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="88" column="0" lean-forward="true" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsSiteAccessCountHour.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsSiteAccessCountHour.hbm.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="57" column="19" lean-forward="true" selection-start-line="57" selection-start-column="19" selection-end-line="57" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsSiteAccessPages.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="19" column="3" lean-forward="true" selection-start-line="19" selection-start-column="3" selection-end-line="19" selection-end-column="3" />
-          <folding>
-            <element signature="method#convertToJson#0;class#CmsSiteAccessPages#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsSiteAccessPages.hbm.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="64" column="20" lean-forward="false" selection-start-line="64" selection-start-column="20" selection-end-line="64" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsSiteAccessStatistic.hbm.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="77" column="0" lean-forward="true" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsSiteAccessStatistic.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="293">
-          <caret line="18" column="20" lean-forward="false" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsSiteFlow.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="99">
-          <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding>
-            <element signature="e#1116#1117#0" expanded="true" />
-            <element signature="e#1141#1142#0" expanded="true" />
-            <element signature="e#1178#1179#0" expanded="true" />
-            <element signature="e#1206#1207#0" expanded="true" />
-            <element signature="e#1241#1242#0" expanded="true" />
-            <element signature="e#1272#1273#0" expanded="true" />
-            <element signature="e#1320#1321#0" expanded="true" />
-            <element signature="e#1360#1361#0" expanded="true" />
-            <element signature="e#1397#1398#0" expanded="true" />
-            <element signature="e#1430#1431#0" expanded="true" />
-            <element signature="e#1482#1483#0" expanded="true" />
-            <element signature="e#1526#1527#0" expanded="true" />
-            <element signature="e#1561#1562#0" expanded="true" />
-            <element signature="e#1594#1595#0" expanded="true" />
-            <element signature="e#1644#1645#0" expanded="true" />
-            <element signature="e#1688#1689#0" expanded="true" />
-            <marker date="1542421135225" expanded="false" signature="1724:1735" ph=" { " />
-            <marker date="1542421135225" expanded="false" signature="1753:1759" ph=" }" />
-            <marker date="1542421135225" expanded="false" signature="1810:1821" ph=" { " />
-            <marker date="1542421135225" expanded="false" signature="1850:1856" ph=" }" />
-            <marker date="1542421135225" expanded="false" signature="1895:1906" ph=" { " />
-            <marker date="1542421135225" expanded="false" signature="1928:1934" ph=" }" />
-            <marker date="1542421135225" expanded="false" signature="1993:2004" ph=" { " />
-            <marker date="1542421135225" expanded="false" signature="2041:2047" ph=" }" />
-            <marker date="1542421135225" expanded="false" signature="2083:2094" ph=" { " />
-            <marker date="1542421135225" expanded="false" signature="2113:2119" ph=" }" />
-            <marker date="1542421135225" expanded="false" signature="2171:2182" ph=" { " />
-            <marker date="1542421135225" expanded="false" signature="2213:2219" ph=" }" />
-            <marker date="1542421135225" expanded="false" signature="2258:2269" ph=" { " />
-            <marker date="1542421135225" expanded="false" signature="2291:2297" ph=" }" />
-            <marker date="1542421135225" expanded="false" signature="2355:2366" ph=" { " />
-            <marker date="1542421135225" expanded="false" signature="2403:2409" ph=" }" />
-            <marker date="1542421135225" expanded="false" signature="2439:2450" ph=" { " />
-            <marker date="1542421135225" expanded="false" signature="2462:2468" ph=" }" />
-            <marker date="1542421135225" expanded="false" signature="2506:2517" ph=" { " />
-            <marker date="1542421135225" expanded="false" signature="2534:2540" ph=" }" />
-            <marker date="1542421135225" expanded="false" signature="2575:2586" ph=" { " />
-            <marker date="1542421135225" expanded="false" signature="2603:2609" ph=" }" />
-            <marker date="1542421135225" expanded="false" signature="2657:2668" ph=" { " />
-            <marker date="1542421135225" expanded="false" signature="2695:2701" ph=" }" />
-            <marker date="1542421135225" expanded="false" signature="2732:2743" ph=" { " />
-            <marker date="1542421135225" expanded="false" signature="2755:2761" ph=" }" />
-            <marker date="1542421135225" expanded="false" signature="2800:2811" ph=" { " />
-            <marker date="1542421135225" expanded="false" signature="2828:2834" ph=" }" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsSiteFlow.hbm.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="9" column="15" lean-forward="false" selection-start-line="9" selection-start-column="15" selection-end-line="9" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsUserMenu.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="22" column="29" lean-forward="true" selection-start-line="22" selection-start-column="29" selection-end-line="22" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsUserMenu.hbm.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="38" column="27" lean-forward="true" selection-start-line="38" selection-start-column="27" selection-end-line="38" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsVoteItem.hbm.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="6" column="30" lean-forward="false" selection-start-line="6" selection-start-column="30" selection-end-line="6" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsVoteRecord.hbm.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="99">
-          <caret line="3" column="10" lean-forward="false" selection-start-line="3" selection-start-column="10" selection-end-line="3" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsVoteRecord.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1485">
-          <caret line="51" column="31" lean-forward="true" selection-start-line="51" selection-start-column="31" selection-end-line="51" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsVoteReply.hbm.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="284">
-          <caret line="33" column="0" lean-forward="true" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsVoteItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="75" column="14" lean-forward="true" selection-start-line="75" selection-start-column="14" selection-end-line="75" selection-end-column="14" />
-          <folding>
-            <element signature="method#getPercent#0;class#CmsVoteItem#0" expanded="false" />
-            <element signature="method#init#0;class#CmsVoteItem#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsVoteSubTopic.hbm.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="37" column="1" lean-forward="false" selection-start-line="37" selection-start-column="1" selection-end-line="37" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsVoteSubTopic.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="16" column="21" lean-forward="true" selection-start-line="16" selection-start-column="21" selection-end-line="16" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsVoteTopic.hbm.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="6" column="28" lean-forward="false" selection-start-line="6" selection-start-column="28" selection-end-line="6" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsVoteTopic.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="26" selection-end-column="30" />
-          <folding>
-            <element signature="method#init#0;class#CmsVoteTopic#0" expanded="false" />
-            <element signature="method#convertToJson#0;class#CmsVoteTopic#0" expanded="false" />
-            <element signature="method#getStatus#0;class#CmsVoteTopic#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsWebserviceParam.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="429">
-          <caret line="31" column="33" lean-forward="false" selection-start-line="31" selection-start-column="33" selection-end-line="31" selection-end-column="33" />
-          <folding>
-            <element signature="method#convertToJson#0;class#CmsWebserviceParam#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsWebservice.hbm.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="55" column="0" lean-forward="false" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsVoteReply.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="16" selection-end-column="73" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsWebservice.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="118" column="27" lean-forward="false" selection-start-line="118" selection-start-column="27" selection-end-line="118" selection-end-column="27" />
-          <folding>
-            <element signature="method#addToParams#0;class#CmsWebservice#0" expanded="false" />
-            <element signature="method#convertToJson#0;class#CmsWebservice#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsWebserviceAuth.hbm.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="326">
-          <caret line="46" column="16" lean-forward="false" selection-start-line="46" selection-start-column="16" selection-end-line="46" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsWebserviceAuth.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="11" column="3" lean-forward="true" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="3" />
-          <folding>
-            <element signature="method#convertToJson#0;class#CmsWebserviceAuth#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsWebserviceCallRecord.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="20" column="7" lean-forward="true" selection-start-line="20" selection-start-column="7" selection-end-line="20" selection-end-column="7" />
-          <folding>
-            <element signature="method#convertToJson#0;class#CmsWebserviceCallRecord#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/com/jeecms/cms/entity/assist/hbm/common/CmsWebserviceCallRecord.hbm.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="359">
-          <caret line="37" column="20" lean-forward="true" selection-start-line="37" selection-start-column="20" selection-end-line="37" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/com/jeecms/cms/template/jeecms.properties">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/context/admin/AdminApiInterceptor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="363">
-          <caret line="11" column="21" lean-forward="true" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="21" />
+          <caret line="60" column="0" lean-forward="false" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="6" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/com/jeecms/cms/template/action.txt">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/context/admin/AdminContextInterceptor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="369">
-          <caret line="148" column="1" lean-forward="true" selection-start-line="148" selection-start-column="1" selection-end-line="148" selection-end-column="1" />
+        <state relative-caret-position="297">
+          <caret line="35" column="25" lean-forward="false" selection-start-line="35" selection-start-column="25" selection-end-line="35" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/com/jeecms/cms/template/dao.txt">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/context/admin/AdminCorsConfigurerAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="7" column="22" lean-forward="false" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
+        <state relative-caret-position="165">
+          <caret line="15" column="3" lean-forward="true" selection-start-line="15" selection-start-column="3" selection-end-line="15" selection-end-column="3" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/context/admin/AdminLocaleInterceptor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="61" column="5" lean-forward="true" selection-start-line="61" selection-start-column="5" selection-end-line="61" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/context/admin/HandlerApiExceptionResolver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="363">
+          <caret line="43" column="13" lean-forward="true" selection-start-line="43" selection-start-column="13" selection-end-line="43" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/context/front/FrontContextInterceptor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="193">
+          <caret line="34" column="35" lean-forward="false" selection-start-line="34" selection-start-column="35" selection-end-line="34" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/context/front/FrontLocaleInterceptor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="22" column="6" lean-forward="false" selection-start-line="22" selection-start-column="6" selection-end-line="22" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/context/front/TokenInterceptor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="53" column="12" lean-forward="false" selection-start-line="53" selection-start-column="12" selection-end-line="53" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/context/member/MemberApiInterceptor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="44" column="6" lean-forward="false" selection-start-line="44" selection-start-column="6" selection-end-line="44" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/context/member/MemberContextConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="217">
+          <caret line="22" column="14" lean-forward="false" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/context/member/MemberCorsConfigurerAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="20" column="6" lean-forward="false" selection-start-line="20" selection-start-column="6" selection-end-line="20" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/admin/main/CmsAdminGlobalApiAct.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="99">
+          <caret line="36" column="0" lean-forward="true" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/admin/main/CmsAdminAbstractApi.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="528">
+          <caret line="25" column="25" lean-forward="false" selection-start-line="25" selection-start-column="25" selection-end-line="25" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/admin/main/CmsFireWallConfigApiAct.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="178" column="4" lean-forward="false" selection-start-line="178" selection-start-column="4" selection-end-line="178" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsResourceMngImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="107">
+          <caret line="29" column="45" lean-forward="true" selection-start-line="29" selection-start-column="45" selection-end-line="29" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/admin/assist/WeixinApiAct.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="93" column="14" lean-forward="true" selection-start-line="93" selection-start-column="14" selection-end-line="93" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/plug/weixin/action/admin/WeixinAct.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="70">
+          <caret line="124" column="4" lean-forward="false" selection-start-line="124" selection-start-column="4" selection-end-line="124" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/config/SchedulConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/CmsSiteMngImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="246">
+          <caret line="158" column="14" lean-forward="true" selection-start-line="158" selection-start-column="14" selection-end-line="158" selection-end-column="14" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsGuestbookMngImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="226">
+          <caret line="121" column="0" lean-forward="true" selection-start-line="121" selection-start-column="0" selection-end-line="121" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/context/front/FrontContextConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="193">
+          <caret line="38" column="43" lean-forward="true" selection-start-line="38" selection-start-column="43" selection-end-line="38" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/member/ContentApiAct.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="202">
+          <caret line="803" column="36" lean-forward="true" selection-start-line="803" selection-start-column="36" selection-end-line="803" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/staticpage/StaticPageSvcImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="271">
+          <caret line="285" column="4" lean-forward="false" selection-start-line="285" selection-start-column="4" selection-end-line="285" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/config/CaptchaConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="279">
+          <caret line="90" column="4" lean-forward="true" selection-start-line="90" selection-start-column="4" selection-end-line="90" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/config/ContextConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="27" column="0" lean-forward="true" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/springframework/spring-context/4.3.9.RELEASE/spring-context-4.3.9.RELEASE-sources.jar!/org/springframework/context/annotation/Configuration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="103">
+          <caret line="402" column="11" lean-forward="true" selection-start-line="402" selection-start-column="11" selection-end-line="402" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/core/security/CmsAuthorizingRealm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="193">
+          <caret line="33" column="13" lean-forward="false" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/core/tpl/FileTplManagerImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="249">
+          <caret line="175" column="0" lean-forward="true" selection-start-line="175" selection-start-column="0" selection-end-line="175" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/apache/shiro/shiro-spring/1.3.0/shiro-spring-1.3.0-sources.jar!/org/apache/shiro/spring/LifecycleBeanPostProcessor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="133" column="38" lean-forward="true" selection-start-line="133" selection-start-column="38" selection-end-line="133" selection-end-column="38" />
+          <folding>
+            <element signature="method#postProcessBeforeInitialization#0;class#LifecycleBeanPostProcessor#0" expanded="false" />
+            <element signature="method#postProcessAfterInitialization#0;class#LifecycleBeanPostProcessor#0" expanded="false" />
+            <element signature="method#postProcessBeforeDestruction#0;class#LifecycleBeanPostProcessor#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/springframework/spring-aop/4.3.9.RELEASE/spring-aop-4.3.9.RELEASE-sources.jar!/org/springframework/aop/support/StaticMethodMatcher.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="193">
+          <caret line="26" column="22" lean-forward="false" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/springframework/spring-aop/4.3.9.RELEASE/spring-aop-4.3.9.RELEASE-sources.jar!/org/springframework/aop/support/StaticMethodMatcherPointcut.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="259">
+          <caret line="34" column="55" lean-forward="true" selection-start-line="34" selection-start-column="55" selection-end-line="34" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/springframework/spring-aop/4.3.9.RELEASE/spring-aop-4.3.9.RELEASE-sources.jar!/org/springframework/aop/support/StaticMethodMatcherPointcutAdvisor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="259">
+          <caret line="37" column="0" lean-forward="true" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/apache/shiro/shiro-spring/1.3.0/shiro-spring-1.3.0-sources.jar!/org/apache/shiro/spring/security/interceptor/AuthorizationAttributeSourceAdvisor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="259">
+          <caret line="39" column="40" lean-forward="false" selection-start-line="39" selection-start-column="40" selection-end-line="39" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/config/ApplicationConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="63">
+          <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/springframework/spring-beans/4.3.9.RELEASE/spring-beans-4.3.9.RELEASE-sources.jar!/org/springframework/beans/factory/support/AbstractAutowireCapableBeanFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="408" column="0" lean-forward="false" selection-start-line="408" selection-start-column="0" selection-end-line="408" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/springframework/spring-web/4.3.9.RELEASE/spring-web-4.3.9.RELEASE-sources.jar!/org/springframework/web/context/support/ServletContextAwareProcessor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="102" column="0" lean-forward="false" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/springframework/spring-aop/4.3.9.RELEASE/spring-aop-4.3.9.RELEASE-sources.jar!/org/springframework/aop/framework/autoproxy/DefaultAdvisorAutoProxyCreator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="102" column="0" lean-forward="true" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/springframework/spring-aop/4.3.9.RELEASE/spring-aop-4.3.9.RELEASE-sources.jar!/org/springframework/aop/framework/ProxyConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="226">
+          <caret line="54" column="34" lean-forward="true" selection-start-line="54" selection-start-column="34" selection-end-line="54" selection-end-column="34" />
+          <folding>
+            <element signature="e#2075#2076#0" expanded="true" />
+            <element signature="e#2122#2123#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/springframework/spring-context/4.3.9.RELEASE/spring-context-4.3.9.RELEASE-sources.jar!/org/springframework/context/annotation/Bean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="292">
+          <caret line="253" column="27" lean-forward="false" selection-start-line="253" selection-start-column="27" selection-end-line="253" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/springframework/boot/spring-boot-autoconfigure/1.5.4.RELEASE/spring-boot-autoconfigure-1.5.4.RELEASE-sources.jar!/org/springframework/boot/autoconfigure/condition/ConditionalOnMissingBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="292">
+          <caret line="69" column="7" lean-forward="true" selection-start-line="69" selection-start-column="7" selection-end-line="69" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="239">
+          <caret line="67" column="21" lean-forward="true" selection-start-line="64" selection-start-column="8" selection-end-line="67" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="33">
+          <caret line="1" column="28" lean-forward="false" selection-start-line="1" selection-start-column="28" selection-end-line="1" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/config/ServletContextRealPathResolver1.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="91">
+          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#789#790#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/config/ServletContextRealPathResolver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding>
+            <element signature="e#798#799#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/config/ShiroConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="449">
+          <caret line="45" column="9" lean-forward="true" selection-start-line="45" selection-start-column="9" selection-end-line="45" selection-end-column="9" />
+          <folding>
+            <element signature="method#lifecycleBeanPostProcessor#0;class#ShiroConfig#0" expanded="false" />
+            <element signature="method#delegatingFilterProxy#0;class#ShiroConfig#0" expanded="false" />
+            <element signature="method#bbsUserFilterRegistration#0;class#ShiroConfig#0" expanded="false" />
+            <element signature="method#authcFilterRegistration#0;class#ShiroConfig#0" expanded="false" />
+            <element signature="method#logoutFilterRegistration#0;class#ShiroConfig#0" expanded="false" />
+            <element signature="method#adminUrlBean#0;class#ShiroConfig#0" expanded="false" />
+            <element signature="method#userFilter#0;class#ShiroConfig#0" expanded="false" />
+            <element signature="method#logoutFilter#0;class#ShiroConfig#0" expanded="false" />
+            <element signature="method#authcFilter#0;class#ShiroConfig#0" expanded="false" />
+            <element signature="class#4636:5171" expanded="false" />
+            <element signature="method#securityManager#0;class#ShiroConfig#0" expanded="false" />
+            <element signature="method#shiroEhcacheManager#0;class#ShiroConfig#0" expanded="false" />
+            <element signature="method#hashedCredentialsMatcher#0;class#ShiroConfig#0" expanded="false" />
+            <element signature="method#rememberMeCookie#0;class#ShiroConfig#0" expanded="false" />
+            <element signature="method#rememberMeManager#0;class#ShiroConfig#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

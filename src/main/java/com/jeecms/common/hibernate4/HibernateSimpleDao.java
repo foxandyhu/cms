@@ -16,10 +16,13 @@ import org.hibernate.transform.ResultTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.util.Assert;
 
 import com.jeecms.common.page.Pagination;
 import com.jeecms.common.util.MyBeanUtils;
+
+import javax.persistence.EntityManagerFactory;
 
 /**
  * hibernate DAO基类
@@ -292,9 +295,18 @@ public abstract class HibernateSimpleDao {
 
 	protected SessionFactory sessionFactory;
 
+	public SessionFactory getSessionFactory(){
+		return sessionFactory;
+	}
+
+	@Bean
 	@Autowired
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
+	public SessionFactory sessionFactory(EntityManagerFactory entityManagerFactory) {
+		if(entityManagerFactory.unwrap(SessionFactory.class)==null){
+			throw new NullPointerException("factory is not a hibernate factory.");
+		}
+		this.sessionFactory = entityManagerFactory.unwrap(SessionFactory.class);
+		return sessionFactory;
 	}
 
 	protected Session getSession() {

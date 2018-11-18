@@ -67,7 +67,7 @@ public class ContentCountCacheImpl implements ContentCountCache, DisposableBean 
 	private int interval =  10* 60 * 1000; // 10分钟
 	// 最后刷新时间
 	private long refreshTime = System.currentTimeMillis();
-
+	@Autowired
 	private ContentCountMng contentCountMng;
 
 	private Ehcache cache;
@@ -81,11 +81,6 @@ public class ContentCountCacheImpl implements ContentCountCache, DisposableBean 
 	 */
 	public void setInterval(int interval) {
 		this.interval = interval * 60 * 1000;
-	}
-
-	@Autowired
-	public void setContentCountMng(ContentCountMng contentCountMng) {
-		this.contentCountMng = contentCountMng;
 	}
 
 	@Autowired

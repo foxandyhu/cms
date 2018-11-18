@@ -377,53 +377,20 @@ public class ChannelMngImpl implements ChannelMng {
 		return path;
 	}
 
+	@Autowired
 	private CmsSiteMng cmsSiteMng;
+	@Autowired
 	private CmsModelMng cmsModelMng;
+	@Autowired
 	private ChannelExtMng channelExtMng;
+	@Autowired
 	private ChannelTxtMng channelTxtMng;
+	@Autowired
 	private ChannelCountMng channelCountMng;
+	@Autowired
 	private CmsUserMng cmsUserMng;
+	@Autowired
 	private CmsGroupMng cmsGroupMng;
+	@Autowired
 	private ChannelDao dao;
-
-	@Autowired
-	public void setCmsSiteMng(CmsSiteMng cmsSiteMng) {
-		this.cmsSiteMng = cmsSiteMng;
-	}
-
-	@Autowired
-	public void setCmsModelMng(CmsModelMng cmsModelMng) {
-		this.cmsModelMng = cmsModelMng;
-	}
-
-	@Autowired
-	public void setChannelExtMng(ChannelExtMng channelExtMng) {
-		this.channelExtMng = channelExtMng;
-	}
-
-	@Autowired
-	public void setChannelTxtMng(ChannelTxtMng channelTxtMng) {
-		this.channelTxtMng = channelTxtMng;
-	}
-
-	@Autowired
-	public void setChannelCountMng(ChannelCountMng channelCountMng) {
-		this.channelCountMng = channelCountMng;
-	}
-
-	@Autowired
-	public void setCmsUserMng(CmsUserMng cmsUserMng) {
-		this.cmsUserMng = cmsUserMng;
-	}
-
-	@Autowired
-	public void setCmsGroupMng(CmsGroupMng cmsGroupMng) {
-		this.cmsGroupMng = cmsGroupMng;
-	}
-	
-	@Autowired
-	public void setDao(ChannelDao dao) {
-		this.dao = dao;
-	}
-
 }

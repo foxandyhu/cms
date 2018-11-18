@@ -265,7 +265,7 @@ public class ApiUserLoginMngImpl implements ApiUserLoginMng {
 		userMng.updateLoginInfo(user.getId(), ip,now,userSessionId);
 		unifiedUserMng.updateLoginSuccess(user.getId(), ip);
 	}
-
+	@Autowired
 	private ApiUserLoginDao dao;
 	@Autowired
 	private CmsUserMng userMng;
@@ -275,9 +275,4 @@ public class ApiUserLoginMngImpl implements ApiUserLoginMng {
 	private SessionProvider session;
 	@Autowired
 	private UnifiedUserMng unifiedUserMng;
-
-	@Autowired
-	public void setDao(ApiUserLoginDao dao) {
-		this.dao = dao;
-	}
 }

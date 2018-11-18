@@ -89,11 +89,6 @@ public class ApiAccountMngImpl implements ApiAccountMng {
 		}
 		return beans;
 	}
-
-	private ApiAccountDao dao;
-
 	@Autowired
-	public void setDao(ApiAccountDao dao) {
-		this.dao = dao;
-	}
+	private ApiAccountDao dao;
 }

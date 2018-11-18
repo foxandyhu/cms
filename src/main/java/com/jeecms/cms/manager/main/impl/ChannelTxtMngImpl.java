@@ -37,11 +37,11 @@ public class ChannelTxtMngImpl implements ChannelTxtMng {
 		ChannelTxt entity = dao.findById(channel.getId());
 		if (entity == null) {
 			entity = save(txt, channel);
-			channel.getChannelTxtSet().add(entity);
+			channel.setChannelTxt(entity);
 			return entity;
 		} else {
 			if (txt.isAllBlank()) {
-				channel.getChannelTxtSet().clear();
+				channel.setChannelTxt(null);
 				return null;
 			} else {
 				Updater<ChannelTxt> updater = new Updater<ChannelTxt>(txt);
@@ -51,11 +51,6 @@ public class ChannelTxtMngImpl implements ChannelTxtMng {
 			}
 		}
 	}
-
-	private ChannelTxtDao dao;
-
 	@Autowired
-	public void setDao(ChannelTxtDao dao) {
-		this.dao = dao;
-	}
+	private ChannelTxtDao dao;
 }

@@ -84,16 +84,8 @@ public class CmsFriendlinkMngImpl implements CmsFriendlinkMng {
 		return beans;
 	}
 
+	@Autowired
 	private CmsFriendlinkDao dao;
+	@Autowired
 	private CmsFriendlinkCtgMng cmsFriendlinkCtgMng;
-
-	@Autowired
-	public void setDao(CmsFriendlinkDao dao) {
-		this.dao = dao;
-	}
-
-	@Autowired
-	public void setCmsFriendlinkCtgMng(CmsFriendlinkCtgMng cmsFriendlinkCtgMng) {
-		this.cmsFriendlinkCtgMng = cmsFriendlinkCtgMng;
-	}
 }

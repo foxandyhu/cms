@@ -118,33 +118,16 @@ public class CmsGuestbookMngImpl implements CmsGuestbookMng {
 		bean.setChecked(checkStatus);
 		return bean;
 	}
-	
 
+
+	@Autowired
 	private CmsGuestbookCtgMng cmsGuestbookCtgMng;
+	@Autowired
 	private CmsGuestbookExtMng cmsGuestbookExtMng;
+	@Autowired
 	private CmsSiteMng cmsSiteMng;
+	@Autowired
 	private CmsGuestbookDao dao;
 	@Autowired
 	private CmsUserExtMng userExtMng;
-
-	@Autowired
-	public void setDao(CmsGuestbookDao dao) {
-		this.dao = dao;
-	}
-
-	@Autowired
-	public void setCmsGuestbookExtMng(CmsGuestbookExtMng cmsGuestbookExtMng) {
-		this.cmsGuestbookExtMng = cmsGuestbookExtMng;
-	}
-
-	@Autowired
-	public void setCmsGuestbookCtgMng(CmsGuestbookCtgMng cmsGuestbookCtgMng) {
-		this.cmsGuestbookCtgMng = cmsGuestbookCtgMng;
-	}
-
-	@Autowired
-	public void setCmsSiteMng(CmsSiteMng cmsSiteMng) {
-		this.cmsSiteMng = cmsSiteMng;
-	}
-
 }

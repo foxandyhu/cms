@@ -49,10 +49,6 @@ public class CmsScoreItemMngImpl implements CmsScoreItemMng {
 		return beans;
 	}
 
-	private CmsScoreItemDao dao;
-
 	@Autowired
-	public void setDao(CmsScoreItemDao dao) {
-		this.dao = dao;
-	}
+	private CmsScoreItemDao dao;
 }

@@ -19,7 +19,9 @@ import java.io.Serializable;
 public class ChannelExt implements Cloneable, Serializable {
 
     private static final long serialVersionUID = 1L;
-
+    public static String PROP_FINAL_STEP = "finalStep";
+    public static String PROP_AFTER_CHECK = "afterCheck";
+    
     /**
      * 游客评论
      */

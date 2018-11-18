@@ -277,23 +277,15 @@ public class AdminContextInterceptor extends HandlerInterceptorAdapter {
 		}
 		return userPermission;
 	}
+	@Autowired
 	private CmsSiteMng cmsSiteMng;
+	@Autowired
 	private CmsUserMng cmsUserMng;
 	private boolean auth = true;
 	private String[] excludeUrls;
 	
 	@Autowired
 	private CmsAuthorizingRealm authorizingRealm;
-
-	@Autowired
-	public void setCmsSiteMng(CmsSiteMng cmsSiteMng) {
-		this.cmsSiteMng = cmsSiteMng;
-	}
-
-	@Autowired
-	public void setCmsUserMng(CmsUserMng cmsUserMng) {
-		this.cmsUserMng = cmsUserMng;
-	}
 
 	public void setAuth(boolean auth) {
 		this.auth = auth;
