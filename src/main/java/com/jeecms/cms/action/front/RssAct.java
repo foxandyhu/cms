@@ -18,7 +18,7 @@ import com.jeecms.core.web.util.FrontUtils;
 public class RssAct {
 	public static final String RSS_TPL = "tpl.rss";
 
-	@RequestMapping(value = "/rss.jspx", method = RequestMethod.GET)
+	@RequestMapping(value = "/rss.html", method = RequestMethod.GET)
 	public String rss(HttpServletRequest request, HttpServletResponse response,
 			ModelMap model) {
 		response.setContentType("text/xml;charset=UTF-8");

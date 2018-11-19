@@ -14,7 +14,13 @@ import org.apache.shiro.web.util.WebUtils;
  * CmsUserFilter
  */
 public class CmsUserFilter extends UserFilter {
-	//未登录重定向到登陆页
+
+	/**
+	 * 未登录重定向到登陆页
+	 * @author andy_hulibo@163.com
+	 * @date 2018/11/19 16:23
+	 */
+	@Override
 	protected void redirectToLogin(ServletRequest req, ServletResponse resp)
 			throws IOException {
 		HttpServletRequest request = (HttpServletRequest) req;

@@ -3,7 +3,7 @@
 <link rel="stylesheet" type="text/css" href="/${res}/css/index.css" />
 <div class="mc_right">
    <div class="mc_content">  
-    <form id="jvForm" action="message_mng.jspx" method="post" target="parent" class="tggl fbgj">
+    <form id="jvForm" action="message_mng.html" method="post" target="parent" class="tggl fbgj">
      <table width="100%" cellpadding="0" cellspacing="0">
      	<tr>
          <td width="86" class="tggl-top">发件人：</td>
@@ -30,7 +30,7 @@
        <tr>
          <td height="25" colspan="2" style="text-align:center; padding:20px 0;">
          <input name="box" type="hidden" value="${box!}"/>
-         <input name="nextUrl" type="hidden" value="message_mng.jspx?box=1"/>
+         <input name="nextUrl" type="hidden" value="message_mng.html?box=1"/>
          <input name="id" type="hidden" value="${message.id!}"/>
          <input name="msg" type="hidden" value="${message.titleHtml!}已被成功移除！"/>
 	    [#if box??]

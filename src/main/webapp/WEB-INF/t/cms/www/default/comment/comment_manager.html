@@ -19,7 +19,7 @@ function _gotoPage(pageNo) {
     try{
         var tableForm = document.getElementById("tableForm");
         $("input[name=pageNo]").val(pageNo);
-        tableForm.action="news_comments.jspx";
+        tableForm.action="news_comments.html";
         tableForm.onsubmit=null;
         tableForm.submit();
     } catch(e) {
@@ -33,7 +33,7 @@ function del_c_by_id(commentId) {
             $("#commentId").val(commentId);
             $("#userId").val("");
             $("#ip").val("");
-            tableForm.action="comment_delete.jspx";
+            tableForm.action="comment_delete.html";
             tableForm.onsubmit=null;
             tableForm.submit();
         }
@@ -48,7 +48,7 @@ function del_c_by_user(userId) {
             $("#commentId").val("");
             $("#userId").val(userId);
             $("#ip").val("");
-            tableForm.action="comment_delete.jspx";
+            tableForm.action="comment_delete.html";
             tableForm.onsubmit=null;
             tableForm.submit();
         }
@@ -63,7 +63,7 @@ function del_c_by_ip(ip) {
             $("#commentId").val("");
             $("#userId").val("");
             $("#ip").val(ip);
-            tableForm.action="comment_delete.jspx";
+            tableForm.action="comment_delete.html";
             tableForm.onsubmit=null;
             tableForm.submit();
         }
@@ -83,20 +83,20 @@ function del_c_by_ip(ip) {
     <div class="memberLeft clearfix"> 
       <div class="member-nav">
         <ul>
-        <li><a href="${base}/member/index.jspx">个人资料</a></li>
-        <li><a href="${base}/member/contribute_list.jspx">投稿管理</a></li>
-        <li><a href="${base}/member/resume.jspx">应聘管理</a></li>
-        <li><a href="${base}/member/mycomments.jspx" class="on">我的评论</a></li>
-        <li><a href="${base}/member/myguestbook.jspx">我的留言</a></li>
-        <li><a href="${base}/member/collection_list.jspx">我的收藏</a></li>
-        <li><a href="${base}/member/message_mng.jspx">站内信息</a></li>
-        <li><a href="${base}/member/account.jspx">服务中心</a></li>
+        <li><a href="${base}/member/index.html">个人资料</a></li>
+        <li><a href="${base}/member/contribute_list.html">投稿管理</a></li>
+        <li><a href="${base}/member/resume.html">应聘管理</a></li>
+        <li><a href="${base}/member/mycomments.html" class="on">我的评论</a></li>
+        <li><a href="${base}/member/myguestbook.html">我的留言</a></li>
+        <li><a href="${base}/member/collection_list.html">我的收藏</a></li>
+        <li><a href="${base}/member/message_mng.html">站内信息</a></li>
+        <li><a href="${base}/member/account.html">服务中心</a></li>
         </ul>
       </div>
       <div class="member-main">
-        <div class="member-child"><a href="${base}/member/mycomments.jspx">我的评论</a>|<a href="${base}/member/news_comments.jspx" class="on">评论管理</a></div>
+        <div class="member-child"><a href="${base}/member/mycomments.html">我的评论</a>|<a href="${base}/member/news_comments.html" class="on">评论管理</a></div>
         <div class="member-text tggl">
-          <form id="tableForm" action="news_comments.jspx" method="post">
+          <form id="tableForm" action="news_comments.html" method="post">
           [#if pagination.list?size gt 0]
           <table cellpadding="0" cellspacing="0">
             <tbody>

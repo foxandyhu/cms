@@ -15,7 +15,7 @@ function queryAliStatus() {
 		clearInterval(aliinterval);
 	}
 	$.ajax({
-        url: "${base}/content/orderQuery.jspx?orderNumber=${orderNumber!}",
+        url: "${base}/content/orderQuery.html?orderNumber=${orderNumber!}",
         type: "POST",
         dataType:"json",
         data: "",
@@ -34,6 +34,6 @@ function queryAliStatus() {
 </script>
 </head>
 <body>
- <img src="${base}/special/o_create_dimensioncode.jspx?content=${code_url!}&size=100" style="width:150px;height:150px;"/>
+ <img src="${base}/special/o_create_dimensioncode.html?content=${code_url!}&size=100" style="width:150px;height:150px;"/>
 </body>
 </html>

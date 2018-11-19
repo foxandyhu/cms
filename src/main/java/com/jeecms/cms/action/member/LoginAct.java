@@ -24,7 +24,7 @@ public class LoginAct {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/login_csi.jspx")
+	@RequestMapping(value = "/login_csi.html")
 	public String csi(HttpServletRequest request, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
 		// 将request中所有参数

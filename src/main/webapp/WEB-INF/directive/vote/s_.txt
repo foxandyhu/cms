@@ -3,7 +3,7 @@
 <div>没有找到该调查</div>
 [#else]
 <div> 
-<form name="votes" action="${base}/vote.jspx" method="post" target="_blank">
+<form name="votes" action="${base}/vote.html" method="post" target="_blank">
   <div width="100%" height="99%" border="0" cellspacing="5" cellpadding="0">
     <div>
         <b>< ${tag_bean.title?html} ><b>
@@ -45,7 +45,7 @@
     [/#list]
     <div>
       <input type="submit" value="投 票"/>
-      &nbsp; <a href="${base}/vote_result.jspx?voteId=${tag_bean.id}" target="_blank">查看投票结果</a> 
+      &nbsp; <a href="${base}/vote_result.html?voteId=${tag_bean.id}" target="_blank">查看投票结果</a>
     </div>
   </div>
 </form>

@@ -55,7 +55,7 @@ public class GuestbookAct {
 	 * @return
 	 */
 	@Token(save=true)
-	@RequestMapping(value = "/guestbook*.jspx", method = RequestMethod.GET)
+	@RequestMapping(value = "/guestbook*.html", method = RequestMethod.GET)
 	public String index(Integer ctgId, HttpServletRequest request,
 			HttpServletResponse response, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
@@ -78,7 +78,7 @@ public class GuestbookAct {
 	}
 
 	@Token(save=true)
-	@RequestMapping(value = "/guestbook/{id}.jspx", method = RequestMethod.GET)
+	@RequestMapping(value = "/guestbook/{id}.html", method = RequestMethod.GET)
 	public String detail(@PathVariable Integer id, HttpServletRequest request,
 			HttpServletResponse response, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
@@ -105,7 +105,7 @@ public class GuestbookAct {
 	 * @throws IOException 
 	 */
 	@Token(remove=true)
-	@RequestMapping(value = "/guestbook.jspx", method = RequestMethod.POST)
+	@RequestMapping(value = "/guestbook.html", method = RequestMethod.POST)
 	public void submit(Integer siteId, Integer ctgId, String title,
 			String content, String email, String phone, String qq,
 			String captcha,String sessionId, HttpServletRequest request,

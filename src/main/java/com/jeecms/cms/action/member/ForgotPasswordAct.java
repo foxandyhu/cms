@@ -65,7 +65,7 @@ public class ForgotPasswordAct {
 	 * @return
 	 */
 	@Token(save=true)
-	@RequestMapping(value = "/member/forgot_password.jspx", method = RequestMethod.GET)
+	@RequestMapping(value = "/member/forgot_password.html", method = RequestMethod.GET)
 	public String forgotPasswordInput(HttpServletRequest request,
 			HttpServletResponse response, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
@@ -97,7 +97,7 @@ public class ForgotPasswordAct {
 	 * @return
 	 */
 	@Token(remove=true)
-	@RequestMapping(value = "/member/forgot_password.jspx", method = RequestMethod.POST)
+	@RequestMapping(value = "/member/forgot_password.html", method = RequestMethod.POST)
 	public String forgotPasswordSubmit(String email,
 			String captcha, HttpServletRequest request,
 			HttpServletResponse response, ModelMap model,String mobile) {
@@ -167,7 +167,7 @@ public class ForgotPasswordAct {
 				TPLDIR_MEMBER, FORGOT_PASSWORD_RESULT);
 	}
 	
-	@RequestMapping(value = "/member/password_reset.jspx", method = RequestMethod.GET)
+	@RequestMapping(value = "/member/password_reset.html", method = RequestMethod.GET)
 	public String passwordReset(Integer uid, String key,
 			HttpServletRequest request, HttpServletResponse response,
 			ModelMap model) {
@@ -196,7 +196,7 @@ public class ForgotPasswordAct {
 	}
 	
 	//SMS验证密码修改
-	@RequestMapping(value="sms_password_reset.jspx",method=RequestMethod.POST)
+	@RequestMapping(value="sms_password_reset.html",method=RequestMethod.POST)
 	public String smsRestPassword(String username,String loginPassword,HttpServletRequest request, 
 			HttpServletResponse response,ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);

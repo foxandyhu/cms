@@ -196,7 +196,7 @@ public class AliPay {
 		//支付类型
 		String payment_type = "1";//必填，不能修改
 		//服务器异步通知页面路径
-		String notify_url = "http://"+site.getDomain()+"/order/payCallByAliPay.jspx";
+		String notify_url = "http://"+site.getDomain()+"/order/payCallByAliPay.html";
 		//页面跳转同步通知页面路径
 		String return_url = content.getUrlWhole();
 		//卖家支付宝帐户

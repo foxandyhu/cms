@@ -39,7 +39,7 @@ public class AccountDrawAct {
 	public static final String MEMBER_ACCOUNT_DRAW = "tpl.memberAccountDraw";
 	public static final String MEMBER_ACCOUNT_DRAW_LIST = "tpl.memberAccountDrawList";
 
-	@RequestMapping(value = "/member/draw_list.jspx")
+	@RequestMapping(value = "/member/draw_list.html")
 	public String drawList(Integer pageNo,HttpServletRequest request,
 			HttpServletResponse response, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
@@ -66,7 +66,7 @@ public class AccountDrawAct {
 				TPLDIR_MEMBER, MEMBER_ACCOUNT_DRAW_LIST);
 	}
 	
-	@RequestMapping(value = "/member/draw_del.jspx")
+	@RequestMapping(value = "/member/draw_del.html")
 	public String drawDel(Integer[] ids,Integer pageNo,
 			String nextUrl,HttpServletRequest request,
 			HttpServletResponse response, ModelMap model) {
@@ -89,7 +89,7 @@ public class AccountDrawAct {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/member/draw.jspx", method = RequestMethod.GET)
+	@RequestMapping(value = "/member/draw.html", method = RequestMethod.GET)
 	public String drawInput(HttpServletRequest request,
 			HttpServletResponse response, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
@@ -124,7 +124,7 @@ public class AccountDrawAct {
 	 * @return
 	 * @throws IOException
 	 */
-	@RequestMapping(value = "/member/draw.jspx", method = RequestMethod.POST)
+	@RequestMapping(value = "/member/draw.html", method = RequestMethod.POST)
 	public String drawSubmit(Double drawAmout,String applyAcount,
 			String nextUrl,HttpServletRequest request, HttpServletResponse response,
 			ModelMap model) throws IOException {

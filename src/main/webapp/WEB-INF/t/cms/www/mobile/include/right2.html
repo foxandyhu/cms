@@ -35,16 +35,16 @@
             [#list tag_list as t]
             <li>
             <h3 onMouseOver=javascript:ShowFLT(${t_index+1}) href="javascript:void(null)">
-            <a href="${base}/topic/${t.id}.jspx">
+            <a href="${base}/topic/${t.id}.html">
             ${t.name}
             </a>
             </h3>
             <p id=LM${t_index+1} [#if t_index!=0]style="display:none;"[/#if] class="drink-me clearfix">
-            <a href="${base}/topic/${t.id}.jspx">
+            <a href="${base}/topic/${t.id}.html">
             <img src="${t.titleImg!site.defImg}" width="90" height="64"/>
             </a>
             [@text_cut s=t.description len=descLen append=append/]
-            <span class="cBlue"><a href="${base}/topic/${t.id}.jspx"> 详细&gt;&gt;</a></span>
+            <span class="cBlue"><a href="${base}/topic/${t.id}.html"> 详细&gt;&gt;</a></span>
             </p>
             </li>
             [/#list]

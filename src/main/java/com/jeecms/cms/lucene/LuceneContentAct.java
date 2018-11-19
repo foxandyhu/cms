@@ -31,7 +31,7 @@ public class LuceneContentAct {
 	private static final Logger log = LoggerFactory.getLogger(LuceneContentAct.class);
 
 	@RequiresPermissions("lucene:v_index")
-	@RequestMapping(value = "/lucene/v_index.do")
+	@RequestMapping(value = "/lucene/v_index.html")
 	public String index(HttpServletRequest request, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
 		List<Channel> topList = channelMng.getTopList(site.getId(), true);
@@ -42,7 +42,7 @@ public class LuceneContentAct {
 	}
 
 	@RequiresPermissions("lucene:o_create")
-	@RequestMapping(value = "/lucene/o_create.do")
+	@RequestMapping(value = "/lucene/o_create.html")
 	public void create(Integer siteId, Integer channelId, Date startDate,
 			Date endDate, Integer startId, Integer max,
 			HttpServletRequest request, HttpServletResponse response,

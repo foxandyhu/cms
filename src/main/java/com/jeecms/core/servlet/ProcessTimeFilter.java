@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 /**
  * 执行时间过滤器
  */
-@WebFilter(filterName = "processTime",urlPatterns = {"*.jspx","*.jhtml","*.htm","*.jsp","*.do"})
+@WebFilter(filterName = "processTime",urlPatterns = {"*.htm"})
 public class ProcessTimeFilter implements Filter {
 	protected final Logger log = LoggerFactory
 			.getLogger(ProcessTimeFilter.class);

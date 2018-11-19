@@ -53,7 +53,7 @@ public class MemberAct {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/member/index.jspx", method = RequestMethod.GET)
+	@RequestMapping(value = "/member/index.html", method = RequestMethod.GET)
 	public String index(HttpServletRequest request,
 			HttpServletResponse response, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
@@ -79,7 +79,7 @@ public class MemberAct {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/member/profile.jspx", method = RequestMethod.GET)
+	@RequestMapping(value = "/member/profile.html", method = RequestMethod.GET)
 	public String profileInput(HttpServletRequest request,
 			HttpServletResponse response, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
@@ -103,7 +103,7 @@ public class MemberAct {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/member/portrait.jspx", method = RequestMethod.GET)
+	@RequestMapping(value = "/member/portrait.html", method = RequestMethod.GET)
 	public String portrait(HttpServletRequest request,
 			HttpServletResponse response, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
@@ -130,7 +130,7 @@ public class MemberAct {
 	 * @return
 	 * @throws IOException
 	 */
-	@RequestMapping(value = "/member/profile.jspx", method = RequestMethod.POST)
+	@RequestMapping(value = "/member/profile.html", method = RequestMethod.POST)
 	public String profileSubmit(CmsUserExt ext, String nextUrl,
 			HttpServletRequest request, HttpServletResponse response,
 			ModelMap model) throws IOException {
@@ -161,7 +161,7 @@ public class MemberAct {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/member/pwd.jspx", method = RequestMethod.GET)
+	@RequestMapping(value = "/member/pwd.html", method = RequestMethod.GET)
 	public String passwordInput(HttpServletRequest request,
 			HttpServletResponse response, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
@@ -196,7 +196,7 @@ public class MemberAct {
 	 * @return
 	 * @throws IOException
 	 */
-	@RequestMapping(value = "/member/pwd.jspx", method = RequestMethod.POST)
+	@RequestMapping(value = "/member/pwd.html", method = RequestMethod.POST)
 	public String passwordSubmit(String origPwd, String newPwd, String email,
 			String nextUrl, HttpServletRequest request,
 			HttpServletResponse response, ModelMap model) throws IOException {
@@ -234,7 +234,7 @@ public class MemberAct {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/member/account.jspx", method = RequestMethod.GET)
+	@RequestMapping(value = "/member/account.html", method = RequestMethod.GET)
 	public String accountInput(HttpServletRequest request,
 			HttpServletResponse response, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
@@ -253,7 +253,7 @@ public class MemberAct {
 	}
 	
 	//完善用户账户资料
-	@RequestMapping(value = "/member/account.jspx", method = RequestMethod.POST)
+	@RequestMapping(value = "/member/account.html", method = RequestMethod.POST)
 	public String accountSubmit(String accountWeiXin,String  accountAlipy,
 			Short drawAccount,String nextUrl,HttpServletRequest request, 
 			HttpServletResponse response,ModelMap model) throws IOException {
@@ -297,7 +297,7 @@ public class MemberAct {
 	 * @param request
 	 * @param response
 	 */
-	@RequestMapping("/member/checkPwd.jspx")
+	@RequestMapping("/member/checkPwd.html")
 	public void checkPwd(String origPwd, HttpServletRequest request,
 			HttpServletResponse response) {
 		CmsUser user = CmsUtils.getUser(request);

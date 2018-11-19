@@ -26,7 +26,7 @@ import org.apache.commons.lang.StringUtils;
 
 import com.jeecms.core.web.util.URLHelper;
 
-@WebFilter(filterName = "XssFilter",urlPatterns = {"*.jspx","*.jhtml","*.html","*.jsp"},initParams = {@WebInitParam(name = "excludeUrls",value = "/member@/flow_statistic@/api")})
+@WebFilter(filterName = "XssFilter",urlPatterns = {"*.html"},initParams = {@WebInitParam(name = "excludeUrls",value = "/member@/flow_statistic@/api")})
 public class XssFilter implements Filter {
 	private String excludeUrls;
 	FilterConfig filterConfig = null;

@@ -40,8 +40,8 @@
 		<div class="w98 box">
 		    [#list tag_pagination.list as t]
 			<dl class="list line zt">
-				<dt><a href="${base}/topic/${t.id}.jspx" target="_blank">${t.name}</a></dt>
-				<dd class="pic"><a href="${base}/topic/${t.id}.jspx"><img src="${t.titleImg!site.defImg}"/></a></dd>
+				<dt><a href="${base}/topic/${t.id}.html" target="_blank">${t.name}</a></dt>
+				<dd class="pic"><a href="${base}/topic/${t.id}.html"><img src="${t.titleImg!site.defImg}"/></a></dd>
 				<dd class="text">[@text_cut s=t.description len=descLen append=append/]</dd>
 			</dl>				
 			[/#list]

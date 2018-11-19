@@ -53,5 +53,5 @@ public abstract class Constants {
 	 */
 	public static final String GET = "GET";
 	
-	public static final String ADMIN_SUFFIX = "jeeadmin/jeecms/index.do";
+	public static final String ADMIN_SUFFIX = "jeeadmin/jeecms/index.html";
 }

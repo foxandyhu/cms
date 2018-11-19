@@ -28,12 +28,12 @@
         <div class="message-top-userImg"><img src="/${res}/images/userImg.png"></div>
       </div>
       <div class="message-top-right" style="margin-left:40px;">
-        <div class="message-top-username"><a href="${base}/login.jspx">登录</a>|<a href="${base}/register.jspx">注册</a></div>
+        <div class="message-top-username"><a href="${base}/login.html">登录</a>|<a href="${base}/register.html">注册</a></div>
       </div>
       [/#if]
     </div>
   </div>
-  <form id="guestbookForm" action="${base}/guestbook.jspx" method="post">
+  <form id="guestbookForm" action="${base}/guestbook.html" method="post">
   <div class="message-content">
     <div  class="message-content-ctg">
       <select name="ctgId">
@@ -58,7 +58,7 @@
             	$("#sessionId").val($.cookie("JSESSIONID"));
 	        	$("#submit").click(function () {
 	                var options = {
-	                    url: 'guestbook.jspx',
+	                    url: 'guestbook.html',
 	                    type: 'post',
 	                    dataType: 'json',
 	                    data: $("#guestbookForm").serialize(),

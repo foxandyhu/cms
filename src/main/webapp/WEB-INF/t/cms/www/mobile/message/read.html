@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="/${res}/css/member.css" />
 <div class="mc_right">
    <div class="mc_content">  
-    <form id="jvForm" action="message_mng.jspx" method="post" target="parent">
+    <form id="jvForm" action="message_mng.html" method="post" target="parent">
      <table width="98%" border="0" align="center" cellpadding="5" cellspacing="1" bgcolor="#C8DCF0" style="margin:5px;">
      	<tr>
          <td width="86" height="25" align="right" bgcolor="#FAF9FE">发件人：</td>
@@ -31,7 +31,7 @@
        <tr>
          <td height="25" colspan="2" align="center" bgcolor="#FFFFFF">
          <input name="box" type="hidden" value="${box!}"/>
-         <input name="nextUrl" type="hidden" value="message_mng.jspx?box=1"/>
+         <input name="nextUrl" type="hidden" value="message_mng.html?box=1"/>
          <input name="id" type="hidden" value="${message.id!}"/>
          <input name="msg" type="hidden" value="${message.titleHtml!}已被成功移除！"/>
 	    [#if box??]

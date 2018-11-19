@@ -16,8 +16,6 @@ import com.jeecms.core.entity.CmsConfig;
 import com.jeecms.core.entity.CmsGroup;
 import com.jeecms.core.entity.CmsSite;
 import com.jeecms.core.entity.CmsUser;
-import com.jeecms.core.manager.CmsConfigMng;
-import com.jeecms.core.manager.CmsSiteMng;
 import com.jeecms.core.web.util.CmsUtils;
 import com.jeecms.core.web.util.FrontUtils;
 import com.jeecms.core.web.util.URLHelper;
@@ -28,6 +26,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -59,7 +58,7 @@ public class DynamicPageAct {
      * @param model
      * @return
      */
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @GetMapping(value = {"/", "/index.html"})
     @Token(save = true)
     public String index(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
         CmsSite site = CmsUtils.getSite(request);
@@ -67,7 +66,7 @@ public class DynamicPageAct {
         //	return FrontUtils.getTplPath(request, site.getSolutionPath(),TPLDIR_INDEX, TPL_INDEX);
         //带有其他路径则是非法请求(非内网)
         String uri = URLHelper.getURI(request);
-        if (StringUtils.isNotBlank(uri) && (!(uri.equals("/") || uri.equals("/index.jhtml")))) {
+        if (StringUtils.isNotBlank(uri) && (!(uri.equals("/") || uri.equals("/index.html")))) {
             return FrontUtils.pageNotFound(request, response, model);
         }
         //使用静态首页而且静态首页存在
@@ -83,20 +82,6 @@ public class DynamicPageAct {
                 return FrontUtils.getTplPath(request, site.getSolutionPath(), TPLDIR_INDEX, TPL_INDEX);
             }
         }
-    }
-
-
-    /**
-     * WEBLOGIC的默认路径
-     *
-     * @param request
-     * @param model
-     * @return
-     */
-    @RequestMapping(value = "/index.jhtml", method = RequestMethod.GET)
-    @Token(save = true)
-    public String indexForWeblogic(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
-        return index(request, response, model);
     }
 
     /**
@@ -227,7 +212,7 @@ public class DynamicPageAct {
                     boolean hasBuy = contentBuyMng.hasBuyContent(user.getId(), content.getId());
                     if (!hasBuy) {
                         try {
-                            String rediretUrl = "/content/buy.jspx?contentId=" + content.getId();
+                            String rediretUrl = "/content/buy.html?contentId=" + content.getId();
                             if (StringUtils.isNotBlank(site.getContextPath())) {
                                 rediretUrl = site.getContextPath() + rediretUrl;
                             }
@@ -309,8 +294,6 @@ public class DynamicPageAct {
     private ContentMng contentMng;
     @Autowired
     private CmsKeywordMng cmsKeywordMng;
-    @Autowired
-    private CmsConfigMng configMng;
 
     @Autowired
     private RealPathResolver realPathResolver;
@@ -318,6 +301,4 @@ public class DynamicPageAct {
     private ContentBuyMng contentBuyMng;
     @Autowired
     private SessionProvider session;
-    @Autowired
-    private CmsSiteMng siteMng;
 }

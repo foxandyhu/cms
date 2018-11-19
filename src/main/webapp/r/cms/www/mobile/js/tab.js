@@ -1,12 +1,12 @@
 function toggleTo(base,img){
 	if(img==0){
-		 document.getElementById("framex").src=base+"/member/message_list.jspx?box=0";
+		 document.getElementById("framex").src=base+"/member/message_list.html?box=0";
 	}else if(img==1){
-		 document.getElementById("framex").src=base+"/member/message_list.jspx?box=1";	
+		 document.getElementById("framex").src=base+"/member/message_list.html?box=1";
 	}else if(img==2){
-		document.getElementById("framex").src=base+"/member/message_list.jspx?box=2";
+		document.getElementById("framex").src=base+"/member/message_list.html?box=2";
 	}else{
-		 document.getElementById("framex").src=base+"/member/message_list.jspx?box=3";
+		 document.getElementById("framex").src=base+"/member/message_list.html?box=3";
 	}
 //  var ts=document.getElementById("tab").getElementsByTagName("div");
 //  alert(ts);

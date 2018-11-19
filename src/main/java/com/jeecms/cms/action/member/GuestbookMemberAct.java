@@ -45,7 +45,7 @@ public class GuestbookMemberAct {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/member/myguestbook.jspx")
+	@RequestMapping(value = "/member/myguestbook.html")
 	public String myguestbook(Integer pageNo, Integer ctgId,
 			HttpServletRequest request, HttpServletResponse response,
 			ModelMap model) {
@@ -72,7 +72,7 @@ public class GuestbookMemberAct {
 	 * 留言详细
 	 * 
 	 */
-	@RequestMapping(value = "/member/guestbook_detail.jspx")
+	@RequestMapping(value = "/member/guestbook_detail.html")
 	public String guestbook_detail(Integer id, HttpServletRequest request,
 			HttpServletResponse response, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
@@ -95,7 +95,7 @@ public class GuestbookMemberAct {
 	/**
 	 * 查看留言回复
 	 */
-	@RequestMapping(value = "/member/guestbook_replay.jspx")
+	@RequestMapping(value = "/member/guestbook_replay.html")
 	public String guestbook_replay(Integer id, String nextUrl,HttpServletRequest request,
 			HttpServletResponse response, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);

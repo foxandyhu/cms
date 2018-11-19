@@ -74,22 +74,22 @@ function changePattern(){
     <div class="memberLeft clearfix"> 
       <div class="member-nav">
         <ul>
-        <li><a href="${base}/member/index.jspx">个人资料</a></li>
-        <li><a href="${base}/member/contribute_list.jspx">投稿管理</a></li>
-        <li><a href="${base}/member/doc_list.jspx?modelId=9" class="on">文档管理</a></li>
-        <li><a href="${base}/member/resume.jspx">应聘管理</a></li>
-        <li><a href="${base}/member/mycomments.jspx">我的评论</a></li>
-        <li><a href="${base}/member/myguestbook.jspx">我的留言</a></li>
-        <li><a href="${base}/member/collection_list.jspx">我的收藏</a></li>
-        <li><a href="${base}/member/message_mng.jspx">站内信息</a></li>
-        <li><a href="${base}/member/account.jspx">服务中心</a></li>
+        <li><a href="${base}/member/index.html">个人资料</a></li>
+        <li><a href="${base}/member/contribute_list.html">投稿管理</a></li>
+        <li><a href="${base}/member/doc_list.html?modelId=9" class="on">文档管理</a></li>
+        <li><a href="${base}/member/resume.html">应聘管理</a></li>
+        <li><a href="${base}/member/mycomments.html">我的评论</a></li>
+        <li><a href="${base}/member/myguestbook.html">我的留言</a></li>
+        <li><a href="${base}/member/collection_list.html">我的收藏</a></li>
+        <li><a href="${base}/member/message_mng.html">站内信息</a></li>
+        <li><a href="${base}/member/account.html">服务中心</a></li>
         </ul>
       </div>
       <div class="member-main">
-        <div class="member-child"><a href="${base}/member/doc_list.jspx?modelId=9" class="on">文档列表</a>|<a href="${base}/member/doc_add.jspx">发布文档</a></div>
+        <div class="member-child"><a href="${base}/member/doc_list.html?modelId=9" class="on">文档列表</a>|<a href="${base}/member/doc_add.html">发布文档</a></div>
         <div class="member-text tggl fbgj">
           [#include "doc_upload.html"/]
-          <form id="jvForm" action="doc_update.jspx" method="post">
+          <form id="jvForm" action="doc_update.html" method="post">
           <table cellpadding="0" cellspacing="0">
             <tbody>
               <tr>
@@ -174,7 +174,7 @@ function changePattern(){
               </tr>
               <tr>
                 <td colspan="2" style="text-align:center; padding:20px 0;">
-                  <input type="hidden" name="nextUrl" value="doc_list.jspx?modelId=9"/>
+                  <input type="hidden" name="nextUrl" value="doc_list.html?modelId=9"/>
                  <input type="hidden" name="id" value="${content.id}"/>
                   <input type="submit" class="member-submit" value="提交"><input type="reset" class="member-reset" value="重置"></td>
               </tr>

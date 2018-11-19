@@ -24,7 +24,7 @@ $(function() {
 		     <div class="mr-top-tit fl">职位申请记录</div>
 		 </div>
         <div class="mc_content">   
-           	<form id="tableForm" action="contribute_list.jspx" method="post">
+           	<form id="tableForm" action="contribute_list.html" method="post">
             [#if pagination.list?size gt 0]
             <table border="0" cellpadding="0" cellspacing="1" bgcolor="#C8DCF0" class="tblist">
             <tr>
@@ -38,7 +38,7 @@ $(function() {
                 <td bgcolor="#FFFFFF">${c.id}</td>
                 <td bgcolor="#FFFFFF"><a href="${c.content.url!}">${c.content.title?html}</a></td>
                 <td bgcolor="#FFFFFF">${c.applyTime?string('yyyy-MM-dd')}</td>
-                <td bgcolor="#FFFFFF"><a href="jobapply_delete.jspx?ids=${c.id}&nextUrl=myapplys.jspx">删除<a></td>
+                <td bgcolor="#FFFFFF"><a href="jobapply_delete.html?ids=${c.id}&nextUrl=myapplys.html">删除<a></td>
             </tr>
             [/#list]
             </table>
@@ -60,7 +60,7 @@ $(function() {
                 try{
                     var tableForm = document.getElementById("tableForm");
                     $("input[name=pageNo]").val(pageNo);
-                    tableForm.action="myapplys.jspx";
+                    tableForm.action="myapplys.html";
                     tableForm.onsubmit=null;
                     tableForm.submit();
                 } catch(e) {

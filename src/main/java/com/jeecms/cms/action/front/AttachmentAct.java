@@ -29,7 +29,7 @@ import com.jeecms.core.web.util.CmsUtils;
 public class AttachmentAct {
 	private static final Logger log = LoggerFactory.getLogger(AttachmentAct.class);
 
-	@RequestMapping(value = "/attachment.jspx", method = RequestMethod.GET)
+	@RequestMapping(value = "/attachment.html", method = RequestMethod.GET)
 	public void attachment(Integer cid, Integer i, Long t, String k, HttpServletRequest request,
 			HttpServletResponse response, ModelMap model) throws IOException {
 		if (cid == null) {
@@ -72,7 +72,7 @@ public class AttachmentAct {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/attachment_url.jspx", method = RequestMethod.GET)
+	@RequestMapping(value = "/attachment_url.html", method = RequestMethod.GET)
 	public void url(Integer cid, Integer n, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		if (cid == null || n == null) {
 			return;

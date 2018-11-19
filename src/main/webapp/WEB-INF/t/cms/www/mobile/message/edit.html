@@ -9,13 +9,13 @@ $(function() {
 	$("#jvForm").validate();
 });
 function toSend(){
-	$("#nextUrl").val("message_mng.jspx?box=1");
-	$("#jvForm").attr("action","message_tosend.jspx");
+	$("#nextUrl").val("message_mng.html?box=1");
+	$("#jvForm").attr("action","message_tosend.html");
 	$("#jvForm").submit();
 }
 </script>
    <div class="mc_content">  
-    <form id="jvForm" action="message_update.jspx" method="post" target="parent">
+    <form id="jvForm" action="message_update.html" method="post" target="parent">
      <table width="98%" border="0" align="center" cellpadding="5" cellspacing="1" bgcolor="#C8DCF0" style="margin:5px;">
      	<tr>
          <td width="86" height="25" align="right" bgcolor="#FAF9FE">发件人</td>
@@ -47,7 +47,7 @@ function toSend(){
        </tr>
        <tr>
          <td height="25" colspan="2" align="center" bgcolor="#FFFFFF">
-		 <input type="hidden" name="nextUrl" value="message_mng.jspx?box=2" id="nextUrl"/>
+		 <input type="hidden" name="nextUrl" value="message_mng.html?box=2" id="nextUrl"/>
 		 <input type="hidden" name="box" value="1" id="box"/>
 		 <input type="hidden" name="id" value="${message.id}"/>
 	     <input type="submit" value="修改" class="member_button"/> <input type="button" value="发送" onclick="toSend()" class="member_button"/><input type="reset" value="重置" class="member_button"/>

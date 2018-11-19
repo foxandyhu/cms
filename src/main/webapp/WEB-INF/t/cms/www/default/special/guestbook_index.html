@@ -23,7 +23,7 @@
 <div class="main container clearfix">
   <section class="message_w860">
     <h1>发表留言</h1>
-    <form id="guestbookForm" action="${base}/guestbook.jspx" method="post">
+    <form id="guestbookForm" action="${base}/guestbook.html" method="post">
     <div class="message_inf">
       <div class="line"></div>
       <p><span>类别</span>
@@ -49,7 +49,7 @@
             	$("#sessionId").val($.cookie("JSESSIONID"));
 	        	$("#submit").click(function () {
 	                var options = {
-	                    url: 'guestbook.jspx',
+	                    url: 'guestbook.html',
 	                    type: 'post',
 	                    dataType: 'json',
 	                    data: $("#guestbookForm").serialize(),
@@ -89,7 +89,7 @@
         <div style="" class="cTag">
         [@cms_searchword_list word='' siteId='1' recommend='1' orderBy='4' count='11']
 	        [#list tag_list as word]
-		     <a href="${base}/search.jspx?q=${word.name!}">${word.name!}</a>
+		     <a href="${base}/search.html?q=${word.name!}">${word.name!}</a>
 	        [/#list]
 		[/@cms_searchword_list]
         </div>

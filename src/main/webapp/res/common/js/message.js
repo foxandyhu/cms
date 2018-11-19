@@ -21,7 +21,7 @@ function toTrash(){
 		 if(!confirm("您确定要删除这些信息吗？")) {
 				return;
 			}
-		 $.post("v_trash.do", {
+		 $.post("v_trash.html", {
 				"ids" : ids
 			}, function(data) {
 				if(data.result){
@@ -42,11 +42,11 @@ function trash(id){
 	 if(!confirm("您确定要删除该条信息吗？")) {
 			return;
 		}
-	 $.post("v_trash.do", {
+	 $.post("v_trash.html", {
 			"ids" : id
 		}, function(data) {
 			if(data.result){
-				$("#jvForm").attr("action","v_list.do");
+				$("#jvForm").attr("action","v_list.html");
 				$("#jvForm").submit();
 			}else{
 				alert("请先登录");
@@ -54,7 +54,7 @@ function trash(id){
 		}, "json");
 }
 function forward(){
-	$("#jvForm").attr("action","v_forward.do");
+	$("#jvForm").attr("action","v_forward.html");
 	$("#jvForm").submit();
 }
 function empty(){
@@ -68,7 +68,7 @@ function empty(){
 		 if(!confirm("您确定要彻底删除这些信息吗？")) {
 				return;
 			}
-		 $.post("v_empty.do", {
+		 $.post("v_empty.html", {
 				"ids" : ids
 			}, function(data) {
 				if(data.result){
@@ -88,7 +88,7 @@ function emptySingle(id){
 	 if(!confirm("您确定要彻底删除该信息吗？")) {
 			return;
 		}
-	 $.post("v_empty.do", {
+	 $.post("v_empty.html", {
 			"ids" : id
 		}, function(data) {
 			if(data.result){
@@ -109,7 +109,7 @@ function revert(){
 		 if(!confirm("您确定要还原这些信息吗？")) {
 				return;
 			}
-		 $.post("v_revert.do", {
+		 $.post("v_revert.html", {
 				"ids" : ids
 			}, function(data) {
 				if(data.result){
@@ -127,24 +127,24 @@ function revert(){
 }
 function toDraft(){
 	$("#box").val(2);
-	$("#nextUrl").val("v_list.do?box=2");
-	$("#jvForm").attr("action","v_save.do");
+	$("#nextUrl").val("v_list.html?box=2");
+	$("#jvForm").attr("action","v_save.html");
 	$("#jvForm").submit();
 }
 function toSend(){
-	$("#nextUrl").val("v_list.do?box=1");
-	$("#jvForm").attr("action","v_tosend.do");
+	$("#nextUrl").val("v_list.html?box=1");
+	$("#jvForm").attr("action","v_tosend.html");
 	$("#jvForm").submit();
 }
 function reply(){
-	$("#nextUrl").val("v_list.do?box=1");
-	$("#jvForm").attr("action","v_reply.do");
+	$("#nextUrl").val("v_list.html?box=1");
+	$("#jvForm").attr("action","v_reply.html");
 	$("#jvForm").submit();
 }
 function find_user(){
 	var username=$("#username").val();
 	if(username!=""){
-		$.post("v_findUser.do", {
+		$.post("v_findUser.html", {
 			"username" : username
 		}, function(data) {
 			if(data.result){

@@ -15,7 +15,7 @@ import com.jeecms.common.web.ResponseUtils;
 
 @Controller
 public class CmsSiteFlowAct {
-	@RequestMapping("/flow_statistic.jspx")
+	@RequestMapping("/flow_statistic.html")
 	public void flowStatistic(HttpServletRequest request,
 			HttpServletResponse response, String page) throws JSONException {
 		Long[] counts = null;

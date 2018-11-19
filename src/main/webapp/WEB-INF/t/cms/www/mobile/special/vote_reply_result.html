@@ -24,13 +24,13 @@ $(function() {
 <div class="viewport">
   [#include "../include/header_wldc.html" /]
     <div class="vote-result">   
-    <div class="back-vote-result"><a href="${base}/vote_result.jspx?voteId=${subTopic.voteTopic.id}" target="_blank">返回</a></div>     
+    <div class="back-vote-result"><a href="${base}/vote_result.html?voteId=${subTopic.voteTopic.id}" target="_blank">返回</a></div>
     <div class="tptitle1" style=" margin:10px auto;">
         投票主题：<span class="red">${subTopic.voteTopic.title?html}</span><p>总参与人数：<span class="red">${subTopic.voteTopic.totalCount}</span>人<p>
         
     </div>
     
-    <form id="tableForm" action="vote_reply_view.jspx" method="get">
+    <form id="tableForm" action="vote_reply_view.html" method="get">
     [#if pagination.list?size gt 0]
     <div class="tplistCon">
     <ul>

@@ -56,7 +56,7 @@ public class ResumeAct {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/member/resume.jspx", method = RequestMethod.GET)
+	@RequestMapping(value = "/member/resume.html", method = RequestMethod.GET)
 	public String resumeInput(HttpServletRequest request,
 			HttpServletResponse response, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
@@ -84,7 +84,7 @@ public class ResumeAct {
 	 * @return
 	 * @throws IOException
 	 */
-	@RequestMapping(value = "/member/resume.jspx", method = RequestMethod.POST)
+	@RequestMapping(value = "/member/resume.html", method = RequestMethod.POST)
 	public String resumeSubmit(CmsUserResume resume,CmsUserExt ext, String nextUrl,
 			HttpServletRequest request, HttpServletResponse response,
 			ModelMap model) throws IOException {
@@ -107,7 +107,7 @@ public class ResumeAct {
 		return FrontUtils.showSuccess(request, model, nextUrl);
 	}
 	
-	@RequestMapping(value = "/member/myapplys.jspx")
+	@RequestMapping(value = "/member/myapplys.html")
 	public String myapplys(Integer pageNo,HttpServletRequest request,HttpServletResponse response, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
 		CmsUser user = CmsUtils.getUser(request);
@@ -127,7 +127,7 @@ public class ResumeAct {
 				TPLDIR_MEMBER, MEMBER_APPLYS);
 	}
 	
-	@RequestMapping(value = "/member/jobapply_delete.jspx")
+	@RequestMapping(value = "/member/jobapply_delete.html")
 	public String delete(Integer[] ids, HttpServletRequest request,
 			String nextUrl, HttpServletResponse response, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
@@ -151,7 +151,7 @@ public class ResumeAct {
 		return FrontUtils.showSuccess(request, model, nextUrl);
 	}
 	
-	@RequestMapping(value = "/member/jobapply.jspx")
+	@RequestMapping(value = "/member/jobapply.html")
 	public void jobapply(Integer cId, HttpServletRequest request, HttpServletResponse response,
 			ModelMap model) throws JSONException {
 		CmsUser user = CmsUtils.getUser(request);

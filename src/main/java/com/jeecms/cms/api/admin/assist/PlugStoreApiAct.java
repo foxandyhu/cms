@@ -32,7 +32,7 @@ public class PlugStoreApiAct {
 	
 	private Integer getPlugTotal(Integer productType){
 		String serverUrl=manager.getDefault().getServerUrl();
-		String url = serverUrl+"/json/plug_sum.jspx?productId=1";
+		String url = serverUrl+"/json/plug_sum.html?productId=1";
 		if(productType!=null){
 			url+="&productType="+productType;
 		}

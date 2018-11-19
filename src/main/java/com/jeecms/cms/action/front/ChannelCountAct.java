@@ -17,7 +17,7 @@ import com.jeecms.common.web.ResponseUtils;
 
 @Controller
 public class ChannelCountAct {
-	@RequestMapping(value = "/channel_view.jspx", method = RequestMethod.GET)
+	@RequestMapping(value = "/channel_view.html", method = RequestMethod.GET)
 	public void contentView(Integer channelId, HttpServletRequest request,
 			HttpServletResponse response) throws JSONException {
 		if (channelId == null) {

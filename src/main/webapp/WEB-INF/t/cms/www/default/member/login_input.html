@@ -35,8 +35,8 @@ $(function() {
    	[/#if]
          </div>
    [/#if] 
-  <div class="register-nav"><span>会员登录</span><div class="register-login">没有账号，<a class="tc" href="${base}/register.jspx">立即注册 ></a></div></div> 
-  <form id="jvForm" action="${base}/login.jspx" method="post">
+  <div class="register-nav"><span>会员登录</span><div class="register-login">没有账号，<a class="tc" href="${base}/register.html">立即注册 ></a></div></div>
+  <form id="jvForm" action="${base}/login.html" method="post">
       <div class="inf-message">
       [#if message??]
             
@@ -82,7 +82,7 @@ $(function() {
       [/#if]
     <div class="login-rem clearfix">
       <div class="next-day"><input type="checkbox" class="login-checkbox"  value="true" name="rememberMe">下次自动登录</div>
-      <a href="${base}/member/forgot_password.jspx">忘记密码</a>
+      <a href="${base}/member/forgot_password.html">忘记密码</a>
     </div>
     <input type="hidden" name="token"  value="${token!}" />
     <input type="submit" class="login-btn" value="登 录">
@@ -91,7 +91,7 @@ $(function() {
     <div class="quick-list clearfix">
       [#if site.config.qqEnable]
       <a class="quick-qq" id="qqLoginBtn" title="用QQ账号登录"></a>
-      <script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="${site.config.qqID!}" data-redirecturi="http://${site.domain}/public_auth.jspx" charset="utf-8"></script>
+      <script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="${site.config.qqID!}" data-redirecturi="http://${site.domain}/public_auth.html" charset="utf-8"></script>
 					<script type="text/javascript">
 						//插入按钮的节点qqLoginBtn id
 					    QC.Login({btnId:"qqLoginBtn",size: "A_M"}, function(reqData, opts){//登录成功
@@ -126,7 +126,7 @@ $(function() {
                     		T.init({
                     		    appkey: ${site.config.qqWeboID!}, 
                     		    autoclose:false,
-                    		    callbackurl:"http://${site.domain}/public_auth.jspx"
+                    		    callbackurl:"http://${site.domain}/public_auth.html"
                     		});
                     		 function logout(){
                                  T.logout(function (loginStatus) { // 登出用户
@@ -155,11 +155,11 @@ $(function() {
 		  callback : {
 		   login:function(o){
 		    //登录成功之后执行
-		    location="${base}/public_auth.jspx";
+		    location="${base}/public_auth.html";
 		   },
 		   logout:function(){
 		    //退出之后执行退出本地用户
-	 		location="${base}/logout.jspx?returnUrl=/";
+	 		location="${base}/logout.html?returnUrl=/";
 		   }
 		  }
 		 });
@@ -167,7 +167,7 @@ $(function() {
 		</script>
 		[/#if]
 		[#if site.config.weixinEnable]
-		<a href="${base}/weixin_login.jspx" class="quick-weixin" title="微信账号登录" ></a>
+		<a href="${base}/weixin_login.html" class="quick-weixin" title="微信账号登录" ></a>
 		[/#if]
     </div>
   </div>

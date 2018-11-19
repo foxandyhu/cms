@@ -1,1 +1,1 @@
-<script src="${base}/adspace.jspx?id=#{id}"></script>
+<script src="${base}/adspace.html?id=#{id}"></script>

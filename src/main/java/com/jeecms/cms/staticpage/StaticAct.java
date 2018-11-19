@@ -33,13 +33,13 @@ public class StaticAct {
 	private static final Logger log = LoggerFactory.getLogger(StaticAct.class);
 
 	@RequiresPermissions("static:v_index")
-	@RequestMapping(value = "/static/v_index.do")
+	@RequestMapping(value = "/static/v_index.html")
 	public String indexInput(HttpServletRequest request, ModelMap model) {
 		return "static/index";
 	}
 
 	@RequiresPermissions("static:o_index")
-	@RequestMapping(value = "/static/o_index.do")
+	@RequestMapping(value = "/static/o_index.html")
 	public void indexSubmit(HttpServletRequest request,
 			HttpServletResponse response, ModelMap model) throws JSONException {
 		JSONObject json = new JSONObject();
@@ -68,7 +68,7 @@ public class StaticAct {
 	}
 
 	@RequiresPermissions("static:o_index_remove")
-	@RequestMapping(value = "/static/o_index_remove.do")
+	@RequestMapping(value = "/static/o_index_remove.html")
 	public void indexRemove(HttpServletRequest request,
 			HttpServletResponse response) throws JSONException {
 		CmsSite site = CmsUtils.getSite(request);
@@ -82,7 +82,7 @@ public class StaticAct {
 	}
 
 	@RequiresPermissions("static:v_channel")
-	@RequestMapping(value = "/static/v_channel.do")
+	@RequestMapping(value = "/static/v_channel.html")
 	public String channelInput(HttpServletRequest request, ModelMap model) {
 		// 栏目列表
 		CmsSite site = CmsUtils.getSite(request);
@@ -94,7 +94,7 @@ public class StaticAct {
 	}
 
 	@RequiresPermissions("static:o_channel")
-	@RequestMapping(value = "/static/o_channel.do")
+	@RequestMapping(value = "/static/o_channel.html")
 	public void channelSubmit(Integer channelId, Boolean containChild,
 			HttpServletRequest request, HttpServletResponse response)
 			throws JSONException {
@@ -132,7 +132,7 @@ public class StaticAct {
 	}
 
 	@RequiresPermissions("static:v_content")
-	@RequestMapping(value = "/static/v_content.do")
+	@RequestMapping(value = "/static/v_content.html")
 	public String contentInput(HttpServletRequest request, ModelMap model) {
 		// 栏目列表
 		CmsSite site = CmsUtils.getSite(request);
@@ -144,7 +144,7 @@ public class StaticAct {
 	}
 
 	@RequiresPermissions("static:o_content")
-	@RequestMapping(value = "/static/o_content.do")
+	@RequestMapping(value = "/static/o_content.html")
 	public void contentSubmit(Integer channelId, Date startDate,
 			HttpServletRequest request, HttpServletResponse response) {
 		String msg="";
@@ -178,7 +178,7 @@ public class StaticAct {
 	}
 
 	@RequiresPermissions("static:v_reset_generate")
-	@RequestMapping(value = "/static/v_reset_generate.do")
+	@RequestMapping(value = "/static/v_reset_generate.html")
 	public String resetgenerateInput(HttpServletRequest request, ModelMap model) {
 		// 栏目列表
 		CmsSite site = CmsUtils.getSite(request);
@@ -190,7 +190,7 @@ public class StaticAct {
 	}
 
 	@RequiresPermissions("static:o_reset_generate")
-	@RequestMapping("/static/o_reset_generate.do")
+	@RequestMapping("/static/o_reset_generate.html")
 	public void resetGenerate(Integer channelId, HttpServletRequest request,
 			HttpServletResponse response){
 		String msg;

@@ -51,7 +51,7 @@ public class VoteAct extends AbstractVote{
 	public static final String VOTE_RESULT = "tpl.voteResult";
 	public static final String VOTE_REPLY_RESULT = "tpl.voteReplyResult";
 
-	@RequestMapping(value = "/vote_result.jspx", method = RequestMethod.GET)
+	@RequestMapping(value = "/vote_result.html", method = RequestMethod.GET)
 	public String result(Integer voteId, HttpServletRequest request,
 			HttpServletResponse response, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
@@ -71,7 +71,7 @@ public class VoteAct extends AbstractVote{
 		}
 	}
 	
-	@RequestMapping(value = "/vote_reply_view.jspx", method = RequestMethod.GET)
+	@RequestMapping(value = "/vote_reply_view.html", method = RequestMethod.GET)
 	public String reply_view(Integer subId,Integer pageNo, HttpServletRequest request,
 			HttpServletResponse response, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
@@ -94,7 +94,7 @@ public class VoteAct extends AbstractVote{
 		}
 	}
 
-	@RequestMapping(value = "/vote.jspx", method = RequestMethod.GET)
+	@RequestMapping(value = "/vote.html", method = RequestMethod.GET)
 	public String input(Integer voteId, HttpServletRequest request,
 			HttpServletResponse response, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
@@ -115,7 +115,7 @@ public class VoteAct extends AbstractVote{
 	}
 	
 
-	@RequestMapping(value = "/vote.jspx", method = RequestMethod.POST)
+	@RequestMapping(value = "/vote.html", method = RequestMethod.POST)
 	public String submit(Integer voteId,Integer[]subIds,String[]reply, 
 			HttpServletRequest request, HttpServletResponse response,ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);

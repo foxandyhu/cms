@@ -31,7 +31,7 @@ public class WeixinMenuAct {
 	private static final Logger log = LoggerFactory.getLogger(WeixinMenuAct.class);
 	
 	@RequiresPermissions("weixinMenu:v_list")
-	@RequestMapping("/weixinMenu/v_list.do")
+	@RequestMapping("/weixinMenu/v_list.html")
 	public String list(Integer parentId,Integer pageNo,HttpServletRequest request, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
 		Pagination p = manager.getPage(site.getId(),parentId, cpn(pageNo), CookieUtils.getPageSize(request));
@@ -49,7 +49,7 @@ public class WeixinMenuAct {
 	}
 	
 	@RequiresPermissions("weixinMenu:v_add")
-	@RequestMapping("/weixinMenu/v_add.do")
+	@RequestMapping("/weixinMenu/v_add.html")
 	public String add(Integer parentId,Integer pageNo,HttpServletRequest request, ModelMap model) {
 		model.addAttribute("parentId", parentId);
 		model.addAttribute("pageNo", pageNo);
@@ -57,7 +57,7 @@ public class WeixinMenuAct {
 	}
 
 	@RequiresPermissions("weixinMenu:v_edit")
-	@RequestMapping("/weixinMenu/v_edit.do")
+	@RequestMapping("/weixinMenu/v_edit.html")
 	public String edit(Integer id,Integer parentId,Integer pageNo,HttpServletRequest request, ModelMap model) {
 		WeixinMenu entity = manager.findById(id);
 		model.addAttribute("parentId", parentId);
@@ -67,7 +67,7 @@ public class WeixinMenuAct {
 	}
 	
 	@RequiresPermissions("weixinMenu:o_save")
-	@RequestMapping("/weixinMenu/o_save.do")
+	@RequestMapping("/weixinMenu/o_save.html")
 	public String save(WeixinMenu bean,Integer parentId,Integer pageNo,HttpServletRequest request, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
 		bean.setSite(site);
@@ -79,14 +79,14 @@ public class WeixinMenuAct {
 	}
 	
 	@RequiresPermissions("weixinMenu:o_update")
-	@RequestMapping("/weixinMenu/o_update.do")
+	@RequestMapping("/weixinMenu/o_update.html")
 	public String update(WeixinMenu bean,Integer parentId,Integer pageNo,HttpServletRequest request, ModelMap model) {
 		manager.update(bean);
 		return list(parentId, pageNo, request, model);
 	}
 	
 	@RequiresPermissions("weixinMenu:o_menu")
-	@RequestMapping("/weixinMenu/o_menu.do")
+	@RequestMapping("/weixinMenu/o_menu.html")
 	public String menu(WeixinMenu bean,Integer parentId,
 			Integer pageNo,HttpServletRequest request, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
@@ -95,7 +95,7 @@ public class WeixinMenuAct {
 	}
 	
 	@RequiresPermissions("weixinMenu:o_delete")
-	@RequestMapping("/weixinMenu/o_delete.do")
+	@RequestMapping("/weixinMenu/o_delete.html")
 	public String delete(Integer[] ids,Integer parentId,Integer pageNo,HttpServletRequest request, ModelMap model) {
 		WebErrors errors = validateDelete(ids, request);
 		if (errors.hasErrors()) {

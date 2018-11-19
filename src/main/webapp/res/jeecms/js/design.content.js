@@ -52,7 +52,7 @@ function dialogSuccessCall(){
 	$.ajax({
 	    cache: true,
 	    type: "POST",
-	    url:"../directive/v_getcode.do",
+	    url:"../directive/v_getcode.html",
 	    data:$('#'+clickFrom).serialize(),
 	    dataType: "text",
 	    async: false,

@@ -2,7 +2,7 @@
 [#if !tag_bean??]
 <div>没有默认投票主题</div>
 [#else]
-<form name="votes" action="${base}/vote.jspx" method="post" target="_blank">
+<form name="votes" action="${base}/vote.html" method="post" target="_blank">
 <h1>${tag_bean.title?html}</h1>
 <input type="hidden" name="voteId" value="${tag_bean.id}"/>
       <h3>${tag_bean.description?html}</h3>
@@ -29,7 +29,7 @@
         <input name=subIds type="hidden" value="${subTopic.id}"/>
         [/#list]
       </div>
-      <div class="survey_Btn"><input type="submit" value="提交投票"><a href="${base}/vote_result.jspx?voteId=${tag_bean.id}" class="result">查看投票结果</a></div>
+      <div class="survey_Btn"><input type="submit" value="提交投票"><a href="${base}/vote_result.html?voteId=${tag_bean.id}" class="result">查看投票结果</a></div>
 </form>
 [/#if]
 [/@cms_vote]

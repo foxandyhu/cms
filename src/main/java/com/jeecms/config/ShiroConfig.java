@@ -27,6 +27,7 @@ import org.springframework.web.filter.DelegatingFilterProxy;
 
 import javax.servlet.Filter;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 /**
  * Shiro配置
@@ -83,7 +84,7 @@ public class ShiroConfig {
     @Bean
     public CmsAdminUrl adminUrlBean() {
         CmsAdminUrl admin = new CmsAdminUrl();
-        admin.setAdminLogin("/jeeadmin/jeecms/login.do");
+        admin.setAdminLogin("/jeeadmin/jeecms/login.html");
         admin.setAdminPrefix("/jeeadmin/jeecms/");
         return admin;
     }
@@ -107,7 +108,7 @@ public class ShiroConfig {
     @Bean
     public CmsAuthenticationFilter authcFilter(CmsAdminUrl adminUrlBean) {
         CmsAuthenticationFilter authc = new CmsAuthenticationFilter();
-        authc.setAdminIndex("/jeeadmin/jeecms/index.do");
+        authc.setAdminIndex("/jeeadmin/jeecms/index.html");
         authc.setAdminPrefix(adminUrlBean.getAdminPrefix());
         authc.setRememberMeParam("rememberMe");
         return authc;
@@ -117,20 +118,19 @@ public class ShiroConfig {
     public ShiroFilterFactoryBean shiroFilter(WebSecurityManager securityManager) {
         ShiroFilterFactoryBean bean = new ShiroFilterFactoryBean();
         bean.setSecurityManager(securityManager);
-        bean.setLoginUrl("/login.jspx");
+        bean.setLoginUrl("/login.html");
         bean.setSuccessUrl("/");
-        bean.setFilterChainDefinitionMap(new HashMap<String, String>() {
+        bean.setFilterChainDefinitionMap(new LinkedHashMap<String, String>() {
             private static final long serialVersionUID = -4794995092802667876L;
-
             {
-                put("*.jspx", "anon");
-                put("*.jhtml", "anon");
-                put("/member/forgot_password.jspx", "anon");
-                put("/member/password_reset.jspx", "anon");
-                put("/member/jobapply.jspx", "anon");
-                put("/login.jspx", "authc");
-                put("/logout.jspx", "logout");
+                put("/login.html", "authc");
+                put("/logout.html", "logout");
+                put("/jeeadmin/**", "authc");
+                put("/member/forgot_password.html", "anon");
+                put("/member/password_reset.html", "anon");
+                put("/member/jobapply.html", "anon");
                 put("/member/**", "user");
+                put("/**","anon");
             }
         });
         return bean;

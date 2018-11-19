@@ -38,7 +38,7 @@ public class CasLoginAct {
 
 
 	@Token(save=true)
-	@RequestMapping(value = "/login.jspx", method = RequestMethod.GET)
+	@RequestMapping(value = "/login.html", method = RequestMethod.GET)
 	public String input(String returnUrl,HttpServletRequest request,
 			HttpServletResponse response,ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
@@ -59,7 +59,7 @@ public class CasLoginAct {
 	}
 
 	@Token(remove=true)
-	@RequestMapping(value = "/login.jspx", method = RequestMethod.POST)
+	@RequestMapping(value = "/login.html", method = RequestMethod.POST)
 	public String submit(String username, HttpServletRequest request,
 			HttpServletResponse response,ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
@@ -75,7 +75,7 @@ public class CasLoginAct {
 		return FrontUtils.getTplPath(request, sol, TPLDIR_MEMBER, LOGIN_INPUT);
 	}
 	
-	@RequestMapping(value = "/adminLogin.jspx", method = RequestMethod.POST)
+	@RequestMapping(value = "/adminLogin.html", method = RequestMethod.POST)
 	public void adminLogin(HttpServletRequest request, 
 			HttpServletResponse response,ModelMap model)  {
 		CmsUser user=CmsUtils.getUser(request);
@@ -99,7 +99,7 @@ public class CasLoginAct {
 		ResponseUtils.renderJson(response, json.toString());
 	}
 	
-	@RequestMapping(value = "/adminLogout.jspx", method = RequestMethod.POST)
+	@RequestMapping(value = "/adminLogout.html", method = RequestMethod.POST)
 	public void adminLogout(String userName,
 			String sessionKey,HttpServletRequest request, 
 			HttpServletResponse response,ModelMap model)  {

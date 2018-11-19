@@ -25,9 +25,9 @@ $(function() {
 [#include "../include/header.html"/]
 <div class="main container survey clearfix"> 
   <section class="survey_w840">
-    <h1>投票结果<a href="${base}/survey/index.jhtml" class="position">网络调查</a></h1>
+    <h1>投票结果<a href="${base}/survey/index.html" class="position">网络调查</a></h1>
     <div class="survey_con result">
-      <form id="tableForm" action="vote_reply_view.jspx" method="get">
+      <form id="tableForm" action="vote_reply_view.html" method="get">
        [#if pagination.list?size gt 0]
        <ul>       
        [#list pagination.list as c]

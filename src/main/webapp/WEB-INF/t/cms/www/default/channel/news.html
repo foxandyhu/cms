@@ -120,7 +120,7 @@ $(function() {
         <div style="" class="cTag">
         [@cms_searchword_list word='' siteId='1' recommend='1' orderBy='4' count='11']
 	        [#list tag_list as word]
-		     <a href="${base}/search.jspx?q=${word.name!}">${word.name!}</a>
+		     <a href="${base}/search.html?q=${word.name!}">${word.name!}</a>
 	        [/#list]
 		[/@cms_searchword_list]
         </div>
@@ -143,7 +143,7 @@ $(function() {
       <div class="topicList">
         [@cms_topic_list count='3' recommend='1' orderBy='4' descLen='36' append='...']
           [#list tag_list as t] 
-          <a href="${base}/topic/${t.id}.jspx" target="_blank"><img src="${t.titleImg!site.defImg}"></a>
+          <a href="${base}/topic/${t.id}.html" target="_blank"><img src="${t.titleImg!site.defImg}"></a>
           [/#list]
           [/@cms_topic_list] 
       </div>

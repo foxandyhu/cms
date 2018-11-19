@@ -35,8 +35,8 @@ $(function() {
 			}
 		}
 	});
-	var uploadPicsUrl = "o_swfPicsUpload.jspx";
-	var uploadAttachsUrl = "o_swfAttachsUpload.jspx";
+	var uploadPicsUrl = "o_swfPicsUpload.html";
+	var uploadAttachsUrl = "o_swfAttachsUpload.html";
 	//在firefox、chrome下，上传不能保留登录信息，所以必须加上jsessionid。
 	var jsessionid ="${sessionId!}";
 	if(jsessionid) {
@@ -149,14 +149,14 @@ function uploadAttachSuccess(file,data) {
         [#include "member_top.html"/]
         <div class="mr-top-position">
 		     <div class="mr-top-tit fl">修改稿件</div>
-		    <div class="modify fr"><a href="${base}/member/contribute_list.jspx">稿件列表</a></div>
+		    <div class="modify fr"><a href="${base}/member/contribute_list.html">稿件列表</a></div>
 		 </div>
         <div class="mc_content">   
             [#if channelList?size gt 0]
              [#include "media_upload.html"/]
              [#include "image_upload.html"/]
              [#include "attachment_upload.html"/]
-            <form id="jvForm" action="contribute_update.jspx" method="post">
+            <form id="jvForm" action="contribute_update.html" method="post">
              <table width="98%" border="0" align="center" cellpadding="5" cellspacing="1" bgcolor="#C8DCF0" style="margin:5px;">
                <tr>
                  <td width="86" height="25" align="right" bgcolor="#f6fbff">标题：</td>
@@ -219,10 +219,10 @@ function uploadAttachSuccess(file,data) {
 					$(function() {
 					   	CKEDITOR.replace( 'txt' ,
 					   			{
-							   		filebrowserUploadUrl : '${base}/fck/upload.jspx',  
-							   		filebrowserImageUploadUrl : '${base}/fck/upload.jspx?Type=Image',  
-							   		filebrowserFlashUploadUrl : '${base}/fck/upload.jspx?Type=Flash',
-							   		filebrowserMediaUploadURL : '${base}/fck/upload.jspx?Type=Media'
+							   		filebrowserUploadUrl : '${base}/fck/upload.html',
+							   		filebrowserImageUploadUrl : '${base}/fck/upload.html?Type=Image',
+							   		filebrowserFlashUploadUrl : '${base}/fck/upload.html?Type=Flash',
+							   		filebrowserMediaUploadURL : '${base}/fck/upload.html?Type=Media'
 					   		     }
 					   	);  
 					 });
@@ -340,7 +340,7 @@ function uploadAttachSuccess(file,data) {
                </tr>
                <tr>
                  <td height="25" colspan="2" align="center" bgcolor="#FFFFFF">
-                    <input type="hidden" name="nextUrl" value="contribute_list.jspx"/>
+                    <input type="hidden" name="nextUrl" value="contribute_list.html"/>
                     <input type="hidden" name="id" value="${content.id}"/>
                     <input type="submit" value="提交" class="member_button"/> <input type="reset" value="重置" class="member_button"/>
                  </td>

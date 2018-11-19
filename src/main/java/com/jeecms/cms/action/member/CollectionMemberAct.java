@@ -46,7 +46,7 @@ public class CollectionMemberAct {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/member/collection_list.jspx")
+	@RequestMapping(value = "/member/collection_list.html")
 	public String collection_list(String queryTitle, Integer queryChannelId,
 			Integer pageNo, HttpServletRequest request,
 			HttpServletResponse response, ModelMap model) {
@@ -74,7 +74,7 @@ public class CollectionMemberAct {
 				TPLDIR_MEMBER, COLLECTION_LIST);
 	}
 
-	@RequestMapping(value = "/member/collect.jspx")
+	@RequestMapping(value = "/member/collect.html")
 	public void collect(Integer cId, Integer operate,
 			HttpServletRequest request, HttpServletResponse response,
 			ModelMap model) throws JSONException {
@@ -89,7 +89,7 @@ public class CollectionMemberAct {
 		ResponseUtils.renderJson(response, object.toString());
 	}
 	
-	@RequestMapping(value = "/member/collect_cancel.jspx")
+	@RequestMapping(value = "/member/collect_cancel.html")
 	public String  collect_cancel(Integer[] cIds,Integer pageNo,HttpServletRequest request, HttpServletResponse response,
 			ModelMap model) throws JSONException {
 		CmsUser user = CmsUtils.getUser(request);
@@ -109,7 +109,7 @@ public class CollectionMemberAct {
 		return collection_list(null, null, pageNo, request, response, model);
 	}
 
-	@RequestMapping(value = "/member/collect_exist.jspx")
+	@RequestMapping(value = "/member/collect_exist.html")
 	public void collect_exist(Integer cId, HttpServletRequest request,
 			HttpServletResponse response, ModelMap model) throws JSONException {
 		CmsSite site = CmsUtils.getSite(request);

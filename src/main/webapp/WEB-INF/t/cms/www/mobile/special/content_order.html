@@ -13,9 +13,9 @@ $(function() {
 	setInterval("queryStatus()", 30000); 
 });
 function queryStatus() {
-	var rePayUrl="${base}/content/selectPay.jspx?contentId=${content.id!}&orderNumber=${orderNumber!}&payMethod=1";
+	var rePayUrl="${base}/content/selectPay.html?contentId=${content.id!}&orderNumber=${orderNumber!}&payMethod=1";
     $.ajax({
-        url: "${base}/order/payCallByWeiXin.jspx?orderNumber=${orderNumber!}",
+        url: "${base}/order/payCallByWeiXin.html?orderNumber=${orderNumber!}",
         type: "POST",
         dataType:"json",
         data: "",
@@ -42,7 +42,7 @@ function queryStatus() {
     <div class="w1173">
 		<div class="position">您当前的位置：<a href="${base}/" target="_blank">首页</a>&nbsp;&gt;&nbsp;</div>
 			微信扫码支付：${payAmount!}<br/>
-            <img src="${base}/special/o_create_dimensioncode.jspx?content=${code_url!}" style="width:300px;height:300px;"/>
+            <img src="${base}/special/o_create_dimensioncode.html?content=${code_url!}" style="width:300px;height:300px;"/>
 	</div>
 </div>
 </body>

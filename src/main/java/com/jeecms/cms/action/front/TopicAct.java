@@ -28,7 +28,7 @@ public class TopicAct {
 	public static final String TOPIC_CHANNEL = "tpl.topicChannel";
 	public static final String TOPIC_DEFAULT = "tpl.topicDefault";
 
-	@RequestMapping(value = "/topic*.jspx", method = RequestMethod.GET)
+	@RequestMapping(value = "/topic*.html", method = RequestMethod.GET)
 	public String index(Integer channelId, Integer topicId,
 			HttpServletRequest request, HttpServletResponse response,
 			ModelMap model) {
@@ -63,7 +63,7 @@ public class TopicAct {
 		}
 	}
 
-	@RequestMapping(value = "/topic/{id}.jspx", method = RequestMethod.GET)
+	@RequestMapping(value = "/topic/{id}.html", method = RequestMethod.GET)
 	public String topic(@PathVariable String id, HttpServletRequest request,
 			HttpServletResponse response, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);

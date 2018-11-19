@@ -119,7 +119,7 @@ window.location.href=window.document.referrer;
 		}
 	})
   </script>
-  <footer class="pic-footer">[#if channel.allowUpdown]<a class="pic-zan" onclick="Cms.up('${base}',${content.id},${content.ups});"><span id="ups"></span></a>[/#if]<a href="${base}/comment.jspx?contentId=${content.id}" class="pic-comment">${content.commentsCheckedNum!}</a></footer>
+  <footer class="pic-footer">[#if channel.allowUpdown]<a class="pic-zan" onclick="Cms.up('${base}',${content.id},${content.ups});"><span id="ups"></span></a>[/#if]<a href="${base}/comment.html?contentId=${content.id}" class="pic-comment">${content.commentsCheckedNum!}</a></footer>
 </div>
 </body>
 </html>

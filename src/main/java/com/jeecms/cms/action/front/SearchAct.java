@@ -42,7 +42,7 @@ public class SearchAct {
 	public static final String SEARCH_JOB = "tpl.searchJob";
 	
 	@Token(remove=true)
-	@RequestMapping(value = "/search*.jspx", method = RequestMethod.GET)
+	@RequestMapping(value = "/search*.html", method = RequestMethod.GET)
 	public String index(HttpServletRequest request,
 			HttpServletResponse response, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
@@ -72,7 +72,7 @@ public class SearchAct {
 	}
 	
 	@Token(remove=true)
-	@RequestMapping(value = "/searchJob*.jspx", method = RequestMethod.GET)
+	@RequestMapping(value = "/searchJob*.html", method = RequestMethod.GET)
 	public String searchJob(HttpServletRequest request,
 			HttpServletResponse response, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
@@ -90,7 +90,7 @@ public class SearchAct {
 			parseQ=parseKeywords(q);
 			parseQ=StrUtils.xssEncode(parseQ);
 			if(!q.equals(parseQ)){
-				return "redirect:searchJob.jspx";
+				return "redirect:searchJob.html";
 			}
 			model.addAttribute("q",parseQ);
 		}
@@ -101,7 +101,7 @@ public class SearchAct {
 				TPLDIR_SPECIAL, SEARCH_JOB);
 	}
 	
-	@RequestMapping(value = "/createToken.jspx")
+	@RequestMapping(value = "/createToken.html")
 	public void createToken(HttpServletRequest request,
 			HttpServletResponse response, ModelMap model) {
 		JSONObject json=new JSONObject();
@@ -114,7 +114,7 @@ public class SearchAct {
 		ResponseUtils.renderJson(response, json.toString());
 	}
 	
-	@RequestMapping("/search/v_ajax_list.jspx")
+	@RequestMapping("/search/v_ajax_list.html")
 	public void ajaxList(HttpServletRequest request,HttpServletResponse response, ModelMap model) throws JSONException {
 		JSONObject object = new JSONObject();
 		Map<String,String>wordsMap=new LinkedHashMap<String, String>();
@@ -130,7 +130,7 @@ public class SearchAct {
 		ResponseUtils.renderJson(response, object.get("words").toString());
 	}
 	
-	@RequestMapping(value = "/searchCustom*.jspx")
+	@RequestMapping(value = "/searchCustom*.html")
 	public String searchCustom(String tpl, HttpServletRequest request,
 			HttpServletResponse response, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);

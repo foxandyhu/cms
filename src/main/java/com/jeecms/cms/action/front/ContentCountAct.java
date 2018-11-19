@@ -27,7 +27,7 @@ import com.jeecms.common.web.ResponseUtils;
 
 @Controller
 public class ContentCountAct {
-	@RequestMapping(value = "/content_view.jspx", method = RequestMethod.GET)
+	@RequestMapping(value = "/content_view.html", method = RequestMethod.GET)
 	public void contentView(Integer contentId, HttpServletRequest request,
 			HttpServletResponse response) throws JSONException {
 		if (contentId == null) {
@@ -52,7 +52,7 @@ public class ContentCountAct {
 		}
 	}
 	
-	@RequestMapping(value = "/content_view_get.jspx")
+	@RequestMapping(value = "/content_view_get.html")
 	public void getContentView(Integer contentIds[], String view, HttpServletRequest request,
 			HttpServletResponse response) throws JSONException {
 		if (contentIds == null) {
@@ -79,7 +79,7 @@ public class ContentCountAct {
 		ResponseUtils.renderJson(response, json.toString());
 	}
 
-	@RequestMapping(value = "/content_up.jspx", method = RequestMethod.GET)
+	@RequestMapping(value = "/content_up.html", method = RequestMethod.GET)
 	public void contentUp(Integer contentId, HttpServletRequest request,
 			HttpServletResponse response) throws JSONException {
 		if (contentId == null) {
@@ -90,7 +90,7 @@ public class ContentCountAct {
 		}
 	}
 
-	@RequestMapping(value = "/content_down.jspx", method = RequestMethod.GET)
+	@RequestMapping(value = "/content_down.html", method = RequestMethod.GET)
 	public void contentDown(Integer contentId, HttpServletRequest request,
 			HttpServletResponse response) throws JSONException {
 		if (contentId == null) {

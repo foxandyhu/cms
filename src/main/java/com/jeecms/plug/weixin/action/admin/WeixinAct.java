@@ -27,7 +27,7 @@ import com.jeecms.plug.weixin.manager.WeixinMng;
 public class WeixinAct {
 	
 	@RequiresPermissions("content:o_sendToWeixin")
-	@RequestMapping("/content/o_sendToWeixin.do")
+	@RequestMapping("/content/o_sendToWeixin.html")
 	public String sendToWeixin(Integer[] ids,
 			HttpServletRequest request, ModelMap model) {
 		WebErrors errors = validateCheck(ids, request);
@@ -39,7 +39,7 @@ public class WeixinAct {
 			beans[i] = contentMng.findById(ids[i]);
 		}
 		weiXinSvc.sendTextToAllUser(beans);
-		return  "redirect:v_list.do";
+		return  "redirect:v_list.html";
 	}
 
 	
@@ -49,7 +49,7 @@ public class WeixinAct {
 	}
 	
 	@RequiresPermissions("weixin:o_update")
-	@RequestMapping("/weixin/o_save.do")
+	@RequestMapping("/weixin/o_save.html")
 	public String save(Weixin bean,String wxAppkey,String wxAppSecret,HttpServletRequest request, ModelMap model) {
 		CmsSite site=CmsUtils.getSite(request);
 		bean.setSite(site);
@@ -62,7 +62,7 @@ public class WeixinAct {
 	}
 	
 	@RequiresPermissions("weixin:v_edit")
-	@RequestMapping("/weixin/v_edit.do")
+	@RequestMapping("/weixin/v_edit.html")
 	public String edit(HttpServletRequest request, ModelMap model) {
 		Weixin entity = manager.find(CmsUtils.getSiteId(request));
 		if(entity!=null){
@@ -75,7 +75,7 @@ public class WeixinAct {
 	}
 	
 	@RequiresPermissions("weixin:o_update")
-	@RequestMapping("/weixin/o_update.do")
+	@RequestMapping("/weixin/o_update.html")
 	public String update(Weixin bean,String wxAppkey,String wxAppSecret,
 			HttpServletRequest request, ModelMap model) {
 		CmsSite site=CmsUtils.getSite(request);

@@ -25,7 +25,7 @@ public class TagAct {
 	public static final String TAGS_INDEX = "tpl.tagIndex";
 	public static final String TAGS_DETAIL = "tpl.tagDetail";
 
-	@RequestMapping(value = "/tag*.jspx", method = RequestMethod.GET)
+	@RequestMapping(value = "/tag*.html", method = RequestMethod.GET)
 	public String index(HttpServletRequest request,
 			HttpServletResponse response, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
@@ -35,7 +35,7 @@ public class TagAct {
 				TPLDIR_SPECIAL, TAGS_INDEX);
 	}
 
-	@RequestMapping(value = "/tag/{path}.jspx", method = RequestMethod.GET)
+	@RequestMapping(value = "/tag/{path}.html", method = RequestMethod.GET)
 	public String tags(@PathVariable String path, HttpServletRequest request,
 			HttpServletResponse response, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);

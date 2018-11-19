@@ -28,7 +28,7 @@ function putParamIds(viewId,contentId){
 function views() {
 	var base="${base}";
 	var view="${view}";
-	$.post(base + "/content_view_get.jspx", {
+	$.post(base + "/content_view_get.html", {
 		contentIds : contentIds,
 		view:view
 	}, function(data) {

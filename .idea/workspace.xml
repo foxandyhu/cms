@@ -2,35 +2,306 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2f3edc67-cc8f-4618-a901-7cdf459bae87" name="Default Changelist" comment="代码优化">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/web/FireWallProperty.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/user/images/201811/19164235x8q2.jpeg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/jeeadmin/jeecms/index.html" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/jeeadmin/jeecms/index.do" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/context/admin/AdminApiInterceptor.java" afterPath="$PROJECT_DIR$/src/main/java/com/context/admin/AdminApiInterceptor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/context/admin/AdminContextInterceptor.java" afterPath="$PROJECT_DIR$/src/main/java/com/context/admin/AdminContextInterceptor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/Constants.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/Constants.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/admin/main/CmsFireWallConfigApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/admin/main/CmsFireWallConfigApiAct.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsCommentExt.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsCommentExt.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsGuestbookExt.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsGuestbookExt.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/Channel.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/Channel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ChannelCount.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ChannelCount.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ChannelExt.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ChannelExt.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ChannelTxt.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ChannelTxt.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/Content.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/Content.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ContentCharge.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ContentCharge.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ContentCheck.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ContentCheck.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ContentCount.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ContentCount.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ContentExt.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ContentExt.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ContentTxt.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ContentTxt.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/dao/impl/CmsConfigItemDaoImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/dao/impl/CmsConfigItemDaoImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsConfig.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsConfig.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsConfigItem.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsConfigItem.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsSiteCompany.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsSiteCompany.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsUserAccount.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsUserAccount.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsUserExt.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsUserExt.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsUserResume.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsUserResume.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/servlet/FireWallInterceptor.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/servlet/FireWallInterceptor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/plug/weixin/entity/Weixin.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/plug/weixin/entity/Weixin.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/ehcache.xml" afterPath="$PROJECT_DIR$/src/main/resources/ehcache.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/firewall.properties" afterPath="$PROJECT_DIR$/src/main/resources/firewall.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/front/AdvertisingAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/front/AdvertisingAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/front/AttachmentAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/front/AttachmentAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/front/ChannelCountAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/front/ChannelCountAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/front/CmsSiteFlowAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/front/CmsSiteFlowAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/front/CommentAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/front/CommentAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/front/ContentCountAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/front/ContentCountAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/front/ContentOrderAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/front/ContentOrderAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/front/ContentScoreAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/front/ContentScoreAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/front/CsiCustomAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/front/CsiCustomAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/front/DimensionCodeAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/front/DimensionCodeAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/front/DynamicPageAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/front/DynamicPageAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/front/FriendlinkAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/front/FriendlinkAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/front/GuestbookAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/front/GuestbookAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/front/RssAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/front/RssAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/front/SearchAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/front/SearchAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/front/StaticPageCheckPermAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/front/StaticPageCheckPermAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/front/TagAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/front/TagAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/front/ThirdLoginAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/front/ThirdLoginAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/front/TopicAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/front/TopicAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/front/VisualAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/front/VisualAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/front/VoteAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/front/VoteAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/AccountDrawAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/AccountDrawAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/CasLoginAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/CasLoginAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/CollectionMemberAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/CollectionMemberAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/CommentMemberAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/CommentMemberAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/ContributeAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/ContributeAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/FckAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/FckAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/ForgotPasswordAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/ForgotPasswordAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/GuestbookMemberAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/GuestbookMemberAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/ImageCutAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/ImageCutAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/ImageUploadAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/ImageUploadAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/LoginAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/LoginAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/MemberAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/MemberAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/MessageAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/MessageAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/RegisterAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/RegisterAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/ResumeAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/ResumeAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/SwfUploadAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/SwfUploadAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/UeditorAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/UeditorAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/UserContentBuyAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/UserContentBuyAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/WeiXinAuthAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/WeiXinAuthAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/admin/assist/PlugStoreApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/admin/assist/PlugStoreApiAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/front/UserApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/front/UserApiAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/lucene/LuceneContentAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/lucene/LuceneContentAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/service/CmsSiteFlowCacheImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/service/CmsSiteFlowCacheImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/staticpage/StaticAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/staticpage/StaticAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/statistic/CmsStatisticAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/statistic/CmsStatisticAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/statistic/workload/CmsWorkLoadStatisticAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/statistic/workload/CmsWorkLoadStatisticAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/common/util/AliPay.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/common/util/AliPay.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/common/util/WeixinPay.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/common/util/WeixinPay.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/common/web/Constants.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/common/web/Constants.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/config/ContextConfig.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/config/ContextConfig.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/config/ShiroConfig.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/config/ShiroConfig.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/action/front/LoginAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/action/front/LoginAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/action/front/ProcessAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/action/front/ProcessAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsSite.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsSite.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/security/CmsAuthenticationFilter.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/security/CmsAuthenticationFilter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/security/CmsUserFilter.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/security/CmsUserFilter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/servlet/ProcessTimeFilter.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/servlet/ProcessTimeFilter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/servlet/XssFilter.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/servlet/XssFilter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/plug/store/action/admin/PlugStoreAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/plug/store/action/admin/PlugStoreAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/plug/weixin/action/admin/WeixinAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/plug/weixin/action/admin/WeixinAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/plug/weixin/action/admin/WeixinMenuAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/plug/weixin/action/admin/WeixinMenuAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/plug/weixin/action/admin/WeixinMessageAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/plug/weixin/action/admin/WeixinMessageAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/plug/weixin/action/front/MessageAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/plug/weixin/action/front/MessageAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/application.properties" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/i18n/jeecms/admin/messages_zh_CN.properties" afterPath="$PROJECT_DIR$/src/main/resources/i18n/jeecms/admin/messages_zh_CN.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/directive/advertise/l_.txt" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/directive/advertise/l_.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/directive/advertise/p_.txt" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/directive/advertise/p_.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/directive/link/l_.txt" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/directive/link/l_.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/directive/tag/l_.txt" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/directive/tag/l_.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/directive/tag/p_.txt" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/directive/tag/p_.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/directive/topic/l_.txt" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/directive/topic/l_.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/directive/topic/p_.txt" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/directive/topic/p_.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/directive/vote/l_.txt" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/directive/vote/l_.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/directive/vote/s_.txt" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/directive/vote/s_.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/channel/car.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/channel/car.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/channel/job.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/channel/job.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/channel/news.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/channel/news.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/channel/news_message.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/channel/news_message.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/channel/news_wldc.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/channel/news_wldc.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/comment/comment_list.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/comment/comment_list.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/comment/comment_manager.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/comment/comment_manager.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/comment/comment_reply.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/comment/comment_reply.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/content/download.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/content/download.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/content/inc_comment_input.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/content/inc_comment_input.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/content/inc_score_comment_input.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/content/inc_score_comment_input.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/content/news.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/content/news.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/content/news2.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/content/news2.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/content/pic.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/content/pic.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/content/video.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/content/video.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/csi/adspace.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/csi/adspace.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/csi/comment_list.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/csi/comment_list.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/csi/login_csi.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/csi/login_csi.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/guestbook/guestbook_detail.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/guestbook/guestbook_detail.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/guestbook/guestbook_list.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/guestbook/guestbook_list.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/guestbook/guestbook_replay.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/guestbook/guestbook_replay.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/include/footer.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/include/footer.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/include/friend_link.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/include/friend_link.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/include/header.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/include/header.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/include/header_register.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/include/header_register.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/include/job_search_header.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/include/job_search_header.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/include/login.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/include/login.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/include/member-right.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/include/member-right.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/include/navi.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/include/navi.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/include/right1.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/include/right1.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/include/right2.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/include/right2.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/include/right310.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/include/right310.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/include/search_csi.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/include/search_csi.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/include/vote.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/include/vote.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/include/vote_right.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/include/vote_right.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/index/index.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/index/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/attachment_upload.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/attachment_upload.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/auth.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/auth.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/bind.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/bind.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/buy_list.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/buy_list.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/collection_list.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/collection_list.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/content_charge_list.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/content_charge_list.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/contribute_add.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/contribute_add.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/contribute_edit.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/contribute_edit.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/contribute_list.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/contribute_list.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/doc_add.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/doc_add.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/doc_edit.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/doc_edit.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/doc_list.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/doc_list.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/doc_upload.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/doc_upload.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/forgot_password_input.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/forgot_password_input.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/forgot_password_result.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/forgot_password_result.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/image_area_select.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/image_area_select.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/image_upload.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/image_upload.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/job_applys.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/job_applys.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/login_input.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/login_input.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/login_status.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/login_status.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/media_upload.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/media_upload.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/member_account.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/member_account.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/member_account_draw.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/member_account_draw.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/member_account_draw_list.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/member_account_draw_list.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/member_center.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/member_center.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/member_footer.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/member_footer.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/member_header.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/member_header.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/member_navi.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/member_navi.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/member_password.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/member_password.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/member_portrait.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/member_portrait.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/member_profile.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/member_profile.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/member_top.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/member_top.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/order_list.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/order_list.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/password_reset.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/password_reset.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/register.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/register.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/register_active_success.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/register_active_success.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/register_result.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/register_result.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/resume_edit.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/resume_edit.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/set_new_password.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/set_new_password.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/weixin_auth_enter.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/weixin_auth_enter.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/message/draftbox.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/message/draftbox.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/message/edit.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/message/edit.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/message/inbox.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/message/inbox.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/message/message_manager.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/message/message_manager.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/message/read.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/message/read.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/message/reply.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/message/reply.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/message/send.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/message/send.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/message/sendbox.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/message/sendbox.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/message/trashbox.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/message/trashbox.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/comment_input.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/comment_input.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/content_alipy_mobile.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/content_alipy_mobile.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/content_code_alipy.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/content_code_alipy.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/content_code_weixin.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/content_code_weixin.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/content_orders.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/content_orders.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/content_reward.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/content_reward.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/doc.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/doc.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/guestbook_ctg.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/guestbook_ctg.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/guestbook_detail.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/guestbook_detail.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/guestbook_index.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/guestbook_index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/search_job.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/search_job.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/tag_index.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/tag_index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/vote_input.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/vote_input.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/vote_reply_result.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/vote_reply_result.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/vote_result.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/vote_result.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/topic/topic_default.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/topic/topic_default.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/topic/topic_index.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/topic/topic_index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/visual/temp2.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/visual/temp2.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/visual/temp3.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/visual/temp3.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/alone/alone_survey.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/alone/alone_survey.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/alone/alone_survey.html.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/alone/alone_survey.html.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/channel/job.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/channel/job.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/comment/comment_list.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/comment/comment_list.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/comment/comment_manager.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/comment/comment_manager.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/comment/comment_reply.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/comment/comment_reply.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/content/doc.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/content/doc.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/content/doc_single.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/content/doc_single.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/content/inc_comment_input.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/content/inc_comment_input.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/content/inc_score_comment_input.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/content/inc_score_comment_input.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/content/news.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/content/news.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/content/pic.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/content/pic.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/csi/adspace.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/csi/adspace.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/csi/login_csi.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/csi/login_csi.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/guestbook/guestbook_detail.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/guestbook/guestbook_detail.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/guestbook/guestbook_list.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/guestbook/guestbook_list.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/guestbook/guestbook_replay.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/guestbook/guestbook_replay.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/include/friend_link.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/include/friend_link.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/include/header.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/include/header.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/include/header_diaocha.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/include/header_diaocha.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/include/header_lanmu.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/include/header_lanmu.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/include/header_message.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/include/header_message.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/include/header_register.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/include/header_register.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/include/header_wldc.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/include/header_wldc.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/include/job_search_header.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/include/job_search_header.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/include/navi.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/include/navi.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/include/right1.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/include/right1.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/include/right2.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/include/right2.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/include/search_csi.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/include/search_csi.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/include/vote.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/include/vote.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/index/index.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/index/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/attachment_upload.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/attachment_upload.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/auth.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/auth.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/bind.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/bind.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/buy_list.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/buy_list.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/collection_list.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/collection_list.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/content_charge_list.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/content_charge_list.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/contribute_add.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/contribute_add.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/contribute_edit.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/contribute_edit.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/contribute_list.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/contribute_list.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/doc_add.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/doc_add.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/doc_edit.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/doc_edit.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/doc_list.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/doc_list.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/doc_upload.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/doc_upload.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/forgot_password_input.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/forgot_password_input.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/forgot_password_result.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/forgot_password_result.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/image_area_select.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/image_area_select.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/image_upload.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/image_upload.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/job_applys.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/job_applys.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/login_input.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/login_input.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/login_status.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/login_status.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/media_upload.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/media_upload.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/member_center.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/member_center.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/member_footer.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/member_footer.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/member_header.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/member_header.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/member_navi.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/member_navi.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/member_password.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/member_password.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/member_portrait.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/member_portrait.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/member_profile.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/member_profile.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/member_top.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/member_top.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/order_list.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/order_list.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/password_reset.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/password_reset.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/register.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/register.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/register_active_success.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/register_active_success.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/register_result.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/register_result.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/resume_edit.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/resume_edit.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/weixin_auth_enter.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/weixin_auth_enter.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/message/draftbox.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/message/draftbox.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/message/edit.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/message/edit.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/message/inbox.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/message/inbox.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/message/message_manager.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/message/message_manager.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/message/read.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/message/read.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/message/reply.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/message/reply.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/message/send.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/message/send.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/message/sendbox.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/message/sendbox.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/message/trashbox.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/message/trashbox.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/comment_input.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/comment_input.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/comment_page.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/comment_page.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/content_alipy_mobile.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/content_alipy_mobile.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/content_order.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/content_order.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/content_orders.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/content_orders.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/content_reward.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/content_reward.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/guestbook_ctg.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/guestbook_ctg.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/guestbook_detail.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/guestbook_detail.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/guestbook_index.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/guestbook_index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/search_input.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/search_input.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/search_job.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/search_job.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/search_result.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/search_result.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/tag_index.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/tag_index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/vote_input.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/vote_input.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/vote_reply_result.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/vote_reply_result.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/vote_result.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/vote_result.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/topic/topic_default.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/topic/topic_default.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/topic/topic_index.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/topic/topic_index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/visual/temp2.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/visual/temp2.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/visual/temp3.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/visual/temp3.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms_sys_defined/style_list/style_1-3.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms_sys_defined/style_list/style_1-3.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/jeeadmin/jeecms/static/js/108.8ca803d8ed0e23739b1f.js" afterPath="$PROJECT_DIR$/src/main/webapp/jeeadmin/jeecms/static/js/108.8ca803d8ed0e23739b1f.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/jeeadmin/jeecms/static/js/114.2278c64660171de02710.js" afterPath="$PROJECT_DIR$/src/main/webapp/jeeadmin/jeecms/static/js/114.2278c64660171de02710.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/jeeadmin/jeecms/static/js/13.bf2a64a55a0a59724706.js" afterPath="$PROJECT_DIR$/src/main/webapp/jeeadmin/jeecms/static/js/13.bf2a64a55a0a59724706.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/jeeadmin/jeecms/static/js/16.bd1cde59395206f58721.js" afterPath="$PROJECT_DIR$/src/main/webapp/jeeadmin/jeecms/static/js/16.bd1cde59395206f58721.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/jeeadmin/jeecms/static/js/24.c0fbdcad780c8a330458.js" afterPath="$PROJECT_DIR$/src/main/webapp/jeeadmin/jeecms/static/js/24.c0fbdcad780c8a330458.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/jeeadmin/jeecms/static/js/24.da888a409226c55535ca.js" afterPath="$PROJECT_DIR$/src/main/webapp/jeeadmin/jeecms/static/js/24.da888a409226c55535ca.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/jeeadmin/jeecms/static/js/54.823c534f4e816303a16e.js" afterPath="$PROJECT_DIR$/src/main/webapp/jeeadmin/jeecms/static/js/54.823c534f4e816303a16e.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/jeeadmin/jeecms/static/js/92.d654a99ee7ec8e31efbb.js" afterPath="$PROJECT_DIR$/src/main/webapp/jeeadmin/jeecms/static/js/92.d654a99ee7ec8e31efbb.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/jeeadmin/jeecms/static/js/94.ff26f9ebf3cf48b76ad1.js" afterPath="$PROJECT_DIR$/src/main/webapp/jeeadmin/jeecms/static/js/94.ff26f9ebf3cf48b76ad1.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/jeeadmin/jeecms/static/js/app.2a7e9e806ef62046f574.js" afterPath="$PROJECT_DIR$/src/main/webapp/jeeadmin/jeecms/static/js/app.2a7e9e806ef62046f574.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/jeeadmin/jeecms/static/js/app.8dab3669d7ad1ae0197b.js" afterPath="$PROJECT_DIR$/src/main/webapp/jeeadmin/jeecms/static/js/app.8dab3669d7ad1ae0197b.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/r/cms/front.js" afterPath="$PROJECT_DIR$/src/main/webapp/r/cms/front.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/r/cms/www/default/js/message.js" afterPath="$PROJECT_DIR$/src/main/webapp/r/cms/www/default/js/message.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/r/cms/www/default/js/tab.js" afterPath="$PROJECT_DIR$/src/main/webapp/r/cms/www/default/js/tab.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/r/cms/www/mobile/js/message.js" afterPath="$PROJECT_DIR$/src/main/webapp/r/cms/www/mobile/js/message.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/r/cms/www/mobile/js/tab.js" afterPath="$PROJECT_DIR$/src/main/webapp/r/cms/www/mobile/js/tab.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/res/common/js/jeecms.js" afterPath="$PROJECT_DIR$/src/main/webapp/res/common/js/jeecms.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/res/common/js/message.js" afterPath="$PROJECT_DIR$/src/main/webapp/res/common/js/message.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/res/jeecms/js/design.content.js" afterPath="$PROJECT_DIR$/src/main/webapp/res/jeecms/js/design.content.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/res/jeecms/js/design.page.js" afterPath="$PROJECT_DIR$/src/main/webapp/res/jeecms/js/design.page.js" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -103,7 +374,38 @@
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="ShiroConfig.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/config/ShiroConfig.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="147">
+              <caret line="207" column="7" lean-forward="true" selection-start-line="207" selection-start-column="7" selection-end-line="207" selection-end-column="7" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UserApiAct.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/front/UserApiAct.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-817">
+              <caret line="133" column="0" lean-forward="false" selection-start-line="133" selection-start-column="0" selection-end-line="133" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ContextConfig.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/config/ContextConfig.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="198">
+              <caret line="102" column="0" lean-forward="true" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -114,40 +416,54 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>`</find>
-      <find>FIREWALL_CONFIG_LASTMODIFIED</find>
-      <find>fireWallConfigFile</find>
-      <find>changeConfigModifiedTime</find>
-      <find>SITE_PATH_PARAM</find>
-      <find>PERMISSION_MODEL</find>
-      <find>firewall</find>
-      <find>ConfigurationProperties</find>
-      <find>apiAccountMng</find>
-      <find>property_firewall_domain</find>
-      <find>property_firewall_open</find>
-      <find>默认值</find>
-      <find>com.jeecms.cms.shiro.shiroCache</find>
-      <find>from CmsConfigItem</find>
-      <find>child</find>
-      <find>Channel</find>
-      <find>Content</find>
-      <find>firewall.properties</find>
-      <find>validatePassword</find>
-      <find>message</find>
-      <find>FIREWALL_CONFIGPATH</find>
-      <find>CLASS_ERROR_CODE</find>
-      <find>``</find>
-      <find>RES_BACK_PATH</find>
-      <find>LIBRARY_SUFFIX</find>
-      <find>QQWry.Dat</find>
-      <find>classes.</find>
-      <find>.properties</find>
       <find>store.properties</find>
       <find>weixin.properties</find>
+      <find>.jhtml</find>
+      <find>jspx</find>
+      <find>.jspx</find>
+      <find>jsp</find>
+      <find>.jh</find>
+      <find>jh</find>
+      <find>jeecms/</find>
+      <find>jeecms/in</find>
+      <find>ADMIN_SUFFIX</find>
+      <find>.do</find>
+      <find>configMng</find>
+      <find>jeeadmin/jeecms/</find>
+      <find>COOKIE_ERROR_REMAINING</find>
+      <find>FAILURE_URL</find>
+      <find>CmsAuthenticationFilter</find>
+      <find>CmsUserFilter</find>
+      <find>jeeadmin/jeecms</find>
+      <find>anon</find>
+      <find>jpeg</find>
+      <find>accessTime</find>
+      <find>access_time</find>
+      <find>valueof</find>
+      <find>setAccessTime</find>
+      <find>setAccessDate</find>
+      <find>login-logo</find>
+      <find>user/login</find>
+      <find>用户名</find>
+      <find>api/front</find>
     </findStrings>
+    <replaceStrings>
+      <replace />
+      <replace>.html</replace>
+    </replaceStrings>
     <dirStrings>
       <dir>G:\Develop\JEE\cms\src\main\java\com\jeecms\plug</dir>
       <dir>G:\创业\cms\src\main\java\com\jeecms\common</dir>
+      <dir>G:\创业\cms\src\main\java\com\jeecms</dir>
+      <dir>G:\创业\cms\src\main\webapp\res</dir>
+      <dir>G:\创业\cms\src\main\webapp\res\jeecms\js</dir>
+      <dir>G:\创业\cms\src\main\webapp\res\jeecms</dir>
+      <dir>G:\创业\cms\src\main\webapp\res\common</dir>
+      <dir>G:\创业\cms\src\main\webapp\res\plug</dir>
+      <dir>G:\创业\cms\src\main\webapp\r</dir>
+      <dir>G:\创业\cms\src\main\webapp\r\cms\www\mobile\js</dir>
+      <dir>G:\创业\cms\src\main\webapp\r\cms</dir>
+      <dir>G:\创业\cms</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -156,16 +472,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/UeditorAct.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/lucene/LuceneDirectivePage.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/admin/assist/CmsFileApiAct.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsResourceMngImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/CmsUserMngImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/directive/abs/AbstractContentDirective.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/context/admin/AdminContextConfig.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/context/admin/AdminCorsConfigurerAdapter.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/context/front/FrontContextInterceptor.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/context/front/FrontLocaleInterceptor.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/context/member/MemberApiInterceptor.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/context/member/MemberContextConfig.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/context/member/MemberCorsConfigurerAdapter.java" />
@@ -173,12 +479,9 @@
         <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/staticpage/StaticPageSvcImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/CmsSiteMngImpl.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/config/ShiroConfig.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jeecms/config/ServletContextRealPathResolver.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jeecms/config/ApplicationConfig.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/context/front/FrontContextConfig.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/config/ContextConfig.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsGuestbookExt.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ContentTxt.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ContentCharge.java" />
@@ -207,6 +510,19 @@
         <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/Constants.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/admin/main/CmsFireWallConfigApiAct.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jeecms/core/web/FireWallProperty.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/MessageAct.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/comment/comment_list.html" />
+        <option value="$PROJECT_DIR$/src/main/webapp/res/jeecms/js/design.content.js" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/front/DynamicPageAct.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/core/security/CmsAuthenticationFilter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/core/security/CmsUserFilter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/config/ShiroConfig.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
+        <option value="$PROJECT_DIR$/src/main/webapp/jeeadmin/jeecms/index.html" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsSiteAccessPages.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/service/CmsSiteFlowCacheImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/front/UserApiAct.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/config/ContextConfig.java" />
       </list>
     </option>
   </component>
@@ -422,7 +738,94 @@
               <item name="cms" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="context" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="jeecmsv9f" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cms" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="jeecms" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="jeecmsv9f" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cms" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="jeecms" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="jeecmsv9f" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cms" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="jeecmsv9f" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cms" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="jeecmsv9f" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cms" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="jeeadmin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="jeecmsv9f" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cms" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="jeeadmin" type="462c0819:PsiDirectoryNode" />
+              <item name="jeecms" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="jeecmsv9f" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cms" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="res" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="jeecmsv9f" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cms" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="res" type="462c0819:PsiDirectoryNode" />
+              <item name="jeecms" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="jeecmsv9f" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cms" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="res" type="462c0819:PsiDirectoryNode" />
+              <item name="jeecms" type="462c0819:PsiDirectoryNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="jeecmsv9f" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cms" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -694,7 +1097,7 @@
       <workItem from="1542525184283" duration="49000" />
       <workItem from="1542525243970" duration="628000" />
       <workItem from="1542525975596" duration="22196000" />
-      <workItem from="1542590784782" duration="13658000" />
+      <workItem from="1542590784782" duration="27670000" />
     </task>
     <task id="LOCAL-00001" summary="代码优化">
       <created>1542355815388</created>
@@ -724,11 +1127,18 @@
       <option name="project" value="LOCAL" />
       <updated>1542550156721</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="代码优化">
+      <created>1542607830141</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1542607830141</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="207944000" />
+    <option name="totallyTimeSpent" value="221956000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -753,7 +1163,8 @@
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32784185" sideWeight="0.4969743" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22390318" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2965204" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32980332" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32980332" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -761,12 +1172,11 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.24962178" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.56672156" sideWeight="0.4969743" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.54859966" sideWeight="0.4969743" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32980332" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -821,12 +1231,6 @@
           <properties />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/jeecms/core/web/FreemarkerExceptionHandler.java</url>
-          <line>20</line>
-          <properties />
-          <option name="timeStamp" value="39" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>jar://E:/Program Files/apache-maven-3.5.2/repository/org/springframework/spring-webmvc/4.3.9.RELEASE/spring-webmvc-4.3.9.RELEASE-sources.jar!/org/springframework/web/servlet/handler/SimpleServletPostProcessor.java</url>
           <line>89</line>
           <properties />
@@ -844,8 +1248,80 @@
           <properties />
           <option name="timeStamp" value="85" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/jeecms/core/security/CmsUserFilter.java</url>
+          <line>26</line>
+          <properties />
+          <option name="timeStamp" value="95" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/jeecms/core/security/CmsAuthenticationFilter.java</url>
+          <line>108</line>
+          <properties />
+          <option name="timeStamp" value="96" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/jeecms/core/security/CmsAuthenticationFilter.java</url>
+          <line>124</line>
+          <properties />
+          <option name="timeStamp" value="98" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/jeecms/core/security/CmsAuthenticationFilter.java</url>
+          <line>55</line>
+          <properties />
+          <option name="timeStamp" value="99" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/jeecms/core/security/CmsAuthenticationFilter.java</url>
+          <line>147</line>
+          <properties />
+          <option name="timeStamp" value="100" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/jeecms/core/security/CmsAuthenticationFilter.java</url>
+          <line>157</line>
+          <properties />
+          <option name="timeStamp" value="101" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/jeecms/core/security/CmsAuthenticationFilter.java</url>
+          <line>178</line>
+          <properties />
+          <option name="timeStamp" value="102" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/jeecms/core/security/CmsAuthenticationFilter.java</url>
+          <line>195</line>
+          <properties />
+          <option name="timeStamp" value="103" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/jeecms/core/security/CmsAuthenticationFilter.java</url>
+          <line>208</line>
+          <properties />
+          <option name="timeStamp" value="104" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/jeecms/core/security/CmsAuthenticationFilter.java</url>
+          <line>244</line>
+          <properties />
+          <option name="timeStamp" value="105" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/jeecms/core/security/CmsAuthenticationFilter.java</url>
+          <line>258</line>
+          <properties />
+          <option name="timeStamp" value="106" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/service/CmsSiteFlowCacheImpl.java</url>
+          <line>284</line>
+          <properties />
+          <option name="timeStamp" value="108" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="92" />
+      <option name="time" value="110" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="SpringBootApplicationConfigurationType">
@@ -907,434 +1383,436 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ChannelTxt.java">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/include/login.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="86">
-          <caret line="27" column="62" lean-forward="false" selection-start-line="27" selection-start-column="62" selection-end-line="27" selection-end-column="62" />
+        <state relative-caret-position="330">
+          <caret line="40" column="27" lean-forward="true" selection-start-line="40" selection-start-column="27" selection-end-line="40" selection-end-column="27" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ContentCharge.java">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/include/member-right.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2297">
-          <caret line="95" column="7" lean-forward="true" selection-start-line="95" selection-start-column="7" selection-end-line="95" selection-end-column="7" />
+        <state relative-caret-position="132">
+          <caret line="4" column="6" lean-forward="true" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="6" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsSiteCompany.java">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms_sys_defined/design/include/footer.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="81" column="11" lean-forward="false" selection-start-line="81" selection-start-column="11" selection-end-line="81" selection-end-column="11" />
+        <state relative-caret-position="33">
+          <caret line="1" column="7" lean-forward="true" selection-start-line="1" selection-start-column="7" selection-end-line="1" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/plug/weixin/entity/Weixin.java">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms_sys_defined/design/include/head.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-495">
-          <caret line="23" column="3" lean-forward="false" selection-start-line="23" selection-start-column="3" selection-end-line="23" selection-end-column="3" />
+        <state relative-caret-position="312">
+          <caret line="22" column="7" lean-forward="true" selection-start-line="22" selection-start-column="7" selection-end-line="22" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsUserAccount.java">
+    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/apache/shiro/shiro-web/1.3.0/shiro-web-1.3.0-sources.jar!/org/apache/shiro/web/util/RedirectView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="106" column="11" lean-forward="false" selection-start-line="106" selection-start-column="11" selection-end-line="106" selection-end-column="11" />
+        <state relative-caret-position="132">
+          <caret line="62" column="13" lean-forward="false" selection-start-line="62" selection-start-column="13" selection-end-line="62" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ContentExt.java">
+    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/apache/shiro/shiro-web/1.3.0/shiro-web-1.3.0-sources.jar!/org/apache/shiro/web/util/WebUtils.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="218" column="28" lean-forward="true" selection-start-line="218" selection-start-column="28" selection-end-line="218" selection-end-column="28" />
-          <folding>
-            <element signature="method#getStitle#0;class#ContentExt#0" expanded="false" />
-            <element signature="method#init#0;class#ContentExt#0" expanded="false" />
-            <element signature="method#blankToNull#0;class#ContentExt#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ChannelExt.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
-          <caret line="42" column="62" lean-forward="false" selection-start-line="42" selection-start-column="31" selection-end-line="42" selection-end-column="62" />
+        <state relative-caret-position="251">
+          <caret line="524" column="31" lean-forward="false" selection-start-line="524" selection-start-column="31" selection-end-line="524" selection-end-column="31" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsCommentExt.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/CommonUpload.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="845">
-          <caret line="43" column="11" lean-forward="false" selection-start-line="43" selection-start-column="11" selection-end-line="43" selection-end-column="11" />
+        <state relative-caret-position="292">
+          <caret line="108" column="14" lean-forward="false" selection-start-line="108" selection-start-column="14" selection-end-line="108" selection-end-column="14" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ContentCheck.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="105" column="11" lean-forward="true" selection-start-line="105" selection-start-column="11" selection-end-line="105" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ContentCount.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="182" column="0" lean-forward="true" selection-start-line="182" selection-start-column="0" selection-end-line="182" selection-end-column="0" />
-          <folding>
-            <element signature="method#init#0;class#ContentCount#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/common/image/ImageScaleImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="99">
-          <caret line="81" column="21" lean-forward="false" selection-start-line="81" selection-start-column="21" selection-end-line="81" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/springframework/spring-beans/4.3.9.RELEASE/spring-beans-4.3.9.RELEASE-sources.jar!/org/springframework/beans/factory/DisposableBean.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="358">
-          <caret line="44" column="0" lean-forward="true" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/config/ServletContextRealPathResolver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="99">
-          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/web/PermistionDirective.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
-          <caret line="27" column="20" lean-forward="false" selection-start-line="27" selection-start-column="20" selection-end-line="27" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/springframework/spring-context/4.3.9.RELEASE/spring-context-4.3.9.RELEASE-sources.jar!/org/springframework/context/annotation/PropertySource.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="358">
-          <caret line="175" column="33" lean-forward="true" selection-start-line="175" selection-start-column="33" selection-end-line="175" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/javassist/javassist/3.21.0-GA/javassist-3.21.0-GA.jar!/javassist/URLClassPath.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-401">
-          <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/javassist/javassist/3.21.0-GA/javassist-3.21.0-GA-sources.jar!/javassist/URLClassPath.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="175" column="22" lean-forward="true" selection-start-line="175" selection-start-column="22" selection-end-line="176" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/springframework/spring-core/4.3.9.RELEASE/spring-core-4.3.9.RELEASE-sources.jar!/org/springframework/core/io/ClassPathResource.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/common/file/FileWrap.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="193">
-          <caret line="61" column="41" lean-forward="false" selection-start-line="61" selection-start-column="41" selection-end-line="61" selection-end-column="41" />
-          <folding>
-            <element signature="e#2112#2113#0" expanded="false" />
-            <element signature="e#2149#2150#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://E:/Program Files/Java/jdk1.8.0_111/src.zip!/java/util/Properties.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="41" column="3" lean-forward="true" selection-start-line="41" selection-start-column="3" selection-end-line="41" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/springframework/spring-beans/4.3.9.RELEASE/spring-beans-4.3.9.RELEASE-sources.jar!/org/springframework/beans/factory/InitializingBean.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-117">
-          <caret line="34" column="17" lean-forward="false" selection-start-line="34" selection-start-column="17" selection-end-line="34" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/springframework/spring-tx/4.3.9.RELEASE/spring-tx-4.3.9.RELEASE-sources.jar!/org/springframework/dao/support/DaoSupport.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="116">
-          <caret line="47" column="22" lean-forward="true" selection-start-line="47" selection-start-column="22" selection-end-line="47" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/context/admin/AdminApiInterceptor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="129">
-          <caret line="147" column="38" lean-forward="true" selection-start-line="147" selection-start-column="38" selection-end-line="147" selection-end-column="38" />
-          <folding>
-            <element signature="method#postHandle#0;class#AdminApiInterceptor#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/core/servlet/FireWallInterceptor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="14" column="11" lean-forward="true" selection-start-line="14" selection-start-column="11" selection-end-line="14" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/context/admin/AdminContextInterceptor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8316">
-          <caret line="278" column="4" lean-forward="false" selection-start-line="278" selection-start-column="4" selection-end-line="278" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/config/ContextConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="292">
-          <caret line="105" column="22" lean-forward="true" selection-start-line="105" selection-start-column="22" selection-end-line="105" selection-end-column="22" />
-          <folding>
-            <element signature="method#introspectorCleanupListener#0;class#ContextConfig#0" expanded="false" />
-            <element signature="method#openSessionInViewFilter#0;class#ContextConfig#0" expanded="false" />
-            <element signature="method#axisServlet#0;class#ContextConfig#0" expanded="false" />
-            <element signature="method#druidStatViewServlet#0;class#ContextConfig#0" expanded="false" />
-            <element signature="method#cmsAdminApiServlet#0;class#ContextConfig#0" expanded="false" />
-            <element signature="method#cmsMemberApiServlet#0;class#ContextConfig#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/common/hibernate4/HibernateSimpleDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
-          <caret line="183" column="63" lean-forward="false" selection-start-line="183" selection-start-column="63" selection-end-line="183" selection-end-column="63" />
-          <folding>
-            <element signature="e#1302#1303#0" expanded="false" />
-            <element signature="e#1347#1348#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/core/dao/impl/CmsConfigItemDaoImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="17" column="17" lean-forward="true" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/ehcache.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="99">
-          <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ChannelExtMngImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-53">
-          <caret line="27" column="44" lean-forward="false" selection-start-line="27" selection-start-column="44" selection-end-line="27" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/Channel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="79">
-          <caret line="124" column="0" lean-forward="true" selection-start-line="124" selection-start-column="0" selection-end-line="124" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/Content.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="289" column="35" lean-forward="false" selection-start-line="289" selection-start-column="35" selection-end-line="289" selection-end-column="35" />
-          <folding>
-            <element signature="class#ContentStatus#0;class#Content#0" expanded="false" />
-            <element signature="class#CheckResultStatus#0;class#Content#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsConfigItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="66">
-          <caret line="30" column="34" lean-forward="true" selection-start-line="30" selection-start-column="34" selection-end-line="30" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7">
-          <caret line="157" column="0" lean-forward="true" selection-start-line="157" selection-start-column="0" selection-end-line="157" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="292">
-          <caret line="144" column="7" lean-forward="true" selection-start-line="144" selection-start-column="7" selection-end-line="144" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/firewall.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2178">
-          <caret line="3" column="8" lean-forward="false" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/admin/main/CmsFireWallConfigApiAct.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="363">
-          <caret line="33" column="17" lean-forward="false" selection-start-line="33" selection-start-column="17" selection-end-line="33" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/core/web/FireWallProperty.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="7" column="17" lean-forward="true" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+          <caret line="256" column="19" lean-forward="false" selection-start-line="256" selection-start-column="15" selection-end-line="256" selection-end-column="19" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/config/ApplicationConfig.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="292">
-          <caret line="65" column="29" lean-forward="true" selection-start-line="65" selection-start-column="29" selection-end-line="65" selection-end-column="29" />
+        <state relative-caret-position="411">
+          <caret line="68" column="36" lean-forward="true" selection-start-line="68" selection-start-column="36" selection-end-line="68" selection-end-column="36" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/common/ueditor/PropertiesLoader.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/context/front/FrontContextConfig.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="104" column="24" lean-forward="true" selection-start-line="104" selection-start-column="24" selection-end-line="104" selection-end-column="24" />
+        <state relative-caret-position="259">
+          <caret line="78" column="33" lean-forward="true" selection-start-line="78" selection-start-column="33" selection-end-line="78" selection-end-column="33" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/plug/store/plug.ini">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="18" lean-forward="true" selection-start-line="0" selection-start-column="18" selection-end-line="0" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/plug/weixin/weixin.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="4" column="22" lean-forward="true" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/com/jeecms/common/dic/ext_stopword.dic">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="317">
-          <caret line="30" column="1" lean-forward="true" selection-start-line="30" selection-start-column="1" selection-end-line="30" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/com/jeecms/common/dic/mydict.dic">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="99">
-          <caret line="3" column="3" lean-forward="true" selection-start-line="3" selection-start-column="3" selection-end-line="3" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/com/jeecms/common/fck/default.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="303">
-          <caret line="15" column="14" lean-forward="false" selection-start-line="15" selection-start-column="14" selection-end-line="15" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/com/jeecms/common/ipseek/api.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="99">
-          <caret line="3" column="23" lean-forward="false" selection-start-line="3" selection-start-column="23" selection-end-line="3" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/com/jeecms/common/ueditor/default.properties">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="369">
-          <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <caret line="64" column="0" lean-forward="true" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/com/jeecms/cms/template/jeecms.properties">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/jeeadmin/jeecms/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="429">
+          <caret line="34" column="7" lean-forward="true" selection-start-line="34" selection-start-column="7" selection-end-line="34" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/com/jeecms/cms/template/manager.txt">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/IKAnalyzer.cfg.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-178">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="231">
+          <caret line="7" column="4" lean-forward="true" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/com/jeecms/cms/template/manager_impl.txt">
+    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/apache/shiro/shiro-web/1.3.0/shiro-web-1.3.0-sources.jar!/org/apache/shiro/web/servlet/ProxiedFilterChain.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1485">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="105">
+          <caret line="67" column="0" lean-forward="false" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/classes-error.properties">
+    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/apache/shiro/shiro-core/1.3.0/shiro-core-1.3.0-sources.jar!/org/apache/shiro/subject/support/DelegatingSubject.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="105">
+          <caret line="382" column="0" lean-forward="false" selection-start-line="382" selection-start-column="0" selection-end-line="382" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/apache/shiro/shiro-web/1.3.0/shiro-web-1.3.0-sources.jar!/org/apache/shiro/web/servlet/AbstractShiroFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="97">
+          <caret line="385" column="0" lean-forward="false" selection-start-line="385" selection-start-column="0" selection-end-line="385" selection-end-column="0" />
+          <folding>
+            <element signature="e#17830#18095#0" expanded="false" />
+            <element signature="e#18094#18095#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/springframework/spring-orm/4.3.9.RELEASE/spring-orm-4.3.9.RELEASE-sources.jar!/org/springframework/orm/hibernate4/support/OpenSessionInViewFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="155" column="0" lean-forward="false" selection-start-line="155" selection-start-column="0" selection-end-line="155" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/apache/tomcat/embed/tomcat-embed-core/8.5.15/tomcat-embed-core-8.5.15-sources.jar!/org/apache/catalina/core/ApplicationFilterChain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="130">
+          <caret line="168" column="0" lean-forward="true" selection-start-line="168" selection-start-column="0" selection-end-line="168" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/springframework/spring-web/4.3.9.RELEASE/spring-web-4.3.9.RELEASE-sources.jar!/org/springframework/web/filter/DelegatingFilterProxy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="265" column="27" lean-forward="true" selection-start-line="265" selection-start-column="27" selection-end-line="265" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/apache/shiro/shiro-web/1.3.0/shiro-web-1.3.0-sources.jar!/org/apache/shiro/web/servlet/OncePerRequestFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="131" column="0" lean-forward="false" selection-start-line="131" selection-start-column="0" selection-end-line="131" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/apache/shiro/shiro-web/1.3.0/shiro-web-1.3.0-sources.jar!/org/apache/shiro/web/servlet/AdviceFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="163">
+          <caret line="149" column="0" lean-forward="false" selection-start-line="149" selection-start-column="0" selection-end-line="149" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/apache/shiro/shiro-web/1.3.0/shiro-web-1.3.0-sources.jar!/org/apache/shiro/web/filter/PathMatchingFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="130">
+          <caret line="175" column="37" lean-forward="false" selection-start-line="175" selection-start-column="37" selection-end-line="175" selection-end-column="37" />
+          <folding>
+            <element signature="e#6029#6030#0" expanded="false" />
+            <element signature="e#6086#6087#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/apache/shiro/shiro-web/1.3.0/shiro-web-1.3.0-sources.jar!/org/apache/shiro/web/filter/AccessControlFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="97">
+          <caret line="161" column="0" lean-forward="false" selection-start-line="161" selection-start-column="0" selection-end-line="161" selection-end-column="0" />
+          <folding>
+            <element signature="e#2803#2804#0" expanded="false" />
+            <element signature="e#2834#2835#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/apache/shiro/shiro-core/1.3.0/shiro-core-1.3.0-sources.jar!/org/apache/shiro/subject/support/SubjectCallable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="97">
+          <caret line="82" column="0" lean-forward="false" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/apache/shiro/shiro-web/1.3.0/shiro-web-1.3.0-sources.jar!/org/apache/shiro/web/filter/authc/UserFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="49" column="48" lean-forward="true" selection-start-line="49" selection-start-column="48" selection-end-line="49" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/core/security/CmsAuthenticationFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="787">
+          <caret line="268" column="35" lean-forward="true" selection-start-line="268" selection-start-column="35" selection-end-line="268" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/core/security/CmsUserFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-183">
+          <caret line="15" column="38" lean-forward="true" selection-start-line="15" selection-start-column="38" selection-end-line="15" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/core/web/FreemarkerExceptionHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="97">
+          <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/LoginAct.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-429">
+          <caret line="12" column="43" lean-forward="true" selection-start-line="12" selection-start-column="43" selection-end-line="12" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/core/servlet/XssFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="44" column="14" lean-forward="true" selection-start-line="44" selection-start-column="14" selection-end-line="44" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/common/util/DateFormatUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="193">
+          <caret line="25" column="23" lean-forward="false" selection-start-line="25" selection-start-column="23" selection-end-line="25" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsSiteFlow.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="74" column="13" lean-forward="true" selection-start-line="74" selection-start-column="13" selection-end-line="74" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsSiteAccess.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="86">
+          <caret line="39" column="11" lean-forward="true" selection-start-line="39" selection-start-column="11" selection-end-line="39" selection-end-column="11" />
+          <folding>
+            <element signature="e#2880#2881#0" expanded="false" />
+            <element signature="e#2924#2925#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/front/CmsSiteFlowAct.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="22" column="41" lean-forward="true" selection-start-line="22" selection-start-column="41" selection-end-line="22" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/hibernate/javax/persistence/hibernate-jpa-2.1-api/1.0.0.Final/hibernate-jpa-2.1-api-1.0.0.Final-sources.jar!/javax/persistence/Column.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-82">
+          <caret line="109" column="17" lean-forward="false" selection-start-line="109" selection-start-column="8" selection-end-line="109" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://E:/Program Files/Java/jdk1.8.0_111/src.zip!/java/util/Date.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-797">
+          <caret line="130" column="13" lean-forward="false" selection-start-line="130" selection-start-column="13" selection-end-line="130" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://E:/Program Files/Java/jdk1.8.0_111/src.zip!/java/sql/Time.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3361">
+          <caret line="263" column="46" lean-forward="true" selection-start-line="263" selection-start-column="46" selection-end-line="263" selection-end-column="46" />
+          <folding>
+            <element signature="e#7482#7483#0" expanded="false" />
+            <element signature="e#7565#7566#0" expanded="false" />
+            <element signature="e#7972#7973#0" expanded="false" />
+            <element signature="e#8047#8048#0" expanded="false" />
+            <element signature="e#8360#8361#0" expanded="false" />
+            <element signature="e#8427#8428#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://E:/Program Files/Java/jdk1.8.0_111/src.zip!/java/sql/Timestamp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="292">
+          <caret line="115" column="9" lean-forward="true" selection-start-line="115" selection-start-column="9" selection-end-line="115" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://E:/Program Files/Java/jdk1.8.0_111/src.zip!/java/sql/Date.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="470">
+          <caret line="273" column="4" lean-forward="true" selection-start-line="273" selection-start-column="4" selection-end-line="273" selection-end-column="4" />
+          <folding>
+            <element signature="e#5059#5091#0" expanded="false" />
+            <element signature="e#8639#8671#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/service/CmsSiteFlowCacheImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-190">
+          <caret line="338" column="4" lean-forward="true" selection-start-line="338" selection-start-column="4" selection-end-line="338" selection-end-column="4" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsSiteAccessPages.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="33">
+          <caret line="12" column="22" lean-forward="true" selection-start-line="12" selection-start-column="22" selection-end-line="12" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/front/DynamicPageAct.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="292">
+          <caret line="109" column="3" lean-forward="false" selection-start-line="109" selection-start-column="3" selection-end-line="109" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/admin/main/ApiInfoApiAct.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="30" column="34" lean-forward="true" selection-start-line="30" selection-start-column="34" selection-end-line="30" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/config/ShiroConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="207" column="7" lean-forward="true" selection-start-line="207" selection-start-column="7" selection-end-line="207" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/admin/main/CmsAdminLocalApiAct.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="261" column="8" lean-forward="true" selection-start-line="261" selection-start-column="8" selection-end-line="261" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/admin/main/ApiAccountApiAct.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="155" column="34" lean-forward="true" selection-start-line="155" selection-start-column="34" selection-end-line="155" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/member/UserApiAct.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="168" column="17" lean-forward="true" selection-start-line="168" selection-start-column="17" selection-end-line="168" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/springframework/boot/spring-boot/1.5.4.RELEASE/spring-boot-1.5.4.RELEASE-sources.jar!/org/springframework/boot/web/servlet/ServletRegistrationBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="193">
+          <caret line="142" column="16" lean-forward="false" selection-start-line="142" selection-start-column="16" selection-end-line="142" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/config/ContextConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="102" column="0" lean-forward="true" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/res/jeecms/css/admin.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="185">
+          <caret line="27" column="86" lean-forward="false" selection-start-line="27" selection-start-column="86" selection-end-line="27" selection-end-column="86" />
+          <folding>
+            <marker date="1523935308170" expanded="true" signature="707:731" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/front/UserApiAct.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-817">
+          <caret line="133" column="0" lean-forward="false" selection-start-line="133" selection-start-column="0" selection-end-line="133" selection-end-column="0" />
           <folding />
         </state>
       </provider>

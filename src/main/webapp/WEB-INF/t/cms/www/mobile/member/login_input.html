@@ -37,9 +37,9 @@ window.location.href=window.document.referrer;
   <header class="header">
   登录
   <div class="header-icon-left"><a class="header-back" href="javascript:return_prepage();"></a></div>
-  <div class="header-icon-right"><a class="to-register" href="${base}/register.jspx">注册</a></div>
+  <div class="header-icon-right"><a class="to-register" href="${base}/register.html">注册</a></div>
   </header>
-  <form id="jvForm" action="${base}/login.jspx" method="post">
+  <form id="jvForm" action="${base}/login.html" method="post">
   <div class="login-box">
     [#if loginSource??]
         <div class="login-source">
@@ -87,14 +87,14 @@ window.location.href=window.document.referrer;
     <div class="login-input"><input type="text" id="captcha" name="captcha" class="captcha" placeholder="验证码"><img id="guestbookCaptcha" onclick="this.src='${base}/captcha.svl?d='+new Date()" alt="" src="${base}/captcha.svl"></div>
     [/#if]
     <div class="login-btn"><input type="submit" class="login-submit" value="登 录"></div>
-    <div class="login-txt"><a class="to-fpw" href="${base}/member/forgot_password.jspx">忘记密码?</a></div>
+    <div class="login-txt"><a class="to-fpw" href="${base}/member/forgot_password.html">忘记密码?</a></div>
   </div>
   <div id="content-share" class="login-share">
       <h1><span class=" login-nav">一键登录</span></h1>
       <div class="quick-list clearfix">
       [#if site.config.qqEnable]
       <a class="quick-qq" id="qqLoginBtn" title="用QQ账号登录"></a>
-      <script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="${site.config.qqID!}" data-redirecturi="http://${site.domain}/public_auth.jspx" charset="utf-8"></script>
+      <script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="${site.config.qqID!}" data-redirecturi="http://${site.domain}/public_auth.html" charset="utf-8"></script>
 					<script type="text/javascript">
 						//插入按钮的节点qqLoginBtn id
 					    QC.Login({btnId:"qqLoginBtn",size: "A_M"}, function(reqData, opts){//登录成功
@@ -129,7 +129,7 @@ window.location.href=window.document.referrer;
                     		T.init({
                     		    appkey: ${site.config.qqWeboID!}, 
                     		    autoclose:false,
-                    		    callbackurl:"http://${site.domain}/public_auth.jspx"
+                    		    callbackurl:"http://${site.domain}/public_auth.html"
                     		});
                     		 function logout(){
                                  T.logout(function (loginStatus) { // 登出用户
@@ -158,11 +158,11 @@ window.location.href=window.document.referrer;
 						  callback : {
 						   login:function(o){
 						    //登录成功之后执行
-						    location="${base}/public_auth.jspx";
+						    location="${base}/public_auth.html";
 						   },
 						   logout:function(){
 						    //退出之后执行退出本地用户
-      						location="${base}/logout.jspx?returnUrl=/";
+      						location="${base}/logout.html?returnUrl=/";
 						   }
 						  }
 						 });

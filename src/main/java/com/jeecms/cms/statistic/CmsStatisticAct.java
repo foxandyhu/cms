@@ -63,7 +63,7 @@ import static com.jeecms.cms.entity.assist.CmsSiteAccessStatistic.STATISTIC_AREA
 public class CmsStatisticAct {
 	
 	@RequiresPermissions("statistic:member:v_list")
-	@RequestMapping("/statistic/member/v_list.do")
+	@RequestMapping("/statistic/member/v_list.html")
 	public String memberList(String queryModel, Integer year, Integer month,
 			Integer day,Date begin,Date end,HttpServletRequest request, ModelMap model) {
 		CmsStatisticModel statisticModel = getStatisticModel(queryModel);
@@ -128,7 +128,7 @@ public class CmsStatisticAct {
 	}
 
 	@RequiresPermissions("statistic:content:v_list")
-	@RequestMapping("/statistic/content/v_list.do")
+	@RequestMapping("/statistic/content/v_list.html")
 	public String contentList(HttpServletRequest request, String queryModel,
 			Integer channelId, Integer year, Integer month, Integer day,
 			ModelMap model) {
@@ -198,7 +198,7 @@ public class CmsStatisticAct {
 	
 
 	@RequiresPermissions("statistic:comment:v_list")
-	@RequestMapping("/statistic/comment/v_list.do")
+	@RequestMapping("/statistic/comment/v_list.html")
 	public String commentList(HttpServletRequest request, String queryModel,
 			Integer year, Integer month, Integer day, Boolean isReplyed,
 			ModelMap model) {
@@ -249,7 +249,7 @@ public class CmsStatisticAct {
 	}
 
 	@RequiresPermissions("statistic:guestbook:v_list")
-	@RequestMapping("/statistic/guestbook/v_list.do")
+	@RequestMapping("/statistic/guestbook/v_list.html")
 	public String guestbookList(HttpServletRequest request, String queryModel,
 			Integer year, Integer month, Integer day, Boolean isReplyed,
 			ModelMap model) {
@@ -300,7 +300,7 @@ public class CmsStatisticAct {
 	}
 	
 	@RequiresPermissions("statistic:channel:v_list")
-	@RequestMapping("/statistic/channel/v_list.do")
+	@RequestMapping("/statistic/channel/v_list.html")
 	public String channelList(Integer channelLevel,String view, 
 			HttpServletRequest request,ModelMap model) {
 		Integer siteId=CmsUtils.getSiteId(request);
@@ -327,7 +327,7 @@ public class CmsStatisticAct {
 	}
 
 	@RequiresPermissions("flow:pv:v_list")
-	@RequestMapping("/flow/pv/v_list.do")
+	@RequestMapping("/flow/pv/v_list.html")
 	public String pageViewList(Integer flag,Date year,Date begin,Date end
 			,HttpServletRequest request, ModelMap model) {
 		Integer siteId = CmsUtils.getSiteId(request);
@@ -374,7 +374,7 @@ public class CmsStatisticAct {
 	}
 	
 	@RequiresPermissions("flow:source:v_list")
-	@RequestMapping("/flow/source/v_list.do")
+	@RequestMapping("/flow/source/v_list.html")
 	public String sourceList(String type,Integer flag,Integer target,
 			Date year,Date begin,Date end,
 			HttpServletRequest request, ModelMap model) {
@@ -462,7 +462,7 @@ public class CmsStatisticAct {
 	}
 	
 	@RequiresPermissions("flow:area:v_list")
-	@RequestMapping("/flow/area/v_list.do")
+	@RequestMapping("/flow/area/v_list.html")
 	public String areaList(Integer flag, Integer target,Date year,
 			Date begin,Date end,HttpServletRequest request, ModelMap model) {
 		Integer siteId = CmsUtils.getSiteId(request);
@@ -562,7 +562,7 @@ public class CmsStatisticAct {
 	}
 	
 	@RequiresPermissions("flow:visitor:v_list")
-	@RequestMapping("/flow/visitor/v_list.do")
+	@RequestMapping("/flow/visitor/v_list.html")
 	public String visitorsGroupByPage(Integer flag,Date year,
 			Date begin,Date end,HttpServletRequest request, ModelMap model) {
 		Integer siteId = CmsUtils.getSiteId(request);
@@ -611,7 +611,7 @@ public class CmsStatisticAct {
 	}
 	
 	@RequiresPermissions("flow:pages:v_list")
-	@RequestMapping("/flow/pages/v_list.do")
+	@RequestMapping("/flow/pages/v_list.html")
 	public String pages(Integer orderBy,Integer pageNo,HttpServletRequest request, ModelMap model) {
 		Integer siteId = CmsUtils.getSiteId(request);
 		Pagination pagination=cmsAccessPagesMng.findPages(siteId, orderBy, cpn(pageNo), CookieUtils.getPageSize(request));
@@ -621,7 +621,7 @@ public class CmsStatisticAct {
 	}
 	
 	@RequiresPermissions("flow:enterpage:v_list")
-	@RequestMapping("/flow/enterpage/v_list.do")
+	@RequestMapping("/flow/enterpage/v_list.html")
 	public String enterPages(Integer orderBy,Integer pageNo,HttpServletRequest request, ModelMap model) {
 		Integer siteId = CmsUtils.getSiteId(request);
 		Pagination pagination=cmsAccessMng.findEnterPages(siteId, orderBy, cpn(pageNo), CookieUtils.getPageSize(request));

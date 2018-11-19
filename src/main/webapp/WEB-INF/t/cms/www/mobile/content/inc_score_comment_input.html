@@ -9,7 +9,7 @@
     <div class="clear"></div>
   [#if content.channel.commentControl==0 || (content.channel.commentControl==1 && user??)]
   <div class="w98" style="margin-top:5px;"> 
-  <form id="commentForm" action="${base}/comment.jspx" method="post">
+  <form id="commentForm" action="${base}/comment.html" method="post">
   <table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#EAEAEA">
   	<tr>
       <td width="19%" height="40" align="right" bgcolor="#FaFaFa"><strong>评分：</strong></td>
@@ -98,7 +98,7 @@ $(function() {
   [#elseif channel.commentControl==1 && !user??]
 	[#--登录评论，且未登录--]
 	<div style="width:96%;font-size:14px;color:red;margin:10px;">
-	您尚未登录，请登录后发布评论！ 【<a href="${base}/login.jspx?returnUrl=/">马上登录</a>】
+	您尚未登录，请登录后发布评论！ 【<a href="${base}/login.html?returnUrl=/">马上登录</a>】
 	</div>
   [#else]
 	[#--不允许评论--]

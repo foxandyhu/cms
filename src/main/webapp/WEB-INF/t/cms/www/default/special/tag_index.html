@@ -25,7 +25,7 @@
     <div class="tag-list">
        <ul>
          [#list tag_list as t]
-         <li><a href="${base}/tag/${t.id}.jspx" target="_blank">${t.name}<span>[${t.count}]</span></a></li>
+         <li><a href="${base}/tag/${t.id}.html" target="_blank">${t.name}<span>[${t.count}]</span></a></li>
          [/#list]
        </ul>
     </div>
@@ -38,7 +38,7 @@
         <div style="" class="cTag">
         [@cms_searchword_list word='' siteId='1' recommend='1' orderBy='4' count='11']
 	        [#list tag_list as word]
-		     <a href="${base}/search.jspx?q=${word.name!}">${word.name!}</a>
+		     <a href="${base}/search.html?q=${word.name!}">${word.name!}</a>
 	        [/#list]
 		[/@cms_searchword_list]
         </div>

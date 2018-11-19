@@ -3,7 +3,7 @@
 	[#if !tag_bean??]
 <div>没有默认投票主题</div>
 [#else]
-<form name="votes" action="${base}/vote.jspx" method="post" target="_blank">
+<form name="votes" action="${base}/vote.html" method="post" target="_blank">
   <table width="100%" border="0" cellspacing="5" cellpadding="0">
     <tr>
       <td height="30" colspan="2" align="center"><h1>${tag_bean.title?html}</h1>
@@ -49,7 +49,7 @@
     [/#list]
     <tr>
       <td height="35" colspan="2" align="center" valign="bottom"><input type="submit" value="投 票" class="vote-submit"/>
-      <p><a href="${base}/vote_result.jspx?voteId=${tag_bean.id}" target="_blank" class="to-vote-result">查看投票结果</a></p></td>
+      <p><a href="${base}/vote_result.html?voteId=${tag_bean.id}" target="_blank" class="to-vote-result">查看投票结果</a></p></td>
     </tr>
   </table>
 </form>

@@ -45,7 +45,7 @@ $(function() {
 	<div class="w670 mt10">
         <div class="website">当前位置: <a href="${base}/">首页</a> > [#list channel.nodeList as n]<a href="${n.url}" target="_blank">${n.name}</a>[#if n_has_next] > [/#if][/#list]</div>
         <div class="clear"></div>
-        <form action="${base}/searchCustom.jspx" method="post">
+        <form action="${base}/searchCustom.html" method="post">
          [@cms_model id="7"]
 		    [#list tag_bean.items as item]
 		    [#if item.field=="yusuan"]

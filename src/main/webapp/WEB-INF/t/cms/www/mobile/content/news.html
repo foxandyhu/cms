@@ -44,7 +44,7 @@ Cms.siteFlow("${base}", location.href, document.referrer,"${site.config.flowSwit
             ${txt!}
             [/#if]
     </div>
-    <div class="reward"><a href="${base}/content/reward.jspx?contentId=${content.id}"></a></div>
+    <div class="reward"><a href="${base}/content/reward.html?contentId=${content.id}"></a></div>
    
     <div class="content-btn clearfix">
        [#if channel.allowUpdown]<div class="zan fl"><a onclick="Cms.up('${base}',${content.id},${content.ups});">赞(<span id="ups"></span>)</a></div >[/#if]<div  class="collect fr" id="collectCsiDiv"><a>收藏</a></div >

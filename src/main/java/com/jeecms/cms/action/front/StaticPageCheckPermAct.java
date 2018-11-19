@@ -34,7 +34,7 @@ public class StaticPageCheckPermAct {
 	private static final Logger log = LoggerFactory
 			.getLogger(StaticPageCheckPermAct.class);
 	
-	@RequestMapping(value = "/page_checkperm.jspx")
+	@RequestMapping(value = "/page_checkperm.html")
 	public void checkPerm(Integer contentId, HttpServletRequest request,
 			HttpServletResponse response, ModelMap model) throws JSONException {
 		Content content = contentMng.findById(contentId);
@@ -83,12 +83,12 @@ public class StaticPageCheckPermAct {
 		ResponseUtils.renderJson(response, result);
 	}
 	
-	@RequestMapping(value = "/user_no_login.jspx")
+	@RequestMapping(value = "/user_no_login.html")
 	public String userNoLogin(HttpServletRequest request,HttpServletResponse response, ModelMap model){
 		return FrontUtils.showLogin(request, model, CmsUtils.getSite(request));
 	}
 	
-	@RequestMapping(value = "/group_forbidden.jspx")
+	@RequestMapping(value = "/group_forbidden.html")
 	public String groupForbidden(HttpServletRequest request,HttpServletResponse response, ModelMap model){
 		CmsUser user=CmsUtils.getUser(request);
 		if(user!=null){

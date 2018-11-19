@@ -14,7 +14,7 @@
         <ul>
          [#list tag_list as vote]
       
-          <li><a href="${base}/vote.jspx?voteId=${vote.id}">[@text_cut s=vote.title?html len=14 append='...' /] [#if vote.endTime??]${vote.endTime?string("yyyy-MM-dd")}[/#if]</a></li>
+          <li><a href="${base}/vote.html?voteId=${vote.id}">[@text_cut s=vote.title?html len=14 append='...' /] [#if vote.endTime??]${vote.endTime?string("yyyy-MM-dd")}[/#if]</a></li>
       
          [/#list]
         </ul>

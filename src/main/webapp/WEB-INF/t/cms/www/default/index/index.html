@@ -60,7 +60,7 @@ $(function() {
       </div>
     </div>
     <div class="rdjj fl">
-      <div class="nav-link"><a href="${base}/news/index.jhtml">热点聚焦</a></div>
+      <div class="nav-link"><a href="${base}/news/index.html">热点聚焦</a></div>
       [@cms_content_list typeId='4' count='1' titLen='25' channelId='75' orderBy='4' channelOption='1' dateFormat='yyyy-MM-dd']
       [#list tag_list as a]
       <div class="rdjj-top-news"><a href="${a.url}" target="_blank">[@text_cut s=a.title len=titLen append='...'/]</a></div>
@@ -102,7 +102,7 @@ $(function() {
         <script type="text/javascript" src="/${res}/js/script.js"></script>
       </div>
       <div class="home-video">
-        <div class="nav-link"><a href="${base}/video/index.jhtml">视频新闻</a></div>
+        <div class="nav-link"><a href="${base}/video/index.html">视频新闻</a></div>
         <div class="item clearfix" style="margin-top:14px;">
           [@cms_content_list count='1' typeId='2' channelId='77' recommend='1' orderBy='4' titLen='11' channelOption='0']
           [#list tag_list as a]
@@ -162,7 +162,7 @@ $(function() {
           <div class="home-jczt">
           [@cms_topic_list count='3' recommend='1' orderBy='4' descLen='36' append='...']
           [#list tag_list as t] 
-          <a href="${base}/topic/${t.id}.jspx" target="_blank"><img src="${t.titleImg!site.defImg}"></a>
+          <a href="${base}/topic/${t.id}.html" target="_blank"><img src="${t.titleImg!site.defImg}"></a>
           [/#list]
           [/@cms_topic_list] 
           </div>
@@ -179,12 +179,12 @@ $(function() {
            [/#list]     
          [/@cms_guestbook_list] 
         </div>
-        <div class="message"><a href="${base}/guestbook.jspx"><img src="/${res}/images/message.png"></a></div>
+        <div class="message"><a href="${base}/guestbook.html"><img src="/${res}/images/message.png"></a></div>
       </div>
     </div>
     <div class="home-ch-m fl">
     <div class="rdjj">
-      <div class="nav-link"><a href="${base}/job/index.jhtml">招聘板块</a></div>
+      <div class="nav-link"><a href="${base}/job/index.html">招聘板块</a></div>
       <div class="rdjj-list job-list">
      [@cms_content_list count='10' orderBy='4' channelId='79' channelOption='0' dateFormat='yyyy-MM-dd']
         <ul>
@@ -196,7 +196,7 @@ $(function() {
       </div>
     </div>
     <div class="rdjj" style="margin-top:16px;">
-      <div class="nav-link"><a href="${base}/doc/index.jhtml">新闻</a></div>
+      <div class="nav-link"><a href="${base}/doc/index.html">新闻</a></div>
       <div class="rdjj-list job-list doc-list">
       [@cms_content_list count='8' orderBy='4' channelId='75' titLen='30' channelOption='0' dateFormat='yyyy-MM-dd']
         <ul>
@@ -214,7 +214,7 @@ $(function() {
     </div>
     <div class="home-ch-m fr clearfix">
     <div class="rdjj" style="margin:0; overflow:hidden;">
-      <div class="nav-link"><a href="${base}/download/index.jhtml">下载板块</a></div>
+      <div class="nav-link"><a href="${base}/download/index.html">下载板块</a></div>
       <div class="dl-list clearfix">
         [@cms_content_list count='12' orderBy='4' channelId='90,91,92,93' titLen='10' channelOption='0' dateFormat='yyyy-MM-dd']
         [#list tag_list as a] 
@@ -230,12 +230,12 @@ $(function() {
       </div>
     </div>
     <div class="rdjj" style="margin-top:16px; margin-left:0">
-      <div class="nav-link"><a href="${base}/survey/index.jhtml">网络调查</a></div>
+      <div class="nav-link"><a href="${base}/survey/index.html">网络调查</a></div>
       <div class="rdjj-list job-list">
        [@cms_vote_list  siteId=site.id count='10'] 
         <ul>
           [#list tag_list as vote]
-          <li><a [#if (vote_index)%6=0]class="bold"[/#if] href="${base}/vote.jspx?voteId=${vote.id}" target="_blank">${vote.title?html}|[#if vote.endTime??]${vote.endTime?string("yyyy-MM-dd")}[#else]已结束[/#if]</a></li>
+          <li><a [#if (vote_index)%6=0]class="bold"[/#if] href="${base}/vote.html?voteId=${vote.id}" target="_blank">${vote.title?html}|[#if vote.endTime??]${vote.endTime?string("yyyy-MM-dd")}[#else]已结束[/#if]</a></li>
           [/#list]
         </ul>
       [/@cms_vote_list]

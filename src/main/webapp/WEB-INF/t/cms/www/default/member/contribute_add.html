@@ -53,24 +53,24 @@ $(function() {
     <div class="memberLeft clearfix"> 
       <div class="member-nav">
         <ul>
-        <li><a href="${base}/member/index.jspx">个人资料</a></li>
-        <li><a href="${base}/member/contribute_list.jspx" class="on">投稿管理</a></li>
-        <li><a href="${base}/member/resume.jspx">应聘管理</a></li>
-        <li><a href="${base}/member/mycomments.jspx">我的评论</a></li>
-        <li><a href="${base}/member/myguestbook.jspx">我的留言</a></li>
-        <li><a href="${base}/member/collection_list.jspx">我的收藏</a></li>
-        <li><a href="${base}/member/message_mng.jspx">站内信息</a></li>
-        <li><a href="${base}/member/account.jspx">服务中心</a></li>
+        <li><a href="${base}/member/index.html">个人资料</a></li>
+        <li><a href="${base}/member/contribute_list.html" class="on">投稿管理</a></li>
+        <li><a href="${base}/member/resume.html">应聘管理</a></li>
+        <li><a href="${base}/member/mycomments.html">我的评论</a></li>
+        <li><a href="${base}/member/myguestbook.html">我的留言</a></li>
+        <li><a href="${base}/member/collection_list.html">我的收藏</a></li>
+        <li><a href="${base}/member/message_mng.html">站内信息</a></li>
+        <li><a href="${base}/member/account.html">服务中心</a></li>
         </ul>
       </div>
       <div class="member-main">
-        <div class="member-child"><a href="${base}/member/contribute_list.jspx">稿件列表</a>|<a href="${base}/member/contribute_add.jspx" class="on">发布稿件</a></div>
+        <div class="member-child"><a href="${base}/member/contribute_list.html">稿件列表</a>|<a href="${base}/member/contribute_add.html" class="on">发布稿件</a></div>
         <div class="member-text tggl fbgj">
           [#if channelList?size gt 0]
           [#include "media_upload.html"/]
           [#include "image_upload.html"/]
           [#include "attachment_upload.html"/]
-          <form id="jvForm" action="contribute_save.jspx" method="post"> 
+          <form id="jvForm" action="contribute_save.html" method="post">
           <table cellpadding="0" cellspacing="0">
             <tbody>
               <tr>
@@ -150,10 +150,10 @@ $(function() {
 						$(function() {
 						   	CKEDITOR.replace( 'txt' ,
 						   			{
-								   		filebrowserUploadUrl : '${base}/fck/upload.jspx',  
-								   		filebrowserImageUploadUrl : '${base}/fck/upload.jspx?Type=Image',  
-								   		filebrowserFlashUploadUrl : '${base}/fck/upload.jspx?Type=Flash',
-								   		filebrowserMediaUploadURL : '${base}/fck/upload.jspx?Type=Media'
+								   		filebrowserUploadUrl : '${base}/fck/upload.html',
+								   		filebrowserImageUploadUrl : '${base}/fck/upload.html?Type=Image',
+								   		filebrowserFlashUploadUrl : '${base}/fck/upload.html?Type=Flash',
+								   		filebrowserMediaUploadURL : '${base}/fck/upload.html?Type=Media'
 						   		     }
 						   	);  
 						 });
@@ -167,7 +167,7 @@ $(function() {
                   <div>
 		
 					<input type="button" style="width:40px;height:24px;cursor:pointer;background:#3694d7;color:#fff;font-size:12px;cursor:pointer;" id="fileupload" value="上传"/>
-					<input id="docfileupload" style='display:none' type="file" name="Filedata" data-url="o_swfAttachsUpload.jspx" multiple>			
+					<input id="docfileupload" style='display:none' type="file" name="Filedata" data-url="o_swfAttachsUpload.html" multiple>
 					<script>		
 					$(function () {
 						$('#fileupload').click(function(){						
@@ -234,7 +234,7 @@ $(function() {
                 <td style="padding:10px 5px;">
                   <div>
 						<input type="button" style="width:40px;height:24px;cursor:pointer;background:#3694d7;color:#fff;font-size:12px;cursor:pointer;" id="fileupload1" value="上传"/>
-						<input id="docfileupload1" style='display:none' type="file" name="Filedata" data-url="o_swfPicsUpload.jspx" multiple>			
+						<input id="docfileupload1" style='display:none' type="file" name="Filedata" data-url="o_swfPicsUpload.html" multiple>
 						<script>		
 						$(function () {
 							$('#fileupload1').click(function(){						
@@ -311,7 +311,7 @@ $(function() {
                 <td class="tggl-top">验证码</td><td><input type="text" name="captcha" maxlength="20" class="member-change" style="float:left; margin-left:15px;" /><img id="guestbookCaptcha" src="${base}/captcha.svl" onclick="this.src='${base}/captcha.svl?d='+new Date()"/></td>
               </tr>
               <tr>
-                <td colspan="2" style="text-align:center; padding:20px 0;"><input type="hidden" name="nextUrl" value="contribute_list.jspx" /><input type="submit" class="member-submit" value="提交" /><input type="reset" class="member-reset" value="重置" /></td>
+                <td colspan="2" style="text-align:center; padding:20px 0;"><input type="hidden" name="nextUrl" value="contribute_list.html" /><input type="submit" class="member-submit" value="提交" /><input type="reset" class="member-reset" value="重置" /></td>
               </tr>
             </tbody>
           </table>

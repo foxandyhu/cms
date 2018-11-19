@@ -1,9 +1,9 @@
 <section class="comments">
-      <h1>评论<span>已有<a class="count" href="${base}/comment.jspx?contentId=${content.id}">
+      <h1>评论<span>已有<a class="count" href="${base}/comment.html?contentId=${content.id}">
       ${content.commentsCheckedNum!} </a>条</span>
       </h1>
       [#if content.channel.commentControl==0 || ((content.channel.commentControl==1||content.channel.commentControl==3) && user??)]
-      <form id="commentForm" action="${base}/comment.jspx" method="post">
+      <form id="commentForm" action="${base}/comment.html" method="post">
       <div style="margin-top:20px;">评分：
         <input name="score" type="radio" value="1"/>1分
       	<input name="score" type="radio" value="2"/>2分
@@ -84,7 +84,7 @@ $(function() {
     [#--登录评论，且未登录--]
     <div class="down clearfix">
     <img src="/${res}/images/userImg.png" class="userImg"><span>
-    <a href="${base}/login.jspx?returnUrl=/">登录</a>之后才能发表评论</span>
+    <a href="${base}/login.html?returnUrl=/">登录</a>之后才能发表评论</span>
     </div>
     [#else]
     [#--不允许评论--]

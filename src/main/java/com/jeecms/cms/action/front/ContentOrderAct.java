@@ -62,7 +62,7 @@ public class ContentOrderAct {
 	public static final String CONTENT_ORDERS="tpl.content.orders";
 
 	//支付购买（先选择支付方式，在进行支付）
-	@RequestMapping(value = "/content/buy.jspx")
+	@RequestMapping(value = "/content/buy.html")
 	public String contentBuy(Integer contentId,
 			HttpServletRequest request,
 			HttpServletResponse response,ModelMap model) throws JSONException {
@@ -111,7 +111,7 @@ public class ContentOrderAct {
 	}
 	
 	//打赏（先选择打赏金额，在选择支付方式）
-	@RequestMapping(value = "/content/reward.jspx")
+	@RequestMapping(value = "/content/reward.html")
 	public String contentReward(Integer contentId,String code,
 			HttpServletRequest request,
 			HttpServletResponse response,ModelMap model) throws JSONException {
@@ -161,7 +161,7 @@ public class ContentOrderAct {
 		}
 	}
 	
-	@RequestMapping(value = "/content/fixSelect.jspx")
+	@RequestMapping(value = "/content/fixSelect.html")
 	public String contentFixSelect(
 			Integer contentId,String orderNumber,
 			Double rewardAmount,Short chargeReward,
@@ -203,7 +203,7 @@ public class ContentOrderAct {
 	}
 	
 	//内容购买或打赏记录
-	@RequestMapping(value = "/content/orders.jspx")
+	@RequestMapping(value = "/content/orders.html")
 	public String contentOrders(Integer contentId,Short type,Integer pageNo,
 			HttpServletRequest request,HttpServletResponse response
 			,ModelMap model) throws JSONException {
@@ -233,7 +233,7 @@ public class ContentOrderAct {
 		}
 	}
 		
-	@RequestMapping(value = "/reward/random.jspx")
+	@RequestMapping(value = "/reward/random.html")
 	public void randomReward(HttpServletRequest request,
 			HttpServletResponse response) {
 		 CmsConfigContentCharge config=configContentChargeMng.getDefault(); 
@@ -250,7 +250,7 @@ public class ContentOrderAct {
 	 * @param payMethod 支付方式 1微信扫码 2支付宝即时支付  3微信浏览器打开[微信移动端] 4支付宝扫码5支付宝手机网页
 	 * @param rewardAmount 金额
 	 */
-	@RequestMapping(value = "/content/selectPay.jspx")
+	@RequestMapping(value = "/content/selectPay.html")
 	public String selectPay(Integer contentId,String orderNumber,
 			Integer payMethod,Double rewardAmount,Short chargeReward,
 			HttpServletRequest request,
@@ -322,7 +322,7 @@ public class ContentOrderAct {
 		}
 	}
 	
-	@RequestMapping(value = "/content/alipayInMobile.jspx")
+	@RequestMapping(value = "/content/alipayInMobile.html")
 	public String enterAlipayInMobile(Integer contentId,String orderNumber,
 			Double rewardAmount,HttpServletRequest request,
 			HttpServletResponse response,ModelMap model) throws JSONException {
@@ -352,7 +352,7 @@ public class ContentOrderAct {
 	/**
 	 * 微信回调
 	 */
-	@RequestMapping(value = "/order/payCallByWeiXin.jspx")
+	@RequestMapping(value = "/order/payCallByWeiXin.html")
 	public void orderPayCallByWeiXin(String orderNumber,
 			HttpServletRequest request, HttpServletResponse response,
 			ModelMap model) throws JDOMException, IOException, JSONException {
@@ -431,7 +431,7 @@ public class ContentOrderAct {
 	}
 	
 	//支付宝即时支付回调地址
-	@RequestMapping(value = "/order/payCallByAliPay.jspx")
+	@RequestMapping(value = "/order/payCallByAliPay.html")
 	public String payCallByAliPay(HttpServletRequest request,
 			HttpServletResponse response, ModelMap model)
 					throws UnsupportedEncodingException {
@@ -485,7 +485,7 @@ public class ContentOrderAct {
 	}
 	
 	//支付宝查询订单状态（扫码支付和手机网页支付均由此处理订单）
-	@RequestMapping(value = "/content/orderQuery.jspx")
+	@RequestMapping(value = "/content/orderQuery.html")
 	public void aliPayOrderQuery(String orderNumber,HttpServletRequest request,
 			HttpServletResponse response, ModelMap model)
 					throws UnsupportedEncodingException {

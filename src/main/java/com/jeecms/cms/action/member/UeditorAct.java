@@ -90,7 +90,7 @@ public class UeditorAct {
 	private static final String UE_SEPARATE_UE="ue_separate_ue";
 	//提示信息
 	private static final String TIP = "tip";
-	@RequestMapping(value = "/ueditor/upload.jspx",method = RequestMethod.POST)
+	@RequestMapping(value = "/ueditor/upload.html",method = RequestMethod.POST)
 	public void upload(
 			@RequestParam(value = "Type", required = false) String typeStr,
 			Boolean mark,
@@ -113,7 +113,7 @@ public class UeditorAct {
 		ResponseUtils.renderJson(response, json.toString());
 	}
 	
-	@RequestMapping(value = "/ueditor/getRemoteImage.jspx")
+	@RequestMapping(value = "/ueditor/getRemoteImage.html")
 	public void getRemoteImage(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		String url = request.getParameter("upfile");
@@ -143,7 +143,7 @@ public class UeditorAct {
 	 * @param response
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/ueditor/imageManager.jspx")
+	@RequestMapping(value = "/ueditor/imageManager.html")
 	public void imageManager(Integer picNum,Boolean insite,HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		CmsSite site=CmsUtils.getSite(request);
@@ -179,7 +179,7 @@ public class UeditorAct {
 	}
 
 	//getmovie方法完全参考ueditor提供
-	@RequestMapping(value = "/ueditor/getmovie.jspx", method = RequestMethod.POST)
+	@RequestMapping(value = "/ueditor/getmovie.html", method = RequestMethod.POST)
 	public void getMovie(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		StringBuffer readOneLineBuff = new StringBuffer();

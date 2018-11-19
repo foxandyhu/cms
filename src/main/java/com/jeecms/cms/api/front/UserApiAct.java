@@ -117,7 +117,7 @@ public class UserApiAct {
 	}
 	
 	/**
-	 * 用户登录API
+	 * 管理员登录API
 	 * @param username 用户名 必选
 	 * @param aesPassword 加密密码 必选
 	 * @param appId appID 必选

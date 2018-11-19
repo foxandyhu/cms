@@ -38,7 +38,7 @@ public class PlugStoreAct {
 	private static final String STORE_LOGIN="store_login";
 
 	@RequiresPermissions("store:center")
-	@RequestMapping("/store/v_center.do")
+	@RequestMapping("/store/v_center.html")
 	public String list(Integer productType,Integer pageNo, 
 			HttpServletRequest request, ModelMap model) {
 		//当变换了查询条件或者首次访问
@@ -63,7 +63,7 @@ public class PlugStoreAct {
 	
 	
 	@RequiresPermissions("store:v_config")
-	@RequestMapping("/store/v_config.do")
+	@RequestMapping("/store/v_config.html")
 	public String config(HttpServletRequest request, ModelMap model) {
 		Boolean is_login=(Boolean) session.getAttribute(request, STORE_LOGIN);
 		if(is_login!=null&&is_login){
@@ -75,7 +75,7 @@ public class PlugStoreAct {
 	}
 	
 	@RequiresPermissions("store:o_login")
-	@RequestMapping("/store/o_login.do")
+	@RequestMapping("/store/o_login.html")
 	public String o_login(String password,ModelMap model,
 			HttpServletRequest request,HttpServletResponse response)
 			throws IOException {
@@ -88,7 +88,7 @@ public class PlugStoreAct {
 	}
 	
 	@RequiresPermissions("store:config_update")
-	@RequestMapping("/store/config_update.do")
+	@RequestMapping("/store/config_update.html")
 	public String update(PlugStoreConfig bean,
 			String password,Integer pageNo, HttpServletRequest request,
 			ModelMap model) {
@@ -103,7 +103,7 @@ public class PlugStoreAct {
 	
 	private Integer getPlugTotal(Integer productType){
 		String serverUrl=manager.getDefault().getServerUrl();
-		String url = serverUrl+"/json/plug_sum.jspx?productId=1";
+		String url = serverUrl+"/json/plug_sum.html?productId=1";
 		if(productType!=null){
 			url+="&productType="+productType;
 		}
@@ -117,7 +117,7 @@ public class PlugStoreAct {
 	
 	private List<StorePlug> getPlugs(Integer productType,Integer first,Integer count){
 		String serverUrl=manager.getDefault().getServerUrl();
-		String url = serverUrl+"/json/plug_list.jspx?productId=1"
+		String url = serverUrl+"/json/plug_list.html?productId=1"
 				+ "&first="+first+"&count="+count;
 		if(productType!=null){
 			url+="&productType="+productType;

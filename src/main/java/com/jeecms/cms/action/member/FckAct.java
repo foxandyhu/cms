@@ -48,7 +48,7 @@ public class FckAct {
 
 	private static final Logger log = LoggerFactory.getLogger(FckAct.class);
 
-	@RequestMapping(value = "/fck/upload.jspx", method = RequestMethod.POST)
+	@RequestMapping(value = "/fck/upload.html", method = RequestMethod.POST)
 	public void upload(
 			@RequestParam(value = "Command", required = false) String commandStr,
 			@RequestParam(value = "Type", required = false) String typeStr,

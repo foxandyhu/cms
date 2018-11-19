@@ -51,7 +51,7 @@ public class CommentMemberAct {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/member/mycomments.jspx")
+	@RequestMapping(value = "/member/mycomments.html")
 	public String mycomments(Integer pageNo, HttpServletRequest request,
 			HttpServletResponse response, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
@@ -75,7 +75,7 @@ public class CommentMemberAct {
 	/**
 	 * 查看评论回复
 	 */
-	@RequestMapping(value = "/member/comment_replay.jspx")
+	@RequestMapping(value = "/member/comment_replay.html")
 	public String guestbook_replay(Integer id, String nextUrl,HttpServletRequest request,
 			HttpServletResponse response, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
@@ -110,7 +110,7 @@ public class CommentMemberAct {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/member/news_comments.jspx")
+	@RequestMapping(value = "/member/news_comments.html")
 	public String news_comments(Integer pageNo, HttpServletRequest request,
 			HttpServletResponse response, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
@@ -142,7 +142,7 @@ public class CommentMemberAct {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/member/comment_delete.jspx")
+	@RequestMapping(value = "/member/comment_delete.html")
 	public String delete(Integer commentId, Integer userId, String ip,
 			Integer pageNo, String nextUrl, HttpServletRequest request,
 			HttpServletResponse response, ModelMap model) {

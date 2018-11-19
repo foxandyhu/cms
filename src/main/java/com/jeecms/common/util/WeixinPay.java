@@ -59,7 +59,7 @@ public class WeixinPay {
 		paramMap.put("spbill_create_ip", RequestUtils.getIpAddr(request));
 		// 接收微信支付异步通知回调地址，通知url必须为直接可访问的url，不能携带参数。 [必填]
 		paramMap.put("notify_url", "http://" + site.getDomain()
-				+ "/order/payCallByWeiXin.jspx");
+				+ "/order/payCallByWeiXin.html");
 		// 交易类型{取值如下：JSAPI，NATIVE，APP，(JSAPI--公众号支付、NATIVE--原生扫码支付、APP--app支付)}
 		// [必填]
 		paramMap.put("trade_type",trade_type);

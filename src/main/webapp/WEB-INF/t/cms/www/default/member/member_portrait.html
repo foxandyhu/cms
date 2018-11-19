@@ -49,24 +49,24 @@ $(function() {
     <div class="memberLeft clearfix"> 
       <div class="member-nav">
         <ul>
-        <li><a href="${base}/member/index.jspx" class="on">个人资料</a></li>
-        <li><a href="${base}/member/contribute_list.jspx">投稿管理</a></li>
-        <li><a href="${base}/member/doc_list.jspx?modelId=9">文档管理</a></li>
-        <li><a href="${base}/member/resume.jspx">应聘管理</a></li>
-        <li><a href="${base}/member/mycomments.jspx">我的评论</a></li>
-        <li><a href="${base}/member/myguestbook.jspx">我的留言</a></li>
-        <li><a href="${base}/member/collection_list.jspx">我的收藏</a></li>
-        <li><a href="${base}/member/message_mng.jspx">站内信息</a></li>
-        <li><a href="${base}/member/account.jspx">服务中心</a></li>
+        <li><a href="${base}/member/index.html" class="on">个人资料</a></li>
+        <li><a href="${base}/member/contribute_list.html">投稿管理</a></li>
+        <li><a href="${base}/member/doc_list.html?modelId=9">文档管理</a></li>
+        <li><a href="${base}/member/resume.html">应聘管理</a></li>
+        <li><a href="${base}/member/mycomments.html">我的评论</a></li>
+        <li><a href="${base}/member/myguestbook.html">我的留言</a></li>
+        <li><a href="${base}/member/collection_list.html">我的收藏</a></li>
+        <li><a href="${base}/member/message_mng.html">站内信息</a></li>
+        <li><a href="${base}/member/account.html">服务中心</a></li>
          [@cms_custom_list]
         		[#list tag_list as a]
-        			 <li><a href="${base}/member/record.jspx?formId=${a.id!}">${a.name!}</a></li> 
+        			 <li><a href="${base}/member/record.html?formId=${a.id!}">${a.name!}</a></li>
         		[/#list]
           [/@cms_custom_list]	
         </ul>
       </div>
       <div class="member-main">
-        <div class="member-child"><a href="${base}/member/index.jspx">用户信息</a>|<a href="${base}/member/profile.jspx">修改个人资料</a>|<a href="${base}/member/portrait.jspx" data-toggle="modal" data-target="#avatar-modal" class="on">更换头像</a>|<a href="${base}/member/pwd.jspx">修改密码</a></div>
+        <div class="member-child"><a href="${base}/member/index.html">用户信息</a>|<a href="${base}/member/profile.html">修改个人资料</a>|<a href="${base}/member/portrait.html" data-toggle="modal" data-target="#avatar-modal" class="on">更换头像</a>|<a href="${base}/member/pwd.html">修改密码</a></div>
         <div class="member-text">
 			<img id="preImg1" src="${user.userImg!}"><button type="button" class="btn btn-danger"  data-toggle="modal" data-target="#avatar-modal" style="margin: 10px;">修改头像</button>
             <!-- 上传头像 -->
@@ -74,9 +74,9 @@ $(function() {
 		<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<!--<form class="avatar-form" action="upload-logo.php" enctype="multipart/form-data" method="post">-->
-			<form class="avatar-form" id="form1" action="profile.jspx" method="post">
+			<form class="avatar-form" id="form1" action="profile.html" method="post">
 				<input id="uploadImgPath1" name="userImg" style="width:220px" value="${user.userImg!}" type="hidden"/>
-				<input type="hidden" id="nextUrl" name="nextUrl" value="index.jspx" />
+				<input type="hidden" id="nextUrl" name="nextUrl" value="index.html" />
 				<div class="modal-header">
 					<button class="close" data-dismiss="modal" type="button">&times;</button>
 					<h4 class="modal-title" id="avatar-modal-label">上传图片</h4>
@@ -194,7 +194,7 @@ $(function() {
 	
 	function imagesAjax(src) {
 		$.ajax({
-			url: "o_upload_image.jspx",
+			url: "o_upload_image.html",
 			data: src,
 			type: "POST",
 		    dataType:"text",  

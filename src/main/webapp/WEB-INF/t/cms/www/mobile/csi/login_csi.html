@@ -15,14 +15,14 @@ $(function() {
               //退出qq
                if(QC.Login.check()){
                      QC.Login.signOut();
-                     location="${base}/logout.jspx?returnUrl=/";
+                     location="${base}/logout.html?returnUrl=/";
                 }
           [/#if]
           [#if site.config.sinaEnable]
              if(WB2.checkLogin()){
                 WB2.logout(function() {
 		    		//callback function
-                    location="${base}/logout.jspx?returnUrl=/";
+                    location="${base}/logout.html?returnUrl=/";
 	          	});
              }
           [/#if]
@@ -33,18 +33,18 @@ $(function() {
             if(T.loginStatus()){
             	T.logout(function (loginStatus) { // 登出用户
             	    // 登录成功
-            		 location="${base}/logout.jspx?returnUrl=/";
+            		 location="${base}/logout.html?returnUrl=/";
             	});
             }
          [/#if]
          [#if !site.config.qqEnable&&!site.config.sinaEnable&&!site.config.qqWeboEnable]
-               location="${base}/logout.jspx?returnUrl=/";
+               location="${base}/logout.html?returnUrl=/";
          [/#if]
   });
 });
 </script>
 [#if user??]
-&nbsp;欢迎您：${user.username} &nbsp; ${user.group.name} &nbsp; <a href="${base}/member/index.jspx">会员中心</a> &nbsp; <a id="logout" >退出登录</a>
+&nbsp;欢迎您：${user.username} &nbsp; ${user.group.name} &nbsp; <a href="${base}/member/index.html">会员中心</a> &nbsp; <a id="logout" >退出登录</a>
 [#else]
-&nbsp;您好，您还没有登录哦！ <a href="${base}/register.jspx">免费注册</a>&nbsp;|&nbsp;<a href="${base}/login.jspx?returnUrl=/">会员登录</a>&nbsp;|&nbsp;<a href="${base}/member/forgot_password.jspx">忘记密码</a>
+&nbsp;您好，您还没有登录哦！ <a href="${base}/register.html">免费注册</a>&nbsp;|&nbsp;<a href="${base}/login.html?returnUrl=/">会员登录</a>&nbsp;|&nbsp;<a href="${base}/member/forgot_password.html">忘记密码</a>
 [/#if]

@@ -103,7 +103,7 @@ public class ContextConfig{
 
 		ServletRegistrationBean registrationBean= new ServletRegistrationBean(bbsFrontServlet);
 		registrationBean.setLoadOnStartup(8);
-		registrationBean.addUrlMappings("/");
+		registrationBean.addUrlMappings("/api/front/*","/");
 		registrationBean.setName("dispatcherServlet");
 		return registrationBean;
 	}

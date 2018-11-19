@@ -72,7 +72,7 @@ $(function() {
             	<ul>
                 [@cms_vote_list  siteId=site.id]
                 [#list tag_list as vote]
-                <li><a href="${base}/vote.jspx?voteId=${vote.id}">${vote.title?html}</a>&nbsp;[#if vote.endTime??]${vote.endTime?string("yyyy-MM-dd")}[/#if]</li>
+                <li><a href="${base}/vote.html?voteId=${vote.id}">${vote.title?html}</a>&nbsp;[#if vote.endTime??]${vote.endTime?string("yyyy-MM-dd")}[/#if]</li>
                 [/#list]
                 [/@cms_vote_list]
                 </ul>

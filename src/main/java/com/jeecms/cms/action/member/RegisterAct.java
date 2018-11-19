@@ -61,7 +61,7 @@ public class RegisterAct {
 	public static final String LOGIN_INPUT = "tpl.loginInput";
 
 	@Token(save = true)
-	@RequestMapping(value = "/register.jspx", method = RequestMethod.GET)
+	@RequestMapping(value = "/register.html", method = RequestMethod.GET)
 	public String input(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
 		MemberConfig mcfg = site.getConfig().getMemberConfig();
@@ -87,7 +87,7 @@ public class RegisterAct {
 	}
 
 	@Token(remove = true)
-	@RequestMapping(value = "/register.jspx", method = RequestMethod.POST)
+	@RequestMapping(value = "/register.html", method = RequestMethod.POST)
 	public String submit(String username, String email, String loginPassword, CmsUserExt userExt, String captcha,
 			String nextUrl, String smsCode,HttpServletRequest request, HttpServletResponse response, ModelMap model)
 			throws IOException {
@@ -158,7 +158,7 @@ public class RegisterAct {
 		}
 	}
 
-	@RequestMapping(value = "/active.jspx", method = RequestMethod.GET)
+	@RequestMapping(value = "/active.html", method = RequestMethod.GET)
 	public String active(String username, String key, HttpServletRequest request, HttpServletResponse response,
 			ModelMap model) throws IOException {
 		CmsSite site = CmsUtils.getSite(request);
@@ -172,7 +172,7 @@ public class RegisterAct {
 		return FrontUtils.getTplPath(request, site.getSolutionPath(), TPLDIR_MEMBER, REGISTER_ACTIVE_SUCCESS);
 	}
 
-	@RequestMapping(value = "/username_unique.jspx")
+	@RequestMapping(value = "/username_unique.html")
 	public void usernameUnique(HttpServletRequest request, HttpServletResponse response) {
 		String username = RequestUtils.getQueryParam(request, "username");
 		// 用户名为空，返回false。
@@ -203,7 +203,7 @@ public class RegisterAct {
 	 * @param:  response      
 	 * @return: void
 	 */
-	@RequestMapping(value = "/mobilePhone_unique.jspx")
+	@RequestMapping(value = "/mobilePhone_unique.html")
 	public void mobilePhoneUnique(HttpServletRequest request, HttpServletResponse response) {
 		String mobilePhone = RequestUtils.getQueryParam(request, "mobile");
 		// mobilePhone为空，返回false。
@@ -220,7 +220,7 @@ public class RegisterAct {
 		ResponseUtils.renderJson(response, "true");
 	}
 
-	@RequestMapping(value = "/email_unique.jspx")
+	@RequestMapping(value = "/email_unique.html")
 	public void emailUnique(HttpServletRequest request, HttpServletResponse response) {
 		String email = RequestUtils.getQueryParam(request, "email");
 		// email为空，返回false。

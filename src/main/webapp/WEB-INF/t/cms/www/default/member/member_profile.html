@@ -31,20 +31,20 @@ $(function() {
     <div class="memberLeft clearfix"> 
       <div class="member-nav">
         <ul>
-        <li><a href="${base}/member/index.jspx" class="on">个人资料</a></li>
-        <li><a href="${base}/member/contribute_list.jspx">投稿管理</a></li>
-        <li><a href="${base}/member/resume.jspx">应聘管理</a></li>
-        <li><a href="${base}/member/mycomments.jspx">我的评论</a></li>
-        <li><a href="${base}/member/myguestbook.jspx">我的留言</a></li>
-        <li><a href="${base}/member/collection_list.jspx">我的收藏</a></li>
-        <li><a href="${base}/member/message_mng.jspx">站内信息</a></li>
-        <li><a href="${base}/member/account.jspx">服务中心</a></li>
+        <li><a href="${base}/member/index.html" class="on">个人资料</a></li>
+        <li><a href="${base}/member/contribute_list.html">投稿管理</a></li>
+        <li><a href="${base}/member/resume.html">应聘管理</a></li>
+        <li><a href="${base}/member/mycomments.html">我的评论</a></li>
+        <li><a href="${base}/member/myguestbook.html">我的留言</a></li>
+        <li><a href="${base}/member/collection_list.html">我的收藏</a></li>
+        <li><a href="${base}/member/message_mng.html">站内信息</a></li>
+        <li><a href="${base}/member/account.html">服务中心</a></li>
         </ul>
       </div>
       <div class="member-main">
-        <div class="member-child"><a href="${base}/member/index.jspx">用户信息</a>|<a href="${base}/member/profile.jspx" class="on">修改个人资料</a>|<a href="${base}/member/portrait.jspx">更换头像</a>|<a href="${base}/member/pwd.jspx">修改密码</a></div>
+        <div class="member-child"><a href="${base}/member/index.html">用户信息</a>|<a href="${base}/member/profile.html" class="on">修改个人资料</a>|<a href="${base}/member/portrait.html">更换头像</a>|<a href="${base}/member/pwd.html">修改密码</a></div>
         <div class="member-text">
-          <form id="jvForm" action="profile.jspx" method="post">
+          <form id="jvForm" action="profile.html" method="post">
           <table cellpadding="0" cellspacing="0">
             <tbody>
               <tr>
@@ -66,7 +66,7 @@ $(function() {
                 <td class="s-p">自我介绍：</td><td colspan="3"><textarea name="intro" vld="{maxlength:255}"  maxlength="255">${user.intro!?html}</textarea></td>
               </tr>
               <tr>
-                <td colspan="4" style="padding:25px 0 0 70px;"><input type="hidden" name="nextUrl" value="index.jspx"/><input type="submit" class="member-submit" value="提交" /><input type="reset" class="member-reset" value="重置" /></td></td>
+                <td colspan="4" style="padding:25px 0 0 70px;"><input type="hidden" name="nextUrl" value="index.html"/><input type="submit" class="member-submit" value="提交" /><input type="reset" class="member-reset" value="重置" /></td></td>
               </tr>
             </tbody>
           </table>

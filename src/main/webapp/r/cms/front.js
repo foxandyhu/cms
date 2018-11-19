@@ -9,7 +9,7 @@ Cms.viewCount = function(base, contentId, viewId, commentId, downloadId, upId,
 	downloadId = downloadId || "downloads";
 	upId = upId || "ups";
 	downId = downId || "downs";
-	$.getJSON(base + "/content_view.jspx", {
+	$.getJSON(base + "/content_view.html", {
 		contentId : contentId
 	}, function(data) {
 		if (data.length > 0) {
@@ -23,7 +23,7 @@ Cms.viewCount = function(base, contentId, viewId, commentId, downloadId, upId,
 }
 Cms.channelViewCount = function(base, channelId, viewId) {
 	viewId = viewId || "views";
-	$.getJSON(base + "/channel_view.jspx", {
+	$.getJSON(base + "/channel_view.html", {
 		channelId : channelId
 	});
 }
@@ -43,7 +43,7 @@ Cms.siteFlow = function(base,page, referer,flowSwitch,
 	monthVisitorId=monthVisitorId || "monthVisitor";
 	flowSwitch=flowSwitch||"true";
 	if(flowSwitch=="true"){
-		$.getJSON(base + "/flow_statistic.jspx", {
+		$.getJSON(base + "/flow_statistic.html", {
 			page : page,
 			referer : referer
 		}, function(data) {
@@ -70,7 +70,7 @@ Cms.up = function(base, contentId, origValue, upId) {
 		return false;
 	}
 	$.cookie("_cms_updown_" + contentId, "1");
-	$.get(base + "/content_up.jspx", {
+	$.get(base + "/content_up.html", {
 		"contentId" : contentId
 	}, function(data) {
 		$("#" + upId).text(origValue + 1);
@@ -87,7 +87,7 @@ Cms.down = function(base, contentId, origValue, downId) {
 		return false;
 	}
 	$.cookie("_cms_updown_" + contentId, "1");
-	$.get(base + "/content_down.jspx", {
+	$.get(base + "/content_down.html", {
 		contentId : contentId
 	}, function(data) {
 		$("#" + downId).text(origValue + 1);
@@ -99,7 +99,7 @@ Cms.down = function(base, contentId, origValue, downId) {
  */
 Cms.scoreCount = function(base, contentId,itemPrefix) {
 	itemPrefix=itemPrefix||"score-item-";
-	$.getJSON(base + "/content_score_items.jspx", {
+	$.getJSON(base + "/content_score_items.html", {
 		contentId : contentId
 	}, function(data) {
 			$("span[id^='"+itemPrefix+"']").each(function(){
@@ -118,7 +118,7 @@ Cms.score = function(base, contentId,itemId,itemPrefix) {
 		return false;
 	}
 	$.cookie("_cms_score_" + contentId, "1");
-	$.get(base + "/content_score.jspx", {
+	$.get(base + "/content_score.html", {
 		"contentId" : contentId,
 		"itemId":itemId
 	}, function(data) {
@@ -132,13 +132,13 @@ Cms.score = function(base, contentId,itemId,itemPrefix) {
  * 获取附件地址
  */
 Cms.attachment = function(base, contentId, n, prefix) {
-	$.get(base + "/attachment_url.jspx", {
+	$.get(base + "/attachment_url.html", {
 		"cid" : contentId,
 		"n" : n
 	}, function(data) {
 		var url;
 		for (var i = 0;i < n; i++) {
-			url = base + "/attachment.jspx?cid=" + contentId + "&i=" + i
+			url = base + "/attachment.html?cid=" + contentId + "&i=" + i
 					+ data[i];
 			$("#" + prefix + i).attr("href", url);
 		}
@@ -170,11 +170,11 @@ Cms.comment = function(callback, form) {
  */
 Cms.commentList = function(base, c, options) {
 	c = c || "commentListDiv";
-	$("#" + c).load(base + "/comment_list.jspx", options);
+	$("#" + c).load(base + "/comment_list.html", options);
 }
 Cms.commentListMore = function(base, c, options) {
 	c = c || "commentListDiv";
-	$("#" + c).load(base + "/comment_list.jspx", options);
+	$("#" + c).load(base + "/comment_list.html", options);
 	$('#commentDialog').dialog('open');
 }
 /**
@@ -187,7 +187,7 @@ Cms.commentUp = function(base, commentId, origValue, upId) {
 		return false;
 	}
 	$.cookie("_cms_comment_updown_" + commentId, "1");
-	$.get(base + "/comment_up.jspx", {
+	$.get(base + "/comment_up.html", {
 		"commentId" : commentId
 	}, function(data) {
 		$("#" + upId).text(origValue + 1);
@@ -204,7 +204,7 @@ Cms.commentDown = function(base, commentId, origValue, downId) {
 		return false;
 	}
 	$.cookie("_cms_comment_updown_" + commentId, "1");
-	$.get(base + "/comment_down.jspx", {
+	$.get(base + "/comment_down.html", {
 		commentId : commentId
 	}, function(data) {
 		$("#" + downId).text(origValue + 1);
@@ -216,7 +216,7 @@ Cms.commentDown = function(base, commentId, origValue, downId) {
  */
 Cms.commentInputCsi = function(base,commentInputCsiDiv, contentId,commemtId) {
 	commentInputCsiDiv = commentInputCsiDiv || "commentInputCsiDiv";
-	$("#"+commentInputCsiDiv).load(base+"/comment_input_csi.jspx?contentId="+contentId+"&commemtId="+commemtId);
+	$("#"+commentInputCsiDiv).load(base+"/comment_input_csi.html?contentId="+contentId+"&commemtId="+commemtId);
 }
 Cms.commentInputLoad= function(base,commentInputCsiPrefix,commentInputCsiDiv,contentId,commemtId) {
 	$("div[id^='"+commentInputCsiPrefix+"']").html("");
@@ -238,7 +238,7 @@ Cms.isOpenInWeiXin = function() {
  */
 Cms.loginCsi = function(base, c, options) {
 	c = c || "loginCsiDiv";
-	$("#" + c).load(base + "/login_csi.jspx", options);
+	$("#" + c).load(base + "/login_csi.html", options);
 }
 /**
  * 向上滚动js类
@@ -309,7 +309,7 @@ Cms.LeftRoller.prototype.roll = function() {
  * 收藏信息
  */
 Cms.collect = function(base, cId, operate,showSpanId,hideSpanId) {
-	$.post(base + "/member/collect.jspx", {
+	$.post(base + "/member/collect.html", {
 		"cId" : cId,
 		"operate" : operate
 	}, function(data) {
@@ -332,7 +332,7 @@ Cms.collect = function(base, cId, operate,showSpanId,hideSpanId) {
  * 列表取消收藏信息
  */
 Cms.cmsCollect = function(base, cId, operate) {
-	$.post(base + "/member/collect.jspx", {
+	$.post(base + "/member/collect.html", {
 		"cId" : cId,
 		"operate" : operate
 	}, function(data) {
@@ -352,7 +352,7 @@ Cms.cmsCollect = function(base, cId, operate) {
  * 检测是否已经收藏信息
  */
 Cms.collectexist = function(base, cId,showSpanId,hideSpanId) {
-	$.post(base + "/member/collect_exist.jspx", {
+	$.post(base + "/member/collect_exist.html", {
 		"cId" : cId
 	}, function(data) {
 		if(data.result){
@@ -369,12 +369,12 @@ Cms.collectexist = function(base, cId,showSpanId,hideSpanId) {
  * 申请职位信息
  */
 Cms.jobApply = function(base, cId) {
-	$.post(base + "/member/jobapply.jspx", {
+	$.post(base + "/member/jobapply.html", {
 		"cId" : cId
 	}, function(data) {
 		if(data.result==-1){
 			alert("请先登录");
-			location.href=base+"/login.jspx";
+			location.href=base+"/login.html";
 		}else if(data.result==-2){
 			alert("职位id不能为空");
 		}else if(data.result==-3){
@@ -394,7 +394,7 @@ Cms.loginSSO=function(base){
 	var ssoLogout=$.cookie('sso_logout');
 	if(username!=null){
 		if(sessionId!=null||(ssoLogout!=null&&ssoLogout=="true")){
-			$.post(base+"/sso/login.jspx", {
+			$.post(base+"/sso/login.html", {
 				username:username,
 				sessionId:sessionId,
 				ssoLogout:ssoLogout
@@ -409,7 +409,7 @@ Cms.loginSSO=function(base){
 Cms.loginAdmin=function(base){
 	var sessionKey=localStorage.getItem("sessionKey");
 	if(sessionKey==null||sessionKey==""){
-		$.post(base+"/adminLogin.jspx", {
+		$.post(base+"/adminLogin.html", {
 		}, function(data) {
 			if(data.sessionKey!=""){
 				localStorage.setItem("sessionKey", data.sessionKey); 
@@ -422,7 +422,7 @@ Cms.logoutAdmin=function(base){
 	var sessionKey=localStorage.getItem("sessionKey");
 	var userName=localStorage.getItem("userName");
 	if(sessionKey!=null&&sessionKey!=""&&userName!=""){
-		$.post(base+"/adminLogout.jspx", {
+		$.post(base+"/adminLogout.html", {
 			userName:userName,
 			sessionKey:sessionKey
 		}, function(data) {
@@ -432,22 +432,22 @@ Cms.logoutAdmin=function(base){
 	}
 }
 Cms.checkPerm = function(base, contentId) {
-	$.getJSON(base + "/page_checkperm.jspx", {
+	$.getJSON(base + "/page_checkperm.html", {
 		contentId : contentId
 	}, function(data) {
 		if (data==3) {
 			alert("请先登录");
-			location.href=base+"/user_no_login.jspx";
+			location.href=base+"/user_no_login.html";
 		}else if(data==4){
-			location.href=base+"/group_forbidden.jspx";
+			location.href=base+"/group_forbidden.html";
 		}else if(data==5){
-			location.href=base+"/content/buy.jspx?contentId="+contentId;
+			location.href=base+"/content/buy.html?contentId="+contentId;
 		}
 	});
 }
 Cms.collectCsi = function(base,collectCsiDiv, tpl, contentId) {
 	collectCsiDiv = collectCsiDiv || "collectCsiDiv";
-	$("#"+collectCsiDiv).load(base+"/csi_custom.jspx?tpl="+tpl+"&cId="+contentId);
+	$("#"+collectCsiDiv).load(base+"/csi_custom.html?tpl="+tpl+"&cId="+contentId);
 }
 Cms.getCookie=function getCookie(c_name){
 	if (document.cookie.length>0)

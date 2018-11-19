@@ -30,7 +30,7 @@ import static com.jeecms.cms.statistic.CmsStatistic.*;
 public class CmsWorkLoadStatisticAct {
 
     @RequiresPermissions("workloadstatistic:v_list")
-    @RequestMapping("/workloadstatistic/v_list.do")
+    @RequestMapping("/workloadstatistic/v_list.html")
     public String contentList(HttpServletRequest request, ModelMap model,
                               Integer channelId, Integer reviewerId, Integer authorId,
                               Date beginDate, Date endDate, String group) {

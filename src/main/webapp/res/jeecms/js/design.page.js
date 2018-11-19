@@ -14,7 +14,7 @@ function ajaxCreateDirectivePage(base) {
 		var id=$(this).attr("id");
 		var contentDivId=id.substring(contentIdPrefix.length);
 		var directive=$(this).find(".content").html();
-		$.post("../visual/createPage"+contentDivId+".do", {
+		$.post("../visual/createPage"+contentDivId+".html", {
 			"directive" : directive
 		}, function(data) {
 			setTimeout("loadDiretivePage('"+base+"',"+contentDivId+")",100*1);  
@@ -27,7 +27,7 @@ function loadDiretivePage(base,bordId){
 	contentBlock.after(directDiv);
 	$("#"+contentIdPrefix+bordId+" .directive").val(contentBlock.html());
 	contentBlock.before(shieldDiv);
-	contentBlock.load(base+"/visual/getPage"+bordId+".jspx");
+	contentBlock.load(base+"/visual/getPage"+bordId+".html");
 }
 //异步生成整个模板html页面
 function ajaxCreateHtml(root){
@@ -57,7 +57,7 @@ function ajaxCreateHtml(root){
 	var directiveParams=getParamsByCookie("border");
 	directiveParams+=getParamsByCookie("content");
 	//生成html
-	$.post("createhtml.do", {
+	$.post("createhtml.html", {
 		source:source,
 		root:root,
 		filename:filename,
@@ -92,7 +92,7 @@ function initWriteDirectiveParamToCookie(blockId,blockCookiePrefix,blockParamArr
 }
 //依据标签生成临时页面（然后加载）
 function ajaxCreateTempPage(directive) {
-	$.post("../visual/createTempPage.do", {
+	$.post("../visual/createTempPage.html", {
 		"directive" : directive
 	}, function(data) {
 		setTimeout("loadTempPage()",500*1);   
@@ -102,7 +102,7 @@ function ajaxCreateTempPage(directive) {
 function ajaxDeleteSelectedContainer(){
 	var bid=clickBorder.split(borderIdPrefix)[1];
 	if(bid!=null){
-		$.post("block/delete.do", {
+		$.post("block/delete.html", {
 			"blockId" : bid
 		}, function(data) {  
 		}, "json");

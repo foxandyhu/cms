@@ -1,5 +1,5 @@
  [#if content.channel.commentControl==0 || ((content.channel.commentControl==1||content.channel.commentControl==3) && user??)]
-<form id="commentForm" action="${base}/comment.jspx" method="post">
+<form id="commentForm" action="${base}/comment.html" method="post">
 <div class="content-comment">
      <div class="content-text"> <textarea placeholder="我来说两句..." id="comments-text"  name="text" ></textarea></div>
      [#if user??&&user.group.needCaptcha||!user??]
@@ -58,7 +58,7 @@
     [#--登录评论，且未登录--]
     <div class="down clearfix">
     <img src="/${res}/images/userImg.png" class="userImg"><span>
-    <a href="${base}/login.jspx?returnUrl=/">登录</a>之后才能发表评论</span>
+    <a href="${base}/login.html?returnUrl=/">登录</a>之后才能发表评论</span>
     </div>
     [#else]
     [#--不允许评论--]

@@ -1,5 +1,6 @@
 package com.jeecms.cms.service;
 
+import java.sql.Time;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -267,8 +268,11 @@ public class CmsSiteFlowCacheImpl implements CmsSiteFlowCache, DisposableBean {
 		CmsSite site =CmsUtils.getSite(request);
 		String accessSource=getSource(request, referer);
 		CmsSiteAccess bean=new CmsSiteAccess();
+
 		Date now=Calendar.getInstance().getTime();
-		bean.setAccessDate(now);
+		java.sql.Date sqlDate=new java.sql.Date(now.getTime());
+		bean.setAccessDate(sqlDate);
+
 		bean.setAccessSource(accessSource);
 		if(accessSource.equals(getMessage(request,"cmsAccess.externallink"))){
 			bean.setExternalLink(getRefererWebSite(referer));
@@ -276,7 +280,10 @@ public class CmsSiteFlowCacheImpl implements CmsSiteFlowCache, DisposableBean {
 		if(enterFromEngine(request, referer)){
 			bean.setEngine(getEngine(request, referer));
 		}
-		bean.setAccessTime(now);
+
+		Time sqlTime=new Time(now.getTime());
+		bean.setAccessTime(sqlTime);
+
 		bean.setIp(ip);
 		bean.setArea(IpSeekUtils.getIpProvinceBySina(ip));
 		bean.setBrowser(browser);
@@ -322,11 +329,15 @@ public class CmsSiteFlowCacheImpl implements CmsSiteFlowCache, DisposableBean {
 	
 	private CmsSiteAccessPages visitPages(CmsSite site,String page,String sessionId,Integer hasVisitCount,Date lastVisitTime) {
 		CmsSiteAccessPages bean = new CmsSiteAccessPages();
-		Date time = DateFormatUtils.parseTime(Calendar.getInstance().getTime());
-		Date date = DateUtils.getStartDate(Calendar.getInstance().getTime());
+		Date time = Calendar.getInstance().getTime();
+//		Date date = DateUtils.getStartDate(Calendar.getInstance().getTime());
 		bean.setAccessPage(page);
-		bean.setAccessTime(time);
-		bean.setAccessDate(date);
+
+		Time sqlTime=new Time(time.getTime());
+		java.sql.Date sqlDate=new java.sql.Date(time.getTime());
+		bean.setAccessTime(sqlTime);
+		bean.setAccessDate(sqlDate);
+
 		bean.setSite(site);
 		bean.setSessionId(sessionId);
 		//设置当前访问时间0，设置上次时间
@@ -401,7 +412,8 @@ public class CmsSiteFlowCacheImpl implements CmsSiteFlowCache, DisposableBean {
 			CmsSiteAccessPages page = (CmsSiteAccessPages) element.getObjectValue();
 			if (page.getId() == null&& page.getSessionId() != null) {
 				if(page.getAccessDate()==null){
-					page.setAccessDate(Calendar.getInstance().getTime());
+					java.sql.Date sqlDate=new java.sql.Date(Calendar.getInstance().getTime().getTime());
+					page.setAccessDate(sqlDate);
 				}
 				cmsSiteAccessPagesMng.save(page);
 			}else{

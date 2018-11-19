@@ -45,7 +45,7 @@ public class CommentAct {
 	public static final String COMMENT_LIST = "tpl.commentList";
 	public static final String COMMENT_INPUT = "tpl.commentInput";
 
-	@RequestMapping(value = "/comment*.jspx", method = RequestMethod.GET)
+	@RequestMapping(value = "/comment*.html", method = RequestMethod.GET)
 	public String page(Integer contentId, Integer pageNo,
 			HttpServletRequest request, HttpServletResponse response,
 			ModelMap model) {
@@ -71,7 +71,7 @@ public class CommentAct {
 				TPLDIR_SPECIAL, COMMENT_PAGE);
 	}
 	
-	@RequestMapping(value = "/comment_input_csi.jspx")
+	@RequestMapping(value = "/comment_input_csi.html")
 	public String custom(String tpl,Integer contentId, HttpServletRequest request,
 			HttpServletResponse response, ModelMap model) {
 		log.debug("visit csi custom template: {}", tpl);
@@ -96,7 +96,7 @@ public class CommentAct {
 				TPLDIR_SPECIAL, COMMENT_INPUT);
 	}
 
-	@RequestMapping(value = "/comment_list.jspx")
+	@RequestMapping(value = "/comment_list.html")
 	public String list(Integer siteId, Integer contentId, Integer parentId,
 			Integer greatTo,Integer recommend, Short checked, 
 			Integer orderBy, Integer count,
@@ -130,7 +130,7 @@ public class CommentAct {
 				TPLDIR_CSI, COMMENT_LIST);
 	}
 
-	@RequestMapping(value = "/comment.jspx", method = RequestMethod.POST)
+	@RequestMapping(value = "/comment.html", method = RequestMethod.POST)
 	public void submit(Integer contentId, Integer parentId,Integer score,
 			String text, String captcha,String sessionId,
 			HttpServletRequest request, HttpServletResponse response,
@@ -222,7 +222,7 @@ public class CommentAct {
 		ResponseUtils.renderJson(response, json.toString());
 	}
 
-	@RequestMapping(value = "/comment_up.jspx")
+	@RequestMapping(value = "/comment_up.html")
 	public void up(Integer commentId, HttpServletRequest request,
 			HttpServletResponse response) {
 		if (exist(commentId)) {
@@ -233,7 +233,7 @@ public class CommentAct {
 		}
 	}
 
-	@RequestMapping(value = "/comment_down.jspx")
+	@RequestMapping(value = "/comment_down.html")
 	public void down(Integer commentId, HttpServletRequest request,
 			HttpServletResponse response) {
 		if (exist(commentId)) {

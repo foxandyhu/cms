@@ -4,7 +4,7 @@
    </div>
     <ul>
      [#list  tag_pagination.list as t]
-        <li><a href="${base}/tag/${t.id}.jspx">${t.name}[${t.count}]</a></li>
+        <li><a href="${base}/tag/${t.id}.html">${t.name}[${t.count}]</a></li>
      [/#list]
    	</ul>
    	<div class="pagebar">[@cms_pagination sysPage='1'/]</div>

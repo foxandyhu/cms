@@ -14,7 +14,7 @@ $(function() {
 });
 function queryStatus() {
 	$.ajax({
-        url: "${base}/content/orderQuery.jspx?orderNumber=${orderNumber!}",
+        url: "${base}/content/orderQuery.html?orderNumber=${orderNumber!}",
         type: "POST",
         dataType:"json",
         data: "",
@@ -37,9 +37,9 @@ function queryStatus() {
 <div class="w1187b">
     <div class="w1173">
     <#if type??&&type==2>
-    	<iframe src="${base}/content/alipayInMobile.jspx?contentId=${content.id!}&orderNumber=${orderNumber!}&rewardAmount=${rewardAmount!}"  width="0px" height="0px" frameborder="0" scrolling="no"></iframe>
+    	<iframe src="${base}/content/alipayInMobile.html?contentId=${content.id!}&orderNumber=${orderNumber!}&rewardAmount=${rewardAmount!}"  width="0px" height="0px" frameborder="0" scrolling="no"></iframe>
 	 <#else>
-	    <iframe src="${base}/content/alipayInMobile.jspx?contentId=${content.id!}&orderNumber=${orderNumber!}"  width="0px" height="0px" frameborder="0" scrolling="no"></iframe>
+	    <iframe src="${base}/content/alipayInMobile.html?contentId=${content.id!}&orderNumber=${orderNumber!}"  width="0px" height="0px" frameborder="0" scrolling="no"></iframe>
 	 </#if>
 	</div>
 </div>

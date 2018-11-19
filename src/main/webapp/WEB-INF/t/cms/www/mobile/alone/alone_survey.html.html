@@ -52,7 +52,7 @@ $(function() {
     [@cms_vote_list  siteId=site.id] 
     [#list tag_list as vote]
     <div class="item vote-list clearfix">
-      <a href="${base}/vote.jspx?voteId=${vote.id}">
+      <a href="${base}/vote.html?voteId=${vote.id}">
       <div class="dl-list-title survey-list-title">${vote.title?html}</div>
       <div class="dl-list-comment survey-list-date">[ [#if vote.endTime??]${vote.endTime?string("yyyy-MM-dd")}[/#if] ]</div>
       </a>

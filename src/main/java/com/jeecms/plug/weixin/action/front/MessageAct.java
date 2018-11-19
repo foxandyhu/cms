@@ -44,7 +44,7 @@ public class MessageAct {
 	 * @param model
 	 * @throws IOException 
 	 */
-	@RequestMapping(value = "/sendMessage.jspx")
+	@RequestMapping(value = "/sendMessage.html")
 	public void weixin(String signature,String timestamp,
 			String nonce,String echostr,
 			HttpServletRequest request,HttpServletResponse response, ModelMap model) throws IOException {

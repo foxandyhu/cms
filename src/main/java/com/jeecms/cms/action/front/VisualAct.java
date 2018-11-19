@@ -42,7 +42,7 @@ public class VisualAct {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/visual/getPage{tempId}.jspx", method = RequestMethod.GET)
+	@RequestMapping(value = "/visual/getPage{tempId}.html", method = RequestMethod.GET)
 	public String loadVisual(@PathVariable Integer tempId, Integer channelId,
 			Integer contentId, Integer topicId, HttpServletRequest request,
 			HttpServletResponse response, ModelMap model) {

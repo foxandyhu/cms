@@ -55,7 +55,7 @@ public class ContributeAct extends AbstractContentMemberAct {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/member/contribute_list.jspx")
+	@RequestMapping(value = "/member/contribute_list.html")
 	public String list(String queryTitle, Integer modelId,
 			Integer queryChannelId, Integer pageNo, HttpServletRequest request,
 			ModelMap model) {
@@ -70,7 +70,7 @@ public class ContributeAct extends AbstractContentMemberAct {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/member/contribute_add.jspx")
+	@RequestMapping(value = "/member/contribute_add.html")
 	public String add(HttpServletRequest request, HttpServletResponse response,
 			ModelMap model) {
 		return super.add(true, CONTRIBUTE_ADD, request, response, model);
@@ -100,7 +100,7 @@ public class ContributeAct extends AbstractContentMemberAct {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/member/contribute_save.jspx")
+	@RequestMapping(value = "/member/contribute_save.html")
 	public String save(String title, String author, String description,
 			String txt, String tagStr, Integer channelId,Integer modelId, 
 			String captcha,String mediaPath,String mediaType,
@@ -128,7 +128,7 @@ public class ContributeAct extends AbstractContentMemberAct {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/member/contribute_edit.jspx")
+	@RequestMapping(value = "/member/contribute_edit.html")
 	public String edit(Integer id, HttpServletRequest request,
 			HttpServletResponse response, ModelMap model) {
 		return super.edit(id, CONTRIBUTE_EDIT, request, response, model);
@@ -158,7 +158,7 @@ public class ContributeAct extends AbstractContentMemberAct {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/member/contribute_update.jspx")
+	@RequestMapping(value = "/member/contribute_update.html")
 	public String update(Integer id, String title, String author,
 			String description, String txt, String tagStr, Integer channelId,
 			String mediaPath,String mediaType,
@@ -189,13 +189,13 @@ public class ContributeAct extends AbstractContentMemberAct {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/member/contribute_delete.jspx")
+	@RequestMapping(value = "/member/contribute_delete.html")
 	public String delete(Integer[] ids, HttpServletRequest request,
 			String nextUrl, HttpServletResponse response, ModelMap model) {
 		return super.delete(ids, request, nextUrl, response, model);
 	}
 	
-	@RequestMapping("/member/o_upload_media.jspx")
+	@RequestMapping("/member/o_upload_media.html")
 	public String uploadMedia(
 			@RequestParam(value = "mediaFile", required = false) MultipartFile file,
 			String filename, HttpServletRequest request, ModelMap model) {
@@ -269,7 +269,7 @@ public class ContributeAct extends AbstractContentMemberAct {
 				TPLDIR_MEMBER, CONTRIBUTE_UPLOADMIDIA);
 	}
 	
-	@RequestMapping("/member/o_upload_attachment.jspx")
+	@RequestMapping("/member/o_upload_attachment.html")
 	public String uploadAttachment(
 			@RequestParam(value = "attachmentFile", required = false) MultipartFile file,
 			String attachmentNum, HttpServletRequest request, ModelMap model) {

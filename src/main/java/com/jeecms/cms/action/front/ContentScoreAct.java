@@ -17,7 +17,7 @@ import com.jeecms.common.web.ResponseUtils;
 @Controller
 public class ContentScoreAct {
 	
-	@RequestMapping(value = "/content_score_items.jspx", method = RequestMethod.GET)
+	@RequestMapping(value = "/content_score_items.html", method = RequestMethod.GET)
 	public void contentView(Integer contentId, HttpServletRequest request,
 			HttpServletResponse response) throws JSONException {
 		JSONObject json=new JSONObject();
@@ -34,7 +34,7 @@ public class ContentScoreAct {
 		ResponseUtils.renderJson(response, json.toString());
 	}
 	
-	@RequestMapping(value = "/content_score.jspx", method = RequestMethod.GET)
+	@RequestMapping(value = "/content_score.html", method = RequestMethod.GET)
 	public void contentScore(Integer contentId, Integer itemId,HttpServletRequest request,
 			HttpServletResponse response) throws JSONException {
 		JSONObject json=new JSONObject();

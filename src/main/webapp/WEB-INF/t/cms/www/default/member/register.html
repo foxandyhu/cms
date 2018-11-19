@@ -72,7 +72,7 @@
 	           }else{
 	        	   $.ajax({
 	        	        type:"POST",
-	        	        url:"${base}/sms/send_register_msg.jspx",
+	        	        url:"${base}/sms/send_register_msg.html",
 	        	         data:{
 	        	        	mobilePhone:$("#mobile").val(),
 	        	        	smsSendType:1,
@@ -116,20 +116,20 @@
 [#include "../include/top.html"/]
 [#include "../include/header.html"/] 
 <div class="register-box"> 
-  <div class="register-nav"><span>注册</span><div class="register-login">已有账号，<a class="tc" href="${base}/login.jspx">马上登录 ></a></div></div> 
-  <form id="jvForm" action="${base}/register.jspx" method="post">
+  <div class="register-nav"><span>注册</span><div class="register-login">已有账号，<a class="tc" href="${base}/login.html">马上登录 ></a></div></div>
+  <form id="jvForm" action="${base}/register.html" method="post">
   <div class="register-list">
     <ul>
-      <li><span>用户名</span><input type="text" id="username"  vld="{required:true,rangelength:[${site.usernameMinLen},20],username:true,remote:'username_unique.jspx',messages:{remote:'用户名已存在'}}" name="username" placeholder="${site.usernameMinLen}~20字符，中文字符/英文字母/数字" class="register-input" /></li>
+      <li><span>用户名</span><input type="text" id="username"  vld="{required:true,rangelength:[${site.usernameMinLen},20],username:true,remote:'username_unique.html',messages:{remote:'用户名已存在'}}" name="username" placeholder="${site.usernameMinLen}~20字符，中文字符/英文字母/数字" class="register-input" /></li>
       [#if validateType == 0]
-      <li><span>电子邮箱</span><input type="text" id="email" maxlength="30" vld="{remote:'email_unique.jspx',messages:{remote:'email已被使用！'}}" name="email" placeholder="用于找回密码" class="register-input" /></li>
+      <li><span>电子邮箱</span><input type="text" id="email" maxlength="30" vld="{remote:'email_unique.html',messages:{remote:'email已被使用！'}}" name="email" placeholder="用于找回密码" class="register-input" /></li>
       [/#if]
       [#if validateType == 2]
-      <li><span>电子邮箱</span><input type="text" id="email" maxlength="30" vld="{remote:'email_unique.jspx',messages:{remote:'email已被使用！'}}" name="email" placeholder="用于找回密码" class="register-input" /></li>
-      <li><span>手机号码</span><input type="text" id="mobile" maxlength="11" vld="{required:true,remote:'mobilePhone_unique.jspx',messages:{remote:'手机号已被使用！'}}" name="mobile" placeholder="用于找回密码" class="register-input" /></li>      
+      <li><span>电子邮箱</span><input type="text" id="email" maxlength="30" vld="{remote:'email_unique.html',messages:{remote:'email已被使用！'}}" name="email" placeholder="用于找回密码" class="register-input" /></li>
+      <li><span>手机号码</span><input type="text" id="mobile" maxlength="11" vld="{required:true,remote:'mobilePhone_unique.html',messages:{remote:'手机号已被使用！'}}" name="mobile" placeholder="用于找回密码" class="register-input" /></li>
       [/#if]
       [#if validateType == 1]
-      	<li><span>电子邮箱</span><input type="text" id="email" maxlength="30" vld="{required:true,remote:'email_unique.jspx',messages:{remote:'email已被使用！'}}" name="email" placeholder="用于找回密码" class="register-input" /></li>
+      	<li><span>电子邮箱</span><input type="text" id="email" maxlength="30" vld="{required:true,remote:'email_unique.html',messages:{remote:'email已被使用！'}}" name="email" placeholder="用于找回密码" class="register-input" /></li>
       [/#if]
       <li><span>设置密码</span><input id="password" type="password" name="loginPassword" vld="{required:true,rangelength:[${site.passwordMinLen},20]}" class="register-input" /></li>
       <li><span>确认密码</span><input type="password" equalto="#password" vld="{required:true,rangelength:[${site.passwordMinLen},20]}" class="register-input" /></li>

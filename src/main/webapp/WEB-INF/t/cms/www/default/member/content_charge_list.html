@@ -30,20 +30,20 @@ $(function() {
     <div class="memberLeft clearfix"> 
       <div class="member-nav">
         <ul>
-        <li><a href="${base}/member/index.jspx">个人资料</a></li>
-        <li><a href="${base}/member/contribute_list.jspx">投稿管理</a></li>
-        <li><a href="${base}/member/resume.jspx">应聘管理</a></li>
-        <li><a href="${base}/member/mycomments.jspx">我的评论</a></li>
-        <li><a href="${base}/member/myguestbook.jspx">我的留言</a></li>
-        <li><a href="${base}/member/collection_list.jspx">我的收藏</a></li>
-        <li><a href="${base}/member/message_mng.jspx">站内信息</a></li>
-        <li><a href="${base}/member/account.jspx" class="on">服务中心</a></li>
+        <li><a href="${base}/member/index.html">个人资料</a></li>
+        <li><a href="${base}/member/contribute_list.html">投稿管理</a></li>
+        <li><a href="${base}/member/resume.html">应聘管理</a></li>
+        <li><a href="${base}/member/mycomments.html">我的评论</a></li>
+        <li><a href="${base}/member/myguestbook.html">我的留言</a></li>
+        <li><a href="${base}/member/collection_list.html">我的收藏</a></li>
+        <li><a href="${base}/member/message_mng.html">站内信息</a></li>
+        <li><a href="${base}/member/account.html" class="on">服务中心</a></li>
         </ul>
       </div>
       <div class="member-main">
-        <div class="member-child"><a href="${base}/member/account.jspx">完善账户资料</a><a href="${base}/member/buy_list.jspx">消费记录</a><a href="${base}/member/order_list.jspx">我的订单</a><a href="${base}/member/charge_list.jspx" class="on">收益统计</a><a href="${base}/member/draw_list.jspx">提现申请</a><a href="${base}/member/weixin_auth_enter.jspx">微信授权</a></div>
+        <div class="member-child"><a href="${base}/member/account.html">完善账户资料</a><a href="${base}/member/buy_list.html">消费记录</a><a href="${base}/member/order_list.html">我的订单</a><a href="${base}/member/charge_list.html" class="on">收益统计</a><a href="${base}/member/draw_list.html">提现申请</a><a href="${base}/member/weixin_auth_enter.html">微信授权</a></div>
         <div class="member-text tggl">
-          <form id="tableForm" action="charge_list.jspx" method="post">
+          <form id="tableForm" action="charge_list.html" method="post">
           <div class="sytj">
             <select name="orderBy" class="member-change" style="height:28px; float:left;">
               <option value="1" [#if orderBy==1]selected="selected"[/#if]>总收益倒序</option>
@@ -99,7 +99,7 @@ $(function() {
                 try{
                     var tableForm = document.getElementById("tableForm");
                     $("input[name=pageNo]").val(pageNo);
-                    tableForm.action="charge_list.jspx";
+                    tableForm.action="charge_list.html";
                     tableForm.onsubmit=null;
                     tableForm.submit();
                 } catch(e) {

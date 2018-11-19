@@ -41,11 +41,11 @@ $(function() {
         [#include "member_top.html"/]
         <div class="mr-top-position">
 		     <div class="mr-top-tit fl">发布文档</div>
-		    <div class="modify fr"><a href="${base}/member/doc_list.jspx?modelId=9">文档列表</a></div>
+		    <div class="modify fr"><a href="${base}/member/doc_list.html?modelId=9">文档列表</a></div>
 		 </div>
         <div class="mc_content">   
          	[#include "doc_upload.html"/]
-            <form id="jvForm" action="doc_save.jspx" method="post">
+            <form id="jvForm" action="doc_save.html" method="post">
              <table width="98%" border="0" align="center" cellpadding="5" cellspacing="1" bgcolor="#C8DCF0" style="margin:5px;">
                <tr>
                  <td width="86" height="25" align="right" bgcolor="#f6fbff">上传文档：</td>
@@ -118,7 +118,7 @@ $(function() {
                </tr>
                <tr>
                  <td height="25" colspan="2" align="center" bgcolor="#FFFFFF">
-                 <input type="hidden" name="nextUrl" value="doc_list.jspx"/>
+                 <input type="hidden" name="nextUrl" value="doc_list.html"/>
                   <input type="hidden" name="modelId" value="9"/>
                  <input type="submit" value="提交" class="member_button"/> <input type="reset" value="重置" class="member_button"/>
                  </td>

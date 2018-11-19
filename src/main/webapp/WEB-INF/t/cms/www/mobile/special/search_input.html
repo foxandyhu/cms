@@ -22,7 +22,7 @@
         <div class="overflow clearfix apply-top border-bom">
             <a href="${base!}/" class="apply-return">返回</a>
             <h2>全文检索</h2>
-            <a href="${base}/login.jspx?returnUrl=${location}" class="apply-login2">登录</a>
+            <a href="${base}/login.html?returnUrl=${location}" class="apply-login2">登录</a>
             <a href="#" class="apply-pup">导航</a>
         </div>
         <div class="i-icon mg-auto overflow area clearfix" id="apply-pup-icon">
@@ -39,7 +39,7 @@
                     <li class="menu1">[@cms_channel id='64']<a href="${tag_bean.url}">文库</a>[/@cms_channel]</li>
                     <li class="menu2">[@cms_channel id='60']<a href="${tag_bean.url}">调查</a>[/@cms_channel]</li>
                     <li class="menu3">[@cms_channel id='61']<a href="${tag_bean.url}">招聘</a>[/@cms_channel]</li>
-                    <li class="menu4"><a href="${base}/guestbook.jspx" target="blank">留言板</a></li>
+                    <li class="menu4"><a href="${base}/guestbook.html" target="blank">留言板</a></li>
                     <li class="menu5"><a href="http://bbs.jeecms.com/" target="_blank">论坛</a></li>
                 </ul>
             </nav>
@@ -50,7 +50,7 @@
     
     <div class="about-con-main" style="height:300px;">
         <div class="res" style="margin-top:25px;">
-            <form action="${base}/search.jspx" target="_blank" id="searchForm">
+            <form action="${base}/search.html" target="_blank" id="searchForm">
             <input name="q" value="${oldq!'关键字'}" type="text" onfocus="if(this.value=='关键字')this.value=''"  onkeypress="qkeypress()" onblur="if(this.value=='')this.value='关键字'"  maxlength="50" autocomplete="off" class="pxui-select" / style="width:50%;">
             <input type="submit" value="  搜  索   " class="pxui-light-button" style="color:#fff;">
             </form>

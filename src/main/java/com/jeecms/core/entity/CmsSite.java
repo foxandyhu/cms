@@ -1430,7 +1430,7 @@ public class CmsSite implements Serializable {
             setAfterCheck((byte) 3);
         }
         if (StringUtils.isBlank(getDynamicSuffix())) {
-            setDynamicSuffix(".jhtml");
+            setDynamicSuffix(".html");
         }
         if (StringUtils.isBlank(getStaticSuffix())) {
             setStaticSuffix(".html");
