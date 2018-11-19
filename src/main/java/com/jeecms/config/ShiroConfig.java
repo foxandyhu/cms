@@ -125,7 +125,7 @@ public class ShiroConfig {
             {
                 put("/login.html", "authc");
                 put("/logout.html", "logout");
-                put("/jeeadmin/**", "authc");
+//                put("/jeeadmin/**", "user");
                 put("/member/forgot_password.html", "anon");
                 put("/member/password_reset.html", "anon");
                 put("/member/jobapply.html", "anon");

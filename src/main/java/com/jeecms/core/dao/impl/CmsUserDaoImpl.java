@@ -20,7 +20,7 @@ public class CmsUserDaoImpl extends HibernateBaseDao<CmsUser, Integer>
 			String realName,Integer roleId,Boolean allChannel,
 			Boolean allControlChannel,int pageNo,
 			int pageSize) {
-		Finder f = Finder.create("select bean from CmsUser bean join bean.userExtSet ext ");
+		Finder f = Finder.create("select bean from CmsUser bean join bean.userExt ext ");
 		if (siteId != null||allChannel!=null||allControlChannel!=null) {
 			f.append(" join bean.userSites userSite");
 		}

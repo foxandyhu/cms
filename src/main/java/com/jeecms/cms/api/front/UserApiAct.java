@@ -40,6 +40,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -52,7 +53,12 @@ import java.util.Map;
 
 @Controller("frontUserApiAct")
 public class UserApiAct {
-	
+
+	@GetMapping(value = "/admin/index.html")
+	public String index(){
+		return "/jeeadmin/jeecms/index.html";
+	}
+
 	/**
 	 * 添加会员用户
 	 * @param username 用户名   必选

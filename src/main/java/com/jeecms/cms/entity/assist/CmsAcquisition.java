@@ -635,19 +635,19 @@ public class CmsAcquisition implements Serializable {
     /**
      * 发布时间开始
      */
-    @Column(name = "releaseTime_start")
+    @Column(name = "release_time_start")
     private String releaseTimeStart;
 
     /**
      * 发布时间结束
      */
-    @Column(name = "releaseTime_end")
+    @Column(name = "release_time_end")
     private String releaseTimeEnd;
 
     /**
      * 发布时间格式
      */
-    @Column(name = "releaseTime_format")
+    @Column(name = "release_time_format")
     private String releaseTimeFormat;
 
     /**

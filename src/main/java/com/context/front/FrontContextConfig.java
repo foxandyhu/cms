@@ -1,5 +1,6 @@
 package com.context.front;
 
+import com.jeecms.common.web.springmvc.BindingInitializer;
 import freemarker.template.SimpleHash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,6 +22,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 import org.springframework.web.servlet.handler.SimpleUrlHandlerMapping;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import org.springframework.web.servlet.resource.DefaultServletHttpRequestHandler;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
@@ -98,6 +100,18 @@ public class FrontContextConfig extends WebMvcConfigurerAdapter {
         return handlerMapping;
     }
 
+    @Bean
+    public BindingInitializer bindingInitializer() {
+        return new BindingInitializer();
+    }
+
+    @Bean
+    public RequestMappingHandlerAdapter requestMappingHandlerAdapter(BindingInitializer bindingInitializer) {
+        RequestMappingHandlerAdapter adapter = new RequestMappingHandlerAdapter();
+        adapter.setWebBindingInitializer(bindingInitializer);
+        return adapter;
+    }
+
     /**
      * 当前端表单提交类型是enctype="multipart/form-data"时 HttpServletRequest
      * 获取不到数据，启用该bean即可
@@ -119,6 +133,7 @@ public class FrontContextConfig extends WebMvcConfigurerAdapter {
         FreeMarkerConfigurer config = context.getBean(FreeMarkerConfigurer.class);
         Map<String, Object> map = new HashMap<String, Object>(15) {
             private static final long serialVersionUID = 723383891389861471L;
+
             {
                 for (String key : directives) {
                     Object obj = context.getBean(key);
