@@ -18,7 +18,8 @@ import java.io.Serializable;
 public class CmsCommentExt implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Column(name = "comment_id")
+    @Id
+    @Column(name = "comment_id",unique = true,nullable = false)
     private Integer id;
 
     /**
@@ -39,8 +40,8 @@ public class CmsCommentExt implements Serializable {
     @Column(name = "reply")
     private String reply;
 
-    @Id
     @OneToOne
+    @MapsId
     @JoinColumn(name = "comment_id")
     private CmsComment comment;
 

@@ -17,7 +17,8 @@ import java.io.Serializable;
 public class ChannelCount implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Column(name = "channel_id")
+    @Id
+    @Column(name = "channel_id",unique = true,nullable = false)
     private Integer id;
 
     /**
@@ -74,8 +75,8 @@ public class ChannelCount implements Serializable {
     @Column(name = "content_count_total")
     private Integer contentTotal;
 
-    @Id
     @OneToOne
+    @MapsId
     @JoinColumn(name = "channel_id")
     private Channel channel;
 

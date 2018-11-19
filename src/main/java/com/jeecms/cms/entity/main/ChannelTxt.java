@@ -24,7 +24,8 @@ public class ChannelTxt implements Cloneable, Serializable {
         blankToNull();
     }
 
-    @Column(name = "channel_id")
+    @Id
+    @Column(name = "channel_id",unique = true,nullable = false)
     private Integer id;
 
     /**
@@ -51,8 +52,8 @@ public class ChannelTxt implements Cloneable, Serializable {
     @Column(name = "txt3")
     private String txt3;
 
-    @Id
     @OneToOne
+    @MapsId
     @JoinColumn(name = "channel_id")
     private Channel channel;
 

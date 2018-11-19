@@ -23,6 +23,7 @@ import java.util.Date;
 public class CmsUserResume implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @Id
     @Column(name = "user_id")
     private Integer id;
 
@@ -134,9 +135,9 @@ public class CmsUserResume implements Serializable {
     @Column(name = "self_evaluation")
     private String selfEvaluation;
 
-    @Id
     @OneToOne
-    @JoinColumn(name = "user_id")
+    @MapsId
+    @JoinColumn(name = "user_id",unique = true,nullable = false)
     private CmsUser user;
 
     public Integer getId() {

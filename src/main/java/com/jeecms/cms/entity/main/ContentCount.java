@@ -75,7 +75,8 @@ public class ContentCount implements Serializable {
         }
     }
 
-    @Column(name = "content_id")
+    @Id
+    @Column(name = "content_id",unique = true,nullable = false)
     private Integer id;
 
     /**
@@ -180,8 +181,8 @@ public class ContentCount implements Serializable {
     @Column(name = "downs")
     private Integer downs;
 
-    @Id
     @OneToOne
+    @MapsId
     @JoinColumn(name = "content_id")
     private Content content;
 

@@ -285,7 +285,7 @@ public class Content implements ContentInterface, Serializable {
 
 
     @ElementCollection
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE,region = "beanCache")
     @CollectionTable(name = "jc_content_attr", joinColumns = @JoinColumn(name = "content_id"))
     @MapKeyColumn(name = "attr_name")
     @Column(name = "attr_value")

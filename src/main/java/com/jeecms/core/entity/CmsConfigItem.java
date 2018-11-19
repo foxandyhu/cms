@@ -51,9 +51,9 @@ public class CmsConfigItem implements Serializable {
     private Integer priority;
 
     /**
-     * def_value
+     * 默认值
      */
-    @Column(name = "默认值")
+    @Column(name = "def_value")
     private String defValue;
 
     /**

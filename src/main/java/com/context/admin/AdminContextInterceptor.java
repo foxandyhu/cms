@@ -38,7 +38,6 @@ public class AdminContextInterceptor extends HandlerInterceptorAdapter {
 	
 	public static final String SITE_PARAM = "_site_id_param";
 	public static final String SITE_COOKIE = "_site_id_cookie";
-	public static final String SITE_PATH_PARAM = "path";
 	public static final String PERMISSION_MODEL = "_permission_key";
 	/**
 	 * 是否开启单点认证
@@ -277,20 +276,20 @@ public class AdminContextInterceptor extends HandlerInterceptorAdapter {
 		}
 		return userPermission;
 	}
+
 	@Autowired
 	private CmsSiteMng cmsSiteMng;
 	@Autowired
 	private CmsUserMng cmsUserMng;
-	private boolean auth = true;
-	private String[] excludeUrls;
 	
 	@Autowired
 	private CmsAuthorizingRealm authorizingRealm;
 
+	private boolean auth = true;
+	private String[] excludeUrls;
 	public void setAuth(boolean auth) {
 		this.auth = auth;
 	}
-
 	public void setExcludeUrls(String[] excludeUrls) {
 		this.excludeUrls = excludeUrls;
 	}

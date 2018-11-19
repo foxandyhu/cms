@@ -26,7 +26,8 @@ public class ContentCharge implements Serializable {
     public static final Short MODEL_CHARGE = 1;
     public static final Short MODEL_REWARD = 2;
 
-    @Column(name = "content_id")
+    @Id
+    @Column(name = "content_id",unique = true,nullable = false)
     private Integer id;
 
     /**
@@ -89,8 +90,8 @@ public class ContentCharge implements Serializable {
     @Column(name = "reward_pattern")
     private Boolean rewardPattern;
 
-    @Id
     @OneToOne
+    @MapsId
     @JoinColumn(name = "content_id")
     private Content content;
 

@@ -118,7 +118,8 @@ public class ContentTxt implements Serializable {
                 && StringUtils.isBlank(getTxt3());
     }
 
-    @Column(name = "content_id")
+    @Id
+    @Column(name = "content_id",unique = true,nullable = false)
     private Integer id;
 
     /**
@@ -145,8 +146,8 @@ public class ContentTxt implements Serializable {
     @Column(name = "txt3")
     private String txt3;
 
-    @Id
     @OneToOne
+    @MapsId
     @JoinColumn(name = "content_id")
     private Content content;
 

@@ -89,7 +89,8 @@ public class ContentExt implements Serializable {
         }
     }
 
-    @Column(name = "content_id")
+    @Id
+    @Column(name = "content_id",unique = true,nullable = false)
     private Integer id;
 
     /**
@@ -212,8 +213,8 @@ public class ContentExt implements Serializable {
     @Column(name = "pigeonhole_date")
     private Date pigeonholeDate;
 
-    @Id
     @OneToOne
+    @MapsId
     @JoinColumn(name = "content_id")
     private Content content;
 

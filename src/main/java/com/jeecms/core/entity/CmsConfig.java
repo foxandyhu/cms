@@ -657,7 +657,7 @@ public class CmsConfig implements Serializable {
     }
 
     public void init() {
-        if (getUploadToDb()==null) {
+        if (getUploadToDb() == null) {
             setUploadToDb(false);
         }
     }

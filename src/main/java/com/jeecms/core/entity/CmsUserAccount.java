@@ -21,7 +21,8 @@ public class CmsUserAccount implements Serializable {
 
     public static final byte DRAW_WEIXIN = 0;
 
-    @Column(name = "user_id")
+    @Id
+    @Column(name = "user_id",unique = true,nullable = false)
     private Integer id;
 
     /**
@@ -102,8 +103,8 @@ public class CmsUserAccount implements Serializable {
     @Column(name = "draw_account")
     private Short drawAccount;
 
-    @Id
     @OneToOne
+    @MapsId
     @JoinColumn(name = "user_id")
     private CmsUser user;
 

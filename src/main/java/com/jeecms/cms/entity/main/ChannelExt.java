@@ -39,7 +39,8 @@ public class ChannelExt implements Cloneable, Serializable {
      */
     public static final int COMMENT_LOGIN_MANY = 3;
 
-    @Column(name = "channel_id")
+    @Id
+    @Column(name = "channel_id",unique = true,nullable = false)
     private Integer id;
 
     /**
@@ -222,8 +223,8 @@ public class ChannelExt implements Cloneable, Serializable {
     @Column(name = "description")
     private String description;
 
-    @Id
     @OneToOne
+    @MapsId
     @JoinColumn(name = "channel_id")
     private Channel channel;
 

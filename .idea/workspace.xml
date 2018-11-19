@@ -2,26 +2,35 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2f3edc67-cc8f-4618-a901-7cdf459bae87" name="Default Changelist" comment="代码优化">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/config/ServletContextRealPathResolver1.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/web/FireWallProperty.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/context/admin/AdminApiInterceptor.java" afterPath="$PROJECT_DIR$/src/main/java/com/context/admin/AdminApiInterceptor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/context/front/FrontContextConfig.java" afterPath="$PROJECT_DIR$/src/main/java/com/context/front/FrontContextConfig.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/UeditorAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/UeditorAct.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/admin/assist/MysqlDataApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/admin/assist/MysqlDataApiAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/context/admin/AdminContextInterceptor.java" afterPath="$PROJECT_DIR$/src/main/java/com/context/admin/AdminContextInterceptor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/Constants.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/Constants.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/admin/main/CmsFireWallConfigApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/admin/main/CmsFireWallConfigApiAct.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/admin/main/ContentApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/admin/main/ContentApiAct.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/front/SearchApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/front/SearchApiAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsCommentExt.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsCommentExt.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsGuestbookExt.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsGuestbookExt.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/Channel.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/Channel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ChannelCount.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ChannelCount.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ChannelExt.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ChannelExt.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ChannelTxt.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ChannelTxt.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/Content.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/Content.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/lucene/LuceneContentSvcImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/lucene/LuceneContentSvcImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/lucene/LuceneDirectiveList.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/lucene/LuceneDirectiveList.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/lucene/LuceneDirectivePage.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/lucene/LuceneDirectivePage.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsResourceMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsResourceMngImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/service/ContentCodeListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/service/ContentCodeListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/service/WeiXinSvcImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/service/WeiXinSvcImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/config/ContextConfig.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/config/ContextConfig.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/config/ServletContextRealPathResolver.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/config/ServletContextRealPathResolver.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/config/ShiroConfig.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/config/ShiroConfig.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/tpl/FileTplManagerImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/tpl/FileTplManagerImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ContentCharge.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ContentCharge.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ContentCheck.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ContentCheck.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ContentCount.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ContentCount.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ContentExt.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ContentExt.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ContentTxt.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ContentTxt.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/dao/impl/CmsConfigItemDaoImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/dao/impl/CmsConfigItemDaoImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsConfig.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsConfig.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsConfigItem.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsConfigItem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsSiteCompany.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsSiteCompany.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsUserAccount.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsUserAccount.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsUserExt.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsUserExt.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsUserResume.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsUserResume.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/core/servlet/FireWallInterceptor.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/core/servlet/FireWallInterceptor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeecms/plug/weixin/entity/Weixin.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeecms/plug/weixin/entity/Weixin.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/ehcache.xml" afterPath="$PROJECT_DIR$/src/main/resources/ehcache.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/firewall.properties" afterPath="$PROJECT_DIR$/src/main/resources/firewall.properties" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -94,7 +103,7 @@
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -105,36 +114,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>setRealp</find>
-      <find>setreso</find>
-      <find>InitializingBean</find>
-      <find>resourcemng</find>
-      <find>setcmssi</find>
-      <find>CmsUserSiteMng</find>
-      <find>AdminContextInterceptor</find>
-      <find>//aa</find>
-      <find>cmssitemng</find>
-      <find>cmsfire</find>
-      <find>CmsResourceMng</find>
-      <find>CmsSiteMng</find>
-      <find>///aaa</find>
-      <find>//aaa</find>
-      <find>//aaaa</find>
-      <find>///</find>
-      <find>lifecycleBeanPostProcessor</find>
-      <find>DefaultAdvisorAutoProxyCreator `</find>
-      <find>shiro</find>
-      <find>shiro`</find>
-      <find>org.apache.shiro.web.</find>
-      <find>DefaultAdvisorAutoProxyCreator</find>
-      <find>CredentialsMatcher</find>
-      <find>spring-boot-starter-aop</find>
-      <find>RequiresPermissions</find>
-      <find>aop</find>
-      <find>targetFilterLifecycle</find>
-      <find>shiroEhcacheManager</find>
-      <find>myServletRealPathResolver</find>
-      <find>df</find>
+      <find>`</find>
+      <find>FIREWALL_CONFIG_LASTMODIFIED</find>
+      <find>fireWallConfigFile</find>
+      <find>changeConfigModifiedTime</find>
+      <find>SITE_PATH_PARAM</find>
+      <find>PERMISSION_MODEL</find>
+      <find>firewall</find>
+      <find>ConfigurationProperties</find>
+      <find>apiAccountMng</find>
+      <find>property_firewall_domain</find>
+      <find>property_firewall_open</find>
+      <find>默认值</find>
+      <find>com.jeecms.cms.shiro.shiroCache</find>
+      <find>from CmsConfigItem</find>
+      <find>child</find>
+      <find>Channel</find>
+      <find>Content</find>
+      <find>firewall.properties</find>
+      <find>validatePassword</find>
+      <find>message</find>
+      <find>FIREWALL_CONFIGPATH</find>
+      <find>CLASS_ERROR_CODE</find>
+      <find>``</find>
+      <find>RES_BACK_PATH</find>
+      <find>LIBRARY_SUFFIX</find>
+      <find>QQWry.Dat</find>
+      <find>classes.</find>
+      <find>.properties</find>
+      <find>store.properties</find>
+      <find>weixin.properties</find>
     </findStrings>
     <dirStrings>
       <dir>G:\Develop\JEE\cms\src\main\java\com\jeecms\plug</dir>
@@ -147,46 +156,19 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ContentCheckMngImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ContentChargeMngImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ContentBuyMngImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/CmsTopicMngImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/CmsThirdAccountMngImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/CmsModelMngImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/CmsModelItemMngImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ContentTypeMngImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ContentTxtMngImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ContentTagMngImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ContentRecordMngImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/service/AcquisitionSvcImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/service/ChannelCountCacheImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/service/ContentCountCacheImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/statistic/workload/CmsWorkLoadStatisticAct.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/front/SearchApiAct.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/WeiXinAuthAct.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/admin/assist/MysqlDataApiAct.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/admin/assist/CmsAccountPayApiAct.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/lucene/LuceneContentSvcImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/admin/main/ContentApiAct.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/lucene/LuceneDirectiveList.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/service/WeiXinSvcImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/member/UeditorAct.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/lucene/LuceneDirectivePage.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/admin/assist/CmsFileApiAct.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/core/servlet/FireWallInterceptor.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsResourceMngImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/CmsUserMngImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/action/directive/abs/AbstractContentDirective.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/context/admin/AdminContextInterceptor.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/context/admin/AdminContextConfig.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/context/admin/AdminApiInterceptor.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/context/admin/AdminCorsConfigurerAdapter.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/context/front/FrontContextInterceptor.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/context/front/FrontLocaleInterceptor.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/context/member/MemberApiInterceptor.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/context/member/MemberContextConfig.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/context/member/MemberCorsConfigurerAdapter.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/admin/main/CmsFireWallConfigApiAct.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jeecms/config/SchedulConfig.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/staticpage/StaticPageSvcImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/CmsSiteMngImpl.java" />
@@ -197,7 +179,34 @@
         <option value="$PROJECT_DIR$/src/main/java/com/jeecms/config/ApplicationConfig.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/context/front/FrontContextConfig.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jeecms/config/ContextConfig.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsGuestbookExt.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ContentTxt.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ContentCharge.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/plug/weixin/entity/Weixin.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsUserResume.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ChannelCount.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsUserExt.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ChannelTxt.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsSiteCompany.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ContentExt.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsUserAccount.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ChannelExt.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsCommentExt.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ContentCheck.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ContentCount.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/firewall.properties" />
+        <option value="$PROJECT_DIR$/src/main/java/com/context/admin/AdminApiInterceptor.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/core/servlet/FireWallInterceptor.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/context/admin/AdminContextInterceptor.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsConfig.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsConfigItem.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/ehcache.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/core/dao/impl/CmsConfigItemDaoImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/Channel.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/Content.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/Constants.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/admin/main/CmsFireWallConfigApiAct.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecms/core/web/FireWallProperty.java" />
       </list>
     </option>
   </component>
@@ -357,6 +366,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="Scratches">
         <subPane>
           <expand>
@@ -373,6 +383,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -411,76 +422,12 @@
               <item name="cms" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="context" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="jeecmsv9f" type="b2602c69:ProjectViewProjectNode" />
-              <item name="cms" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="context" type="462c0819:PsiDirectoryNode" />
-              <item name="front" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="jeecmsv9f" type="b2602c69:ProjectViewProjectNode" />
-              <item name="cms" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="jeecms" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="jeecmsv9f" type="b2602c69:ProjectViewProjectNode" />
-              <item name="cms" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="jeecms" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="jeecmsv9f" type="b2602c69:ProjectViewProjectNode" />
-              <item name="cms" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="jeecmsv9f" type="b2602c69:ProjectViewProjectNode" />
-              <item name="cms" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="jeecmsv9f" type="b2602c69:ProjectViewProjectNode" />
-              <item name="cms" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp" type="462c0819:PsiDirectoryNode" />
-              <item name="jeeadmin" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="jeecmsv9f" type="b2602c69:ProjectViewProjectNode" />
-              <item name="cms" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp" type="462c0819:PsiDirectoryNode" />
-              <item name="jeeadmin" type="462c0819:PsiDirectoryNode" />
-              <item name="jeecms" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -493,7 +440,7 @@
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://G:/创业/cms/src/main/resources/classes-error.properties" />
+    <property name="SearchEverywhereHistoryKey" value="DaoSupport&#9;PSI&#9;JAVA://org.springframework.dao.support.DaoSupport&#10;ContentCount&#9;PSI&#9;JAVA://com.jeecms.cms.entity.main.ContentCount&#10;ContentCheck&#9;PSI&#9;JAVA://com.jeecms.cms.entity.main.ContentCheck&#10;CmsCommentEx&#9;PSI&#9;JAVA://com.jeecms.cms.entity.assist.CmsCommentExt&#10;ChannelExt&#9;PSI&#9;JAVA://com.jeecms.cms.entity.main.ChannelExt&#10;CmsUserAccount&#9;PSI&#9;JAVA://com.jeecms.core.entity.CmsUserAccount&#10;ContentExt&#9;PSI&#9;JAVA://com.jeecms.cms.entity.main.ContentExt&#10;ContentCharge&#9;FILE&#9;file://G:/创业/cms/src/main/java/com/jeecms/cms/entity/main/ContentCharge.java&#10;ChannelTxt&#9;FILE&#9;file://G:/创业/cms/src/main/java/com/jeecms/cms/entity/main/ChannelTxt.java&#10;CmsUserExt&#9;FILE&#9;file://G:/创业/cms/src/main/java/com/jeecms/core/entity/CmsUserExt.java&#10;ChannelCount&#9;FILE&#9;file://G:/创业/cms/src/main/java/com/jeecms/cms/entity/main/ChannelCount.java&#10;CmsSiteCompany&#9;PSI&#9;JAVA://com.jeecms.core.entity.CmsSiteCompany&#10;Weixin&#9;FILE&#9;file://G:/创业/cms/src/main/java/com/jeecms/plug/weixin/entity/Weixin.java&#10;CmsUserResume&#9;PSI&#9;JAVA://com.jeecms.core.entity.CmsUserResume&#10;ContentTxt&#9;PSI&#9;JAVA://com.jeecms.cms.entity.main.ContentTxt" />
     <property name="RequestMappingsPanelWidth0" value="75" />
     <property name="RequestMappingsPanelOrder0" value="0" />
     <property name="RequestMappingsPanelWidth1" value="75" />
@@ -746,7 +693,8 @@
       <workItem from="1542523668559" duration="46000" />
       <workItem from="1542525184283" duration="49000" />
       <workItem from="1542525243970" duration="628000" />
-      <workItem from="1542525975596" duration="22139000" />
+      <workItem from="1542525975596" duration="22196000" />
+      <workItem from="1542590784782" duration="13658000" />
     </task>
     <task id="LOCAL-00001" summary="代码优化">
       <created>1542355815388</created>
@@ -769,11 +717,18 @@
       <option name="project" value="LOCAL" />
       <updated>1542547798103</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="代码优化">
+      <created>1542550156721</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1542550156721</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="194229000" />
+    <option name="totallyTimeSpent" value="207944000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -798,7 +753,7 @@
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32784185" sideWeight="0.4969743" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1785174" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22390318" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32980332" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32980332" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -806,7 +761,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.24962178" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5107084" sideWeight="0.4969743" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.56672156" sideWeight="0.4969743" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32980332" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -952,428 +907,213 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/context/admin/AdminContextConfig.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ChannelTxt.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="19" column="2" lean-forward="true" selection-start-line="19" selection-start-column="2" selection-end-line="19" selection-end-column="2" />
+        <state relative-caret-position="86">
+          <caret line="27" column="62" lean-forward="false" selection-start-line="27" selection-start-column="62" selection-end-line="27" selection-end-column="62" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/context/admin/AdminApiInterceptor.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ContentCharge.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="363">
-          <caret line="60" column="0" lean-forward="false" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="6" />
+        <state relative-caret-position="2297">
+          <caret line="95" column="7" lean-forward="true" selection-start-line="95" selection-start-column="7" selection-end-line="95" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/context/admin/AdminContextInterceptor.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsSiteCompany.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="35" column="25" lean-forward="false" selection-start-line="35" selection-start-column="25" selection-end-line="35" selection-end-column="25" />
+        <state relative-caret-position="152">
+          <caret line="81" column="11" lean-forward="false" selection-start-line="81" selection-start-column="11" selection-end-line="81" selection-end-column="11" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/context/admin/AdminCorsConfigurerAdapter.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/plug/weixin/entity/Weixin.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="15" column="3" lean-forward="true" selection-start-line="15" selection-start-column="3" selection-end-line="15" selection-end-column="3" />
+        <state relative-caret-position="-495">
+          <caret line="23" column="3" lean-forward="false" selection-start-line="23" selection-start-column="3" selection-end-line="23" selection-end-column="3" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/context/admin/AdminLocaleInterceptor.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsUserAccount.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="61" column="5" lean-forward="true" selection-start-line="61" selection-start-column="5" selection-end-line="61" selection-end-column="5" />
+        <state relative-caret-position="168">
+          <caret line="106" column="11" lean-forward="false" selection-start-line="106" selection-start-column="11" selection-end-line="106" selection-end-column="11" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/context/admin/HandlerApiExceptionResolver.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ContentExt.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="363">
-          <caret line="43" column="13" lean-forward="true" selection-start-line="43" selection-start-column="13" selection-end-line="43" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/context/front/FrontLocaleInterceptor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="22" column="6" lean-forward="false" selection-start-line="22" selection-start-column="6" selection-end-line="22" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/context/front/TokenInterceptor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="53" column="12" lean-forward="false" selection-start-line="53" selection-start-column="12" selection-end-line="53" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/context/member/MemberApiInterceptor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="44" column="6" lean-forward="false" selection-start-line="44" selection-start-column="6" selection-end-line="44" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/context/member/MemberContextConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="217">
-          <caret line="22" column="14" lean-forward="false" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/context/member/MemberCorsConfigurerAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="20" column="6" lean-forward="false" selection-start-line="20" selection-start-column="6" selection-end-line="20" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/admin/main/CmsAdminGlobalApiAct.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="99">
-          <caret line="36" column="0" lean-forward="true" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/admin/main/CmsAdminAbstractApi.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="25" column="25" lean-forward="false" selection-start-line="25" selection-start-column="25" selection-end-line="25" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/admin/main/CmsFireWallConfigApiAct.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="178" column="4" lean-forward="false" selection-start-line="178" selection-start-column="4" selection-end-line="178" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsResourceMngImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="107">
-          <caret line="29" column="45" lean-forward="true" selection-start-line="29" selection-start-column="45" selection-end-line="29" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/admin/assist/WeixinApiAct.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="93" column="14" lean-forward="true" selection-start-line="93" selection-start-column="14" selection-end-line="93" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/plug/weixin/action/admin/WeixinAct.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="70">
-          <caret line="124" column="4" lean-forward="false" selection-start-line="124" selection-start-column="4" selection-end-line="124" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/config/SchedulConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/core/manager/impl/CmsSiteMngImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="158" column="14" lean-forward="true" selection-start-line="158" selection-start-column="14" selection-end-line="158" selection-end-column="14" />
+        <state relative-caret-position="168">
+          <caret line="218" column="28" lean-forward="true" selection-start-line="218" selection-start-column="28" selection-end-line="218" selection-end-column="28" />
           <folding>
-            <element signature="imports" expanded="false" />
+            <element signature="method#getStitle#0;class#ContentExt#0" expanded="false" />
+            <element signature="method#init#0;class#ContentExt#0" expanded="false" />
+            <element signature="method#blankToNull#0;class#ContentExt#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/assist/impl/CmsGuestbookMngImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="121" column="0" lean-forward="true" selection-start-line="121" selection-start-column="0" selection-end-line="121" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/member/ContentApiAct.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="803" column="36" lean-forward="true" selection-start-line="803" selection-start-column="36" selection-end-line="803" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/staticpage/StaticPageSvcImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="271">
-          <caret line="285" column="4" lean-forward="false" selection-start-line="285" selection-start-column="4" selection-end-line="285" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/config/CaptchaConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="90" column="4" lean-forward="true" selection-start-line="90" selection-start-column="4" selection-end-line="90" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/springframework/spring-context/4.3.9.RELEASE/spring-context-4.3.9.RELEASE-sources.jar!/org/springframework/context/annotation/Configuration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="103">
-          <caret line="402" column="11" lean-forward="true" selection-start-line="402" selection-start-column="11" selection-end-line="402" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/core/tpl/FileTplManagerImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="175" column="0" lean-forward="true" selection-start-line="175" selection-start-column="0" selection-end-line="175" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/apache/shiro/shiro-spring/1.3.0/shiro-spring-1.3.0-sources.jar!/org/apache/shiro/spring/LifecycleBeanPostProcessor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="133" column="38" lean-forward="true" selection-start-line="133" selection-start-column="38" selection-end-line="133" selection-end-column="38" />
-          <folding>
-            <element signature="method#postProcessBeforeInitialization#0;class#LifecycleBeanPostProcessor#0" expanded="false" />
-            <element signature="method#postProcessAfterInitialization#0;class#LifecycleBeanPostProcessor#0" expanded="false" />
-            <element signature="method#postProcessBeforeDestruction#0;class#LifecycleBeanPostProcessor#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/springframework/spring-aop/4.3.9.RELEASE/spring-aop-4.3.9.RELEASE-sources.jar!/org/springframework/aop/support/StaticMethodMatcher.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="26" column="22" lean-forward="false" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/springframework/spring-aop/4.3.9.RELEASE/spring-aop-4.3.9.RELEASE-sources.jar!/org/springframework/aop/support/StaticMethodMatcherPointcut.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
-          <caret line="34" column="55" lean-forward="true" selection-start-line="34" selection-start-column="55" selection-end-line="34" selection-end-column="55" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/springframework/spring-aop/4.3.9.RELEASE/spring-aop-4.3.9.RELEASE-sources.jar!/org/springframework/aop/support/StaticMethodMatcherPointcutAdvisor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
-          <caret line="37" column="0" lean-forward="true" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/apache/shiro/shiro-spring/1.3.0/shiro-spring-1.3.0-sources.jar!/org/apache/shiro/spring/security/interceptor/AuthorizationAttributeSourceAdvisor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
-          <caret line="39" column="40" lean-forward="false" selection-start-line="39" selection-start-column="40" selection-end-line="39" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/springframework/spring-beans/4.3.9.RELEASE/spring-beans-4.3.9.RELEASE-sources.jar!/org/springframework/beans/factory/support/AbstractAutowireCapableBeanFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="408" column="0" lean-forward="false" selection-start-line="408" selection-start-column="0" selection-end-line="408" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/springframework/spring-web/4.3.9.RELEASE/spring-web-4.3.9.RELEASE-sources.jar!/org/springframework/web/context/support/ServletContextAwareProcessor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="102" column="0" lean-forward="false" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/springframework/spring-aop/4.3.9.RELEASE/spring-aop-4.3.9.RELEASE-sources.jar!/org/springframework/aop/framework/autoproxy/DefaultAdvisorAutoProxyCreator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="102" column="0" lean-forward="true" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/springframework/spring-aop/4.3.9.RELEASE/spring-aop-4.3.9.RELEASE-sources.jar!/org/springframework/aop/framework/ProxyConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="54" column="34" lean-forward="true" selection-start-line="54" selection-start-column="34" selection-end-line="54" selection-end-column="34" />
-          <folding>
-            <element signature="e#2075#2076#0" expanded="false" />
-            <element signature="e#2122#2123#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/springframework/spring-context/4.3.9.RELEASE/spring-context-4.3.9.RELEASE-sources.jar!/org/springframework/context/annotation/Bean.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="292">
-          <caret line="253" column="27" lean-forward="false" selection-start-line="253" selection-start-column="27" selection-end-line="253" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/springframework/boot/spring-boot-autoconfigure/1.5.4.RELEASE/spring-boot-autoconfigure-1.5.4.RELEASE-sources.jar!/org/springframework/boot/autoconfigure/condition/ConditionalOnMissingBean.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="292">
-          <caret line="69" column="7" lean-forward="true" selection-start-line="69" selection-start-column="7" selection-end-line="69" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="67" column="21" lean-forward="true" selection-start-line="64" selection-start-column="8" selection-end-line="67" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/core/security/CmsUserFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-401">
-          <caret line="15" column="13" lean-forward="false" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/freemarker/freemarker/2.3.26-incubating/freemarker-2.3.26-incubating-sources.jar!/freemarker/cache/FileTemplateLoader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="99">
-          <caret line="156" column="35" lean-forward="false" selection-start-line="156" selection-start-column="35" selection-end-line="156" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/config/ServletContextRealPathResolver1.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ChannelExt.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="185">
-          <caret line="9" column="12" lean-forward="false" selection-start-line="9" selection-start-column="12" selection-end-line="9" selection-end-column="12" />
+          <caret line="42" column="62" lean-forward="false" selection-start-line="42" selection-start-column="31" selection-end-line="42" selection-end-column="62" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/core/security/CmsAuthorizingRealm.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/assist/CmsCommentExt.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="76" column="36" lean-forward="true" selection-start-line="76" selection-start-column="36" selection-end-line="76" selection-end-column="36" />
+        <state relative-caret-position="845">
+          <caret line="43" column="11" lean-forward="false" selection-start-line="43" selection-start-column="11" selection-end-line="43" selection-end-column="11" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/config/ShiroConfig.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ContentCheck.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2075">
-          <caret line="107" column="0" lean-forward="false" selection-start-line="107" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
+        <state relative-caret-position="119">
+          <caret line="105" column="11" lean-forward="true" selection-start-line="105" selection-start-column="11" selection-end-line="105" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/ContentCount.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="182" column="0" lean-forward="true" selection-start-line="182" selection-start-column="0" selection-end-line="182" selection-end-column="0" />
           <folding>
-            <element signature="method#delegatingFilterProxy#0;class#ShiroConfig#0" expanded="false" />
-            <element signature="method#userFilter#0;class#ShiroConfig#0" expanded="false" />
+            <element signature="method#init#0;class#ContentCount#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/context/front/FrontContextInterceptor.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/common/image/ImageScaleImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="163" column="36" lean-forward="true" selection-start-line="163" selection-start-column="36" selection-end-line="163" selection-end-column="36" />
+        <state relative-caret-position="99">
+          <caret line="81" column="21" lean-forward="false" selection-start-line="81" selection-start-column="21" selection-end-line="81" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/springframework/spring-beans/4.3.9.RELEASE/spring-beans-4.3.9.RELEASE-sources.jar!/org/springframework/beans/factory/DisposableBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="358">
+          <caret line="44" column="0" lean-forward="true" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/config/ServletContextRealPathResolver.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="99">
+          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/web/PermistionDirective.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="259">
+          <caret line="27" column="20" lean-forward="false" selection-start-line="27" selection-start-column="20" selection-end-line="27" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/springframework/spring-context/4.3.9.RELEASE/spring-context-4.3.9.RELEASE-sources.jar!/org/springframework/context/annotation/PropertySource.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="358">
+          <caret line="175" column="33" lean-forward="true" selection-start-line="175" selection-start-column="33" selection-end-line="175" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/javassist/javassist/3.21.0-GA/javassist-3.21.0-GA.jar!/javassist/URLClassPath.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-401">
+          <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/javassist/javassist/3.21.0-GA/javassist-3.21.0-GA-sources.jar!/javassist/URLClassPath.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="213">
+          <caret line="175" column="22" lean-forward="true" selection-start-line="175" selection-start-column="22" selection-end-line="176" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/springframework/spring-core/4.3.9.RELEASE/spring-core-4.3.9.RELEASE-sources.jar!/org/springframework/core/io/ClassPathResource.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="193">
+          <caret line="61" column="41" lean-forward="false" selection-start-line="61" selection-start-column="41" selection-end-line="61" selection-end-column="41" />
+          <folding>
+            <element signature="e#2112#2113#0" expanded="false" />
+            <element signature="e#2149#2150#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://E:/Program Files/Java/jdk1.8.0_111/src.zip!/java/util/Properties.java">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
-          <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+          <caret line="41" column="3" lean-forward="true" selection-start-line="41" selection-start-column="3" selection-end-line="41" selection-end-column="3" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/config/ApplicationConfig.java">
+    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/springframework/spring-beans/4.3.9.RELEASE/spring-beans-4.3.9.RELEASE-sources.jar!/org/springframework/beans/factory/InitializingBean.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="79" column="5" lean-forward="true" selection-start-line="79" selection-start-column="5" selection-end-line="79" selection-end-column="5" />
+        <state relative-caret-position="-117">
+          <caret line="34" column="17" lean-forward="false" selection-start-line="34" selection-start-column="17" selection-end-line="34" selection-end-column="17" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
+    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/springframework/spring-tx/4.3.9.RELEASE/spring-tx-4.3.9.RELEASE-sources.jar!/org/springframework/dao/support/DaoSupport.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="4" column="31" lean-forward="true" selection-start-line="4" selection-start-column="31" selection-end-line="4" selection-end-column="31" />
+        <state relative-caret-position="116">
+          <caret line="47" column="22" lean-forward="true" selection-start-line="47" selection-start-column="22" selection-end-line="47" selection-end-column="22" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/context/front/FrontContextConfig.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/context/admin/AdminApiInterceptor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-645">
-          <caret line="86" column="4" lean-forward="true" selection-start-line="86" selection-start-column="4" selection-end-line="86" selection-end-column="4" />
+        <state relative-caret-position="129">
+          <caret line="147" column="38" lean-forward="true" selection-start-line="147" selection-start-column="38" selection-end-line="147" selection-end-column="38" />
           <folding>
-            <element signature="e#4640#4641#0" expanded="true" />
-            <element signature="e#4693#4694#0" expanded="true" />
+            <element signature="method#postHandle#0;class#AdminApiInterceptor#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/common/web/springmvc/SimpleFreeMarkerView.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/core/servlet/FireWallInterceptor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="24" column="28" lean-forward="false" selection-start-line="24" selection-start-column="28" selection-end-line="24" selection-end-column="28" />
+        <state relative-caret-position="165">
+          <caret line="14" column="11" lean-forward="true" selection-start-line="14" selection-start-column="11" selection-end-line="14" selection-end-column="11" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/dao/main/impl/ContentDaoImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/context/admin/AdminContextInterceptor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="537" column="20" lean-forward="true" selection-start-line="537" selection-start-column="20" selection-end-line="537" selection-end-column="20" />
+        <state relative-caret-position="8316">
+          <caret line="278" column="4" lean-forward="false" selection-start-line="278" selection-start-column="4" selection-end-line="278" selection-end-column="4" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/Content.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="305">
-          <caret line="634" column="39" lean-forward="true" selection-start-line="634" selection-start-column="39" selection-end-line="634" selection-end-column="39" />
-          <folding>
-            <element signature="class#ContentStatus#0;class#Content#0" expanded="false" />
-            <element signature="class#CheckResultStatus#0;class#Content#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/config/ContextConfig.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="66" column="9" lean-forward="true" selection-start-line="66" selection-start-column="9" selection-end-line="66" selection-end-column="9" />
+        <state relative-caret-position="292">
+          <caret line="105" column="22" lean-forward="true" selection-start-line="105" selection-start-column="22" selection-end-line="105" selection-end-column="22" />
           <folding>
             <element signature="method#introspectorCleanupListener#0;class#ContextConfig#0" expanded="false" />
             <element signature="method#openSessionInViewFilter#0;class#ContextConfig#0" expanded="false" />
@@ -1382,6 +1122,220 @@
             <element signature="method#cmsAdminApiServlet#0;class#ContextConfig#0" expanded="false" />
             <element signature="method#cmsMemberApiServlet#0;class#ContextConfig#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/common/hibernate4/HibernateSimpleDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="185">
+          <caret line="183" column="63" lean-forward="false" selection-start-line="183" selection-start-column="63" selection-end-line="183" selection-end-column="63" />
+          <folding>
+            <element signature="e#1302#1303#0" expanded="false" />
+            <element signature="e#1347#1348#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/core/dao/impl/CmsConfigItemDaoImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="246">
+          <caret line="17" column="17" lean-forward="true" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/ehcache.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="99">
+          <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/manager/main/impl/ChannelExtMngImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-53">
+          <caret line="27" column="44" lean-forward="false" selection-start-line="27" selection-start-column="44" selection-end-line="27" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/Channel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="79">
+          <caret line="124" column="0" lean-forward="true" selection-start-line="124" selection-start-column="0" selection-end-line="124" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/entity/main/Content.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="289" column="35" lean-forward="false" selection-start-line="289" selection-start-column="35" selection-end-line="289" selection-end-column="35" />
+          <folding>
+            <element signature="class#ContentStatus#0;class#Content#0" expanded="false" />
+            <element signature="class#CheckResultStatus#0;class#Content#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsConfigItem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="66">
+          <caret line="30" column="34" lean-forward="true" selection-start-line="30" selection-start-column="34" selection-end-line="30" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/core/entity/CmsConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7">
+          <caret line="157" column="0" lean-forward="true" selection-start-line="157" selection-start-column="0" selection-end-line="157" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="292">
+          <caret line="144" column="7" lean-forward="true" selection-start-line="144" selection-start-column="7" selection-end-line="144" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/firewall.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2178">
+          <caret line="3" column="8" lean-forward="false" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/cms/api/admin/main/CmsFireWallConfigApiAct.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="363">
+          <caret line="33" column="17" lean-forward="false" selection-start-line="33" selection-start-column="17" selection-end-line="33" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/core/web/FireWallProperty.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="7" column="17" lean-forward="true" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/config/ApplicationConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="292">
+          <caret line="65" column="29" lean-forward="true" selection-start-line="65" selection-start-column="29" selection-end-line="65" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecms/common/ueditor/PropertiesLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="104" column="24" lean-forward="true" selection-start-line="104" selection-start-column="24" selection-end-line="104" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/plug/store/plug.ini">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="18" lean-forward="true" selection-start-line="0" selection-start-column="18" selection-end-line="0" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/plug/weixin/weixin.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="4" column="22" lean-forward="true" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/com/jeecms/common/dic/ext_stopword.dic">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="317">
+          <caret line="30" column="1" lean-forward="true" selection-start-line="30" selection-start-column="1" selection-end-line="30" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/com/jeecms/common/dic/mydict.dic">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="99">
+          <caret line="3" column="3" lean-forward="true" selection-start-line="3" selection-start-column="3" selection-end-line="3" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/com/jeecms/common/fck/default.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="303">
+          <caret line="15" column="14" lean-forward="false" selection-start-line="15" selection-start-column="14" selection-end-line="15" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/com/jeecms/common/ipseek/api.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="99">
+          <caret line="3" column="23" lean-forward="false" selection-start-line="3" selection-start-column="23" selection-end-line="3" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/com/jeecms/common/ueditor/default.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="369">
+          <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/com/jeecms/cms/template/jeecms.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/com/jeecms/cms/template/manager.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-178">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/com/jeecms/cms/template/manager_impl.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1485">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/classes-error.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

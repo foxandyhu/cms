@@ -67,7 +67,8 @@ public class ContentCheck implements Serializable {
         }
     }
 
-    @Column(name = "content_id")
+    @Id
+    @Column(name = "content_id",unique = true,nullable = false)
     private Integer id;
 
     /**
@@ -101,8 +102,8 @@ public class ContentCheck implements Serializable {
     @JoinColumn(name = "reviewer")
     private CmsUser reviewer;
 
-    @Id
     @OneToOne
+    @MapsId
     @JoinColumn(name = "content_id")
     private Content content;
 

@@ -20,7 +20,8 @@ import java.util.Date;
 public class CmsUserExt implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Column(name = "user_id")
+    @Id
+    @Column(name = "user_id",unique = true,nullable = false)
     private Integer id;
 
     /**
@@ -101,8 +102,8 @@ public class CmsUserExt implements Serializable {
     @Column(name = "today_comment_total")
     private Integer todayCommentTotal;
 
-    @Id
     @OneToOne
+    @MapsId
     @JoinColumn(name = "user_id")
     private CmsUser user;
 

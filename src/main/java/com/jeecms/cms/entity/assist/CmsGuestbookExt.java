@@ -44,7 +44,8 @@ public class CmsGuestbookExt implements Serializable {
         }
     }
 
-    @Column(name = "guestbook_id")
+    @Id
+    @Column(name = "guestbook_id", unique = true, nullable = false)
     private Integer id;
 
     /**
@@ -83,8 +84,8 @@ public class CmsGuestbookExt implements Serializable {
     @Column(name = "qq")
     private String qq;
 
-    @Id
     @OneToOne
+    @MapsId
     @JoinColumn(name = "guestbook_id")
     private CmsGuestbook guestbook;
 

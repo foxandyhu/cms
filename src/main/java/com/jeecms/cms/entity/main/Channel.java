@@ -91,7 +91,7 @@ public class Channel implements Serializable, HibernateTree<Integer>, PriorityIn
 
     @OneToMany(mappedBy = "parent", cascade = CascadeType.REMOVE)
     @SortComparator(value = PriorityComparator.class)
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
     private Set<Channel> child;
 
     @ManyToMany(mappedBy = "viewChannels")
@@ -124,7 +124,7 @@ public class Channel implements Serializable, HibernateTree<Integer>, PriorityIn
     private List<ChannelModel> channelModels;
 
     @ElementCollection
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
     @CollectionTable(name = "jc_channel_attr", joinColumns = @JoinColumn(name = "channel_id"))
     @MapKeyColumn(name = "attr_name")
     @Column(name = "attr_value")
@@ -1462,7 +1462,7 @@ public class Channel implements Serializable, HibernateTree<Integer>, PriorityIn
                 } else {
                     tpls.add("");
                 }
-				/*
+                /*
 				 * if(StringUtils.isNotBlank(tpl)){
 				 * tpls.add(tpl.substring(tplPathLength)); }
 				 */

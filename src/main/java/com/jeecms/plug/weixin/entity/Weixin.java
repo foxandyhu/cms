@@ -21,7 +21,8 @@ public class Weixin implements Serializable {
     /**
      * 站点ID
      */
-    @Column(name = "site_id")
+    @Id
+    @Column(name = "site_id",unique = true,nullable = false)
     private Integer id;
 
     /**
@@ -36,8 +37,8 @@ public class Weixin implements Serializable {
     @Column(name = "wx_pic")
     private String pic;
 
-    @Id
     @OneToOne
+    @MapsId
     @JoinColumn(name = "site_id")
     private CmsSite site;
 

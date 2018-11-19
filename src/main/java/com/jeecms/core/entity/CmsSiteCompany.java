@@ -20,7 +20,8 @@ import java.io.Serializable;
 public class CmsSiteCompany implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Column(name = "site_id")
+    @Id
+    @Column(name = "site_id",unique = true,nullable = false)
     private Integer id;
 
     /**
@@ -77,8 +78,8 @@ public class CmsSiteCompany implements Serializable {
     @Column(name = "latitude")
     private Float latitude;
 
-    @Id
     @OneToOne
+    @MapsId
     @JoinColumn(name = "site_id")
     private CmsSite site;
 
