@@ -38,20 +38,20 @@ public class CmsConfigMngImpl implements CmsConfigMng {
 	}
 
 	public void updateCountClearTime(Date d) {
-		dao.findById(1).setCountClearTime(d);
+		dao.findById(1).setCountClearTime(new java.sql.Date(d.getTime()));
 	}
 	
 	public void updateFlowClearTime(Date d) {
-		dao.findById(1).setFlowClearTime(d);
+		dao.findById(1).setFlowClearTime(new java.sql.Date(d.getTime()));
 	}
 	
 	public void updateChannelCountClearTime(Date d) {
-		dao.findById(1).setChannelCountClearTime(d);
+		dao.findById(1).setChannelCountClearTime(new java.sql.Date(d.getTime()));
 	}
 
 
 	public CmsConfig update(CmsConfig bean) {
-		Updater<CmsConfig> updater = new Updater<CmsConfig>(bean);
+		Updater<CmsConfig> updater = new Updater<>(bean);
 		CmsConfig entity = dao.updateByUpdater(updater);
 		entity.blankToNull();
 		return entity;

@@ -37,7 +37,7 @@ public class CmsSiteAccessCountHourMngImpl implements CmsSiteAccessCountHourMng 
 		for (Object[]  d: statisTicData) {
 			CmsSiteAccessCountHour bean = new CmsSiteAccessCountHour();
 			bean.setSite(site);
-			bean.setAccessDate(date);
+			bean.setAccessDate(new java.sql.Date(date.getTime()));
 			Long pv = (Long) d[0];
 			Long ip = (Long) d[1];
 			Long visitor = (Long) d[2];

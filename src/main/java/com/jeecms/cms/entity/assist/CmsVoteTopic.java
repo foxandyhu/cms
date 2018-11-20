@@ -367,7 +367,7 @@ public class CmsVoteTopic implements Serializable {
     @SortComparator(value = PriorityComparator.class)
     private Set<CmsVoteItem> items;
 
-    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true,mappedBy = "voteTopic")
     @SortComparator(value = PriorityComparator.class)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
     private Set<CmsVoteSubTopic> subtopics;
