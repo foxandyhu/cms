@@ -8,8 +8,8 @@ import javax.mail.MessagingException;
 import com.jeecms.common.email.EmailSender;
 import com.jeecms.common.email.MessageTemplate;
 import com.jeecms.common.page.Pagination;
-import com.jeecms.common.security.BadCredentialsException;
-import com.jeecms.common.security.UsernameNotFoundException;
+import com.jeecms.exception.BadCredentialsException;
+import com.jeecms.exception.UsernameNotFoundException;
 import com.jeecms.core.entity.UnifiedUser;
 
 public interface UnifiedUserMng {

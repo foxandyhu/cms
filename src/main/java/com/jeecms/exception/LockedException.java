@@ -1,4 +1,4 @@
-package com.jeecms.common.security;
+package com.jeecms.exception;
 
 /**
  * 账号被锁定异常

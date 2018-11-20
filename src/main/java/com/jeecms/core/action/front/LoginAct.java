@@ -12,8 +12,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.jeecms.common.security.BadCredentialsException;
-import com.jeecms.common.security.UsernameNotFoundException;
+import com.jeecms.exception.BadCredentialsException;
+import com.jeecms.exception.UsernameNotFoundException;
 import com.jeecms.common.web.RequestUtils;
 import com.jeecms.common.web.session.SessionProvider;
 import com.jeecms.core.entity.Authentication;

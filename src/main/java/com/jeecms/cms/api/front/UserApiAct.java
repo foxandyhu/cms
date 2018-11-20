@@ -54,9 +54,14 @@ import java.util.Map;
 @Controller("frontUserApiAct")
 public class UserApiAct {
 
+	/**
+	 * 后台首页
+	 * @author andy_hulibo@163.com
+	 * @date 2018/11/20 10:20
+	 */
 	@GetMapping(value = "/admin/index.html")
 	public String index(){
-		return "/jeeadmin/jeecms/index.html";
+		return "/admin/index.html";
 	}
 
 	/**

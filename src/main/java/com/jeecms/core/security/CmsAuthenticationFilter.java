@@ -20,11 +20,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.jeecms.common.security.CaptchaErrorException;
-import com.jeecms.common.security.CaptchaRequiredException;
-import com.jeecms.common.security.DisabledException;
-import com.jeecms.common.security.InactiveException;
-import com.jeecms.common.security.UserUnCheckedException;
+import com.jeecms.exception.CaptchaErrorException;
+import com.jeecms.exception.CaptchaRequiredException;
+import com.jeecms.exception.DisabledException;
+import com.jeecms.exception.InactiveException;
+import com.jeecms.exception.UserUnCheckedException;
 import com.jeecms.common.web.CookieUtils;
 import com.jeecms.common.web.RequestUtils;
 import com.jeecms.common.web.session.SessionProvider;

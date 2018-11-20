@@ -1,4 +1,4 @@
-package com.jeecms.common.security;
+package com.jeecms.exception;
 
 /**
  * 认证信息错误异常。如：密码错误。

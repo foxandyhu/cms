@@ -1,9 +1,10 @@
-package com.jeecms.common.security;
+package com.jeecms.exception;
 
 /**
  * 认证信息过期异常。如：规定密码必须在一个月后修改，但是没有修改。
+ * @author andy_hulibo@163.com
+ * @date 2018/11/20 10:39
  */
-@SuppressWarnings("serial")
 public class CredentialsExpiredException extends AccountStatusException {
 	public CredentialsExpiredException() {
 	}

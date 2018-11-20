@@ -15,8 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.jeecms.common.page.Pagination;
-import com.jeecms.common.security.BadCredentialsException;
-import com.jeecms.common.security.UsernameNotFoundException;
+import com.jeecms.exception.BadCredentialsException;
+import com.jeecms.exception.UsernameNotFoundException;
 import com.jeecms.common.web.session.SessionProvider;
 import com.jeecms.core.dao.AuthenticationDao;
 import com.jeecms.core.entity.Authentication;

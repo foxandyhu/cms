@@ -84,8 +84,8 @@ public class ShiroConfig {
     @Bean
     public CmsAdminUrl adminUrlBean() {
         CmsAdminUrl admin = new CmsAdminUrl();
-        admin.setAdminLogin("/jeeadmin/jeecms/login.html");
-        admin.setAdminPrefix("/jeeadmin/jeecms/");
+        admin.setAdminLogin("/admin/index.html");
+        admin.setAdminPrefix("/admin/");
         return admin;
     }
 
@@ -108,7 +108,7 @@ public class ShiroConfig {
     @Bean
     public CmsAuthenticationFilter authcFilter(CmsAdminUrl adminUrlBean) {
         CmsAuthenticationFilter authc = new CmsAuthenticationFilter();
-        authc.setAdminIndex("/jeeadmin/jeecms/index.html");
+        authc.setAdminIndex("/admin/index.html");
         authc.setAdminPrefix(adminUrlBean.getAdminPrefix());
         authc.setRememberMeParam("rememberMe");
         return authc;
@@ -122,15 +122,15 @@ public class ShiroConfig {
         bean.setSuccessUrl("/");
         bean.setFilterChainDefinitionMap(new LinkedHashMap<String, String>() {
             private static final long serialVersionUID = -4794995092802667876L;
+
             {
                 put("/login.html", "authc");
                 put("/logout.html", "logout");
-//                put("/jeeadmin/**", "user");
                 put("/member/forgot_password.html", "anon");
                 put("/member/password_reset.html", "anon");
                 put("/member/jobapply.html", "anon");
                 put("/member/**", "user");
-                put("/**","anon");
+                put("/**", "anon");
             }
         });
         return bean;

@@ -1,4 +1,4 @@
-package com.jeecms.common.security;
+package com.jeecms.exception;
 
 import org.apache.shiro.authc.CredentialsException;
 
