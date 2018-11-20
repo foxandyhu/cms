@@ -14,36 +14,42 @@ import com.jeecms.common.hibernate4.Updater;
 @Service
 @Transactional
 public class CmsAcquisitionTempMngImpl implements CmsAcquisitionTempMng {
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public List<CmsAcquisitionTemp> getList(Integer siteId) {
 		return dao.getList(siteId);
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public CmsAcquisitionTemp findById(Integer id) {
 		CmsAcquisitionTemp entity = dao.findById(id);
 		return entity;
 	}
 
-	public CmsAcquisitionTemp save(CmsAcquisitionTemp bean) {
+	@Override
+    public CmsAcquisitionTemp save(CmsAcquisitionTemp bean) {
 		clear(bean.getSite().getId(), bean.getChannelUrl());
 		dao.save(bean);
 		return bean;
 	}
 
-	public CmsAcquisitionTemp update(CmsAcquisitionTemp bean) {
+	@Override
+    public CmsAcquisitionTemp update(CmsAcquisitionTemp bean) {
 		Updater<CmsAcquisitionTemp> updater = new Updater<CmsAcquisitionTemp>(
 				bean);
 		bean = dao.updateByUpdater(updater);
 		return bean;
 	}
 
-	public CmsAcquisitionTemp deleteById(Integer id) {
+	@Override
+    public CmsAcquisitionTemp deleteById(Integer id) {
 		CmsAcquisitionTemp bean = dao.deleteById(id);
 		return bean;
 	}
 
-	public CmsAcquisitionTemp[] deleteByIds(Integer[] ids) {
+	@Override
+    public CmsAcquisitionTemp[] deleteByIds(Integer[] ids) {
 		CmsAcquisitionTemp[] beans = new CmsAcquisitionTemp[ids.length];
 		for (int i = 0, len = ids.length; i < len; i++) {
 			beans[i] = deleteById(ids[i]);
@@ -51,15 +57,18 @@ public class CmsAcquisitionTempMngImpl implements CmsAcquisitionTempMng {
 		return beans;
 	}
 
-	public Integer getPercent(Integer siteId) {
+	@Override
+    public Integer getPercent(Integer siteId) {
 		return dao.getPercent(siteId);
 	}
 
-	public void clear(Integer siteId) {
+	@Override
+    public void clear(Integer siteId) {
 		dao.clear(siteId, null);
 	}
 
-	public void clear(Integer siteId, String channelUrl) {
+	@Override
+    public void clear(Integer siteId, String channelUrl) {
 		dao.clear(siteId, channelUrl);
 	}
 

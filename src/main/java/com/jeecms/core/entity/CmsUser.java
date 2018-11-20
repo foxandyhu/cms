@@ -203,6 +203,7 @@ public class CmsUser implements PriorityInterface, Serializable {
     private Set<CmsThirdAccount> thirdAccounts;
 
 
+    @Override
     public Integer getId() {
         return id;
     }
@@ -1045,6 +1046,7 @@ public class CmsUser implements PriorityInterface, Serializable {
     /**
      * 用于排列顺序。此处优先级为0，则按ID升序排。
      */
+    @Override
     public Number getPriority() {
         return 0;
     }

@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -41,7 +42,6 @@ import com.jeecms.core.manager.CmsConfigMng;
 import com.jeecms.core.manager.CmsLogMng;
 import com.jeecms.core.manager.CmsSmsMng;
 import com.jeecms.core.manager.ConfigMng;
-import com.jeecms.core.web.WebErrors;
 
 @Controller
 public class CmsConfigApiAct {
@@ -536,7 +536,7 @@ public class CmsConfigApiAct {
 		ResponseUtils.renderApiJson(response, request, apiResponse);
 	}
 	
-	private WebErrors validatePriority(WebErrors errors , Integer[] idArr,String[] labels,Integer []priorityArr){
+	private WebErrors validatePriority(WebErrors errors , Integer[] idArr, String[] labels, Integer []priorityArr){
 		if (idArr!=null) {
 			for(int i = 0 ; i <idArr.length ; i++){
 				CmsConfigItem item = cmsConfigItemMng.findById(idArr[i]);

@@ -92,14 +92,14 @@ public class ResourceType {
 		this.name = name;
 		this.path = path;
 
-		if (allowedEextensions.isEmpty() && deniedExtensions.isEmpty())
+		if (allowedEextensions.isEmpty() && deniedExtensions.isEmpty()) {
 			throw new IllegalArgumentException(
 					"Both sets are empty, one has always to be filled");
-
-		if (!allowedEextensions.isEmpty() && !deniedExtensions.isEmpty())
+		}
+		if (!allowedEextensions.isEmpty() && !deniedExtensions.isEmpty()) {
 			throw new IllegalArgumentException(
 					"Both sets contain extensions, only one can be filled at the same time");
-
+		}
 		this.allowedEextensions = allowedEextensions;
 		this.deniedExtensions = deniedExtensions;
 	}
@@ -154,12 +154,13 @@ public class ResourceType {
 	 *             if <code>name</code> is null or empty
 	 */
 	public static ResourceType valueOf(final String name) {
-		if (Utils.isEmpty(name))
+		if (Utils.isEmpty(name)) {
 			throw new NullPointerException("Name is null or empty");
-
+		}
 		ResourceType rt = types.get(name);
-		if (rt == null)
+		if (rt == null) {
 			throw new IllegalArgumentException("No resource type const " + name);
+		}
 		return rt;
 	}
 
@@ -222,13 +223,16 @@ public class ResourceType {
 	 *         <code>false</code>
 	 */
 	public boolean isAllowedExtension(final String extension) {
-		if (Utils.isEmpty(extension))
+		if (Utils.isEmpty(extension)) {
 			return false;
+		}
 		String ext = extension.toLowerCase();
-		if (allowedEextensions.isEmpty())
+		if (allowedEextensions.isEmpty()) {
 			return !deniedExtensions.contains(ext);
-		if (deniedExtensions.isEmpty())
+		}
+		if (deniedExtensions.isEmpty()) {
 			return allowedEextensions.contains(ext);
+		}
 		return false;
 	}
 
@@ -272,12 +276,12 @@ public class ResourceType {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-
-		if (obj == null || this.getClass() != obj.getClass())
+		}
+		if (obj == null || this.getClass() != obj.getClass()) {
 			return false;
-
+		}
 		final ResourceType rt = (ResourceType) obj;
 		return name.equals(rt.getName());
 	}

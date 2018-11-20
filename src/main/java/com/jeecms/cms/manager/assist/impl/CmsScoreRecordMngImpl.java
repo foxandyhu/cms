@@ -21,13 +21,15 @@ import com.jeecms.cms.manager.main.ContentMng;
 @Service
 @Transactional
 public class CmsScoreRecordMngImpl implements CmsScoreRecordMng {
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Pagination getPage(int pageNo, int pageSize) {
 		Pagination page = dao.getPage(pageNo, pageSize);
 		return page;
 	}
 	
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Map<String,String> viewContent(Integer contentId){
 		Map<String,String>itemCountMap=new HashMap<String, String>();
 		List<CmsScoreRecord>records=dao.findListByContent(contentId);
@@ -37,7 +39,8 @@ public class CmsScoreRecordMngImpl implements CmsScoreRecordMng {
 		return itemCountMap;
 	}
 	
-	public int contentScore(Integer contentId,Integer itemId){
+	@Override
+    public int contentScore(Integer contentId, Integer itemId){
 		Content c = contentMng.findById(contentId);
 		CmsScoreItem item=scoreItemMng.findById(itemId);
 		CmsScoreRecord scoreRecord=findByScoreItemContent(itemId, contentId);
@@ -59,34 +62,40 @@ public class CmsScoreRecordMngImpl implements CmsScoreRecordMng {
 		return count;
 	}
 	
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public CmsScoreRecord findByScoreItemContent(Integer itemId,Integer contentId){
 		return dao.findByScoreItemContent(itemId, contentId);
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public CmsScoreRecord findById(Integer id) {
 		CmsScoreRecord entity = dao.findById(id);
 		return entity;
 	}
 
-	public CmsScoreRecord save(CmsScoreRecord bean) {
+	@Override
+    public CmsScoreRecord save(CmsScoreRecord bean) {
 		dao.save(bean);
 		return bean;
 	}
 
-	public CmsScoreRecord update(CmsScoreRecord bean) {
+	@Override
+    public CmsScoreRecord update(CmsScoreRecord bean) {
 		Updater<CmsScoreRecord> updater = new Updater<CmsScoreRecord>(bean);
 		bean = dao.updateByUpdater(updater);
 		return bean;
 	}
 
-	public CmsScoreRecord deleteById(Integer id) {
+	@Override
+    public CmsScoreRecord deleteById(Integer id) {
 		CmsScoreRecord bean = dao.deleteById(id);
 		return bean;
 	}
 	
-	public CmsScoreRecord[] deleteByIds(Integer[] ids) {
+	@Override
+    public CmsScoreRecord[] deleteByIds(Integer[] ids) {
 		CmsScoreRecord[] beans = new CmsScoreRecord[ids.length];
 		for (int i = 0,len = ids.length; i < len; i++) {
 			beans[i] = deleteById(ids[i]);

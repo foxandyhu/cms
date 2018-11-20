@@ -17,28 +17,33 @@ import com.jeecms.core.manager.CmsGroupMng;
 @Service
 @Transactional
 public class CmsGroupMngImpl implements CmsGroupMng {
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public List<CmsGroup> getList() {
 		return dao.getList();
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public CmsGroup findById(Integer id) {
 		CmsGroup entity = dao.findById(id);
 		return entity;
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public CmsGroup getRegDef() {
 		return dao.getRegDef();
 	}
 	
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public CmsGroup findByName(String name){
 		return dao.findByName(name);
 	}
 
-	public void updateRegDef(Integer regDefId) {
+	@Override
+    public void updateRegDef(Integer regDefId) {
 		if (regDefId != null) {
 			for (CmsGroup g : getList()) {
 				if (g.getId().equals(regDefId)) {
@@ -50,13 +55,15 @@ public class CmsGroupMngImpl implements CmsGroupMng {
 		}
 	}
 
-	public CmsGroup save(CmsGroup bean) {
+	@Override
+    public CmsGroup save(CmsGroup bean) {
 		bean.init();
 		dao.save(bean);
 		return bean;
 	}
 	
-	public CmsGroup save(CmsGroup bean,Integer[] viewChannelIdss, Integer[] contriChannelIds){
+	@Override
+    public CmsGroup save(CmsGroup bean, Integer[] viewChannelIdss, Integer[] contriChannelIds){
 		bean.init();
 		dao.save(bean);
 		Channel c;
@@ -75,13 +82,15 @@ public class CmsGroupMngImpl implements CmsGroupMng {
 		return bean;
 	}
 
-	public CmsGroup update(CmsGroup bean) {
+	@Override
+    public CmsGroup update(CmsGroup bean) {
 		Updater<CmsGroup> updater = new Updater<CmsGroup>(bean);
 		CmsGroup entity = dao.updateByUpdater(updater);
 		return entity;
 	}
 	
-	public CmsGroup update(CmsGroup bean,Integer[] viewChannelIds, Integer[] contriChannelIds){
+	@Override
+    public CmsGroup update(CmsGroup bean, Integer[] viewChannelIds, Integer[] contriChannelIds){
 		Updater<CmsGroup> updater = new Updater<CmsGroup>(bean);
 		bean = dao.updateByUpdater(updater);
 		// 更新浏览栏目权限
@@ -113,7 +122,8 @@ public class CmsGroupMngImpl implements CmsGroupMng {
 		return bean;
 	}
 
-	public CmsGroup deleteById(Integer id) {
+	@Override
+    public CmsGroup deleteById(Integer id) {
 		CmsGroup bean =dao.findById(id);
 		//清除组权限
 		for(Channel c:bean.getViewChannels()){
@@ -126,7 +136,8 @@ public class CmsGroupMngImpl implements CmsGroupMng {
 		return bean;
 	}
 
-	public CmsGroup[] deleteByIds(Integer[] ids) {
+	@Override
+    public CmsGroup[] deleteByIds(Integer[] ids) {
 		CmsGroup[] beans = new CmsGroup[ids.length];
 		for (int i = 0, len = ids.length; i < len; i++) {
 			beans[i] = deleteById(ids[i]);
@@ -134,7 +145,8 @@ public class CmsGroupMngImpl implements CmsGroupMng {
 		return beans;
 	}
 
-	public CmsGroup[] updatePriority(Integer[] ids, Integer[] priority) {
+	@Override
+    public CmsGroup[] updatePriority(Integer[] ids, Integer[] priority) {
 		int len = ids.length;
 		CmsGroup[] beans = new CmsGroup[len];
 		for (int i = 0; i < len; i++) {

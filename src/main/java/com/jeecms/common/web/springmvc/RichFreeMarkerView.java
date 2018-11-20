@@ -22,7 +22,8 @@ public class RichFreeMarkerView extends FreeMarkerView {
 	/**
 	 * 在model中增加部署路径base，方便处理部署路径问题。
 	 */
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	protected void exposeHelpers(Map model, HttpServletRequest request)
 			throws Exception {
 		super.exposeHelpers(model, request);

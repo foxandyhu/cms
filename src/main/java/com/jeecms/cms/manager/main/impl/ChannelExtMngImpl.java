@@ -13,7 +13,8 @@ import com.jeecms.common.hibernate4.Updater;
 @Service
 @Transactional
 public class ChannelExtMngImpl implements ChannelExtMng {
-	public ChannelExt save(ChannelExt ext, Channel channel) {
+	@Override
+    public ChannelExt save(ChannelExt ext, Channel channel) {
 		channel.setChannelExt(ext);
 		ext.setChannel(channel);
 		ext.init();
@@ -21,7 +22,8 @@ public class ChannelExtMngImpl implements ChannelExtMng {
 		return ext;
 	}
 
-	public ChannelExt update(ChannelExt ext) {
+	@Override
+    public ChannelExt update(ChannelExt ext) {
 		Updater<ChannelExt> updater = new Updater<ChannelExt>(ext);
 		updater.include(ChannelExt.PROP_FINAL_STEP);
 		updater.include(ChannelExt.PROP_AFTER_CHECK);

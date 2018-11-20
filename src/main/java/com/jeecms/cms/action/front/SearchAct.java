@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,7 +31,6 @@ import com.jeecms.common.web.RequestUtils;
 import com.jeecms.common.web.ResponseUtils;
 import com.jeecms.common.web.session.SessionProvider;
 import com.jeecms.core.entity.CmsSite;
-import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
 import com.jeecms.core.web.util.FrontUtils;
 
@@ -56,7 +56,7 @@ public class SearchAct {
 			return FrontUtils.getTplPath(request, site.getSolutionPath(),
 					TPLDIR_SPECIAL, SEARCH_INPUT);
 		} else {
-			WebErrors errors=WebErrors.create(request);
+			WebErrors errors= WebErrors.create(request);
 			if(StringUtils.isNotBlank(channelId)&&!StrUtils.isGreaterZeroNumeric(channelId)){
 				errors.addErrorCode("error.channelId.notNum");
 				return FrontUtils.showError(request, response, model, errors);

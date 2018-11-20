@@ -8,13 +8,14 @@ import org.springframework.stereotype.Repository;
 import com.jeecms.cms.dao.assist.CmsVoteTopicDao;
 import com.jeecms.cms.entity.assist.CmsVoteTopic;
 import com.jeecms.common.hibernate4.Finder;
-import com.jeecms.common.hibernate4.HibernateBaseDao;
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 import com.jeecms.common.page.Pagination;
 
 @Repository
 public class CmsVoteTopicDaoImpl extends
-		HibernateBaseDao<CmsVoteTopic, Integer> implements CmsVoteTopicDao {
-	public Pagination getPage(Integer siteId,Short statu, int pageNo, int pageSize) {
+        AbstractHibernateBaseDao<CmsVoteTopic, Integer> implements CmsVoteTopicDao {
+	@Override
+    public Pagination getPage(Integer siteId, Short statu, int pageNo, int pageSize) {
 		Finder f = Finder.create("from CmsVoteTopic bean where 1=1");
 		if (siteId != null) {
 			f.append(" and bean.site.id=:siteId");
@@ -43,7 +44,8 @@ public class CmsVoteTopicDaoImpl extends
 		return find(f, pageNo, pageSize);
 	}
 	
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public List<CmsVoteTopic> getList(Boolean def,Integer siteId,
 			Integer first, int count){
 		Finder f = Finder.create("from CmsVoteTopic bean where 1=1");
@@ -67,7 +69,8 @@ public class CmsVoteTopicDaoImpl extends
 		return find(f);
 	}
 
-	public CmsVoteTopic getDefTopic(Integer siteId) {
+	@Override
+    public CmsVoteTopic getDefTopic(Integer siteId) {
 		Finder f = Finder.create("from CmsVoteTopic bean where 1=1");
 		if (siteId != null) {
 			f.append(" and bean.site.id=:siteId");
@@ -79,17 +82,20 @@ public class CmsVoteTopicDaoImpl extends
 		return (CmsVoteTopic) f.createQuery(getSession()).uniqueResult();
 	}
 
-	public CmsVoteTopic findById(Integer id) {
+	@Override
+    public CmsVoteTopic findById(Integer id) {
 		CmsVoteTopic entity = get(id);
 		return entity;
 	}
 
-	public CmsVoteTopic save(CmsVoteTopic bean) {
+	@Override
+    public CmsVoteTopic save(CmsVoteTopic bean) {
 		getSession().save(bean);
 		return bean;
 	}
 
-	public CmsVoteTopic deleteById(Integer id) {
+	@Override
+    public CmsVoteTopic deleteById(Integer id) {
 		CmsVoteTopic entity = super.get(id);
 		if (entity != null) {
 			getSession().delete(entity);

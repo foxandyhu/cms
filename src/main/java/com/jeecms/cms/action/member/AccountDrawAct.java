@@ -8,6 +8,7 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,6 @@ import com.jeecms.common.web.CookieUtils;
 import com.jeecms.core.entity.CmsSite;
 import com.jeecms.core.entity.CmsUser;
 import com.jeecms.core.entity.MemberConfig;
-import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
 import com.jeecms.core.web.util.FrontUtils;
 
@@ -54,7 +54,7 @@ public class AccountDrawAct {
 			return FrontUtils.showLogin(request, model, site);
 		}
 		if(user.getUserAccount()==null){
-			WebErrors errors=WebErrors.create(request);
+			WebErrors errors= WebErrors.create(request);
 			errors.addErrorCode("error.userAccount.notfound");
 			return FrontUtils.showError(request, response, model, errors);
 		}
@@ -139,7 +139,7 @@ public class AccountDrawAct {
 		if (user == null) {
 			return FrontUtils.showLogin(request, model, site);
 		}
-		WebErrors errors=WebErrors.create(request);
+		WebErrors errors= WebErrors.create(request);
 		if(user.getUserAccount()==null){
 			errors.addErrorCode("error.userAccount.notfound");
 			return FrontUtils.showError(request, response, model, errors);
@@ -162,7 +162,7 @@ public class AccountDrawAct {
 	}
 	
 	private WebErrors validateDelete(Integer[] ids, CmsSite site, CmsUser user,
-			HttpServletRequest request) {
+									 HttpServletRequest request) {
 		WebErrors errors = WebErrors.create(request);
 		if (vldOpt(errors, site, user, ids)) {
 			return errors;
@@ -171,7 +171,7 @@ public class AccountDrawAct {
 	}
 	
 	private boolean vldOpt(WebErrors errors, CmsSite site, CmsUser user,
-			Integer[] ids) {
+						   Integer[] ids) {
 		for (Integer id : ids) {
 			if (errors.ifNull(id, "id", true)) {
 				return true;
@@ -187,8 +187,8 @@ public class AccountDrawAct {
 				return true;
 			}
 			// 提现申请状态是申请成功待支付和提现成功
-			if (d.getApplyStatus()==CmsAccountDraw.CHECKED_SUCC
-					||d.getApplyStatus()==CmsAccountDraw.DRAW_SUCC) {
+			if (CmsAccountDraw.CHECKED_SUCC.equals(d.getApplyStatus())
+					||CmsAccountDraw.DRAW_SUCC.equals(d.getApplyStatus())) {
 				errors.addErrorCode("error.account.draw.hasChecked");
 				return true;
 			}

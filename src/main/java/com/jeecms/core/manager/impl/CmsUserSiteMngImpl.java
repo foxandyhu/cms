@@ -18,12 +18,14 @@ import java.util.Set;
 @Service
 @Transactional
 public class CmsUserSiteMngImpl implements CmsUserSiteMng {
+    @Override
     @Transactional(readOnly = true)
     public CmsUserSite findById(Integer id) {
         CmsUserSite entity = dao.findById(id);
         return entity;
     }
 
+    @Override
     public CmsUserSite save(CmsSite site, CmsUser user, Byte step,
                             Boolean allChannel) {
         CmsUserSite bean = new CmsUserSite();
@@ -35,12 +37,14 @@ public class CmsUserSiteMngImpl implements CmsUserSiteMng {
         return bean;
     }
 
+    @Override
     public CmsUserSite update(CmsUserSite bean) {
         Updater<CmsUserSite> updater = new Updater<CmsUserSite>(bean);
         bean = dao.updateByUpdater(updater);
         return bean;
     }
 
+    @Override
     public void updateByUser(CmsUser user, Integer siteId, Byte step,
                              Boolean allChannel) {
         Set<CmsUserSite> uss = user.getUserSites();
@@ -56,6 +60,7 @@ public class CmsUserSiteMngImpl implements CmsUserSiteMng {
         }
     }
 
+    @Override
     public void updateByUser(CmsUser user, Integer[] siteIds, Byte[] steps,
                              Boolean[] allChannels) {
         Set<CmsUserSite> uss = user.getUserSites();
@@ -107,6 +112,7 @@ public class CmsUserSiteMngImpl implements CmsUserSiteMng {
         uss.addAll(toSave);
     }
 
+    @Override
     public int deleteBySiteId(Integer siteId) {
         return dao.deleteBySiteId(siteId);
     }
@@ -121,11 +127,13 @@ public class CmsUserSiteMngImpl implements CmsUserSiteMng {
         }
     }
 
+    @Override
     public CmsUserSite deleteById(Integer id) {
         CmsUserSite bean = dao.deleteById(id);
         return bean;
     }
 
+    @Override
     public CmsUserSite[] deleteByIds(Integer[] ids) {
         CmsUserSite[] beans = new CmsUserSite[ids.length];
         for (int i = 0, len = ids.length; i < len; i++) {

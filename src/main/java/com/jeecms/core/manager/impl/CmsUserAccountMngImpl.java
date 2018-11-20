@@ -16,18 +16,21 @@ import java.util.Date;
 @Transactional
 public class CmsUserAccountMngImpl implements CmsUserAccountMng {
 
+    @Override
     @Transactional(readOnly = true)
     public Pagination getPage(String username, Date drawTimeBegin, Date drawTimeEnd,
                               int orderBy, int pageNo, int pageSize) {
         return dao.getPage(username, drawTimeBegin, drawTimeEnd, orderBy, pageNo, pageSize);
     }
 
+    @Override
     @Transactional(readOnly = true)
     public CmsUserAccount findById(Integer userId) {
         return dao.findById(userId);
     }
 
 
+    @Override
     public CmsUserAccount updateAccountInfo(String accountWeiXin,
                                             String accountAlipy, Short drawAccount, CmsUser user) {
         CmsUserAccount entity = dao.findById(user.getId());
@@ -61,6 +64,7 @@ public class CmsUserAccountMngImpl implements CmsUserAccountMng {
      * @param authorUser 作者
      * @return
      */
+    @Override
     public CmsUserAccount userPay(Double payAmout, CmsUser authorUser) {
         CmsUserAccount entity = dao.findById(authorUser.getId());
         Calendar curr = Calendar.getInstance();
@@ -101,6 +105,7 @@ public class CmsUserAccountMngImpl implements CmsUserAccountMng {
     }
 
 
+    @Override
     public CmsUserAccount payToAuthor(Double drawAmout, CmsUser user, Date payTime) {
         CmsUserAccount entity = dao.findById(user.getId());
         if (entity != null && drawAmout != null) {
@@ -113,6 +118,7 @@ public class CmsUserAccountMngImpl implements CmsUserAccountMng {
         return entity;
     }
 
+    @Override
     public CmsUserAccount updateWeiXinOpenId(Integer userId, String weiXinOpenId) {
         CmsUserAccount account = dao.findById(userId);
         account.setAccountWeixinOpenId(weiXinOpenId);

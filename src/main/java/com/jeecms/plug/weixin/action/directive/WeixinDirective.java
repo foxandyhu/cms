@@ -25,7 +25,8 @@ import org.springframework.stereotype.Component;
 @Component("cms_weixin")
 public class WeixinDirective implements TemplateDirectiveModel {
 
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public void execute(Environment env, Map params, TemplateModel[] loopVars,
 			TemplateDirectiveBody body) throws TemplateException, IOException {
 		CmsSite site = FrontUtils.getSite(env);

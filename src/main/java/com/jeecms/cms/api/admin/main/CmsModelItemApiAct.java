@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -27,7 +28,6 @@ import com.jeecms.cms.manager.main.CmsModelMng;
 import com.jeecms.common.util.StrUtils;
 import com.jeecms.common.web.ResponseUtils;
 import com.jeecms.common.web.springmvc.MessageResolver;
-import com.jeecms.core.web.WebErrors;
 
 @Controller
 public class CmsModelItemApiAct {
@@ -299,8 +299,8 @@ public class CmsModelItemApiAct {
 		ResponseUtils.renderApiJson(response, request, apiResponse);
 	}
 	
-	private WebErrors validatePriority(WebErrors errors,Integer[] idArray,Integer[] priorities,String[] labels,
-			Boolean[] singles,Boolean[] displays){
+	private WebErrors validatePriority(WebErrors errors, Integer[] idArray, Integer[] priorities, String[] labels,
+									   Boolean[] singles, Boolean[] displays){
 		if (idArray!=null&&priorities!=null&&labels!=null&&singles!=null&&displays!=null) {
 			if (idArray.length!=priorities.length||idArray.length!=labels.length||
 					idArray.length!=singles.length||idArray.length!=displays.length) {
@@ -334,8 +334,8 @@ public class CmsModelItemApiAct {
 				item.setDataType(dataTypes[i]);
 				item.setSingle(singles[i]);
 				item.setDisplay(displays[i]);
-				if(fields[i].equals("name")||fields[i].equals("path")
-						||fields[i].equals("channelId")||fields[i].equals("title")){
+				if("name".equals(fields[i])||"path".equals(fields[i])
+						||"channelId".equals(fields[i])||"title".equals(fields[i])){
 					item.setRequired(true);
 				}else{
 					item.setRequired(false);

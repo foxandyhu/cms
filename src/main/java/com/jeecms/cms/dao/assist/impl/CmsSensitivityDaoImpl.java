@@ -6,28 +6,32 @@ import org.springframework.stereotype.Repository;
 
 import com.jeecms.cms.dao.assist.CmsSensitivityDao;
 import com.jeecms.cms.entity.assist.CmsSensitivity;
-import com.jeecms.common.hibernate4.HibernateBaseDao;
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 
 @Repository
 public class CmsSensitivityDaoImpl extends
-		HibernateBaseDao<CmsSensitivity, Integer> implements CmsSensitivityDao {
-	@SuppressWarnings("unchecked")
+        AbstractHibernateBaseDao<CmsSensitivity, Integer> implements CmsSensitivityDao {
+	@Override
+    @SuppressWarnings("unchecked")
 	public List<CmsSensitivity> getList(boolean cacheable) {
 		String hql = "from CmsSensitivity bean order by bean.id desc";
 		return getSession().createQuery(hql).setCacheable(cacheable).list();
 	}
 
-	public CmsSensitivity findById(Integer id) {
+	@Override
+    public CmsSensitivity findById(Integer id) {
 		CmsSensitivity entity = get(id);
 		return entity;
 	}
 
-	public CmsSensitivity save(CmsSensitivity bean) {
+	@Override
+    public CmsSensitivity save(CmsSensitivity bean) {
 		getSession().save(bean);
 		return bean;
 	}
 
-	public CmsSensitivity deleteById(Integer id) {
+	@Override
+    public CmsSensitivity deleteById(Integer id) {
 		CmsSensitivity entity = super.get(id);
 		if (entity != null) {
 			getSession().delete(entity);

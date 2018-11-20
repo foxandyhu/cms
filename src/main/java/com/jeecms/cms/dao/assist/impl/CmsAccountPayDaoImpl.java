@@ -2,23 +2,23 @@ package com.jeecms.cms.dao.assist.impl;
 
 import java.util.Date;
 
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 import org.apache.commons.lang.StringUtils;
-import org.hibernate.Criteria;
 import org.springframework.stereotype.Repository;
 
 import com.jeecms.common.hibernate4.Finder;
-import com.jeecms.common.hibernate4.HibernateBaseDao;
 import com.jeecms.common.page.Pagination;
 import com.jeecms.common.util.DateUtils;
 import com.jeecms.cms.dao.assist.CmsAccountPayDao;
 import com.jeecms.cms.entity.assist.CmsAccountPay;
 
 @Repository
-public class CmsAccountPayDaoImpl extends HibernateBaseDao<CmsAccountPay, Long> 
+public class CmsAccountPayDaoImpl extends AbstractHibernateBaseDao<CmsAccountPay, Long>
 	implements CmsAccountPayDao {
 	
-	public Pagination getPage(String drawNum,Integer payUserId,Integer drawUserId,
-			Date payTimeBegin,Date payTimeEnd,int pageNo, int pageSize) {
+	@Override
+    public Pagination getPage(String drawNum, Integer payUserId, Integer drawUserId,
+                              Date payTimeBegin, Date payTimeEnd, int pageNo, int pageSize) {
 		String hql="from CmsAccountPay bean where 1=1 ";
 		Finder f=Finder.create(hql);
 		if(StringUtils.isNotBlank(drawNum)){
@@ -51,17 +51,20 @@ public class CmsAccountPayDaoImpl extends HibernateBaseDao<CmsAccountPay, Long>
 		return find(f, pageNo, pageSize);
 	}
 
-	public CmsAccountPay findById(Long id) {
+	@Override
+    public CmsAccountPay findById(Long id) {
 		CmsAccountPay entity = get(id);
 		return entity;
 	}
 
-	public CmsAccountPay save(CmsAccountPay bean) {
+	@Override
+    public CmsAccountPay save(CmsAccountPay bean) {
 		getSession().save(bean);
 		return bean;
 	}
 
-	public CmsAccountPay deleteById(Long id) {
+	@Override
+    public CmsAccountPay deleteById(Long id) {
 		CmsAccountPay entity = super.get(id);
 		if (entity != null) {
 			getSession().delete(entity);

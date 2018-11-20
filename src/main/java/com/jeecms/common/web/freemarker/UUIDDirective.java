@@ -18,7 +18,8 @@ import org.springframework.stereotype.Component;
  */
 @Component("uuid")
 public class UUIDDirective implements TemplateDirectiveModel {
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public void execute(Environment env, Map params, TemplateModel[] loopVars,
 			TemplateDirectiveBody body) throws TemplateException, IOException {
 		String uuid = UUID.randomUUID().toString();

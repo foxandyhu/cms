@@ -87,7 +87,7 @@ public class UserApiAct {
 		String body="\"\"";
 		String message = Constants.API_MESSAGE_PARAM_REQUIRED;
 		String code = ResponseCode.API_CODE_PARAM_REQUIRED;
-		WebErrors errors=WebErrors.create(request);
+		WebErrors errors= WebErrors.create(request);
 		CmsUser user = null;
 		//验证公共非空参数
 		errors=ApiValidate.validateRequiredParams(request,errors,username,loginPassword);
@@ -144,7 +144,7 @@ public class UserApiAct {
 		String body="\"\"";
 		String message=Constants.API_STATUS_FAIL;
 		String code=ResponseCode.API_CODE_CALL_SUCCESS;
-		WebErrors errors=WebErrors.create(request);
+		WebErrors errors= WebErrors.create(request);
 		ApiAccount apiAccount = null;
 		CmsUser user = null;
 		//验证公共非空参数
@@ -244,7 +244,7 @@ public class UserApiAct {
 		String body="\"\"";
 		String message=Constants.API_STATUS_FAIL;
 		String code=ResponseCode.API_CODE_CALL_SUCCESS;
-		WebErrors errors=WebErrors.create(request);
+		WebErrors errors= WebErrors.create(request);
 		ApiAccount apiAccount = null;
 		CmsUser user = null;
 		//验证公共非空参数
@@ -341,7 +341,7 @@ public class UserApiAct {
 		String body="\"\"";
 		String message=Constants.API_STATUS_FAIL;
 		String code=ResponseCode.API_CODE_CALL_SUCCESS;
-		WebErrors errors=WebErrors.create(request);
+		WebErrors errors= WebErrors.create(request);
 		if(StringUtils.isNotBlank(grant_type)){
 			grant_type="authorization_code";
 		}
@@ -425,7 +425,7 @@ public class UserApiAct {
 		if(StringUtils.isNotBlank(source)){
 			source=Constants.THIRD_SOURCE_WEIXIN_APP;
 		}
-		WebErrors errors=WebErrors.create(request);
+		WebErrors errors= WebErrors.create(request);
 		ApiAccount apiAccount = null;
 		//验证公共非空参数
 		errors=ApiValidate.validateRequiredParams(request,errors, appId,

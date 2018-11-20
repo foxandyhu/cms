@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +25,6 @@ import com.jeecms.cms.manager.assist.CmsScoreItemMng;
 import com.jeecms.common.page.Pagination;
 import com.jeecms.common.util.StrUtils;
 import com.jeecms.common.web.ResponseUtils;
-import com.jeecms.core.web.WebErrors;
 
 @Controller
 public class CmsScoreItemApiAct {
@@ -175,7 +175,7 @@ public class CmsScoreItemApiAct {
 		ResponseUtils.renderApiJson(response, request, apiResponse);
 	}
 	
-	private WebErrors validateDelet(WebErrors errors,Integer[] idArr){
+	private WebErrors validateDelet(WebErrors errors, Integer[] idArr){
 		if (idArr!=null) {
 			for (int i = 0; i < idArr.length; i++) {
 				errors = validateItem(errors, idArr[i]);
@@ -187,7 +187,7 @@ public class CmsScoreItemApiAct {
 		return errors;
 	}
 	
-	private WebErrors validateItem(WebErrors errors,Integer id){
+	private WebErrors validateItem(WebErrors errors, Integer id){
 		if (id!=null) {
 			CmsScoreItem item = manager.findById(id);
 			if (item==null) {
@@ -199,7 +199,7 @@ public class CmsScoreItemApiAct {
 		return errors;
 	}
 	
-	private WebErrors validateGroup(WebErrors errors,Integer groupId){
+	private WebErrors validateGroup(WebErrors errors, Integer groupId){
 		if (groupId==null) {
 			errors.addErrorString(Constants.API_MESSAGE_PARAM_REQUIRED);
 			errors.addErrorString(ResponseCode.API_CODE_PARAM_REQUIRED);

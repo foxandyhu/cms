@@ -13,7 +13,8 @@ import com.jeecms.common.hibernate4.Updater;
 @Service
 @Transactional
 public class ContentTxtMngImpl implements ContentTxtMng {
-	public ContentTxt save(ContentTxt txt, Content content) {
+	@Override
+    public ContentTxt save(ContentTxt txt, Content content) {
 		if (txt.isAllBlank()) {
 			return null;
 		} else {
@@ -25,7 +26,8 @@ public class ContentTxtMngImpl implements ContentTxtMng {
 		}
 	}
 
-	public ContentTxt update(ContentTxt txt, Content content) {
+	@Override
+    public ContentTxt update(ContentTxt txt, Content content) {
 		ContentTxt entity = dao.findById(content.getId());
 		if (entity == null) {
 			entity = save(txt, content);

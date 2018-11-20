@@ -19,7 +19,8 @@ import com.jeecms.core.manager.CmsConfigMng;
 @Service
 @Transactional
 public class ChannelCountMngImpl implements ChannelCountMng {
-	public int freshCacheToDB(Ehcache cache) {
+	@Override
+    public int freshCacheToDB(Ehcache cache) {
 		CmsConfig config = cmsConfigMng.get();
 		clearCount(config);
 		int count = dao.freshCacheToDB(cache);
@@ -45,13 +46,15 @@ public class ChannelCountMngImpl implements ChannelCountMng {
 		}
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public ChannelCount findById(Integer id) {
 		ChannelCount entity = dao.findById(id);
 		return entity;
 	}
 
-	public ChannelCount save(ChannelCount count, Channel channel) {
+	@Override
+    public ChannelCount save(ChannelCount count, Channel channel) {
 		count.setChannel(channel);
 		count.init();
 		dao.save(count);
@@ -59,7 +62,8 @@ public class ChannelCountMngImpl implements ChannelCountMng {
 		return count;
 	}
 
-	public void afterSaveContent(Channel channel) {
+	@Override
+    public void afterSaveContent(Channel channel) {
 		ChannelCount c=channel.getChannelCount();
 		CmsConfig config = cmsConfigMng.get();
 		clearContentCount(config);
@@ -74,7 +78,8 @@ public class ChannelCountMngImpl implements ChannelCountMng {
 		}
 	}
 	
-	public void afterDelContent(Channel channel) {
+	@Override
+    public void afterDelContent(Channel channel) {
 		ChannelCount c=channel.getChannelCount();
 		CmsConfig config = cmsConfigMng.get();
 		clearContentCount(config);
@@ -124,7 +129,8 @@ public class ChannelCountMngImpl implements ChannelCountMng {
 		}
 	}
 	
-	public ChannelCount update(ChannelCount bean) {
+	@Override
+    public ChannelCount update(ChannelCount bean) {
 		Updater<ChannelCount> updater = new Updater<ChannelCount>(bean);
 		ChannelCount entity = dao.updateByUpdater(updater);
 		return entity;

@@ -17,8 +17,9 @@ public class ImageScaleImpl implements ImageScale {
 	private static final Logger log = LoggerFactory
 			.getLogger(ImageScaleImpl.class);
 
-	public void resizeFix(File srcFile, File destFile, int boxWidth,
-			int boxHeight) throws Exception {
+	@Override
+    public void resizeFix(File srcFile, File destFile, int boxWidth,
+                          int boxHeight) throws Exception {
 		if (isMagick) {
 			MagickImageScale.resizeFix(srcFile, destFile, boxWidth, boxHeight);
 		} else {
@@ -26,8 +27,9 @@ public class ImageScaleImpl implements ImageScale {
 		}
 	}
 
-	public void resizeFix(File srcFile, File destFile, int boxWidth,
-			int boxHeight, int cutTop, int cutLeft, int cutWidth, int catHeight)
+	@Override
+    public void resizeFix(File srcFile, File destFile, int boxWidth,
+                          int boxHeight, int cutTop, int cutLeft, int cutWidth, int catHeight)
 			throws Exception {
 		if (isMagick) {
 			MagickImageScale.resizeFix(srcFile, destFile, boxWidth, boxHeight,
@@ -38,9 +40,10 @@ public class ImageScaleImpl implements ImageScale {
 		}
 	}
 
-	public void imageMark(File srcFile, File destFile, int minWidth,
-			int minHeight, int pos, int offsetX, int offsetY, String text,
-			Color color, int size, int alpha) throws Exception {
+	@Override
+    public void imageMark(File srcFile, File destFile, int minWidth,
+                          int minHeight, int pos, int offsetX, int offsetY, String text,
+                          Color color, int size, int alpha) throws Exception {
 		if (isMagick) {
 			MagickImageScale.imageMark(srcFile, destFile, minWidth, minHeight,
 					pos, offsetX, offsetY, text, color, size, alpha);
@@ -50,8 +53,9 @@ public class ImageScaleImpl implements ImageScale {
 		}
 	}
 
-	public void imageMark(File srcFile, File destFile, int minWidth,
-			int minHeight, int pos, int offsetX, int offsetY, File markFile)
+	@Override
+    public void imageMark(File srcFile, File destFile, int minWidth,
+                          int minHeight, int pos, int offsetX, int offsetY, File markFile)
 			throws Exception {
 		if (isMagick) {
 			MagickImageScale.imageMark(srcFile, destFile, minWidth, minHeight,

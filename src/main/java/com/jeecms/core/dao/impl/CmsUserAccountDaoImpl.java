@@ -6,16 +6,17 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Repository;
 
 import com.jeecms.common.hibernate4.Finder;
-import com.jeecms.common.hibernate4.HibernateBaseDao;
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 import com.jeecms.common.page.Pagination;
 import com.jeecms.common.util.DateUtils;
 import com.jeecms.core.dao.CmsUserAccountDao;
 import com.jeecms.core.entity.CmsUserAccount;
 @Repository
-public class CmsUserAccountDaoImpl extends HibernateBaseDao<CmsUserAccount, Integer> implements CmsUserAccountDao {
+public class CmsUserAccountDaoImpl extends AbstractHibernateBaseDao<CmsUserAccount, Integer> implements CmsUserAccountDao {
 	
-	public Pagination getPage(String username,Date drawTimeBegin,Date drawTimeEnd,
-			int orderBy,int pageNo,int pageSize){
+	@Override
+    public Pagination getPage(String username, Date drawTimeBegin, Date drawTimeEnd,
+                              int orderBy, int pageNo, int pageSize){
 		String hql=" select bean from CmsUserAccount bean where 1=1 ";
 		Finder f=Finder.create(hql);
 		if(StringUtils.isNotBlank(username)){
@@ -58,12 +59,14 @@ public class CmsUserAccountDaoImpl extends HibernateBaseDao<CmsUserAccount, Inte
 		return find(f, pageNo, pageSize);
 	}
 	
-	public CmsUserAccount findById(Integer id) {
+	@Override
+    public CmsUserAccount findById(Integer id) {
 		CmsUserAccount entity = get(id);
 		return entity;
 	}
 
-	public CmsUserAccount save(CmsUserAccount bean) {
+	@Override
+    public CmsUserAccount save(CmsUserAccount bean) {
 		getSession().save(bean);
 		return bean;
 	}

@@ -23,7 +23,7 @@ import org.springframework.web.servlet.support.RequestContextUtils;
  * 
  * 可以通过MessageSource实现国际化。
  */
-public abstract class WebErrors {
+public abstract class AbstractWebErrors {
 	/**
 	 * email正则表达式
 	 */
@@ -41,7 +41,7 @@ public abstract class WebErrors {
 	 * @param request
 	 *            从request中获得MessageSource和Locale，如果存在的话。
 	 */
-	public WebErrors(HttpServletRequest request) {
+	public AbstractWebErrors(HttpServletRequest request) {
 		WebApplicationContext webApplicationContext = RequestContextUtils.getWebApplicationContext(request);
 		//需要serverlet3.0支持 ，tomcat6不支持serverlet3.0
 		//WebApplicationContext webApplicationContext = RequestContextUtils.findWebApplicationContext(request);
@@ -57,7 +57,7 @@ public abstract class WebErrors {
 		}
 	}
 
-	public WebErrors() {
+	public AbstractWebErrors() {
 	}
 
 	/**
@@ -66,7 +66,7 @@ public abstract class WebErrors {
 	 * @param messageSource
 	 * @param locale
 	 */
-	public WebErrors(MessageSource messageSource, Locale locale) {
+	public AbstractWebErrors(MessageSource messageSource, Locale locale) {
 		this.messageSource = messageSource;
 		this.locale = locale;
 	}

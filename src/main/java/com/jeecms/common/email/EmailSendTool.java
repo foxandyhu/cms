@@ -115,6 +115,7 @@ public class EmailSendTool {
             final String password = this.password;
             //获取到邮箱会话,利用匿名内部类的方式,将发送者邮箱用户名和密码授权给jvm
             Session session = Session.getDefaultInstance(props, new Authenticator() {
+                @Override
                 protected PasswordAuthentication getPasswordAuthentication() {
                     return new PasswordAuthentication(username, password);
                 }
@@ -156,7 +157,8 @@ public class EmailSendTool {
 			password = pwd;
 		}
 
-		public PasswordAuthentication getPasswordAuthentication() {
+		@Override
+        public PasswordAuthentication getPasswordAuthentication() {
 			return new PasswordAuthentication(username, password);
 		}
 	}

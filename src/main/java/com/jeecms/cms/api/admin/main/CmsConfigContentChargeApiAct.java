@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -26,7 +27,6 @@ import com.jeecms.common.web.ResponseUtils;
 import com.jeecms.core.entity.CmsConfig;
 import com.jeecms.core.entity.CmsSite;
 import com.jeecms.core.manager.CmsConfigMng;
-import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
 
 @Controller

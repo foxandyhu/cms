@@ -30,7 +30,8 @@ public class CmsAdvertisingDirective implements TemplateDirectiveModel {
 	 */
 	public static final String PARAM_ID = "id";
 
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public void execute(Environment env, Map params, TemplateModel[] loopVars,
 			TemplateDirectiveBody body) throws TemplateException, IOException {
 		Integer id = DirectiveUtils.getInt(PARAM_ID, params);

@@ -17,20 +17,23 @@ import com.jeecms.common.page.Pagination;
 @Service
 @Transactional
 public class CmsVoteItemMngImpl implements CmsVoteItemMng {
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Pagination getPage(int pageNo, int pageSize) {
 		Pagination page = dao.getPage(pageNo, pageSize);
 		return page;
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public CmsVoteItem findById(Integer id) {
 		CmsVoteItem entity = dao.findById(id);
 		return entity;
 	}
 
-	public Collection<CmsVoteItem> save(Collection<CmsVoteItem> items,
-			CmsVoteSubTopic topic) {
+	@Override
+    public Collection<CmsVoteItem> save(Collection<CmsVoteItem> items,
+                                        CmsVoteSubTopic topic) {
 		if(items!=null){
 			for (CmsVoteItem item : items) {
 				item.setSubTopic(topic);
@@ -42,8 +45,9 @@ public class CmsVoteItemMngImpl implements CmsVoteItemMng {
 		return items;
 	}
 
-	public Collection<CmsVoteItem> update(Collection<CmsVoteItem> items,
-			CmsVoteSubTopic topic) {
+	@Override
+    public Collection<CmsVoteItem> update(Collection<CmsVoteItem> items,
+                                          CmsVoteSubTopic topic) {
 		Set<CmsVoteItem> set = topic.getVoteItems();
 		if(set==null){
 			set=new HashSet<CmsVoteItem>();
@@ -74,12 +78,14 @@ public class CmsVoteItemMngImpl implements CmsVoteItemMng {
 		return set;
 	}
 
-	public CmsVoteItem deleteById(Integer id) {
+	@Override
+    public CmsVoteItem deleteById(Integer id) {
 		CmsVoteItem bean = dao.deleteById(id);
 		return bean;
 	}
 
-	public CmsVoteItem[] deleteByIds(Integer[] ids) {
+	@Override
+    public CmsVoteItem[] deleteByIds(Integer[] ids) {
 		CmsVoteItem[] beans = new CmsVoteItem[ids.length];
 		for (int i = 0, len = ids.length; i < len; i++) {
 			beans[i] = deleteById(ids[i]);

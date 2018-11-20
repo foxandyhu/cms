@@ -39,7 +39,7 @@ public class FireWallInterceptor extends HandlerInterceptorAdapter implements Di
         String[] hourArrays = StringUtils.split(fireWallProperty.getHour(), ",");
 
         String requestIp = RequestUtils.getIpAddr(request);
-        if (fireWallProperty.getOpen().equals("1")) {
+        if ("1".equals(fireWallProperty.getOpen())) {
             if (!isAuthDomain(fireWallProperty.getDomain(), request.getServerName())) {
                 return false;
             } else {

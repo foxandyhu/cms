@@ -14,7 +14,8 @@ import com.jeecms.cms.manager.assist.CmsSensitivityMng;
 @Service
 @Transactional
 public class CmsSensitivityMngImpl implements CmsSensitivityMng {
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public String replaceSensitivity(String s) {
 		if (StringUtils.isBlank(s)) {
 			return s;
@@ -26,7 +27,8 @@ public class CmsSensitivityMngImpl implements CmsSensitivityMng {
 		return s;
 	}
 	
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public boolean haveSensitivity(String... arrays) {
 		if (arrays==null||arrays.length<=0) {
 			return false;
@@ -47,24 +49,28 @@ public class CmsSensitivityMngImpl implements CmsSensitivityMng {
 		return have;
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public List<CmsSensitivity> getList(boolean cacheable) {
 		return dao.getList(cacheable);
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public CmsSensitivity findById(Integer id) {
 		CmsSensitivity entity = dao.findById(id);
 		return entity;
 	}
 
-	public CmsSensitivity save(CmsSensitivity bean) {
+	@Override
+    public CmsSensitivity save(CmsSensitivity bean) {
 		dao.save(bean);
 		return bean;
 	}
 
-	public void updateEnsitivity(Integer[] ids, String[] searchs,
-			String[] replacements) {
+	@Override
+    public void updateEnsitivity(Integer[] ids, String[] searchs,
+                                 String[] replacements) {
 		CmsSensitivity ensitivity;
 		for (int i = 0, len = ids.length; i < len; i++) {
 			ensitivity = findById(ids[i]);
@@ -73,12 +79,14 @@ public class CmsSensitivityMngImpl implements CmsSensitivityMng {
 		}
 	}
 
-	public CmsSensitivity deleteById(Integer id) {
+	@Override
+    public CmsSensitivity deleteById(Integer id) {
 		CmsSensitivity bean = dao.deleteById(id);
 		return bean;
 	}
 
-	public CmsSensitivity[] deleteByIds(Integer[] ids) {
+	@Override
+    public CmsSensitivity[] deleteByIds(Integer[] ids) {
 		CmsSensitivity[] beans = new CmsSensitivity[ids.length];
 		for (int i = 0, len = ids.length; i < len; i++) {
 			beans[i] = deleteById(ids[i]);

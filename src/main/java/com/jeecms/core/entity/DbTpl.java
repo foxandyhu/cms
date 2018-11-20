@@ -63,6 +63,7 @@ public class DbTpl implements Tpl, Serializable {
         this.id = id;
     }
 
+    @Override
     public String getSource() {
         return source;
     }
@@ -72,6 +73,7 @@ public class DbTpl implements Tpl, Serializable {
     }
 
 
+    @Override
     public long getLastModified() {
         return lastModified;
     }
@@ -82,6 +84,7 @@ public class DbTpl implements Tpl, Serializable {
     }
 
 
+    @Override
     public boolean isDirectory() {
         return directory;
     }
@@ -112,15 +115,18 @@ public class DbTpl implements Tpl, Serializable {
         return list.toArray(arr);
     }
 
+    @Override
     public String getName() {
         return getId();
     }
 
+    @Override
     public String getPath() {
         String name = getId();
         return getId().substring(0, name.lastIndexOf("/"));
     }
 
+    @Override
     public String getFilename() {
         String name = getId();
         if (!StringUtils.isBlank(name)) {
@@ -132,6 +138,7 @@ public class DbTpl implements Tpl, Serializable {
         return name;
     }
 
+    @Override
     public long getLength() {
         if (isDirectory() || getSource() == null) {
             return 128;
@@ -141,10 +148,12 @@ public class DbTpl implements Tpl, Serializable {
         }
     }
 
+    @Override
     public int getSize() {
         return (int) (getLength() / 1024) + 1;
     }
 
+    @Override
     public Date getLastModifiedDate() {
         return new Timestamp(getLastModified());
     }

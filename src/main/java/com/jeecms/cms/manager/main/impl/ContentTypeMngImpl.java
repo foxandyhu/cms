@@ -14,39 +14,46 @@ import com.jeecms.common.hibernate4.Updater;
 @Service
 @Transactional
 public class ContentTypeMngImpl implements ContentTypeMng {
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public List<ContentType> getList(Boolean containDisabled) {
 		return dao.getList(containDisabled);
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public ContentType getDef() {
 		return dao.getDef();
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public ContentType findById(Integer id) {
 		ContentType entity = dao.findById(id);
 		return entity;
 	}
 
-	public ContentType save(ContentType bean) {
+	@Override
+    public ContentType save(ContentType bean) {
 		dao.save(bean);
 		return bean;
 	}
 
-	public ContentType update(ContentType bean) {
+	@Override
+    public ContentType update(ContentType bean) {
 		Updater<ContentType> updater = new Updater<ContentType>(bean);
 		ContentType entity = dao.updateByUpdater(updater);
 		return entity;
 	}
 
-	public ContentType deleteById(Integer id) {
+	@Override
+    public ContentType deleteById(Integer id) {
 		ContentType bean = dao.deleteById(id);
 		return bean;
 	}
 
-	public ContentType[] deleteByIds(Integer[] ids) {
+	@Override
+    public ContentType[] deleteByIds(Integer[] ids) {
 		ContentType[] beans = new ContentType[ids.length];
 		for (int i = 0, len = ids.length; i < len; i++) {
 			beans[i] = deleteById(ids[i]);

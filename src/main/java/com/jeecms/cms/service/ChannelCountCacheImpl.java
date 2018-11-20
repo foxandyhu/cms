@@ -26,7 +26,8 @@ public class ChannelCountCacheImpl implements ChannelCountCache, DisposableBean 
 	/**
 	 * @see ChannelCountCache#viewAndGet(Integer)
 	 */
-	public int[] viewAndGet(Integer id) {
+	@Override
+    public int[] viewAndGet(Integer id) {
 		ChannelCount count=channelMng.findById(id).getChannelCount();
 		if (count == null) {
 			return null;
@@ -57,7 +58,8 @@ public class ChannelCountCacheImpl implements ChannelCountCache, DisposableBean 
 	/**
 	 * 销毁BEAN时，缓存入库。
 	 */
-	public void destroy() throws Exception {
+	@Override
+    public void destroy() throws Exception {
 		int count = channelCountMng.freshCacheToDB(cache);
 		log.info("Bean destroy.refresh cache views to DB: {}", count);
 	}

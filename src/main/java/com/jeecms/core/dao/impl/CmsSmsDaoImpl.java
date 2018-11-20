@@ -2,16 +2,16 @@ package com.jeecms.core.dao.impl;
 
 import java.util.List;
 
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 import org.springframework.stereotype.Repository;
 
 import com.jeecms.common.hibernate4.Finder;
-import com.jeecms.common.hibernate4.HibernateBaseDao;
 import com.jeecms.common.page.Pagination;
 import com.jeecms.core.dao.CmsSmsDao;
 import com.jeecms.core.entity.CmsSms;
 
 @Repository
-public class CmsSmsDaoImpl extends HibernateBaseDao<CmsSms, Integer> implements CmsSmsDao {
+public class CmsSmsDaoImpl extends AbstractHibernateBaseDao<CmsSms, Integer> implements CmsSmsDao {
 
 	@Override
 	public Pagination getPage(Byte source,int pageNo, int pageSize) {

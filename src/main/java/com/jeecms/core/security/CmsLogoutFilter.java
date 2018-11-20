@@ -23,7 +23,8 @@ public class CmsLogoutFilter extends LogoutFilter {
 	
 	public static final String USER_LOG_OUT_FLAG = "logout";
 
-	protected String getRedirectUrl(ServletRequest req, ServletResponse resp,Subject subject) {
+	@Override
+    protected String getRedirectUrl(ServletRequest req, ServletResponse resp, Subject subject) {
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response=(HttpServletResponse) resp;
 		String redirectUrl = request.getParameter(RETURN_URL);

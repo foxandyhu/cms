@@ -9,7 +9,7 @@ import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
 
-public abstract class LuceneDirectiveAbstract implements TemplateDirectiveModel {
+public abstract class AbstractLuceneDirective implements TemplateDirectiveModel {
 	/**
 	 * 输入参数，搜索关键字
 	 */

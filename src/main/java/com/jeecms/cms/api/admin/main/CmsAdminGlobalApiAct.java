@@ -9,6 +9,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.json.JSONArray;
@@ -32,7 +33,6 @@ import com.jeecms.core.entity.CmsSite;
 import com.jeecms.core.entity.CmsUser;
 import com.jeecms.core.entity.CmsUserExt;
 import com.jeecms.core.entity.CmsUserSite;
-import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
 
 @Controller
@@ -429,7 +429,7 @@ public class CmsAdminGlobalApiAct extends CmsAdminAbstractApi{
 		return errors;
 	}
 
-	private WebErrors validateUpdate(WebErrors errors, Integer id, Integer rank,HttpServletRequest request) {
+	private WebErrors validateUpdate(WebErrors errors, Integer id, Integer rank, HttpServletRequest request) {
 		if (vldExist(id, errors)) {
 			return errors;
 		}
@@ -468,8 +468,8 @@ public class CmsAdminGlobalApiAct extends CmsAdminAbstractApi{
 		return false;
 	}
 
-	private WebErrors validateSave(WebErrors errors,Integer[] siteArr, Byte[] stepArr,
-			Boolean[] allChannelArr){
+	private WebErrors validateSave(WebErrors errors, Integer[] siteArr, Byte[] stepArr,
+								   Boolean[] allChannelArr){
 		if (siteArr!=null) {
 			if (stepArr==null) {
 				errors.addErrorString(Constants.API_MESSAGE_PARAM_REQUIRED);

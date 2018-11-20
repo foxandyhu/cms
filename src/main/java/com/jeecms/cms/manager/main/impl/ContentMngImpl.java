@@ -68,7 +68,8 @@ import freemarker.template.TemplateException;
 @Service
 @Transactional
 public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Pagination getPageByRight(Integer share,String title, Integer typeId,
 			Integer currUserId,Integer inputUserId, boolean topLevel, boolean recommend,
 			ContentStatus status, Byte checkStep, Integer siteId,
@@ -101,7 +102,8 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 		return p;
 	}
 	
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Pagination getPageCountByRight(Integer share,String title, Integer typeId,
 			Integer currUserId,Integer inputUserId, boolean topLevel, boolean recommend,
 			ContentStatus status, Byte checkStep, Integer siteId,
@@ -130,27 +132,31 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 		return p;
 	}
 	
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Pagination getPageBySite(String title, Integer typeId,Integer currUserId,Integer inputUserId,boolean topLevel,
 			boolean recommend,ContentStatus status, Integer siteId,int orderBy, int pageNo,int pageSize){
 		return dao.getPage(Content.CONTENT_QUERY_NOT_SHARE,
 				title, typeId, currUserId, inputUserId, topLevel, recommend, status, null, siteId, null, null, orderBy, pageNo, pageSize);
 	}
 	
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Pagination getPageCountBySite(String title, Integer typeId,Integer currUserId,Integer inputUserId,boolean topLevel,
 			boolean recommend,ContentStatus status, Integer siteId,int orderBy, int pageNo,int pageSize){
 		return dao.getPageCount(Content.CONTENT_QUERY_NOT_SHARE,
 				title, typeId, currUserId, inputUserId, topLevel, recommend, status, null, siteId, null, null, orderBy, pageNo, pageSize);
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Pagination getPageForMember(String title, Integer channelId,Integer siteId,Integer modelId, Integer memberId, int pageNo, int pageSize) {
 		return dao.getPageForMember(Content.CONTENT_QUERY_NOT_SHARE,
 				title, null,memberId,memberId, false, false,ContentStatus.all, null, siteId,modelId,  channelId, 0, pageNo,pageSize);
 	}
 	
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public List<Content> getListForMember(String title, Integer channelId,
 			Integer siteId, Integer modelId,Integer memberId, int first, int count){
 		return dao.getList(title, null,memberId,memberId, false,
@@ -158,23 +164,27 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 				channelId, 0, first,count);
 	}
 	
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public  List<Content> getExpiredTopLevelContents(byte topLevel,Date expiredDay){
 		return dao.getExpiredTopLevelContents(topLevel,expiredDay);
 	}
 	
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public  List<Content> getPigeonholeContents(Date pigeonholeDay){
 		return dao.getPigeonholeContents(pigeonholeDay);
 	}
 	
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Content getSide(Integer id, Integer siteId, Integer channelId,
 			boolean next) {
 		return dao.getSide(id, siteId, channelId, next, true);
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public List<Content> getListByIdsForTag(Integer[] ids, int orderBy) {
 		if (ids.length == 1) {
 			Content content = findById(ids[0]);
@@ -191,7 +201,8 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 		}
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Pagination getPageBySiteIdsForTag(Integer[] siteIds,
 			Integer[] typeIds, Boolean titleImg, Boolean recommend,
 			String title,Map<String,String[]>attr,int orderBy, int pageNo, int pageSize) {
@@ -199,7 +210,8 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 				recommend, title, attr,orderBy, pageNo, pageSize);
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public List<Content> getListBySiteIdsForTag(Integer[] siteIds,
 			Integer[] typeIds, Boolean titleImg, Boolean recommend,
 			String title, Map<String,String[]>attr,int orderBy,Integer first, Integer count) {
@@ -207,7 +219,8 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 				recommend, title,attr, orderBy, first, count);
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Pagination getPageByChannelIdsForTag(Integer[] channelIds,
 			Integer[] typeIds, Boolean titleImg, Boolean recommend,
 			String title,Map<String,String[]>attr,int orderBy, int option, int pageNo, int pageSize) {
@@ -215,7 +228,8 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 				recommend, title,attr, orderBy, option, pageNo, pageSize);
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public List<Content> getListByChannelIdsForTag(Integer[] channelIds,
 			Integer[] typeIds, Boolean titleImg, Boolean recommend,
 			String title, Map<String,String[]>attr,int orderBy,int option, Integer first,Integer count) {
@@ -223,7 +237,8 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 				recommend, title,attr, orderBy, option,first, count);
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Pagination getPageByChannelPathsForTag(String[] paths,
 			Integer[] siteIds, Integer[] typeIds, Boolean titleImg,
 			Boolean recommend, String title,Map<String,String[]>attr,int orderBy, int pageNo, int pageSize) {
@@ -231,7 +246,8 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 				titleImg, recommend, title,attr, orderBy, pageNo, pageSize);
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public List<Content> getListByChannelPathsForTag(String[] paths,
 			Integer[] siteIds, Integer[] typeIds, Boolean titleImg,
 			Boolean recommend, String title,Map<String,String[]>attr,int orderBy, Integer first, Integer count) {
@@ -239,7 +255,8 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 				titleImg, recommend, title,attr, orderBy, first, count);
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Pagination getPageByTopicIdForTag(Integer topicId,
 			Integer[] siteIds, Integer[] channelIds, Integer[] typeIds,
 			Boolean titleImg, Boolean recommend, String title, Map<String,String[]>attr,int orderBy,int pageNo,
@@ -248,7 +265,8 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 				typeIds, titleImg, recommend, title,attr, orderBy, pageNo, pageSize);
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public List<Content> getListByTopicIdForTag(Integer topicId,
 			Integer[] siteIds, Integer[] channelIds, Integer[] typeIds,
 			Boolean titleImg, Boolean recommend, String title, Map<String,String[]>attr,int orderBy,Integer first,
@@ -257,7 +275,8 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 				typeIds, titleImg, recommend, title,attr, orderBy, first, count);
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Pagination getPageByTagIdsForTag(Integer[] tagIds,
 			Integer[] siteIds, Integer[] channelIds, Integer[] typeIds,
 			Integer excludeId, Boolean titleImg, Boolean recommend,
@@ -267,7 +286,8 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 				pageSize);
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public List<Content> getListByTagIdsForTag(Integer[] tagIds,
 			Integer[] siteIds, Integer[] channelIds, Integer[] typeIds,
 			Integer excludeId, Boolean titleImg, Boolean recommend,
@@ -276,22 +296,24 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 				excludeId, titleImg, recommend, title,attr, orderBy, first, count);
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Content findById(Integer id) {
 		Content entity = dao.findById(id);
 		return entity;
 	}
 
-	public Content save(Content bean, ContentExt ext, ContentTxt txt,Integer[] channelIds,
-			Integer[] topicIds, Integer[] viewGroupIds, String[] tagArr,
-			String[] attachmentPaths, String[] attachmentNames,
-			String[] attachmentFilenames, String[] picPaths,
-			String[] picDescs, Integer channelId, Integer typeId,
-			Boolean draft, Boolean contribute,Short charge, 
-			Double chargeAmount,Boolean rewardPattern,
-			Double rewardRandomMin,Double rewardRandomMax,
-			Double[] rewardFix,CmsUser user,
-			boolean forMember) {
+	@Override
+    public Content save(Content bean, ContentExt ext, ContentTxt txt, Integer[] channelIds,
+                        Integer[] topicIds, Integer[] viewGroupIds, String[] tagArr,
+                        String[] attachmentPaths, String[] attachmentNames,
+                        String[] attachmentFilenames, String[] picPaths,
+                        String[] picDescs, Integer channelId, Integer typeId,
+                        Boolean draft, Boolean contribute, Short charge,
+                        Double chargeAmount, Boolean rewardPattern,
+                        Double rewardRandomMin, Double rewardRandomMax,
+                        Double[] rewardFix, CmsUser user,
+                        boolean forMember) {
 		if(charge==null){
 			charge=ContentCharge.MODEL_FREE;
 		}
@@ -363,8 +385,9 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 	}
 	
 	//导入word执行
-	public Content save(Content bean, ContentExt ext, ContentTxt txt,Integer channelId,
-			Integer typeId,Boolean draft, CmsUser user, boolean forMember){
+	@Override
+    public Content save(Content bean, ContentExt ext, ContentTxt txt, Integer channelId,
+                        Integer typeId, Boolean draft, CmsUser user, boolean forMember){
 		saveContent(bean, ext, txt,channelId, typeId, draft, false,user, forMember);
 		// 执行监听器
 		//afterSave(bean);
@@ -418,16 +441,17 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 		return bean;
 	}
 
-	public Content update(Content bean, ContentExt ext, ContentTxt txt,String[] tagArr,
-			Integer[] channelIds, Integer[] topicIds, Integer[] viewGroupIds,
-			String[] attachmentPaths, String[] attachmentNames,
-			String[] attachmentFilenames, String[] picPaths,
-			String[] picDescs, Map<String, String> attr, Integer channelId,
-			Integer typeId, Boolean draft, Short charge,
-			Double chargeAmount,Boolean rewardPattern,
-			Double rewardRandomMin,Double rewardRandomMax,
-			Double[] rewardFix,CmsUser user,
-			boolean forMember) {
+	@Override
+    public Content update(Content bean, ContentExt ext, ContentTxt txt, String[] tagArr,
+                          Integer[] channelIds, Integer[] topicIds, Integer[] viewGroupIds,
+                          String[] attachmentPaths, String[] attachmentNames,
+                          String[] attachmentFilenames, String[] picPaths,
+                          String[] picDescs, Map<String, String> attr, Integer channelId,
+                          Integer typeId, Boolean draft, Short charge,
+                          Double chargeAmount, Boolean rewardPattern,
+                          Double rewardRandomMin, Double rewardRandomMax,
+                          Double[] rewardFix, CmsUser user,
+                          boolean forMember) {
 		Content entity = findById(bean.getId());
 		// 执行监听器
 		List<Map<String, Object>> mapList = preChange(entity);
@@ -566,20 +590,23 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 		return bean;
 	}
 	
-	public Content update(Content bean){
+	@Override
+    public Content update(Content bean){
 		Updater<Content> updater = new Updater<Content>(bean);
 		bean = dao.updateByUpdater(updater);
 		return bean;
 	}
 	
-	public Content update(CmsUser user,Content bean,ContentOperateType operate){
+	@Override
+    public Content update(CmsUser user, Content bean, ContentOperateType operate){
 		// 保存操作记录
 		contentRecordMng.record(bean, user, operate);
 		return update(bean);
 	}
 	
-	public Content updateByChannelIds(Integer contentId,Integer[]channelIds,
-			Integer operate){
+	@Override
+    public Content updateByChannelIds(Integer contentId, Integer[]channelIds,
+                                      Integer operate){
 		Content bean=findById(contentId);
 		Set<Channel>channels=bean.getChannels();
 		if (channelIds != null && channelIds.length > 0) {
@@ -597,7 +624,8 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 		return bean;
 	}
 	
-	public Content addContentToTopics(Integer contentId,Integer[]topicIds){
+	@Override
+    public Content addContentToTopics(Integer contentId, Integer[]topicIds){
 		Content bean=findById(contentId);
 		Set<CmsTopic>topics=bean.getTopics();
 		if (topicIds != null && topicIds.length > 0) {
@@ -611,7 +639,8 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 	/**
 	 * 审核入口 
 	 */
-	public Content check(Integer id, CmsUser user) {
+	@Override
+    public Content check(Integer id, CmsUser user) {
 		Content content = findById(id);
 		//List<Map<String, Object>> mapList = preChange(content);
 		ContentCheck check = content.getContentCheck();
@@ -645,7 +674,8 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 		return content;
 	}
 	
-	public Content[] check(Integer[] ids, CmsUser user) {
+	@Override
+    public Content[] check(Integer[] ids, CmsUser user) {
 		Content[] beans = new Content[ids.length];
 		for (int i = 0, len = ids.length; i < len; i++) {
 			beans[i] = check(ids[i], user);
@@ -653,12 +683,14 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 		return beans;
 	}
 	
-	public Content submit(Integer id, CmsUser user){
+	@Override
+    public Content submit(Integer id, CmsUser user){
 		Content content = check(id, user);
 		return content;
 	}
 
-	public Content[] submit(Integer[] ids, CmsUser user){
+	@Override
+    public Content[] submit(Integer[] ids, CmsUser user){
 		Content[] beans = new Content[ids.length];
 		for (int i = 0, len = ids.length; i < len; i++) {
 			beans[i] = submit(ids[i], user);
@@ -666,7 +698,8 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 		return beans;
 	}
 
-	public Content reject(Integer id, CmsUser user,  Byte step, String opinion) {
+	@Override
+    public Content reject(Integer id, CmsUser user, Byte step, String opinion) {
 		Content content = findById(id);
 		// 执行监听器
 		//List<Map<String, Object>> mapList = preChange(content);
@@ -707,7 +740,8 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 		return content;
 	}
 
-	public Content[] reject(Integer[] ids, CmsUser user, Byte step, String opinion) {
+	@Override
+    public Content[] reject(Integer[] ids, CmsUser user, Byte step, String opinion) {
 		Content[] beans = new Content[ids.length];
 		for (int i = 0, len = ids.length; i < len; i++) {
 			beans[i] = reject(ids[i], user,step, opinion);
@@ -715,7 +749,8 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 		return beans;
 	}
 
-	public Content cycle(CmsUser user,Integer id) {
+	@Override
+    public Content cycle(CmsUser user, Integer id) {
 		Content content = findById(id);
 		// 执行监听器
 		//List<Map<String, Object>> mapList = preChange(content);
@@ -726,7 +761,8 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 		return content;
 	}
 
-	public Content[] cycle(CmsUser user,Integer[] ids) {
+	@Override
+    public Content[] cycle(CmsUser user, Integer[] ids) {
 		Content[] beans = new Content[ids.length];
 		for (int i = 0, len = ids.length; i < len; i++) {
 			beans[i] = cycle(user,ids[i]);
@@ -734,7 +770,8 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 		return beans;
 	}
 
-	public Content recycle(Integer id) {
+	@Override
+    public Content recycle(Integer id) {
 		Content content = findById(id);
 		// 执行监听器
 		//List<Map<String, Object>> mapList = preChange(content);
@@ -750,7 +787,8 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 		return content;
 	}
 
-	public Content[] recycle(Integer[] ids) {
+	@Override
+    public Content[] recycle(Integer[] ids) {
 		Content[] beans = new Content[ids.length];
 		for (int i = 0, len = ids.length; i < len; i++) {
 			beans[i] = recycle(ids[i]);
@@ -758,7 +796,8 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 		return beans;
 	}
 
-	public Content deleteById(Integer id) {
+	@Override
+    public Content deleteById(Integer id) {
 		Content bean = findById(id);
 		// 执行监听器
 		preDelete(bean);
@@ -778,7 +817,8 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 		return bean;
 	}
 
-	public Content[] deleteByIds(Integer[] ids) {
+	@Override
+    public Content[] deleteByIds(Integer[] ids) {
 		Content[] beans = new Content[ids.length];
 		for (int i = 0, len = ids.length; i < len; i++) {
 			beans[i] = deleteById(ids[i]);
@@ -786,7 +826,8 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 		return beans;
 	}
 
-	public Content[] contentStatic(CmsUser user,Integer[] ids)
+	@Override
+    public Content[] contentStatic(CmsUser user, Integer[] ids)
 			throws TemplateNotFoundException, TemplateParseException,
 			GeneratedZeroStaticPageException, StaticPageNotOpenException, ContentNotCheckedException {
 		int count = 0;
@@ -818,17 +859,20 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 		return list.toArray(beans);
 	}
 	
-	public Pagination getPageForCollection(Integer siteId, Integer memberId,
-			int pageNo, int pageSize){
+	@Override
+    public Pagination getPageForCollection(Integer siteId, Integer memberId,
+                                           int pageNo, int pageSize){
 		return dao.getPageForCollection(siteId,memberId,pageNo,pageSize);
 	}
 	
-	public List<Content> getListForCollection(Integer siteId, Integer memberId, 
-			Integer first, Integer count){
+	@Override
+    public List<Content> getListForCollection(Integer siteId, Integer memberId,
+                                              Integer first, Integer count){
 		return dao.getListForCollection(siteId,memberId,first,count);
 	}
 	
-	public void updateFileByContent(Content bean,Boolean valid){
+	@Override
+    public void updateFileByContent(Content bean, Boolean valid){
 		Set<CmsFile>files;
 		Iterator<CmsFile>it;
 		CmsFile tempFile;
@@ -842,7 +886,8 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 		}
 	}
 	
-	public String checkForChannelDelete(Integer channelId) {
+	@Override
+    public String checkForChannelDelete(Integer channelId) {
 		int count = dao.countByChannelId(channelId);
 		if (count > 0) {
 			return "content.error.cannotDeleteChannel";
@@ -868,7 +913,8 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 	}
 
 	// LOOK 了解下应用场景
-	public List<Map<String, Object>> preChange(Content content) {
+	@Override
+    public List<Map<String, Object>> preChange(Content content) {
 		if (listenerList != null) {
 			int len = listenerList.size();
 			List<Map<String, Object>> list = new ArrayList<Map<String, Object>>(len);
@@ -935,7 +981,8 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 		this.listenerList = listenerList;
 	}
 
-	public List<ContentListener> getListenerList() {
+	@Override
+    public List<ContentListener> getListenerList() {
 		return listenerList;
 	}
 

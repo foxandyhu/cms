@@ -140,6 +140,7 @@ public class Config implements Serializable {
             return attr;
         }
 
+        @Override
         public String getHost() {
             return getAttr().get(EMAIL_HOST);
         }
@@ -148,6 +149,7 @@ public class Config implements Serializable {
             getAttr().put(EMAIL_HOST, host);
         }
 
+        @Override
         public Integer getPort() {
             String port = getAttr().get(EMAIL_PORT);
             if (StringUtils.isNotBlank(port) && NumberUtils.isDigits(port)) {
@@ -161,6 +163,7 @@ public class Config implements Serializable {
             getAttr().put(EMAIL_PORT, port != null ? port.toString() : null);
         }
 
+        @Override
         public String getEncoding() {
             String encoding = getAttr().get(EMAIL_ENCODING);
             return StringUtils.isNotBlank(encoding) ? encoding : null;
@@ -170,6 +173,7 @@ public class Config implements Serializable {
             getAttr().put(EMAIL_ENCODING, encoding);
         }
 
+        @Override
         public String getUsername() {
             return getAttr().get(EMAIL_USERNAME);
         }
@@ -178,6 +182,7 @@ public class Config implements Serializable {
             getAttr().put(EMAIL_USERNAME, username);
         }
 
+        @Override
         public String getPassword() {
             String password = getAttr().get(EMAIL_PASSWORD);
             return StringUtils.isNotBlank(password) ? password : null;
@@ -187,6 +192,7 @@ public class Config implements Serializable {
             getAttr().put(EMAIL_PASSWORD, password);
         }
 
+        @Override
         public String getPersonal() {
             String personal = getAttr().get(EMAIL_PERSONAL);
             return StringUtils.isNotBlank(personal) ? personal : null;
@@ -238,6 +244,7 @@ public class Config implements Serializable {
             this.attr = attr;
         }
 
+        @Override
         public String getForgotPasswordSubject() {
             return getAttr().get(MESSAGE_FORGOTPASSWORD_SUBJECT);
         }
@@ -246,6 +253,7 @@ public class Config implements Serializable {
             getAttr().put(MESSAGE_FORGOTPASSWORD_SUBJECT, subject);
         }
 
+        @Override
         public String getForgotPasswordText() {
             return getAttr().get(MESSAGE_FORGOTPASSWORD_TEXT);
         }
@@ -254,6 +262,7 @@ public class Config implements Serializable {
             getAttr().put(MESSAGE_FORGOTPASSWORD_TEXT, text);
         }
 
+        @Override
         public String getRegisterSubject() {
             return getAttr().get(MESSAGE_REGISTER_SUBJECT);
         }
@@ -262,6 +271,7 @@ public class Config implements Serializable {
             getAttr().put(MESSAGE_REGISTER_SUBJECT, subject);
         }
 
+        @Override
         public String getRegisterText() {
             return getAttr().get(MESSAGE_REGISTER_TEXT);
         }

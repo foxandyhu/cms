@@ -15,41 +15,48 @@ import com.jeecms.cms.manager.assist.CmsJobApplyMng;
 @Service
 @Transactional
 public class CmsJobApplyMngImpl implements CmsJobApplyMng {
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Pagination getPage(Integer userId,Integer contentId,Integer siteId,boolean cacheable,String title,int pageNo, int pageSize) {
 		Pagination page = dao.getPage(userId,contentId,siteId,cacheable,title,pageNo, pageSize);
 		return page;
 	}
 	
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public List<CmsJobApply> getList(Integer userId,Integer contentId,Integer siteId,
 			boolean cacheable,String title,Integer first, Integer count){
 		return dao.getList(userId,contentId,siteId,cacheable,title,first, count);
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public CmsJobApply findById(Integer id) {
 		CmsJobApply entity = dao.findById(id);
 		return entity;
 	}
 
-	public CmsJobApply save(CmsJobApply bean) {
+	@Override
+    public CmsJobApply save(CmsJobApply bean) {
 		dao.save(bean);
 		return bean;
 	}
 
-	public CmsJobApply update(CmsJobApply bean) {
+	@Override
+    public CmsJobApply update(CmsJobApply bean) {
 		Updater<CmsJobApply> updater = new Updater<CmsJobApply>(bean);
 		bean = dao.updateByUpdater(updater);
 		return bean;
 	}
 
-	public CmsJobApply deleteById(Integer id) {
+	@Override
+    public CmsJobApply deleteById(Integer id) {
 		CmsJobApply bean = dao.deleteById(id);
 		return bean;
 	}
 	
-	public CmsJobApply[] deleteByIds(Integer[] ids) {
+	@Override
+    public CmsJobApply[] deleteByIds(Integer[] ids) {
 		CmsJobApply[] beans = new CmsJobApply[ids.length];
 		for (int i = 0,len = ids.length; i < len; i++) {
 			beans[i] = deleteById(ids[i]);

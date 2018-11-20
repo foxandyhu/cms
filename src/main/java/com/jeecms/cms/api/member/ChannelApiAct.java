@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,6 @@ import com.jeecms.common.web.RequestUtils;
 import com.jeecms.common.web.ResponseUtils;
 import com.jeecms.core.entity.CmsSite;
 import com.jeecms.core.manager.CmsSiteMng;
-import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
 
 @Controller
@@ -62,7 +62,7 @@ public class ChannelApiAct {
 		String body="\"\"";
 		String message=Constants.API_MESSAGE_PARAM_REQUIRED;
 		String code = ResponseCode.API_CODE_PARAM_REQUIRED;
-		WebErrors errors=WebErrors.create(request);
+		WebErrors errors= WebErrors.create(request);
 		//验证公共非空参数
 		errors=ApiValidate.validateRequiredParams(request,errors,
 				name,path,modelId);
@@ -148,7 +148,7 @@ public class ChannelApiAct {
 		String message=Constants.API_MESSAGE_PARAM_REQUIRED;
 		String code = ResponseCode.API_CODE_PARAM_REQUIRED;
 		Map<String, String> attr = RequestUtils.getRequestMap(request, "attr_");
-		WebErrors errors=WebErrors.create(request);
+		WebErrors errors= WebErrors.create(request);
 		//验证公共非空参数
 		errors=ApiValidate.validateRequiredParams(request,errors,channelId);
 		if(!errors.hasErrors()){

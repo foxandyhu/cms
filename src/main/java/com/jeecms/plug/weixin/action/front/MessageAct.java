@@ -71,7 +71,7 @@ public class MessageAct {
 		String postStr = readStreamParameter(request.getInputStream()) ;
 		Document document=null;
 		try{
-			if(postStr!=null && !postStr.trim().equals("")){
+			if(postStr!=null && !"".equals(postStr.trim())){
 				document = DocumentHelper.parseText(postStr);
 			}
         }catch(Exception e){  
@@ -88,23 +88,23 @@ public class MessageAct {
         String userMsgType  = root.elementText("MsgType");
         
         String keyword =root.elementTextTrim("Content");
-        String time = new Date().getTime()+"";  
+        String time = System.currentTimeMillis()+"";
         
         // 默认返回的文本消息内容  
         String respContent = "no body"; 
         String welcome=weixinMng.find(CmsUtils.getSiteId(request)).getWelcome();
-        if(userMsgType.equals("event")){
+        if("event".equals(userMsgType)){
         	// 事件类型  
             String eventType = root.elementText("Event"); 
         	// 订阅  
-            if (eventType.equals("subscribe")) {  
+            if ("subscribe".equals(eventType)) {
                 respContent = welcome;  
                 respContent = text(respContent, fromUsername, toUsername, time);
                 send(respContent, response);
                 return null;
             }  
             // 取消订阅  
-            else if (eventType.equals("unsubscribe")) {  
+            else if ("unsubscribe".equals(eventType)) {
                 // TODO 取消订阅后用户再收不到公众号发送的消息，因此不须要回复消息  
             	return null;
             } 
@@ -119,7 +119,7 @@ public class MessageAct {
         if(keyword!=null){
         	keyword = keyword.trim();
         }
-        if(keyword!=null && userMsgType.equals("text")){
+        if(keyword!=null && "text".equals(userMsgType)){
         	autoReply(keyword, fromUsername, toUsername, time, site, request, response);
         }
 		return null;

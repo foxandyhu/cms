@@ -12,18 +12,16 @@ import static com.jeecms.cms.entity.assist.CmsSiteAccessStatistic.STATISTIC_TARG
 import static com.jeecms.cms.entity.assist.CmsSiteAccessStatistic.STATISTIC_TARGET_VISITORS;
 import static com.jeecms.cms.entity.assist.CmsSiteAccessStatistic.STATISTIC_TARGET_VISITSECOND;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 import org.apache.commons.lang.StringUtils;
-import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
 import com.jeecms.cms.dao.assist.CmsSiteAccessDao;
 import com.jeecms.cms.entity.assist.CmsSiteAccess;
 import com.jeecms.common.hibernate4.Finder;
-import com.jeecms.common.hibernate4.HibernateBaseDao;
 import com.jeecms.common.page.Pagination;
 
 /**
@@ -31,14 +29,16 @@ import com.jeecms.common.page.Pagination;
  */
 @Repository
 public class CmsSiteAccessDaoImpl extends
-		HibernateBaseDao<CmsSiteAccess, Integer> implements CmsSiteAccessDao {
+        AbstractHibernateBaseDao<CmsSiteAccess, Integer> implements CmsSiteAccessDao {
 
-	public CmsSiteAccess saveOrUpdate(CmsSiteAccess access) {
+	@Override
+    public CmsSiteAccess saveOrUpdate(CmsSiteAccess access) {
 		getSession().saveOrUpdate(access);
 		return access;
 	}
 	
-	public Pagination findEnterPages(Integer siteId,Integer orderBy,Integer pageNo,Integer pageSize){
+	@Override
+    public Pagination findEnterPages(Integer siteId, Integer orderBy, Integer pageNo, Integer pageSize){
 		Finder f = Finder.create("select bean.entryPage,sum(bean.visitPageCount),count(distinct bean.sessionId),sum(bean.visitSecond)/sum(bean.visitPageCount) " +
 				"from CmsSiteAccess bean where bean.site.id=:siteId").setParam("siteId", siteId);
 		f.append(" group by bean.entryPage ");
@@ -60,7 +60,8 @@ public class CmsSiteAccessDaoImpl extends
 		return find(f,totalHql,pageNo,pageSize);
 	}
 
-	public CmsSiteAccess findAccessBySessionId(String sessionId) {
+	@Override
+    public CmsSiteAccess findAccessBySessionId(String sessionId) {
 		Finder f = Finder.create(
 				"from CmsSiteAccess bean where bean.sessionId=:sessionId")
 				.setParam("sessionId", sessionId);
@@ -72,7 +73,8 @@ public class CmsSiteAccessDaoImpl extends
 		}
 	}
 	
-	public CmsSiteAccess findRecentAccess(Date date,Integer siteId){
+	@Override
+    public CmsSiteAccess findRecentAccess(Date date, Integer siteId){
 		Finder f = Finder.create("from CmsSiteAccess access where  access.site.id=:siteId and access.accessDate!=:accessDate order by access.accessDate desc ")
 		.setParam("siteId", siteId).setParam("accessDate", date);
 		List<CmsSiteAccess> list = find(f);
@@ -83,13 +85,15 @@ public class CmsSiteAccessDaoImpl extends
 		}
 	}
 
-	public List<Object[]> statisticByDay(Date date, Integer siteId) {
+	@Override
+    public List<Object[]> statisticByDay(Date date, Integer siteId) {
 		Finder f = Finder.create("select sum(access.visitPageCount) as pv,count(distinct access.ip)as ip,count(distinct access.sessionId)as visitors ,sum(access.visitSecond),'' from  CmsSiteAccess access where  access.site.id=:siteId and access.accessDate=:accessDate")
 		.setParam("siteId", siteId).setParam("accessDate", date);
 		return find(f);
 	}
 	
-	public List<Object[]> statisticByDayGroupByHour(Date date, Integer siteId) {
+	@Override
+    public List<Object[]> statisticByDayGroupByHour(Date date, Integer siteId) {
 		Finder f = Finder.create("select sum(access.visitPageCount) as pv,count(distinct access.ip)as ip,"
 				+ "count(distinct access.sessionId)as visitors ,hour(access.accessTime) "
 				+ "from  CmsSiteAccess access where  access.site.id=:siteId "
@@ -98,51 +102,59 @@ public class CmsSiteAccessDaoImpl extends
 		return find(f);
 	}
 
-	public List<Object[]> statisticByArea(Date date, Integer siteId) {
+	@Override
+    public List<Object[]> statisticByArea(Date date, Integer siteId) {
 		Finder f = Finder.create("select sum(access.visitPageCount) as pv,count(distinct access.ip)as ip,"
 				+ "count(distinct access.sessionId)as visitors ,sum(access.visitSecond), access.area from  CmsSiteAccess access where  access.site.id=:siteId and access.accessDate=:accessDate and access.area!='' group by access.area")
 		.setParam("siteId", siteId).setParam("accessDate", date);
 		return find(f);
 	}
 	
-	public List<Object[]> statisticBySource(Date date, Integer siteId) {
+	@Override
+    public List<Object[]> statisticBySource(Date date, Integer siteId) {
 		Finder f = Finder.create("select sum(access.visitPageCount) as pv,count(distinct access.ip)as ip,count(distinct access.sessionId)as visitors ,sum(access.visitSecond), access.accessSource from  CmsSiteAccess access where  access.site.id=:siteId and access.accessDate=:accessDate  group by access.accessSource")
 		.setParam("siteId", siteId).setParam("accessDate", date);
 		return find(f);
 	}
 	
-	public List<Object[]> statisticByEngine(Date date,Integer siteId){
+	@Override
+    public List<Object[]> statisticByEngine(Date date, Integer siteId){
 		Finder f = Finder.create("select sum(access.visitPageCount) as pv,count(distinct access.ip)as ip,count(distinct access.sessionId)as visitors ,sum(access.visitSecond), access.engine from  CmsSiteAccess access where  access.site.id=:siteId and access.accessDate=:accessDate and  access.engine!='' group by access.engine")
 		.setParam("siteId", siteId).setParam("accessDate", date);
 		return find(f);
 	}
 	
-	public List<Object[]> statisticByLink(Date date,Integer siteId){
+	@Override
+    public List<Object[]> statisticByLink(Date date, Integer siteId){
 		Finder f = Finder.create("select sum(access.visitPageCount) as pv,count(distinct access.ip)as ip,count(distinct access.sessionId)as visitors ,sum(access.visitSecond), access.externalLink from  CmsSiteAccess access where  access.site.id=:siteId and access.accessDate=:accessDate and  access.externalLink!='' group by access.externalLink")
 		.setParam("siteId", siteId).setParam("accessDate", date);
 		return find(f);
 	}
 	
-	public List<Object[]> statisticByKeyword(Date date,Integer siteId){
+	@Override
+    public List<Object[]> statisticByKeyword(Date date, Integer siteId){
 		Finder f = Finder.create("select sum(access.visitPageCount) as pv,count(distinct access.ip)as ip,count(distinct access.sessionId)as visitors ,sum(access.visitSecond), access.keyword from  CmsSiteAccess access where  access.site.id=:siteId and access.accessDate=:accessDate and  access.keyword!='' group by access.keyword")
 		.setParam("siteId", siteId).setParam("accessDate", date);
 		return find(f);
 	}
 	
-	public List<Object[]> statisticByPageCount(Date date,Integer siteId){
+	@Override
+    public List<Object[]> statisticByPageCount(Date date, Integer siteId){
 		Finder f = Finder.create("select count(distinct access.sessionId)as visitors ,access.visitPageCount from  CmsSiteAccess access where  access.site.id=:siteId and access.accessDate=:accessDate  group by access.visitPageCount order by count(distinct access.sessionId) desc")
 		.setParam("siteId", siteId).setParam("accessDate", date);
 		return find(f);
 	}
 	
-	public List<String> findPropertyValues(String property,Integer siteId) {
+	@Override
+    public List<String> findPropertyValues(String property, Integer siteId) {
 		String hql="select distinct bean."+property+"  from CmsSiteAccess bean where bean.site.id=:siteId and  bean."+property+" !='' ";
 		Finder f = Finder.create(hql).setParam("siteId", siteId);
 		return find(f);
 	}
 	
 	
-	public List<Object[]> statisticToday(Integer siteId,String area){
+	@Override
+    public List<Object[]> statisticToday(Integer siteId, String area){
 		String hql="select sum(bean.visitPageCount)as pv,count(distinct bean.ip)as ip,"
 				+ "count(distinct bean.sessionId)as visitors,avg(bean.visitSecond) as second,"
 				+ " hour(bean.accessTime)  as m  ";
@@ -157,7 +169,8 @@ public class CmsSiteAccessDaoImpl extends
 		return find(f);
 	}
 	
-	public List<Object[]> statisticTodayByTarget(Integer siteId,Integer target,String statisticColumn,String statisticValue){
+	@Override
+    public List<Object[]> statisticTodayByTarget(Integer siteId, Integer target, String statisticColumn, String statisticValue){
 		String hql = "";
 		if(target==STATISTIC_TARGET_PV){
 			hql="select sum(bean.visitPageCount)as pv ,hour(bean.accessTime)as m";
@@ -219,7 +232,8 @@ public class CmsSiteAccessDaoImpl extends
 //		return find(f);
 	}
 
-	public void clearByDate(Date date) {
+	@Override
+    public void clearByDate(Date date) {
 		String hql="delete from CmsSiteAccess bean where bean.accessDate!=:date";
 		getSession().createQuery(hql).setParameter("date",date).executeUpdate();
 	}

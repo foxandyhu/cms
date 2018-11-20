@@ -30,8 +30,9 @@ public class ProcessTimeDirective implements TemplateDirectiveModel {
 			.getLogger(ProcessTimeDirective.class);
 	private static final DecimalFormat FORMAT = new DecimalFormat("0.000");
 
-	public void execute(Environment env, Map params, TemplateModel[] loopVars,
-			TemplateDirectiveBody body) throws TemplateException, IOException {
+	@Override
+    public void execute(Environment env, Map params, TemplateModel[] loopVars,
+                        TemplateDirectiveBody body) throws TemplateException, IOException {
 		long time = getStartTime(env);
 		if (time != -1) {
 			time = System.currentTimeMillis() - time;

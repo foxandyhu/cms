@@ -8,21 +8,23 @@ import org.springframework.stereotype.Repository;
 import com.jeecms.cms.dao.main.ChannelDao;
 import com.jeecms.cms.entity.main.Channel;
 import com.jeecms.common.hibernate4.Finder;
-import com.jeecms.common.hibernate4.HibernateBaseDao;
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 import com.jeecms.common.page.Pagination;
 
 @Repository
-public class ChannelDaoImpl extends HibernateBaseDao<Channel, Integer>
+public class ChannelDaoImpl extends AbstractHibernateBaseDao<Channel, Integer>
 		implements ChannelDao {
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public List<Channel> getTopList(Integer siteId,boolean hasContentOnly,
 			boolean displayOnly, boolean cacheable) {
 		Finder f = getTopFinder(siteId, hasContentOnly, displayOnly, cacheable);
 		return find(f);
 	}
 
-	public Pagination getTopPage(Integer siteId, boolean hasContentOnly,
-			boolean displayOnly, boolean cacheable, int pageNo, int pageSize) {
+	@Override
+    public Pagination getTopPage(Integer siteId, boolean hasContentOnly,
+                                 boolean displayOnly, boolean cacheable, int pageNo, int pageSize) {
 		Finder f = getTopFinder(siteId, hasContentOnly, displayOnly, cacheable);
 		return find(f, pageNo, pageSize);
 	}
@@ -43,7 +45,8 @@ public class ChannelDaoImpl extends HibernateBaseDao<Channel, Integer>
 		return f;
 	}
 
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public List<Channel> getTopListByRigth(Integer userId, Integer siteId,
 			boolean hasContentOnly) {
 		Finder f = Finder.create("select bean from Channel bean");
@@ -59,7 +62,8 @@ public class ChannelDaoImpl extends HibernateBaseDao<Channel, Integer>
 		return find(f);
 	}
 
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public List<Channel> getChildList(Integer parentId, boolean hasContentOnly,
 			boolean displayOnly, boolean cacheable) {
 		Finder f = getChildFinder(parentId, hasContentOnly, displayOnly,
@@ -67,7 +71,8 @@ public class ChannelDaoImpl extends HibernateBaseDao<Channel, Integer>
 		return find(f);
 	}
 	
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public List<Channel> getBottomList(Integer siteId,boolean hasContentOnly){
 		Finder f = Finder.create("select  bean from Channel bean");
 		f.append(" where bean.site.id=:siteId").setParam("siteId", siteId);
@@ -81,8 +86,9 @@ public class ChannelDaoImpl extends HibernateBaseDao<Channel, Integer>
 		return find(f);
 	}
 
-	public Pagination getChildPage(Integer parentId, boolean hasContentOnly,
-			boolean displayOnly, boolean cacheable, int pageNo, int pageSize) {
+	@Override
+    public Pagination getChildPage(Integer parentId, boolean hasContentOnly,
+                                   boolean displayOnly, boolean cacheable, int pageNo, int pageSize) {
 		Finder f = getChildFinder(parentId, hasContentOnly, displayOnly,
 				cacheable);
 		return find(f, pageNo, pageSize);
@@ -104,7 +110,8 @@ public class ChannelDaoImpl extends HibernateBaseDao<Channel, Integer>
 		return f;
 	}
 
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public List<Channel> getChildListByRight(Integer userId, Integer parentId,
 			boolean hasContentOnly) {
 		Finder f = Finder.create("select bean from Channel bean");
@@ -120,12 +127,14 @@ public class ChannelDaoImpl extends HibernateBaseDao<Channel, Integer>
 	}
 	
 	
-	public Channel findById(Integer id) {
+	@Override
+    public Channel findById(Integer id) {
 		Channel entity = get(id);
 		return entity;
 	}
 
-	public Channel findByPath(String path, Integer siteId, boolean cacheable) {
+	@Override
+    public Channel findByPath(String path, Integer siteId, boolean cacheable) {
 		String hql = "from Channel bean where bean.path=? and bean.site.id=?";
 		Query query = getSession().createQuery(hql);
 		query.setParameter(0, path).setParameter(1, siteId);
@@ -134,12 +143,14 @@ public class ChannelDaoImpl extends HibernateBaseDao<Channel, Integer>
 		return (Channel) query.setCacheable(cacheable).uniqueResult();
 	}
 
-	public Channel save(Channel bean) {
+	@Override
+    public Channel save(Channel bean) {
 		getSession().save(bean);
 		return bean;
 	}
 
-	public Channel deleteById(Integer id) {
+	@Override
+    public Channel deleteById(Integer id) {
 		Channel entity = super.get(id);
 		if (entity != null) {
 			getSession().delete(entity);
@@ -147,7 +158,8 @@ public class ChannelDaoImpl extends HibernateBaseDao<Channel, Integer>
 		return entity;
 	}
 	
-	public void initWorkFlow(Integer workflowId){
+	@Override
+    public void initWorkFlow(Integer workflowId){
 		String hql = "update Channel bean set bean.workflow.id=null  where bean.workflow.id=:workflowId";
 		Query query = getSession().createQuery(hql).setParameter("workflowId", workflowId);
 		query.executeUpdate();

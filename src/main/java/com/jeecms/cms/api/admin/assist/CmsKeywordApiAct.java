@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.slf4j.Logger;
@@ -24,7 +25,6 @@ import com.jeecms.common.util.StrUtils;
 import com.jeecms.common.web.ResponseUtils;
 import com.jeecms.core.entity.CmsSite;
 import com.jeecms.core.manager.CmsLogMng;
-import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
 
 @Controller
@@ -168,7 +168,7 @@ public class CmsKeywordApiAct {
 		ResponseUtils.renderApiJson(response, request, apiResponse);
 	}
 	
-	private WebErrors validateDelete(WebErrors errors ,Integer[] idArr){
+	private WebErrors validateDelete(WebErrors errors , Integer[] idArr){
 		if (idArr!=null) {
 			for (int i = 0; i < idArr.length; i++) {
 				vldExist(idArr[i], errors);
@@ -192,8 +192,8 @@ public class CmsKeywordApiAct {
 		return booleans;
 	}
 	
-	private WebErrors validateUpdate(WebErrors errors ,Integer[] ids, String[] names,
-			String[] urls, Boolean[] disalbeds){
+	private WebErrors validateUpdate(WebErrors errors , Integer[] ids, String[] names,
+									 String[] urls, Boolean[] disalbeds){
 		if (ids!=null) {
 			for (int i = 0; i < ids.length; i++) {
 				vldExist(ids[i], errors);

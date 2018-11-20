@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.slf4j.Logger;
@@ -24,7 +25,6 @@ import com.jeecms.common.web.ResponseUtils;
 import com.jeecms.core.entity.CmsDictionary;
 import com.jeecms.core.manager.CmsDictionaryMng;
 import com.jeecms.core.manager.CmsLogMng;
-import com.jeecms.core.web.WebErrors;
 
 @Controller
 public class CmsDictionaryApiAct {
@@ -210,7 +210,7 @@ public class CmsDictionaryApiAct {
 		ResponseUtils.renderApiJson(response, request, apiResponse);
 	}
 	
-	private WebErrors validateExist(WebErrors errors,Integer[] idArr){
+	private WebErrors validateExist(WebErrors errors, Integer[] idArr){
 		if (idArr!=null) {
 			for (int i = 0; i < idArr.length; i++) {
 				vldExist(idArr[i], errors);
@@ -228,7 +228,7 @@ public class CmsDictionaryApiAct {
 	}
 	
 	
-	private WebErrors validateValue(CmsDictionary bean,WebErrors errors){
+	private WebErrors validateValue(CmsDictionary bean, WebErrors errors){
 		if(manager.dicDeplicateValue(bean.getValue(), bean.getType())){
 			errors.addErrorString(Constants.API_MESSAGE_PARAM_ERROR);
 			return errors;

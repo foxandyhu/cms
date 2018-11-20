@@ -2,24 +2,26 @@ package com.jeecms.cms.dao.assist.impl;
 
 import java.util.List;
 
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 import org.hibernate.Criteria;
 import org.springframework.stereotype.Repository;
 
 import com.jeecms.common.hibernate4.Finder;
-import com.jeecms.common.hibernate4.HibernateBaseDao;
 import com.jeecms.common.page.Pagination;
 import com.jeecms.cms.dao.assist.CmsScoreRecordDao;
 import com.jeecms.cms.entity.assist.CmsScoreRecord;
 
 @Repository
-public class CmsScoreRecordDaoImpl extends HibernateBaseDao<CmsScoreRecord, Integer> implements CmsScoreRecordDao {
-	public Pagination getPage(int pageNo, int pageSize) {
+public class CmsScoreRecordDaoImpl extends AbstractHibernateBaseDao<CmsScoreRecord, Integer> implements CmsScoreRecordDao {
+	@Override
+    public Pagination getPage(int pageNo, int pageSize) {
 		Criteria crit = createCriteria();
 		Pagination page = findByCriteria(crit, pageNo, pageSize);
 		return page;
 	}
 	
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public List<CmsScoreRecord> findListByContent(Integer contentId){
 		String hql="from CmsScoreRecord bean where 1=1 ";
 		Finder f=Finder.create(hql);
@@ -29,7 +31,8 @@ public class CmsScoreRecordDaoImpl extends HibernateBaseDao<CmsScoreRecord, Inte
 		return find(f);
 	}
 	
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public CmsScoreRecord findByScoreItemContent(Integer itemId,Integer contentId){
 		String hql="from CmsScoreRecord bean where 1=1 ";
 		Finder f=Finder.create(hql);
@@ -47,17 +50,20 @@ public class CmsScoreRecordDaoImpl extends HibernateBaseDao<CmsScoreRecord, Inte
 		}
 	}
 
-	public CmsScoreRecord findById(Integer id) {
+	@Override
+    public CmsScoreRecord findById(Integer id) {
 		CmsScoreRecord entity = get(id);
 		return entity;
 	}
 
-	public CmsScoreRecord save(CmsScoreRecord bean) {
+	@Override
+    public CmsScoreRecord save(CmsScoreRecord bean) {
 		getSession().save(bean);
 		return bean;
 	}
 
-	public CmsScoreRecord deleteById(Integer id) {
+	@Override
+    public CmsScoreRecord deleteById(Integer id) {
 		CmsScoreRecord entity = super.get(id);
 		if (entity != null) {
 			getSession().delete(entity);

@@ -26,9 +26,9 @@ public class PropertiesLoader {
 			logger.error("{} not found", API_FILENAME);
 			throw new RuntimeException(API_FILENAME + " not found");
 		} else {
-			if (!(in instanceof BufferedInputStream))
+			if (!(in instanceof BufferedInputStream)) {
 				in = new BufferedInputStream(in);
-
+			}
 			try {
 				properties.load(in);
 				in.close();

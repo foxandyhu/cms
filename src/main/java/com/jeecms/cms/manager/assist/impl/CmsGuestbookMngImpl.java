@@ -23,7 +23,8 @@ import com.jeecms.core.manager.CmsUserExtMng;
 @Service
 @Transactional
 public class CmsGuestbookMngImpl implements CmsGuestbookMng {
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Pagination getPage(Integer siteId, Integer ctgId,Integer ctgIds[],
 			Integer userId, Boolean recommend,Short checked,
 			boolean desc, boolean cacheable, int pageNo,int pageSize) {
@@ -31,7 +32,8 @@ public class CmsGuestbookMngImpl implements CmsGuestbookMng {
 				pageNo, pageSize);
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public List<CmsGuestbook> getList(Integer siteId, Integer ctgId,
 			Integer userId,Boolean recommend, Short checked, boolean desc,
 			boolean cacheable, int first, int max) {
@@ -39,14 +41,16 @@ public class CmsGuestbookMngImpl implements CmsGuestbookMng {
 				first, max);
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public CmsGuestbook findById(Integer id) {
 		CmsGuestbook entity = dao.findById(id);
 		return entity;
 	}
 
-	public CmsGuestbook save(CmsGuestbook bean, CmsGuestbookExt ext,
-			Integer ctgId, String ip) {
+	@Override
+    public CmsGuestbook save(CmsGuestbook bean, CmsGuestbookExt ext,
+                             Integer ctgId, String ip) {
 		bean.setCtg(cmsGuestbookCtgMng.findById(ctgId));
 		bean.setIp(ip);
 		bean.setCreateTime(new Timestamp(System.currentTimeMillis()));
@@ -56,9 +60,10 @@ public class CmsGuestbookMngImpl implements CmsGuestbookMng {
 		return bean;
 	}
 
-	public CmsGuestbook save(CmsUser member, Integer siteId, Integer ctgId,
-			String ip, String title, String content, String email,
-			String phone, String qq) {
+	@Override
+    public CmsGuestbook save(CmsUser member, Integer siteId, Integer ctgId,
+                             String ip, String title, String content, String email,
+                             String phone, String qq) {
 		CmsGuestbook guestbook = new CmsGuestbook();
 		guestbook.setMember(member);
 		guestbook.setSite(cmsSiteMng.findById(siteId));
@@ -78,8 +83,9 @@ public class CmsGuestbookMngImpl implements CmsGuestbookMng {
 		return save(guestbook, ext, ctgId, ip);
 	}
 
-	public CmsGuestbook update(CmsGuestbook bean, CmsGuestbookExt ext,
-			Integer ctgId) {
+	@Override
+    public CmsGuestbook update(CmsGuestbook bean, CmsGuestbookExt ext,
+                               Integer ctgId) {
 		Updater<CmsGuestbook> updater = new Updater<CmsGuestbook>(bean);
 		bean = dao.updateByUpdater(updater);
 		bean.setCtg(cmsGuestbookCtgMng.findById(ctgId));
@@ -87,12 +93,14 @@ public class CmsGuestbookMngImpl implements CmsGuestbookMng {
 		return bean;
 	}
 
-	public CmsGuestbook deleteById(Integer id) {
+	@Override
+    public CmsGuestbook deleteById(Integer id) {
 		CmsGuestbook bean = dao.deleteById(id);
 		return bean;
 	}
 
-	public CmsGuestbook[] deleteByIds(Integer[] ids) {
+	@Override
+    public CmsGuestbook[] deleteByIds(Integer[] ids) {
 		CmsGuestbook[] beans = new CmsGuestbook[ids.length];
 		for (int i = 0, len = ids.length; i < len; i++) {
 			beans[i] = deleteById(ids[i]);
@@ -100,7 +108,8 @@ public class CmsGuestbookMngImpl implements CmsGuestbookMng {
 		return beans;
 	}
 	
-	public CmsGuestbook[] checkByIds(Integer[] ids,CmsUser checkUser,Short checkStatus) {
+	@Override
+    public CmsGuestbook[] checkByIds(Integer[] ids, CmsUser checkUser, Short checkStatus) {
 		CmsGuestbook[] beans = new CmsGuestbook[ids.length];
 		for (int i = 0, len = ids.length; i < len; i++) {
 			beans[i] = checkById(ids[i],checkUser,checkStatus);

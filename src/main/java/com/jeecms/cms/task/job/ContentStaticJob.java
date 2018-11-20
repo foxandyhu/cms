@@ -24,7 +24,8 @@ import freemarker.template.TemplateException;
  */
 public class ContentStaticJob extends QuartzJobBean {
 	private static final Logger log = LoggerFactory.getLogger(ContentStaticJob.class);
-	protected void executeInternal(JobExecutionContext context)
+	@Override
+    protected void executeInternal(JobExecutionContext context)
 			throws JobExecutionException {
 				try {
 					SchedulerContext schCtx = context.getScheduler().getContext();

@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +34,6 @@ import com.jeecms.cms.entity.assist.CmsConfigContentCharge;
 import com.jeecms.cms.entity.main.Content;
 import com.jeecms.common.web.RequestUtils;
 import com.jeecms.core.entity.CmsSite;
-import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
 import com.jeecms.core.web.util.FrontUtils;
 
@@ -86,9 +86,9 @@ public class AliPay {
 			e.printStackTrace();
 		}
         // TODO 根据response中的结果继续业务逻辑处理
-		WebErrors errors=WebErrors.create(request);
+		WebErrors errors= WebErrors.create(request);
 		if(aliResponse!=null&&aliResponse.isSuccess()){
-			if(aliResponse.getCode().equals("10000")){
+			if("10000".equals(aliResponse.getCode())){
 				//"支付宝预下单成功
 				model.addAttribute("code_url", aliResponse.getQrCode());
 				model.addAttribute("orderNumber",outTradeNo);
@@ -270,7 +270,7 @@ public class AliPay {
 			alipayQueryResponse = alipayClient.execute(alipayQueryRequest);
 			
 			if (null != alipayQueryResponse && alipayQueryResponse.isSuccess()) {
-				if (alipayQueryResponse.getCode().equals("10000")) {
+				if ("10000".equals(alipayQueryResponse.getCode())) {
 					if ("TRADE_SUCCESS".equalsIgnoreCase(alipayQueryResponse
 							.getTradeStatus())) {
 
@@ -335,7 +335,7 @@ public class AliPay {
 						AlipayTradeQueryResponse response = alipayClient
 								.execute(request);
 						if (null != response && response.isSuccess()) {
-							if (response.getCode().equals("10000")
+							if ("10000".equals(response.getCode())
 									&& "TRADE_SUCCESS"
 											.equalsIgnoreCase(response
 													.getTradeStatus())) {
@@ -394,10 +394,10 @@ public class AliPay {
 		try {
 			response = alipayClient.execute(request);
 			if (null != response && response.isSuccess()) {
-				if (response.getCode().equals("10000")) {
+				if ("10000".equals(response.getCode())) {
 				} else {
 					// 没有撤销成功，需要重试几次
-					if (response.getRetryFlag().equals("Y")) {
+					if ("Y".equals(response.getRetryFlag())) {
 						// 如果重试标识为Y，表示支付宝撤销失败，需要轮询重新发起撤销
 						cancelOrderRetry(serverUrl,config,out_trade_no);
 					}
@@ -440,7 +440,7 @@ public class AliPay {
 						AlipayTradeCancelResponse response = alipayClient
 								.execute(request);
 						if (null != response && response.isSuccess()) {
-							if (response.getCode().equals("10000")
+							if ("10000".equals(response.getCode())
 									&& response.getBody().contains(
 											"\"retry_flag\":\"N\"")) {
 								break;

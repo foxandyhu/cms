@@ -19,23 +19,28 @@ import com.jeecms.common.page.Pagination;
 @Transactional
 public class CmsSiteAccessPagesMngImpl implements CmsSiteAccessPagesMng {
 
-	public CmsSiteAccessPages findAccessPage(String sessionId, Integer pageIndex) {
+	@Override
+    public CmsSiteAccessPages findAccessPage(String sessionId, Integer pageIndex) {
 		return dao.findAccessPage(sessionId,pageIndex);
 	}
 	
-	public Pagination findPages(Integer siteId,Integer orderBy,Integer pageNo,Integer pageSize){
+	@Override
+    public Pagination findPages(Integer siteId, Integer orderBy, Integer pageNo, Integer pageSize){
 		return dao.findPages(siteId, orderBy,pageNo,pageSize);
 	}
 
-	public void clearByDate(Date date) {
+	@Override
+    public void clearByDate(Date date) {
 		 dao.clearByDate(date);
 	}
 	
-	public CmsSiteAccessPages save(CmsSiteAccessPages access) {
+	@Override
+    public CmsSiteAccessPages save(CmsSiteAccessPages access) {
 		return dao.save(access);
 	}
 	
-	public CmsSiteAccessPages update(CmsSiteAccessPages access){
+	@Override
+    public CmsSiteAccessPages update(CmsSiteAccessPages access){
 		Updater<CmsSiteAccessPages> updater = new Updater<CmsSiteAccessPages>(access);
 		access = dao.updateByUpdater(updater);
 		return access;

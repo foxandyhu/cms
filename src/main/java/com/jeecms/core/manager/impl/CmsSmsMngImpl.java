@@ -18,13 +18,15 @@ import com.jeecms.core.manager.CmsSmsMng;
 @Transactional
 public class CmsSmsMngImpl implements CmsSmsMng {
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Pagination getPage(Byte source,int pageNo, int pageSize) {
 		Pagination page = dao.getPage(source,pageNo, pageSize);
 		return page;
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public List<CmsSms> getList() {
 		return dao.getList();
 	}
@@ -68,7 +70,7 @@ public class CmsSmsMngImpl implements CmsSmsMng {
 			CmsConfig cmsConfig = manager.get();
 			Long smsID = cmsConfig.getSmsID();
 			if(smsID != null) {
-				if(Integer.valueOf(cmsConfig.getSmsID().toString()) == ids[i]) {
+				if(Integer.valueOf(cmsConfig.getSmsID().toString()).equals(ids[i])) {
 					cmsConfig.setSmsID(null);
 					manager.update(cmsConfig);
 				}				

@@ -3,16 +3,17 @@ package com.jeecms.plug.weixin.dao.impl;
 import java.util.List;
 
 import com.jeecms.common.hibernate4.Finder;
-import com.jeecms.common.hibernate4.HibernateBaseDao;
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 import com.jeecms.common.page.Pagination;
 import com.jeecms.plug.weixin.dao.WeixinMenuDao;
 import com.jeecms.plug.weixin.entity.WeixinMenu;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class WeixinMenuDaoImpl extends HibernateBaseDao<WeixinMenu, Integer> implements WeixinMenuDao {
+public class WeixinMenuDaoImpl extends AbstractHibernateBaseDao<WeixinMenu, Integer> implements WeixinMenuDao {
 	
-	public Pagination getPage(Integer siteId,Integer parentId,int pageNo,int pageSize){
+	@Override
+    public Pagination getPage(Integer siteId, Integer parentId, int pageNo, int pageSize){
 		Finder f = Finder.create("select bean from WeixinMenu bean where 1=1");
 		if(parentId!=null){
 			f.append(" and bean.parent.id=:parentId");
@@ -27,7 +28,8 @@ public class WeixinMenuDaoImpl extends HibernateBaseDao<WeixinMenu, Integer> imp
 		return find(f,pageNo,pageSize);
 	}
 	
-	public List<WeixinMenu> getList(Integer siteId,Integer count){
+	@Override
+    public List<WeixinMenu> getList(Integer siteId, Integer count){
 		Finder f = Finder.create("select bean from WeixinMenu bean where 1=1");
 		f.append(" and bean.parent is null");
 		if(siteId!=null){
@@ -40,16 +42,19 @@ public class WeixinMenuDaoImpl extends HibernateBaseDao<WeixinMenu, Integer> imp
 		return find(f);
 	}
 	
-	public WeixinMenu findById(Integer id){
+	@Override
+    public WeixinMenu findById(Integer id){
 		return get(id);
 	}
 	
-	public WeixinMenu save(WeixinMenu bean){
+	@Override
+    public WeixinMenu save(WeixinMenu bean){
 		getSession().save(bean);
 		return bean;
 	}
 	
-	public WeixinMenu deleteById(Integer id){
+	@Override
+    public WeixinMenu deleteById(Integer id){
 		WeixinMenu entity = get(id);
 		if(entity!=null){
 			getSession().delete(entity);

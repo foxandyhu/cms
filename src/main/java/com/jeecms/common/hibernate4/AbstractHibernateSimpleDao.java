@@ -29,7 +29,7 @@ import javax.persistence.EntityManagerFactory;
  * 
  * 提供hql分页查询，不带泛型，与具体实体类无关。
  */
-public abstract class HibernateSimpleDao {
+public abstract class AbstractHibernateSimpleDao {
 	/**
 	 * 日志，可用于子类
 	 */

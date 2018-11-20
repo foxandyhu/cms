@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -35,7 +36,6 @@ import com.jeecms.common.util.StrUtils;
 import com.jeecms.common.web.ResponseUtils;
 import com.jeecms.core.entity.CmsSite;
 import com.jeecms.core.manager.CmsLogMng;
-import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
 
 @Controller
@@ -468,8 +468,8 @@ public class CmsAcquisitionApiAct {
 		return json;
 	}
 	
-	private WebErrors validateHistoryDelete(WebErrors errors,Integer[] ids,
-			HttpServletRequest request) {
+	private WebErrors validateHistoryDelete(WebErrors errors, Integer[] ids,
+											HttpServletRequest request) {
 		CmsSite site = CmsUtils.getSite(request);
 		if (errors.ifEmpty(ids, "ids", false)) {
 			return errors;
@@ -495,14 +495,14 @@ public class CmsAcquisitionApiAct {
 		return false;
 	}
 	
-	private WebErrors validateExist(WebErrors errors,Integer id,HttpServletRequest request){
+	private WebErrors validateExist(WebErrors errors, Integer id, HttpServletRequest request){
 		if (id!=null) {
 			vldExist(id, CmsUtils.getSiteId(request), errors);
 		}
 		return errors;
 	}
 	
-	private WebErrors validateArr(WebErrors errors,Integer[] ids, HttpServletRequest request) {
+	private WebErrors validateArr(WebErrors errors, Integer[] ids, HttpServletRequest request) {
 		CmsSite site = CmsUtils.getSite(request);
 		if (errors.ifEmpty(ids, "ids", false)) {
 			return errors;
@@ -513,7 +513,7 @@ public class CmsAcquisitionApiAct {
 		return errors;
 	}
 	
-	private WebErrors validateUpdate(WebErrors errors,Integer id, HttpServletRequest request) {
+	private WebErrors validateUpdate(WebErrors errors, Integer id, HttpServletRequest request) {
 		CmsSite site = CmsUtils.getSite(request);
 		if (vldExist(id, site.getId(), errors)) {
 			return errors;
@@ -544,7 +544,7 @@ public class CmsAcquisitionApiAct {
 			end=new String[array.size()];
 			for (int i = 0; i < array.size(); i++) {
 				net.sf.json.JSONObject object=array.getJSONObject(i);
-				if (flag.equals("shieldArrs")) {				
+				if ("shieldArrs".equals(flag)) {
 					start[i]=object.getString("shieldStart");
 					end[i]=object.getString("shieldEnd");
 				}else{

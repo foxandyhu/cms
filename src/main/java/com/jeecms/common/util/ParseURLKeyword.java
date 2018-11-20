@@ -25,8 +25,9 @@ public class ParseURLKeyword {
 			String unescapeString = ParseURLKeyword.unescape(keyword);
 			Matcher encodeMat = encodePatt.matcher(unescapeString);
 			String encode = "gbk";
-			if (encodeMat.matches())
+			if (encodeMat.matches()) {
 				encode = "utf-8";
+			}
 			try {
 				return URLDecoder.decode(keyword, encode);
 			} catch (UnsupportedEncodingException e) {

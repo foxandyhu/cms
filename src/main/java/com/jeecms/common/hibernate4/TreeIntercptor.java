@@ -23,7 +23,8 @@ public class TreeIntercptor extends EmptyInterceptor implements
 	private SessionFactory sessionFactory;
 	public static final String SESSION_FACTORY = "sessionFactory";
 
-	public void setApplicationContext(ApplicationContext appCtx)
+	@Override
+    public void setApplicationContext(ApplicationContext appCtx)
 			throws BeansException {
 		this.appCtx = appCtx;
 	}

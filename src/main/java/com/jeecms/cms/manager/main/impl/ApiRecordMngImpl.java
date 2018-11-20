@@ -18,25 +18,29 @@ import com.jeecms.cms.manager.main.ApiRecordMng;
 @Service
 @Transactional
 public class ApiRecordMngImpl implements ApiRecordMng {
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Pagination getPage(int pageNo, int pageSize) {
 		Pagination page = dao.getPage(pageNo, pageSize);
 		return page;
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public ApiRecord findById(Long id) {
 		ApiRecord entity = dao.findById(id);
 		return entity;
 	}
 	
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public ApiRecord findBySign(String sign,String appId) {
 		ApiRecord entity = dao.findBySign(sign,appId);
 		return entity;
 	}
 	
-	public ApiRecord callApiRecord(String ip,String appId,String apiUrl,String sign){
+	@Override
+    public ApiRecord callApiRecord(String ip, String appId, String apiUrl, String sign){
 		ApiRecord record =new ApiRecord();
 		record.setCallIp(ip);
 		record.setCallTime(Calendar.getInstance().getTime());
@@ -87,23 +91,27 @@ public class ApiRecordMngImpl implements ApiRecordMng {
 		apiInfoMng.update(info);
 	}
 
-	public ApiRecord save(ApiRecord bean) {
+	@Override
+    public ApiRecord save(ApiRecord bean) {
 		dao.save(bean);
 		return bean;
 	}
 
-	public ApiRecord update(ApiRecord bean) {
+	@Override
+    public ApiRecord update(ApiRecord bean) {
 		Updater<ApiRecord> updater = new Updater<ApiRecord>(bean);
 		bean = dao.updateByUpdater(updater);
 		return bean;
 	}
 
-	public ApiRecord deleteById(Long id) {
+	@Override
+    public ApiRecord deleteById(Long id) {
 		ApiRecord bean = dao.deleteById(id);
 		return bean;
 	}
 	
-	public ApiRecord[] deleteByIds(Long[] ids) {
+	@Override
+    public ApiRecord[] deleteByIds(Long[] ids) {
 		ApiRecord[] beans = new ApiRecord[ids.length];
 		for (int i = 0,len = ids.length; i < len; i++) {
 			beans[i] = deleteById(ids[i]);

@@ -16,29 +16,34 @@ import com.jeecms.cms.manager.assist.CmsTaskMng;
 @Service
 @Transactional
 public class CmsTaskMngImpl implements CmsTaskMng {
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Pagination getPage(Integer siteId,int pageNo, int pageSize) {
 		Pagination page = dao.getPage(siteId,pageNo, pageSize);
 		return page;
 	}
 	
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public List<CmsTask> getList(){
 		return dao.getList();
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public CmsTask findById(Integer id) {
 		CmsTask entity = dao.findById(id);
 		return entity;
 	}
 
-	public CmsTask save(CmsTask bean) {
+	@Override
+    public CmsTask save(CmsTask bean) {
 		dao.save(bean);
 		return bean;
 	}
 
-	public CmsTask update(CmsTask bean, Map<String, String> attr) {
+	@Override
+    public CmsTask update(CmsTask bean, Map<String, String> attr) {
 		Updater<CmsTask> updater = new Updater<CmsTask>(bean);
 		updater.include("intervalUnit");
 		updater.include("cronExpression");
@@ -59,12 +64,14 @@ public class CmsTaskMngImpl implements CmsTaskMng {
 		return bean;
 	}
 
-	public CmsTask deleteById(Integer id) {
+	@Override
+    public CmsTask deleteById(Integer id) {
 		CmsTask bean = dao.deleteById(id);
 		return bean;
 	}
 
-	public CmsTask[] deleteByIds(Integer[] ids) {
+	@Override
+    public CmsTask[] deleteByIds(Integer[] ids) {
 		CmsTask[] beans = new CmsTask[ids.length];
 		for (int i = 0, len = ids.length; i < len; i++) {
 			beans[i] = deleteById(ids[i]);
@@ -72,7 +79,8 @@ public class CmsTaskMngImpl implements CmsTaskMng {
 		return beans;
 	}
 
-	public String getCronExpressionFromDB(Integer taskId) {
+	@Override
+    public String getCronExpressionFromDB(Integer taskId) {
 		CmsTask task = findById(taskId);
 		if (task.getExecycle().equals(CmsTask.EXECYCLE_CRON)) {
 			return task.getCronExpression();

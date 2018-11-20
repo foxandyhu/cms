@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.jeecms.cms.dao.assist.CmsSiteAccessStatisticDao;
 import com.jeecms.cms.entity.assist.CmsSiteAccessStatistic;
 import com.jeecms.common.hibernate4.Finder;
-import com.jeecms.common.hibernate4.HibernateBaseDao;
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 
 import static com.jeecms.cms.entity.assist.CmsSiteAccessStatistic.STATISTIC_TARGET_ALL;
 import static com.jeecms.cms.entity.assist.CmsSiteAccessStatistic.STATISTIC_TARGET_IP;
@@ -22,16 +22,18 @@ import static com.jeecms.cms.entity.assist.CmsSiteAccessStatistic.STATISTIC_TARG
  */
 @Repository
 public class CmsSiteAccessStatisticDaoImpl extends
-		HibernateBaseDao<CmsSiteAccessStatistic, Integer> implements
+        AbstractHibernateBaseDao<CmsSiteAccessStatistic, Integer> implements
 		CmsSiteAccessStatisticDao {
 
-	public CmsSiteAccessStatistic save(CmsSiteAccessStatistic bean) {
+	@Override
+    public CmsSiteAccessStatistic save(CmsSiteAccessStatistic bean) {
 		getSession().save(bean);
 		return bean;
 	}
 
-	public List<Object[]> statistic(Date begin, Date end,
-			Integer siteId, String statisticType,String statisticValue) {
+	@Override
+    public List<Object[]> statistic(Date begin, Date end,
+                                    Integer siteId, String statisticType, String statisticValue) {
 		Finder f = Finder.create("select bean.pv,bean.ip,bean.visitors,"
 				+ "bean.visitSecondAver,bean.statisticDate "
 				+ "from CmsSiteAccessStatistic bean "
@@ -52,8 +54,9 @@ public class CmsSiteAccessStatisticDaoImpl extends
 		return find(f);
 	}
 	
-	public List<Object[]> statisticTotal(Date begin, Date end,Integer siteId,
-			String statisticType,String statisticValue,Integer orderBy) {
+	@Override
+    public List<Object[]> statisticTotal(Date begin, Date end, Integer siteId,
+                                         String statisticType, String statisticValue, Integer orderBy) {
 		Finder f = Finder.create("select sum(bean.pv) as pv ,"
 				+ "count(distinct bean.ip) as ip ,"
 				+ "sum(bean.visitors) as visitors,"
@@ -87,8 +90,9 @@ public class CmsSiteAccessStatisticDaoImpl extends
 		return find(f);
 	}
 	
-	public List<Object[]> statisticByTarget(Date begin, Date end,
-			Integer siteId,Integer target, String statisticType,String statisticValue) {
+	@Override
+    public List<Object[]> statisticByTarget(Date begin, Date end,
+                                            Integer siteId, Integer target, String statisticType, String statisticValue) {
 		String hql="";
 		
 		if(target==STATISTIC_TARGET_PV){
@@ -121,8 +125,9 @@ public class CmsSiteAccessStatisticDaoImpl extends
 		return find(f);
 	}
 	
-	public List<String> findStatisticColumnValues(Date begin, Date end,
-			Integer siteId, String statisticType) {
+	@Override
+    public List<String> findStatisticColumnValues(Date begin, Date end,
+                                                  Integer siteId, String statisticType) {
 		String hql="select bean.statisticColumnValue  from CmsSiteAccessStatistic bean"
 				+ " where bean.site.id=:siteId  and bean.statisitcType=:statisticType";
 		Finder f = Finder.create(hql).setParam("siteId", siteId)
@@ -138,9 +143,10 @@ public class CmsSiteAccessStatisticDaoImpl extends
 		return find(f);
 	}
 	
-	public List<Object[]> statisticByYear(Integer year,Integer siteId, 
-			String statisticType,String statisticValue,
-			boolean groupByMonth,Integer orderBy){
+	@Override
+    public List<Object[]> statisticByYear(Integer year, Integer siteId,
+                                          String statisticType, String statisticValue,
+                                          boolean groupByMonth, Integer orderBy){
 		Finder f = Finder.create("select sum(bean.pv),sum(bean.ip),"
 				+ "sum(bean.visitors),"
 				+ "(sum(bean.visitSecondAver * bean.visitors)/sum(bean.visitors)) "
@@ -169,7 +175,8 @@ public class CmsSiteAccessStatisticDaoImpl extends
 		return find(f);
 	}
 	
-	public List<Object[]> statisticByYearByTarget(Integer year,Integer siteId, Integer target,String statisticType,String statisticValue){
+	@Override
+    public List<Object[]> statisticByYearByTarget(Integer year, Integer siteId, Integer target, String statisticType, String statisticValue){
 		String hql="";
 		if(target==STATISTIC_TARGET_PV){
 			hql="select sum(bean.pv)as pv,month(bean.statisticDate)as m";
@@ -193,7 +200,8 @@ public class CmsSiteAccessStatisticDaoImpl extends
 		return find(f);
 	}
 
-	protected Class<CmsSiteAccessStatistic> getEntityClass() {
+	@Override
+    protected Class<CmsSiteAccessStatistic> getEntityClass() {
 		return CmsSiteAccessStatistic.class;
 	}
 }

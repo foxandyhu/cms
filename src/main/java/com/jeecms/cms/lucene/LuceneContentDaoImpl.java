@@ -3,6 +3,7 @@ package com.jeecms.cms.lucene;
 import java.io.IOException;
 import java.util.Date;
 
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 import org.apache.lucene.index.CorruptIndexException;
 import org.apache.lucene.index.IndexWriter;
 import org.hibernate.CacheMode;
@@ -14,13 +15,13 @@ import org.springframework.stereotype.Repository;
 import com.jeecms.cms.entity.main.Content;
 import com.jeecms.cms.entity.main.ContentCheck;
 import com.jeecms.common.hibernate4.Finder;
-import com.jeecms.common.hibernate4.HibernateBaseDao;
 
 @Repository
-public class LuceneContentDaoImpl extends HibernateBaseDao<Content, Integer>
+public class LuceneContentDaoImpl extends AbstractHibernateBaseDao<Content, Integer>
 		implements LuceneContentDao {
-	public Integer index(IndexWriter writer, Integer siteId, Integer channelId,
-			Date startDate, Date endDate, Integer startId, Integer max)
+	@Override
+    public Integer index(IndexWriter writer, Integer siteId, Integer channelId,
+                         Date startDate, Date endDate, Integer startId, Integer max)
 			throws CorruptIndexException, IOException {
 		Finder f = Finder.create("select bean from Content bean");
 		if (channelId != null) {

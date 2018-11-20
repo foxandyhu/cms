@@ -15,12 +15,14 @@ import java.io.*;
 @Service
 @Transactional
 public class DbFileMngImpl implements DbFileMng {
+    @Override
     @Transactional(readOnly = true)
     public DbFile findById(String id) {
         DbFile entity = dao.findById(id);
         return entity;
     }
 
+    @Override
     public String storeByExt(String path, String ext, InputStream in)
             throws IOException {
         String filename;
@@ -34,6 +36,7 @@ public class DbFileMngImpl implements DbFileMng {
         return filename;
     }
 
+    @Override
     public String storeByFilename(String filename, InputStream in)
             throws IOException {
         DbFile file = findById(filename);
@@ -45,6 +48,7 @@ public class DbFileMngImpl implements DbFileMng {
         return filename;
     }
 
+    @Override
     public File retrieve(String name) throws IOException {
         // 此方法依赖于文件名是唯一的，否则有可能出现问题。
         String path = System.getProperty("java.io.tmpdir");
@@ -55,6 +59,7 @@ public class DbFileMngImpl implements DbFileMng {
         return file;
     }
 
+    @Override
     public boolean restore(String name, File file)
             throws FileNotFoundException, IOException {
         storeByFilename(name, new FileInputStream(file));
@@ -83,11 +88,13 @@ public class DbFileMngImpl implements DbFileMng {
         return file;
     }
 
+    @Override
     public DbFile deleteById(String id) {
         DbFile bean = dao.deleteById(id);
         return bean;
     }
 
+    @Override
     public DbFile[] deleteByIds(String[] ids) {
         DbFile[] beans = new DbFile[ids.length];
         for (int i = 0, len = ids.length; i < len; i++) {

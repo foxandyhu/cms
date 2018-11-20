@@ -3,13 +3,13 @@ package com.jeecms.cms.action.member;
 
 import static com.jeecms.cms.Constants.TPLDIR_MEMBER;
 
-import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.jeecms.config.SocialInfoConfig;
+import com.jeecms.core.web.WebErrors;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,7 +30,6 @@ import com.jeecms.core.entity.CmsSite;
 import com.jeecms.core.entity.CmsUser;
 import com.jeecms.core.entity.MemberConfig;
 import com.jeecms.core.manager.CmsUserAccountMng;
-import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
 import com.jeecms.core.web.util.FrontUtils;
 
@@ -128,7 +127,7 @@ public class WeiXinAuthAct {
 					userAccountMng.updateWeiXinOpenId(user.getId(), openid);
 				}
 			} catch (JSONException e) {
-				WebErrors errors=WebErrors.create(request);
+				WebErrors errors= WebErrors.create(request);
 				String errcode = null;
 				try {
 					errcode = json.getString("errcode");

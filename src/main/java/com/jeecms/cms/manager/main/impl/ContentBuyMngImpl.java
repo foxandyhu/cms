@@ -34,6 +34,7 @@ import java.util.Map;
 @Transactional
 public class ContentBuyMngImpl implements ContentBuyMng {
 
+    @Override
     public ContentBuy contentOrder(Integer contentId, Integer orderType,
                                    Short chargeReward, Integer buyUserId, String outOrderNum) {
         ContentBuy contentBuy = new ContentBuy();
@@ -107,6 +108,7 @@ public class ContentBuyMngImpl implements ContentBuyMng {
         return contentBuy;
     }
 
+    @Override
     @Transactional(readOnly = true)
     public Pagination getPage(String orderNum, Integer buyUserId, Integer authorUserId,
                               Short payMode, int pageNo, int pageSize) {
@@ -115,6 +117,7 @@ public class ContentBuyMngImpl implements ContentBuyMng {
         return page;
     }
 
+    @Override
     @Transactional(readOnly = true)
     public List<ContentBuy> getList(String orderNum, Integer buyUserId,
                                     Integer authorUserId, Short payMode, Integer first, Integer count) {
@@ -122,60 +125,70 @@ public class ContentBuyMngImpl implements ContentBuyMng {
                 payMode, first, count);
     }
 
+    @Override
     @Transactional(readOnly = true)
     public Pagination getPageByContent(Integer contentId,
                                        Short payMode, int pageNo, int pageSize) {
         return dao.getPageByContent(contentId, payMode, pageNo, pageSize);
     }
 
+    @Override
     @Transactional(readOnly = true)
     public List<ContentBuy> getListByContent(Integer contentId, Short payMode, Integer first, Integer count) {
         return dao.getListByContent(contentId, payMode, first, count);
     }
 
+    @Override
     @Transactional(readOnly = true)
     public ContentBuy findById(Long id) {
         ContentBuy entity = dao.findById(id);
         return entity;
     }
 
+    @Override
     @Transactional(readOnly = true)
     public ContentBuy findByOrderNumber(String orderNumber) {
         return dao.findByOrderNumber(orderNumber);
     }
 
+    @Override
     @Transactional(readOnly = true)
     public ContentBuy findByOutOrderNum(String orderNum, Integer payMethod) {
         return dao.findByOutOrderNum(orderNum, payMethod);
     }
 
+    @Override
     @Transactional(readOnly = true)
     public boolean hasBuyContent(Integer buyUserId, Integer contentId) {
         ContentBuy buy = dao.find(buyUserId, contentId);
         //用户已经购买并且是收费订单非打赏订单
-        if (buy != null && buy.getUserHasPaid() && buy.getChargeReward() == ContentCharge.MODEL_CHARGE) {
+        if (buy != null && buy.getUserHasPaid() && ContentCharge.MODEL_CHARGE.equals(buy.getChargeReward())) {
             return true;
         } else {
             return false;
         }
     }
 
+    @Override
     public ContentBuy save(ContentBuy bean) {
         dao.save(bean);
         return bean;
     }
 
+    @Override
     public ContentBuy update(ContentBuy bean) {
         Updater<ContentBuy> updater = new Updater<ContentBuy>(bean);
         bean = dao.updateByUpdater(updater);
         return bean;
     }
 
+    @Override
     public ContentBuy deleteById(Long id) {
         ContentBuy bean = dao.deleteById(id);
         return bean;
     }
 
+    @Override
     public ContentBuy[] deleteByIds(Long[] ids) {
         ContentBuy[] beans = new ContentBuy[ids.length];
         for (int i = 0, len = ids.length; i < len; i++) {
@@ -191,12 +204,11 @@ public class ContentBuyMngImpl implements ContentBuyMng {
         String returnCode = map.get("return_code");
         Double orderAmount = 0d;
         if (StringUtils.isNotBlank(returnCode)) {
-            if (returnCode.equalsIgnoreCase("SUCCESS")) {
-                if (map.get("result_code").equalsIgnoreCase(
-                        "SUCCESS")) {
+            if ("SUCCESS".equalsIgnoreCase(returnCode)) {
+                if ("SUCCESS".equalsIgnoreCase(map.get("result_code"))) {
                     String trade_state = map.get("trade_state");
                     //支付成功
-                    if (trade_state.equalsIgnoreCase("SUCCESS")) {
+                    if ("SUCCESS".equalsIgnoreCase(trade_state)) {
                         String total_fee = map.get("total_fee");
                         Integer totalFee = Integer.parseInt(total_fee);
                         if (totalFee != 0) {
@@ -215,7 +227,7 @@ public class ContentBuyMngImpl implements ContentBuyMng {
                 null, outOrderNum);
         Double orderAmount = 0d;
         if (null != res && res.isSuccess()) {
-            if (res.getCode().equals("10000")) {
+            if ("10000".equals(res.getCode())) {
                 if ("TRADE_SUCCESS".equalsIgnoreCase(res
                         .getTradeStatus())) {
                     String totalAmout = res.getTotalAmount();

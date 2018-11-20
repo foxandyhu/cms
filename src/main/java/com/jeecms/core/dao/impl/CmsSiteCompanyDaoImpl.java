@@ -2,15 +2,16 @@ package com.jeecms.core.dao.impl;
 
 import org.springframework.stereotype.Repository;
 
-import com.jeecms.common.hibernate4.HibernateBaseDao;
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 import com.jeecms.core.dao.CmsSiteCompanyDao;
 import com.jeecms.core.entity.CmsSiteCompany;
 
 @Repository
 public class CmsSiteCompanyDaoImpl extends
-		HibernateBaseDao<CmsSiteCompany, Integer> implements CmsSiteCompanyDao {
+        AbstractHibernateBaseDao<CmsSiteCompany, Integer> implements CmsSiteCompanyDao {
 
-	public CmsSiteCompany save(CmsSiteCompany bean) {
+	@Override
+    public CmsSiteCompany save(CmsSiteCompany bean) {
 		getSession().save(bean);
 		return bean;
 	}

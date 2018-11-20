@@ -1,16 +1,14 @@
 package com.jeecms.cms.dao.assist.impl;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
 import com.jeecms.cms.dao.assist.CmsSiteAccessPagesDao;
 import com.jeecms.cms.entity.assist.CmsSiteAccessPages;
 import com.jeecms.common.hibernate4.Finder;
-import com.jeecms.common.hibernate4.HibernateBaseDao;
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 import com.jeecms.common.page.Pagination;
 
 /**
@@ -18,10 +16,11 @@ import com.jeecms.common.page.Pagination;
  */
 @Repository
 public class CmsSiteAccessPagesDaoImpl extends
-		HibernateBaseDao<CmsSiteAccessPages, Integer> implements
+        AbstractHibernateBaseDao<CmsSiteAccessPages, Integer> implements
 		CmsSiteAccessPagesDao {
 
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public CmsSiteAccessPages findAccessPage(String sessionId, Integer pageIndex) {
 		Finder f = Finder.create("from CmsSiteAccessPages bean where bean.sessionId=:sessionId and bean.pageIndex=:pageIndex")
 				.setParam("sessionId", sessionId).setParam("pageIndex",
@@ -34,7 +33,8 @@ public class CmsSiteAccessPagesDaoImpl extends
 		}
 	}
 	
-	public Pagination findPages(Integer siteId,Integer orderBy,Integer pageNo,Integer pageSize){
+	@Override
+    public Pagination findPages(Integer siteId, Integer orderBy, Integer pageNo, Integer pageSize){
 		Finder f = Finder.create("select bean.accessPage,count(bean.accessPage),count(distinct bean.sessionId),sum(bean.visitSecond)/count(bean.accessPage) " +
 				"from CmsSiteAccessPages bean where bean.site.id=:siteId").setParam("siteId", siteId);
 		f.append(" group by bean.accessPage ");
@@ -56,19 +56,22 @@ public class CmsSiteAccessPagesDaoImpl extends
 		return find(f,totalHql,pageNo,pageSize);
 	}
 
-	public void clearByDate(Date date) {
+	@Override
+    public void clearByDate(Date date) {
 		//只保留当天数据
 		String hql="delete from CmsSiteAccessPages bean where bean.accessDate!=:date";
 		getSession().createQuery(hql).setParameter("date",date).executeUpdate();
 	}
 
-	public CmsSiteAccessPages save(CmsSiteAccessPages bean) {
+	@Override
+    public CmsSiteAccessPages save(CmsSiteAccessPages bean) {
 		getSession().save(bean);
 		return bean;
 	}
 
 
-	protected Class<CmsSiteAccessPages> getEntityClass() {
+	@Override
+    protected Class<CmsSiteAccessPages> getEntityClass() {
 		return CmsSiteAccessPages.class;
 	}
 

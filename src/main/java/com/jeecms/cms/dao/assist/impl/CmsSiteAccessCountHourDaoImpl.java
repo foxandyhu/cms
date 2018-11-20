@@ -3,24 +3,26 @@ package com.jeecms.cms.dao.assist.impl;
 import java.util.Date;
 import java.util.List;
 
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 import org.hibernate.Criteria;
 import org.springframework.stereotype.Repository;
 
 import com.jeecms.common.hibernate4.Finder;
-import com.jeecms.common.hibernate4.HibernateBaseDao;
 import com.jeecms.common.page.Pagination;
 import com.jeecms.cms.dao.assist.CmsSiteAccessCountHourDao;
 import com.jeecms.cms.entity.assist.CmsSiteAccessCountHour;
 
 @Repository
-public class CmsSiteAccessCountHourDaoImpl extends HibernateBaseDao<CmsSiteAccessCountHour, Integer> implements CmsSiteAccessCountHourDao {
-	public Pagination getPage(int pageNo, int pageSize) {
+public class CmsSiteAccessCountHourDaoImpl extends AbstractHibernateBaseDao<CmsSiteAccessCountHour, Integer> implements CmsSiteAccessCountHourDao {
+	@Override
+    public Pagination getPage(int pageNo, int pageSize) {
 		Criteria crit = createCriteria();
 		Pagination page = findByCriteria(crit, pageNo, pageSize);
 		return page;
 	}
 	
-	public List<CmsSiteAccessCountHour> getList(Date date){
+	@Override
+    public List<CmsSiteAccessCountHour> getList(Date date){
 		String hql="from  CmsSiteAccessCountHour bean ";
 		Finder f=Finder.create(hql);
 		if(date!=null){
@@ -30,17 +32,20 @@ public class CmsSiteAccessCountHourDaoImpl extends HibernateBaseDao<CmsSiteAcces
 		return find(f);
 	}
 
-	public CmsSiteAccessCountHour findById(Integer id) {
+	@Override
+    public CmsSiteAccessCountHour findById(Integer id) {
 		CmsSiteAccessCountHour entity = get(id);
 		return entity;
 	}
 
-	public CmsSiteAccessCountHour save(CmsSiteAccessCountHour bean) {
+	@Override
+    public CmsSiteAccessCountHour save(CmsSiteAccessCountHour bean) {
 		getSession().save(bean);
 		return bean;
 	}
 
-	public CmsSiteAccessCountHour deleteById(Integer id) {
+	@Override
+    public CmsSiteAccessCountHour deleteById(Integer id) {
 		CmsSiteAccessCountHour entity = super.get(id);
 		if (entity != null) {
 			getSession().delete(entity);

@@ -31,27 +31,33 @@ import static com.jeecms.cms.entity.assist.CmsSiteAccessStatistic.STATISTIC_AREA
 @Service
 @Transactional
 public class CmsSiteAccessMngImpl implements CmsSiteAccessMng {
-	public void clearByDate(Date date) {
+	@Override
+    public void clearByDate(Date date) {
 		dao.clearByDate(date);
 	}
 
-	public CmsSiteAccess saveOrUpdate(CmsSiteAccess access) {
+	@Override
+    public CmsSiteAccess saveOrUpdate(CmsSiteAccess access) {
 		return dao.saveOrUpdate(access);
 	}
 	
-	public Pagination findEnterPages(Integer siteId,Integer orderBy,Integer pageNo,Integer pageSize){
+	@Override
+    public Pagination findEnterPages(Integer siteId, Integer orderBy, Integer pageNo, Integer pageSize){
 		return dao.findEnterPages(siteId, orderBy, pageNo, pageSize);
 	}
 	
-	public CmsSiteAccess findAccessBySessionId(String sessionId) {
+	@Override
+    public CmsSiteAccess findAccessBySessionId(String sessionId) {
 		return dao.findAccessBySessionId(sessionId);
 	}
 	
-	public CmsSiteAccess findRecentAccess(Date  date,Integer siteId){
+	@Override
+    public CmsSiteAccess findRecentAccess(Date  date, Integer siteId){
 		return dao.findRecentAccess(date, siteId);
 	}
 	
-	public void statisticByProperty(String property,Date date,Integer siteId){
+	@Override
+    public void statisticByProperty(String property, Date date, Integer siteId){
 		List<Object[]> resultes=new ArrayList<Object[]>();
 		if(StringUtils.isBlank(property)){
 			property=STATISTIC_ALL;
@@ -85,19 +91,23 @@ public class CmsSiteAccessMngImpl implements CmsSiteAccessMng {
 		}
 	}
 	
-	public List<String> findPropertyValues(String property,Integer siteId){
+	@Override
+    public List<String> findPropertyValues(String property, Integer siteId){
 		return dao.findPropertyValues(property, siteId);
 	}
 	
-	public List<Object[]> statisticToday(Integer siteId,String area){
+	@Override
+    public List<Object[]> statisticToday(Integer siteId, String area){
 		return dao.statisticToday(siteId,area);
 	}
 	
-	public List<Object[]> statisticVisitorCount(Date date,Integer siteId){
+	@Override
+    public List<Object[]> statisticVisitorCount(Date date, Integer siteId){
 		return dao.statisticByPageCount(date,siteId);
 	}
 	
-	public List<Object[]> statisticTodayByTarget(Integer siteId,Integer target,String statisticColumn,String statisticValue){
+	@Override
+    public List<Object[]> statisticTodayByTarget(Integer siteId, Integer target, String statisticColumn, String statisticValue){
 		return dao.statisticTodayByTarget(siteId, target, statisticColumn, statisticValue);
 	}
 

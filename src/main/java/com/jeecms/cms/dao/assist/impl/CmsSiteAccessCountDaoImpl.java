@@ -3,23 +3,24 @@ package com.jeecms.cms.dao.assist.impl;
 import java.util.Date;
 import java.util.List;
 
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 import org.springframework.stereotype.Repository;
 
 import com.jeecms.cms.dao.assist.CmsSiteAccessCountDao;
 import com.jeecms.cms.entity.assist.CmsSiteAccessCount;
 import com.jeecms.common.hibernate4.Finder;
-import com.jeecms.common.hibernate4.HibernateBaseDao;
 
 /**
  * @author Tom
  */
 @Repository
 public class CmsSiteAccessCountDaoImpl extends
-		HibernateBaseDao<CmsSiteAccessCount, Integer> implements
+        AbstractHibernateBaseDao<CmsSiteAccessCount, Integer> implements
 		CmsSiteAccessCountDao {
 
 
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public List<Object[]> statisticVisitorCountByDate(Integer siteId,Date begin,Date end){
 		String hql="select sum(bean.visitors),bean.pageCount from CmsSiteAccessCount bean where bean.site.id=:siteId";
 		Finder f=Finder.create(hql).setParam("siteId", siteId);
@@ -33,7 +34,8 @@ public class CmsSiteAccessCountDaoImpl extends
 		return find(f);
 	}
 
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public List<Object[]> statisticVisitorCountByYear(Integer siteId,Integer year) {
 		String hql="select sum(bean.visitors),bean.pageCount from CmsSiteAccessCount bean where bean.site.id=:siteId";
 		Finder f=Finder.create(hql).setParam("siteId", siteId);
@@ -46,12 +48,14 @@ public class CmsSiteAccessCountDaoImpl extends
 	
 	
 
-	public CmsSiteAccessCount save(CmsSiteAccessCount bean) {
+	@Override
+    public CmsSiteAccessCount save(CmsSiteAccessCount bean) {
 		getSession().save(bean);
 		return bean;
 	}
 
-	protected Class<CmsSiteAccessCount> getEntityClass() {
+	@Override
+    protected Class<CmsSiteAccessCount> getEntityClass() {
 		return CmsSiteAccessCount.class;
 	}
 

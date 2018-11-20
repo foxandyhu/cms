@@ -40,7 +40,8 @@ public class ContentTagPageDirective implements TemplateDirectiveModel {
 	 */
 	public static final String TPL_NAME = "tag_page";
 
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public void execute(Environment env, Map params, TemplateModel[] loopVars,
 			TemplateDirectiveBody body) throws TemplateException, IOException {
 		CmsSite site = FrontUtils.getSite(env);

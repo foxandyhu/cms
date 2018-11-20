@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.slf4j.Logger;
@@ -24,7 +25,6 @@ import com.jeecms.common.util.StrUtils;
 import com.jeecms.common.web.ResponseUtils;
 import com.jeecms.core.entity.CmsSite;
 import com.jeecms.core.manager.CmsLogMng;
-import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
 
 @Controller
@@ -164,7 +164,7 @@ public class CmsFriendlinkCtgApiAct {
 		ResponseUtils.renderApiJson(response, request, apiResponse);
 	}
 	
-	private WebErrors validateDelete(WebErrors errors , Integer[] idArr,HttpServletRequest request){
+	private WebErrors validateDelete(WebErrors errors , Integer[] idArr, HttpServletRequest request){
 		CmsSite site = CmsUtils.getSite(request);
 		if (idArr!=null) {
 			for (int i = 0; i < idArr.length; i++) {
@@ -174,7 +174,7 @@ public class CmsFriendlinkCtgApiAct {
 		return errors;
 	}
 	
-	private WebErrors validatePriority(WebErrors errors , Integer[] idArr,Integer[] priorityArr,String[] nameArr,HttpServletRequest request){
+	private WebErrors validatePriority(WebErrors errors , Integer[] idArr, Integer[] priorityArr, String[] nameArr, HttpServletRequest request){
 		CmsSite site = CmsUtils.getSite(request);
 		if (idArr!=null) {
 			for (int i = 0; i < idArr.length; i++) {

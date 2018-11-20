@@ -13,7 +13,8 @@ import com.jeecms.common.hibernate4.Updater;
 @Service
 @Transactional
 public class ContentCheckMngImpl implements ContentCheckMng {
-	public ContentCheck save(ContentCheck check, Content content) {
+	@Override
+    public ContentCheck save(ContentCheck check, Content content) {
 		check.setContent(content);
 		check.init();
 		dao.save(check);
@@ -21,7 +22,8 @@ public class ContentCheckMngImpl implements ContentCheckMng {
 		return check;
 	}
 
-	public ContentCheck update(ContentCheck bean) {
+	@Override
+    public ContentCheck update(ContentCheck bean) {
 		Updater<ContentCheck> updater = new Updater<ContentCheck>(bean);
 		bean = dao.updateByUpdater(updater);
 		return bean;

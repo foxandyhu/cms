@@ -15,40 +15,47 @@ import com.jeecms.cms.manager.assist.CmsOriginMng;
 @Service
 @Transactional
 public class CmsOriginMngImpl implements CmsOriginMng {
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Pagination getPage(int pageNo, int pageSize) {
 		Pagination page = dao.getPage(pageNo, pageSize);
 		return page;
 	}
 	
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public List<CmsOrigin> getList(String name){
 		return dao.getList(name);
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public CmsOrigin findById(Integer id) {
 		CmsOrigin entity = dao.findById(id);
 		return entity;
 	}
 
-	public CmsOrigin save(CmsOrigin bean) {
+	@Override
+    public CmsOrigin save(CmsOrigin bean) {
 		dao.save(bean);
 		return bean;
 	}
 
-	public CmsOrigin update(CmsOrigin bean) {
+	@Override
+    public CmsOrigin update(CmsOrigin bean) {
 		Updater<CmsOrigin> updater = new Updater<CmsOrigin>(bean);
 		bean = dao.updateByUpdater(updater);
 		return bean;
 	}
 
-	public CmsOrigin deleteById(Integer id) {
+	@Override
+    public CmsOrigin deleteById(Integer id) {
 		CmsOrigin bean = dao.deleteById(id);
 		return bean;
 	}
 
-	public CmsOrigin[] deleteByIds(Integer[] ids) {
+	@Override
+    public CmsOrigin[] deleteByIds(Integer[] ids) {
 		CmsOrigin[] beans = new CmsOrigin[ids.length];
 		for (int i = 0, len = ids.length; i < len; i++) {
 			beans[i] = deleteById(ids[i]);

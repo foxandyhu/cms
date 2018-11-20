@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import freemarker.template.TemplateDirectiveModel;
 
-public abstract class WebDirective implements TemplateDirectiveModel {
+public abstract class AbstractWebDirective implements TemplateDirectiveModel {
 	/**
 	 * 日志。可以被子类使用。
 	 */

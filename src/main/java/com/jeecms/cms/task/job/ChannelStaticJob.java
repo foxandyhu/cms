@@ -24,7 +24,8 @@ import freemarker.template.TemplateException;
  */
 public class ChannelStaticJob extends QuartzJobBean{
 	private static final Logger log = LoggerFactory.getLogger(ChannelStaticJob.class);
-	protected void executeInternal(JobExecutionContext context)throws JobExecutionException {
+	@Override
+    protected void executeInternal(JobExecutionContext context)throws JobExecutionException {
 	try {  
 	        SchedulerContext schCtx = context.getScheduler().getContext();  
             //获取Spring中的上下文    

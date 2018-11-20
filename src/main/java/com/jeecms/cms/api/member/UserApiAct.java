@@ -2,11 +2,11 @@ package com.jeecms.cms.api.member;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -20,7 +20,6 @@ import com.jeecms.cms.annotation.SignValidate;
 import com.jeecms.cms.api.ApiResponse;
 import com.jeecms.cms.api.ApiValidate;
 import com.jeecms.cms.api.Constants;
-import com.jeecms.cms.entity.assist.CmsWebservice;
 import com.jeecms.cms.entity.main.ApiAccount;
 import com.jeecms.cms.entity.main.ApiUserLogin;
 import com.jeecms.cms.manager.assist.CmsWebserviceMng;
@@ -29,15 +28,12 @@ import com.jeecms.cms.manager.main.ApiUserLoginMng;
 import com.jeecms.common.util.AES128Util;
 import com.jeecms.common.util.DateUtils;
 import com.jeecms.common.web.LoginUtils;
-import com.jeecms.common.web.RequestUtils;
 import com.jeecms.common.web.ResponseUtils;
-import com.jeecms.core.entity.CmsConfig;
 import com.jeecms.core.entity.CmsSite;
 import com.jeecms.core.entity.CmsUser;
 import com.jeecms.core.entity.CmsUserExt;
 import com.jeecms.core.manager.CmsUserExtMng;
 import com.jeecms.core.manager.CmsUserMng;
-import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
 
 @Controller
@@ -59,7 +55,7 @@ public class UserApiAct {
 		String body="\"\"";
 		String message=Constants.API_MESSAGE_PARAM_REQUIRED;
 		String code=ResponseCode.API_CODE_PARAM_REQUIRED;
-		WebErrors errors=WebErrors.create(request);
+		WebErrors errors= WebErrors.create(request);
 		ApiAccount apiAccount = null;
 		CmsUser user = null;
 		//验证公共非空参数
@@ -149,7 +145,7 @@ public class UserApiAct {
 		String body="\"\"";
 		String message = Constants.API_MESSAGE_PARAM_REQUIRED;
 		String code = ResponseCode.API_CODE_PARAM_REQUIRED;
-		WebErrors errors=WebErrors.create(request);
+		WebErrors errors= WebErrors.create(request);
 		CmsUser user = null;
 		//验证公共非空参数
 		errors=ApiValidate.validateRequiredParams(request,errors, username);
@@ -208,7 +204,7 @@ public class UserApiAct {
 		String body="\"\"";
 		String message = Constants.API_MESSAGE_PARAM_REQUIRED;
 		String code = ResponseCode.API_CODE_PARAM_REQUIRED;
-		WebErrors errors=WebErrors.create(request);
+		WebErrors errors= WebErrors.create(request);
 		CmsUser user = null;
 		//验证公共非空参数
 		errors=ApiValidate.validateRequiredParams(request,errors,username);
@@ -251,7 +247,7 @@ public class UserApiAct {
 		if(https==null){
 			https=Constants.URL_HTTP;
 		}
-		WebErrors errors=WebErrors.create(request);
+		WebErrors errors= WebErrors.create(request);
 		CmsUser user = null;
 		CmsSite site=CmsUtils.getSite(request);
 		//验证公共非空参数

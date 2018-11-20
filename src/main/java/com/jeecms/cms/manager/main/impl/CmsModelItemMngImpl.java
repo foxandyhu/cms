@@ -15,37 +15,43 @@ import com.jeecms.common.hibernate4.Updater;
 @Service
 @Transactional
 public class CmsModelItemMngImpl implements CmsModelItemMng {
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public List<CmsModelItem> getList(Integer modelId, boolean isChannel,
 			Boolean hasDisabled) {
 		return dao.getList(modelId, isChannel, hasDisabled);
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public CmsModelItem findById(Integer id) {
 		CmsModelItem entity = dao.findById(id);
 		return entity;
 	}
 
-	public CmsModelItem save(CmsModelItem bean, Integer modelId) {
+	@Override
+    public CmsModelItem save(CmsModelItem bean, Integer modelId) {
 		bean.setModel(cmsModelMng.findById(modelId));
 		return save(bean);
 	}
 
-	public CmsModelItem save(CmsModelItem bean) {
+	@Override
+    public CmsModelItem save(CmsModelItem bean) {
 		bean.init();
 		dao.save(bean);
 		return bean;
 	}
 
-	public void saveList(List<CmsModelItem> list) {
+	@Override
+    public void saveList(List<CmsModelItem> list) {
 		for (CmsModelItem item : list) {
 			save(item);
 		}
 	}
 
-	public void updatePriority(Integer[] wids, Integer[] priority,
-			String[] label, Boolean[] single, Boolean[] display) {
+	@Override
+    public void updatePriority(Integer[] wids, Integer[] priority,
+                               String[] label, Boolean[] single, Boolean[] display) {
 		CmsModelItem item;
 		for (int i = 0, len = wids.length; i < len; i++) {
 			item = findById(wids[i]);
@@ -56,19 +62,22 @@ public class CmsModelItemMngImpl implements CmsModelItemMng {
 		}
 	}
 
-	public CmsModelItem update(CmsModelItem bean) {
+	@Override
+    public CmsModelItem update(CmsModelItem bean) {
 		Updater<CmsModelItem> updater = new Updater<CmsModelItem>(bean);
 		CmsModelItem entity = dao.updateByUpdater(updater);
 		entity.emptyToNull();
 		return entity;
 	}
 
-	public CmsModelItem deleteById(Integer id) {
+	@Override
+    public CmsModelItem deleteById(Integer id) {
 		CmsModelItem bean = dao.deleteById(id);
 		return bean;
 	}
 
-	public CmsModelItem[] deleteByIds(Integer[] ids) {
+	@Override
+    public CmsModelItem[] deleteByIds(Integer[] ids) {
 		CmsModelItem[] beans = new CmsModelItem[ids.length];
 		for (int i = 0, len = ids.length; i < len; i++) {
 			beans[i] = deleteById(ids[i]);

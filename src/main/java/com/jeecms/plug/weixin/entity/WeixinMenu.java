@@ -135,7 +135,9 @@ public class WeixinMenu implements Serializable {
     }
 
     public void addTochild(WeixinMenu weixinMenu) {
-        if (null == getChild()) setChild(new TreeSet<WeixinMenu>());
+        if (null == getChild()){
+            setChild(new TreeSet<WeixinMenu>());
+        }
         getChild().add(weixinMenu);
     }
 

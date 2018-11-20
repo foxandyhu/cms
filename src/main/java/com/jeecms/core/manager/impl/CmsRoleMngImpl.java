@@ -17,36 +17,42 @@ import com.jeecms.core.manager.CmsUserMng;
 @Service
 @Transactional
 public class CmsRoleMngImpl implements CmsRoleMng {
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public List<CmsRole> getList(Integer level) {
 		return dao.getList(level);
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public CmsRole findById(Integer id) {
 		CmsRole entity = dao.findById(id);
 		return entity;
 	}
 
-	public CmsRole save(CmsRole bean, Set<String> perms) {
+	@Override
+    public CmsRole save(CmsRole bean, Set<String> perms) {
 		bean.setPerms(perms);
 		dao.save(bean);
 		return bean;
 	}
 
-	public CmsRole update(CmsRole bean, Set<String> perms) {
+	@Override
+    public CmsRole update(CmsRole bean, Set<String> perms) {
 		Updater<CmsRole> updater = new Updater<CmsRole>(bean);
 		bean = dao.updateByUpdater(updater);
 		bean.setPerms(perms);
 		return bean;
 	}
 
-	public CmsRole deleteById(Integer id) {
+	@Override
+    public CmsRole deleteById(Integer id) {
 		CmsRole bean = dao.deleteById(id);
 		return bean;
 	}
 
-	public CmsRole[] deleteByIds(Integer[] ids) {
+	@Override
+    public CmsRole[] deleteByIds(Integer[] ids) {
 		CmsRole[] beans = new CmsRole[ids.length];
 		for (int i = 0, len = ids.length; i < len; i++) {
 			beans[i] = deleteById(ids[i]);
@@ -54,7 +60,8 @@ public class CmsRoleMngImpl implements CmsRoleMng {
 		return beans;
 	}
 	
-	public void deleteMembers(CmsRole role, Integer[] userIds) {
+	@Override
+    public void deleteMembers(CmsRole role, Integer[] userIds) {
 		Updater<CmsRole> updater = new Updater<>(role);
 		role = dao.updateByUpdater(updater);
 		if (userIds != null) {

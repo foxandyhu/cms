@@ -20,6 +20,7 @@ public class ContentQueryFreshTimeCacheImpl implements ContentQueryFreshTimeCach
 
     private final static String CONTENT_QUERY_FRESH_TIME = "contentQueryFreshTime";
 
+    @Override
     public Date getTime() {
         Element e = cache.get(CONTENT_QUERY_FRESH_TIME);
         Date contentQueryFreshTime;
@@ -49,6 +50,7 @@ public class ContentQueryFreshTimeCacheImpl implements ContentQueryFreshTimeCach
     }
 
     //立即更新缓存
+    @Override
     public void clearCache() {
         cache.removeAll();
     }
@@ -63,6 +65,7 @@ public class ContentQueryFreshTimeCacheImpl implements ContentQueryFreshTimeCach
      *
      * @param interval 单位分钟
      */
+    @Override
     public void setInterval(int interval) {
         this.interval = interval * 60 * 1000;
     }

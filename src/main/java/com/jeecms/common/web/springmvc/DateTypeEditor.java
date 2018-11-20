@@ -29,7 +29,8 @@ public class DateTypeEditor extends PropertyEditorSupport {
 	
 	public static final int MONTH_DATE = 7;
 
-	public void setAsText(String text) throws IllegalArgumentException {
+	@Override
+    public void setAsText(String text) throws IllegalArgumentException {
 		text = text.trim();
 		if (!StringUtils.hasText(text)) {
 			setValue(null);
@@ -56,7 +57,8 @@ public class DateTypeEditor extends PropertyEditorSupport {
 	/**
 	 * Format the Date as String, using the specified DateFormat.
 	 */
-	public String getAsText() {
+	@Override
+    public String getAsText() {
 		Date value = (Date) getValue();
 		return (value != null ? DF_LONG.format(value) : "");
 	}

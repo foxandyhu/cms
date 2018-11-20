@@ -14,34 +14,40 @@ import com.jeecms.common.hibernate4.Updater;
 @Service
 @Transactional
 public class CmsGuestbookCtgMngImpl implements CmsGuestbookCtgMng {
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public List<CmsGuestbookCtg> getList(Integer siteId) {
 		return dao.getList(siteId);
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public CmsGuestbookCtg findById(Integer id) {
 		CmsGuestbookCtg entity = dao.findById(id);
 		return entity;
 	}
 
-	public CmsGuestbookCtg save(CmsGuestbookCtg bean) {
+	@Override
+    public CmsGuestbookCtg save(CmsGuestbookCtg bean) {
 		dao.save(bean);
 		return bean;
 	}
 
-	public CmsGuestbookCtg update(CmsGuestbookCtg bean) {
+	@Override
+    public CmsGuestbookCtg update(CmsGuestbookCtg bean) {
 		Updater<CmsGuestbookCtg> updater = new Updater<CmsGuestbookCtg>(bean);
 		bean = dao.updateByUpdater(updater);
 		return bean;
 	}
 
-	public CmsGuestbookCtg deleteById(Integer id) {
+	@Override
+    public CmsGuestbookCtg deleteById(Integer id) {
 		CmsGuestbookCtg bean = dao.deleteById(id);
 		return bean;
 	}
 
-	public CmsGuestbookCtg[] deleteByIds(Integer[] ids) {
+	@Override
+    public CmsGuestbookCtg[] deleteByIds(Integer[] ids) {
 		CmsGuestbookCtg[] beans = new CmsGuestbookCtg[ids.length];
 		for (int i = 0, len = ids.length; i < len; i++) {
 			beans[i] = deleteById(ids[i]);

@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -34,7 +35,6 @@ import com.jeecms.core.manager.CmsLogMng;
 import com.jeecms.core.manager.CmsRoleMng;
 import com.jeecms.core.manager.CmsUserMng;
 import com.jeecms.core.security.CmsAuthorizingRealm;
-import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
 
 @Controller
@@ -111,8 +111,9 @@ public class CmsRoleApiAct {
 		//判断是否为超级管理员↓
 		boolean isSuper = false;
 		for (CmsRole cmsRole : user.getRoles()) {
-			if(cmsRole.getAll())
+			if(cmsRole.getAll()) {
 				isSuper = true;
+			}
 		}
 		JSONArray jsonArray = new JSONArray();
 		if(isSuper){

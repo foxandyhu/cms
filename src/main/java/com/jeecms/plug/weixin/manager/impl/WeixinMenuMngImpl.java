@@ -18,17 +18,20 @@ import com.jeecms.plug.weixin.manager.WeixinMenuMng;
 @Transactional
 public class WeixinMenuMngImpl implements WeixinMenuMng {
 	
-	@Transactional(readOnly=true)
+	@Override
+    @Transactional(readOnly=true)
 	public Pagination getPage(Integer siteId,Integer parentId,int pageNo,int pageSize){
 		return dao.getPage(siteId,parentId,pageNo,pageSize);
 	}
 	
-	@Transactional(readOnly=true)
+	@Override
+    @Transactional(readOnly=true)
 	public List<WeixinMenu> getList(Integer siteId,Integer count){
 		return dao.getList(siteId,count);
 	}
 	
-	public String getMenuJsonString(Integer siteId){
+	@Override
+    public String getMenuJsonString(Integer siteId){
 		List<WeixinMenu> menus = getList(siteId,100);
 		return getMenuJsonString(menus);
 	}
@@ -57,7 +60,7 @@ public class WeixinMenuMngImpl implements WeixinMenuMng {
 									strJson = strJson + ",{";
 								}
 								WeixinMenu child = iter.next();
-								if(child.getType().equals("click")){
+								if("click".equals(child.getType())){
 									strJson = strJson + 
 											"\"type\":\"click\","+
 											"\"name\":\""+child.getName()+"\","+
@@ -72,7 +75,7 @@ public class WeixinMenuMngImpl implements WeixinMenuMng {
 							}
 						}
 				strJson = strJson+"]";
-			}else if(menu.getType().equals("click")){
+			}else if("click".equals(menu.getType())){
 				strJson = strJson + 
 						"\"type\":\"click\","+
 						"\"name\":\""+menu.getName()+"\","+
@@ -93,25 +96,30 @@ public class WeixinMenuMngImpl implements WeixinMenuMng {
         return strJson;
 	}
 	
-	@Transactional(readOnly=true)
+	@Override
+    @Transactional(readOnly=true)
 	public WeixinMenu findById(Integer id){
 		return dao.findById(id);
 	}
 	
-	public WeixinMenu save(WeixinMenu bean){
+	@Override
+    public WeixinMenu save(WeixinMenu bean){
 		return dao.save(bean);
 	}
 	
-	public WeixinMenu update(WeixinMenu bean){
+	@Override
+    public WeixinMenu update(WeixinMenu bean){
 		Updater<WeixinMenu> updater = new Updater<WeixinMenu>(bean);
 		return dao.updateByUpdater(updater);
 	}
 	
-	public WeixinMenu deleteById(Integer id){
+	@Override
+    public WeixinMenu deleteById(Integer id){
 		return dao.deleteById(id);
 	}
 
-	public WeixinMenu[] deleteByIds(Integer[] ids){
+	@Override
+    public WeixinMenu[] deleteByIds(Integer[] ids){
 		WeixinMenu[] beans = new WeixinMenu[ids.length];
 		for (int i = 0; i < ids.length; i++) {
 			beans[i] = deleteById(ids[i]);

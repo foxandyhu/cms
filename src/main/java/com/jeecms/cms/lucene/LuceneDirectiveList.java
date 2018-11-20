@@ -16,7 +16,6 @@ import freemarker.template.TemplateModel;
 import org.apache.commons.lang.StringUtils;
 import org.apache.lucene.queryParser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -32,12 +31,13 @@ import static com.jeecms.common.web.freemarker.DirectiveUtils.OUT_LIST;
 import static com.jeecms.core.web.util.FrontUtils.PARAM_STYLE_LIST;
 
 @Component("cms_lucene_list")
-public class LuceneDirectiveList extends LuceneDirectiveAbstract {
+public class LuceneDirectiveList extends AbstractLuceneDirective {
     /**
      * 模板名称
      */
     public static final String TPL_NAME = "lucene_list";
 
+    @Override
     @SuppressWarnings("unchecked")
     public void execute(Environment env, Map params, TemplateModel[] loopVars,
                         TemplateDirectiveBody body) throws TemplateException, IOException {

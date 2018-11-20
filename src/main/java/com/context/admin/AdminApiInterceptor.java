@@ -21,8 +21,8 @@ import com.jeecms.core.entity.CmsUser;
 import com.jeecms.core.entity.CmsUserSite;
 import com.jeecms.core.manager.CmsSiteMng;
 import com.jeecms.core.security.CmsAuthorizingRealm;
-import com.jeecms.core.web.FireWallProperty;
 import com.jeecms.core.web.WebErrors;
+import com.jeecms.core.web.FireWallProperty;
 import com.jeecms.core.web.util.CmsUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -332,7 +332,7 @@ public class AdminApiInterceptor extends HandlerInterceptorAdapter implements Di
             Iterator<String> it = perms.iterator();
             while (it.hasNext()) {
                 String perm = it.next();
-                if (perm.equals("*") || ("/api/admin" + url).equals(perm)) {
+                if ("*".equals(perm) || ("/api/admin" + url).equals(perm)) {
                     return true;
                 }
             }
@@ -367,7 +367,7 @@ public class AdminApiInterceptor extends HandlerInterceptorAdapter implements Di
         String[] hourArrays = StringUtils.split(fireWallProperty.getHour(), ",");
 
         String requestIp = RequestUtils.getIpAddr(request);
-        if (fireWallProperty.getOpen().equals("1")) {
+        if ("1".equals(fireWallProperty.getOpen())) {
             if (!isAuthDomain(fireWallProperty.getDomain(), request.getServerName())) {
                 return false;
             } else {

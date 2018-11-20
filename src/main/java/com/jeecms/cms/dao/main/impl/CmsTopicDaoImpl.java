@@ -9,13 +9,14 @@ import org.springframework.stereotype.Repository;
 import com.jeecms.cms.dao.main.CmsTopicDao;
 import com.jeecms.cms.entity.main.CmsTopic;
 import com.jeecms.common.hibernate4.Finder;
-import com.jeecms.common.hibernate4.HibernateBaseDao;
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 import com.jeecms.common.page.Pagination;
 
 @Repository
-public class CmsTopicDaoImpl extends HibernateBaseDao<CmsTopic, Integer>
+public class CmsTopicDaoImpl extends AbstractHibernateBaseDao<CmsTopic, Integer>
 		implements CmsTopicDao {
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public List<CmsTopic> getList(Integer channelId, boolean recommend,
 			Integer first,Integer count, boolean cacheable) {
 		Finder f = Finder.create("select bean from CmsTopic bean ");
@@ -39,8 +40,9 @@ public class CmsTopicDaoImpl extends HibernateBaseDao<CmsTopic, Integer>
 		return find(f);
 	}
 
-	public Pagination getPage(Integer channelId,String initials, boolean recommend, int pageNo,
-			int pageSize, boolean cacheable) {
+	@Override
+    public Pagination getPage(Integer channelId, String initials, boolean recommend, int pageNo,
+                              int pageSize, boolean cacheable) {
 		Finder f = Finder.create("select bean from CmsTopic bean ");
 		if (channelId != null) {
 			f.append(" join bean.channels channel where channel.id=:channelId");
@@ -58,14 +60,16 @@ public class CmsTopicDaoImpl extends HibernateBaseDao<CmsTopic, Integer>
 		return find(f, pageNo, pageSize);
 	}
 
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public List<CmsTopic> getListByChannelIds(Integer[] channelIds) {
 		String hql = "select bean from CmsTopic bean join bean.channels channel where channel.id in (:ids) order by bean.id asc";
 		return getSession().createQuery(hql)
 				.setParameterList("ids", channelIds).list();
 	}
 
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public List<CmsTopic> getListByChannelId(Integer channelId) {
 		String hql = "select bean from CmsTopic bean inner join bean.channels as node,Channel parent"
 				+ " where node.lft between parent.lft and parent.rgt"
@@ -74,24 +78,28 @@ public class CmsTopicDaoImpl extends HibernateBaseDao<CmsTopic, Integer>
 		return find(hql, channelId);
 	}
 
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public List<CmsTopic> getGlobalTopicList() {
 		String hql = "select bean from CmsTopic bean left join bean.channels channel where  channel is null"
 				+ " order by bean.priority asc,bean.id desc";
 		return find(hql);
 	}
 
-	public CmsTopic findById(Integer id) {
+	@Override
+    public CmsTopic findById(Integer id) {
 		CmsTopic entity = get(id);
 		return entity;
 	}
 
-	public CmsTopic save(CmsTopic bean) {
+	@Override
+    public CmsTopic save(CmsTopic bean) {
 		getSession().save(bean);
 		return bean;
 	}
 
-	public CmsTopic deleteById(Integer id) {
+	@Override
+    public CmsTopic deleteById(Integer id) {
 		CmsTopic entity = super.get(id);
 		if (entity != null) {
 			getSession().delete(entity);
@@ -99,12 +107,14 @@ public class CmsTopicDaoImpl extends HibernateBaseDao<CmsTopic, Integer>
 		return entity;
 	}
 
-	public int deleteContentRef(Integer id) {
+	@Override
+    public int deleteContentRef(Integer id) {
 		Query query = getSession().createSQLQuery("delete from jc_content_topic where topic_id=?");
 		return query.setParameter(0, id).executeUpdate();
 	}
 
-	public int countByChannelId(Integer channelId) {
+	@Override
+    public int countByChannelId(Integer channelId) {
 		String hql = "select count(*) from CmsTopic bean join bean.channels channel"
 				+ " where channel.id=:channelId";
 		Query query = getSession().createQuery(hql);

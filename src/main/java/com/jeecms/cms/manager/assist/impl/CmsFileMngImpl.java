@@ -17,36 +17,44 @@ import com.jeecms.common.hibernate4.Updater;
 @Transactional
 public class CmsFileMngImpl implements CmsFileMng {
 	
-	public CmsFile deleteById(Integer id) {
+	@Override
+    public CmsFile deleteById(Integer id) {
 		return dao.deleteById(id);
 	}
 	
-	public CmsFile deleteByPath(String path){
+	@Override
+    public CmsFile deleteByPath(String path){
 		return dao.deleteByPath(path);
 	}
 	
-	public void deleteByContentId(Integer contentId){
+	@Override
+    public void deleteByContentId(Integer contentId){
 		 dao.deleteByContentId(contentId);
 	}
 
 
-	public CmsFile findById(Integer id) {
+	@Override
+    public CmsFile findById(Integer id) {
 		return dao.findById(id);
 	}
 
-	public CmsFile findByPath(String path) {
+	@Override
+    public CmsFile findByPath(String path) {
 		return dao.findByPath(path);
 	}
 
-	public List<CmsFile> getList(Boolean valid) {
+	@Override
+    public List<CmsFile> getList(Boolean valid) {
 		return dao.getList(valid);
 	}
 
-	public CmsFile save(CmsFile bean) {
+	@Override
+    public CmsFile save(CmsFile bean) {
 		return dao.save(bean);
 	}
 
-	public void saveFileByPath(String filepath, String name, Boolean valid) {
+	@Override
+    public void saveFileByPath(String filepath, String name, Boolean valid) {
 		CmsFile attFile=new CmsFile();
 		attFile.setFilePath(filepath);
 		attFile.setFileName(name);
@@ -54,7 +62,8 @@ public class CmsFileMngImpl implements CmsFileMng {
 		save(attFile);
 	}
 
-	public void updateFileByPath(String path, Boolean valid, Content c) {
+	@Override
+    public void updateFileByPath(String path, Boolean valid, Content c) {
 		CmsFile file;
 		file=findByPath(path);
 		if(file!=null){
@@ -63,8 +72,9 @@ public class CmsFileMngImpl implements CmsFileMng {
 			update(file);
 		}
 	}
-	public void updateFileByPaths(String[] attachmentPaths,String[]picPaths,String mediaPath,
-			String titleImg, String typeImg,String contentImg,Boolean valid,Content c){
+	@Override
+    public void updateFileByPaths(String[] attachmentPaths, String[]picPaths, String mediaPath,
+                                  String titleImg, String typeImg, String contentImg, Boolean valid, Content c){
 		//处理附件有效性
 		if(attachmentPaths!=null){
 			for(String att:attachmentPaths){
@@ -95,7 +105,8 @@ public class CmsFileMngImpl implements CmsFileMng {
 		}
 	}
 
-	public CmsFile update(CmsFile bean) {
+	@Override
+    public CmsFile update(CmsFile bean) {
 		Updater<CmsFile> updater = new Updater<CmsFile>(bean);
 		bean = dao.updateByUpdater(updater);
 		return bean;

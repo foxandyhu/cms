@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -24,7 +25,6 @@ import com.jeecms.cms.manager.main.CmsModelMng;
 import com.jeecms.common.util.StrUtils;
 import com.jeecms.common.web.ResponseUtils;
 import com.jeecms.core.manager.CmsLogMng;
-import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
 
 @Controller
@@ -283,7 +283,7 @@ public class CmsModelApiAct {
 	}
 	
 	private WebErrors validatePriority(Integer[] wids, Integer[] priority,
-			Boolean[] disabled, Integer defId, HttpServletRequest request) {
+									   Boolean[] disabled, Integer defId, HttpServletRequest request) {
 		WebErrors errors = WebErrors.create(request);
 		if (wids.length != priority.length || wids.length != disabled.length) {
 			String s = Constants.API_MESSAGE_PARAM_ERROR;

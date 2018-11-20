@@ -2,18 +2,19 @@ package com.jeecms.cms.dao.main.impl;
 
 import java.util.List;
 
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
 import com.jeecms.cms.dao.main.ContentTypeDao;
 import com.jeecms.cms.entity.main.ContentType;
 import com.jeecms.common.hibernate4.Finder;
-import com.jeecms.common.hibernate4.HibernateBaseDao;
 
 @Repository
-public class ContentTypeDaoImpl extends HibernateBaseDao<ContentType, Integer>
+public class ContentTypeDaoImpl extends AbstractHibernateBaseDao<ContentType, Integer>
 		implements ContentTypeDao {
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public List<ContentType> getList(Boolean containDisabled) {
 		Finder f = Finder.create("from ContentType bean");
 		if (containDisabled!=null) {
@@ -23,7 +24,8 @@ public class ContentTypeDaoImpl extends HibernateBaseDao<ContentType, Integer>
 		return find(f);
 	}
 
-	public ContentType getDef() {
+	@Override
+    public ContentType getDef() {
 		String hql = "from ContentType bean"
 				+ " where bean.disabled=false order by bean.id asc";
 		Query query = getSession().createQuery(hql).setMaxResults(1);
@@ -35,17 +37,20 @@ public class ContentTypeDaoImpl extends HibernateBaseDao<ContentType, Integer>
 		}
 	}
 
-	public ContentType findById(Integer id) {
+	@Override
+    public ContentType findById(Integer id) {
 		ContentType entity = get(id);
 		return entity;
 	}
 
-	public ContentType save(ContentType bean) {
+	@Override
+    public ContentType save(ContentType bean) {
 		getSession().save(bean);
 		return bean;
 	}
 
-	public ContentType deleteById(Integer id) {
+	@Override
+    public ContentType deleteById(Integer id) {
 		ContentType entity = super.get(id);
 		if (entity != null) {
 			getSession().delete(entity);

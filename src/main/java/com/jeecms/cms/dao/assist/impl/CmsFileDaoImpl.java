@@ -7,12 +7,13 @@ import org.springframework.stereotype.Repository;
 import com.jeecms.cms.dao.assist.CmsFileDao;
 import com.jeecms.cms.entity.assist.CmsFile;
 import com.jeecms.common.hibernate4.Finder;
-import com.jeecms.common.hibernate4.HibernateBaseDao;
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 
 @Repository
-public class CmsFileDaoImpl extends HibernateBaseDao<CmsFile, Integer>
+public class CmsFileDaoImpl extends AbstractHibernateBaseDao<CmsFile, Integer>
 		implements CmsFileDao {
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public List<CmsFile> getList(Boolean valid) {
 		Finder f = Finder.create("from CmsFile bean where 1=1");
 		if(valid!=null){
@@ -26,7 +27,8 @@ public class CmsFileDaoImpl extends HibernateBaseDao<CmsFile, Integer>
 		return find(f);
 	}
 	
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public CmsFile findByPath(String path){
 		Finder f = Finder.create("from CmsFile bean where bean.filePath  like '%"+path+"%'");
 		List<CmsFile> li=find(f);
@@ -38,17 +40,20 @@ public class CmsFileDaoImpl extends HibernateBaseDao<CmsFile, Integer>
 	}
 
 
-	public CmsFile findById(Integer id) {
+	@Override
+    public CmsFile findById(Integer id) {
 		CmsFile entity = get(id);
 		return entity;
 	}
 
-	public CmsFile save(CmsFile bean) {
+	@Override
+    public CmsFile save(CmsFile bean) {
 		getSession().save(bean);
 		return bean;
 	}
 
-	public CmsFile deleteById(Integer id) {
+	@Override
+    public CmsFile deleteById(Integer id) {
 		CmsFile entity = super.get(id);
 		if (entity != null) {
 			getSession().delete(entity);
@@ -56,7 +61,8 @@ public class CmsFileDaoImpl extends HibernateBaseDao<CmsFile, Integer>
 		return entity;
 	}
 	
-	public CmsFile deleteByPath(String path) {
+	@Override
+    public CmsFile deleteByPath(String path) {
 		CmsFile entity = findByPath(path);
 		if (entity != null) {
 			getSession().delete(entity);
@@ -64,7 +70,8 @@ public class CmsFileDaoImpl extends HibernateBaseDao<CmsFile, Integer>
 		return entity;
 	}
 	
-	public void deleteByContentId(Integer contentId){
+	@Override
+    public void deleteByContentId(Integer contentId){
 		String sql="delete from CmsFile file where file.content.id=:contentId";
 		getSession().createQuery(sql).setParameter("contentId", contentId).executeUpdate();
 	}

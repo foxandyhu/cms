@@ -13,7 +13,8 @@ import com.jeecms.common.hibernate4.Updater;
 @Service
 @Transactional
 public class ContentExtMngImpl implements ContentExtMng {
-	public ContentExt save(ContentExt ext, Content content) {
+	@Override
+    public ContentExt save(ContentExt ext, Content content) {
 		content.setContentExt(ext);
 		ext.setContent(content);
 		if (ext.getReleaseDate() == null) {
@@ -25,7 +26,8 @@ public class ContentExtMngImpl implements ContentExtMng {
 		return ext;
 	}
 
-	public ContentExt update(ContentExt bean) {
+	@Override
+    public ContentExt update(ContentExt bean) {
 		Updater<ContentExt> updater = new Updater<ContentExt>(bean);
 		if (bean.getPigeonholeDate()==null) {
 			updater.include("pigeonholeDate");

@@ -9,6 +9,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.slf4j.Logger;
@@ -31,7 +32,6 @@ import com.jeecms.common.web.RequestUtils;
 import com.jeecms.common.web.ResponseUtils;
 import com.jeecms.core.entity.CmsSite;
 import com.jeecms.core.manager.CmsLogMng;
-import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
 
 @Controller
@@ -103,15 +103,15 @@ public class CmsAdvertisingApiAct {
 		errors = ApiValidate.validateRequiredParams(request, errors, bean.getName(),bean.getCategory(),adspaceId);
 		Map<String, String> attr = RequestUtils.getRequestMap(request, "attr_");
 		if (!errors.hasErrors()) {
-			if (bean.getCategory().equals("image")) {
+			if ("image".equals(bean.getCategory())) {
 				errors = ApiValidate.validateRequiredParams(request, errors, attr.get("image_link"),
 						attr.get("image_url"));
-			}else if (bean.getCategory().equals("flash")) {
+			}else if ("flash".equals(bean.getCategory())) {
 				errors = ApiValidate.validateRequiredParams(request, errors, attr.get("flash_url"));
-			}else if (bean.getCategory().equals("text")) {
+			}else if ("text".equals(bean.getCategory())) {
 				errors = ApiValidate.validateRequiredParams(request, errors, attr.get("text_link"),
 						attr.get("text_title"));
-			}else if (bean.getCategory().equals("code")) {
+			}else if ("code".equals(bean.getCategory())) {
 				errors = ApiValidate.validateRequiredParams(request, errors, bean.getCode());
 			}else{
 				errors.addErrorString(Constants.API_MESSAGE_PARAM_ERROR);
@@ -160,15 +160,15 @@ public class CmsAdvertisingApiAct {
 		errors = ApiValidate.validateRequiredParams(request, errors,bean.getId(), bean.getName(),bean.getCategory());
 		Map<String, String> attr = RequestUtils.getRequestMap(request, "attr_");
 		if (!errors.hasErrors()) {
-			if (bean.getCategory().equals("image")) {
+			if ("image".equals(bean.getCategory())) {
 				errors = ApiValidate.validateRequiredParams(request, errors, attr.get("image_link"),
 						attr.get("image_url"));
-			}else if (bean.getCategory().equals("flash")) {
+			}else if ("flash".equals(bean.getCategory())) {
 				errors = ApiValidate.validateRequiredParams(request, errors, attr.get("flash_url"));
-			}else if (bean.getCategory().equals("text")) {
+			}else if ("text".equals(bean.getCategory())) {
 				errors = ApiValidate.validateRequiredParams(request, errors, attr.get("text_link"),
 						attr.get("text_title"));
-			}else if (bean.getCategory().equals("code")) {
+			}else if ("code".equals(bean.getCategory())) {
 				errors = ApiValidate.validateRequiredParams(request, errors, bean.getCode());
 			}else{
 				errors.addErrorString(Constants.API_MESSAGE_PARAM_ERROR);
@@ -233,7 +233,7 @@ public class CmsAdvertisingApiAct {
 		ResponseUtils.renderApiJson(response, request, apiResponse);
 	}
 	
-	private WebErrors validateDelete(WebErrors errors,Integer[] idArr,HttpServletRequest request){
+	private WebErrors validateDelete(WebErrors errors, Integer[] idArr, HttpServletRequest request){
 		CmsSite site = CmsUtils.getSite(request);
 		if (idArr!=null) {
 			for (int i = 0; i < idArr.length; i++) {

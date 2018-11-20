@@ -24,35 +24,41 @@ public class ContentTagMngImpl implements ContentTagMng {
 	private static final Logger log = LoggerFactory
 			.getLogger(ContentTagMngImpl.class);
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public List<ContentTag> getListForTag(Integer first,Integer count) {
 		return dao.getList(first,count, true);
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Pagination getPageForTag(int pageNo, int pageSize) {
 		Pagination page = dao.getPage(null, pageNo, pageSize, true);
 		return page;
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Pagination getPage(String name, int pageNo, int pageSize) {
 		Pagination page = dao.getPage(name, pageNo, pageSize, false);
 		return page;
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public ContentTag findById(Integer id) {
 		ContentTag entity = dao.findById(id);
 		return entity;
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public ContentTag findByName(String name) {
 		return dao.findByName(name, false);
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public ContentTag findByNameForTag(String name) {
 		return dao.findByName(name, true);
 	}
@@ -60,7 +66,8 @@ public class ContentTagMngImpl implements ContentTagMng {
 	/**
 	 * @see ContentTagMng#saveTags(String[])
 	 */
-	public List<ContentTag> saveTags(String[] tagArr) {
+	@Override
+    public List<ContentTag> saveTags(String[] tagArr) {
 		if (tagArr == null || tagArr.length <= 0) {
 			return null;
 		}
@@ -85,7 +92,8 @@ public class ContentTagMngImpl implements ContentTagMng {
 	/**
 	 * @see ContentTagMng#saveTag(String)
 	 */
-	public ContentTag saveTag(String name) {
+	@Override
+    public ContentTag saveTag(String name) {
 		ContentTag tag = findByName(name);
 		if (tag != null) {
 			tag.setCount(tag.getCount() + 1);
@@ -97,7 +105,8 @@ public class ContentTagMngImpl implements ContentTagMng {
 		return tag;
 	}
 
-	public List<ContentTag> updateTags(List<ContentTag> tags, String[] tagArr) {
+	@Override
+    public List<ContentTag> updateTags(List<ContentTag> tags, String[] tagArr) {
 		if (tagArr == null) {
 			tagArr = new String[0];
 		}
@@ -154,7 +163,8 @@ public class ContentTagMngImpl implements ContentTagMng {
 		// return tags;
 	}
 
-	public void removeTags(Collection<ContentTag> tags) {
+	@Override
+    public void removeTags(Collection<ContentTag> tags) {
 		Set<ContentTag> toRemove = new HashSet<ContentTag>();
 		for (ContentTag tag : tags) {
 			if(tag!=null){
@@ -176,25 +186,29 @@ public class ContentTagMngImpl implements ContentTagMng {
 		}
 	}
 
-	public ContentTag save(ContentTag bean) {
+	@Override
+    public ContentTag save(ContentTag bean) {
 		bean.init();
 		dao.save(bean);
 		return bean;
 	}
 
-	public ContentTag update(ContentTag bean) {
+	@Override
+    public ContentTag update(ContentTag bean) {
 		Updater<ContentTag> updater = new Updater<ContentTag>(bean);
 		ContentTag entity = dao.updateByUpdater(updater);
 		return entity;
 	}
 
-	public ContentTag deleteById(Integer id) {
+	@Override
+    public ContentTag deleteById(Integer id) {
 		dao.deleteContentRef(id);
 		ContentTag bean = dao.deleteById(id);
 		return bean;
 	}
 
-	public ContentTag[] deleteByIds(Integer[] ids) {
+	@Override
+    public ContentTag[] deleteByIds(Integer[] ids) {
 		ContentTag[] beans = new ContentTag[ids.length];
 		for (int i = 0, len = ids.length; i < len; i++) {
 			beans[i] = deleteById(ids[i]);

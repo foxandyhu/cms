@@ -26,11 +26,13 @@ public class ProcessTimeFilter implements Filter {
 	 */
 	public static final String START_TIME = "_start_time";
 
-	public void destroy() {
+	@Override
+    public void destroy() {
 	}
 
-	public void doFilter(ServletRequest req, ServletResponse response,
-			FilterChain chain) throws IOException, ServletException {
+	@Override
+    public void doFilter(ServletRequest req, ServletResponse response,
+                         FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest) req;
 		long time = System.currentTimeMillis();
 		request.setAttribute(START_TIME, time);
@@ -39,6 +41,7 @@ public class ProcessTimeFilter implements Filter {
 		log.debug("process in {} ms: {}", time, request.getRequestURI());
 	}
 
-	public void init(FilterConfig arg0) throws ServletException {
+	@Override
+    public void init(FilterConfig arg0) throws ServletException {
 	}
 }

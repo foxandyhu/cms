@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,7 +37,6 @@ import com.jeecms.common.web.RequestUtils;
 import com.jeecms.common.web.ResponseUtils;
 import com.jeecms.core.entity.CmsSite;
 import com.jeecms.core.manager.CmsLogMng;
-import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
 
 @Controller("adminChannelApiAct")
@@ -411,7 +411,7 @@ public class ChannelApiAct {
 		String body="\"\"";
 		String message=Constants.API_STATUS_FAIL;
 		String code = ResponseCode.API_CODE_CALL_FAIL;
-		WebErrors errors=WebErrors.create(request);
+		WebErrors errors= WebErrors.create(request);
 		//验证公共非空参数
 		errors=ApiValidate.validateRequiredParams(request,errors,ids);
 		if(StringUtils.isNotBlank(ids)){
@@ -453,7 +453,7 @@ public class ChannelApiAct {
 		String body="\"\"";
 		String message=Constants.API_MESSAGE_PARAM_REQUIRED;
 		String code = ResponseCode.API_CODE_CALL_FAIL;
-		WebErrors errors=WebErrors.create(request);
+		WebErrors errors= WebErrors.create(request);
 		//验证公共非空参数
 		errors=ApiValidate.validateRequiredParams(request,errors,ids);
 		Integer[]channelIds = null;
@@ -486,7 +486,7 @@ public class ChannelApiAct {
 		String body="\"\"";
 		String message=Constants.API_STATUS_FAIL;
 		String code = ResponseCode.API_CODE_CALL_FAIL;
-		WebErrors errors=WebErrors.create(request);
+		WebErrors errors= WebErrors.create(request);
 		//验证公共非空参数
 		errors=ApiValidate.validateRequiredParams(request,errors,ids,prioritys);
 		Integer[] idInts=null,priorityInts=null;
@@ -516,7 +516,7 @@ public class ChannelApiAct {
 		String body="\"\"";
 		String message=Constants.API_STATUS_FAIL;
 		String code = ResponseCode.API_CODE_CALL_FAIL;
-		WebErrors errors=WebErrors.create(request);
+		WebErrors errors= WebErrors.create(request);
 		//验证公共非空参数
 		errors=ApiValidate.validateRequiredParams(request,errors,name);
 		if(!errors.hasErrors()){
@@ -540,7 +540,7 @@ public class ChannelApiAct {
 		String body="\"\"";
 		String message=Constants.API_STATUS_FAIL;
 		String code = ResponseCode.API_CODE_CALL_FAIL;
-		WebErrors errors=WebErrors.create(request);
+		WebErrors errors= WebErrors.create(request);
 		//验证公共非空参数
 		errors=ApiValidate.validateRequiredParams(request,errors,path);
 		if(!errors.hasErrors()){
@@ -640,7 +640,7 @@ public class ChannelApiAct {
 	
 	
 	private WebErrors validatePriority(Integer[] wids, Integer[] priority,
-			HttpServletRequest request) {
+									   HttpServletRequest request) {
 		CmsSite site = CmsUtils.getSite(request);
 		WebErrors errors = WebErrors.create(request);
 		if (errors.ifEmpty(wids, "wids", false)) {

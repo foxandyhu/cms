@@ -2,16 +2,17 @@ package com.jeecms.cms.dao.main.impl;
 
 import java.util.List;
 
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 import org.springframework.stereotype.Repository;
 
 import com.jeecms.cms.dao.main.CmsModelItemDao;
 import com.jeecms.cms.entity.main.CmsModelItem;
-import com.jeecms.common.hibernate4.HibernateBaseDao;
 
 @Repository
 public class CmsModelItemDaoImpl extends
-		HibernateBaseDao<CmsModelItem, Integer> implements CmsModelItemDao {
-	@SuppressWarnings("unchecked")
+        AbstractHibernateBaseDao<CmsModelItem, Integer> implements CmsModelItemDao {
+	@Override
+    @SuppressWarnings("unchecked")
 	public List<CmsModelItem> getList(Integer modelId, boolean isChannel,
 			Boolean hasDisabled) {
 		StringBuilder sb = new StringBuilder(
@@ -27,17 +28,20 @@ public class CmsModelItemDaoImpl extends
 		return find(sb.toString(), modelId, isChannel);
 	}
 
-	public CmsModelItem findById(Integer id) {
+	@Override
+    public CmsModelItem findById(Integer id) {
 		CmsModelItem entity = get(id);
 		return entity;
 	}
 
-	public CmsModelItem save(CmsModelItem bean) {
+	@Override
+    public CmsModelItem save(CmsModelItem bean) {
 		getSession().save(bean);
 		return bean;
 	}
 
-	public CmsModelItem deleteById(Integer id) {
+	@Override
+    public CmsModelItem deleteById(Integer id) {
 		CmsModelItem entity = super.get(id);
 		if (entity != null) {
 			getSession().delete(entity);

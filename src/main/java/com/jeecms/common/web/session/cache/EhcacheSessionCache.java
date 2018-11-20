@@ -11,24 +11,28 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 
 public class EhcacheSessionCache implements SessionCache, InitializingBean {
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public Map<String, Serializable> getSession(String root) {
 		Element e = cache.get(root);
 		return e != null ? (HashMap<String, Serializable>) e.getObjectValue() : null;
 	}
 
-	public void setSession(String root, Map<String, Serializable> session,
-			int exp) {
+	@Override
+    public void setSession(String root, Map<String, Serializable> session,
+                           int exp) {
 		cache.put(new Element(root, session));
 	}
 
-	public Serializable getAttribute(String root, String name) {
+	@Override
+    public Serializable getAttribute(String root, String name) {
 		Map<String, Serializable> session = getSession(root);
 		return session != null ? session.get(name) : null;
 	}
 
-	public void setAttribute(String root, String name, Serializable value,
-			int exp) {
+	@Override
+    public void setAttribute(String root, String name, Serializable value,
+                             int exp) {
 		Map<String, Serializable> session = getSession(root);
 		if (session == null) {
 			session = new HashMap<String, Serializable>();
@@ -37,15 +41,18 @@ public class EhcacheSessionCache implements SessionCache, InitializingBean {
 		cache.put(new Element(root, session));
 	}
 
-	public void clear(String root) {
+	@Override
+    public void clear(String root) {
 		cache.remove(root);
 	}
 
-	public boolean exist(String root) {
+	@Override
+    public boolean exist(String root) {
 		return cache.isKeyInCache(root);
 	}
 
-	public void afterPropertiesSet() throws Exception {
+	@Override
+    public void afterPropertiesSet() throws Exception {
 		Assert.notNull(cache);
 	}
 

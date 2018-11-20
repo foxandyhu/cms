@@ -3,7 +3,7 @@ package com.jeecms.core.manager.impl;
 import com.jeecms.common.web.Constants;
 import com.jeecms.core.dao.DbTplDao;
 import com.jeecms.core.entity.DbTpl;
-import com.jeecms.core.tpl.ParentDirIsFileExceptioin;
+import com.jeecms.core.tpl.ParentDirIsFileException;
 import com.jeecms.core.tpl.Tpl;
 import com.jeecms.core.tpl.TplManager;
 import freemarker.cache.TemplateLoader;
@@ -34,6 +34,7 @@ public class DbTplMngImpl implements TemplateLoader, TplManager {
     /**
      * @see TemplateLoader#findTemplateSource(String)
      */
+    @Override
     public Object findTemplateSource(String name) throws IOException {
         for (String ignore : ignoreLocales) {
             if (name.indexOf(ignore) != -1) {
@@ -58,6 +59,7 @@ public class DbTplMngImpl implements TemplateLoader, TplManager {
     /**
      * @see TemplateLoader#getLastModified(Object)
      */
+    @Override
     public long getLastModified(Object templateSource) {
         return ((DbTpl) templateSource).getLastModified();
     }
@@ -65,6 +67,7 @@ public class DbTplMngImpl implements TemplateLoader, TplManager {
     /**
      * @see TemplateLoader#getReader(Object, String)
      */
+    @Override
     public Reader getReader(Object templateSource, String encoding)
             throws IOException {
         return new StringReader(((DbTpl) templateSource).getSource());
@@ -73,16 +76,19 @@ public class DbTplMngImpl implements TemplateLoader, TplManager {
     /**
      * @see TemplateLoader#closeTemplateSource(Object)
      */
+    @Override
     public void closeTemplateSource(Object templateSource) throws IOException {
         // do nothing.
     }
 
+    @Override
     @Transactional(readOnly = true)
     public Tpl get(String name) {
         DbTpl entity = dao.findById(name);
         return entity;
     }
 
+    @Override
     public void save(String name, String source, boolean isDirectory) {
         DbTpl bean = new DbTpl();
         bean.setId(name);
@@ -96,6 +102,7 @@ public class DbTplMngImpl implements TemplateLoader, TplManager {
         createParentDir(name);
     }
 
+    @Override
     public void save(String path, MultipartFile file) {
         String name = path + SPT + file.getOriginalFilename();
         try {
@@ -115,7 +122,7 @@ public class DbTplMngImpl implements TemplateLoader, TplManager {
         for (String dir : dirs) {
             parentDir = get(dir);
             if (parentDir != null && !parentDir.isDirectory()) {
-                throw new ParentDirIsFileExceptioin(
+                throw new ParentDirIsFileException(
                         "parent directory is a file: " + parentDir.getName());
             } else if (parentDir == null) {
                 dirTpl = new DbTpl();
@@ -126,12 +133,14 @@ public class DbTplMngImpl implements TemplateLoader, TplManager {
         }
     }
 
+    @Override
     public void update(String name, String source) {
         DbTpl entity = (DbTpl) get(name);
         entity.setSource(source);
         entity.setLastModified(System.currentTimeMillis());
     }
 
+    @Override
     public int delete(String[] names) {
         int count = 0;
         DbTpl tpl;
@@ -154,10 +163,12 @@ public class DbTplMngImpl implements TemplateLoader, TplManager {
         return list.size();
     }
 
+    @Override
     public List<? extends Tpl> getListByPrefix(String prefix) {
         return dao.getStartWith(prefix);
     }
 
+    @Override
     public List<String> getNameListByPrefix(String prefix) {
         // 有可能要在第一位插入一个元素
         List<String> list = new LinkedList<String>();
@@ -167,6 +178,7 @@ public class DbTplMngImpl implements TemplateLoader, TplManager {
         return list;
     }
 
+    @Override
     public List<? extends Tpl> getChild(String path) {
         List<DbTpl> dirs = dao.getChild(path, true);
         List<DbTpl> files = dao.getChild(path, false);
@@ -174,6 +186,7 @@ public class DbTplMngImpl implements TemplateLoader, TplManager {
         return dirs;
     }
 
+    @Override
     public void rename(String orig, String dist) {
         DbTpl tpl = dao.deleteById(orig);
         if (tpl == null) {

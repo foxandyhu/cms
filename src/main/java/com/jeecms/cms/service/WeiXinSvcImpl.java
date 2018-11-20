@@ -74,6 +74,7 @@ public class WeiXinSvcImpl implements WeiXinSvc {
     //每次抽取关注号数量
     public static final Integer USERS_QUERY_MAX = 10000;
 
+    @Override
     public Map<String, String> getToken() {
         String tokenGetUrl = socialInfoConfig.getWeixin().getAddress().getToken();
         String appid = "";
@@ -106,6 +107,7 @@ public class WeiXinSvcImpl implements WeiXinSvc {
         }
     }
 
+    @Override
     public Set<String> getUsers(String access_token) {
         String usersGetUrl = socialInfoConfig.getWeixin().getAddress().getUsers();
         usersGetUrl += "?access_token=" + access_token;
@@ -135,6 +137,7 @@ public class WeiXinSvcImpl implements WeiXinSvc {
     }
 
 
+    @Override
     public String uploadFile(String access_token, String filePath, String type) {
         String sendGetUrl = socialInfoConfig.getWeixin().getAddress().getUpload();
         String url = sendGetUrl + "?access_token=" + access_token;
@@ -156,6 +159,7 @@ public class WeiXinSvcImpl implements WeiXinSvc {
     }
 
 
+    @Override
     public void sendText(String access_token, String content) {
         String sendGetUrl = socialInfoConfig.getWeixin().getAddress().getSend();
         String url = sendGetUrl + "?access_token=" + access_token;
@@ -198,6 +202,7 @@ public class WeiXinSvcImpl implements WeiXinSvc {
         }
     }
 
+    @Override
     public void sendVedio(String access_token, String title, String description, String media_id) {
         String sendGetUrl = socialInfoConfig.getWeixin().getAddress().getSend();
         String url = sendGetUrl + "?access_token=" + access_token;
@@ -244,6 +249,7 @@ public class WeiXinSvcImpl implements WeiXinSvc {
     /**
      * 创建自定义菜单
      */
+    @Override
     public Map<String, String> createMenu(String menus) {
         int status = Weixin.TENCENT_WX_SUCCESS;
         Map<String, String> msg = weixinTokenCache.getToken();
@@ -269,6 +275,7 @@ public class WeiXinSvcImpl implements WeiXinSvc {
     /**
      * 群发
      */
+    @Override
     public Map<String, String> sendTextToAllUser(Content[] beans) {
         int status = Weixin.TENCENT_WX_SUCCESS;
         Map<String, String> msg = null;
@@ -515,14 +522,17 @@ public class WeiXinSvcImpl implements WeiXinSvc {
         try {
             SSLContext ctx = SSLContext.getInstance("TLSv1");
             X509TrustManager tm = new X509TrustManager() {
+                @Override
                 public void checkClientTrusted(X509Certificate[] xcs,
                                                String string) throws CertificateException {
                 }
 
+                @Override
                 public void checkServerTrusted(X509Certificate[] xcs,
                                                String string) throws CertificateException {
                 }
 
+                @Override
                 public X509Certificate[] getAcceptedIssuers() {
                     return null;
                 }
@@ -545,6 +555,7 @@ public class WeiXinSvcImpl implements WeiXinSvc {
             this.charset = charset;
         }
 
+        @Override
         public String handleResponse(HttpResponse response)
                 throws ClientProtocolException, IOException {
             StatusLine statusLine = response.getStatusLine();

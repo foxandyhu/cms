@@ -13,7 +13,8 @@ import com.jeecms.common.hibernate4.Updater;
 @Service
 @Transactional
 public class CmsGuestbookExtMngImpl implements CmsGuestbookExtMng {
-	public CmsGuestbookExt save(CmsGuestbookExt ext, CmsGuestbook guestbook) {
+	@Override
+    public CmsGuestbookExt save(CmsGuestbookExt ext, CmsGuestbook guestbook) {
 		guestbook.setExt(ext);
 		ext.setGuestbook(guestbook);
 		ext.init();
@@ -21,7 +22,8 @@ public class CmsGuestbookExtMngImpl implements CmsGuestbookExtMng {
 		return ext;
 	}
 
-	public CmsGuestbookExt update(CmsGuestbookExt ext) {
+	@Override
+    public CmsGuestbookExt update(CmsGuestbookExt ext) {
 		Updater<CmsGuestbookExt> updater = new Updater<CmsGuestbookExt>(ext);
 		CmsGuestbookExt entity = dao.updateByUpdater(updater);
 		entity.blankToNull();

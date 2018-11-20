@@ -30,17 +30,17 @@ import freemarker.core.Environment;
 import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component("cms_lucene_page")
-public class LuceneDirectivePage extends LuceneDirectiveAbstract {
+public class LuceneDirectivePage extends AbstractLuceneDirective {
 	/**
 	 * 模板名称
 	 */
 	public static final String TPL_NAME = "lucene_page";
 
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public void execute(Environment env, Map params, TemplateModel[] loopVars,
 			TemplateDirectiveBody body) throws TemplateException, IOException {
 		CmsSite site = FrontUtils.getSite(env);

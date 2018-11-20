@@ -8,6 +8,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,6 @@ import com.jeecms.common.web.CookieUtils;
 import com.jeecms.core.entity.CmsSite;
 import com.jeecms.core.entity.CmsUser;
 import com.jeecms.core.entity.MemberConfig;
-import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
 import com.jeecms.core.web.util.FrontUtils;
 
@@ -91,7 +91,7 @@ public class CommentMemberAct {
 		}
 		CmsComment comment=commentMng.findById(id);
 		if(!comment.getCommentUser().equals(user)){
-			WebErrors errors=WebErrors.create(request);
+			WebErrors errors= WebErrors.create(request);
 			errors.addErrorCode("error.noPermissionsView");
 			return FrontUtils.showError(request, response, model, errors);
 		}

@@ -38,7 +38,8 @@ public class ContentPageDirective extends AbstractContentDirective {
 	 */
 	public static final String TPL_NAME = "content_page";
 
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public void execute(Environment env, Map params, TemplateModel[] loopVars,
 			TemplateDirectiveBody body) throws TemplateException, IOException {
 		CmsSite site = FrontUtils.getSite(env);

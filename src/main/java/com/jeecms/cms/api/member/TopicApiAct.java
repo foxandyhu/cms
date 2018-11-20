@@ -3,6 +3,7 @@ package com.jeecms.cms.api.member;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,6 @@ import com.jeecms.cms.entity.main.CmsTopic;
 import com.jeecms.cms.manager.main.ChannelMng;
 import com.jeecms.cms.manager.main.CmsTopicMng;
 import com.jeecms.common.web.ResponseUtils;
-import com.jeecms.core.web.WebErrors;
 
 @Controller
 public class TopicApiAct {
@@ -55,7 +55,7 @@ public class TopicApiAct {
 		if(recommend==null){
 			recommend=false;
 		}
-		WebErrors errors=WebErrors.create(request);
+		WebErrors errors= WebErrors.create(request);
 		//验证公共非空参数
 		errors=ApiValidate.validateRequiredParams(request,errors,name);
 		if(!errors.hasErrors()){
@@ -108,7 +108,7 @@ public class TopicApiAct {
 		String body="\"\"";
 		String message=Constants.API_STATUS_FAIL;
 		String code=ResponseCode.API_CODE_CALL_SUCCESS;
-		WebErrors errors=WebErrors.create(request);
+		WebErrors errors= WebErrors.create(request);
 		//验证公共非空参数
 		errors=ApiValidate.validateRequiredParams(request,errors,id);
 		if(!errors.hasErrors()){

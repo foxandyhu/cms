@@ -38,7 +38,8 @@ public class ChannelListDirective extends AbstractChannelDirective {
 	 */
 	public static final String TPL_NAME = "channel_list";
 
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public void execute(Environment env, Map params, TemplateModel[] loopVars,
 			TemplateDirectiveBody body) throws TemplateException, IOException {
 		CmsSite site = FrontUtils.getSite(env);

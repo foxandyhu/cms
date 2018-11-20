@@ -35,7 +35,7 @@ public class Doc2Html {
 	 */
 	public static File convert(File docFile, String filepath) {
 		// 创建保存html的文件
-		File htmlFile = new File(filepath + "/" + new Date().getTime()
+		File htmlFile = new File(filepath + "/" + System.currentTimeMillis()
 				+ ".html");
 		// 创建Openoffice连接
 		OpenOfficeConnection con = new SocketOpenOfficeConnection(8100);

@@ -4,6 +4,7 @@ package com.jeecms.cms.api.member;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,7 +21,6 @@ import com.jeecms.core.entity.CmsUser;
 import com.jeecms.core.entity.CmsUserExt;
 import com.jeecms.core.manager.CmsUserExtMng;
 import com.jeecms.core.manager.CmsUserMng;
-import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
 
 @Controller
@@ -63,7 +63,7 @@ public class PersonalApiAct {
 		String body="\"\"";
 		String message = Constants.API_MESSAGE_PARAM_REQUIRED;
 		String code = ResponseCode.API_CODE_PARAM_REQUIRED;
-		WebErrors errors=WebErrors.create(request);
+		WebErrors errors= WebErrors.create(request);
 		//验证公共非空参数
 		errors=ApiValidate.validateRequiredParams(request,errors, origPwd);
 		if(!errors.hasErrors()){
@@ -80,8 +80,8 @@ public class PersonalApiAct {
 	}
 	
 	private WebErrors validatePasswordSubmit(Integer id, String origPwd,
-			String newPwd, String email, String realname,
-			HttpServletRequest request) {
+											 String newPwd, String email, String realname,
+											 HttpServletRequest request) {
 		WebErrors errors = WebErrors.create(request);
 		if (errors.ifBlank(origPwd, "origPwd", 32, true)) {
 			return errors;

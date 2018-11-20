@@ -49,7 +49,8 @@ public class FileUpload {
 	        //解决HTTPS
 	        trustAllHttpsCertificates();
 	        HostnameVerifier hv = new HostnameVerifier() {
-	            public boolean verify(String urlHostName, SSLSession session) {
+	            @Override
+                public boolean verify(String urlHostName, SSLSession session) {
 	                return true;
 	            }
 	        };
@@ -204,7 +205,8 @@ public class FileUpload {
 	
 	static class miTM implements javax.net.ssl.TrustManager,
 		javax.net.ssl.X509TrustManager {
-		public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+		@Override
+        public java.security.cert.X509Certificate[] getAcceptedIssuers() {
 			return null;
 		}
 		
@@ -218,13 +220,15 @@ public class FileUpload {
 			return true;
 		}
 		
-		public void checkServerTrusted(
+		@Override
+        public void checkServerTrusted(
 				java.security.cert.X509Certificate[] certs, String authType)
 				throws java.security.cert.CertificateException {
 			return;
 		}
 		
-		public void checkClientTrusted(
+		@Override
+        public void checkClientTrusted(
 				java.security.cert.X509Certificate[] certs, String authType)
 				throws java.security.cert.CertificateException {
 			return;

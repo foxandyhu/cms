@@ -28,11 +28,13 @@ public class SnapScreenServlet extends HttpServlet {
     // URL
     private static final String URL = "url";
 
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         doGet(req, resp);
     }
 
+    @Override
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response) throws ServletException, IOException {
         responseInit(response);

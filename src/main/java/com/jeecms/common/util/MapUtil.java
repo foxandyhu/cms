@@ -93,25 +93,29 @@ public class MapUtil {
 
 
 class MapValueComparator implements Comparator<Map.Entry<String, String>> {  
-    public int compare(Entry<String, String> me1, Entry<String, String> me2) {  
+    @Override
+    public int compare(Entry<String, String> me1, Entry<String, String> me2) {
         return me1.getValue().compareTo(me2.getValue());  
     }  
 }  
 
 class MapKeyComparator implements Comparator<Map.Entry<String, String>> {  
-    public int compare(Entry<String, String> me1, Entry<String, String> me2) {  
+    @Override
+    public int compare(Entry<String, String> me1, Entry<String, String> me2) {
         return me1.getKey().compareTo(me2.getKey());  
     }  
 } 
 
 class MapLongKeyComparator implements Comparator<Map.Entry<Long, String>> {  
-    public int compare(Entry<Long, String> me1, Entry<Long, String> me2) {  
+    @Override
+    public int compare(Entry<Long, String> me1, Entry<Long, String> me2) {
         return me1.getKey().compareTo(me2.getKey());  
     }  
 } 
 
 class MapLongValueComparator implements Comparator<Map.Entry<String, Long>> {  
-    public int compare(Entry<String, Long> me1, Entry<String, Long> me2) {  
+    @Override
+    public int compare(Entry<String, Long> me1, Entry<String, Long> me2) {
         return me2.getValue().compareTo(me1.getValue());  
     }  
 }  

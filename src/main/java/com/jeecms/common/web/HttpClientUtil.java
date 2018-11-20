@@ -189,7 +189,8 @@ public class HttpClientUtil {
 			this.charset = charset;
 		}
 
-		public String handleResponse(HttpResponse response)
+		@Override
+        public String handleResponse(HttpResponse response)
 				throws ClientProtocolException, IOException {
 			StatusLine statusLine = response.getStatusLine();
 			if (statusLine.getStatusCode() >= 300) {
@@ -213,15 +214,18 @@ public class HttpClientUtil {
 	    try {
 	        SSLContext ctx = SSLContext.getInstance("TLSv1");
 	        X509TrustManager tm = new X509TrustManager() {
-	            public void checkClientTrusted(X509Certificate[] xcs,
-	                    String string) throws CertificateException {
+	            @Override
+                public void checkClientTrusted(X509Certificate[] xcs,
+                                               String string) throws CertificateException {
 	            }
 	
-	            public void checkServerTrusted(X509Certificate[] xcs,
-	                    String string) throws CertificateException {
+	            @Override
+                public void checkServerTrusted(X509Certificate[] xcs,
+                                               String string) throws CertificateException {
 	            }
 	
-	            public X509Certificate[] getAcceptedIssuers() {
+	            @Override
+                public X509Certificate[] getAcceptedIssuers() {
 	                return null;
 	            }
 	        };

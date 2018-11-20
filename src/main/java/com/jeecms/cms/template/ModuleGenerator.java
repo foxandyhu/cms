@@ -68,7 +68,7 @@ public class ModuleGenerator {
 			prop.load(fileInput);
 			String entityUp = prop.getProperty("Entity");
 			log.debug("entityUp:" + entityUp);
-			if (entityUp == null || entityUp.trim().equals("")) {
+			if (entityUp == null || "".equals(entityUp.trim())) {
 				log.warn("Entity not specified, exit!");
 				return;
 			}

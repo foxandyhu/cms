@@ -7,21 +7,23 @@ import org.springframework.stereotype.Repository;
 import com.jeecms.cms.dao.assist.CmsGuestbookDao;
 import com.jeecms.cms.entity.assist.CmsGuestbook;
 import com.jeecms.common.hibernate4.Finder;
-import com.jeecms.common.hibernate4.HibernateBaseDao;
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 import com.jeecms.common.page.Pagination;
 
 @Repository
 public class CmsGuestbookDaoImpl extends
-		HibernateBaseDao<CmsGuestbook, Integer> implements CmsGuestbookDao {
-	public Pagination getPage(Integer siteId, Integer ctgId,Integer ctgIds[],
-			Integer userId,Boolean recommend,Short checked, boolean asc,
-			boolean cacheable, int pageNo,int pageSize) {
+        AbstractHibernateBaseDao<CmsGuestbook, Integer> implements CmsGuestbookDao {
+	@Override
+    public Pagination getPage(Integer siteId, Integer ctgId, Integer ctgIds[],
+                              Integer userId, Boolean recommend, Short checked, boolean asc,
+                              boolean cacheable, int pageNo, int pageSize) {
 		Finder f = createFinder(siteId, ctgId, ctgIds,userId,recommend, checked, asc,
 				cacheable);
 		return find(f, pageNo, pageSize);
 	}
 
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public List<CmsGuestbook> getList(Integer siteId, Integer ctgId,
 			Integer userId,Boolean recommend, Short checked, boolean desc,
 			boolean cacheable, int first, int max) {
@@ -68,17 +70,20 @@ public class CmsGuestbookDaoImpl extends
 		return f;
 	}
 
-	public CmsGuestbook findById(Integer id) {
+	@Override
+    public CmsGuestbook findById(Integer id) {
 		CmsGuestbook entity = get(id);
 		return entity;
 	}
 
-	public CmsGuestbook save(CmsGuestbook bean) {
+	@Override
+    public CmsGuestbook save(CmsGuestbook bean) {
 		getSession().save(bean);
 		return bean;
 	}
 
-	public CmsGuestbook deleteById(Integer id) {
+	@Override
+    public CmsGuestbook deleteById(Integer id) {
 		CmsGuestbook entity = super.get(id);
 		if (entity != null) {
 			getSession().delete(entity);

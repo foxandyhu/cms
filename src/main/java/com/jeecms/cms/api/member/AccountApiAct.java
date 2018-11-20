@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.jeecms.core.web.WebErrors;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +25,6 @@ import com.jeecms.cms.manager.main.ApiUserLoginMng;
 import com.jeecms.common.util.ArrayUtils;
 import com.jeecms.common.web.ResponseUtils;
 import com.jeecms.core.entity.CmsUser;
-import com.jeecms.core.web.WebErrors;
 
 @Controller
 public class AccountApiAct {
@@ -69,7 +70,7 @@ public class AccountApiAct {
 		String message=Constants.API_MESSAGE_PARAM_REQUIRED;
 		String code = ResponseCode.API_CODE_PARAM_REQUIRED;
 		CmsUser user = apiUserLoginMng.getUser(request);
-		WebErrors errors=WebErrors.create(request);
+		WebErrors errors= WebErrors.create(request);
 		//验证公共非空参数
 		errors=ApiValidate.validateRequiredParams(request,errors,drawAmout);
 		if(!errors.hasErrors()){
@@ -132,7 +133,7 @@ public class AccountApiAct {
 		String body="\"\"";
 		String message=Constants.API_MESSAGE_PARAM_REQUIRED;
 		CmsUser user = apiUserLoginMng.getUser(request);
-		WebErrors errors=WebErrors.create(request);
+		WebErrors errors= WebErrors.create(request);
 		String code = ResponseCode.API_CODE_PARAM_REQUIRED;
 		//验证公共非空参数
 		errors=ApiValidate.validateRequiredParams(request,errors, ids);

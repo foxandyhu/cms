@@ -26,7 +26,8 @@ public class ContentCountCacheImpl implements ContentCountCache, DisposableBean 
 	/**
 	 * @see ContentCountCache#viewAndGet(Integer)
 	 */
-	public int[] viewAndGet(Integer id) {
+	@Override
+    public int[] viewAndGet(Integer id) {
 		ContentCount count = contentCountMng.findById(id);
 		if (count == null) {
 			return null;
@@ -58,7 +59,8 @@ public class ContentCountCacheImpl implements ContentCountCache, DisposableBean 
 	/**
 	 * 销毁BEAN时，缓存入库。
 	 */
-	public void destroy() throws Exception {
+	@Override
+    public void destroy() throws Exception {
 		int count = contentCountMng.freshCacheToDB(cache);
 		log.info("Bean destroy.refresh cache views to DB: {}", count);
 	}

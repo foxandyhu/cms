@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -25,7 +26,6 @@ import com.jeecms.cms.manager.assist.CmsWebserviceMng;
 import com.jeecms.common.page.Pagination;
 import com.jeecms.common.util.StrUtils;
 import com.jeecms.common.web.ResponseUtils;
-import com.jeecms.core.web.WebErrors;
 
 @Controller
 public class CmsWebserviceApiAct {
@@ -253,7 +253,7 @@ public class CmsWebserviceApiAct {
 		ResponseUtils.renderApiJson(response, request, apiResponse);
 	}
 	
-	private WebErrors validateDelete(WebErrors errors,Integer[] idArr){
+	private WebErrors validateDelete(WebErrors errors, Integer[] idArr){
 		if (idArr!=null) {
 			for (int i = 0; i < idArr.length; i++) {
 				CmsWebservice webservice = manager.findById(idArr[i]);
@@ -266,7 +266,7 @@ public class CmsWebserviceApiAct {
 		return errors;
 	}
 	
-	private WebErrors validateArr(WebErrors errors,Object[] paramNameArr, Object[] defaultValueArr) {
+	private WebErrors validateArr(WebErrors errors, Object[] paramNameArr, Object[] defaultValueArr) {
 		if ((paramNameArr==null && defaultValueArr!=null) 
 				|| (paramNameArr!=null && defaultValueArr==null)) {
 			errors.addErrorString(Constants.API_MESSAGE_PARAM_ERROR);

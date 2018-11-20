@@ -2,17 +2,18 @@ package com.jeecms.core.dao.impl;
 
 import java.util.List;
 
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Repository;
 
-import com.jeecms.common.hibernate4.HibernateBaseDao;
 import com.jeecms.core.dao.DbTplDao;
 import com.jeecms.core.entity.DbTpl;
 
 @Repository
-public class DbTplDaoImpl extends HibernateBaseDao<DbTpl, String> implements
+public class DbTplDaoImpl extends AbstractHibernateBaseDao<DbTpl, String> implements
 		DbTplDao {
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public List<DbTpl> getStartWith(String prefix) {
 		StringUtils.replace(prefix, "_", "\\_");
 		prefix = prefix + "%";
@@ -20,7 +21,8 @@ public class DbTplDaoImpl extends HibernateBaseDao<DbTpl, String> implements
 		return find(hql, prefix);
 	}
 
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public List<DbTpl> getChild(String path, boolean isDirectory) {
 		StringUtils.replace(path, "_", "\\_");
 		path = path + "/%";
@@ -31,17 +33,20 @@ public class DbTplDaoImpl extends HibernateBaseDao<DbTpl, String> implements
 		return find(hql, path, notLike, isDirectory);
 	}
 
-	public DbTpl findById(String id) {
+	@Override
+    public DbTpl findById(String id) {
 		DbTpl entity = get(id);
 		return entity;
 	}
 
-	public DbTpl save(DbTpl bean) {
+	@Override
+    public DbTpl save(DbTpl bean) {
 		getSession().save(bean);
 		return bean;
 	}
 
-	public DbTpl deleteById(String id) {
+	@Override
+    public DbTpl deleteById(String id) {
 		DbTpl entity = super.get(id);
 		if (entity != null) {
 			getSession().delete(entity);

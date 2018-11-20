@@ -91,7 +91,8 @@ public final class SpringEhCacheProvider extends EhCacheRegionFactory {
 	 * Callback to perform any necessary cleanup of the underlying cache
 	 * implementation during SessionFactory.close().
 	 */
-	public final void stop() {
+	@Override
+    public final void stop() {
 		if (manager != null) {
 			manager.shutdown();
 			manager = null;

@@ -20,13 +20,15 @@ import com.jeecms.cms.manager.main.ApiAccountMng;
 @Service
 @Transactional
 public class ApiAccountMngImpl implements ApiAccountMng {
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Pagination getPage(int pageNo, int pageSize) {
 		Pagination page = dao.getPage(pageNo, pageSize);
 		return page;
 	}
 	
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public ApiAccount getApiAccount(HttpServletRequest request){
 		String appId=RequestUtils.getQueryParam(request,Constants.COMMON_PARAM_APPID);
 		ApiAccount apiAccount = null;
@@ -36,7 +38,8 @@ public class ApiAccountMngImpl implements ApiAccountMng {
 		return apiAccount;
 	}
 	
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public ApiAccount findByDefault(){
 		ApiAccount account=dao.findAdmin();
 		if(account==null){
@@ -46,23 +49,27 @@ public class ApiAccountMngImpl implements ApiAccountMng {
 		return account;
 	}
 	
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public ApiAccount findByAppId(String appId){
 		return dao.findByAppId(appId);
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public ApiAccount findById(Integer id) {
 		ApiAccount entity = dao.findById(id);
 		return entity;
 	}
 
-	public ApiAccount save(ApiAccount bean) {
+	@Override
+    public ApiAccount save(ApiAccount bean) {
 		dao.save(bean);
 		return bean;
 	}
 
-	public ApiAccount update(ApiAccount bean,String appKey,String aesKey,String ivKey) {
+	@Override
+    public ApiAccount update(ApiAccount bean, String appKey, String aesKey, String ivKey) {
 		Updater<ApiAccount> updater = new Updater<ApiAccount>(bean);
 		if(StringUtils.isBlank(appKey)){
 			updater.exclude("appKey");
@@ -77,12 +84,14 @@ public class ApiAccountMngImpl implements ApiAccountMng {
 		return bean;
 	}
 
-	public ApiAccount deleteById(Integer id) {
+	@Override
+    public ApiAccount deleteById(Integer id) {
 		ApiAccount bean = dao.deleteById(id);
 		return bean;
 	}
 	
-	public ApiAccount[] deleteByIds(Integer[] ids) {
+	@Override
+    public ApiAccount[] deleteByIds(Integer[] ids) {
 		ApiAccount[] beans = new ApiAccount[ids.length];
 		for (int i = 0,len = ids.length; i < len; i++) {
 			beans[i] = deleteById(ids[i]);

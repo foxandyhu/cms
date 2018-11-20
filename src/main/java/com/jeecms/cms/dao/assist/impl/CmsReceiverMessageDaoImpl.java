@@ -3,12 +3,12 @@ package com.jeecms.cms.dao.assist.impl;
 import java.util.Date;
 import java.util.List;
 
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 import org.apache.commons.lang.StringUtils;
 
 import com.jeecms.cms.dao.assist.CmsReceiverMessageDao;
 import com.jeecms.cms.entity.assist.CmsReceiverMessage;
 import com.jeecms.common.hibernate4.Finder;
-import com.jeecms.common.hibernate4.HibernateBaseDao;
 import com.jeecms.common.page.Pagination;
 import org.springframework.stereotype.Repository;
 
@@ -17,13 +17,14 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class CmsReceiverMessageDaoImpl extends
-		HibernateBaseDao<CmsReceiverMessage, Integer> implements
+        AbstractHibernateBaseDao<CmsReceiverMessage, Integer> implements
 		CmsReceiverMessageDao {
 
-	public Pagination getPage(Integer siteId, Integer sendUserId,
-			Integer receiverUserId, String title, Date sendBeginTime,
-			Date sendEndTime, Boolean status, Integer box, Boolean cacheable,
-			int pageNo, int pageSize) {
+	@Override
+    public Pagination getPage(Integer siteId, Integer sendUserId,
+                              Integer receiverUserId, String title, Date sendBeginTime,
+                              Date sendEndTime, Boolean status, Integer box, Boolean cacheable,
+                              int pageNo, int pageSize) {
 		String hql = " select msg from CmsReceiverMessage msg where 1=1 ";
 		Finder finder = Finder.create(hql);
 		if (siteId != null) {
@@ -75,7 +76,8 @@ public class CmsReceiverMessageDaoImpl extends
 		return find(finder, pageNo, pageSize);
 	}
 
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public List<CmsReceiverMessage> getList(Integer siteId, Integer sendUserId,
 			Integer receiverUserId, String title, Date sendBeginTime,
 			Date sendEndTime, Boolean status, Integer box, Boolean cacheable
@@ -136,7 +138,8 @@ public class CmsReceiverMessageDaoImpl extends
 		return find(finder);
 	}
 
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public CmsReceiverMessage find(Integer messageId,Integer box){
 		String hql = " select msg from CmsReceiverMessage msg where 1=1  ";
 		Finder finder = Finder.create(hql);
@@ -155,21 +158,25 @@ public class CmsReceiverMessageDaoImpl extends
 		}
 	}
 
-	public CmsReceiverMessage findById(Integer id) {
+	@Override
+    public CmsReceiverMessage findById(Integer id) {
 		return super.get(id);
 	}
 
-	public CmsReceiverMessage save(CmsReceiverMessage bean) {
+	@Override
+    public CmsReceiverMessage save(CmsReceiverMessage bean) {
 		getSession().save(bean);
 		return bean;
 	}
 
-	public CmsReceiverMessage update(CmsReceiverMessage bean) {
+	@Override
+    public CmsReceiverMessage update(CmsReceiverMessage bean) {
 		getSession().update(bean);
 		return bean;
 	}
 
-	public CmsReceiverMessage deleteById(Integer id) {
+	@Override
+    public CmsReceiverMessage deleteById(Integer id) {
 		CmsReceiverMessage entity = super.get(id);
 		if (entity != null) {
 			getSession().delete(entity);
@@ -177,7 +184,8 @@ public class CmsReceiverMessageDaoImpl extends
 		return entity;
 	}
 
-	public CmsReceiverMessage[] deleteByIds(Integer[] ids) {
+	@Override
+    public CmsReceiverMessage[] deleteByIds(Integer[] ids) {
 		CmsReceiverMessage[] messages = new CmsReceiverMessage[ids.length];
 		for (int i = 0; i < ids.length; i++) {
 			messages[i] = get(ids[i]);

@@ -82,6 +82,7 @@ public class CmsVoteItem implements PriorityInterface, Serializable {
     private CmsVoteSubTopic subTopic;
 
 
+    @Override
     public Integer getId() {
         return id;
     }
@@ -109,6 +110,7 @@ public class CmsVoteItem implements PriorityInterface, Serializable {
         this.voteCount = voteCount;
     }
 
+    @Override
     public Integer getPriority() {
         return priority;
     }

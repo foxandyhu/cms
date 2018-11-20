@@ -7,13 +7,14 @@ import org.springframework.stereotype.Repository;
 import com.jeecms.cms.dao.assist.CmsFriendlinkCtgDao;
 import com.jeecms.cms.entity.assist.CmsFriendlinkCtg;
 import com.jeecms.common.hibernate4.Finder;
-import com.jeecms.common.hibernate4.HibernateBaseDao;
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 
 @Repository
 public class CmsFriendlinkCtgDaoImpl extends
-		HibernateBaseDao<CmsFriendlinkCtg, Integer> implements
+        AbstractHibernateBaseDao<CmsFriendlinkCtg, Integer> implements
 		CmsFriendlinkCtgDao {
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public List<CmsFriendlinkCtg> getList(Integer siteId) {
 		Finder f = Finder.create("from CmsFriendlinkCtg bean");
 		if (siteId != null) {
@@ -25,23 +26,27 @@ public class CmsFriendlinkCtgDaoImpl extends
 		return find(f);
 	}
 
-	public int countBySiteId(Integer siteId) {
+	@Override
+    public int countBySiteId(Integer siteId) {
 		String hql = "select count(*) from CmsFriendlinkCtg bean where bean.site.id=:siteId";
 		return ((Number) getSession().createQuery(hql).setParameter("siteId",
 				siteId).iterate().next()).intValue();
 	}
 
-	public CmsFriendlinkCtg findById(Integer id) {
+	@Override
+    public CmsFriendlinkCtg findById(Integer id) {
 		CmsFriendlinkCtg entity = get(id);
 		return entity;
 	}
 
-	public CmsFriendlinkCtg save(CmsFriendlinkCtg bean) {
+	@Override
+    public CmsFriendlinkCtg save(CmsFriendlinkCtg bean) {
 		getSession().save(bean);
 		return bean;
 	}
 
-	public CmsFriendlinkCtg deleteById(Integer id) {
+	@Override
+    public CmsFriendlinkCtg deleteById(Integer id) {
 		CmsFriendlinkCtg entity = super.get(id);
 		if (entity != null) {
 			getSession().delete(entity);

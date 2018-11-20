@@ -14,45 +14,53 @@ import com.jeecms.common.hibernate4.Updater;
 @Service
 @Transactional
 public class CmsModelMngImpl implements CmsModelMng {
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public List<CmsModel> getList(boolean containDisabled,Boolean hasContent,Integer siteId) {
 		return dao.getList(containDisabled,hasContent,siteId);
 	}
 
-	public CmsModel getDefModel() {
+	@Override
+    public CmsModel getDefModel() {
 		return dao.getDefModel();
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public CmsModel findById(Integer id) {
 		CmsModel entity = dao.findById(id);
 		return entity;
 	}
 	
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public CmsModel findByPath(String path){
 		CmsModel entity = dao.findByPath(path);
 		return entity;
 	}
 
-	public CmsModel save(CmsModel bean) {
+	@Override
+    public CmsModel save(CmsModel bean) {
 		bean.init();
 		dao.save(bean);
 		return bean;
 	}
 
-	public CmsModel update(CmsModel bean) {
+	@Override
+    public CmsModel update(CmsModel bean) {
 		Updater<CmsModel> updater = new Updater<CmsModel>(bean);
 		CmsModel entity = dao.updateByUpdater(updater);
 		return entity;
 	}
 
-	public CmsModel deleteById(Integer id) {
+	@Override
+    public CmsModel deleteById(Integer id) {
 		CmsModel bean = dao.deleteById(id);
 		return bean;
 	}
 
-	public CmsModel[] deleteByIds(Integer[] ids) {
+	@Override
+    public CmsModel[] deleteByIds(Integer[] ids) {
 		CmsModel[] beans = new CmsModel[ids.length];
 		for (int i = 0, len = ids.length; i < len; i++) {
 			beans[i] = deleteById(ids[i]);
@@ -60,8 +68,9 @@ public class CmsModelMngImpl implements CmsModelMng {
 		return beans;
 	}
 
-	public CmsModel[] updatePriority(Integer[] ids, Integer[] priority,
-			Boolean[] disabled, Integer defId) {
+	@Override
+    public CmsModel[] updatePriority(Integer[] ids, Integer[] priority,
+                                     Boolean[] disabled, Integer defId) {
 		int len = ids.length;
 		CmsModel[] beans = new CmsModel[len];
 		for (int i = 0; i < len; i++) {

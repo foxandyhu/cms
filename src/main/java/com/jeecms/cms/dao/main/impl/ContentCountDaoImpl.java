@@ -10,12 +10,13 @@ import org.springframework.stereotype.Repository;
 
 import com.jeecms.cms.dao.main.ContentCountDao;
 import com.jeecms.cms.entity.main.ContentCount;
-import com.jeecms.common.hibernate4.HibernateBaseDao;
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 
 @Repository
 public class ContentCountDaoImpl extends
-		HibernateBaseDao<ContentCount, Integer> implements ContentCountDao {
-	@SuppressWarnings("unchecked")
+        AbstractHibernateBaseDao<ContentCount, Integer> implements ContentCountDao {
+	@Override
+    @SuppressWarnings("unchecked")
 	public int freshCacheToDB(Ehcache cache) {
 		List<Integer> keys = cache.getKeys();
 		if (keys.size() <= 0) {
@@ -44,7 +45,8 @@ public class ContentCountDaoImpl extends
 		return i;
 	}
 
-	public int clearCount(boolean week, boolean month) {
+	@Override
+    public int clearCount(boolean week, boolean month) {
 		StringBuilder hql = new StringBuilder("update ContentCount bean");
 		hql.append(" set bean.viewsDay=0,commentsDay=0,upsDay=0,downloadsDay=0");
 		if (week) {
@@ -56,7 +58,8 @@ public class ContentCountDaoImpl extends
 		return getSession().createQuery(hql.toString()).executeUpdate();
 	}
 
-	public int copyCount() {
+	@Override
+    public int copyCount() {
 		String hql = "update Content a set"
 				+ " a.viewsDay=(select b.viewsDay from ContentCount b where a.id=b.id)"
 				+ ",a.commentsDay=(select b.commentsDay from ContentCount b where a.id=b.id)"
@@ -65,12 +68,14 @@ public class ContentCountDaoImpl extends
 		return getSession().createQuery(hql).executeUpdate();
 	}
 
-	public ContentCount findById(Integer id) {
+	@Override
+    public ContentCount findById(Integer id) {
 		ContentCount entity = get(id);
 		return entity;
 	}
 
-	public ContentCount save(ContentCount bean) {
+	@Override
+    public ContentCount save(ContentCount bean) {
 		getSession().save(bean);
 		return bean;
 	}

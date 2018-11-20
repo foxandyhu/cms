@@ -1,19 +1,21 @@
 package com.jeecms.core.dao.impl;
 
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 import org.springframework.stereotype.Repository;
 
-import com.jeecms.common.hibernate4.HibernateBaseDao;
 import com.jeecms.core.dao.CmsUserResumeDao;
 import com.jeecms.core.entity.CmsUserResume;
 
 @Repository
-public class CmsUserResumeDaoImpl extends HibernateBaseDao<CmsUserResume, Integer> implements CmsUserResumeDao {
-	public CmsUserResume findById(Integer id) {
+public class CmsUserResumeDaoImpl extends AbstractHibernateBaseDao<CmsUserResume, Integer> implements CmsUserResumeDao {
+	@Override
+    public CmsUserResume findById(Integer id) {
 		CmsUserResume entity = get(id);
 		return entity;
 	}
 
-	public CmsUserResume save(CmsUserResume bean) {
+	@Override
+    public CmsUserResume save(CmsUserResume bean) {
 		getSession().save(bean);
 		return bean;
 	}

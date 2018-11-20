@@ -3,6 +3,7 @@ package com.jeecms.cms.api.admin.main;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -17,7 +18,6 @@ import com.jeecms.cms.api.ApiValidate;
 import com.jeecms.cms.api.Constants;
 import com.jeecms.cms.api.ResponseCode;
 import com.jeecms.common.web.ResponseUtils;
-import com.jeecms.core.entity.CmsConfig;
 import com.jeecms.core.entity.CmsOss;
 import com.jeecms.core.entity.CmsSite;
 import com.jeecms.core.entity.CmsSiteCompany;
@@ -26,7 +26,6 @@ import com.jeecms.core.manager.CmsLogMng;
 import com.jeecms.core.manager.CmsOssMng;
 import com.jeecms.core.manager.CmsSiteCompanyMng;
 import com.jeecms.core.manager.CmsSiteMng;
-import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
 
 @Controller

@@ -9,6 +9,8 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebCoreErrors;
+import com.jeecms.core.web.WebErrors;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONObject;
@@ -30,8 +32,6 @@ import com.jeecms.core.entity.Ftp;
 import com.jeecms.core.entity.MarkConfig;
 import com.jeecms.core.manager.CmsUserMng;
 import com.jeecms.core.manager.DbFileMng;
-import com.jeecms.core.web.WebCoreErrors;
-import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
 
 /**
@@ -165,7 +165,7 @@ public class CommonUpload {
 	 * @return
 	 */
 	protected WebCoreErrors validateImage(MultipartFile file,
-			HttpServletRequest request) {
+										  HttpServletRequest request) {
 		CmsUser user=CmsUtils.getUser(request);
 		WebCoreErrors errors = WebCoreErrors.create(request);
 		if (file == null) {
@@ -205,7 +205,7 @@ public class CommonUpload {
 	 * @return
 	 */
 	protected WebErrors validateUpload(MultipartFile file,
-			HttpServletRequest request) {
+									   HttpServletRequest request) {
 		String origName = file.getOriginalFilename();
 		CmsUser user=CmsUtils.getUser(request);
 		String ext = FilenameUtils.getExtension(origName).toLowerCase(
@@ -226,8 +226,8 @@ public class CommonUpload {
 		return errors;
 	}
 	
-	protected WebErrors validateFile(MultipartFile file,CmsUser user,
-			HttpServletRequest request) {
+	protected WebErrors validateFile(MultipartFile file, CmsUser user,
+									 HttpServletRequest request) {
 		String origName = file.getOriginalFilename();
 		int fileSize = (int) (file.getSize() / 1024);
 		WebErrors errors = WebErrors.create(request);

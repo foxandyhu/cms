@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -23,7 +24,6 @@ import com.jeecms.common.web.ResponseUtils;
 import com.jeecms.core.entity.Ftp;
 import com.jeecms.core.manager.CmsLogMng;
 import com.jeecms.core.manager.FtpMng;
-import com.jeecms.core.web.WebErrors;
 
 @Controller
 public class FtpApiAct {
@@ -182,7 +182,7 @@ public class FtpApiAct {
 		ResponseUtils.renderApiJson(response, request, apiResponse);
 	}
 
-	private WebErrors validateDelete(Integer[] idArray,WebErrors errors) {
+	private WebErrors validateDelete(Integer[] idArray, WebErrors errors) {
 		if (idArray!=null) {
 			for (int i = 0; i < idArray.length; i++) {
 				vldExist(idArray[i], errors);

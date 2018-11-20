@@ -14,34 +14,40 @@ import com.jeecms.common.hibernate4.Updater;
 @Service
 @Transactional
 public class CmsFriendlinkCtgMngImpl implements CmsFriendlinkCtgMng {
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public List<CmsFriendlinkCtg> getList(Integer siteId) {
 		return dao.getList(siteId);
 	}
 
-	public int countBySiteId(Integer siteId) {
+	@Override
+    public int countBySiteId(Integer siteId) {
 		return dao.countBySiteId(siteId);
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public CmsFriendlinkCtg findById(Integer id) {
 		CmsFriendlinkCtg entity = dao.findById(id);
 		return entity;
 	}
 
-	public CmsFriendlinkCtg save(CmsFriendlinkCtg bean) {
+	@Override
+    public CmsFriendlinkCtg save(CmsFriendlinkCtg bean) {
 		dao.save(bean);
 		return bean;
 	}
 
-	public CmsFriendlinkCtg update(CmsFriendlinkCtg bean) {
+	@Override
+    public CmsFriendlinkCtg update(CmsFriendlinkCtg bean) {
 		Updater<CmsFriendlinkCtg> updater = new Updater<CmsFriendlinkCtg>(bean);
 		bean = dao.updateByUpdater(updater);
 		return bean;
 	}
 
-	public void updateFriendlinkCtgs(Integer[] ids, String[] names,
-			Integer[] priorities) {
+	@Override
+    public void updateFriendlinkCtgs(Integer[] ids, String[] names,
+                                     Integer[] priorities) {
 		if (ids == null || ids.length == 0) {
 			return;
 		}
@@ -53,12 +59,14 @@ public class CmsFriendlinkCtgMngImpl implements CmsFriendlinkCtgMng {
 		}
 	}
 
-	public CmsFriendlinkCtg deleteById(Integer id) {
+	@Override
+    public CmsFriendlinkCtg deleteById(Integer id) {
 		CmsFriendlinkCtg bean = dao.deleteById(id);
 		return bean;
 	}
 
-	public CmsFriendlinkCtg[] deleteByIds(Integer[] ids) {
+	@Override
+    public CmsFriendlinkCtg[] deleteByIds(Integer[] ids) {
 		CmsFriendlinkCtg[] beans = new CmsFriendlinkCtg[ids.length];
 		for (int i = 0, len = ids.length; i < len; i++) {
 			beans[i] = deleteById(ids[i]);

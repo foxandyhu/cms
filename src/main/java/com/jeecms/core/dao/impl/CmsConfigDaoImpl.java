@@ -2,14 +2,15 @@ package com.jeecms.core.dao.impl;
 
 import org.springframework.stereotype.Repository;
 
-import com.jeecms.common.hibernate4.HibernateBaseDao;
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 import com.jeecms.core.dao.CmsConfigDao;
 import com.jeecms.core.entity.CmsConfig;
 
 @Repository
-public class CmsConfigDaoImpl extends HibernateBaseDao<CmsConfig, Integer>
+public class CmsConfigDaoImpl extends AbstractHibernateBaseDao<CmsConfig, Integer>
 		implements CmsConfigDao {
-	public CmsConfig findById(Integer id) {
+	@Override
+    public CmsConfig findById(Integer id) {
 		CmsConfig entity = get(id);
 		return entity;
 	}

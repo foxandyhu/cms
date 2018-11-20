@@ -3,7 +3,7 @@ package #{dao_impl_p};
 import org.hibernate.Criteria;
 import org.springframework.stereotype.Repository;
 
-import com.jeecms.common.hibernate4.HibernateBaseDao;
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 import com.jeecms.common.page.Pagination;
 import #{dao_p}.#{Entity}Dao;
 import #{entity_p}.#{Entity};

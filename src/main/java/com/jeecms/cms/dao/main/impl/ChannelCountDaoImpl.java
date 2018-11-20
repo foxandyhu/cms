@@ -10,12 +10,13 @@ import org.springframework.stereotype.Repository;
 
 import com.jeecms.cms.dao.main.ChannelCountDao;
 import com.jeecms.cms.entity.main.ChannelCount;
-import com.jeecms.common.hibernate4.HibernateBaseDao;
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 
 @Repository
 public class ChannelCountDaoImpl extends
-		HibernateBaseDao<ChannelCount, Integer> implements ChannelCountDao {
-	@SuppressWarnings("unchecked")
+        AbstractHibernateBaseDao<ChannelCount, Integer> implements ChannelCountDao {
+	@Override
+    @SuppressWarnings("unchecked")
 	public int freshCacheToDB(Ehcache cache) {
 		List<Integer> keys = cache.getKeys();
 		if (keys.size() <= 0) {
@@ -44,7 +45,8 @@ public class ChannelCountDaoImpl extends
 		return i;
 	}
 
-	public int clearCount(boolean week, boolean month) {
+	@Override
+    public int clearCount(boolean week, boolean month) {
 		StringBuilder hql = new StringBuilder("update ChannelCount bean");
 		hql.append(" set bean.viewsDay=0");
 		if (week) {
@@ -56,7 +58,8 @@ public class ChannelCountDaoImpl extends
 		return getSession().createQuery(hql.toString()).executeUpdate();
 	}
 	
-	public int clearContentCount(boolean day,boolean week, boolean month,boolean year){
+	@Override
+    public int clearContentCount(boolean day, boolean week, boolean month, boolean year){
 		StringBuilder hql = new StringBuilder("update ChannelCount bean  set bean.id=bean.id");
 		if(day){
 			hql.append(",bean.contentDay=0");
@@ -73,12 +76,14 @@ public class ChannelCountDaoImpl extends
 		return getSession().createQuery(hql.toString()).executeUpdate();
 	}
 
-	public ChannelCount findById(Integer id) {
+	@Override
+    public ChannelCount findById(Integer id) {
 		ChannelCount entity = get(id);
 		return entity;
 	}
 
-	public ChannelCount save(ChannelCount bean) {
+	@Override
+    public ChannelCount save(ChannelCount bean) {
 		getSession().save(bean);
 		return bean;
 	}

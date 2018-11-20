@@ -68,7 +68,8 @@ public class WebEhCacheManagerFacotryBean implements FactoryBean<CacheManager>,
 		this.cacheManagerName = cacheManagerName;
 	}
 
-	public void afterPropertiesSet() throws IOException, CacheException {
+	@Override
+    public void afterPropertiesSet() throws IOException, CacheException {
 		log.info("Initializing EHCache CacheManager");
 		Configuration config = null;
 		if (this.configLocation != null) {
@@ -95,20 +96,24 @@ public class WebEhCacheManagerFacotryBean implements FactoryBean<CacheManager>,
 	}
 	
 
-	public CacheManager getObject() {
+	@Override
+    public CacheManager getObject() {
 		return this.cacheManager;
 	}
 
-	public Class<? extends CacheManager> getObjectType() {
+	@Override
+    public Class<? extends CacheManager> getObjectType() {
 		return (this.cacheManager != null ? this.cacheManager.getClass()
 				: CacheManager.class);
 	}
 
-	public boolean isSingleton() {
+	@Override
+    public boolean isSingleton() {
 		return true;
 	}
 
-	public void destroy() {
+	@Override
+    public void destroy() {
 		log.info("Shutting down EHCache CacheManager");
 		this.cacheManager.shutdown();
 	}

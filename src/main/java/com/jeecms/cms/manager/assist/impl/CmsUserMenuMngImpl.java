@@ -15,40 +15,47 @@ import com.jeecms.cms.manager.assist.CmsUserMenuMng;
 @Service
 @Transactional
 public class CmsUserMenuMngImpl implements CmsUserMenuMng {
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Pagination getPage(Integer userId,int pageNo, int pageSize) {
 		Pagination page = dao.getPage(userId,pageNo, pageSize);
 		return page;
 	}
 	
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public List<CmsUserMenu> getList(Integer userId,int count){
 		return dao.getList(userId,count);
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public CmsUserMenu findById(Integer id) {
 		CmsUserMenu entity = dao.findById(id);
 		return entity;
 	}
 
-	public CmsUserMenu save(CmsUserMenu bean) {
+	@Override
+    public CmsUserMenu save(CmsUserMenu bean) {
 		dao.save(bean);
 		return bean;
 	}
 
-	public CmsUserMenu update(CmsUserMenu bean) {
+	@Override
+    public CmsUserMenu update(CmsUserMenu bean) {
 		Updater<CmsUserMenu> updater = new Updater<CmsUserMenu>(bean);
 		bean = dao.updateByUpdater(updater);
 		return bean;
 	}
 
-	public CmsUserMenu deleteById(Integer id) {
+	@Override
+    public CmsUserMenu deleteById(Integer id) {
 		CmsUserMenu bean = dao.deleteById(id);
 		return bean;
 	}
 	
-	public CmsUserMenu[] deleteByIds(Integer[] ids) {
+	@Override
+    public CmsUserMenu[] deleteByIds(Integer[] ids) {
 		CmsUserMenu[] beans = new CmsUserMenu[ids.length];
 		for (int i = 0,len = ids.length; i < len; i++) {
 			beans[i] = deleteById(ids[i]);

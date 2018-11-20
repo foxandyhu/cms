@@ -7,6 +7,7 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +27,6 @@ import com.jeecms.core.entity.MemberConfig;
 import com.jeecms.core.manager.CmsUserAccountMng;
 import com.jeecms.core.manager.CmsUserExtMng;
 import com.jeecms.core.manager.CmsUserMng;
-import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
 import com.jeecms.core.web.util.FrontUtils;
 
@@ -269,7 +269,7 @@ public class MemberAct {
 			return FrontUtils.showLogin(request, model, site);
 		}
 
-		WebErrors errors=WebErrors.create(request);
+		WebErrors errors= WebErrors.create(request);
 		if(drawAccount==null)
 		{
 			errors.addErrorCode("error.needParams");
@@ -306,7 +306,7 @@ public class MemberAct {
 	}
 
 	private WebErrors validatePasswordSubmit(Integer id, String origPwd,
-			String newPwd, String email, HttpServletRequest request) {
+											 String newPwd, String email, HttpServletRequest request) {
 		WebErrors errors = WebErrors.create(request);
 		if (errors.ifBlank(origPwd, "origPwd", 100, true)) {
 			return errors;

@@ -2,34 +2,38 @@ package com.jeecms.cms.dao.assist.impl;
 
 import java.util.List;
 
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 import org.springframework.stereotype.Repository;
 
 import com.jeecms.cms.dao.assist.CmsGuestbookCtgDao;
 import com.jeecms.cms.entity.assist.CmsGuestbookCtg;
-import com.jeecms.common.hibernate4.HibernateBaseDao;
 
 @Repository
 public class CmsGuestbookCtgDaoImpl extends
-		HibernateBaseDao<CmsGuestbookCtg, Integer> implements
+        AbstractHibernateBaseDao<CmsGuestbookCtg, Integer> implements
 		CmsGuestbookCtgDao {
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public List<CmsGuestbookCtg> getList(Integer siteId) {
 		String hql = "from CmsGuestbookCtg bean"
 				+ " where bean.site.id=? order by bean.priority asc";
 		return find(hql, siteId);
 	}
 
-	public CmsGuestbookCtg findById(Integer id) {
+	@Override
+    public CmsGuestbookCtg findById(Integer id) {
 		CmsGuestbookCtg entity = get(id);
 		return entity;
 	}
 
-	public CmsGuestbookCtg save(CmsGuestbookCtg bean) {
+	@Override
+    public CmsGuestbookCtg save(CmsGuestbookCtg bean) {
 		getSession().save(bean);
 		return bean;
 	}
 
-	public CmsGuestbookCtg deleteById(Integer id) {
+	@Override
+    public CmsGuestbookCtg deleteById(Integer id) {
 		CmsGuestbookCtg entity = super.get(id);
 		if (entity != null) {
 			getSession().delete(entity);

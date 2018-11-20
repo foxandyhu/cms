@@ -2,6 +2,7 @@ package com.jeecms.cms.dao.assist.impl;
 
 import java.util.List;
 
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
@@ -10,14 +11,14 @@ import org.springframework.stereotype.Repository;
 import com.jeecms.cms.dao.assist.CmsAcquisitionHistoryDao;
 import com.jeecms.cms.entity.assist.CmsAcquisitionHistory;
 import com.jeecms.common.hibernate4.Finder;
-import com.jeecms.common.hibernate4.HibernateBaseDao;
 import com.jeecms.common.page.Pagination;
 
 @Repository
 public class CmsAcquisitionHistoryDaoImpl extends
-		HibernateBaseDao<CmsAcquisitionHistory, Integer> implements
+        AbstractHibernateBaseDao<CmsAcquisitionHistory, Integer> implements
 		CmsAcquisitionHistoryDao {
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public List<CmsAcquisitionHistory> getList(Integer siteId, Integer acquId) {
 		Finder f = Finder.create("from CmsAcquisitionHistory bean where 1=1");
 		if (siteId != null) {
@@ -32,8 +33,9 @@ public class CmsAcquisitionHistoryDaoImpl extends
 		return find(f);
 	}
 
-	public Pagination getPage(Integer siteId, Integer acquId, Integer pageNo,
-			Integer pageSize) {
+	@Override
+    public Pagination getPage(Integer siteId, Integer acquId, Integer pageNo,
+                              Integer pageSize) {
 		Finder f = Finder.create("from CmsAcquisitionHistory bean where 1=1");
 		if (siteId != null) {
 			f.append(" and bean.acquisition.site.id=:siteId");
@@ -47,17 +49,20 @@ public class CmsAcquisitionHistoryDaoImpl extends
 		return find(f, pageNo, pageSize);
 	}
 
-	public CmsAcquisitionHistory findById(Integer id) {
+	@Override
+    public CmsAcquisitionHistory findById(Integer id) {
 		CmsAcquisitionHistory entity = get(id);
 		return entity;
 	}
 
-	public CmsAcquisitionHistory save(CmsAcquisitionHistory bean) {
+	@Override
+    public CmsAcquisitionHistory save(CmsAcquisitionHistory bean) {
 		getSession().save(bean);
 		return bean;
 	}
 
-	public CmsAcquisitionHistory deleteById(Integer id) {
+	@Override
+    public CmsAcquisitionHistory deleteById(Integer id) {
 		CmsAcquisitionHistory entity = super.get(id);
 		if (entity != null) {
 			getSession().delete(entity);
@@ -65,13 +70,15 @@ public class CmsAcquisitionHistoryDaoImpl extends
 		return entity;
 	}
 	
-	public void deleteByAcquisition(Integer acquId){
+	@Override
+    public void deleteByAcquisition(Integer acquId){
 		String hql = "delete from CmsAcquisitionHistory bean where bean.acquisition.id=:acquId";
 		Query query = getSession().createQuery(hql).setParameter("acquId", acquId);
 		query.executeUpdate();
 	}
 
-	public Boolean checkExistByProperties(Boolean title, String value) {
+	@Override
+    public Boolean checkExistByProperties(Boolean title, String value) {
 		Criteria crit = createCriteria();
 		if (title) {
 			crit.add(Restrictions.eq("title", value));

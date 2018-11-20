@@ -131,6 +131,7 @@ public class Channel implements Serializable, HibernateTree<Integer>, PriorityIn
     private Map<String, String> attr;
 
 
+    @Override
     public Integer getId() {
         return id;
     }
@@ -149,26 +150,31 @@ public class Channel implements Serializable, HibernateTree<Integer>, PriorityIn
     }
 
 
+    @Override
     public Integer getLft() {
         return lft;
     }
 
 
+    @Override
     public void setLft(Integer lft) {
         this.lft = lft;
     }
 
 
+    @Override
     public Integer getRgt() {
         return rgt;
     }
 
 
+    @Override
     public void setRgt(Integer rgt) {
         this.rgt = rgt;
     }
 
 
+    @Override
     public Integer getPriority() {
         return priority;
     }
@@ -1861,10 +1867,12 @@ public class Channel implements Serializable, HibernateTree<Integer>, PriorityIn
      *
      * @see HibernateTree#getTreeCondition()
      */
+    @Override
     public String getTreeCondition() {
         return "bean.site.id=" + getSite().getId();
     }
 
+    @Override
     public Integer getParentId() {
         Channel parent = getParent();
         if (parent != null) {
@@ -1875,15 +1883,18 @@ public class Channel implements Serializable, HibernateTree<Integer>, PriorityIn
     }
 
 
+    @Override
     public String getLftName() {
         return DEF_LEFT_NAME;
     }
 
 
+    @Override
     public String getParentName() {
         return DEF_PARENT_NAME;
     }
 
+    @Override
     public String getRgtName() {
         return DEF_RIGHT_NAME;
     }

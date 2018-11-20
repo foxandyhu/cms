@@ -104,17 +104,17 @@ public class CmsStatisticApiAct {
 		}else{
 			end=DateUtils.getFinallyDate(end);
 		}
-		long totalCount=0l;
+		long totalCount=0L;
 		
-		List<Object[]> statisticList = new ArrayList<Object[]>();
-		List<Object[]>data=new ArrayList<Object[]>();
+		List<Object[]> statisticList = new ArrayList<>();
+		List<Object[]>data=new ArrayList<>();
 		if(statisticModel.equals(CmsStatisticModel.month)){
 		    totalCount=cmsStatisticSvc.statistic(CmsStatistic.MEMBER, monthTimeRange, restrictions);
 			statisticList=cmsStatisticSvc.statisticMemberByTarget(STATISTIC_BY_MONTH, monthBegin, now);
 			data=getCompleteDataByMonth(statisticList);
 		}else if(statisticModel.equals(CmsStatisticModel.section)){
 			statisticList=cmsStatisticSvc.statisticMemberByTarget(STATISTIC_BY_SECTION, begin, end);
-			totalCount=0l;
+			totalCount=0L;
 			for(Object[]obj:statisticList){
 				totalCount+=(Long)obj[0];
 			}
@@ -178,7 +178,7 @@ public class CmsStatisticApiAct {
 		TimeRange yearTimeRange=TimeRange.getInstance(yearBegin, now);
 		List<Object[]> statisticList=new ArrayList<Object[]>();
 		List<Object[]>data=new ArrayList<Object[]>();
-		long totalCount=0l;
+		long totalCount=0L;
 		if(statisticModel.equals(CmsStatisticModel.month)){
 			statisticList=cmsStatisticSvc.statisticContentByTarget(STATISTIC_BY_MONTH, monthBegin,now,restrictions);
 			totalCount=cmsStatisticSvc.statistic(CmsStatistic.CONTENT, monthTimeRange, restrictions);
@@ -221,7 +221,7 @@ public class CmsStatisticApiAct {
 		TimeRange yearTimeRange=TimeRange.getInstance(yearBegin, now);
 		List<Object[]> statisticList=new ArrayList<Object[]>();
 		List<Object[]>data=new ArrayList<Object[]>();
-		long totalCount=0l;
+		long totalCount=0L;
 		if(statisticModel.equals(CmsStatisticModel.month)){
 			statisticList=cmsStatisticSvc.statisticCommentByTarget(STATISTIC_BY_MONTH,
 					siteId,isReplyed,monthBegin, now);
@@ -266,7 +266,7 @@ public class CmsStatisticApiAct {
 		TimeRange yearTimeRange=TimeRange.getInstance(yearBegin, now);
 		List<Object[]> statisticList=new ArrayList<Object[]>();
 		List<Object[]>data=new ArrayList<Object[]>();
-		long totalCount=0l;
+		long totalCount=0L;
 		if(statisticModel.equals(CmsStatisticModel.month)){
 			statisticList=cmsStatisticSvc.statisticGuestbookByTarget(STATISTIC_BY_MONTH,
 					siteId,isReplyed,monthBegin, now);
@@ -364,7 +364,7 @@ public class CmsStatisticApiAct {
 				}
 				if(!includeInQueryList){
 					Object[]obj=new Object[5];
-					obj[0]=0l;obj[1]=0l;obj[2]=0l;obj[3]=0l;obj[4]=d;
+					obj[0]=0L;obj[1]=0L;obj[2]=0L;obj[3]=0L;obj[4]=d;
 					data.add(obj);
 				}
 			}
@@ -399,7 +399,7 @@ public class CmsStatisticApiAct {
 				}
 				if(!includeInQueryList){
 					Object[]obj=new Object[5];
-					obj[0]=0l;obj[1]=0l;obj[2]=0l;obj[3]=0l;obj[4]=d;
+					obj[0]=0L;obj[1]=0L;obj[2]=0L;obj[3]=0L;obj[4]=d;
 					data.add(obj);
 				}
 			}
@@ -429,7 +429,7 @@ public class CmsStatisticApiAct {
 				}
 				if(!includeInQuery){
 					Object[]obj=new Object[5];
-					obj[0]=0l;obj[1]=0l;obj[2]=0l;obj[3]=0l;obj[4]=i;
+					obj[0]=0L;obj[1]=0L;obj[2]=0L;obj[3]=0L;obj[4]=i;
 					data.add(obj);
 				}
 			}
@@ -450,7 +450,7 @@ public class CmsStatisticApiAct {
 					}
 				}
 				if(!includeInQuery){
-					hour[0]=0l;hour[1]=0l;hour[2]=0l;hour[3]=0l;
+					hour[0]=0L;hour[1]=0L;hour[2]=0L;hour[3]=0L;
 					hour[4]=i;
 				}
 				data.add(hour);
@@ -477,11 +477,11 @@ public class CmsStatisticApiAct {
 					}
 				}
 				if(!includeInQuery){
-					hour[0]=0l;hour[1]=0l;hour[2]=0l;
+					hour[0]=0L;hour[1]=0L;hour[2]=0L;
 					hour[4]=i;
 				}
 				//平均访问时长，此处虚拟，无用，方便前端统一处理hour参数
-				hour[3]=0l;
+				hour[3]=0L;
 				data.add(hour);
 			}
 			list=data;
@@ -506,17 +506,17 @@ public class CmsStatisticApiAct {
 						}
 					}
 					if(!includeInQuery){
-						hour[0]=0l;hour[1]=0l;hour[2]=0l;
+						hour[0]=0L;hour[1]=0L;hour[2]=0L;
 						hour[4]=i;
 					}
 					//平均访问时长，此处虚拟，无用，方便前端统一处理hour参数
-					hour[3]=0l;
+					hour[3]=0L;
 					data.add(hour);
 				}
 				list=data;
 			}
 		}
-		Long pvTotal=0l,ipTotal=0l,visitorTotal=0l;
+		Long pvTotal=0L,ipTotal=0L,visitorTotal=0L;
 		for(Object[]obj :list){
 			pvTotal+=(Long) obj[0];
 			ipTotal+=(Long) obj[1];
@@ -631,10 +631,10 @@ public class CmsStatisticApiAct {
 					}
 					if(!includeInQueryList){
 						Object[]obj=new Object[5];
-						obj[0]=0l;
-						obj[1]=0l;
-						obj[2]=0l;
-						obj[3]=0l;
+						obj[0]=0L;
+						obj[1]=0L;
+						obj[2]=0L;
+						obj[3]=0L;
 						obj[4]=d;
 						data.add(obj);
 					}
@@ -670,10 +670,10 @@ public class CmsStatisticApiAct {
 					}
 					if(!includeInQuery){
 						Object[]obj=new Object[5];
-						obj[0]=0l;
-						obj[1]=0l;
-						obj[2]=0l;
-						obj[3]=0l;
+						obj[0]=0L;
+						obj[1]=0L;
+						obj[2]=0L;
+						obj[3]=0L;
 						obj[4]=i;				
 						data.add(obj);
 					}
@@ -708,10 +708,10 @@ public class CmsStatisticApiAct {
 					}
 					if(!includeInQueryList){
 						Object[]obj=new Object[5];
-						obj[0]=0l;
-						obj[1]=0l;
-						obj[2]=0l;
-						obj[3]=0l;
+						obj[0]=0L;
+						obj[1]=0L;
+						obj[2]=0L;
+						obj[3]=0L;
 						obj[4]=d;
 						data.add(obj);
 					}
@@ -743,10 +743,10 @@ public class CmsStatisticApiAct {
 						}
 					}
 					if(!includeInQuery){
-						hour[0]=0l;
-						hour[1]=0l;
-						hour[2]=0l;
-						hour[3]=0l;
+						hour[0]=0L;
+						hour[1]=0L;
+						hour[2]=0L;
+						hour[3]=0L;
 						hour[4]=i;
 						
 					}
@@ -760,7 +760,7 @@ public class CmsStatisticApiAct {
 		}
 		for(String columnValue:columnValues){
 			List<Object[]> li=resultMap.get(columnValue);
-			Long total=0l;
+			Long total=0L;
 			for(Object[]array:li){
 				total+=(Long)array[0];
 			}
@@ -884,12 +884,12 @@ public class CmsStatisticApiAct {
 		}
 		ArrayList<Entry<String,Object[]>> l = new ArrayList<Entry<String,Object[]>>(areaCounts.entrySet());  
 		Collections.sort(l, new MapComparator(target));
-		Long totalCount = 0l;
+		Long totalCount = 0L;
 //		Long otherTotal=0l;
 		for(int i=0;i<l.size();i++){
 			Entry<String,Object[]> e=l.get(i);
 			Object[]array=e.getValue();
-			Long targetValue=0l;
+			Long targetValue=0L;
 			if(target==0){
 				targetValue=(Long) array[0];
 			}else if(target==1){
@@ -900,7 +900,7 @@ public class CmsStatisticApiAct {
 				targetValue=(Long) array[3];  
 			}
 			if(targetValue==null){
-				targetValue=0l;
+				targetValue=0L;
 			}
 			totalMap.put(e.getKey(),targetValue);
 			/*
@@ -1059,7 +1059,7 @@ public class CmsStatisticApiAct {
 		Date yearBegin=DateUtils.getSpecficYearStart(now, 0);
 		List<Object[]> statisticList=new ArrayList<Object[]>();
 		List<Object[]>data=new ArrayList<Object[]>();
-		long totalCount=0l;
+		long totalCount=0L;
 		if(queryModel.equals(CmsStatisticModel.month.toString())){
 			statisticList=workloadStatisticSvc.statisticByTarget(STATISTIC_BY_MONTH, channelId, reviewerId, authorId, monthBegin, now);
 			data=getCompleteDataByMonth(statisticList);
@@ -1086,7 +1086,7 @@ public class CmsStatisticApiAct {
 	
 	private List<Object[]>listOrder(List<Object[]>li){
 		List<Object[]> result=new ArrayList<Object[]>();
-		Long fiveAbove=0l,tenAbove=0l,twentyabove=0l,fifty=0l;
+		Long fiveAbove=0L,tenAbove=0L,twentyabove=0L,fifty=0L;
 		for(Object[]o:li){
 			Long visitor=(Long) o[0];
 			Integer pageCount=(Integer) o[1];
@@ -1145,7 +1145,7 @@ public class CmsStatisticApiAct {
 			}
 			if(!includeInQueryList){
 				Object[]obj=new Object[2];
-				obj[0]=0l;obj[1]=i;
+				obj[0]=0L;obj[1]=i;
 				data.add(obj);
 			}
 		}
@@ -1166,7 +1166,7 @@ public class CmsStatisticApiAct {
 				}
 			}
 			if(!includeInQuery){
-				hour[0]=0l;;
+				hour[0]=0L;
 				hour[1]=i;
 			}
 			data.add(hour);
@@ -1188,7 +1188,7 @@ public class CmsStatisticApiAct {
 			}
 			if(!includeInQuery){
 				Object[]obj=new Object[2];
-				obj[0]=0l;obj[1]=i;
+				obj[0]=0L;obj[1]=i;
 				data.add(obj);
 			}
 		}
@@ -1213,7 +1213,7 @@ public class CmsStatisticApiAct {
 			}
 			if(!includeInQueryList){
 				Object[]obj=new Object[2];
-				obj[0]=0l;obj[1]=d;
+				obj[0]=0L;obj[1]=d;
 				data.add(obj);
 			}
 		}
@@ -1231,6 +1231,7 @@ public class CmsStatisticApiAct {
 		public MapComparator(Integer target) {
 			this.target = target;
 		}
+		@Override
 		public int compare(Map.Entry<String, Object[]> o1, Map.Entry<String, Object[]> o2) {
 			Object[]o1Value=o1.getValue();
 			Object[]o2Value=o2.getValue();
@@ -1267,15 +1268,16 @@ public class CmsStatisticApiAct {
 			super();
 			this.comparaField = comparaField;
 		}
+		@Override
 		public int compare(Channel c1, Channel c2) {
 			Integer a=0;
-			if(comparaField.equals("view")){
+			if("view".equals(comparaField)){
 				a=c2.getViewTotal()-c1.getViewTotal();
-			}else if(comparaField.equals("viewDay")){
+			}else if("viewDay".equals(comparaField)){
 				a=c2.getViewsDayTotal()-c1.getViewsDayTotal();
-			}else if(comparaField.equals("viewMonth")){
+			}else if("viewMonth".equals(comparaField)){
 				a=c2.getViewsMonthTotal()-c1.getViewsMonthTotal();
-			}else if(comparaField.equals("viewWeek")){
+			}else if("viewWeek".equals(comparaField)){
 				a=c2.getViewsWeekTotal()-c1.getViewsWeekTotal();
 			}
 			return a;  

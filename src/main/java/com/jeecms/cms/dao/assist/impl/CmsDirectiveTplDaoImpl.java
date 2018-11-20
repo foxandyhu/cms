@@ -2,24 +2,26 @@ package com.jeecms.cms.dao.assist.impl;
 
 import java.util.List;
 
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 import org.hibernate.Criteria;
 import org.springframework.stereotype.Repository;
 
 import com.jeecms.common.hibernate4.Finder;
-import com.jeecms.common.hibernate4.HibernateBaseDao;
 import com.jeecms.common.page.Pagination;
 import com.jeecms.cms.dao.assist.CmsDirectiveTplDao;
 import com.jeecms.cms.entity.assist.CmsDirectiveTpl;
 
 @Repository
-public class CmsDirectiveTplDaoImpl extends HibernateBaseDao<CmsDirectiveTpl, Integer> implements CmsDirectiveTplDao {
-	public Pagination getPage(int pageNo, int pageSize) {
+public class CmsDirectiveTplDaoImpl extends AbstractHibernateBaseDao<CmsDirectiveTpl, Integer> implements CmsDirectiveTplDao {
+	@Override
+    public Pagination getPage(int pageNo, int pageSize) {
 		Criteria crit = createCriteria();
 		Pagination page = findByCriteria(crit, pageNo, pageSize);
 		return page;
 	}
 	
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public List<CmsDirectiveTpl> getList(int count){
 		String hql="from CmsDirectiveTpl";
 		Finder f=Finder.create(hql);
@@ -28,17 +30,20 @@ public class CmsDirectiveTplDaoImpl extends HibernateBaseDao<CmsDirectiveTpl, In
 		return find(f);
 	}
 
-	public CmsDirectiveTpl findById(Integer id) {
+	@Override
+    public CmsDirectiveTpl findById(Integer id) {
 		CmsDirectiveTpl entity = get(id);
 		return entity;
 	}
 
-	public CmsDirectiveTpl save(CmsDirectiveTpl bean) {
+	@Override
+    public CmsDirectiveTpl save(CmsDirectiveTpl bean) {
 		getSession().save(bean);
 		return bean;
 	}
 
-	public CmsDirectiveTpl deleteById(Integer id) {
+	@Override
+    public CmsDirectiveTpl deleteById(Integer id) {
 		CmsDirectiveTpl entity = super.get(id);
 		if (entity != null) {
 			getSession().delete(entity);

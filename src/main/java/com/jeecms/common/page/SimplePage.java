@@ -52,28 +52,32 @@ public class SimplePage implements Paginable {
 	/**
 	 * 获得页码
 	 */
-	public int getPageNo() {
+	@Override
+    public int getPageNo() {
 		return pageNo;
 	}
 
 	/**
 	 * 每页几条数据
 	 */
-	public int getPageSize() {
+	@Override
+    public int getPageSize() {
 		return pageSize;
 	}
 
 	/**
 	 * 总共几条数据
 	 */
-	public int getTotalCount() {
+	@Override
+    public int getTotalCount() {
 		return totalCount;
 	}
 
 	/**
 	 * 总共几页
 	 */
-	public int getTotalPage() {
+	@Override
+    public int getTotalPage() {
 		int totalPage = totalCount / pageSize;
 		if (totalPage == 0 || totalCount % pageSize != 0) {
 			totalPage++;
@@ -84,21 +88,24 @@ public class SimplePage implements Paginable {
 	/**
 	 * 是否第一页
 	 */
-	public boolean isFirstPage() {
+	@Override
+    public boolean isFirstPage() {
 		return pageNo <= 1;
 	}
 
 	/**
 	 * 是否最后一页
 	 */
-	public boolean isLastPage() {
+	@Override
+    public boolean isLastPage() {
 		return pageNo >= getTotalPage();
 	}
 
 	/**
 	 * 下一页页码
 	 */
-	public int getNextPage() {
+	@Override
+    public int getNextPage() {
 		if (isLastPage()) {
 			return pageNo;
 		} else {
@@ -109,7 +116,8 @@ public class SimplePage implements Paginable {
 	/**
 	 * 上一页页码
 	 */
-	public int getPrePage() {
+	@Override
+    public int getPrePage() {
 		if (isFirstPage()) {
 			return pageNo;
 		} else {

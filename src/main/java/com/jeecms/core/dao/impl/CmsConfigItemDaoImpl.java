@@ -1,6 +1,6 @@
 package com.jeecms.core.dao.impl;
 
-import com.jeecms.common.hibernate4.HibernateBaseDao;
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 import com.jeecms.core.dao.CmsConfigItemDao;
 import com.jeecms.core.entity.CmsConfigItem;
 import org.springframework.stereotype.Repository;
@@ -9,7 +9,8 @@ import java.util.List;
 
 @Repository
 public class CmsConfigItemDaoImpl extends
-        HibernateBaseDao<CmsConfigItem, Integer> implements CmsConfigItemDao {
+        AbstractHibernateBaseDao<CmsConfigItem, Integer> implements CmsConfigItemDao {
+    @Override
     @SuppressWarnings("unchecked")
     public List<CmsConfigItem> getList(Integer configId, Integer category) {
         StringBuilder sb = new StringBuilder(
@@ -18,16 +19,19 @@ public class CmsConfigItemDaoImpl extends
         return find(sb.toString(), configId, category);
     }
 
+    @Override
     public CmsConfigItem findById(Integer id) {
         CmsConfigItem entity = get(id);
         return entity;
     }
 
+    @Override
     public CmsConfigItem save(CmsConfigItem bean) {
         getSession().save(bean);
         return bean;
     }
 
+    @Override
     public CmsConfigItem deleteById(Integer id) {
         CmsConfigItem entity = super.get(id);
         if (entity != null) {

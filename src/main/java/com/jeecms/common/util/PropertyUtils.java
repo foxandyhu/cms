@@ -151,7 +151,8 @@ public class PropertyUtils implements BeanFactoryAware {
 		this.properties = properties;
 	}
 
-	public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+	@Override
+    public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
 		this.beanFactory = beanFactory;
 	}
 

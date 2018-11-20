@@ -547,6 +547,7 @@ public class ChannelExt implements Cloneable, Serializable {
     }
 
 
+    @Override
     public Object clone() {
         ChannelExt c = null;
         try {

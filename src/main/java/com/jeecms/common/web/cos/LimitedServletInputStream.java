@@ -53,7 +53,8 @@ public class LimitedServletInputStream extends ServletInputStream {
 	 * @exception IOException
 	 *                if an I/O error occurs.
 	 */
-	public int readLine(byte b[], int off, int len) throws IOException {
+	@Override
+    public int readLine(byte b[], int off, int len) throws IOException {
 		int result, left = totalExpected - totalRead;
 		if (left <= 0) {
 			return -1;
@@ -75,7 +76,8 @@ public class LimitedServletInputStream extends ServletInputStream {
 	 * @exception IOException
 	 *                if an I/O error occurs.
 	 */
-	public int read() throws IOException {
+	@Override
+    public int read() throws IOException {
 		if (totalRead >= totalExpected) {
 			return -1;
 		}
@@ -102,7 +104,8 @@ public class LimitedServletInputStream extends ServletInputStream {
 	 * @exception IOException
 	 *                if an I/O error occurs.
 	 */
-	public int read(byte b[], int off, int len) throws IOException {
+	@Override
+    public int read(byte b[], int off, int len) throws IOException {
 		int result, left = totalExpected - totalRead;
 		if (left <= 0) {
 			return -1;
@@ -115,15 +118,18 @@ public class LimitedServletInputStream extends ServletInputStream {
 		return result;
 	}
 
-	public boolean isFinished() {
+	@Override
+    public boolean isFinished() {
 		return in.isFinished();
 	}
 
-	public boolean isReady() {
+	@Override
+    public boolean isReady() {
 		return in.isReady();
 	}
 
-	public void setReadListener(ReadListener readListener) {
+	@Override
+    public void setReadListener(ReadListener readListener) {
 		in.setReadListener(readListener);
 	}
 }

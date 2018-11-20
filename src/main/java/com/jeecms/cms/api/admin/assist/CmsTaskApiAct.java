@@ -10,6 +10,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.json.JSONArray;
 import org.quartz.JobDataMap;
 import org.quartz.JobKey;
@@ -36,7 +37,6 @@ import com.jeecms.common.web.RequestUtils;
 import com.jeecms.common.web.ResponseUtils;
 import com.jeecms.core.entity.CmsSite;
 import com.jeecms.core.entity.CmsUser;
-import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
 
 @Controller
@@ -217,7 +217,7 @@ public class CmsTaskApiAct {
 		ResponseUtils.renderApiJson(response, request, apiResponse);
 	}
 	
-	private WebErrors validateDelete(WebErrors errors,HttpServletRequest request,Integer[] idArr){
+	private WebErrors validateDelete(WebErrors errors, HttpServletRequest request, Integer[] idArr){
 		CmsSite site = CmsUtils.getSite(request);
 		if (idArr!=null) {
 			for (int i = 0; i < idArr.length; i++) {

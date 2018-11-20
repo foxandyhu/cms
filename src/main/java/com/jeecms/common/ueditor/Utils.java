@@ -28,18 +28,20 @@ public class Utils {
 	 */
 	public static Set<String> getSet(final String stringList,
 			final String delimiter) {
-		if (isEmpty(delimiter))
+		if (isEmpty(delimiter)) {
 			throw new IllegalArgumentException(
 					"Argument 'delimiter' shouldn't be empty!");
-		if (isEmpty(stringList))
-			return new HashSet<String>();
-
-		Set<String> set = new HashSet<String>();
+		}
+		if (isEmpty(stringList)) {
+			return new HashSet<>();
+		}
+		Set<String> set = new HashSet<>();
 		StringTokenizer st = new StringTokenizer(stringList, delimiter);
 		while (st.hasMoreTokens()) {
 			String tmp = st.nextToken();
-			if (isNotEmpty(tmp)) // simple empty filter
+			if (isNotEmpty(tmp)) {
 				set.add(tmp.toLowerCase());
+			}
 		}
 		return set;
 	}
@@ -94,12 +96,13 @@ public class Utils {
 	 */
 	public static boolean isBlank(final String str) {
 
-		if (isEmpty(str))
+		if (isEmpty(str)) {
 			return true;
-
+		}
 		for (char c : str.toCharArray()) {
-			if (!Character.isWhitespace(c))
+			if (!Character.isWhitespace(c)) {
 				return false;
+			}
 		}
 
 		return true;

@@ -21,7 +21,8 @@ import com.jeecms.core.manager.ConfigMng;
 @Service
 @Transactional
 public class ConfigMngImpl implements ConfigMng {
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Map<String, String> getMap() {
 		List<Config> list = dao.getList();
 		Map<String, String> map = new HashMap<String, String>(list.size());
@@ -31,7 +32,8 @@ public class ConfigMngImpl implements ConfigMng {
 		return map;
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public String getValue(String id) {
 		Config entity = dao.findById(id);
 		if (entity != null) {
@@ -41,27 +43,32 @@ public class ConfigMngImpl implements ConfigMng {
 		}
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public ConfigLogin getConfigLogin() {
 		return ConfigLogin.create(getMap());
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public EmailSender getEmailSender() {
 		return ConfigEmailSender.create(getMap());
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public MessageTemplate getForgotPasswordMessageTemplate() {
 		return ConfigMessageTemplate.createForgotPasswordMessageTemplate(getMap());
 	}
 	
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public MessageTemplate getRegisterMessageTemplate() {
 		return ConfigMessageTemplate.createRegisterMessageTemplate(getMap());
 	}
 
-	public void updateOrSave(Map<String, String> map) {
+	@Override
+    public void updateOrSave(Map<String, String> map) {
 		if (map != null && map.size() > 0) {
 			for (Entry<String, String> entry : map.entrySet()) {
 				updateOrSave(entry.getKey(), entry.getValue());
@@ -69,7 +76,8 @@ public class ConfigMngImpl implements ConfigMng {
 		}
 	}
 
-	public Config updateOrSave(String key, String value) {
+	@Override
+    public Config updateOrSave(String key, String value) {
 		Config config = dao.findById(key);
 		if (config != null) {
 			config.setValue(value);
@@ -82,12 +90,14 @@ public class ConfigMngImpl implements ConfigMng {
 		return config;
 	}
 
-	public Config deleteById(String id) {
+	@Override
+    public Config deleteById(String id) {
 		Config bean = dao.deleteById(id);
 		return bean;
 	}
 
-	public Config[] deleteByIds(String[] ids) {
+	@Override
+    public Config[] deleteByIds(String[] ids) {
 		Config[] beans = new Config[ids.length];
 		for (int i = 0, len = ids.length; i < len; i++) {
 			beans[i] = deleteById(ids[i]);

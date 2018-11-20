@@ -24,26 +24,31 @@ public class CmsSiteMngImpl implements CmsSiteMng {
     private static final Logger log = LoggerFactory
             .getLogger(CmsSiteMngImpl.class);
 
+    @Override
     @Transactional(readOnly = true)
     public List<CmsSite> getList() {
         return dao.getList(false);
     }
 
+    @Override
     @Transactional(readOnly = true)
     public List<CmsSite> getListFromCache() {
         return dao.getList(true);
     }
 
+    @Override
     @Transactional(readOnly = true)
     public boolean hasRepeatByProperty(String property) {
         return (getList().size() - dao.getCountByProperty(property)) > 0 ? true : false;
     }
 
+    @Override
     @Transactional(readOnly = true)
     public CmsSite findByDomain(String domain) {
         return dao.findByDomain(domain);
     }
 
+    @Override
     @Transactional(readOnly = true)
     public CmsSite findById(Integer id) {
         CmsSite entity = dao.findById(id);
@@ -57,6 +62,7 @@ public class CmsSiteMngImpl implements CmsSiteMng {
         return site;
     }
 
+    @Override
     public CmsSite save(CmsSite currSite, CmsUser currUser, CmsSite bean,
                         Integer uploadFtpId, Integer syncPageFtpId) throws IOException {
         if (uploadFtpId != null) {
@@ -79,6 +85,7 @@ public class CmsSiteMngImpl implements CmsSiteMng {
         return bean;
     }
 
+    @Override
     public CmsSite update(CmsSite bean, Integer uploadFtpId, Integer syncPageFtpId, Integer ossId) {
         CmsSite entity = findById(bean.getId());
         if (uploadFtpId != null) {
@@ -101,6 +108,7 @@ public class CmsSiteMngImpl implements CmsSiteMng {
         return entity;
     }
 
+    @Override
     public void updateTplSolution(Integer siteId, String solution, String mobileSol) {
         CmsSite site = findById(siteId);
         if (StringUtils.isNotBlank(solution)) {
@@ -111,11 +119,13 @@ public class CmsSiteMngImpl implements CmsSiteMng {
         }
     }
 
+    @Override
     public void updateAttr(Integer siteId, Map<String, String> attr) {
         CmsSite site = findById(siteId);
         site.getAttr().putAll(attr);
     }
 
+    @Override
     public void updateAttr(Integer siteId, Map<String, String>... attrs) {
         CmsSite site = findById(siteId);
         for (Map<String, String> m : attrs) {
@@ -123,6 +133,7 @@ public class CmsSiteMngImpl implements CmsSiteMng {
         }
     }
 
+    @Override
     public CmsSite deleteById(Integer id) {
         // 删除用户、站点关联
         cmsUserSiteMng.deleteBySiteId(id);
@@ -140,6 +151,7 @@ public class CmsSiteMngImpl implements CmsSiteMng {
         return bean;
     }
 
+    @Override
     public CmsSite[] deleteByIds(Integer[] ids) {
         CmsSite[] beans = new CmsSite[ids.length];
         for (int i = 0, len = ids.length; i < len; i++) {

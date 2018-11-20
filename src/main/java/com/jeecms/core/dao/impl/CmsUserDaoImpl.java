@@ -2,24 +2,25 @@ package com.jeecms.core.dao.impl;
 
 import java.util.List;
 
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
 import com.jeecms.common.hibernate4.Finder;
-import com.jeecms.common.hibernate4.HibernateBaseDao;
 import com.jeecms.common.page.Pagination;
 import com.jeecms.core.dao.CmsUserDao;
 import com.jeecms.core.entity.CmsUser;
 
 @Repository
-public class CmsUserDaoImpl extends HibernateBaseDao<CmsUser, Integer>
+public class CmsUserDaoImpl extends AbstractHibernateBaseDao<CmsUser, Integer>
 		implements CmsUserDao {
-	public Pagination getPage(String username, String email, Integer siteId,
-			Integer groupId, Integer statu, Boolean admin, Integer rank,
-			String realName,Integer roleId,Boolean allChannel,
-			Boolean allControlChannel,int pageNo,
-			int pageSize) {
+	@Override
+    public Pagination getPage(String username, String email, Integer siteId,
+                              Integer groupId, Integer statu, Boolean admin, Integer rank,
+                              String realName, Integer roleId, Boolean allChannel,
+                              Boolean allControlChannel, int pageNo,
+                              int pageSize) {
 		Finder f = Finder.create("select bean from CmsUser bean join bean.userExt ext ");
 		if (siteId != null||allChannel!=null||allControlChannel!=null) {
 			f.append(" join bean.userSites userSite");
@@ -82,7 +83,8 @@ public class CmsUserDaoImpl extends HibernateBaseDao<CmsUser, Integer>
 		return find(f, pageNo, pageSize);
 	}
 	
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public List<CmsUser> getList(String username, String email, Integer siteId,
 			Integer groupId,Integer statu, Boolean admin, Integer rank) {
 		Finder f = Finder.create("select bean from CmsUser bean");
@@ -121,7 +123,8 @@ public class CmsUserDaoImpl extends HibernateBaseDao<CmsUser, Integer>
 		return find(f);
 	}
 
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public List<CmsUser> getAdminList(Integer siteId, Boolean allChannel,
 			Integer statu, Integer rank) {
 		Finder f = Finder.create("select bean from CmsUser");
@@ -145,7 +148,8 @@ public class CmsUserDaoImpl extends HibernateBaseDao<CmsUser, Integer>
 		return find(f);
 	}
 	
-	public Pagination getAdminsByRoleId(Integer roleId, int pageNo, int pageSize){
+	@Override
+    public Pagination getAdminsByRoleId(Integer roleId, int pageNo, int pageSize){
 		Finder f = Finder.create("select bean from CmsUser");
 		f.append(" bean join bean.roles role");
 		f.append(" where role.id=:roleId");
@@ -155,41 +159,48 @@ public class CmsUserDaoImpl extends HibernateBaseDao<CmsUser, Integer>
 		return find(f,pageNo,pageSize);
 	}
 
-	public CmsUser findById(Integer id) {
+	@Override
+    public CmsUser findById(Integer id) {
 		CmsUser entity = get(id);
 		return entity;
 	}
 
-	public CmsUser findByUsername(String username) {
+	@Override
+    public CmsUser findByUsername(String username) {
 		return findUniqueByProperty("username", username);
 	}
 
-	public int countByUsername(String username) {
+	@Override
+    public int countByUsername(String username) {
 		String hql = "select count(*) from CmsUser bean where bean.username=:username";
 		Query query = getSession().createQuery(hql);
 		query.setParameter("username", username);
 		return ((Number) query.iterate().next()).intValue();
 	}
-	public int countMemberByUsername(String username) {
+	@Override
+    public int countMemberByUsername(String username) {
 		String hql = "select count(*) from CmsUser bean where bean.username=:username and bean.admin=false";
 		Query query = getSession().createQuery(hql);
 		query.setParameter("username", username);
 		return ((Number) query.iterate().next()).intValue();
 	}
 
-	public int countByEmail(String email) {
+	@Override
+    public int countByEmail(String email) {
 		String hql = "select count(*) from CmsUser bean where bean.email=:email";
 		Query query = getSession().createQuery(hql);
 		query.setParameter("email", email);
 		return ((Number) query.iterate().next()).intValue();
 	}
 
-	public CmsUser save(CmsUser bean) {
+	@Override
+    public CmsUser save(CmsUser bean) {
 		getSession().save(bean);
 		return bean;
 	}
 
-	public CmsUser deleteById(Integer id) {
+	@Override
+    public CmsUser deleteById(Integer id) {
 		CmsUser entity = super.get(id);
 		if (entity != null) {
 			getSession().delete(entity);

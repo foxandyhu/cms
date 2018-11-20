@@ -14,23 +14,27 @@ import java.util.List;
 @Service
 @Transactional
 public class FtpMngImpl implements FtpMng {
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public List<Ftp> getList() {
 		return dao.getList();
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Ftp findById(Integer id) {
 		Ftp entity = dao.findById(id);
 		return entity;
 	}
 
-	public Ftp save(Ftp bean) {
+	@Override
+    public Ftp save(Ftp bean) {
 		dao.save(bean);
 		return bean;
 	}
 
-	public Ftp update(Ftp bean) {
+	@Override
+    public Ftp update(Ftp bean) {
 		Updater<Ftp> updater = new Updater<Ftp>(bean);
 		if (StringUtils.isBlank(bean.getPassword())) {
 			updater.exclude("password");
@@ -39,12 +43,14 @@ public class FtpMngImpl implements FtpMng {
 		return bean;
 	}
 
-	public Ftp deleteById(Integer id) {
+	@Override
+    public Ftp deleteById(Integer id) {
 		Ftp bean = dao.deleteById(id);
 		return bean;
 	}
 
-	public Ftp[] deleteByIds(Integer[] ids) {
+	@Override
+    public Ftp[] deleteByIds(Integer[] ids) {
 		Ftp[] beans = new Ftp[ids.length];
 		for (int i = 0, len = ids.length; i < len; i++) {
 			beans[i] = deleteById(ids[i]);

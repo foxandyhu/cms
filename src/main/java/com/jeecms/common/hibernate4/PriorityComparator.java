@@ -8,7 +8,8 @@ public class PriorityComparator implements Comparator<PriorityInterface>,
 		Serializable {
 	public static final PriorityComparator INSTANCE = new PriorityComparator();
 
-	public int compare(PriorityInterface o1, PriorityInterface o2) {
+	@Override
+    public int compare(PriorityInterface o1, PriorityInterface o2) {
 		Number v1 = o1.getPriority();
 		Number v2 = o2.getPriority();
 		Number id1 = o1.getId();

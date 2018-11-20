@@ -11,6 +11,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
@@ -36,7 +37,6 @@ import com.jeecms.core.entity.CmsSite;
 import com.jeecms.core.entity.CmsUser;
 import com.jeecms.core.entity.MemberConfig;
 import com.jeecms.core.manager.CmsConfigMng;
-import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
 import com.jeecms.core.web.util.FrontUtils;
 import com.octo.captcha.service.CaptchaServiceException;
@@ -286,9 +286,9 @@ public class AbstractContentMemberAct {
 	}
 	
 	private WebErrors validateSave(String title, String author,
-			String description, String txt,String tagStr, Integer channelId, CmsSite site,
-			CmsUser user, String captcha, HttpServletRequest request,
-			HttpServletResponse response) {
+								   String description, String txt, String tagStr, Integer channelId, CmsSite site,
+								   CmsUser user, String captcha, HttpServletRequest request,
+								   HttpServletResponse response) {
 		WebErrors errors = WebErrors.create(request);
 		try {
 			if (!imageCaptchaService.validateResponseForID(session
@@ -325,7 +325,7 @@ public class AbstractContentMemberAct {
 	
 
 	private WebErrors validateEdit(Integer id, CmsSite site, CmsUser user,
-			HttpServletRequest request) {
+								   HttpServletRequest request) {
 		WebErrors errors = WebErrors.create(request);
 		if (vldOpt(errors, site, user, new Integer[] { id })) {
 			return errors;
@@ -334,7 +334,7 @@ public class AbstractContentMemberAct {
 	}
 	
 	private WebErrors validateUpdate(Integer id, Integer channelId,
-			CmsSite site, CmsUser user, HttpServletRequest request) {
+									 CmsSite site, CmsUser user, HttpServletRequest request) {
 		WebErrors errors = WebErrors.create(request);
 		if (vldOpt(errors, site, user, new Integer[] { id })) {
 			return errors;
@@ -346,7 +346,7 @@ public class AbstractContentMemberAct {
 	}
 	
 	private WebErrors validateDelete(Integer[] ids, CmsSite site, CmsUser user,
-			HttpServletRequest request) {
+									 HttpServletRequest request) {
 		WebErrors errors = WebErrors.create(request);
 		if (vldOpt(errors, site, user, ids)) {
 			return errors;
@@ -355,7 +355,7 @@ public class AbstractContentMemberAct {
 	}
 
 	private boolean vldOpt(WebErrors errors, CmsSite site, CmsUser user,
-			Integer[] ids) {
+						   Integer[] ids) {
 		for (Integer id : ids) {
 			if (errors.ifNull(id, "id", true)) {
 				return true;
@@ -385,7 +385,7 @@ public class AbstractContentMemberAct {
 	}
 	
 	private boolean vldChannel(WebErrors errors, CmsSite site, CmsUser user,
-			Integer channelId) {
+							   Integer channelId) {
 		Channel channel = channelMng.findById(channelId);
 		if (errors.ifNotExist(channel, Channel.class, channelId, true)) {
 			return true;

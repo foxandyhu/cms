@@ -1,15 +1,15 @@
 package com.jeecms.core.security;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.sql.Timestamp;
-import java.util.Date;
-
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.jeecms.common.web.CookieUtils;
+import com.jeecms.common.web.RequestUtils;
+import com.jeecms.common.web.session.SessionProvider;
+import com.jeecms.core.entity.CmsUser;
+import com.jeecms.core.entity.UnifiedUser;
+import com.jeecms.core.manager.CmsLogMng;
+import com.jeecms.core.manager.CmsUserMng;
+import com.jeecms.core.manager.UnifiedUserMng;
+import com.jeecms.exception.*;
+import com.octo.captcha.service.image.ImageCaptchaService;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -20,20 +20,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.jeecms.exception.CaptchaErrorException;
-import com.jeecms.exception.CaptchaRequiredException;
-import com.jeecms.exception.DisabledException;
-import com.jeecms.exception.InactiveException;
-import com.jeecms.exception.UserUnCheckedException;
-import com.jeecms.common.web.CookieUtils;
-import com.jeecms.common.web.RequestUtils;
-import com.jeecms.common.web.session.SessionProvider;
-import com.jeecms.core.entity.CmsUser;
-import com.jeecms.core.entity.UnifiedUser;
-import com.jeecms.core.manager.CmsLogMng;
-import com.jeecms.core.manager.CmsUserMng;
-import com.jeecms.core.manager.UnifiedUserMng;
-import com.octo.captcha.service.image.ImageCaptchaService;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * CmsAuthenticationFilter自定义登录认证filter
@@ -254,9 +248,13 @@ public class CmsAuthenticationFilter extends FormAuthenticationFilter {
         }
     }
 
-    //判断用户当前是否已审核.审核返回true,其它状态返回false
+    /**
+     * 判断用户当前是否已审核.审核返回true,其它状态返回false
+     * @author andy_hulibo@163.com
+     * @date 2018/11/20 16:21
+     */
     private boolean isChecked(CmsUser user) {
-        if (user.getStatu() == CmsUser.USER_STATU_CHECKED) {
+        if (CmsUser.USER_STATU_CHECKED.equals(user.getStatu())) {
             return true;
         }
         return false;

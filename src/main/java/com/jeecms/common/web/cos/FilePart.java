@@ -21,7 +21,7 @@ import javax.servlet.ServletInputStream;
  * @version 1.1, 2000/11/26, writeTo() bug fix thanks to Mike Shivas
  * @version 1.0, 2000/10/27, initial revision
  */
-public class FilePart extends Part {
+public class FilePart extends AbstractPart {
   
   /** "file system" name of the file  */
   private String fileName;     
@@ -164,7 +164,7 @@ public class FilePart extends Part {
       }
     }
     finally {
-      if (fileOut != null) fileOut.close();
+      if (fileOut != null){ fileOut.close();}
     }
     return written;
   }
@@ -195,7 +195,7 @@ public class FilePart extends Part {
    */
   long write(OutputStream out) throws IOException {
     // decode macbinary if this was sent
-    if (contentType.equals("application/x-macbinary")) {
+    if ("application/x-macbinary".equals(contentType)) {
       out = new MacBinaryDecoderOutputStream(out);
     }
     long size=0;
@@ -213,6 +213,7 @@ public class FilePart extends Part {
    * 
    * @return true.
    */
+  @Override
   public boolean isFile() {
     return true;
   }

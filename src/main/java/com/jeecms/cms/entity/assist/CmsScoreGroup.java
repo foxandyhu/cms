@@ -177,6 +177,7 @@ public class CmsScoreGroup implements Serializable {
     }
 
     private class ItemComparator implements Comparator<CmsScoreItem> {
+        @Override
         public int compare(CmsScoreItem o1, CmsScoreItem o2) {
             return o1.getPriority() - o2.getPriority();
         }

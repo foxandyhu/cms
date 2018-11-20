@@ -14,35 +14,41 @@ import com.jeecms.common.hibernate4.Updater;
 @Service
 @Transactional
 public class CmsAdvertisingSpaceMngImpl implements CmsAdvertisingSpaceMng {
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public List<CmsAdvertisingSpace> getList(Integer siteId) {
 		return dao.getList(siteId);
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public CmsAdvertisingSpace findById(Integer id) {
 		CmsAdvertisingSpace entity = dao.findById(id);
 		return entity;
 	}
 
-	public CmsAdvertisingSpace save(CmsAdvertisingSpace bean) {
+	@Override
+    public CmsAdvertisingSpace save(CmsAdvertisingSpace bean) {
 		dao.save(bean);
 		return bean;
 	}
 
-	public CmsAdvertisingSpace update(CmsAdvertisingSpace bean) {
+	@Override
+    public CmsAdvertisingSpace update(CmsAdvertisingSpace bean) {
 		Updater<CmsAdvertisingSpace> updater = new Updater<CmsAdvertisingSpace>(
 				bean);
 		bean = dao.updateByUpdater(updater);
 		return bean;
 	}
 
-	public CmsAdvertisingSpace deleteById(Integer id) {
+	@Override
+    public CmsAdvertisingSpace deleteById(Integer id) {
 		CmsAdvertisingSpace bean = dao.deleteById(id);
 		return bean;
 	}
 
-	public CmsAdvertisingSpace[] deleteByIds(Integer[] ids) {
+	@Override
+    public CmsAdvertisingSpace[] deleteByIds(Integer[] ids) {
 		CmsAdvertisingSpace[] beans = new CmsAdvertisingSpace[ids.length];
 		for (int i = 0, len = ids.length; i < len; i++) {
 			beans[i] = deleteById(ids[i]);

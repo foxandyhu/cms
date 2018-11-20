@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.context.MessageSource;
 
-public class WebErrors extends com.jeecms.core.web.WebCoreErrors {
+public class WebErrors extends WebCoreErrors {
 
 	/**
 	 * 通过HttpServletRequest创建WebErrors

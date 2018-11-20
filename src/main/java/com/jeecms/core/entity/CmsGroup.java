@@ -106,6 +106,7 @@ public class CmsGroup implements PriorityInterface, Serializable {
         this.name = name;
     }
 
+    @Override
     public Integer getPriority() {
         return priority;
     }

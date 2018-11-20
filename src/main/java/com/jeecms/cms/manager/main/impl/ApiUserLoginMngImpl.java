@@ -36,33 +36,39 @@ import com.jeecms.cms.manager.main.ApiUserLoginMng;
 @Service
 @Transactional
 public class ApiUserLoginMngImpl implements ApiUserLoginMng {
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Pagination getPage(int pageNo, int pageSize) {
 		Pagination page = dao.getPage(pageNo, pageSize);
 		return page;
 	}
 	
-	public void clearByDate(Date end){
+	@Override
+    public void clearByDate(Date end){
 		dao.clearByDate(end);
 	}
 	
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public List<ApiUserLogin> getList(Date end,int first, int count){
 		return dao.getList(end,first,count);
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public ApiUserLogin findById(Long id) {
 		ApiUserLogin entity = dao.findById(id);
 		return entity;
 	}
 	
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public ApiUserLogin findUserLogin(String username,String sessionKey){
 		return dao.findUserLogin(username, sessionKey);
 	}
 	
-	public CmsUser getUser(HttpServletRequest request){
+	@Override
+    public CmsUser getUser(HttpServletRequest request){
 		CmsUser user=null;
 		ApiAccount apiAccount=apiAccountMng.getApiAccount(request);
 		if(apiAccount!=null&&!apiAccount.getDisabled()){
@@ -71,7 +77,8 @@ public class ApiUserLoginMngImpl implements ApiUserLoginMng {
 		return user;
 	}
 	
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public CmsUser getUser(ApiAccount apiAccount,HttpServletRequest request){
 		CmsUser user=null;
 		String sessionKey=RequestUtils.getQueryParam(request,Constants.COMMON_PARAM_SESSIONKEY);
@@ -80,7 +87,8 @@ public class ApiUserLoginMngImpl implements ApiUserLoginMng {
 		return user;
 	}
 	
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public CmsUser findUser(String sessionKey,String aesKey,String ivKey){
 		String decryptSessionKey="";
 		CmsUser user=null;
@@ -102,8 +110,9 @@ public class ApiUserLoginMngImpl implements ApiUserLoginMng {
 		return user;
 	}
 	
-	public ApiUserLogin userLogin(String username,String appId, String sessionKey,
-			HttpServletRequest request,HttpServletResponse response){
+	@Override
+    public ApiUserLogin userLogin(String username, String appId, String sessionKey,
+                                  HttpServletRequest request, HttpServletResponse response){
 		ApiAccount apiAccount;
 		if(StringUtils.isNotBlank(appId)){
 			apiAccount=apiAccountMng.findByAppId(appId);
@@ -140,7 +149,8 @@ public class ApiUserLoginMngImpl implements ApiUserLoginMng {
 		return login;
 	}
 	
-	public ApiUserLogin userLogout(String username,String appId, String sessionKey){
+	@Override
+    public ApiUserLogin userLogout(String username, String appId, String sessionKey){
 		ApiUserLogin login=findUserLogin(username,sessionKey);
 		if(login!=null){
 			boolean isLimitSingleDev=false;
@@ -165,7 +175,8 @@ public class ApiUserLoginMngImpl implements ApiUserLoginMng {
 		return login;
 	}
 	
-	public void userActive(HttpServletRequest request,HttpServletResponse response){
+	@Override
+    public void userActive(HttpServletRequest request, HttpServletResponse response){
 		String sessionKey=RequestUtils.getQueryParam(request,Constants.COMMON_PARAM_SESSIONKEY);
 		ApiAccount apiAccount = apiAccountMng.getApiAccount(request);
 		Short status=getStatus(apiAccount,request,response);
@@ -186,7 +197,8 @@ public class ApiUserLoginMngImpl implements ApiUserLoginMng {
 		}
 	}
 	
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Short getStatus(ApiAccount apiAccount,
 			HttpServletRequest request,HttpServletResponse response){
 		String sessionKey=RequestUtils.getQueryParam(request,Constants.COMMON_PARAM_SESSIONKEY);
@@ -207,7 +219,8 @@ public class ApiUserLoginMngImpl implements ApiUserLoginMng {
 	}
 	
 	
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Short getUserStatus(String sessionKey){
 		ApiUserLogin login=findUserLogin(null, sessionKey);
 		if(login!=null&&login.getActiveTime()!=null&&login.getSessionKey().equals(sessionKey)){
@@ -224,23 +237,27 @@ public class ApiUserLoginMngImpl implements ApiUserLoginMng {
 	}
 	
 
-	public ApiUserLogin save(ApiUserLogin bean) {
+	@Override
+    public ApiUserLogin save(ApiUserLogin bean) {
 		dao.save(bean);
 		return bean;
 	}
 
-	public ApiUserLogin update(ApiUserLogin bean) {
+	@Override
+    public ApiUserLogin update(ApiUserLogin bean) {
 		Updater<ApiUserLogin> updater = new Updater<ApiUserLogin>(bean);
 		bean = dao.updateByUpdater(updater);
 		return bean;
 	}
 
-	public ApiUserLogin deleteById(Long id) {
+	@Override
+    public ApiUserLogin deleteById(Long id) {
 		ApiUserLogin bean = dao.deleteById(id);
 		return bean;
 	}
 	
-	public ApiUserLogin[] deleteByIds(Long[] ids) {
+	@Override
+    public ApiUserLogin[] deleteByIds(Long[] ids) {
 		ApiUserLogin[] beans = new ApiUserLogin[ids.length];
 		for (int i = 0,len = ids.length; i < len; i++) {
 			beans[i] = deleteById(ids[i]);

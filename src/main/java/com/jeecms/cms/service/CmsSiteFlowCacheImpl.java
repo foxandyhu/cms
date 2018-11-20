@@ -45,6 +45,7 @@ public class CmsSiteFlowCacheImpl implements CmsSiteFlowCache, DisposableBean {
     private Logger log = LoggerFactory.getLogger(CmsSiteFlowCacheImpl.class);
 
 
+    @Override
     public Long[] flow(HttpServletRequest request, String page, String referer) {
         String ip = RequestUtils.getIpAddr(request);
         CmsSite site = CmsUtils.getSite(request);
@@ -105,6 +106,7 @@ public class CmsSiteFlowCacheImpl implements CmsSiteFlowCache, DisposableBean {
             this.siteId = siteId;
         }
 
+        @Override
         public void run() {
             Date today = Calendar.getInstance().getTime();
             //统计最近
@@ -151,24 +153,24 @@ public class CmsSiteFlowCacheImpl implements CmsSiteFlowCache, DisposableBean {
         if (pvCache != null) {
             pv = (Long) pvCache.getObjectValue() + 1;
         } else {
-            pv = 1l;
+            pv = 1L;
         }
         if (pvWeekCache != null) {
             weekPv = (Long) pvWeekCache.getObjectValue() + 1;
         } else {
-            weekPv = 1l;
+            weekPv = 1L;
         }
         if (pvMonthCache != null) {
             monthPv = (Long) pvMonthCache.getObjectValue() + 1;
         } else {
-            monthPv = 1l;
+            monthPv = 1L;
         }
         Element dayPvCache = dayPvTotalCache.get(CmsSite.DAY_PV_TOTAL + CACHE_KEY_SPLIT + site.getId());
         Long dayPv;
         if (dayPvCache != null) {
             dayPv = (Long) dayPvCache.getObjectValue() + 1;
         } else {
-            dayPv = 1l;
+            dayPv = 1L;
         }
         Long visitor, weekVisitor, monthVisitor;
         Element visitorCache = visitorTotalCache.get(CmsSite.VISITORS + CACHE_KEY_SPLIT + site.getId());
@@ -182,9 +184,9 @@ public class CmsSiteFlowCacheImpl implements CmsSiteFlowCache, DisposableBean {
             }
         } else {
             if (newVisitor) {
-                visitor = 1l;
+                visitor = 1L;
             } else {
-                visitor = 0l;
+                visitor = 0L;
             }
         }
         if (visitorWeekCache != null) {
@@ -195,9 +197,9 @@ public class CmsSiteFlowCacheImpl implements CmsSiteFlowCache, DisposableBean {
             }
         } else {
             if (newVisitor) {
-                weekVisitor = 1l;
+                weekVisitor = 1L;
             } else {
-                weekVisitor = 0l;
+                weekVisitor = 0L;
             }
         }
         if (visitorMonthCache != null) {
@@ -208,9 +210,9 @@ public class CmsSiteFlowCacheImpl implements CmsSiteFlowCache, DisposableBean {
             }
         } else {
             if (newVisitor) {
-                monthVisitor = 1l;
+                monthVisitor = 1L;
             } else {
-                monthVisitor = 0l;
+                monthVisitor = 0L;
             }
         }
         Long dayVisitor;
@@ -223,9 +225,9 @@ public class CmsSiteFlowCacheImpl implements CmsSiteFlowCache, DisposableBean {
             }
         } else {
             if (newVisitor) {
-                dayVisitor = 1l;
+                dayVisitor = 1L;
             } else {
-                dayVisitor = 0l;
+                dayVisitor = 0L;
             }
         }
         pvTotalCache.put(new Element(CmsSite.PV_TOTAL + CACHE_KEY_SPLIT + site.getId(), pv));
@@ -415,7 +417,7 @@ public class CmsSiteFlowCacheImpl implements CmsSiteFlowCache, DisposableBean {
                 String property = str[0];
                 Integer siteId = Integer.parseInt(str[1]);
                 CmsSite site = cmsSiteMng.findById(siteId);
-                Long total = 0l;
+                Long total = 0L;
                 if (key.startsWith(CmsSite.PV_TOTAL)) {
                     total = (Long) element.getObjectValue() + site.getPvTotal();
                 } else if (key.startsWith(CmsSite.VISITORS)) {
@@ -475,6 +477,7 @@ public class CmsSiteFlowCacheImpl implements CmsSiteFlowCache, DisposableBean {
     /**
      * 销毁BEAN时，缓存入库。
      */
+    @Override
     public void destroy() throws Exception {
         int accessCount = freshAccessCacheToDB(accessCache);
         int pagesCount = freshAccessPagesCacheToDB(accessPageCache);

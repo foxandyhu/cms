@@ -17,7 +17,8 @@ import com.jeecms.cms.service.AcquisitionSvc;
  */
 public class AcquisiteJob extends QuartzJobBean {
 	private static final Logger log = LoggerFactory.getLogger(AcquisiteJob.class);
-	protected void executeInternal(JobExecutionContext context)throws JobExecutionException {
+	@Override
+    protected void executeInternal(JobExecutionContext context)throws JobExecutionException {
 	try {
 		SchedulerContext schCtx = context.getScheduler().getContext();
 		JobDataMap jdm=context.getJobDetail().getJobDataMap();

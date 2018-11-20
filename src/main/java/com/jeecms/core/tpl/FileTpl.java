@@ -94,7 +94,8 @@ public class FileTpl implements Tpl {
 	}
 	
 	
-	public String getName() {
+	@Override
+    public String getName() {
 		String ap = file.getAbsolutePath().substring(root.length());
 		ap = ap.replace(File.separatorChar, '/');
 		// 在resin里root的结尾是带'/'的，这样会导致getName返回的名称不以'/'开头。
@@ -104,16 +105,19 @@ public class FileTpl implements Tpl {
 		return ap;
 	}
 
-	public String getPath() {
+	@Override
+    public String getPath() {
 		String name = getName();
 		return name.substring(0, name.lastIndexOf('/'));
 	}
 
-	public String getFilename() {
+	@Override
+    public String getFilename() {
 		return file.getName();
 	}
 
-	public String getSource() {
+	@Override
+    public String getSource() {
 		if (file.isDirectory()) {
 			return null;
 		}
@@ -124,23 +128,28 @@ public class FileTpl implements Tpl {
 		}
 	}
 
-	public long getLastModified() {
+	@Override
+    public long getLastModified() {
 		return file.lastModified();
 	}
 
-	public Date getLastModifiedDate() {
+	@Override
+    public Date getLastModifiedDate() {
 		return new Timestamp(getLastModified());
 	}
 
-	public long getLength() {
+	@Override
+    public long getLength() {
 		return file.length();
 	}
 
-	public int getSize() {
+	@Override
+    public int getSize() {
 		return (int) (getLength() / 1024) + 1;
 	}
 
-	public boolean isDirectory() {
+	@Override
+    public boolean isDirectory() {
 		return file.isDirectory();
 	}
 	

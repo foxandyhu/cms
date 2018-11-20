@@ -29,6 +29,7 @@ import java.util.UUID;
 @Service
 @Transactional
 public class UnifiedUserMngImpl implements UnifiedUserMng {
+    @Override
     public UnifiedUser passwordForgotten(Integer userId, EmailSender email,
                                          MessageTemplate tpl) {
         UnifiedUser user = findById(userId);
@@ -107,6 +108,7 @@ public class UnifiedUserMngImpl implements UnifiedUserMng {
         sendEmail.sendEmil();
     }
 
+    @Override
     public UnifiedUser resetPassword(Integer userId) {
         UnifiedUser user = findById(userId);
         user.setPassword(pwdEncoder.encodePassword(user.getResetPwd()));
@@ -115,6 +117,7 @@ public class UnifiedUserMngImpl implements UnifiedUserMng {
         return user;
     }
 
+    @Override
     public Integer errorRemaining(String username) {
         if (StringUtils.isBlank(username)) {
             return null;
@@ -136,6 +139,7 @@ public class UnifiedUserMngImpl implements UnifiedUserMng {
         return maxErrorTimes - errorCount;
     }
 
+    @Override
     public UnifiedUser login(String username, String password, String ip)
             throws UsernameNotFoundException, BadCredentialsException {
         UnifiedUser user = getByUsername(username);
@@ -154,6 +158,7 @@ public class UnifiedUserMngImpl implements UnifiedUserMng {
         return user;
     }
 
+    @Override
     public void updateLoginSuccess(Integer userId, String ip) {
         UnifiedUser user = findById(userId);
         Date now = new Timestamp(System.currentTimeMillis());
@@ -167,6 +172,7 @@ public class UnifiedUserMngImpl implements UnifiedUserMng {
         user.setErrorIp(null);
     }
 
+    @Override
     public void updateLoginError(Integer userId, String ip) {
         UnifiedUser user = findById(userId);
         Date now = new Timestamp(System.currentTimeMillis());
@@ -185,34 +191,41 @@ public class UnifiedUserMngImpl implements UnifiedUserMng {
         }
     }
 
+    @Override
     public boolean usernameExist(String username) {
         return getByUsername(username) != null;
     }
 
+    @Override
     public boolean emailExist(String email) {
         return dao.countByEmail(email) > 0;
     }
 
+    @Override
     public UnifiedUser getByUsername(String username) {
         return dao.getByUsername(username);
     }
 
+    @Override
     public List<UnifiedUser> getByEmail(String email) {
         return dao.getByEmail(email);
     }
 
+    @Override
     @Transactional(readOnly = true)
     public Pagination getPage(int pageNo, int pageSize) {
         Pagination page = dao.getPage(pageNo, pageSize);
         return page;
     }
 
+    @Override
     @Transactional(readOnly = true)
     public UnifiedUser findById(Integer id) {
         UnifiedUser entity = dao.findById(id);
         return entity;
     }
 
+    @Override
     public UnifiedUser save(String username, String email, String password,
                             String ip) {
         Date now = new Timestamp(System.currentTimeMillis());
@@ -231,6 +244,7 @@ public class UnifiedUserMngImpl implements UnifiedUserMng {
         return user;
     }
 
+    @Override
     public UnifiedUser save(String username, String email, String password,
                             String ip, Boolean activation, EmailSender sender,
                             MessageTemplate msgTpl) throws UnsupportedEncodingException, MessagingException {
@@ -257,6 +271,7 @@ public class UnifiedUserMngImpl implements UnifiedUserMng {
     /**
      * @see UnifiedUserMng#update(Integer, String, String)
      */
+    @Override
     public UnifiedUser update(Integer id, String password, String email) {
         UnifiedUser user = findById(id);
         if (!StringUtils.isBlank(email)) {
@@ -270,16 +285,19 @@ public class UnifiedUserMngImpl implements UnifiedUserMng {
         return user;
     }
 
+    @Override
     public boolean isPasswordValid(Integer id, String password) {
         UnifiedUser user = findById(id);
         return pwdEncoder.isPasswordValid(user.getPassword(), password);
     }
 
+    @Override
     public UnifiedUser deleteById(Integer id) {
         UnifiedUser bean = dao.deleteById(id);
         return bean;
     }
 
+    @Override
     public UnifiedUser[] deleteByIds(Integer[] ids) {
         UnifiedUser[] beans = new UnifiedUser[ids.length];
         for (int i = 0, len = ids.length; i < len; i++) {
@@ -288,6 +306,7 @@ public class UnifiedUserMngImpl implements UnifiedUserMng {
         return beans;
     }
 
+    @Override
     public UnifiedUser active(String username, String activationCode) {
         UnifiedUser bean = getByUsername(username);
         bean.setActivation(true);
@@ -295,6 +314,7 @@ public class UnifiedUserMngImpl implements UnifiedUserMng {
         return bean;
     }
 
+    @Override
     public UnifiedUser activeLogin(UnifiedUser user, String ip) {
         updateLoginSuccess(user.getId(), ip);
         return user;

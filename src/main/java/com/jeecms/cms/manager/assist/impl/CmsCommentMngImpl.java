@@ -25,7 +25,8 @@ import com.jeecms.core.manager.CmsUserMng;
 @Service
 @Transactional
 public class CmsCommentMngImpl implements CmsCommentMng {
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Pagination getPage(Integer siteId, Integer contentId,
 			Integer greaterThen, Short checked, Boolean recommend,
 			boolean desc, int pageNo, int pageSize) {
@@ -40,7 +41,8 @@ public class CmsCommentMngImpl implements CmsCommentMng {
 		return dao.getNewPage(siteId, contentId, checked, recommend, pageNo, pageSize, false);
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Pagination getPageForTag(Integer siteId, Integer contentId,
 			Integer greaterThen, Short checked, Boolean recommend,
 			boolean desc, int pageNo, int pageSize) {
@@ -49,7 +51,8 @@ public class CmsCommentMngImpl implements CmsCommentMng {
 		return page;
 	}
 	
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Pagination getPageForMember(Integer siteId, Integer contentId,Integer toUserId,Integer fromUserId,
 			Integer greaterThen, Short checked, Boolean recommend,
 			boolean desc, int pageNo, int pageSize){
@@ -58,7 +61,8 @@ public class CmsCommentMngImpl implements CmsCommentMng {
 		return page;
 	}
 	
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public List<CmsComment> getListForMember(Integer siteId, Integer contentId,
 			Integer toUserId,Integer fromUserId,Integer greaterThen,
 			Short checked, Boolean recommend,
@@ -68,12 +72,14 @@ public class CmsCommentMngImpl implements CmsCommentMng {
 				desc, first, count, true);
 	}
 	
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public List<CmsComment> getListForDel(Integer siteId, Integer userId,Integer commentUserId,String ip){
 		return dao.getListForDel(siteId,userId,commentUserId,ip);
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public List<CmsComment> getListForTag(Integer siteId, Integer contentId,
 			Integer parentId,Integer greaterThen, Short checked, Boolean recommend,
 			boolean desc, Integer first,int count) {
@@ -81,14 +87,16 @@ public class CmsCommentMngImpl implements CmsCommentMng {
 				desc, first,count, true);
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public CmsComment findById(Integer id) {
 		CmsComment entity = dao.findById(id);
 		return entity;
 	}
 
-	public CmsComment comment(Integer score,String text, String ip, Integer contentId,
-			Integer siteId, Integer userId, short checked, boolean recommend,Integer parentId) {
+	@Override
+    public CmsComment comment(Integer score, String text, String ip, Integer contentId,
+                              Integer siteId, Integer userId, short checked, boolean recommend, Integer parentId) {
 		CmsComment comment = new CmsComment();
 		comment.setContent(contentMng.findById(contentId));
 		comment.setSite(cmsSiteMng.findById(siteId));
@@ -120,19 +128,22 @@ public class CmsCommentMngImpl implements CmsCommentMng {
 		return comment;
 	}
 
-	public CmsComment update(CmsComment bean, CmsCommentExt ext) {
+	@Override
+    public CmsComment update(CmsComment bean, CmsCommentExt ext) {
 		Updater<CmsComment> updater = new Updater<CmsComment>(bean);
 		bean = dao.updateByUpdater(updater);
 		cmsCommentExtMng.update(ext);
 		return bean;
 	}
 
-	public int deleteByContentId(Integer contentId) {
+	@Override
+    public int deleteByContentId(Integer contentId) {
 		cmsCommentExtMng.deleteByContentId(contentId);
 		return dao.deleteByContentId(contentId);
 	}
 
-	public CmsComment deleteById(Integer id) {
+	@Override
+    public CmsComment deleteById(Integer id) {
 		CmsComment bean = dao.deleteById(id);
 		CmsComment parent=bean.getParent();
 		if(parent!=null&&bean.getChecked()==1){
@@ -147,7 +158,8 @@ public class CmsCommentMngImpl implements CmsCommentMng {
 		return bean;
 	}
 
-	public CmsComment[] deleteByIds(Integer[] ids) {
+	@Override
+    public CmsComment[] deleteByIds(Integer[] ids) {
 		CmsComment[] beans = new CmsComment[ids.length];
 		for (int i = 0, len = ids.length; i < len; i++) {
 			beans[i] = deleteById(ids[i]);
@@ -155,7 +167,8 @@ public class CmsCommentMngImpl implements CmsCommentMng {
 		return beans;
 	}
 	
-	public CmsComment[] checkByIds(Integer[] ids, CmsUser user, short checked) {
+	@Override
+    public CmsComment[] checkByIds(Integer[] ids, CmsUser user, short checked) {
 		CmsComment[] beans = new CmsComment[ids.length];
 		for (int i = 0, len = ids.length; i < len; i++) {
 			beans[i] = checkById(ids[i],user,checked);
@@ -192,12 +205,14 @@ public class CmsCommentMngImpl implements CmsCommentMng {
 		return bean;
 	}
 	
-	public void ups(Integer id) {
+	@Override
+    public void ups(Integer id) {
 		CmsComment comment = findById(id);
 		comment.setUps((short) (comment.getUps() + 1));
 	}
 
-	public void downs(Integer id) {
+	@Override
+    public void downs(Integer id) {
 		CmsComment comment = findById(id);
 		comment.setDowns((short) (comment.getDowns() + 1));
 	}

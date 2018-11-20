@@ -4,21 +4,11 @@ import static com.jeecms.cms.statistic.CmsStatistic.SITEID;
 import static com.jeecms.cms.statistic.CmsStatistic.ISREPLYED;
 import static com.jeecms.cms.statistic.CmsStatistic.USERID;
 import static com.jeecms.cms.statistic.CmsStatistic.STATISTIC_BY_DAY;
-import static com.jeecms.cms.statistic.CmsStatistic.STATISTIC_BY_WEEK;
 import static com.jeecms.cms.statistic.CmsStatistic.STATISTIC_BY_MONTH;
 import static com.jeecms.cms.statistic.CmsStatistic.STATISTIC_BY_YEAR;
 import static com.jeecms.cms.statistic.CmsStatistic.STATISTIC_BY_YEARS;
 import static com.jeecms.cms.statistic.CmsStatistic.STATISTIC_BY_YESTERDAY;
 import static com.jeecms.cms.statistic.CmsStatistic.STATISTIC_BY_SECTION;
-import static com.jeecms.cms.entity.assist.CmsSiteAccessStatistic.STATISTIC_AREA;
-import static com.jeecms.cms.entity.assist.CmsSiteAccessStatistic.STATISTIC_ENGINE;
-import static com.jeecms.cms.entity.assist.CmsSiteAccessStatistic.STATISTIC_KEYWORD;
-import static com.jeecms.cms.entity.assist.CmsSiteAccessStatistic.STATISTIC_LINK;
-import static com.jeecms.cms.entity.assist.CmsSiteAccessStatistic.STATISTIC_SOURCE;
-import static com.jeecms.cms.entity.assist.CmsSiteAccessStatistic.STATISTIC_TARGET_IP;
-import static com.jeecms.cms.entity.assist.CmsSiteAccessStatistic.STATISTIC_TARGET_PV;
-import static com.jeecms.cms.entity.assist.CmsSiteAccessStatistic.STATISTIC_TARGET_VISITORS;
-import static com.jeecms.cms.entity.assist.CmsSiteAccessStatistic.STATISTIC_TARGET_VISITSECOND;
 
 import static com.jeecms.cms.statistic.CmsStatistic.CHANNELID;
 import static com.jeecms.cms.statistic.CmsStatistic.STATUS;
@@ -31,12 +21,13 @@ import org.springframework.stereotype.Repository;
 
 import com.jeecms.cms.statistic.CmsStatistic.TimeRange;
 import com.jeecms.common.hibernate4.Finder;
-import com.jeecms.common.hibernate4.HibernateSimpleDao;
+import com.jeecms.common.hibernate4.AbstractHibernateSimpleDao;
 
 @Repository
-public class CmsStatisticDaoImpl extends HibernateSimpleDao implements
+public class CmsStatisticDaoImpl extends AbstractHibernateSimpleDao implements
 		CmsStatisticDao {
-	public long memberStatistic(TimeRange timeRange) {
+	@Override
+    public long memberStatistic(TimeRange timeRange) {
 		Finder f = createCacheableFinder("select count(*) from CmsUser bean where 1=1");
 		if (timeRange != null) {
 			if(timeRange.getBegin()!=null){
@@ -52,7 +43,8 @@ public class CmsStatisticDaoImpl extends HibernateSimpleDao implements
 		return (Long) find(f).iterator().next();
 	}
 	
-	public List<Object[]> statisticMemberByTarget(Integer target,Date timeBegin,Date timeEnd){
+	@Override
+    public List<Object[]> statisticMemberByTarget(Integer target, Date timeBegin, Date timeEnd){
 		String hql = "";
 		if(target==STATISTIC_BY_DAY||target==STATISTIC_BY_YESTERDAY){
 			hql="select count(bean.id),HOUR(bean.registerTime) from CmsUser bean where 1=1 ";
@@ -87,8 +79,9 @@ public class CmsStatisticDaoImpl extends HibernateSimpleDao implements
 		return find(f);
 	}
 
-	public long contentStatistic(TimeRange timeRange,
-			Map<String, Object> restrictions) {
+	@Override
+    public long contentStatistic(TimeRange timeRange,
+                                 Map<String, Object> restrictions) {
 		Finder f = createCacheableFinder("select count(bean.id) from Content bean");
 		Integer userId = (Integer) restrictions.get(USERID);
 		Integer channelId = (Integer) restrictions.get(CHANNELID);
@@ -123,8 +116,9 @@ public class CmsStatisticDaoImpl extends HibernateSimpleDao implements
 		return (Long) find(f).iterator().next();
 	}
 	
-	public List<Object[]> statisticContentByTarget(Integer target,
-			Date timeBegin,Date timeEnd,Map<String, Object> restrictions){
+	@Override
+    public List<Object[]> statisticContentByTarget(Integer target,
+                                                   Date timeBegin, Date timeEnd, Map<String, Object> restrictions){
 		String hql = "";
 		if(target==STATISTIC_BY_DAY){
 			hql="select count(bean.id),hour(ext.releaseDate) from Content bean join bean.contentExt ext ";
@@ -165,8 +159,9 @@ public class CmsStatisticDaoImpl extends HibernateSimpleDao implements
 		return find(f);
 	}
 
-	public long commentStatistic(TimeRange timeRange,
-			Map<String, Object> restrictions) {
+	@Override
+    public long commentStatistic(TimeRange timeRange,
+                                 Map<String, Object> restrictions) {
 		Finder f = createCacheableFinder("select count(*) from CmsComment bean where bean.site.id=:siteId");
 		f.setParam("siteId", restrictions.get(SITEID));
 		if (timeRange != null) {
@@ -194,8 +189,9 @@ public class CmsStatisticDaoImpl extends HibernateSimpleDao implements
 		return (Long) find(f).iterator().next();
 	}
 	
-	public List<Object[]> statisticCommentByTarget(Integer target,Integer siteId,
-			Boolean isReplyed,Date timeBegin,Date timeEnd){
+	@Override
+    public List<Object[]> statisticCommentByTarget(Integer target, Integer siteId,
+                                                   Boolean isReplyed, Date timeBegin, Date timeEnd){
 		String hql = "";
 		if(target==STATISTIC_BY_DAY){
 			hql="select count(bean.id),HOUR(bean.createTime) from CmsComment bean where 1=1 ";
@@ -236,8 +232,9 @@ public class CmsStatisticDaoImpl extends HibernateSimpleDao implements
 		return find(f);
 	}
 
-	public long guestbookStatistic(TimeRange timeRange,
-			Map<String, Object> restrictions) {
+	@Override
+    public long guestbookStatistic(TimeRange timeRange,
+                                   Map<String, Object> restrictions) {
 		Finder f = createCacheableFinder("select count(*) from CmsGuestbook bean where bean.site.id=:siteId");
 		f.setParam("siteId", restrictions.get(SITEID));
 		if (timeRange != null) {
@@ -265,8 +262,9 @@ public class CmsStatisticDaoImpl extends HibernateSimpleDao implements
 		return (Long) find(f).iterator().next();
 	}
 	
-	public List<Object[]> statisticGuestbookByTarget(Integer target,Integer siteId,
-			Boolean isReplyed,Date timeBegin,Date timeEnd){
+	@Override
+    public List<Object[]> statisticGuestbookByTarget(Integer target, Integer siteId,
+                                                     Boolean isReplyed, Date timeBegin, Date timeEnd){
 		String hql = "";
 		if(target==STATISTIC_BY_DAY){
 			hql="select count(bean.id),HOUR(bean.createTime) from CmsGuestbook bean where 1=1 ";

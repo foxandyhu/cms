@@ -22,7 +22,8 @@ import org.springframework.stereotype.Service;
 public class WeixinTokenCacheImpl implements WeixinTokenCache {
 
 
-	public Map<String, String> getToken() {
+	@Override
+    public Map<String, String> getToken() {
 		String token="";
 		Map<String, String> msg=new HashMap<>();
 		Element e = cache.get("token");

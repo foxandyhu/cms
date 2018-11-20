@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,6 @@ import com.jeecms.cms.manager.main.ContentMng;
 import com.jeecms.common.web.ResponseUtils;
 import com.jeecms.core.entity.CmsUser;
 import com.jeecms.core.manager.CmsUserMng;
-import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
 
 @Controller
@@ -67,7 +67,7 @@ public class ContentCollectionApiAct {
 			trimHtml=false;
 		}
 		List<Content>contents=null;
-		WebErrors errors=WebErrors.create(request);
+		WebErrors errors= WebErrors.create(request);
 		//验证公共非空参数
 		errors=ApiValidate.validateRequiredParams(request,errors);
 		if(!errors.hasErrors()){
@@ -107,7 +107,7 @@ public class ContentCollectionApiAct {
 		if(operate==null){
 			operate=1;
 		}
-		WebErrors errors=WebErrors.create(request);
+		WebErrors errors= WebErrors.create(request);
 		CmsUser user = CmsUtils.getUser(request);
 		//验证公共非空参数
 		errors=ApiValidate.validateRequiredParams(request,errors,id);

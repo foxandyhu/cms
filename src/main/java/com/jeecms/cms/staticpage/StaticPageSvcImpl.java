@@ -36,6 +36,7 @@ import static com.jeecms.common.web.Constants.UTF8;
 public class StaticPageSvcImpl implements StaticPageSvc {
     private Logger log = LoggerFactory.getLogger(StaticPageSvcImpl.class);
 
+    @Override
     public int content(HttpServletRequest request, HttpServletResponse response,
                        Integer siteId, Integer channelId, Date start)
             throws IOException, TemplateException {
@@ -48,6 +49,7 @@ public class StaticPageSvcImpl implements StaticPageSvc {
         return count;
     }
 
+    @Override
     public boolean content(Content content) throws IOException, TemplateException {
         Map<String, Object> data = new HashMap<String, Object>();
         long time = System.currentTimeMillis();
@@ -57,12 +59,14 @@ public class StaticPageSvcImpl implements StaticPageSvc {
         return generated;
     }
 
+    @Override
     public void contentRelated(Integer contentId) throws IOException,
             TemplateException {
         Content content = contentMng.findById(contentId);
         contentRelated(content);
     }
 
+    @Override
     public void contentRelated(Content content) throws IOException,
             TemplateException {
         content(content);
@@ -81,6 +85,7 @@ public class StaticPageSvcImpl implements StaticPageSvc {
         }
     }
 
+    @Override
     @Transactional(readOnly = true)
     public void deleteContent(Content content) throws IOException, TemplateException {
         String real;
@@ -106,6 +111,7 @@ public class StaticPageSvcImpl implements StaticPageSvc {
         }
     }
 
+    @Override
     @Transactional(readOnly = true)
     public int channel(HttpServletRequest request, HttpServletResponse response, Integer siteId, Integer channelId, boolean containChild)
             throws IOException, TemplateException {
@@ -118,6 +124,7 @@ public class StaticPageSvcImpl implements StaticPageSvc {
         return count;
     }
 
+    @Override
     @Transactional(readOnly = true)
     public void channel(Channel channel, boolean firstOnly) throws IOException,
             TemplateException {
@@ -128,6 +135,7 @@ public class StaticPageSvcImpl implements StaticPageSvc {
         log.info("create channel page in {} ms", time);
     }
 
+    @Override
     @Transactional(readOnly = true)
     public void deleteChannel(Channel channel) {
         // 如果是外部链接或者不需要生产静态页，则不删除
@@ -169,11 +177,13 @@ public class StaticPageSvcImpl implements StaticPageSvc {
         }
     }
 
+    @Override
     public void index(Integer siteId) throws IOException, TemplateException {
         CmsSite site = siteMng.findById(siteId);
         index(site);
     }
 
+    @Override
     public void index(CmsSite site) throws IOException, TemplateException {
         Map<String, Object> data = new HashMap<String, Object>();
         FrontUtils.frontData(data, site, null, site.getUrlStatic(), null);
@@ -186,6 +196,7 @@ public class StaticPageSvcImpl implements StaticPageSvc {
         }
     }
 
+    @Override
     @Transactional(readOnly = true)
     public void index(CmsSite site, String tpl, Map<String, Object> data, boolean mobile)
             throws IOException, TemplateException {
@@ -219,6 +230,7 @@ public class StaticPageSvcImpl implements StaticPageSvc {
         log.info("create index page, in {} ms", time);
     }
 
+    @Override
     @Transactional(readOnly = true)
     public boolean deleteIndex(CmsSite site) {
         File f;

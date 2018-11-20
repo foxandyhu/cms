@@ -32,6 +32,7 @@ import java.util.List;
 @Service
 @Transactional
 public class LuceneContentSvcImpl implements LuceneContentSvc {
+    @Override
     @Transactional(readOnly = true)
     public Integer createIndex(Integer siteId, Integer channelId,
                                Date startDate, Date endDate, Integer startId, Integer max)
@@ -42,6 +43,7 @@ public class LuceneContentSvcImpl implements LuceneContentSvc {
                 dir);
     }
 
+    @Override
     @Transactional(readOnly = true)
     public Integer createIndex(Integer siteId, Integer channelId,
                                Date startDate, Date endDate, Integer startId, Integer max,
@@ -63,6 +65,7 @@ public class LuceneContentSvcImpl implements LuceneContentSvc {
         }
     }
 
+    @Override
     @Transactional(readOnly = true)
     public void createIndex(Content content) throws IOException {
         String path = realPathResolver.get(Constants.LUCENE_PATH);
@@ -70,6 +73,7 @@ public class LuceneContentSvcImpl implements LuceneContentSvc {
         createIndex(content, dir);
     }
 
+    @Override
     @Transactional(readOnly = true)
     public void createIndex(Content content, Directory dir) throws IOException {
         boolean exist = IndexReader.indexExists(dir);
@@ -82,6 +86,7 @@ public class LuceneContentSvcImpl implements LuceneContentSvc {
         }
     }
 
+    @Override
     @Transactional(readOnly = true)
     public void deleteIndex(Integer contentId) throws IOException,
             ParseException {
@@ -90,6 +95,7 @@ public class LuceneContentSvcImpl implements LuceneContentSvc {
         deleteIndex(contentId, dir);
     }
 
+    @Override
     @Transactional(readOnly = true)
     public void deleteIndex(Integer contentId, Directory dir)
             throws IOException, ParseException {
@@ -106,12 +112,14 @@ public class LuceneContentSvcImpl implements LuceneContentSvc {
         }
     }
 
+    @Override
     public void updateIndex(Content content) throws IOException, ParseException {
         String path = realPathResolver.get(Constants.LUCENE_PATH);
         Directory dir = new SimpleFSDirectory(new File(path));
         updateIndex(content, dir);
     }
 
+    @Override
     public void updateIndex(Content content, Directory dir) throws IOException,
             ParseException {
         boolean exist = IndexReader.indexExists(dir);
@@ -127,6 +135,7 @@ public class LuceneContentSvcImpl implements LuceneContentSvc {
         }
     }
 
+    @Override
     @Transactional(readOnly = true)
     public Pagination searchPage(String path, String queryString, String category, String workplace,
                                  Integer siteId, Integer channelId, Date startDate, Date endDate,
@@ -137,6 +146,7 @@ public class LuceneContentSvcImpl implements LuceneContentSvc {
                 endDate, pageNo, pageSize);
     }
 
+    @Override
     @Transactional(readOnly = true)
     public Pagination searchPage(Directory dir, String queryString, String category, String workplace,
                                  Integer siteId, Integer channelId, Date startDate, Date endDate,
@@ -162,6 +172,7 @@ public class LuceneContentSvcImpl implements LuceneContentSvc {
         }
     }
 
+    @Override
     @Transactional(readOnly = true)
     public List<Content> searchList(String path, String queryString, String category, String workplace,
                                     Integer siteId, Integer channelId, Date startDate, Date endDate,
@@ -172,6 +183,7 @@ public class LuceneContentSvcImpl implements LuceneContentSvc {
                 endDate, first, max);
     }
 
+    @Override
     @Transactional(readOnly = true)
     public List<Content> searchList(Directory dir, String queryString, String category, String workplace,
                                     Integer siteId, Integer channelId, Date startDate, Date endDate,

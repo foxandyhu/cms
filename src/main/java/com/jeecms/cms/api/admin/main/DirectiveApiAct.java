@@ -10,6 +10,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
@@ -30,7 +31,6 @@ import com.jeecms.common.web.RequestUtils;
 import com.jeecms.common.web.ResponseUtils;
 import com.jeecms.common.web.springmvc.RealPathResolver;
 import com.jeecms.core.manager.CmsLogMng;
-import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
 
 @Controller
@@ -52,12 +52,12 @@ public class DirectiveApiAct {
 	public static final String SYSTEM_TPL_PREFIX = "s_";
 	public static final String CUSTOM_TPL_PREFIX = "c_";
 	public static final String TPL_SUFFIX = ".txt";
-	public static final String HasContent="hasContent";
+	public static final String HAS_CONTENT ="hasContent";
 	public static final String COUNT="count";
-	public static final String TextLen="textLen";
-	public static final String DescLen="descLen";
-	public static final String TitleLen="titleLen";
-	public static final String ContentLen="contentLen";
+	public static final String TEXT_LEN ="textLen";
+	public static final String DESC_LEN ="descLen";
+	public static final String TITLE_LEN ="titleLen";
+	public static final String CONTENT_LEN ="contentLen";
 	public static final String CHECKED="checked";
 	public static final String RECOMMEND="recommend";
 	public static final String ORDERBY="orderBy";
@@ -318,7 +318,7 @@ public class DirectiveApiAct {
 			if(!channel){
 				value.put(ID, channelId.toString());
 			}
-			value.put(HasContent, hasContent.toString());
+			value.put(HAS_CONTENT, hasContent.toString());
 		}else{
 			if(!channel){
 				value.put(ID, channelId.toString());
@@ -347,7 +347,7 @@ public class DirectiveApiAct {
 		Boolean recommend=getBooleanParam(params, "recommend");
 		Boolean checked=getBooleanParam(params, "checked");
 		Boolean orderBy=getBooleanParam(params, "orderBy");
-		value.put(TextLen, textLen);
+		value.put(TEXT_LEN, textLen);
 		value.put(COUNT, c);
 		if(recommend==null){
 			value.put(RECOMMEND, NULL);
@@ -372,7 +372,7 @@ public class DirectiveApiAct {
 		String descLen=(String)params.get("descLen");
 		String c=(String)params.get("count");
 		Boolean recommend=getBooleanParam(params, "recommend");
-		value.put(DescLen, descLen);
+		value.put(DESC_LEN, descLen);
 		value.put(COUNT, c);
 		if(recommend==null){
 			value.put(RECOMMEND, NULL);
@@ -423,15 +423,15 @@ public class DirectiveApiAct {
 		}else{
 			value.put(CHECKED, checked.toString());
 		}
-		if(ctgId.equals("0")){
+		if("0".equals(ctgId)){
 			value.put(CTG_ID, NULL);
 		}else{
 			value.put(CTG_ID, ctgId);
 		}
 		value.put(COUNT, c);
 		
-		value.put(TitleLen, titleLen);
-		value.put(ContentLen, contentLen);
+		value.put(TITLE_LEN, titleLen);
+		value.put(CONTENT_LEN, contentLen);
 		return value;
 	}
 	
@@ -477,17 +477,17 @@ public class DirectiveApiAct {
 		Boolean sysTpl=getBooleanParam(params, "sys");
 		String tpl=(String) params.get("tpl");
 		filename+=com.jeecms.cms.Constants.DIRECTIVE_TPL_PATH+CONTENT+"/";
-		if(type.equals("single")){
+		if("single".equals(type)){
 			filename+=SINGLE_PREFIX+singleType;
-		}else if(type.equals("page")){
+		}else if("page".equals(type)){
 			filename+=PAGE_PREFIX;
-		}else if(type.equals("ids")){
+		}else if("ids".equals(type)){
 			//ids或者list
 			filename+=LIST_PREFIX+"i_";
 		}else {
 			filename+=LIST_PREFIX;
 		}
-		if(!(type.equals("single")||type.equals("ids"))){
+		if(!("single".equals(type)||"ids".equals(type))){
 			if(sysTpl){
 				filename+=SYSTEM_TPL_PREFIX;
 				filename+=tpl;
@@ -505,16 +505,16 @@ public class DirectiveApiAct {
 		String type=(String) params.get("type");
 		Boolean sysTpl=getBooleanParam(params, "sys");
 		String tpl=(String) params.get("tpl");
-		if(type.equals("single")){
+		if("single".equals(type)){
 			String id=(String)params.get(ID);
 			value.put(ID, id);
-		}else if(type.equals("ids")){
+		}else if("ids".equals(type)){
 			//ids
 			String ids=(String)params.get("ids");
 			String titleLen=(String)params.get("idsTitLen");
 			String idsDateFormat=(String)params.get("idsDateFormat");
 			value.put("ids", ids);
-			value.put(TitleLen, titleLen);
+			value.put(TITLE_LEN, titleLen);
 			value.put("dateFormat", idsDateFormat);
 		}else {
 			String tagId=getStringParam(params, TAG);
@@ -564,7 +564,7 @@ public class DirectiveApiAct {
 			value.put("new", shownew);
 			value.put("showDesc", showDesc);
 		}
-		if(!(type.equals("single")||type.equals("ids"))){
+		if(!("single".equals(type)||"ids".equals(type))){
 			String styleList=(String) params.get("tpl"+tpl);
 			String showTitleStyle=getStringParam(params,"showTitleStyle");
 			String useShortTitle=getStringParam(params,"useShortTitle");
@@ -572,7 +572,7 @@ public class DirectiveApiAct {
 				value.put("styleList", styleList);
 				value.put("showTitleStyle", showTitleStyle);
 				value.put("useShortTitle", useShortTitle);
-				if(tpl.equals("1")||tpl.equals("2")){
+				if("1".equals(tpl)||"2".equals(tpl)){
 					//普通列表
 					String lineHeight=getStringParam(params, "lineHeight");
 					String headMarkImg=getStringParam(params, "headMarkImg");
@@ -586,7 +586,7 @@ public class DirectiveApiAct {
 					String picFloat=getStringParam(params, "picFloat");
 					String view=getStringParam(params, "view");
 					String viewTitle=getStringParam(params, "viewTitle");
-					if(styleList.equals("1")||styleList.equals("3")){
+					if("1".equals(styleList)||"3".equals(styleList)){
 						//文字 列表
 						value.put("lineHeight", lineHeight);
 						value.put("headMarkImg", headMarkImg);
@@ -598,7 +598,7 @@ public class DirectiveApiAct {
 						value.put("picHeight", NULL);
 						value.put("rightPadding", NULL);
 						value.put("picFloat", NULL);
-					}else if(styleList.equals("2")||styleList.equals("4")){
+					}else if("2".equals(styleList)||"4".equals(styleList)){
 						//图文列表
 						value.put("picWidth", picWidth);
 						value.put("picHeight", picHeight);
@@ -611,7 +611,7 @@ public class DirectiveApiAct {
 						value.put("datePosition", NULL);
 						value.put("ctgForm", NULL);
 					}
-					if(styleList.equals("3")){
+					if("3".equals(styleList)){
 						//带点击率的文字列表
 						value.put("view", view);
 						value.put("viewTitle", viewTitle);
@@ -620,7 +620,7 @@ public class DirectiveApiAct {
 						value.put("viewTitle", NULL);
 					}
 					//滚动列表
-					if(tpl.equals("2")){
+					if("2".equals(tpl)){
 						String rollDisplayHeight=getStringParam(params, "rollDisplayHeight");
 						String rollLineHeight=getStringParam(params, "rollLineHeight");
 						String rollCols=getStringParam(params, "rollCols");
@@ -638,7 +638,7 @@ public class DirectiveApiAct {
 						value.put("rollSpan", rollSpan);
 						value.put("isSleep", isSleep);
 					}
-				}else if(tpl.equals("3")){
+				}else if("3".equals(tpl)){
 					//flash焦点
 					String flashWidth=getStringParam(params, "flashWidth");
 					String flashHeight=getStringParam(params, "flashHeight");
@@ -656,9 +656,9 @@ public class DirectiveApiAct {
 		Boolean booValue;
 		String value=(String) params.get(name);
 		if(StringUtils.isNotBlank(value)){
-			if(value.equals("true")){
+			if("true".equals(value)){
 				booValue=true;
-			}else if(value.equals("all")){
+			}else if("all".equals(value)){
 				booValue=null;
 			}else {
 				booValue=false;
@@ -671,7 +671,7 @@ public class DirectiveApiAct {
 	
 	private String getStringParam(Map<String,Object>params,String name){
 		String value=(String) params.get(name);
-		if(StringUtils.isBlank(value)||value.equals("all")){
+		if(StringUtils.isBlank(value)||"all".equals(value)){
 			return null;
 		}
 		return value;

@@ -20,44 +20,52 @@ import com.jeecms.common.page.Pagination;
 @Transactional
 public class CmsReceiverMessageMngImpl implements CmsReceiverMessageMng {
 
-	public Pagination getPage(Integer siteId, Integer sendUserId,
-			Integer receiverUserId, String title, Date sendBeginTime,
-			Date sendEndTime, Boolean status, Integer box, Boolean cacheable,
-			int pageNo, int pageSize) {
+	@Override
+    public Pagination getPage(Integer siteId, Integer sendUserId,
+                              Integer receiverUserId, String title, Date sendBeginTime,
+                              Date sendEndTime, Boolean status, Integer box, Boolean cacheable,
+                              int pageNo, int pageSize) {
 		return dao.getPage(siteId, sendUserId, receiverUserId, title,
 				sendBeginTime, sendEndTime, status, box, cacheable, pageNo,
 				pageSize);
 	}
 	
-	public List<CmsReceiverMessage> getList(Integer siteId, Integer sendUserId,
-			Integer receiverUserId, String title, Date sendBeginTime,
-			Date sendEndTime, Boolean status, Integer box, 
-			Boolean cacheable,Integer first,Integer count) {
+	@Override
+    public List<CmsReceiverMessage> getList(Integer siteId, Integer sendUserId,
+                                            Integer receiverUserId, String title, Date sendBeginTime,
+                                            Date sendEndTime, Boolean status, Integer box,
+                                            Boolean cacheable, Integer first, Integer count) {
 		return dao.getList(siteId, sendUserId, receiverUserId, title,
 				sendBeginTime, sendEndTime, status, box, cacheable,first,count);
 	}
 	
-	public CmsReceiverMessage find(Integer messageId,Integer box){
+	@Override
+    public CmsReceiverMessage find(Integer messageId, Integer box){
 		return dao.find(messageId,box);
 	}
 
-	public CmsReceiverMessage findById(Integer id) {
+	@Override
+    public CmsReceiverMessage findById(Integer id) {
 		return dao.findById(id);
 	}
 
-	public CmsReceiverMessage save(CmsReceiverMessage bean) {
+	@Override
+    public CmsReceiverMessage save(CmsReceiverMessage bean) {
 		return dao.save(bean);
 	}
 
-	public CmsReceiverMessage update(CmsReceiverMessage bean) {
+	@Override
+    public CmsReceiverMessage update(CmsReceiverMessage bean) {
 		return dao.update(bean);
 	}
 
-	public CmsReceiverMessage deleteById(Integer id) {
+	@Override
+    public CmsReceiverMessage deleteById(Integer id) {
 		return dao.deleteById(id);
 	}
 
-	public CmsReceiverMessage[] deleteByIds(Integer[] ids) {
+	@Override
+    public CmsReceiverMessage[] deleteByIds(Integer[] ids) {
 		return dao.deleteByIds(ids);
 	}
 

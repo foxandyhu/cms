@@ -3,12 +3,12 @@ package com.jeecms.cms.dao.assist.impl;
 import java.util.Date;
 import java.util.List;
 
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 import org.apache.commons.lang.StringUtils;
 
 import com.jeecms.cms.dao.assist.CmsMessageDao;
 import com.jeecms.cms.entity.assist.CmsMessage;
 import com.jeecms.common.hibernate4.Finder;
-import com.jeecms.common.hibernate4.HibernateBaseDao;
 import com.jeecms.common.page.Pagination;
 import org.springframework.stereotype.Repository;
 
@@ -16,22 +16,24 @@ import org.springframework.stereotype.Repository;
  *江西金磊科技发展有限公司jeecms研发
  */
 @Repository
-public class CmsMessageDaoImpl extends HibernateBaseDao<CmsMessage, Integer>
+public class CmsMessageDaoImpl extends AbstractHibernateBaseDao<CmsMessage, Integer>
 		implements CmsMessageDao {
 
-	public Pagination getPage(Integer siteId, Integer sendUserId,
-			Integer receiverUserId, String title, Date sendBeginTime,
-			Date sendEndTime, Boolean status, Integer box, Boolean cacheable,
-			int pageNo, int pageSize) {
+	@Override
+    public Pagination getPage(Integer siteId, Integer sendUserId,
+                              Integer receiverUserId, String title, Date sendBeginTime,
+                              Date sendEndTime, Boolean status, Integer box, Boolean cacheable,
+                              int pageNo, int pageSize) {
 		Finder finder=createFinder(siteId, sendUserId, receiverUserId, 
 				title, sendBeginTime, sendEndTime,status, box, cacheable);
 		return find(finder, pageNo, pageSize);
 	}
 	
-	public List<CmsMessage> getList(Integer siteId, Integer sendUserId,
-			Integer receiverUserId, String title, Date sendBeginTime,
-			Date sendEndTime, Boolean status, Integer box, Boolean cacheable,
-			Integer first, Integer count){
+	@Override
+    public List<CmsMessage> getList(Integer siteId, Integer sendUserId,
+                                    Integer receiverUserId, String title, Date sendBeginTime,
+                                    Date sendEndTime, Boolean status, Integer box, Boolean cacheable,
+                                    Integer first, Integer count){
 		Finder finder=createFinder(siteId, sendUserId, receiverUserId, 
 				title, sendBeginTime, sendEndTime,status, box, cacheable);
 		if(first!=null){
@@ -44,21 +46,25 @@ public class CmsMessageDaoImpl extends HibernateBaseDao<CmsMessage, Integer>
 	}
 	
 	
-	public CmsMessage findById(Integer id) {
+	@Override
+    public CmsMessage findById(Integer id) {
 		return super.get(id);
 	}
 
-	public CmsMessage save(CmsMessage bean) {
+	@Override
+    public CmsMessage save(CmsMessage bean) {
 		getSession().save(bean);
 		return bean;
 	}
 	
-	public CmsMessage update(CmsMessage bean){
+	@Override
+    public CmsMessage update(CmsMessage bean){
 		getSession().update(bean);
 		return bean;
 	}
 
-	public CmsMessage deleteById(Integer id) {
+	@Override
+    public CmsMessage deleteById(Integer id) {
 		CmsMessage entity = super.get(id);
 		if (entity != null) {
 			getSession().delete(entity);
@@ -66,7 +72,8 @@ public class CmsMessageDaoImpl extends HibernateBaseDao<CmsMessage, Integer>
 		return entity;
 	}
 
-	public CmsMessage[] deleteByIds(Integer[] ids) {
+	@Override
+    public CmsMessage[] deleteByIds(Integer[] ids) {
 		CmsMessage[] messages = new CmsMessage[ids.length];
 		for (int i = 0; i < ids.length; i++) {
 			messages[i] = get(ids[i]);

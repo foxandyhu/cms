@@ -29,9 +29,10 @@ import com.jeecms.core.manager.UnifiedUserMng;
 public class AuthenticationMngImpl implements AuthenticationMng {
 	private Logger log = LoggerFactory.getLogger(AuthenticationMngImpl.class);
 
-	public Authentication login(String username, String password, String ip,
-			HttpServletRequest request, HttpServletResponse response,
-			SessionProvider session) throws UsernameNotFoundException,
+	@Override
+    public Authentication login(String username, String password, String ip,
+                                HttpServletRequest request, HttpServletResponse response,
+                                SessionProvider session) throws UsernameNotFoundException,
 			BadCredentialsException {
 		UnifiedUser user = unifiedUserMng.login(username, password, ip);
 		Authentication auth = new Authentication();
@@ -44,9 +45,10 @@ public class AuthenticationMngImpl implements AuthenticationMng {
 		return auth;
 	}
 	
-	public Authentication activeLogin(UnifiedUser user, String ip,
-			HttpServletRequest request, HttpServletResponse response,
-			SessionProvider session) {
+	@Override
+    public Authentication activeLogin(UnifiedUser user, String ip,
+                                      HttpServletRequest request, HttpServletResponse response,
+                                      SessionProvider session) {
 		unifiedUserMng.activeLogin(user, ip);
 		Authentication auth = new Authentication();
 		auth.setUid(user.getId());
@@ -58,7 +60,8 @@ public class AuthenticationMngImpl implements AuthenticationMng {
 		return auth;
 	}
 
-	public Authentication retrieve(String authId) {
+	@Override
+    public Authentication retrieve(String authId) {
 		long current = System.currentTimeMillis();
 		// 是否刷新数据库
 		if (refreshTime < current) {
@@ -75,8 +78,9 @@ public class AuthenticationMngImpl implements AuthenticationMng {
 		}
 	}
 
-	public Integer retrieveUserIdFromSession(SessionProvider session,
-			HttpServletRequest request) {
+	@Override
+    public Integer retrieveUserIdFromSession(SessionProvider session,
+                                             HttpServletRequest request) {
 		String authId = (String) session.getAttribute(request, AUTH_KEY);
 		if (authId == null) {
 			return null;
@@ -88,37 +92,43 @@ public class AuthenticationMngImpl implements AuthenticationMng {
 		return auth.getUid();
 	}
 
-	public void storeAuthIdToSession(SessionProvider session,
-			HttpServletRequest request, HttpServletResponse response,
-			String authId) {
+	@Override
+    public void storeAuthIdToSession(SessionProvider session,
+                                     HttpServletRequest request, HttpServletResponse response,
+                                     String authId) {
 		session.setAttribute(request, response, AUTH_KEY, authId);
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Pagination getPage(int pageNo, int pageSize) {
 		Pagination page = dao.getPage(pageNo, pageSize);
 		return page;
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Authentication findById(String id) {
 		Authentication entity = dao.findById(id);
 		return entity;
 	}
 
-	public Authentication save(Authentication bean) {
+	@Override
+    public Authentication save(Authentication bean) {
 		bean.setId(StringUtils.remove(UUID.randomUUID().toString(), '-'));
 		bean.init();
 		dao.save(bean);
 		return bean;
 	}
 
-	public Authentication deleteById(String id) {
+	@Override
+    public Authentication deleteById(String id) {
 		Authentication bean = dao.deleteById(id);
 		return bean;
 	}
 
-	public Authentication[] deleteByIds(String[] ids) {
+	@Override
+    public Authentication[] deleteByIds(String[] ids) {
 		Authentication[] beans = new Authentication[ids.length];
 		for (int i = 0, len = ids.length; i < len; i++) {
 			beans[i] = deleteById(ids[i]);

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +21,6 @@ import com.jeecms.cms.api.ResponseCode;
 import com.jeecms.common.page.Pagination;
 import com.jeecms.common.util.StrUtils;
 import com.jeecms.common.web.ResponseUtils;
-import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
 import com.jeecms.plug.weixin.entity.WeixinMenu;
 import com.jeecms.plug.weixin.entity.WeixinMessage;
@@ -170,7 +170,7 @@ public class WeixinMessageApiAct {
 		ResponseUtils.renderApiJson(response, request, apiResponse);
 	}
 	
-	private WebErrors validateUpdate(WebErrors errors,WeixinMessage bean,HttpServletRequest request){
+	private WebErrors validateUpdate(WebErrors errors, WeixinMessage bean, HttpServletRequest request){
 		if (bean.getId()!=null) {
 			vldExist(bean.getId(), errors);
 			if (errors.hasErrors()) {

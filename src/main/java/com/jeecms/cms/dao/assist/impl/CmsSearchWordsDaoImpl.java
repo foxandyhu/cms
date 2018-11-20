@@ -2,20 +2,21 @@ package com.jeecms.cms.dao.assist.impl;
 
 import java.util.List;
 
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Repository;
 
 import com.jeecms.common.hibernate4.Finder;
-import com.jeecms.common.hibernate4.HibernateBaseDao;
 import com.jeecms.common.page.Pagination;
 import com.jeecms.common.util.ChineseCharToEn;
 import com.jeecms.cms.dao.assist.CmsSearchWordsDao;
 import com.jeecms.cms.entity.assist.CmsSearchWords;
 
 @Repository
-public class CmsSearchWordsDaoImpl extends HibernateBaseDao<CmsSearchWords, Integer> implements CmsSearchWordsDao {
-	public Pagination getPage(Integer siteId,String name,Integer recommend,Integer orderBy,
-			int pageNo, int pageSize) {
+public class CmsSearchWordsDaoImpl extends AbstractHibernateBaseDao<CmsSearchWords, Integer> implements CmsSearchWordsDao {
+	@Override
+    public Pagination getPage(Integer siteId, String name, Integer recommend, Integer orderBy,
+                              int pageNo, int pageSize) {
 		 Finder f=Finder.create("from CmsSearchWords words where  words.site.id=:siteId")
 				.setParam("siteId", siteId);
 		 if(StringUtils.isNotBlank(name)){
@@ -46,7 +47,8 @@ public class CmsSearchWordsDaoImpl extends HibernateBaseDao<CmsSearchWords, Inte
 		return page;
 	}
 	
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public List<CmsSearchWords> getList(Integer siteId,String name,
 			Integer recommend,Integer orderBy,
 			Integer first,Integer count,boolean cacheable){
@@ -85,12 +87,14 @@ public class CmsSearchWordsDaoImpl extends HibernateBaseDao<CmsSearchWords, Inte
 		return find(f);
 	}
 
-	public CmsSearchWords findById(Integer id) {
+	@Override
+    public CmsSearchWords findById(Integer id) {
 		CmsSearchWords entity = get(id);
 		return entity;
 	}
 	
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public CmsSearchWords findByName(String name) {
 		Finder f=Finder.create("from CmsSearchWords words where words.name=:name ").setParam("name", name);
 		List<CmsSearchWords>li=find(f);
@@ -101,12 +105,14 @@ public class CmsSearchWordsDaoImpl extends HibernateBaseDao<CmsSearchWords, Inte
 		}
 	}
 
-	public CmsSearchWords save(CmsSearchWords bean) {
+	@Override
+    public CmsSearchWords save(CmsSearchWords bean) {
 		getSession().save(bean);
 		return bean;
 	}
 
-	public CmsSearchWords deleteById(Integer id) {
+	@Override
+    public CmsSearchWords deleteById(Integer id) {
 		CmsSearchWords entity = super.get(id);
 		if (entity != null) {
 			getSession().delete(entity);

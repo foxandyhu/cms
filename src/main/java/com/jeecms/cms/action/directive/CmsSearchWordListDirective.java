@@ -48,7 +48,8 @@ public class CmsSearchWordListDirective implements TemplateDirectiveModel {
 	 */
 	public static final String PARAM_COUNT = "count";
 
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public void execute(Environment env, Map params, TemplateModel[] loopVars,
 			TemplateDirectiveBody body) throws TemplateException, IOException {
 		Integer siteId = getSiteId(params);

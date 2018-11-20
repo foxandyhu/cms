@@ -9,6 +9,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.json.JSONArray;
@@ -24,7 +25,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.jeecms.plug.store.entity.PlugStoreConfig;
 import com.jeecms.plug.store.entity.StorePlug;
 import com.jeecms.plug.store.manager.PlugStoreConfigMng;
-import com.jeecms.core.web.WebErrors;
 import com.jeecms.common.page.Pagination;
 import com.jeecms.common.security.encoder.Md5PwdEncoder;
 import com.jeecms.common.web.CookieUtils;

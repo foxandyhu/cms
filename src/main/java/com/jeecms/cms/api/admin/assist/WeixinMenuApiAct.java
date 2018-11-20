@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.slf4j.Logger;
@@ -24,7 +25,6 @@ import com.jeecms.common.page.Pagination;
 import com.jeecms.common.util.StrUtils;
 import com.jeecms.common.web.ResponseUtils;
 import com.jeecms.core.entity.CmsSite;
-import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
 import com.jeecms.plug.weixin.entity.Weixin;
 import com.jeecms.plug.weixin.entity.WeixinMenu;
@@ -198,7 +198,7 @@ public class WeixinMenuApiAct {
 		ResponseUtils.renderApiJson(response, request, apiResponse);
 	}
 	
-	private WebErrors validateDelete(WebErrors errors,Integer[] idArr){
+	private WebErrors validateDelete(WebErrors errors, Integer[] idArr){
 		if (idArr!=null) {
 			for (int i = 0; i < idArr.length; i++) {
 				vldExist(idArr[i], errors);

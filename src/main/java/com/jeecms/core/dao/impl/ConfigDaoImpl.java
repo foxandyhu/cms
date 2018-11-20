@@ -2,32 +2,36 @@ package com.jeecms.core.dao.impl;
 
 import java.util.List;
 
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 import org.springframework.stereotype.Repository;
 
-import com.jeecms.common.hibernate4.HibernateBaseDao;
 import com.jeecms.core.dao.ConfigDao;
 import com.jeecms.core.entity.Config;
 
 @Repository
-public class ConfigDaoImpl extends HibernateBaseDao<Config, String> implements
+public class ConfigDaoImpl extends AbstractHibernateBaseDao<Config, String> implements
 		ConfigDao {
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public List<Config> getList() {
 		String hql = "from Config";
 		return find(hql);
 	}
 
-	public Config findById(String id) {
+	@Override
+    public Config findById(String id) {
 		Config entity = get(id);
 		return entity;
 	}
 
-	public Config save(Config bean) {
+	@Override
+    public Config save(Config bean) {
 		getSession().save(bean);
 		return bean;
 	}
 
-	public Config deleteById(String id) {
+	@Override
+    public Config deleteById(String id) {
 		Config entity = super.get(id);
 		if (entity != null) {
 			getSession().delete(entity);

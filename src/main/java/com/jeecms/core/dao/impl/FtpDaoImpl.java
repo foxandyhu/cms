@@ -4,30 +4,34 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.jeecms.common.hibernate4.HibernateBaseDao;
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 import com.jeecms.core.dao.FtpDao;
 import com.jeecms.core.entity.Ftp;
 
 @Repository
-public class FtpDaoImpl extends HibernateBaseDao<Ftp, Integer> implements
+public class FtpDaoImpl extends AbstractHibernateBaseDao<Ftp, Integer> implements
 		FtpDao {
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public List<Ftp> getList() {
 		String hql = "from Ftp bean";
 		return find(hql);
 	}
 
-	public Ftp findById(Integer id) {
+	@Override
+    public Ftp findById(Integer id) {
 		Ftp entity = get(id);
 		return entity;
 	}
 
-	public Ftp save(Ftp bean) {
+	@Override
+    public Ftp save(Ftp bean) {
 		getSession().save(bean);
 		return bean;
 	}
 
-	public Ftp deleteById(Integer id) {
+	@Override
+    public Ftp deleteById(Integer id) {
 		Ftp entity = super.get(id);
 		if (entity != null) {
 			getSession().delete(entity);

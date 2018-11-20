@@ -58,7 +58,7 @@ public class ContentPushListener extends ContentListenerAbstract {
 		if (content.getSite().getConfig().getAttr().containsKey("bdToken")&&content.getSite().getConfig().getAttr().containsKey("isBdSubmit")) {			
 			String bdToken= content.getSite().getConfig().getAttr().get("bdToken");
 			String isBdSubmit=content.getSite().getConfig().getAttr().get("isBdSubmit");
-			if (isBdSubmit.equals("true")) {			
+			if ("true".equals(isBdSubmit)) {
 				pushPost(content.getUrl(),domain,bdToken);
 			}
 		}
@@ -126,15 +126,18 @@ public class ContentPushListener extends ContentListenerAbstract {
 	    try {
 	        SSLContext ctx = SSLContext.getInstance("TLSv1");
 	        X509TrustManager tm = new X509TrustManager() {
-	            public void checkClientTrusted(X509Certificate[] xcs,
-	                    String string) throws CertificateException {
+	            @Override
+                public void checkClientTrusted(X509Certificate[] xcs,
+                                               String string) throws CertificateException {
 	            }
 	
-	            public void checkServerTrusted(X509Certificate[] xcs,
-	                    String string) throws CertificateException {
+	            @Override
+                public void checkServerTrusted(X509Certificate[] xcs,
+                                               String string) throws CertificateException {
 	            }
 	
-	            public X509Certificate[] getAcceptedIssuers() {
+	            @Override
+                public X509Certificate[] getAcceptedIssuers() {
 	                return null;
 	            }
 	        };

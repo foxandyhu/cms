@@ -201,7 +201,7 @@ public class ImageUploadAct {
 	}
 
 	private WebCoreErrors validate(String filename, MultipartFile file,
-			HttpServletRequest request) {
+								   HttpServletRequest request) {
 		WebCoreErrors errors = WebCoreErrors.create(request);
 		if (file == null) {
 			errors.addErrorCode("imageupload.error.noFileToUpload");

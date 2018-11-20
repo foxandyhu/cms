@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -31,7 +32,6 @@ import com.jeecms.core.entity.CmsSite;
 import com.jeecms.core.entity.CmsUser;
 import com.jeecms.core.entity.CmsUserResume;
 import com.jeecms.core.manager.CmsUserMng;
-import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
 
 @Controller
@@ -179,7 +179,7 @@ public class CmsJobApplyApiAct {
 		return json;
 	}
 	
-	private WebErrors validateDelete(WebErrors errors,Integer[] ids) {
+	private WebErrors validateDelete(WebErrors errors, Integer[] ids) {
 		if (errors.ifEmpty(ids, "ids", true)) {
 			return errors;
 		}
@@ -189,7 +189,7 @@ public class CmsJobApplyApiAct {
 		return errors;
 	}
 	
-	private WebErrors validateViewResume(WebErrors errors,Integer userId,Integer contentId,HttpServletRequest request) {
+	private WebErrors validateViewResume(WebErrors errors, Integer userId, Integer contentId, HttpServletRequest request) {
 		CmsSite site = CmsUtils.getSite(request);
 		CmsUser u=userMng.findById(userId);
 		if(u==null){

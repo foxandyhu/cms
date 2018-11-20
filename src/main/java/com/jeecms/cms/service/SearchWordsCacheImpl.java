@@ -18,7 +18,8 @@ import com.jeecms.cms.manager.assist.CmsSearchWordsMng;
 public class SearchWordsCacheImpl implements SearchWordsCache, DisposableBean {
 	private Logger log = LoggerFactory.getLogger(SearchWordsCacheImpl.class);
 
-	public void cacheWord(String name) {
+	@Override
+    public void cacheWord(String name) {
 		Element e = cache.get(name);
 		//搜索次数
 		Integer hits;
@@ -45,7 +46,8 @@ public class SearchWordsCacheImpl implements SearchWordsCache, DisposableBean {
 	/**
 	 * 销毁BEAN时，缓存入库。
 	 */
-	public void destroy() throws Exception {
+	@Override
+    public void destroy() throws Exception {
 		int count = manager.freshCacheToDB(cache);
 		log.info("Bean destroy.refresh cache flows to DB: {}", count);
 	}

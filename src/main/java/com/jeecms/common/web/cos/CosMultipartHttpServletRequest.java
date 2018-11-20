@@ -83,19 +83,23 @@ public class CosMultipartHttpServletRequest extends AbstractMultipartHttpServlet
 		return files;
 	}
 
-	public Enumeration<String> getParameterNames() {
+	@Override
+    public Enumeration<String> getParameterNames() {
 		return this.multipartRequest.getParameterNames();
 	}
 
-	public String getParameter(String name) {
+	@Override
+    public String getParameter(String name) {
 		return this.multipartRequest.getParameter(name);
 	}
 
-	public String[] getParameterValues(String name) {
+	@Override
+    public String[] getParameterValues(String name) {
 		return this.multipartRequest.getParameterValues(name);
 	}
 
-	public Map<String,String[]> getParameterMap() {
+	@Override
+    public Map<String,String[]> getParameterMap() {
 		Map<String,String[]> params = new HashMap<String,String[]>();
 		Enumeration<String> names = getParameterNames();
 		while (names.hasMoreElements()) {
@@ -123,28 +127,34 @@ public class CosMultipartHttpServletRequest extends AbstractMultipartHttpServlet
 			this.size = (this.file != null ? this.file.length() : 0);
 		}
 
-		public String getName() {
+		@Override
+        public String getName() {
 			return name;
 		}
 
-		public String getOriginalFilename() {
+		@Override
+        public String getOriginalFilename() {
 			String filename = multipartRequest.getOriginalFileName(this.name);
 			return (filename != null ? filename : "");
 		}
 
-		public String getContentType() {
+		@Override
+        public String getContentType() {
 			return multipartRequest.getContentType(this.name);
 		}
 
-		public boolean isEmpty() {
+		@Override
+        public boolean isEmpty() {
 			return (this.size == 0);
 		}
 
-		public long getSize() {
+		@Override
+        public long getSize() {
 			return this.size;
 		}
 
-		public byte[] getBytes() throws IOException {
+		@Override
+        public byte[] getBytes() throws IOException {
 			if (this.file != null && !this.file.exists()) {
 				throw new IllegalStateException(
 						"File has been moved - cannot be read again");
@@ -153,7 +163,8 @@ public class CosMultipartHttpServletRequest extends AbstractMultipartHttpServlet
 					: new byte[0]);
 		}
 
-		public InputStream getInputStream() throws IOException {
+		@Override
+        public InputStream getInputStream() throws IOException {
 			if (this.file != null && !this.file.exists()) {
 				throw new IllegalStateException(
 						"File has been moved - cannot be read again");
@@ -165,7 +176,8 @@ public class CosMultipartHttpServletRequest extends AbstractMultipartHttpServlet
 			}
 		}
 
-		public void transferTo(File dest) throws IOException,
+		@Override
+        public void transferTo(File dest) throws IOException,
 				IllegalStateException {
 			if (this.file != null && !this.file.exists()) {
 				throw new IllegalStateException(
@@ -204,11 +216,13 @@ public class CosMultipartHttpServletRequest extends AbstractMultipartHttpServlet
 	}
 
 	//以下添加于2014.1.9
-	public HttpHeaders getMultipartHeaders(String arg0) {
+	@Override
+    public HttpHeaders getMultipartHeaders(String arg0) {
 		return super.getRequestHeaders();
 	}
 	
-	public String getMultipartContentType(String arg0) {
+	@Override
+    public String getMultipartContentType(String arg0) {
 		return super.getContentType();
 	}
 

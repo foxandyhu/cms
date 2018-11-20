@@ -13,14 +13,16 @@ import com.jeecms.core.manager.CmsSiteCompanyMng;
 @Service
 @Transactional
 public class CmsSiteCompanyMngImpl implements CmsSiteCompanyMng {
-	public CmsSiteCompany save(CmsSite site,CmsSiteCompany bean) {
+	@Override
+    public CmsSiteCompany save(CmsSite site, CmsSiteCompany bean) {
 		site.setSiteCompany(bean);
 		bean.setSite(site);
 		dao.save(bean);
 		return bean;
 	}
 
-	public CmsSiteCompany update(CmsSiteCompany bean) {
+	@Override
+    public CmsSiteCompany update(CmsSiteCompany bean) {
 		Updater<CmsSiteCompany> updater = new Updater<CmsSiteCompany>(bean);
 		bean = dao.updateByUpdater(updater);
 		return bean;

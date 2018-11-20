@@ -11,13 +11,13 @@ package com.jeecms.common.web.cos;
  * @author Geoff Soutter
  * @version 1.0, 2000/10/27, initial revision
  */
-public abstract class Part {
+public abstract class AbstractPart {
   private String name;
   
   /**
    * Constructs an upload part with the given name.
    */
-  Part(String name) {
+  AbstractPart(String name) {
     this.name = name;
   }
   

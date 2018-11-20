@@ -193,10 +193,12 @@ public class CosMultipartRequest {
                           String encoding,
                           FileRenamePolicy policy) throws IOException {
     // Sanity check values
-    if (request == null)
+    if (request == null) {
       throw new IllegalArgumentException("request cannot be null");
-    if (saveDirectory == null)
+    }
+    if (saveDirectory == null) {
       throw new IllegalArgumentException("saveDirectory cannot be null");
+    }
     if (maxPostSize <= 0) {
       throw new IllegalArgumentException("maxPostSize must be positive");
     }
@@ -205,13 +207,13 @@ public class CosMultipartRequest {
     File dir = new File(saveDirectory);
 
     // Check saveDirectory is truly a directory
-    if (!dir.isDirectory())
+    if (!dir.isDirectory()) {
       throw new IllegalArgumentException("Not a directory: " + saveDirectory);
-
+    }
     // Check saveDirectory is writable
-    if (!dir.canWrite())
+    if (!dir.canWrite()) {
       throw new IllegalArgumentException("Not writable: " + saveDirectory);
-
+    }
     // Parse the incoming multipart, storing files in the dir provided, 
     // and populate the meta objects which describe what we found
     MultipartParser parser =
@@ -230,7 +232,7 @@ public class CosMultipartRequest {
       }
     }
 
-    Part part;
+    AbstractPart part;
     while ((part = parser.readNextPart()) != null) {
       String name = part.getName();
       if (name == null) {

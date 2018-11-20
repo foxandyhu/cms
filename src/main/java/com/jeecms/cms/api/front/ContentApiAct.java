@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,7 +25,6 @@ import com.jeecms.cms.manager.main.ContentMng;
 import com.jeecms.common.util.ArrayUtils;
 import com.jeecms.common.web.ResponseUtils;
 import com.jeecms.core.entity.CmsUser;
-import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
 
 @Controller("frontContentApiAct")
@@ -181,7 +181,7 @@ public class ContentApiAct {
 		if (trimHtml==null) {
 			trimHtml=false;
 		}
-		WebErrors errors=WebErrors.create(request);
+		WebErrors errors= WebErrors.create(request);
 		ApiAccount apiAccount = null;
 		CmsUser user;
 		//验证公共非空参数

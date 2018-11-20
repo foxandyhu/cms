@@ -20,18 +20,21 @@ import com.jeecms.cms.manager.assist.CmsConfigContentChargeMng;
 @Transactional
 public class CmsConfigContentChargeMngImpl implements CmsConfigContentChargeMng {
 	
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public CmsConfigContentCharge findById(Integer id) {
 		CmsConfigContentCharge entity = dao.findById(id);
 		return entity;
 	}
 	
-	public CmsConfigContentCharge getDefault() {
+	@Override
+    public CmsConfigContentCharge getDefault() {
 		return findById(1);
 	}
 
-	public CmsConfigContentCharge update(CmsConfigContentCharge bean,
-			String payTransferPassword,Map<String,String> keys,Map<String,String>fixVal) {
+	@Override
+    public CmsConfigContentCharge update(CmsConfigContentCharge bean,
+                                         String payTransferPassword, Map<String,String> keys, Map<String,String>fixVal) {
 		Updater<CmsConfigContentCharge> updater = new Updater<CmsConfigContentCharge>(bean);
 		for(Entry<String, String> att:keys.entrySet()){
 			if(StringUtils.isBlank(att.getValue())){
@@ -50,7 +53,8 @@ public class CmsConfigContentChargeMngImpl implements CmsConfigContentChargeMng 
 		return bean;
 	}
 	
-	public CmsConfigContentCharge afterUserPay(Double payAmout){
+	@Override
+    public CmsConfigContentCharge afterUserPay(Double payAmout){
 		CmsConfigContentCharge config=getDefault();
 		Calendar curr = Calendar.getInstance();
 		Calendar last = Calendar.getInstance();

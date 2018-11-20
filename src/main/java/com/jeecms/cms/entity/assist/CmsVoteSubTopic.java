@@ -63,6 +63,7 @@ public class CmsVoteSubTopic implements PriorityInterface, Comparable<Object>, S
     @OneToMany(mappedBy = "subTopic", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Set<CmsVoteReply> voteReplys;
 
+    @Override
     public Integer getId() {
         return id;
     }
@@ -90,6 +91,7 @@ public class CmsVoteSubTopic implements PriorityInterface, Comparable<Object>, S
         this.type = type;
     }
 
+    @Override
     public Integer getPriority() {
         return priority;
     }
@@ -157,6 +159,7 @@ public class CmsVoteSubTopic implements PriorityInterface, Comparable<Object>, S
         }
     }
 
+    @Override
     public int compareTo(Object o) {
         return getPriority();
     }

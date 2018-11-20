@@ -1,14 +1,13 @@
 package com.jeecms.cms.action.member;
 import static com.jeecms.cms.Constants.TPLDIR_MEMBER;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,6 @@ import com.jeecms.core.entity.CmsUser;
 import com.jeecms.core.entity.Ftp;
 import com.jeecms.core.manager.CmsUserMng;
 import com.jeecms.core.manager.DbFileMng;
-import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
 import com.jeecms.core.web.util.FrontUtils;
 
@@ -100,7 +98,8 @@ public class ContributeAct extends AbstractContentMemberAct {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/member/contribute_save.html")
+	@Override
+    @RequestMapping(value = "/member/contribute_save.html")
 	public String save(String title, String author, String description,
 			String txt, String tagStr, Integer channelId,Integer modelId, 
 			String captcha,String mediaPath,String mediaType,
@@ -158,7 +157,8 @@ public class ContributeAct extends AbstractContentMemberAct {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/member/contribute_update.html")
+	@Override
+    @RequestMapping(value = "/member/contribute_update.html")
 	public String update(Integer id, String title, String author,
 			String description, String txt, String tagStr, Integer channelId,
 			String mediaPath,String mediaType,
@@ -189,7 +189,8 @@ public class ContributeAct extends AbstractContentMemberAct {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/member/contribute_delete.html")
+	@Override
+    @RequestMapping(value = "/member/contribute_delete.html")
 	public String delete(Integer[] ids, HttpServletRequest request,
 			String nextUrl, HttpServletResponse response, ModelMap model) {
 		return super.delete(ids, request, nextUrl, response, model);
@@ -325,7 +326,7 @@ public class ContributeAct extends AbstractContentMemberAct {
 	}
 	
 	private WebErrors validateUpload(MultipartFile file,
-			HttpServletRequest request) {
+									 HttpServletRequest request) {
 		String origName = file.getOriginalFilename();
 		CmsUser user= CmsUtils.getUser(request);
 		String ext = FilenameUtils.getExtension(origName).toLowerCase(Locale.ENGLISH);

@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,88 +39,95 @@ import com.jeecms.cms.entity.main.ContentCheck;
 import com.jeecms.cms.entity.main.Content.ContentStatus;
 import com.jeecms.cms.service.ContentQueryFreshTimeCache;
 import com.jeecms.common.hibernate4.Finder;
-import com.jeecms.common.hibernate4.HibernateBaseDao;
 import com.jeecms.common.page.Pagination;
 
 @Repository
-public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
+public class ContentDaoImpl extends AbstractHibernateBaseDao<Content, Integer>
 		implements ContentDao {
 	
-	public Pagination getPage(Integer share,String title, Integer typeId,Integer currUserId,
-			Integer inputUserId, boolean topLevel, boolean recommend,
-			ContentStatus status, Byte checkStep, Integer siteId,Integer modelId,
-			Integer channelId,int orderBy, int pageNo, int pageSize) {
+	@Override
+    public Pagination getPage(Integer share, String title, Integer typeId, Integer currUserId,
+                              Integer inputUserId, boolean topLevel, boolean recommend,
+                              ContentStatus status, Byte checkStep, Integer siteId, Integer modelId,
+                              Integer channelId, int orderBy, int pageNo, int pageSize) {
 		return getPageData(Content.QUERY_DATA, share, title, typeId, 
 				currUserId, inputUserId, topLevel, recommend, status,
 				checkStep, siteId, modelId, channelId, orderBy, pageNo, pageSize);
 	}
 	
-	public Pagination getPageCount(Integer share,String title, Integer typeId,Integer currUserId,
-			Integer inputUserId, boolean topLevel, boolean recommend,
-			ContentStatus status, Byte checkStep, Integer siteId,Integer modelId,
-			Integer channelId,int orderBy, int pageNo, int pageSize) {
+	@Override
+    public Pagination getPageCount(Integer share, String title, Integer typeId, Integer currUserId,
+                                   Integer inputUserId, boolean topLevel, boolean recommend,
+                                   ContentStatus status, Byte checkStep, Integer siteId, Integer modelId,
+                                   Integer channelId, int orderBy, int pageNo, int pageSize) {
 		return getPageData(Content.QUERY_PAGE, share, title, typeId, 
 				currUserId, inputUserId, topLevel, recommend, status,
 				checkStep, siteId, modelId, channelId, orderBy, pageNo, pageSize);
 	}
 	
-	public Pagination getPageForMember(Integer share,String title,
-			Integer typeId,Integer currUserId,
-			Integer inputUserId, boolean topLevel, boolean recommend,
-			ContentStatus status, Byte checkStep, Integer siteId,Integer modelId,
-			Integer channelId,int orderBy, int pageNo, int pageSize){
+	@Override
+    public Pagination getPageForMember(Integer share, String title,
+                                       Integer typeId, Integer currUserId,
+                                       Integer inputUserId, boolean topLevel, boolean recommend,
+                                       ContentStatus status, Byte checkStep, Integer siteId, Integer modelId,
+                                       Integer channelId, int orderBy, int pageNo, int pageSize){
 		return getPageData(Content.QUERY_TOTAL, share, title, typeId, 
 				currUserId, inputUserId, topLevel, recommend, status,
 				checkStep, siteId, modelId, channelId, orderBy, pageNo, pageSize);
 	}
 
 	//只能管理自己的数据不能审核他人信息，工作流相关表无需查询
-	public Pagination getPageBySelf(Integer share,String title, Integer typeId,
-			Integer inputUserId, boolean topLevel, boolean recommend,
-			ContentStatus status, Byte checkStep, Integer siteId,
-			Integer channelId, Integer userId, int orderBy, int pageNo,
-			int pageSize) {
+	@Override
+    public Pagination getPageBySelf(Integer share, String title, Integer typeId,
+                                    Integer inputUserId, boolean topLevel, boolean recommend,
+                                    ContentStatus status, Byte checkStep, Integer siteId,
+                                    Integer channelId, Integer userId, int orderBy, int pageNo,
+                                    int pageSize) {
 		return getPageDataBySelf(Content.QUERY_DATA, share, title, typeId, inputUserId,
 				topLevel, recommend, status, checkStep, siteId, channelId,
 				userId, orderBy, pageNo, pageSize);
 	}
 	
-	public Pagination getPageCountBySelf(Integer share,String title, Integer typeId,
-			Integer inputUserId, boolean topLevel, boolean recommend,
-			ContentStatus status, Byte checkStep, Integer siteId,
-			Integer channelId, Integer userId, int orderBy, int pageNo,
-			int pageSize) {
+	@Override
+    public Pagination getPageCountBySelf(Integer share, String title, Integer typeId,
+                                         Integer inputUserId, boolean topLevel, boolean recommend,
+                                         ContentStatus status, Byte checkStep, Integer siteId,
+                                         Integer channelId, Integer userId, int orderBy, int pageNo,
+                                         int pageSize) {
 		return getPageDataBySelf(Content.QUERY_PAGE, share, title, typeId, inputUserId,
 				topLevel, recommend, status, checkStep, siteId, channelId,
 				userId, orderBy, pageNo, pageSize);
 	}
 
-	public Pagination getPageByRight(Integer share,String title, Integer typeId,
-			Integer currUserId,Integer inputUserId, boolean topLevel, boolean recommend,
-			ContentStatus status, Byte checkStep, Integer siteId,
-			Integer channelId, Integer userId, boolean selfData, int orderBy,
-			int pageNo,int pageSize) {
+	@Override
+    public Pagination getPageByRight(Integer share, String title, Integer typeId,
+                                     Integer currUserId, Integer inputUserId, boolean topLevel, boolean recommend,
+                                     ContentStatus status, Byte checkStep, Integer siteId,
+                                     Integer channelId, Integer userId, boolean selfData, int orderBy,
+                                     int pageNo, int pageSize) {
 		return getPageDataByRight(Content.QUERY_DATA,share, title, typeId, currUserId,
 				inputUserId, topLevel, recommend, status, checkStep,
 				siteId, channelId, userId, selfData, orderBy,
 				pageNo, pageSize);
 	}
 	
-	public Pagination getPageCountByRight(Integer share,String title, Integer typeId,
-			Integer currUserId,Integer inputUserId, boolean topLevel, boolean recommend,
-			ContentStatus status, Byte checkStep, Integer siteId,
-			Integer channelId, Integer userId, boolean selfData, int orderBy,
-			int pageNo,int pageSize) {
+	@Override
+    public Pagination getPageCountByRight(Integer share, String title, Integer typeId,
+                                          Integer currUserId, Integer inputUserId, boolean topLevel, boolean recommend,
+                                          ContentStatus status, Byte checkStep, Integer siteId,
+                                          Integer channelId, Integer userId, boolean selfData, int orderBy,
+                                          int pageNo, int pageSize) {
 		return getPageDataByRight(Content.QUERY_PAGE,share, title, typeId, currUserId,
 				inputUserId, topLevel, recommend, status, checkStep,
 				siteId, channelId, userId, selfData, orderBy,
 				pageNo, pageSize);
 	}
 	
-	public List<Content> getList(String title, Integer typeId,Integer currUserId,
-			Integer inputUserId, boolean topLevel, boolean recommend,
-			ContentStatus status, Byte checkStep, Integer siteId,Integer modelId,
-			Integer channelId,int orderBy, int first, int count) {
+	@Override
+    public List<Content> getList(String title, Integer typeId, Integer currUserId,
+                                 Integer inputUserId, boolean topLevel, boolean recommend,
+                                 ContentStatus status, Byte checkStep, Integer siteId, Integer modelId,
+                                 Integer channelId, int orderBy, int first, int count) {
 		Finder f = Finder.create("select  bean from Content bean ");
 		if (rejected == status||prepared == status|| passed == status) {
 			f.append("  join bean.contentCheckSet check ");
@@ -373,13 +381,15 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 	}
 	
 
-	public Pagination getPageForCollection(Integer siteId, Integer memberId, int pageNo, int pageSize){
+	@Override
+    public Pagination getPageForCollection(Integer siteId, Integer memberId, int pageNo, int pageSize){
 		Finder f=createCollectFinder(siteId, memberId);
 		return find(f, pageNo, pageSize);
 	}
 	
-	public List<Content> getListForCollection(Integer siteId, Integer memberId, 
-			Integer first, Integer count){
+	@Override
+    public List<Content> getListForCollection(Integer siteId, Integer memberId,
+                                              Integer first, Integer count){
 		Finder f=createCollectFinder(siteId, memberId);
 		if(first!=null){
 			f.setFirstResult(first);
@@ -390,14 +400,16 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 		return find(f);
 	}
 	
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public  List<Content> getExpiredTopLevelContents(byte topLevel,Date expiredDay){
 		String hql = "from  Content bean where bean.status=:status and bean.topLevel>:topLevel and bean.contentExt.topLevelDate<:topLevelDate";
 		Finder f=Finder.create(hql).setParam("status", ContentCheck.CHECKED).setParam("topLevel", topLevel).setParam("topLevelDate", expiredDay);
 		return find(f);
 	}
 	
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public  List<Content> getPigeonholeContents(Date pigeonholeDay){
 		String hql = "from  Content bean where bean.status=:status and bean.contentExt.pigeonholeDate<:pigeonholeDate";
 		Finder f=Finder.create(hql).setParam("status", ContentCheck.CHECKED).setParam("pigeonholeDate", pigeonholeDay);
@@ -466,8 +478,9 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 	}
 	
 
-	public Content getSide(Integer id, Integer siteId, Integer channelId,
-			boolean next, boolean cacheable) {
+	@Override
+    public Content getSide(Integer id, Integer siteId, Integer channelId,
+                           boolean next, boolean cacheable) {
 		Finder f = Finder.create("from Content bean where 1=1");
 		if (channelId != null) {
 			f.append(" and bean.channel.id=:channelId");
@@ -492,7 +505,8 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 		return (Content) query.uniqueResult();
 	}
 
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public List<Content> getListByIdsForTag(Integer[] ids, int orderBy) {
 		Finder f = Finder.create("from Content bean where bean.id in (:ids)");
 		f.setParamList("ids", ids);
@@ -501,16 +515,18 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 		return find(f);
 	}
 
-	public Pagination getPageBySiteIdsForTag(Integer[] siteIds,
-			Integer[] typeIds, Boolean titleImg, Boolean recommend,
-			String title, Map<String,String[]>attr,int orderBy,int pageNo, int pageSize) {
+	@Override
+    public Pagination getPageBySiteIdsForTag(Integer[] siteIds,
+                                             Integer[] typeIds, Boolean titleImg, Boolean recommend,
+                                             String title, Map<String,String[]>attr, int orderBy, int pageNo, int pageSize) {
 		Finder f = bySiteIds(siteIds, typeIds, titleImg, recommend, title,
 				attr,orderBy);
 		f.setCacheable(true);
 		return find(f, pageNo, pageSize);
 	}
 
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public List<Content> getListBySiteIdsForTag(Integer[] siteIds,
 			Integer[] typeIds, Boolean titleImg, Boolean recommend,
 			String title,Map<String,String[]>attr,int orderBy, Integer first, Integer count) {
@@ -525,16 +541,18 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 		return find(f);
 	}
 
-	public Pagination getPageByChannelIdsForTag(Integer[] channelIds,
-			Integer[] typeIds, Boolean titleImg, Boolean recommend,
-			String title,Map<String,String[]>attr, int orderBy, int option, int pageNo,int pageSize) {
+	@Override
+    public Pagination getPageByChannelIdsForTag(Integer[] channelIds,
+                                                Integer[] typeIds, Boolean titleImg, Boolean recommend,
+                                                String title, Map<String,String[]>attr, int orderBy, int option, int pageNo, int pageSize) {
 		Finder f = byChannelIds(channelIds, typeIds, titleImg, recommend,
 				title, attr,orderBy,option);
 		f.setCacheable(true);
 		return find(f, pageNo, pageSize);
 	}
 
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public List<Content> getListByChannelIdsForTag(Integer[] channelIds,
 			Integer[] typeIds, Boolean titleImg, Boolean recommend,
 			String title,Map<String,String[]>attr,int orderBy, int option, Integer first, Integer count) {
@@ -550,16 +568,18 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 		return find(f);
 	}
 
-	public Pagination getPageByChannelPathsForTag(String[] paths,
-			Integer[] siteIds, Integer[] typeIds, Boolean titleImg,
-			Boolean recommend, String title, Map<String,String[]>attr,int orderBy,int pageNo, int pageSize) {
+	@Override
+    public Pagination getPageByChannelPathsForTag(String[] paths,
+                                                  Integer[] siteIds, Integer[] typeIds, Boolean titleImg,
+                                                  Boolean recommend, String title, Map<String,String[]>attr, int orderBy, int pageNo, int pageSize) {
 		Finder f = byChannelPaths(paths, siteIds, typeIds, titleImg, recommend,
 				title,attr,orderBy);
 		f.setCacheable(true);
 		return find(f, pageNo, pageSize);
 	}
 
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public List<Content> getListByChannelPathsForTag(String[] paths,
 			Integer[] siteIds, Integer[] typeIds, Boolean titleImg,
 			Boolean recommend, String title,Map<String,String[]>attr,int orderBy, Integer first, Integer count) {
@@ -575,17 +595,19 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 		return find(f);
 	}
 
-	public Pagination getPageByTopicIdForTag(Integer topicId,
-			Integer[] siteIds, Integer[] channelIds, Integer[] typeIds,
-			Boolean titleImg, Boolean recommend, String title, Map<String,String[]>attr,int orderBy,int pageNo,
-			int pageSize) {
+	@Override
+    public Pagination getPageByTopicIdForTag(Integer topicId,
+                                             Integer[] siteIds, Integer[] channelIds, Integer[] typeIds,
+                                             Boolean titleImg, Boolean recommend, String title, Map<String,String[]>attr, int orderBy, int pageNo,
+                                             int pageSize) {
 		Finder f = byTopicId(topicId, siteIds, channelIds, typeIds, titleImg,
 				recommend, title, attr,orderBy);
 		f.setCacheable(true);
 		return find(f, pageNo, pageSize);
 	}
 
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public List<Content> getListByTopicIdForTag(Integer topicId,
 			Integer[] siteIds, Integer[] channelIds, Integer[] typeIds,
 			Boolean titleImg, Boolean recommend, String title,Map<String,String[]>attr,int orderBy, Integer first,
@@ -602,17 +624,19 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 		return find(f);
 	}
 
-	public Pagination getPageByTagIdsForTag(Integer[] tagIds,
-			Integer[] siteIds, Integer[] channelIds, Integer[] typeIds,
-			Integer excludeId, Boolean titleImg, Boolean recommend,
-			String title,Map<String,String[]>attr, int orderBy,int pageNo, int pageSize) {
+	@Override
+    public Pagination getPageByTagIdsForTag(Integer[] tagIds,
+                                            Integer[] siteIds, Integer[] channelIds, Integer[] typeIds,
+                                            Integer excludeId, Boolean titleImg, Boolean recommend,
+                                            String title, Map<String,String[]>attr, int orderBy, int pageNo, int pageSize) {
 		Finder f = byTagIds(tagIds, siteIds, channelIds, typeIds, excludeId,
 				titleImg, recommend, title,attr,orderBy);
 		f.setCacheable(true);
 		return find(f, pageNo, pageSize);
 	}
 
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public List<Content> getListByTagIdsForTag(Integer[] tagIds,
 			Integer[] siteIds, Integer[] channelIds, Integer[] typeIds,
 			Integer excludeId, Boolean titleImg, Boolean recommend,
@@ -1076,7 +1100,8 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 		}
 	}
 
-	public int countByChannelId(int channelId) {
+	@Override
+    public int countByChannelId(int channelId) {
 		String hql = "select count(*) from Content bean"
 				+ " join bean.channel channel,Channel parent"
 				+ " where channel.lft between parent.lft and parent.rgt"
@@ -1087,17 +1112,20 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 		return ((Number) (query.iterate().next())).intValue();
 	}
 
-	public Content findById(Integer id) {
+	@Override
+    public Content findById(Integer id) {
 		Content entity = get(id);
 		return entity;
 	}
 
-	public Content save(Content bean) {
+	@Override
+    public Content save(Content bean) {
 		getSession().save(bean);
 		return bean;
 	}
 
-	public Content deleteById(Integer id) {
+	@Override
+    public Content deleteById(Integer id) {
 		Content entity = super.get(id);
 		if (entity != null) {
 			getSession().delete(entity);

@@ -36,7 +36,8 @@ public class CmsAuthorizingRealm extends AuthorizingRealm {
 	/**
 	 * 登录认证
 	 */
-	protected AuthenticationInfo doGetAuthenticationInfo(
+	@Override
+    protected AuthenticationInfo doGetAuthenticationInfo(
 			AuthenticationToken authcToken) throws AuthenticationException {
 		UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
 		CmsUser user = cmsUserMng.findByUsername(token.getUsername());
@@ -51,7 +52,8 @@ public class CmsAuthorizingRealm extends AuthorizingRealm {
 	/**
 	 * 授权
 	 */
-	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+	@Override
+    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		String username = (String) principals.getPrimaryPrincipal();
 		CmsUser user = cmsUserMng.findByUsername(username);
 		CmsSite site=CmsThreadVariable.getSite();

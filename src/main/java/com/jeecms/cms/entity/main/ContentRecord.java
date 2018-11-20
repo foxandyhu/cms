@@ -66,16 +66,16 @@ public class ContentRecord implements Serializable {
         shared
     }
 
-    public static final byte add = 0;
-    public static final byte edit = 1;
-    public static final byte check = 2;
-    public static final byte rejected = 3;
-    public static final byte move = 4;
-    public static final byte createPage = 5;
-    public static final byte cycle = 6;
-    public static final byte pigeonhole = 7;
-    public static final byte reuse = 8;
-    public static final byte shared = 9;
+    public static final byte ADD = 0;
+    public static final byte EDIT = 1;
+    public static final byte CHECK = 2;
+    public static final byte REJECTED = 3;
+    public static final byte MOVE = 4;
+    public static final byte CREATEPAGE = 5;
+    public static final byte CYCLE = 6;
+    public static final byte PIGEONHOLE = 7;
+    public static final byte REUSE = 8;
+    public static final byte SHARED = 9;
 
     public JSONObject convertToJson() {
         JSONObject json = new JSONObject();

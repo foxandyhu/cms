@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +27,7 @@ import com.jeecms.common.util.AES128Util;
 import com.jeecms.common.web.ResponseUtils;
 import com.jeecms.core.entity.CmsConfig;
 import com.jeecms.core.manager.CmsConfigMng;
-import com.jeecms.core.web.WebErrors;
+
 @Controller
 public class ApiAccountApiAct {
 	private static final Logger log = LoggerFactory.getLogger(ApiAccountApiAct.class);

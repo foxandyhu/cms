@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.jeecms.cms.web.CmsThreadVariable;
+import com.jeecms.core.web.WebErrors;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,6 @@ import com.jeecms.common.web.ResponseUtils;
 import com.jeecms.core.entity.CmsSite;
 import com.jeecms.core.entity.CmsUser;
 import com.jeecms.core.manager.CmsSiteMng;
-import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
 
 /**
@@ -60,7 +60,7 @@ public class MemberApiInterceptor extends HandlerInterceptorAdapter {
 		CmsThreadVariable.setSite(site);
 		String body="\"\"";
 		String message=Constants.API_STATUS_FAIL;
-		WebErrors errors=WebErrors.create(request);
+		WebErrors errors= WebErrors.create(request);
 		//验证appId是否有效
 		String code=ResponseCode.API_CODE_USER_NOT_LOGIN;
 		ApiAccount apiAccount=apiAccountMng.getApiAccount(request);

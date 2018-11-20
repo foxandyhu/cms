@@ -19,14 +19,16 @@ import com.jeecms.common.page.Pagination;
 @Transactional
 public class ContentChargeMngImpl implements ContentChargeMng {
 	
-	@Transactional(readOnly=true)
+	@Override
+    @Transactional(readOnly=true)
 	public List<ContentCharge> getList(String contentTitle,Integer authorUserId,
 			Date buyTimeBegin,Date buyTimeEnd,int orderBy,Integer first,Integer count){
 		return dao.getList(contentTitle,authorUserId,
 				buyTimeBegin,buyTimeEnd, orderBy,first, count);
 	}
 	
-	@Transactional(readOnly=true)
+	@Override
+    @Transactional(readOnly=true)
 	public Pagination getPage(String contentTitle,Integer authorUserId,
 			Date buyTimeBegin,Date buyTimeEnd,
 			int orderBy,int pageNo,int pageSize){
@@ -34,9 +36,10 @@ public class ContentChargeMngImpl implements ContentChargeMng {
 				buyTimeBegin,buyTimeEnd,orderBy,pageNo,pageSize);
 	}
 	
-	public ContentCharge save(Double chargeAmount, Short charge,
-			Boolean rewardPattern,Double rewardRandomMin,
-			Double rewardRandomMax,Content content){
+	@Override
+    public ContentCharge save(Double chargeAmount, Short charge,
+                              Boolean rewardPattern, Double rewardRandomMin,
+                              Double rewardRandomMax, Content content){
 		ContentCharge contentCharge=new ContentCharge();
 		if(charge!=null){
 			if(chargeAmount==null){
@@ -61,9 +64,10 @@ public class ContentChargeMngImpl implements ContentChargeMng {
 		return contentCharge;
 	}
 	
-	public void afterContentUpdate(Content bean,Short charge,Double chargeAmount
-			,Boolean rewardPattern,Double rewardRandomMin,
-			Double rewardRandomMax) {
+	@Override
+    public void afterContentUpdate(Content bean, Short charge, Double chargeAmount
+			, Boolean rewardPattern, Double rewardRandomMin,
+                                   Double rewardRandomMax) {
 		if(charge!=null&&!charge.equals(ContentCharge.MODEL_FREE)){
 			ContentCharge c=bean.getContentCharge();
 			//收费金额变更
@@ -115,13 +119,15 @@ public class ContentChargeMngImpl implements ContentChargeMng {
 		}
 	}
 
-	public ContentCharge update(ContentCharge bean) {
+	@Override
+    public ContentCharge update(ContentCharge bean) {
 		Updater<ContentCharge> updater = new Updater<ContentCharge>(bean);
 		bean = dao.updateByUpdater(updater);
 		return bean;
 	}
 	
-	public ContentCharge afterUserPay(Double payAmout, Content content){
+	@Override
+    public ContentCharge afterUserPay(Double payAmout, Content content){
 		Calendar curr = Calendar.getInstance();
 		Calendar last = Calendar.getInstance();
 		ContentCharge charge=content.getContentCharge();

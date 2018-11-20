@@ -83,6 +83,7 @@ public class BufferedServletInputStream extends ServletInputStream {
 	 * @exception IOException
 	 *                if an I/O error occurs.
 	 */
+	@Override
 	public int readLine(byte b[], int off, int len) throws IOException {
 		int total = 0;
 		if (len == 0) {
@@ -157,6 +158,7 @@ public class BufferedServletInputStream extends ServletInputStream {
 	 * @exception IOException
 	 *                if an I/O error occurs.
 	 */
+	@Override
 	public int read() throws IOException {
 		if (count <= pos) {
 			fill();
@@ -183,6 +185,7 @@ public class BufferedServletInputStream extends ServletInputStream {
 	 * @exception IOException
 	 *                if an I/O error occurs.
 	 */
+	@Override
 	public int read(byte b[], int off, int len) throws IOException {
 		int total = 0;
 		while (total < len) {
@@ -191,10 +194,12 @@ public class BufferedServletInputStream extends ServletInputStream {
 				fill();
 				avail = count - pos;
 				if (avail <= 0) {
-					if (total > 0)
+					if (total > 0) {
 						return total;
-					else
+					}
+					else {
 						return -1;
+					}
 				}
 			}
 			int copy = Math.min(len - total, avail);
@@ -205,14 +210,17 @@ public class BufferedServletInputStream extends ServletInputStream {
 		return total;
 	}
 
+	@Override
 	public boolean isFinished() {
 		return in.isFinished();
 	}
 
+	@Override
 	public boolean isReady() {
 		return in.isReady();
 	}
 
+	@Override
 	public void setReadListener(ReadListener readListener) {
 		in.setReadListener(readListener);
 	}

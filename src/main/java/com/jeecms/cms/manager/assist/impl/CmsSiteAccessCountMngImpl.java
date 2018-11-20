@@ -20,19 +20,23 @@ import com.jeecms.core.manager.CmsSiteMng;
 @Transactional
 public class CmsSiteAccessCountMngImpl implements CmsSiteAccessCountMng {
 
-	public List<Object[]> statisticVisitorCountByDate(Integer siteId,Date begin, Date end) {
+	@Override
+    public List<Object[]> statisticVisitorCountByDate(Integer siteId, Date begin, Date end) {
 		return dao.statisticVisitorCountByDate(siteId, begin, end);
 	}
 
-	public List<Object[]> statisticVisitorCountByYear(Integer siteId,Integer year) {
+	@Override
+    public List<Object[]> statisticVisitorCountByYear(Integer siteId, Integer year) {
 		return dao.statisticVisitorCountByYear(siteId, year);
 	}
 
-	public CmsSiteAccessCount save(CmsSiteAccessCount count) {
+	@Override
+    public CmsSiteAccessCount save(CmsSiteAccessCount count) {
 		return dao.save(count);
 	}
 
-	public void statisticCount(Date date, Integer siteId) {
+	@Override
+    public void statisticCount(Date date, Integer siteId) {
 		List<Object[]> pageCounts = cmsAccessDao.statisticByPageCount(date,siteId);
 		for (Object[] pageCount : pageCounts) {
 			CmsSiteAccessCount bean = new CmsSiteAccessCount();

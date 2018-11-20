@@ -16,27 +16,32 @@ import com.jeecms.plug.weixin.manager.WeixinMessageMng;
 @Transactional
 public class WeixinMessageMngImpl implements WeixinMessageMng {
 
-	@Transactional(readOnly=true)
+	@Override
+    @Transactional(readOnly=true)
 	public Pagination getPage(Integer siteId,int pageNo, int pageSize) {
 		return dao.getPage(siteId,pageNo,pageSize);
 	}
 	
-	@Transactional(readOnly=true)
+	@Override
+    @Transactional(readOnly=true)
 	public List<WeixinMessage> getList(Integer siteId){
 		return dao.getList(siteId);
 	}
 	
-	@Transactional(readOnly=true)
+	@Override
+    @Transactional(readOnly=true)
 	public WeixinMessage getWelcome(Integer siteId){
 		return dao.getWelcome(siteId);
 	}
 	
-	@Transactional(readOnly=true)
+	@Override
+    @Transactional(readOnly=true)
 	public WeixinMessage findByNumber(String number,Integer siteId){
 		return dao.findByNumber(number,siteId);
 	}
 
-	@Transactional(readOnly=true)
+	@Override
+    @Transactional(readOnly=true)
 	public WeixinMessage findById(Integer id) {
 		return dao.findById(id);
 	}

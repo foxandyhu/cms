@@ -37,7 +37,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ImageSvcImpl implements ImageSvc {
-	public String crawlImg(String imgUrl,CmsSite  site) {
+	@Override
+    public String crawlImg(String imgUrl, CmsSite  site) {
 		HttpClientBuilder httpClientBuilder = HttpClientBuilder.create();  
 	    CloseableHttpClient client = httpClientBuilder.build();  
 		String outFileName="";
@@ -107,8 +108,9 @@ public class ImageSvcImpl implements ImageSvc {
 		return fileUrl;
 	}
 	
-	public String crawlImg(String imgUrl,String ctx,boolean uploadToDb,String dbFileUri,Ftp ftp,
-			CmsOss oss,String uploadPath) {
+	@Override
+    public String crawlImg(String imgUrl, String ctx, boolean uploadToDb, String dbFileUri, Ftp ftp,
+                           CmsOss oss, String uploadPath) {
 		HttpClientBuilder httpClientBuilder = HttpClientBuilder.create();  
 	    CloseableHttpClient client = httpClientBuilder.build();  
 		String outFileName="";

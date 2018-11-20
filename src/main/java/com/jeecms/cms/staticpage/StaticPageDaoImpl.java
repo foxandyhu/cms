@@ -33,7 +33,7 @@ import com.jeecms.cms.entity.main.ContentCheck;
 import com.jeecms.cms.manager.assist.CmsKeywordMng;
 import com.jeecms.cms.manager.main.CmsModelMng;
 import com.jeecms.common.hibernate4.Finder;
-import com.jeecms.common.hibernate4.HibernateSimpleDao;
+import com.jeecms.common.hibernate4.AbstractHibernateSimpleDao;
 import com.jeecms.common.page.Paginable;
 import com.jeecms.common.page.SimplePage;
 import com.jeecms.common.web.session.SessionProvider;
@@ -51,11 +51,12 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
 @Repository
-public class StaticPageDaoImpl extends HibernateSimpleDao implements
+public class StaticPageDaoImpl extends AbstractHibernateSimpleDao implements
 		StaticPageDao {
-	public int channelStatic(HttpServletRequest request, HttpServletResponse response,
-			Integer siteId, Integer channelId, boolean containChild,
-			Configuration conf, Map<String, Object> data)
+	@Override
+    public int channelStatic(HttpServletRequest request, HttpServletResponse response,
+                             Integer siteId, Integer channelId, boolean containChild,
+                             Configuration conf, Map<String, Object> data)
 			throws IOException, TemplateException {
 		Finder finder = Finder.create("select bean from Channel bean");
 		if (channelId != null) {
@@ -150,8 +151,9 @@ public class StaticPageDaoImpl extends HibernateSimpleDao implements
 	
 	
 
-	public void channelStatic(Channel c, boolean firstOnly, Configuration conf,
-			Map<String, Object> data) throws IOException, TemplateException {
+	@Override
+    public void channelStatic(Channel c, boolean firstOnly, Configuration conf,
+                              Map<String, Object> data) throws IOException, TemplateException {
 		// 如果是外部链接或者不需要生产静态页，则不生成
 		if (!StringUtils.isBlank(c.getLink()) || !c.getStaticChannel()) {
 			return;
@@ -200,7 +202,8 @@ public class StaticPageDaoImpl extends HibernateSimpleDao implements
 		}
 	}
 
-	public int contentsOfChannel(Integer channelId) {
+	@Override
+    public int contentsOfChannel(Integer channelId) {
 		String hql = "select count(*) from Content bean"
 				+ " join bean.channels as channel"
 				+ " where channel.id=:channelId and bean.status="
@@ -220,7 +223,8 @@ public class StaticPageDaoImpl extends HibernateSimpleDao implements
 		return ((Number) query.iterate().next()).intValue();
 	}
 
-	public int childsOfChannel(Integer channelId) {
+	@Override
+    public int childsOfChannel(Integer channelId) {
 		String hql = "select count(*) from Channel bean"
 				+ " where bean.parent.id=:channelId";
 		Query query = getSession().createQuery(hql);
@@ -228,7 +232,8 @@ public class StaticPageDaoImpl extends HibernateSimpleDao implements
 		return ((Number) query.iterate().next()).intValue();
 	}
 
-	public int contentStatic(
+	@Override
+    public int contentStatic(
 			HttpServletRequest request, HttpServletResponse response, Integer siteId,
 			Integer channelId, Date start, Configuration conf, Map<String, Object> data) throws IOException,
 			TemplateException {
@@ -318,8 +323,9 @@ public class StaticPageDaoImpl extends HibernateSimpleDao implements
 		return count;
 	}
 	
-	public boolean contentStatic(Content c, Configuration conf,
-			Map<String, Object> data) throws IOException, TemplateException {
+	@Override
+    public boolean contentStatic(Content c, Configuration conf,
+                                 Map<String, Object> data) throws IOException, TemplateException {
 		// 如果是外部链接或者不生成静态页面，则不生成
 		Channel chnl = c.getChannel();
 		if (!StringUtils.isBlank(c.getLink()) || !chnl.getStaticContent()) {

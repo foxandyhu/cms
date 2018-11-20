@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.slf4j.Logger;
@@ -28,7 +29,6 @@ import com.jeecms.common.web.ResponseUtils;
 import com.jeecms.common.web.springmvc.RealPathResolver;
 import com.jeecms.core.entity.CmsSite;
 import com.jeecms.core.manager.CmsLogMng;
-import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
 
 @Controller
@@ -203,8 +203,8 @@ public class CmsFileApiAct {
         }   
     }
 	
-	private WebErrors validateDelete(String root, String path,String[] names,
-			HttpServletRequest request) {
+	private WebErrors validateDelete(String root, String path, String[] names,
+									 HttpServletRequest request) {
 		WebErrors errors = WebErrors.create(request);
 		errors.ifEmpty(names, "names", true);
 		for (String id : names) {
@@ -219,8 +219,8 @@ public class CmsFileApiAct {
 		return errors;
 	}
 	
-	private WebErrors validateDeleteFreeFile(String root, String path,String[] names,
-			HttpServletRequest request) {
+	private WebErrors validateDeleteFreeFile(String root, String path, String[] names,
+											 HttpServletRequest request) {
 		WebErrors errors = WebErrors.create(request);
 		if(names==null||names.length<=0){
 			errors.addErrorString("error.findnofreefile");

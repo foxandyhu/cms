@@ -15,13 +15,15 @@ import com.jeecms.common.security.encoder.PwdEncoder;
 @Service
 @Transactional
 public class CmsWebserviceAuthMngImpl implements CmsWebserviceAuthMng {
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Pagination getPage(int pageNo, int pageSize) {
 		Pagination page = dao.getPage(pageNo, pageSize);
 		return page;
 	}
 	
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public boolean isPasswordValid(String username, String password){
 		CmsWebserviceAuth auth=findByUsername(username);
 		if(auth!=null&&auth.getEnable()){
@@ -31,30 +33,35 @@ public class CmsWebserviceAuthMngImpl implements CmsWebserviceAuthMng {
 		}
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public CmsWebserviceAuth findByUsername(String username) {
 		CmsWebserviceAuth entity = dao.findByUsername(username);
 		return entity;
 	}
 	
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public CmsWebserviceAuth findById(Integer id) {
 		CmsWebserviceAuth entity = dao.findById(id);
 		return entity;
 	}
 
-	public CmsWebserviceAuth save(CmsWebserviceAuth bean) {
+	@Override
+    public CmsWebserviceAuth save(CmsWebserviceAuth bean) {
 		dao.save(bean);
 		return bean;
 	}
 
-	public CmsWebserviceAuth update(CmsWebserviceAuth bean) {
+	@Override
+    public CmsWebserviceAuth update(CmsWebserviceAuth bean) {
 		Updater<CmsWebserviceAuth> updater = new Updater<CmsWebserviceAuth>(bean);
 		CmsWebserviceAuth entity = dao.updateByUpdater(updater);
 		return entity;
 	}
 	
-	public CmsWebserviceAuth update(Integer id,String username,String password,String system,Boolean enable){
+	@Override
+    public CmsWebserviceAuth update(Integer id, String username, String password, String system, Boolean enable){
 		CmsWebserviceAuth entity =findById(id);
 		if(StringUtils.isNotBlank(username)){
 			entity.setUsername(username);
@@ -71,12 +78,14 @@ public class CmsWebserviceAuthMngImpl implements CmsWebserviceAuthMng {
 		return entity;
 	}
 
-	public CmsWebserviceAuth deleteById(Integer id) {
+	@Override
+    public CmsWebserviceAuth deleteById(Integer id) {
 		CmsWebserviceAuth bean = dao.deleteById(id);
 		return bean;
 	}
 	
-	public CmsWebserviceAuth[] deleteByIds(Integer[] ids) {
+	@Override
+    public CmsWebserviceAuth[] deleteByIds(Integer[] ids) {
 		CmsWebserviceAuth[] beans = new CmsWebserviceAuth[ids.length];
 		for (int i = 0,len = ids.length; i < len; i++) {
 			beans[i] = deleteById(ids[i]);

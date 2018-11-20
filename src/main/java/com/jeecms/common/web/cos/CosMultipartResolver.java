@@ -142,18 +142,21 @@ public class CosMultipartResolver implements MultipartResolver,
 		return uploadTempDir;
 	}
 
-	public void setServletContext(ServletContext servletContext) {
+	@Override
+    public void setServletContext(ServletContext servletContext) {
 		if (this.uploadTempDir == null) {
 			this.uploadTempDir = WebUtils.getTempDir(servletContext);
 		}
 	}
 
-	public boolean isMultipart(HttpServletRequest request) {
+	@Override
+    public boolean isMultipart(HttpServletRequest request) {
 		return request.getContentType() != null
 				&& request.getContentType().startsWith(MULTIPART_CONTENT_TYPE);
 	}
 
-	public MultipartHttpServletRequest resolveMultipart(
+	@Override
+    public MultipartHttpServletRequest resolveMultipart(
 			HttpServletRequest request) throws MultipartException {
 		try {
 			CosMultipartRequest multipartRequest = newMultipartRequest(request);
@@ -224,7 +227,8 @@ public class CosMultipartResolver implements MultipartResolver,
 		return enc;
 	}
 
-	public void cleanupMultipart(MultipartHttpServletRequest request) {
+	@Override
+    public void cleanupMultipart(MultipartHttpServletRequest request) {
 		CosMultipartRequest multipartRequest = ((CosMultipartHttpServletRequest) request)
 				.getMultipartRequest();
 		Set<String> fileNames = multipartRequest.getFileNames();

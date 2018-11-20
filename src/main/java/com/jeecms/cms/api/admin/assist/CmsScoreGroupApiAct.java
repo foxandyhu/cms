@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +24,6 @@ import com.jeecms.common.page.Pagination;
 import com.jeecms.common.util.StrUtils;
 import com.jeecms.common.web.ResponseUtils;
 import com.jeecms.core.entity.CmsSite;
-import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
 
 @Controller
@@ -162,7 +162,7 @@ public class CmsScoreGroupApiAct {
 		ResponseUtils.renderApiJson(response, request, apiResponse);
 	}
 	
-	private WebErrors validateDelete(WebErrors errors,HttpServletRequest request,Integer[] idArr){
+	private WebErrors validateDelete(WebErrors errors, HttpServletRequest request, Integer[] idArr){
 		CmsSite site = CmsUtils.getSite(request);
 		if (errors.ifEmpty(idArr, "ids", false)) {
 			return errors;
@@ -173,7 +173,7 @@ public class CmsScoreGroupApiAct {
 		return errors;
 	}
 	
-	private WebErrors validateExist(WebErrors errors,Integer id){
+	private WebErrors validateExist(WebErrors errors, Integer id){
 		CmsScoreGroup group = manager.findById(id);
 		if (group==null) {
 			errors.addErrorString(Constants.API_MESSAGE_OBJECT_NOT_FOUND);

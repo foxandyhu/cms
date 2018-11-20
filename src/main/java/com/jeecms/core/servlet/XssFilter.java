@@ -30,16 +30,19 @@ import com.jeecms.core.web.util.URLHelper;
 public class XssFilter implements Filter {
 	private String excludeUrls;
 	FilterConfig filterConfig = null;
-	public void init(FilterConfig filterConfig) throws ServletException {
+	@Override
+    public void init(FilterConfig filterConfig) throws ServletException {
 		this.excludeUrls=filterConfig.getInitParameter("excludeUrls");
 		this.filterConfig = filterConfig;
 	}
 
-	public void destroy() {
+	@Override
+    public void destroy() {
 		this.filterConfig = null;
 	}
 
-	public void doFilter(ServletRequest request, ServletResponse response,FilterChain chain) throws IOException, ServletException {
+	@Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		if(isExcludeUrl(request)){
 			chain.doFilter(request, response);
 		}else{

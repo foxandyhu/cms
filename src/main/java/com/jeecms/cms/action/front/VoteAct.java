@@ -2,16 +2,10 @@ package com.jeecms.cms.action.front;
 
 import static com.jeecms.cms.Constants.TPLDIR_SPECIAL;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
-
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringUtils;
+import com.jeecms.core.web.WebErrors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +14,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.jeecms.cms.entity.assist.CmsVoteItem;
 import com.jeecms.cms.entity.assist.CmsVoteSubTopic;
 import com.jeecms.cms.entity.assist.CmsVoteTopic;
 import com.jeecms.cms.manager.assist.CmsVoteRecordMng;
@@ -29,10 +22,8 @@ import com.jeecms.cms.manager.assist.CmsVoteSubTopicMng;
 import com.jeecms.cms.manager.assist.CmsVoteTopicMng;
 import com.jeecms.common.page.Pagination;
 import com.jeecms.common.web.CookieUtils;
-import com.jeecms.common.web.RequestUtils;
 import com.jeecms.core.entity.CmsSite;
 import com.jeecms.core.entity.CmsUser;
-import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
 import com.jeecms.core.web.util.FrontUtils;
 
@@ -65,7 +56,7 @@ public class VoteAct extends AbstractVote{
 			return FrontUtils.getTplPath(request, site.getSolutionPath(),
 					TPLDIR_SPECIAL, VOTE_RESULT);
 		}else{
-			WebErrors errors=WebErrors.create(request);
+			WebErrors errors= WebErrors.create(request);
 			errors.addError("error.vote.novotefind");
 			return FrontUtils.showError(request, response, model, errors);
 		}
@@ -88,7 +79,7 @@ public class VoteAct extends AbstractVote{
 			return FrontUtils.getTplPath(request, site.getSolutionPath(),
 					TPLDIR_SPECIAL, VOTE_REPLY_RESULT);
 		}else{
-			WebErrors errors=WebErrors.create(request);
+			WebErrors errors= WebErrors.create(request);
 			errors.addError("error.vote.novotesubfind");
 			return FrontUtils.showError(request, response, model, errors);
 		}
@@ -108,7 +99,7 @@ public class VoteAct extends AbstractVote{
 			return FrontUtils.getTplPath(request, site.getSolutionPath(),
 					TPLDIR_SPECIAL, VOTE_INPUT);
 		}else{
-			WebErrors errors=WebErrors.create(request);
+			WebErrors errors= WebErrors.create(request);
 			errors.addError("error.vote.novotefind");
 			return FrontUtils.showError(request, response, model, errors);
 		}

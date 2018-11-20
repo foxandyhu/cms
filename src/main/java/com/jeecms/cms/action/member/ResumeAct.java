@@ -9,6 +9,7 @@ import java.util.Calendar;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,7 +34,6 @@ import com.jeecms.core.entity.CmsUserResume;
 import com.jeecms.core.entity.MemberConfig;
 import com.jeecms.core.manager.CmsUserExtMng;
 import com.jeecms.core.manager.CmsUserResumeMng;
-import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
 import com.jeecms.core.web.util.FrontUtils;
 
@@ -181,7 +181,7 @@ public class ResumeAct {
 	}
 	
 	private WebErrors validateDelete(Integer[] ids, CmsSite site, CmsUser user,
-			HttpServletRequest request) {
+									 HttpServletRequest request) {
 		WebErrors errors = WebErrors.create(request);
 		if (vldOpt(errors, site, user, ids)) {
 			return errors;
@@ -190,7 +190,7 @@ public class ResumeAct {
 	}
 
 	private boolean vldOpt(WebErrors errors, CmsSite site, CmsUser user,
-			Integer[] ids) {
+						   Integer[] ids) {
 		for (Integer id : ids) {
 			if (errors.ifNull(id, "id", true)) {
 				return true;

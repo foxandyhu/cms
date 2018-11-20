@@ -30,9 +30,10 @@ import com.jeecms.core.manager.CmsUserMng;
 @Service
 @Transactional(readOnly = true)
 public class CmsWorkLoadStatisticSvcImpl implements CmsWorkLoadStatisticSvc {
-	public List<CmsWorkLoadStatistic> statistic(Integer channelId,
-			Integer reviewerId, Integer authorId, Date beginDate, Date endDate,
-			CmsWorkLoadStatisticGroup group, CmsWorkLoadStatisticDateKind kind) {
+	@Override
+    public List<CmsWorkLoadStatistic> statistic(Integer channelId,
+                                                Integer reviewerId, Integer authorId, Date beginDate, Date endDate,
+                                                CmsWorkLoadStatisticGroup group, CmsWorkLoadStatisticDateKind kind) {
 		Long count;
 		CmsWorkLoadStatistic bean;
 		Channel channel = null;
@@ -49,7 +50,7 @@ public class CmsWorkLoadStatisticSvcImpl implements CmsWorkLoadStatisticSvc {
 			author = userMng.findById(authorId);
 		}
 		List<CmsWorkLoadStatistic> list = new ArrayList<CmsWorkLoadStatistic>();
-		Long total=0l;
+		Long total=0L;
 		total=dao.statistic(channelId, reviewerId, authorId, beginDate, endDate,
 				kind);
 		//年统计
@@ -91,9 +92,10 @@ public class CmsWorkLoadStatisticSvcImpl implements CmsWorkLoadStatisticSvc {
 		return list;
 	}
 	
-	public List<Object[]> statisticByTarget(Integer target,
-			Integer channelId,Integer reviewerId, 
-			Integer authorId, Date beginDate, Date endDate){
+	@Override
+    public List<Object[]> statisticByTarget(Integer target,
+                                            Integer channelId, Integer reviewerId,
+                                            Integer authorId, Date beginDate, Date endDate){
 		return dao.statisticByTarget(target,channelId,
 				reviewerId,authorId,beginDate,endDate);
 	}

@@ -37,7 +37,8 @@ public class CmsModelDirective implements TemplateDirectiveModel {
 	 */
 	public static final String PARAM_PATH = "path";
 
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public void execute(Environment env, Map params, TemplateModel[] loopVars,
 			TemplateDirectiveBody body) throws TemplateException, IOException {
 		Integer id = DirectiveUtils.getInt(PARAM_ID, params);

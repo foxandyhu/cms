@@ -5,30 +5,34 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.jeecms.common.hibernate4.Finder;
-import com.jeecms.common.hibernate4.HibernateBaseDao;
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 import com.jeecms.core.dao.CmsGroupDao;
 import com.jeecms.core.entity.CmsGroup;
 
 @Repository
-public class CmsGroupDaoImpl extends HibernateBaseDao<CmsGroup, Integer>
+public class CmsGroupDaoImpl extends AbstractHibernateBaseDao<CmsGroup, Integer>
 		implements CmsGroupDao {
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public List<CmsGroup> getList() {
 		String hql = "from CmsGroup bean order by bean.priority asc,bean.id asc";
 		return find(hql);
 	}
 
-	public CmsGroup getRegDef() {
+	@Override
+    public CmsGroup getRegDef() {
 		String hql = "from CmsGroup bean where bean.regDef=true";
 		return (CmsGroup) findUnique(hql);
 	}
 
-	public CmsGroup findById(Integer id) {
+	@Override
+    public CmsGroup findById(Integer id) {
 		CmsGroup entity = get(id);
 		return entity;
 	}
 	
-	public CmsGroup findByName(String name){
+	@Override
+    public CmsGroup findByName(String name){
 		String hql = "from CmsGroup bean where bean.name=:name";
 		Finder f=Finder.create(hql).setParam("name", name);
 		List<CmsGroup>list=find(f);
@@ -40,12 +44,14 @@ public class CmsGroupDaoImpl extends HibernateBaseDao<CmsGroup, Integer>
 	}
 	
 
-	public CmsGroup save(CmsGroup bean) {
+	@Override
+    public CmsGroup save(CmsGroup bean) {
 		getSession().save(bean);
 		return bean;
 	}
 
-	public CmsGroup deleteById(Integer id) {
+	@Override
+    public CmsGroup deleteById(Integer id) {
 		CmsGroup entity = super.get(id);
 		if (entity != null) {
 			getSession().delete(entity);

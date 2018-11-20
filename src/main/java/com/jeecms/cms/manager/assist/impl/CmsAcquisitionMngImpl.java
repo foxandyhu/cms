@@ -36,18 +36,21 @@ import com.jeecms.core.manager.CmsUserMng;
 @Transactional
 public class CmsAcquisitionMngImpl implements CmsAcquisitionMng,
 		ChannelDeleteChecker {
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public List<CmsAcquisition> getList(Integer siteId) {
 		return dao.getList(siteId);
 	}
 
-	@Transactional
+	@Override
+    @Transactional
 	public CmsAcquisition findById(Integer id) {
 		CmsAcquisition entity = dao.findById(id);
 		return entity;
 	}
 
-	public void stop(Integer id) {
+	@Override
+    public void stop(Integer id) {
 		CmsAcquisition acqu = findById(id);
 		if (acqu == null) {
 			return;
@@ -61,7 +64,8 @@ public class CmsAcquisitionMngImpl implements CmsAcquisitionMng,
 		}
 	}
 
-	public void pause(Integer id) {
+	@Override
+    public void pause(Integer id) {
 		CmsAcquisition acqu = findById(id);
 		if (acqu == null) {
 			return;
@@ -71,7 +75,8 @@ public class CmsAcquisitionMngImpl implements CmsAcquisitionMng,
 		}
 	}
 
-	public CmsAcquisition start(Integer id) {
+	@Override
+    public CmsAcquisition start(Integer id) {
 		CmsAcquisition acqu = findById(id);
 		if (acqu == null) {
 			return acqu;
@@ -89,7 +94,8 @@ public class CmsAcquisitionMngImpl implements CmsAcquisitionMng,
 		return acqu;
 	}
 
-	public void end(Integer id) {
+	@Override
+    public void end(Integer id) {
 		CmsAcquisition acqu = findById(id);
 		if (acqu == null) {
 			return;
@@ -102,8 +108,9 @@ public class CmsAcquisitionMngImpl implements CmsAcquisitionMng,
 		acqu.setTotalItem(0);
 	}
 
-	public boolean isNeedBreak(Integer id, int currNum, int currItem,
-			int totalItem) {
+	@Override
+    public boolean isNeedBreak(Integer id, int currNum, int currItem,
+                               int totalItem) {
 		CmsAcquisition acqu = findById(id);
 		if (acqu == null) {
 			return true;
@@ -127,9 +134,10 @@ public class CmsAcquisitionMngImpl implements CmsAcquisitionMng,
 		}
 	}
 
-	public CmsAcquisition save(CmsAcquisition bean, Integer channelId,
-			Integer typeId, Integer userId, Integer siteId,String[] keyword,String[] replaceWords
-			,String[] shieldStarts,String[] shieldEnds) {
+	@Override
+    public CmsAcquisition save(CmsAcquisition bean, Integer channelId,
+                               Integer typeId, Integer userId, Integer siteId, String[] keyword, String[] replaceWords
+			, String[] shieldStarts, String[] shieldEnds) {
 		bean.setChannel(channelMng.findById(channelId));
 		bean.setType(contentTypeMng.findById(typeId));
 		bean.setUser(cmsUserMng.findById(userId));
@@ -165,9 +173,10 @@ public class CmsAcquisitionMngImpl implements CmsAcquisitionMng,
 		}
 	}
 
-	public CmsAcquisition update(CmsAcquisition bean, Integer channelId,
-			Integer typeId,String[] keyword,String[] replaceWords
-			,String[] shieldStarts,String[] shieldEnds) {
+	@Override
+    public CmsAcquisition update(CmsAcquisition bean, Integer channelId,
+                                 Integer typeId, String[] keyword, String[] replaceWords
+			, String[] shieldStarts, String[] shieldEnds) {
 		Updater<CmsAcquisition> updater = new Updater<CmsAcquisition>(bean);
 		bean = dao.updateByUpdater(updater);
 		bean.setChannel(channelMng.findById(channelId));
@@ -183,14 +192,16 @@ public class CmsAcquisitionMngImpl implements CmsAcquisitionMng,
 		return bean;
 	}	
 
-	public CmsAcquisition deleteById(Integer id) {
+	@Override
+    public CmsAcquisition deleteById(Integer id) {
 		//删除采集记录
 		acquisitionHistoryMng.deleteByAcquisition(id);
 		CmsAcquisition bean = dao.deleteById(id);
 		return bean;
 	}
 
-	public CmsAcquisition[] deleteByIds(Integer[] ids) {
+	@Override
+    public CmsAcquisition[] deleteByIds(Integer[] ids) {
 		CmsAcquisition[] beans = new CmsAcquisition[ids.length];
 		for (int i = 0, len = ids.length; i < len; i++) {
 			beans[i] = deleteById(ids[i]);
@@ -198,10 +209,11 @@ public class CmsAcquisitionMngImpl implements CmsAcquisitionMng,
 		return beans;
 	}
 
-	public Content saveContent(String title, String txt, String origin,
-			String author,String description,Date releaseDate,Integer acquId,
-			AcquisitionResultType resultType, CmsAcquisitionTemp temp,
-			CmsAcquisitionHistory history,String typeImg) {
+	@Override
+    public Content saveContent(String title, String txt, String origin,
+                               String author, String description, Date releaseDate, Integer acquId,
+                               AcquisitionResultType resultType, CmsAcquisitionTemp temp,
+                               CmsAcquisitionHistory history, String typeImg) {
 		CmsAcquisition acqu = findById(acquId);
 		Content c = new Content();
 		c.setSite(acqu.getSite());
@@ -230,7 +242,8 @@ public class CmsAcquisitionMngImpl implements CmsAcquisitionMng,
 		return content;
 	}
 
-	public String checkForChannelDelete(Integer channelId) {
+	@Override
+    public String checkForChannelDelete(Integer channelId) {
 		if (dao.countByChannelId(channelId) > 0) {
 			return "cmsAcquisition.error.cannotDeleteChannel";
 		} else {
@@ -238,19 +251,23 @@ public class CmsAcquisitionMngImpl implements CmsAcquisitionMng,
 		}
 	}
 
-	public CmsAcquisition getStarted(Integer siteId) {
+	@Override
+    public CmsAcquisition getStarted(Integer siteId) {
 		return dao.getStarted(siteId);
 	}
 
-	public Integer hasStarted(Integer siteId) {
+	@Override
+    public Integer hasStarted(Integer siteId) {
 		return getStarted(siteId) == null ? 0 : getMaxQueue(siteId) + 1;
 	}
 
-	public Integer getMaxQueue(Integer siteId) {
+	@Override
+    public Integer getMaxQueue(Integer siteId) {
 		return dao.getMaxQueue(siteId);
 	}
 
-	public void addToQueue(Integer[] ids, Integer queueNum) {
+	@Override
+    public void addToQueue(Integer[] ids, Integer queueNum) {
 		for (Integer id : ids) {
 			CmsAcquisition acqu = findById(id);
 			if (acqu.getStatus() == CmsAcquisition.START || acqu.getQueue() > 0) {
@@ -260,7 +277,8 @@ public class CmsAcquisitionMngImpl implements CmsAcquisitionMng,
 		}
 	}
 
-	public void cancel(Integer siteId, Integer id) {
+	@Override
+    public void cancel(Integer siteId, Integer id) {
 		CmsAcquisition acqu = findById(id);
 		Integer queue = acqu.getQueue();
 		for (CmsAcquisition c : getLargerQueues(siteId, queue)) {
@@ -269,11 +287,13 @@ public class CmsAcquisitionMngImpl implements CmsAcquisitionMng,
 		acqu.setQueue(0);
 	}
 
-	public List<CmsAcquisition> getLargerQueues(Integer siteId, Integer queueNum) {
+	@Override
+    public List<CmsAcquisition> getLargerQueues(Integer siteId, Integer queueNum) {
 		return dao.getLargerQueues(siteId, queueNum);
 	}
 
-	public CmsAcquisition popAcquFromQueue(Integer siteId) {
+	@Override
+    public CmsAcquisition popAcquFromQueue(Integer siteId) {
 		CmsAcquisition acquisition = dao.popAcquFromQueue(siteId);
 		if (acquisition != null) {
 			Integer id = acquisition.getId();

@@ -24,7 +24,8 @@ public class CacheSessionProvider implements SessionProvider, InitializingBean {
 	public static final String CURRENT_SESSION = "_current_session";
 	public static final String CURRENT_SESSION_ID = "_current_session_id";
 
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public Serializable getAttribute(HttpServletRequest request, String name) {
 		// 为了避免同一个请求多次获取缓存session，所以将缓存session保存至request中。
 		Map<String, Serializable> session = (Map<String, Serializable>) request
@@ -52,7 +53,8 @@ public class CacheSessionProvider implements SessionProvider, InitializingBean {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public void setAttribute(HttpServletRequest request,
 			HttpServletResponse response, String name, Serializable value) {
 		Map<String, Serializable> session = (Map<String, Serializable>) request
@@ -88,8 +90,9 @@ public class CacheSessionProvider implements SessionProvider, InitializingBean {
 		sessionCache.setSession(root, session, sessionTimeout);
 	}
 
-	public String getSessionId(HttpServletRequest request,
-			HttpServletResponse response) {
+	@Override
+    public String getSessionId(HttpServletRequest request,
+                               HttpServletResponse response) {
 		String root = (String) request.getAttribute(CURRENT_SESSION_ID);
 		if (root != null) {
 			return root;
@@ -118,7 +121,8 @@ public class CacheSessionProvider implements SessionProvider, InitializingBean {
 		return root;
 	}
 
-	public void logout(HttpServletRequest request, HttpServletResponse response) {
+	@Override
+    public void logout(HttpServletRequest request, HttpServletResponse response) {
 		request.removeAttribute(CURRENT_SESSION);
 		request.removeAttribute(CURRENT_SESSION_ID);
 		String root = RequestUtils.getRequestedSessionId(request);
@@ -137,7 +141,8 @@ public class CacheSessionProvider implements SessionProvider, InitializingBean {
 		return cookie;
 	}
 
-	public void afterPropertiesSet() throws Exception {
+	@Override
+    public void afterPropertiesSet() throws Exception {
 		Assert.notNull(sessionCache);
 		Assert.notNull(sessionIdGenerator);
 	}

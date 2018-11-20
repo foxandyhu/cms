@@ -7,12 +7,13 @@ import org.springframework.stereotype.Repository;
 import com.jeecms.cms.dao.assist.CmsKeywordDao;
 import com.jeecms.cms.entity.assist.CmsKeyword;
 import com.jeecms.common.hibernate4.Finder;
-import com.jeecms.common.hibernate4.HibernateBaseDao;
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 
 @Repository
-public class CmsKeywordDaoImpl extends HibernateBaseDao<CmsKeyword, Integer>
+public class CmsKeywordDaoImpl extends AbstractHibernateBaseDao<CmsKeyword, Integer>
 		implements CmsKeywordDao {
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public List<CmsKeyword> getList(Integer siteId, boolean onlyEnabled,
 			boolean cacheable) {
 		Finder f = Finder.create("from CmsKeyword bean where 1=1");
@@ -28,7 +29,8 @@ public class CmsKeywordDaoImpl extends HibernateBaseDao<CmsKeyword, Integer>
 		return find(f);
 	}
 
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public List<CmsKeyword> getListGlobal(boolean onlyEnabled, boolean cacheable) {
 		Finder f = Finder
 				.create("from CmsKeyword bean where bean.site.id is null");
@@ -40,17 +42,20 @@ public class CmsKeywordDaoImpl extends HibernateBaseDao<CmsKeyword, Integer>
 		return find(f);
 	}
 
-	public CmsKeyword findById(Integer id) {
+	@Override
+    public CmsKeyword findById(Integer id) {
 		CmsKeyword entity = get(id);
 		return entity;
 	}
 
-	public CmsKeyword save(CmsKeyword bean) {
+	@Override
+    public CmsKeyword save(CmsKeyword bean) {
 		getSession().save(bean);
 		return bean;
 	}
 
-	public CmsKeyword deleteById(Integer id) {
+	@Override
+    public CmsKeyword deleteById(Integer id) {
 		CmsKeyword entity = super.get(id);
 		if (entity != null) {
 			getSession().delete(entity);

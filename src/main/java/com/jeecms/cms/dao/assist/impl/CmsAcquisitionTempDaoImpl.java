@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
@@ -12,13 +13,13 @@ import org.springframework.stereotype.Repository;
 import com.jeecms.cms.dao.assist.CmsAcquisitionTempDao;
 import com.jeecms.cms.entity.assist.CmsAcquisitionTemp;
 import com.jeecms.common.hibernate4.Finder;
-import com.jeecms.common.hibernate4.HibernateBaseDao;
 
 @Repository
 public class CmsAcquisitionTempDaoImpl extends
-		HibernateBaseDao<CmsAcquisitionTemp, Integer> implements
+        AbstractHibernateBaseDao<CmsAcquisitionTemp, Integer> implements
 		CmsAcquisitionTempDao {
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public List<CmsAcquisitionTemp> getList(Integer siteId) {
 		Finder f = Finder.create("from CmsAcquisitionTemp bean where 1=1");
 		if (siteId != null) {
@@ -29,17 +30,20 @@ public class CmsAcquisitionTempDaoImpl extends
 		return find(f);
 	}
 
-	public CmsAcquisitionTemp findById(Integer id) {
+	@Override
+    public CmsAcquisitionTemp findById(Integer id) {
 		CmsAcquisitionTemp entity = get(id);
 		return entity;
 	}
 
-	public CmsAcquisitionTemp save(CmsAcquisitionTemp bean) {
+	@Override
+    public CmsAcquisitionTemp save(CmsAcquisitionTemp bean) {
 		getSession().save(bean);
 		return bean;
 	}
 
-	public CmsAcquisitionTemp deleteById(Integer id) {
+	@Override
+    public CmsAcquisitionTemp deleteById(Integer id) {
 		CmsAcquisitionTemp entity = super.get(id);
 		if (entity != null) {
 			getSession().delete(entity);
@@ -47,7 +51,8 @@ public class CmsAcquisitionTempDaoImpl extends
 		return entity;
 	}
 
-	public Integer getPercent(Integer siteId) {
+	@Override
+    public Integer getPercent(Integer siteId) {
 		Query query = getSession()
 				.createQuery(
 						"select max(percent) from CmsAcquisitionTemp where site.id=:siteId")
@@ -56,7 +61,8 @@ public class CmsAcquisitionTempDaoImpl extends
 				.uniqueResult());
 	}
 
-	public void clear(Integer siteId, String channelUrl) {
+	@Override
+    public void clear(Integer siteId, String channelUrl) {
 		StringBuilder sb = new StringBuilder(100);
 		Map<String, Object> params = new HashMap<String, Object>();
 		sb.append("delete from CmsAcquisitionTemp where site.id=:siteId");

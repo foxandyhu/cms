@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.slf4j.Logger;
@@ -27,7 +28,6 @@ import com.jeecms.common.util.StrUtils;
 import com.jeecms.common.web.ResponseUtils;
 import com.jeecms.core.entity.CmsSms;
 import com.jeecms.core.manager.CmsSmsMng;
-import com.jeecms.core.web.WebErrors;
 
 @Controller("adminCmsSmsApiAct")
 public class CmsSmsApiAct {
@@ -183,7 +183,7 @@ public class CmsSmsApiAct {
 		return errors;
 	}
 	
-	private WebErrors validateExist(WebErrors errors,Integer id){
+	private WebErrors validateExist(WebErrors errors, Integer id){
 		if (id!=null) {
 			CmsSms bean = manager.findById(id);
 			if (bean==null) {

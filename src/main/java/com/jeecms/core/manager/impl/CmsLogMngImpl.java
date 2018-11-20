@@ -24,6 +24,7 @@ import java.util.Date;
 @Service
 @Transactional
 public class CmsLogMngImpl implements CmsLogMng {
+    @Override
     @Transactional(readOnly = true)
     public Pagination getPage(Integer category, Integer siteId,
                               String username, String title, String ip, int pageNo, int pageSize) {
@@ -43,6 +44,7 @@ public class CmsLogMngImpl implements CmsLogMng {
         return page;
     }
 
+    @Override
     @Transactional(readOnly = true)
     public CmsLog findById(Integer id) {
         CmsLog entity = dao.findById(id);
@@ -64,6 +66,7 @@ public class CmsLogMngImpl implements CmsLogMng {
         return log;
     }
 
+    @Override
     public CmsLog loginSuccess(HttpServletRequest request, CmsUser user) {
         String ip = RequestUtils.getIpAddr(request);
         UrlPathHelper helper = new UrlPathHelper();
@@ -73,6 +76,7 @@ public class CmsLogMngImpl implements CmsLogMng {
         return log;
     }
 
+    @Override
     public CmsLog loginFailure(HttpServletRequest request, String content) {
         String ip = RequestUtils.getIpAddr(request);
         UrlPathHelper helper = new UrlPathHelper();
@@ -82,6 +86,7 @@ public class CmsLogMngImpl implements CmsLogMng {
         return log;
     }
 
+    @Override
     public CmsLog operating(HttpServletRequest request, String title,
                             String content) {
         CmsSite site = CmsUtils.getSite(request);
@@ -95,11 +100,13 @@ public class CmsLogMngImpl implements CmsLogMng {
         return log;
     }
 
+    @Override
     public CmsLog save(CmsLog bean) {
         dao.save(bean);
         return bean;
     }
 
+    @Override
     public int deleteBatch(Integer category, Integer siteId, Integer days) {
         Date date = null;
         if (days != null && days > 0) {
@@ -110,11 +117,13 @@ public class CmsLogMngImpl implements CmsLogMng {
         return dao.deleteBatch(category, siteId, date);
     }
 
+    @Override
     public CmsLog deleteById(Integer id) {
         CmsLog bean = dao.deleteById(id);
         return bean;
     }
 
+    @Override
     public CmsLog[] deleteByIds(Integer[] ids) {
         CmsLog[] beans = new CmsLog[ids.length];
         for (int i = 0, len = ids.length; i < len; i++) {

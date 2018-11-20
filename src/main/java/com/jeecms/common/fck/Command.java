@@ -83,15 +83,16 @@ public class Command {
 	 *             if <code>name</code> is null or empty
 	 */
 	public static Command valueOf(final String name) {
-		if (Utils.isEmpty(name))
+		if (Utils.isEmpty(name)) {
 			throw new NullPointerException("Name is null or empty");
-
+		}
 		Command command = getCommands.get(name);
-		if (command == null)
+		if (command == null) {
 			command = postCommands.get(name);
-		if (command == null)
+		}
+		if (command == null) {
 			throw new IllegalArgumentException("No command const " + name);
-
+		}
 		return command;
 	}
 
@@ -150,12 +151,12 @@ public class Command {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-
-		if (obj == null || this.getClass() != obj.getClass())
+		}
+		if (obj == null || this.getClass() != obj.getClass()) {
 			return false;
-
+		}
 		final Command command = (Command) obj;
 		return name.equals(command.getName());
 	}

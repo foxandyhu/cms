@@ -3,11 +3,11 @@ package com.jeecms.cms.action.member;
 import static com.jeecms.cms.Constants.TPLDIR_MEMBER;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,14 +26,10 @@ import com.jeecms.common.security.encoder.PwdEncoder;
 import com.jeecms.common.web.RequestUtils;
 import com.jeecms.common.web.session.SessionProvider;
 import com.jeecms.core.entity.CmsConfig;
-import com.jeecms.core.entity.CmsConfigAttr;
 import com.jeecms.core.entity.CmsSite;
-import com.jeecms.core.entity.MemberConfig;
 import com.jeecms.core.entity.UnifiedUser;
-import com.jeecms.core.manager.CmsConfigMng;
 import com.jeecms.core.manager.ConfigMng;
 import com.jeecms.core.manager.UnifiedUserMng;
-import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
 import com.jeecms.core.web.util.FrontUtils;
 import com.octo.captcha.service.CaptchaServiceException;
@@ -242,8 +238,8 @@ public class ForgotPasswordAct {
 	
 	
 	private WebErrors validateForgotPasswordSubmit(String username,
-			String email, String captcha, HttpServletRequest request,
-			HttpServletResponse response) {
+												   String email, String captcha, HttpServletRequest request,
+												   HttpServletResponse response) {
 		WebErrors errors = WebErrors.create(request);
 		if (errors.ifBlank(username, "username", 100, true)) {
 			return errors;
@@ -272,8 +268,8 @@ public class ForgotPasswordAct {
 	 * 校验SMS找回密码
 	 * */
 	private WebErrors validateSMSForgotPasswordSubmit(String username,
-			String mobile, String captcha, HttpServletRequest request,
-			HttpServletResponse response) {
+													  String mobile, String captcha, HttpServletRequest request,
+													  HttpServletResponse response) {
 		WebErrors errors = WebErrors.create(request);
 		if (errors.ifBlank(username, "username", 100, true)) {
 			return errors;
@@ -289,7 +285,7 @@ public class ForgotPasswordAct {
 		// 判断验证码是否在有效时间范围
 		if (autoCodeTime != null && autoCode != null) {
 			Long effectiveTime = Long.parseLong(autoCodeTime.toString());
-			if (effectiveTime > new Date().getTime()) {
+			if (effectiveTime > System.currentTimeMillis()) {
 				// 验证码验证码是否正确
 				if (captcha.equals(autoCode.toString())) {
 					session.setAttribute(request, response, "FORGOTPWD_AUTO_CODE_CREAT_TIME", null);					
@@ -309,7 +305,7 @@ public class ForgotPasswordAct {
 	}
 
 	private WebErrors validatePasswordReset(Integer uid, String key,
-			HttpServletRequest request) {
+											HttpServletRequest request) {
 		WebErrors errors = WebErrors.create(request);
 		if (errors.ifNull(uid, "uid", true)) {
 			return errors;

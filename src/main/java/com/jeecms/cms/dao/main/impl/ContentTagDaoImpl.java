@@ -2,6 +2,7 @@ package com.jeecms.cms.dao.main.impl;
 
 import java.util.List;
 
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
@@ -9,13 +10,13 @@ import org.springframework.stereotype.Repository;
 import com.jeecms.cms.dao.main.ContentTagDao;
 import com.jeecms.cms.entity.main.ContentTag;
 import com.jeecms.common.hibernate4.Finder;
-import com.jeecms.common.hibernate4.HibernateBaseDao;
 import com.jeecms.common.page.Pagination;
 
 @Repository
-public class ContentTagDaoImpl extends HibernateBaseDao<ContentTag, Integer>
+public class ContentTagDaoImpl extends AbstractHibernateBaseDao<ContentTag, Integer>
 		implements ContentTagDao {
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public List<ContentTag> getList(Integer first,Integer count, boolean cacheable) {
 		String hql = "from ContentTag bean order by bean.count desc";
 		Query query = getSession().createQuery(hql);
@@ -29,8 +30,9 @@ public class ContentTagDaoImpl extends HibernateBaseDao<ContentTag, Integer>
 		return query.list();
 	}
 
-	public Pagination getPage(String name, int pageNo, int pageSize,
-			boolean cacheable) {
+	@Override
+    public Pagination getPage(String name, int pageNo, int pageSize,
+                              boolean cacheable) {
 		Finder f = Finder.create("from ContentTag bean");
 		if (!StringUtils.isBlank(name)) {
 			f.append(" where bean.name like :name");
@@ -41,23 +43,27 @@ public class ContentTagDaoImpl extends HibernateBaseDao<ContentTag, Integer>
 		return find(f, pageNo, pageSize);
 	}
 
-	public ContentTag findById(Integer id) {
+	@Override
+    public ContentTag findById(Integer id) {
 		ContentTag entity = get(id);
 		return entity;
 	}
 
-	public ContentTag findByName(String name, boolean cacheable) {
+	@Override
+    public ContentTag findByName(String name, boolean cacheable) {
 		String hql = "from ContentTag bean where bean.name=:name";
 		return (ContentTag) getSession().createQuery(hql).setParameter("name",
 				name).setCacheable(cacheable).uniqueResult();
 	}
 
-	public ContentTag save(ContentTag bean) {
+	@Override
+    public ContentTag save(ContentTag bean) {
 		getSession().save(bean);
 		return bean;
 	}
 
-	public ContentTag deleteById(Integer id) {
+	@Override
+    public ContentTag deleteById(Integer id) {
 		ContentTag entity = super.get(id);
 		if (entity != null) {
 			getSession().delete(entity);
@@ -65,12 +71,14 @@ public class ContentTagDaoImpl extends HibernateBaseDao<ContentTag, Integer>
 		return entity;
 	}
 
-	public int deleteContentRef(Integer id) {
+	@Override
+    public int deleteContentRef(Integer id) {
 		Query query = getSession().createSQLQuery("delete from jc_contenttag where tag_id=?");
 		return query.setParameter(0, id).executeUpdate();
 	}
 
-	public int countContentRef(Integer id) {
+	@Override
+    public int countContentRef(Integer id) {
 		Query query = getSession().createSQLQuery("select count(*) from jc_contenttag where tag_id=?");
 		return ((Number) (query.setParameter(0, id).list().iterator().next()))
 				.intValue();

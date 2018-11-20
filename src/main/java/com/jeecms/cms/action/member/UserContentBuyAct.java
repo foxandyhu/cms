@@ -7,6 +7,7 @@ import static com.jeecms.common.page.SimplePage.cpn;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -18,7 +19,6 @@ import com.jeecms.common.web.CookieUtils;
 import com.jeecms.core.entity.CmsSite;
 import com.jeecms.core.entity.CmsUser;
 import com.jeecms.core.entity.MemberConfig;
-import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
 import com.jeecms.core.web.util.FrontUtils;
 
@@ -86,7 +86,7 @@ public class UserContentBuyAct {
 			return FrontUtils.showLogin(request, model, site);
 		}
 		if(user.getUserAccount()==null){
-			WebErrors errors=WebErrors.create(request);
+			WebErrors errors= WebErrors.create(request);
 			errors.addErrorCode("error.userAccount.notfound");
 			return FrontUtils.showError(request, response, model, errors);
 		}
@@ -121,7 +121,7 @@ public class UserContentBuyAct {
 			return FrontUtils.showLogin(request, model, site);
 		}
 		if(user.getUserAccount()==null){
-			WebErrors errors=WebErrors.create(request);
+			WebErrors errors= WebErrors.create(request);
 			errors.addErrorCode("error.userAccount.notfound");
 			return FrontUtils.showError(request, response, model, errors);
 		}

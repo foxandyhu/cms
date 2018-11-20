@@ -19,7 +19,8 @@ import com.jeecms.cms.manager.assist.CmsKeywordMng;
 @Transactional
 public class CmsKeywordMngImpl implements CmsKeywordMng {
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public List<CmsKeyword> getListBySiteId(Integer siteId,
 			boolean onlyEnabled, boolean cacheable) {
 		List<CmsKeyword> list = dao.getListGlobal(onlyEnabled, cacheable);
@@ -28,7 +29,8 @@ public class CmsKeywordMngImpl implements CmsKeywordMng {
 		return list;
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public String attachKeyword(Integer siteId, String txt) {
 		if (StringUtils.isBlank(txt)) {
 			return txt;
@@ -64,20 +66,23 @@ public class CmsKeywordMngImpl implements CmsKeywordMng {
 		}
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public CmsKeyword findById(Integer id) {
 		CmsKeyword entity = dao.findById(id);
 		return entity;
 	}
 
-	public CmsKeyword save(CmsKeyword bean) {
+	@Override
+    public CmsKeyword save(CmsKeyword bean) {
 		bean.init();
 		dao.save(bean);
 		return bean;
 	}
 
-	public void updateKeywords(Integer[] ids, String[] names, String[] urls,
-			Boolean[] disableds) {
+	@Override
+    public void updateKeywords(Integer[] ids, String[] names, String[] urls,
+                               Boolean[] disableds) {
 		CmsKeyword keyword;
 		for (int i = 0, len = ids.length; i < len; i++) {
 			keyword = findById(ids[i]);
@@ -87,12 +92,14 @@ public class CmsKeywordMngImpl implements CmsKeywordMng {
 		}
 	}
 
-	public CmsKeyword deleteById(Integer id) {
+	@Override
+    public CmsKeyword deleteById(Integer id) {
 		CmsKeyword bean = dao.deleteById(id);
 		return bean;
 	}
 
-	public CmsKeyword[] deleteByIds(Integer[] ids) {
+	@Override
+    public CmsKeyword[] deleteByIds(Integer[] ids) {
 		CmsKeyword[] beans = new CmsKeyword[ids.length];
 		for (int i = 0, len = ids.length; i < len; i++) {
 			beans[i] = deleteById(ids[i]);

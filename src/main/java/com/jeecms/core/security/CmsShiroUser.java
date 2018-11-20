@@ -35,16 +35,19 @@ public class CmsShiroUser implements Serializable {
 		this.username = username;
 	}
 
-	public String toString() {
+	@Override
+    public String toString() {
 		return username;
 	}
 
-	public int hashCode() {
+	@Override
+    public int hashCode() {
 		return HashCodeBuilder.reflectionHashCode(this,
 				new String[] { username });
 	}
 
-	public boolean equals(Object obj) {
+	@Override
+    public boolean equals(Object obj) {
 		return EqualsBuilder.reflectionEquals(this, obj,
 				new String[] { username });
 	}

@@ -13,34 +13,40 @@ import com.jeecms.common.page.Pagination;
 @Service
 @Transactional
 public class CmsVoteReplyMngImpl implements CmsVoteReplyMng {
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Pagination getPage(Integer  subTopicId, int pageNo, int pageSize){
 		return dao.getPage(subTopicId, pageNo, pageSize);
 	}
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public CmsVoteReply findById(Integer id) {
 		CmsVoteReply entity = dao.findById(id);
 		return entity;
 	}
 
-	public CmsVoteReply save(CmsVoteReply bean) {
+	@Override
+    public CmsVoteReply save(CmsVoteReply bean) {
 		dao.save(bean);
 		return bean;
 	}
 
-	public CmsVoteReply update(CmsVoteReply bean) {
+	@Override
+    public CmsVoteReply update(CmsVoteReply bean) {
 		Updater<CmsVoteReply> updater = new Updater<CmsVoteReply>(bean);
 		bean = dao.updateByUpdater(updater);
 		return bean;
 	}
 
 
-	public CmsVoteReply deleteById(Integer id) {
+	@Override
+    public CmsVoteReply deleteById(Integer id) {
 		CmsVoteReply bean = dao.deleteById(id);
 		return bean;
 	}
 
-	public CmsVoteReply[] deleteByIds(Integer[] ids) {
+	@Override
+    public CmsVoteReply[] deleteByIds(Integer[] ids) {
 		CmsVoteReply[] beans = new CmsVoteReply[ids.length];
 		for (int i = 0, len = ids.length; i < len; i++) {
 			beans[i] = deleteById(ids[i]);

@@ -7,16 +7,17 @@ import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
 import com.jeecms.common.hibernate4.Finder;
-import com.jeecms.common.hibernate4.HibernateBaseDao;
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 import com.jeecms.common.page.Pagination;
 import com.jeecms.core.dao.CmsLogDao;
 import com.jeecms.core.entity.CmsLog;
 
 @Repository
-public class CmsLogDaoImpl extends HibernateBaseDao<CmsLog, Integer> implements
+public class CmsLogDaoImpl extends AbstractHibernateBaseDao<CmsLog, Integer> implements
 		CmsLogDao {
-	public Pagination getPage(Integer category, Integer siteId, Integer userId,
-			String title, String ip, int pageNo, int pageSize) {
+	@Override
+    public Pagination getPage(Integer category, Integer siteId, Integer userId,
+                              String title, String ip, int pageNo, int pageSize) {
 		Finder f = Finder.create("from CmsLog bean where 1=1");
 		if (category != null) {
 			f.append(" and bean.category=:category");
@@ -42,17 +43,20 @@ public class CmsLogDaoImpl extends HibernateBaseDao<CmsLog, Integer> implements
 		return find(f, pageNo, pageSize);
 	}
 
-	public CmsLog findById(Integer id) {
+	@Override
+    public CmsLog findById(Integer id) {
 		CmsLog entity = get(id);
 		return entity;
 	}
 
-	public CmsLog save(CmsLog bean) {
+	@Override
+    public CmsLog save(CmsLog bean) {
 		getSession().save(bean);
 		return bean;
 	}
 
-	public CmsLog deleteById(Integer id) {
+	@Override
+    public CmsLog deleteById(Integer id) {
 		CmsLog entity = super.get(id);
 		if (entity != null) {
 			getSession().delete(entity);
@@ -60,7 +64,8 @@ public class CmsLogDaoImpl extends HibernateBaseDao<CmsLog, Integer> implements
 		return entity;
 	}
 
-	public int deleteBatch(Integer category, Integer siteId, Date before) {
+	@Override
+    public int deleteBatch(Integer category, Integer siteId, Date before) {
 		Finder f = Finder.create("delete CmsLog bean where 1=1");
 		if (category != null) {
 			f.append(" and bean.category=:category");

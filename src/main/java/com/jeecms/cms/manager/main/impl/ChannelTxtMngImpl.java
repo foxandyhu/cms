@@ -19,7 +19,8 @@ public class ChannelTxtMngImpl implements ChannelTxtMng {
 	/**
 	 * @see ChannelTxtMng#save(ChannelTxt, Channel)
 	 */
-	public ChannelTxt save(ChannelTxt txt, Channel channel) {
+	@Override
+    public ChannelTxt save(ChannelTxt txt, Channel channel) {
 		if (txt.isAllBlank()) {
 			return null;
 		} else {
@@ -33,7 +34,8 @@ public class ChannelTxtMngImpl implements ChannelTxtMng {
 	/**
 	 * @see ChannelTxtMng#update(ChannelTxt, Channel)
 	 */
-	public ChannelTxt update(ChannelTxt txt, Channel channel) {
+	@Override
+    public ChannelTxt update(ChannelTxt txt, Channel channel) {
 		ChannelTxt entity = dao.findById(channel.getId());
 		if (entity == null) {
 			entity = save(txt, channel);

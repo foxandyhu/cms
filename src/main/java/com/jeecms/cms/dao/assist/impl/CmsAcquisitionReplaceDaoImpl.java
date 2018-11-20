@@ -7,9 +7,9 @@ import org.springframework.stereotype.Component;
 import com.jeecms.cms.dao.assist.CmsAcquisitionReplaceDao;
 import com.jeecms.cms.entity.assist.CmsAcquisitionReplace;
 import com.jeecms.common.hibernate4.Finder;
-import com.jeecms.common.hibernate4.HibernateBaseDao;
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 @Component
-public class CmsAcquisitionReplaceDaoImpl extends HibernateBaseDao<CmsAcquisitionReplace, Integer> implements CmsAcquisitionReplaceDao {
+public class CmsAcquisitionReplaceDaoImpl extends AbstractHibernateBaseDao<CmsAcquisitionReplace, Integer> implements CmsAcquisitionReplaceDao {
 
 	@Override
 	public CmsAcquisitionReplace save(CmsAcquisitionReplace bean) {

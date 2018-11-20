@@ -44,7 +44,8 @@ import java.util.*;
 public class AcquisitionSvcImpl implements AcquisitionSvc {
 	private Logger log = LoggerFactory.getLogger(AcquisitionSvcImpl.class);
 
-	public boolean start(Integer id) {
+	@Override
+    public boolean start(Integer id) {
 		CmsAcquisition acqu = cmsAcquisitionMng.findById(id);
 		Set<CmsAcquisitionReplace> set=acqu.getReplaceWords();
 		set.size();
@@ -652,7 +653,8 @@ public class AcquisitionSvcImpl implements AcquisitionSvc {
 			this.charset = charset;
 		}
 
-		public String handleResponse(HttpResponse response)
+		@Override
+        public String handleResponse(HttpResponse response)
 				throws ClientProtocolException, IOException {
 			StatusLine statusLine = response.getStatusLine();
 			if (statusLine.getStatusCode() >= 300) {

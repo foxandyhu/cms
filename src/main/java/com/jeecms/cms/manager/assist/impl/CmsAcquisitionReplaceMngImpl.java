@@ -24,7 +24,8 @@ public class CmsAcquisitionReplaceMngImpl implements CmsAcquisitionReplaceMng {
 		return cmsAcquisitionReplaceDao.updateByUpdater(updater);
 	}
 	
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public List<CmsAcquisitionReplace> getList(Integer acquisitionId) {
 		return cmsAcquisitionReplaceDao.getList(acquisitionId);
 	}

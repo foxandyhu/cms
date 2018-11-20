@@ -19,25 +19,29 @@ import com.jeecms.common.page.Pagination;
 @Service
 @Transactional
 public class CmsTopicMngImpl implements CmsTopicMng, ChannelDeleteChecker {
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public List<CmsTopic> getListForTag(Integer channelId, boolean recommend,
 			Integer first,Integer count) {
 		return dao.getList(channelId, recommend, first,count, true);
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Pagination getPageForTag(Integer channelId, boolean recommend,
 			int pageNo, int pageSize) {
 		return dao.getPage(channelId,null, recommend, pageNo, pageSize, true);
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Pagination getPage(String initials,int pageNo, int pageSize) {
 		Pagination page = dao.getPage(null,initials, false, pageNo, pageSize, false);
 		return page;
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public List<CmsTopic> getListByChannel(Integer channelId) {
 		List<CmsTopic> list = dao.getGlobalTopicList();
 		Channel c = channelMng.findById(channelId);
@@ -45,13 +49,15 @@ public class CmsTopicMngImpl implements CmsTopicMng, ChannelDeleteChecker {
 		return list;
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public CmsTopic findById(Integer id) {
 		CmsTopic entity = dao.findById(id);
 		return entity;
 	}
 
-	public CmsTopic save(CmsTopic bean, Integer channelId,Integer[]channelIds) {
+	@Override
+    public CmsTopic save(CmsTopic bean, Integer channelId, Integer[]channelIds) {
 		if (channelId != null) {
 			bean.setChannel(channelMng.findById(channelId));
 		}
@@ -65,7 +71,8 @@ public class CmsTopicMngImpl implements CmsTopicMng, ChannelDeleteChecker {
 		return bean;
 	}
 
-	public CmsTopic update(CmsTopic bean, Integer channelId,Integer[]channelIds) {
+	@Override
+    public CmsTopic update(CmsTopic bean, Integer channelId, Integer[]channelIds) {
 		Updater<CmsTopic> updater = new Updater<CmsTopic>(bean);
 		CmsTopic entity = dao.updateByUpdater(updater);
 		if (channelId != null) {
@@ -84,13 +91,15 @@ public class CmsTopicMngImpl implements CmsTopicMng, ChannelDeleteChecker {
 		return entity;
 	}
 
-	public CmsTopic deleteById(Integer id) {
+	@Override
+    public CmsTopic deleteById(Integer id) {
 		dao.deleteContentRef(id);
 		CmsTopic bean = dao.deleteById(id);
 		return bean;
 	}
 
-	public CmsTopic[] deleteByIds(Integer[] ids) {
+	@Override
+    public CmsTopic[] deleteByIds(Integer[] ids) {
 		CmsTopic[] beans = new CmsTopic[ids.length];
 		for (int i = 0, len = ids.length; i < len; i++) {
 			beans[i] = deleteById(ids[i]);
@@ -98,7 +107,8 @@ public class CmsTopicMngImpl implements CmsTopicMng, ChannelDeleteChecker {
 		return beans;
 	}
 
-	public CmsTopic[] updatePriority(Integer[] ids, Integer[] priority) {
+	@Override
+    public CmsTopic[] updatePriority(Integer[] ids, Integer[] priority) {
 		int len = ids.length;
 		CmsTopic[] beans = new CmsTopic[len];
 		for (int i = 0; i < len; i++) {
@@ -108,7 +118,8 @@ public class CmsTopicMngImpl implements CmsTopicMng, ChannelDeleteChecker {
 		return beans;
 	}
 
-	public String checkForChannelDelete(Integer channelId) {
+	@Override
+    public String checkForChannelDelete(Integer channelId) {
 		if (dao.countByChannelId(channelId) > 0) {
 			return "cmsTopic.error.cannotDeleteChannel";
 		} else {

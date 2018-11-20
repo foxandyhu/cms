@@ -7,6 +7,7 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
@@ -30,7 +31,6 @@ import com.jeecms.common.web.ResponseUtils;
 import com.jeecms.core.entity.CmsSite;
 import com.jeecms.core.tpl.Tpl;
 import com.jeecms.core.tpl.TplManager;
-import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
 
 @Controller
@@ -109,7 +109,7 @@ public class CmsResourceApiAct {
 		if (StringUtils.isBlank(root)) {
 			root = site.getResPath();
 		}
-		WebErrors errors=WebErrors.create(request);
+		WebErrors errors= WebErrors.create(request);
 		//验证公共非空参数
 		errors=ApiValidate.validateRequiredParams(request,errors,root,dirName);
 		if(!errors.hasErrors()){
@@ -135,7 +135,7 @@ public class CmsResourceApiAct {
 		String body="";
 		String message=Constants.G_API_MESSAGE_PARAM_REQUIRED;
 		String code=ResponseCode.G_API_CODE_PARAM_REQUIRED;
-		WebErrors errors=WebErrors.create(request);
+		WebErrors errors= WebErrors.create(request);
 		//验证公共非空参数
 		errors=ApiValidate.validateRequiredParams(request,errors,name);
 		if(!errors.hasErrors()){
@@ -173,7 +173,7 @@ public class CmsResourceApiAct {
 		String message=Constants.API_MESSAGE_PARAM_REQUIRED;
 		String code=ResponseCode.API_CODE_PARAM_REQUIRED;
 		CmsSite site = CmsUtils.getSite(request);
-		WebErrors errors=WebErrors.create(request);
+		WebErrors errors= WebErrors.create(request);
 		if (StringUtils.isBlank(root)) {
 			root = site.getResPath();
 		}
@@ -208,7 +208,7 @@ public class CmsResourceApiAct {
 		String message=Constants.API_MESSAGE_PARAM_REQUIRED;
 		String code=ResponseCode.API_CODE_PARAM_REQUIRED;
 		CmsSite site = CmsUtils.getSite(request);
-		WebErrors errors=WebErrors.create(request);
+		WebErrors errors= WebErrors.create(request);
 		//验证公共非空参数
 		errors=ApiValidate.validateRequiredParams(request,errors,
 				filename,source);
@@ -240,7 +240,7 @@ public class CmsResourceApiAct {
 		String message=Constants.API_MESSAGE_PARAM_REQUIRED;
 		String code=ResponseCode.API_CODE_PARAM_REQUIRED;
 		CmsSite site = CmsUtils.getSite(request);
-		WebErrors errors=WebErrors.create(request);
+		WebErrors errors= WebErrors.create(request);
 		//验证公共非空参数
 		errors=ApiValidate.validateRequiredParams(request,errors, names);
 		String[]nameArray=null;
@@ -278,7 +278,7 @@ public class CmsResourceApiAct {
 		String message=Constants.API_MESSAGE_PARAM_REQUIRED;
 		String code=ResponseCode.API_CODE_PARAM_REQUIRED;
 		CmsSite site = CmsUtils.getSite(request);
-		WebErrors errors=WebErrors.create(request);
+		WebErrors errors= WebErrors.create(request);
 		//验证公共非空参数
 		errors=ApiValidate.validateRequiredParams(request,errors, origName,distName);
 		if(!errors.hasErrors()){
@@ -305,7 +305,7 @@ public class CmsResourceApiAct {
 		String message=Constants.API_MESSAGE_PARAM_REQUIRED;
 		String code=ResponseCode.API_CODE_PARAM_REQUIRED;
 		CmsSite site = CmsUtils.getSite(request);
-		WebErrors errors=WebErrors.create(request);
+		WebErrors errors= WebErrors.create(request);
 		//验证公共非空参数
 		errors=ApiValidate.validateRequiredParams(request,errors, root,file);
 		if(!errors.hasErrors()){
@@ -339,9 +339,9 @@ public class CmsResourceApiAct {
 	}
 	
 	
-	private WebErrors validateUpload(String root,String tplPath,
-			MultipartFile file,
-			HttpServletRequest request) {
+	private WebErrors validateUpload(String root, String tplPath,
+									 MultipartFile file,
+									 HttpServletRequest request) {
 		WebErrors errors = WebErrors.create(request);
 		if (file == null) {
 			errors.addErrorString("error.noFileToUpload");
@@ -359,7 +359,7 @@ public class CmsResourceApiAct {
 	}
 	
 	private WebErrors validateList(String name, String tplPath,
-			HttpServletRequest request) {
+								   HttpServletRequest request) {
 		WebErrors errors = WebErrors.create(request);
 		if (vldExist(name, errors)) {
 			return errors;
@@ -371,7 +371,7 @@ public class CmsResourceApiAct {
 	}
 	
 	private WebErrors validatePath(String name, String tplPath,
-			WebErrors errors) {
+								   WebErrors errors) {
 		if (vldExist(name, errors)) {
 			return errors;
 		}
@@ -382,7 +382,7 @@ public class CmsResourceApiAct {
 	}
 	
 	private WebErrors validateRename(String name, String newName,
-			String tplPath,HttpServletRequest request) {
+									 String tplPath, HttpServletRequest request) {
 		WebErrors errors = WebErrors.create(request);
 		if (vldExist(name, errors)) {
 			return errors;

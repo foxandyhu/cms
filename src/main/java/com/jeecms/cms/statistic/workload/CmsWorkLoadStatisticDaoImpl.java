@@ -13,13 +13,14 @@ import org.springframework.stereotype.Repository;
 
 import com.jeecms.cms.statistic.workload.CmsWorkLoadStatistic.CmsWorkLoadStatisticDateKind;
 import com.jeecms.common.hibernate4.Finder;
-import com.jeecms.common.hibernate4.HibernateSimpleDao;
+import com.jeecms.common.hibernate4.AbstractHibernateSimpleDao;
 
 @Repository
-public class CmsWorkLoadStatisticDaoImpl extends HibernateSimpleDao implements CmsWorkLoadStatisticDao {
-	public Long statistic(Integer channelId,
-			Integer reviewerId, Integer authorId, 
-			Date beginDate, Date endDate,CmsWorkLoadStatisticDateKind dateKind) {
+public class CmsWorkLoadStatisticDaoImpl extends AbstractHibernateSimpleDao implements CmsWorkLoadStatisticDao {
+	@Override
+    public Long statistic(Integer channelId,
+                          Integer reviewerId, Integer authorId,
+                          Date beginDate, Date endDate, CmsWorkLoadStatisticDateKind dateKind) {
 		String hql="select count(*) from Content bean";
 		if (reviewerId!=null) {
 			hql+=" join bean.contentCheckSet check";
@@ -72,9 +73,10 @@ public class CmsWorkLoadStatisticDaoImpl extends HibernateSimpleDao implements C
 		return (Long) query.uniqueResult();
 	}
 	
-	public List<Object[]> statisticByTarget(Integer target,
-			Integer channelId,Integer reviewerId, 
-			Integer authorId, Date beginDate, Date endDate){
+	@Override
+    public List<Object[]> statisticByTarget(Integer target,
+                                            Integer channelId, Integer reviewerId,
+                                            Integer authorId, Date beginDate, Date endDate){
 		String hql="";
 		if(target==STATISTIC_BY_DAY){
 			hql="select count(bean.id),HOUR(bean.contentExt.releaseDate) from Content bean ";

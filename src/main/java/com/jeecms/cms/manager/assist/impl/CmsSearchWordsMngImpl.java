@@ -20,21 +20,24 @@ import com.jeecms.cms.web.CmsThreadVariable;
 @Service
 @Transactional
 public class CmsSearchWordsMngImpl implements CmsSearchWordsMng {
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Pagination getPage(Integer siteId,String name,Integer recommend,
 			Integer orderBy,int pageNo, int pageSize) {
 		Pagination page = dao.getPage(siteId,name,recommend,orderBy,pageNo, pageSize);
 		return page;
 	}
 	
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public List<CmsSearchWords> getList(Integer siteId,String name,
 			Integer recommend,Integer orderBy,Integer first,
 			Integer count,boolean cacheable){
 		return dao.getList(siteId,name,recommend,orderBy,first,count,cacheable);
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public CmsSearchWords findById(Integer id) {
 		CmsSearchWords entity = dao.findById(id);
 		return entity;
@@ -46,23 +49,27 @@ public class CmsSearchWordsMngImpl implements CmsSearchWordsMng {
 		return entity;
 	}
 
-	public CmsSearchWords save(CmsSearchWords bean) {
+	@Override
+    public CmsSearchWords save(CmsSearchWords bean) {
 		dao.save(bean);
 		return bean;
 	}
 
-	public CmsSearchWords update(CmsSearchWords bean) {
+	@Override
+    public CmsSearchWords update(CmsSearchWords bean) {
 		Updater<CmsSearchWords> updater = new Updater<CmsSearchWords>(bean);
 		bean = dao.updateByUpdater(updater);
 		return bean;
 	}
 
-	public CmsSearchWords deleteById(Integer id) {
+	@Override
+    public CmsSearchWords deleteById(Integer id) {
 		CmsSearchWords bean = dao.deleteById(id);
 		return bean;
 	}
 
-	public CmsSearchWords[] deleteByIds(Integer[] ids) {
+	@Override
+    public CmsSearchWords[] deleteByIds(Integer[] ids) {
 		CmsSearchWords[] beans = new CmsSearchWords[ids.length];
 		for (int i = 0, len = ids.length; i < len; i++) {
 			beans[i] = deleteById(ids[i]);
@@ -70,7 +77,8 @@ public class CmsSearchWordsMngImpl implements CmsSearchWordsMng {
 		return beans;
 	}
 	
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public int freshCacheToDB(Ehcache cache) {
 		int count = 0;
 		List<String> list = cache.getKeys();

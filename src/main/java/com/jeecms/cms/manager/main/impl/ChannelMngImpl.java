@@ -34,12 +34,14 @@ import com.jeecms.core.manager.CmsUserMng;
 @Service
 @Transactional
 public class ChannelMngImpl implements ChannelMng {
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public List<Channel> getTopList(Integer siteId, boolean hasContentOnly) {
 		return dao.getTopList(siteId, hasContentOnly, false, true);
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public List<Channel> getTopListByRigth(Integer userId, Integer siteId,
 			boolean hasContentOnly) {
 		CmsUser user = cmsUserMng.findById(userId);
@@ -51,24 +53,28 @@ public class ChannelMngImpl implements ChannelMng {
 		}
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public List<Channel> getTopListForTag(Integer siteId, boolean hasContentOnly) {
 		return dao.getTopList(siteId,hasContentOnly, true, true);
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Pagination getTopPageForTag(Integer siteId, boolean hasContentOnly,
 			int pageNo, int pageSize) {
 		return dao.getTopPage(siteId, hasContentOnly, false, true, pageNo,
 				pageSize);
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public List<Channel> getChildList(Integer parentId, boolean hasContentOnly) {
 		return dao.getChildList(parentId, hasContentOnly, false, true);
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public List<Channel> getChildListByRight(Integer userId, Integer siteId,
 			Integer parentId, boolean hasContentOnly) {
 		CmsUser user = cmsUserMng.findById(userId);
@@ -80,45 +86,52 @@ public class ChannelMngImpl implements ChannelMng {
 		}
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public List<Channel> getChildListForTag(Integer parentId,
 			boolean hasContentOnly) {
 		return dao.getChildList(parentId, hasContentOnly, true, true);
 	}
 	
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public List<Channel> getBottomList(Integer siteId,boolean hasContentOnly){
 		return dao.getBottomList(siteId,hasContentOnly);
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Pagination getChildPageForTag(Integer parentId,
 			boolean hasContentOnly, int pageNo, int pageSize) {
 		return dao.getChildPage(parentId, hasContentOnly, true, true, pageNo,
 				pageSize);
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Channel findById(Integer id) {
 		Channel entity = dao.findById(id);
 		return entity;
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Channel findByPath(String path, Integer siteId) {
 		return dao.findByPath(path, siteId, false);
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Channel findByPathForTag(String path, Integer siteId) {
 		return dao.findByPath(path, siteId, true);
 	}
 
-	public Channel save(Channel bean, ChannelExt ext, ChannelTxt txt,
-			Integer[] viewGroupIds, Integer[] contriGroupIds,
-			Integer[] userIds, Integer siteId, Integer parentId,
-			Integer modelId,Integer[]modelIds,
-			String[] tpls,String[] mtpls,boolean isCopy) {
+	@Override
+    public Channel save(Channel bean, ChannelExt ext, ChannelTxt txt,
+                        Integer[] viewGroupIds, Integer[] contriGroupIds,
+                        Integer[] userIds, Integer siteId, Integer parentId,
+                        Integer modelId, Integer[]modelIds,
+                        String[] tpls, String[] mtpls, boolean isCopy) {
 		if (parentId != null) {
 			bean.setParent(findById(parentId));
 		}else{
@@ -163,9 +176,10 @@ public class ChannelMngImpl implements ChannelMng {
 		return bean;
 	}
 	
-	public Channel copy(Integer cid,String solution, 
-			String mobileSolution, Integer siteId,
-			Map<String, String> pathMap){
+	@Override
+    public Channel copy(Integer cid, String solution,
+                        String mobileSolution, Integer siteId,
+                        Map<String, String> pathMap){
 		Channel c=findById(cid);
 		Channel channel=new Channel();
 		if(c!=null){
@@ -242,10 +256,11 @@ public class ChannelMngImpl implements ChannelMng {
 		return channel;
 	}
 
-	public Channel update(Channel bean, ChannelExt ext, ChannelTxt txt,
-			Integer[] viewGroupIds, Integer[] contriGroupIds,
-			Integer[] userIds, Integer parentId, Map<String, String> attr, Integer modelId,
-			Integer[]modelIds,String[] tpls,String[] mtpls) {
+	@Override
+    public Channel update(Channel bean, ChannelExt ext, ChannelTxt txt,
+                          Integer[] viewGroupIds, Integer[] contriGroupIds,
+                          Integer[] userIds, Integer parentId, Map<String, String> attr, Integer modelId,
+                          Integer[]modelIds, String[] tpls, String[] mtpls) {
 		// 更新主表
 		Updater<Channel> updater = new Updater<Channel>(bean);
 		bean = dao.updateByUpdater(updater);
@@ -316,7 +331,8 @@ public class ChannelMngImpl implements ChannelMng {
 		return bean;
 	}
 
-	public Channel deleteById(Integer id) {
+	@Override
+    public Channel deleteById(Integer id) {
 		Channel entity = dao.findById(id);
 		for (CmsGroup group : entity.getViewGroups()) {
 			group.getViewChannels().remove(entity);
@@ -328,7 +344,8 @@ public class ChannelMngImpl implements ChannelMng {
 		return entity;
 	}
 
-	public Channel[] deleteByIds(Integer[] ids) {
+	@Override
+    public Channel[] deleteByIds(Integer[] ids) {
 		Channel[] beans = new Channel[ids.length];
 		for (int i = 0, len = ids.length; i < len; i++) {
 			beans[i] = deleteById(ids[i]);
@@ -336,7 +353,8 @@ public class ChannelMngImpl implements ChannelMng {
 		return beans;
 	}
 
-	public String checkDelete(Integer id) {
+	@Override
+    public String checkDelete(Integer id) {
 		String msg = null;
 		for (ChannelDeleteChecker checker : deleteCheckerList) {
 			msg = checker.checkForChannelDelete(id);
@@ -347,7 +365,8 @@ public class ChannelMngImpl implements ChannelMng {
 		return msg;
 	}
 
-	public Channel[] updatePriority(Integer[] ids, Integer[] priority) {
+	@Override
+    public Channel[] updatePriority(Integer[] ids, Integer[] priority) {
 		int len = ids.length;
 		Channel[] beans = new Channel[len];
 		for (int i = 0; i < len; i++) {
@@ -357,7 +376,8 @@ public class ChannelMngImpl implements ChannelMng {
 		return beans;
 	}
 	
-	public void initWorkFlow(Integer workflowId){
+	@Override
+    public void initWorkFlow(Integer workflowId){
 		dao.initWorkFlow(workflowId);
 	}
 

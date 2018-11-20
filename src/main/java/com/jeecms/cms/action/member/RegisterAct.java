@@ -5,7 +5,6 @@ import static com.jeecms.cms.Constants.TPLDIR_MEMBER;
 import java.io.IOException;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +12,7 @@ import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,7 +42,6 @@ import com.jeecms.core.manager.CmsUserExtMng;
 import com.jeecms.core.manager.CmsUserMng;
 import com.jeecms.core.manager.ConfigMng;
 import com.jeecms.core.manager.UnifiedUserMng;
-import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
 import com.jeecms.core.web.util.FrontUtils;
 import com.octo.captcha.service.CaptchaServiceException;
@@ -237,7 +236,7 @@ public class RegisterAct {
 	}
 
 	private WebErrors validateSubmit(String username, String email, String loginPassword, String captcha, CmsSite site,
-			HttpServletRequest request, HttpServletResponse response) {
+									 HttpServletRequest request, HttpServletResponse response) {
 		MemberConfig mcfg = site.getConfig().getMemberConfig();
 		WebErrors errors = WebErrors.create(request);
 		try {
@@ -292,8 +291,8 @@ public class RegisterAct {
 	 * @param: @return      
 	 * @return: WebErrors
 	 */
-	private WebErrors validateSmsSubmit(String mobile,String username, String loginPassword, String captcha,
-			CmsSite site, HttpServletRequest request, HttpServletResponse response) {
+	private WebErrors validateSmsSubmit(String mobile, String username, String loginPassword, String captcha,
+										CmsSite site, HttpServletRequest request, HttpServletResponse response) {
 		MemberConfig mcfg = site.getConfig().getMemberConfig();
 		WebErrors errors = WebErrors.create(request);
 		Serializable autoCodeTime = session.getAttribute(request, "AUTO_CODE_CREAT_TIME");// 验证码有效时间
@@ -301,7 +300,7 @@ public class RegisterAct {
 		// 判断验证码是否在有效时间范围
 		if (autoCodeTime != null && autoCode != null) {
 			Long effectiveTime = Long.parseLong(autoCodeTime.toString());
-			if (effectiveTime > new Date().getTime()) {
+			if (effectiveTime > System.currentTimeMillis()) {
 				// 验证码验证码是否正确
 				if (captcha.equals(autoCode.toString())) {
 					session.setAttribute(request, response, "AUTO_CODE_CREAT_TIME", null);					
@@ -349,7 +348,7 @@ public class RegisterAct {
 	}
 
 	private WebErrors validateActive(String username, String activationCode, HttpServletRequest request,
-			HttpServletResponse response) {
+									 HttpServletResponse response) {
 		WebErrors errors = WebErrors.create(request);
 		if (StringUtils.isBlank(username) || StringUtils.isBlank(activationCode)) {
 			errors.addErrorCode("error.exceptionParams");

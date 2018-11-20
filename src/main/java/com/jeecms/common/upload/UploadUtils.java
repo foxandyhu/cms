@@ -59,9 +59,9 @@ public class UploadUtils {
 	 */
 	public static String sanitizeFileName(final String filename) {
 
-		if (StringUtils.isBlank(filename))
+		if (StringUtils.isBlank(filename)) {
 			return filename;
-
+		}
 		String name = forceSingleExtension(filename);
 
 		// Remove \ / | : ? * " < > 'Control Chars' with _
@@ -80,9 +80,9 @@ public class UploadUtils {
 	 */
 	public static String sanitizeFolderName(final String folderName) {
 
-		if (StringUtils.isBlank(folderName))
+		if (StringUtils.isBlank(folderName)) {
 			return folderName;
-
+		}
 		// Remove . \ / | : ? * " < > 'Control Chars' with _
 		return folderName.replaceAll(
 				"\\.|\\\\|/|\\||:|\\?|\\*|\"|<|>|\\p{Cntrl}", "_");
@@ -98,12 +98,12 @@ public class UploadUtils {
 	 *         <code>false</code>
 	 */
 	public static boolean isValidPath(final String path) {
-		if (StringUtils.isBlank(path))
+		if (StringUtils.isBlank(path)) {
 			return false;
-
-		if (ILLEGAL_CURRENT_FOLDER_PATTERN.matcher(path).find())
+		}
+		if (ILLEGAL_CURRENT_FOLDER_PATTERN.matcher(path).find()) {
 			return false;
-
+		}
 		return true;
 	}
 
@@ -137,8 +137,9 @@ public class UploadUtils {
 	 *            directory to check/create
 	 */
 	public static void checkDirAndCreate(File dir) {
-		if (!dir.exists())
+		if (!dir.exists()) {
 			dir.mkdirs();
+		}
 	}
 
 	/**
@@ -152,9 +153,9 @@ public class UploadUtils {
 	 * @return first non-existent file
 	 */
 	public static File getUniqueFile(final File file) {
-		if (!file.exists())
+		if (!file.exists()) {
 			return file;
-
+		}
 		File tmpFile = new File(file.getAbsolutePath());
 		File parentDir = tmpFile.getParentFile();
 		int count = 1;

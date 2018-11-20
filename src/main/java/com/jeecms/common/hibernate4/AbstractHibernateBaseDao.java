@@ -24,8 +24,8 @@ import com.jeecms.common.util.MyBeanUtils;
  * @param <ID>
  *            entity id
  */
-public abstract class HibernateBaseDao<T, ID extends Serializable> extends
-		HibernateSimpleDao {
+public abstract class AbstractHibernateBaseDao<T, ID extends Serializable> extends
+		AbstractHibernateSimpleDao {
 	/**
 	 * @see Session.get(Class,Serializable)
 	 * @param id

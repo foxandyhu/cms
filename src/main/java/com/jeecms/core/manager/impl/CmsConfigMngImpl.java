@@ -21,52 +21,62 @@ import com.jeecms.core.manager.CmsConfigMng;
 @Service
 @Transactional
 public class CmsConfigMngImpl implements CmsConfigMng {
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public CmsConfig get() {
 		CmsConfig entity = dao.findById(1);
 		return entity;
 	}
 	
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Integer getContentFreshMinute() {
 		CmsConfig entity = get();
 		return entity.getContentFreshMinute();
 	}
 
-	public void updateCountCopyTime(Date d) {
+	@Override
+    public void updateCountCopyTime(Date d) {
 		dao.findById(1).setCountCopyTime(d);
 	}
 
-	public void updateCountClearTime(Date d) {
+	@Override
+    public void updateCountClearTime(Date d) {
 		dao.findById(1).setCountClearTime(new java.sql.Date(d.getTime()));
 	}
 	
-	public void updateFlowClearTime(Date d) {
+	@Override
+    public void updateFlowClearTime(Date d) {
 		dao.findById(1).setFlowClearTime(new java.sql.Date(d.getTime()));
 	}
 	
-	public void updateChannelCountClearTime(Date d) {
+	@Override
+    public void updateChannelCountClearTime(Date d) {
 		dao.findById(1).setChannelCountClearTime(new java.sql.Date(d.getTime()));
 	}
 
 
-	public CmsConfig update(CmsConfig bean) {
+	@Override
+    public CmsConfig update(CmsConfig bean) {
 		Updater<CmsConfig> updater = new Updater<>(bean);
 		CmsConfig entity = dao.updateByUpdater(updater);
 		entity.blankToNull();
 		return entity;
 	}
 
-	public MarkConfig updateMarkConfig(MarkConfig mark) {
+	@Override
+    public MarkConfig updateMarkConfig(MarkConfig mark) {
 		get().setMarkConfig(mark);
 		return mark;
 	}
 
-	public void updateMemberConfig(MemberConfig memberConfig) {
+	@Override
+    public void updateMemberConfig(MemberConfig memberConfig) {
 		get().getAttr().putAll(memberConfig.getAttr());
 	}
 
-	public void updateConfigAttr(CmsConfigAttr configAttr) {
+	@Override
+    public void updateConfigAttr(CmsConfigAttr configAttr) {
 		Map<String,String>attrMap=configAttr.getAttr();
 		if(StringUtils.isBlank(attrMap.get(CmsConfigAttr.WEIXIN_APP_ID))){
 			attrMap.remove(CmsConfigAttr.WEIXIN_APP_ID);
@@ -84,7 +94,8 @@ public class CmsConfigMngImpl implements CmsConfigMng {
 		contentQueryFreshTimeCache.setInterval(getContentFreshMinute());
 	}
 	
-	public void updateSsoAttr(Map<String,String> ssoAttr){
+	@Override
+    public void updateSsoAttr(Map<String,String> ssoAttr){
 		Map<String,String> oldAttr=get().getAttr();
 		Iterator<String> keys = oldAttr.keySet().iterator();
 	    String key = null;
@@ -97,7 +108,8 @@ public class CmsConfigMngImpl implements CmsConfigMng {
 		oldAttr.putAll(ssoAttr);
 	}
 	
-	public void updateRewardFixAttr(Map<String,String> fixAttr){
+	@Override
+    public void updateRewardFixAttr(Map<String,String> fixAttr){
 		Map<String,String> oldAttr=get().getAttr();
 		Iterator<String> keys = oldAttr.keySet().iterator();
 	    String key = null;

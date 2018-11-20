@@ -1,31 +1,35 @@
 package com.jeecms.core.dao.impl;
 
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 import org.springframework.stereotype.Repository;
 
-import com.jeecms.common.hibernate4.HibernateBaseDao;
 import com.jeecms.core.dao.CmsUserSiteDao;
 import com.jeecms.core.entity.CmsUserSite;
 
 @Repository
-public class CmsUserSiteDaoImpl extends HibernateBaseDao<CmsUserSite, Integer>
+public class CmsUserSiteDaoImpl extends AbstractHibernateBaseDao<CmsUserSite, Integer>
 		implements CmsUserSiteDao {
-	public CmsUserSite findById(Integer id) {
+	@Override
+    public CmsUserSite findById(Integer id) {
 		CmsUserSite entity = get(id);
 		return entity;
 	}
 
-	public CmsUserSite save(CmsUserSite bean) {
+	@Override
+    public CmsUserSite save(CmsUserSite bean) {
 		getSession().save(bean);
 		return bean;
 	}
 
-	public int deleteBySiteId(Integer siteId) {
+	@Override
+    public int deleteBySiteId(Integer siteId) {
 		String hql = "delete from CmsUserSite bean where bean.site.id=:siteId";
 		return getSession().createQuery(hql).setParameter("siteId", siteId)
 				.executeUpdate();
 	}
 
-	public CmsUserSite deleteById(Integer id) {
+	@Override
+    public CmsUserSite deleteById(Integer id) {
 		CmsUserSite entity = super.get(id);
 		if (entity != null) {
 			getSession().delete(entity);
@@ -33,7 +37,8 @@ public class CmsUserSiteDaoImpl extends HibernateBaseDao<CmsUserSite, Integer>
 		return entity;
 	}
 
-	public void delete(CmsUserSite entity) {
+	@Override
+    public void delete(CmsUserSite entity) {
 		getSession().delete(entity);
 	}
 

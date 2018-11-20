@@ -3,22 +3,23 @@ package com.jeecms.cms.dao.main.impl;
 import java.util.Date;
 import java.util.List;
 
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Repository;
 
 import com.jeecms.cms.dao.main.ContentChargeDao;
 import com.jeecms.cms.entity.main.ContentCharge;
 import com.jeecms.common.hibernate4.Finder;
-import com.jeecms.common.hibernate4.HibernateBaseDao;
 import com.jeecms.common.page.Pagination;
 import com.jeecms.common.util.DateUtils;
 
 @Repository
-public class ContentChargeDaoImpl extends HibernateBaseDao<ContentCharge, Integer>
+public class ContentChargeDaoImpl extends AbstractHibernateBaseDao<ContentCharge, Integer>
 		implements ContentChargeDao {
 	
-	public List<ContentCharge> getList(String contentTitle,Integer authorUserId,
-			Date buyTimeBegin,Date buyTimeEnd,int orderBy,Integer first,Integer count){
+	@Override
+    public List<ContentCharge> getList(String contentTitle, Integer authorUserId,
+                                       Date buyTimeBegin, Date buyTimeEnd, int orderBy, Integer first, Integer count){
 		Finder finder=getFinder(contentTitle,authorUserId,
 				buyTimeBegin,buyTimeEnd,orderBy);
 		if(first!=null){
@@ -30,9 +31,10 @@ public class ContentChargeDaoImpl extends HibernateBaseDao<ContentCharge, Intege
 		return find(finder);
 	}
 	
-	public Pagination getPage(String contentTitle,Integer authorUserId,
-			Date buyTimeBegin,Date buyTimeEnd,int orderBy,
-			int pageNo,int pageSize){
+	@Override
+    public Pagination getPage(String contentTitle, Integer authorUserId,
+                              Date buyTimeBegin, Date buyTimeEnd, int orderBy,
+                              int pageNo, int pageSize){
 		Finder finder=getFinder(contentTitle,authorUserId,
 				buyTimeBegin,buyTimeEnd,orderBy);
 		return find(finder, pageNo, pageSize);
@@ -88,12 +90,14 @@ public class ContentChargeDaoImpl extends HibernateBaseDao<ContentCharge, Intege
 		return finder;
 	}
 	
-	public ContentCharge findById(Integer id) {
+	@Override
+    public ContentCharge findById(Integer id) {
 		ContentCharge entity = get(id);
 		return entity;
 	}
 
-	public ContentCharge save(ContentCharge bean) {
+	@Override
+    public ContentCharge save(ContentCharge bean) {
 		getSession().save(bean);
 		return bean;
 	}

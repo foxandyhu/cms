@@ -19,7 +19,8 @@ public class BindingInitializer implements WebBindingInitializer {
 	 * @author andy_hulibo@163.com
 	 * @date 2018/11/20 10:37
 	 */
-	public void initBinder(WebDataBinder binder, WebRequest request) {
+	@Override
+    public void initBinder(WebDataBinder binder, WebRequest request) {
 		binder.registerCustomEditor(Date.class, new DateTypeEditor());
 	}
 }

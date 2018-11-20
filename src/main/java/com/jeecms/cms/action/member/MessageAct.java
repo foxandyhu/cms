@@ -11,6 +11,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -32,7 +33,6 @@ import com.jeecms.core.entity.CmsSite;
 import com.jeecms.core.entity.CmsUser;
 import com.jeecms.core.entity.MemberConfig;
 import com.jeecms.core.manager.CmsUserMng;
-import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
 import com.jeecms.core.web.util.FrontUtils;
 import com.octo.captcha.service.CaptchaServiceException;
@@ -685,7 +685,7 @@ public class MessageAct {
 	}
 
 	private WebErrors validateCaptcha(String captcha,
-			HttpServletRequest request, HttpServletResponse response) {
+									  HttpServletRequest request, HttpServletResponse response) {
 		WebErrors errors = WebErrors.create(request);
 		try {
 			if (!imageCaptchaService.validateResponseForID(session

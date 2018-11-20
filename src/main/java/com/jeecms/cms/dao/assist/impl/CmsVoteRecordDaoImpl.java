@@ -2,29 +2,32 @@ package com.jeecms.cms.dao.assist.impl;
 
 import java.util.List;
 
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 import org.springframework.stereotype.Repository;
 
 import com.jeecms.cms.dao.assist.CmsVoteRecordDao;
 import com.jeecms.cms.entity.assist.CmsVoteRecord;
-import com.jeecms.common.hibernate4.HibernateBaseDao;
 
 @Repository
 public class CmsVoteRecordDaoImpl extends
-		HibernateBaseDao<CmsVoteRecord, Integer> implements CmsVoteRecordDao {
+        AbstractHibernateBaseDao<CmsVoteRecord, Integer> implements CmsVoteRecordDao {
 
-	public CmsVoteRecord save(CmsVoteRecord bean) {
+	@Override
+    public CmsVoteRecord save(CmsVoteRecord bean) {
 		getSession().save(bean);
 		return bean;
 	}
 
-	public int deleteByTopic(Integer topicId) {
+	@Override
+    public int deleteByTopic(Integer topicId) {
 		String hql = "delete from CmsVoteRecord bean"
 				+ " where bean.topic.id=:topicId";
 		return getSession().createQuery(hql).setParameter("topicId", topicId)
 				.executeUpdate();
 	}
 
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public CmsVoteRecord findByUserId(Integer userId, Integer topicId) {
 		String hql = "from CmsVoteRecord bean where bean.user.id=:userId"
 				+ " and bean.topic.id=:topicId order by bean.time desc";
@@ -34,7 +37,8 @@ public class CmsVoteRecordDaoImpl extends
 		return list.size() > 0 ? list.get(0) : null;
 	}
 
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public CmsVoteRecord findByIp(String ip, Integer topicId) {
 		String hql = "from CmsVoteRecord bean where bean.ip=:ip"
 				+ " and bean.topic.id=:topicId order by bean.time desc";
@@ -44,7 +48,8 @@ public class CmsVoteRecordDaoImpl extends
 		return list.size() > 0 ? list.get(0) : null;
 	}
 
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public CmsVoteRecord findByCookie(String cookie, Integer topicId) {
 		String hql = "from CmsVoteRecord bean where bean.cookie=:cookie"
 				+ " and bean.topic.id=:topicId order by bean.time desc";

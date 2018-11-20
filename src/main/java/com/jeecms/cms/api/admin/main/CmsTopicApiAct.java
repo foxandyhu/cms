@@ -9,6 +9,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.slf4j.Logger;
@@ -35,7 +36,6 @@ import com.jeecms.common.web.springmvc.MessageResolver;
 import com.jeecms.core.entity.CmsSite;
 import com.jeecms.core.manager.CmsLogMng;
 import com.jeecms.core.tpl.TplManager;
-import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
 import com.jeecms.core.web.util.CoreUtils;
 
@@ -286,7 +286,7 @@ public class CmsTopicApiAct {
 		return json;
 	}
 	
-	private WebErrors validatePriority(WebErrors errors,Integer[] arr1,Integer[] arr2){
+	private WebErrors validatePriority(WebErrors errors, Integer[] arr1, Integer[] arr2){
 		if (arr1!=null&&arr2!=null) {
 			if (arr1.length!=arr2.length) {
 				errors.addErrorString(Constants.API_MESSAGE_PARAM_ERROR);

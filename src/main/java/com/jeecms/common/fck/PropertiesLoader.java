@@ -43,9 +43,9 @@ public class PropertiesLoader {
 			logger.error("{} not found", DEFAULT_FILENAME);
 			throw new RuntimeException(DEFAULT_FILENAME + " not found");
 		} else {
-			if (!(in instanceof BufferedInputStream))
+			if (!(in instanceof BufferedInputStream)) {
 				in = new BufferedInputStream(in);
-
+			}
 			try {
 				properties.load(in);
 				in.close();
@@ -65,9 +65,9 @@ public class PropertiesLoader {
 			logger.info("{} not found", LOCAL_PROPERTIES);
 		} else {
 
-			if (!(in2 instanceof BufferedInputStream))
+			if (!(in2 instanceof BufferedInputStream)) {
 				in2 = new BufferedInputStream(in2);
-
+			}
 			try {
 				properties.load(in2);
 				in2.close();

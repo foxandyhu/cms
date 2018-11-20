@@ -19,70 +19,78 @@ import com.jeecms.cms.manager.main.ContentRecordMng;
 @Service
 @Transactional
 public class ContentRecordMngImpl implements ContentRecordMng {
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Pagination getPage(int pageNo, int pageSize) {
 		Pagination page = dao.getPage(pageNo, pageSize);
 		return page;
 	}
 	
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public List<ContentRecord>getListByContentId(Integer contentId){
 		return dao.getListByContentId(contentId);
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public ContentRecord findById(Long id) {
 		ContentRecord entity = dao.findById(id);
 		return entity;
 	}
 	
-	public ContentRecord record(Content content,CmsUser user,ContentOperateType operate){
+	@Override
+    public ContentRecord record(Content content, CmsUser user, ContentOperateType operate){
 		ContentRecord record=new ContentRecord();
 		record.setContent(content);
 		record.setOperateTime(Calendar.getInstance().getTime());
 		record.setUser(user);
-		Byte operateByte = ContentRecord.add;
+		Byte operateByte = ContentRecord.ADD;
 		if(operate==ContentOperateType.edit){
-			operateByte=ContentRecord.edit;
+			operateByte=ContentRecord.EDIT;
 		}else if(operate==ContentOperateType.cycle){
-			operateByte=ContentRecord.cycle;
+			operateByte=ContentRecord.CYCLE;
 		}else if(operate==ContentOperateType.check){
-			operateByte=ContentRecord.check;
+			operateByte=ContentRecord.CHECK;
 		}else if(operate==ContentOperateType.rejected){
-			operateByte=ContentRecord.rejected;
+			operateByte=ContentRecord.REJECTED;
 		}else if(operate==ContentOperateType.move){
-			operateByte=ContentRecord.move;
+			operateByte=ContentRecord.MOVE;
 		}else if(operate==ContentOperateType.shared){
-			operateByte=ContentRecord.shared;
+			operateByte=ContentRecord.SHARED;
 		}else if(operate==ContentOperateType.pigeonhole){
-			operateByte=ContentRecord.pigeonhole;
+			operateByte=ContentRecord.PIGEONHOLE;
 		}else if(operate==ContentOperateType.reuse){
-			operateByte=ContentRecord.reuse;
+			operateByte=ContentRecord.REUSE;
 		}else if(operate==ContentOperateType.createPage){
-			operateByte=ContentRecord.createPage;
+			operateByte=ContentRecord.CREATEPAGE;
 		}
 		record.setOperateType(operateByte);
 		save(record);
 		return record;
 	}
 
-	public ContentRecord save(ContentRecord bean) {
+	@Override
+    public ContentRecord save(ContentRecord bean) {
 		dao.save(bean);
 		return bean;
 	}
 
-	public ContentRecord update(ContentRecord bean) {
+	@Override
+    public ContentRecord update(ContentRecord bean) {
 		Updater<ContentRecord> updater = new Updater<ContentRecord>(bean);
 		bean = dao.updateByUpdater(updater);
 		return bean;
 	}
 
-	public ContentRecord deleteById(Long id) {
+	@Override
+    public ContentRecord deleteById(Long id) {
 		ContentRecord bean = dao.deleteById(id);
 		return bean;
 	}
 	
-	public ContentRecord[] deleteByIds(Long[] ids) {
+	@Override
+    public ContentRecord[] deleteByIds(Long[] ids) {
 		ContentRecord[] beans = new ContentRecord[ids.length];
 		for (int i = 0,len = ids.length; i < len; i++) {
 			beans[i] = deleteById(ids[i]);

@@ -34,7 +34,8 @@ public class DistributeJob extends QuartzJobBean {
 	/**
 	 * 分发调度任务执行方法
 	 */
-	protected void executeInternal(JobExecutionContext context)
+	@Override
+    protected void executeInternal(JobExecutionContext context)
 			throws JobExecutionException {
 		try {
 			SchedulerContext schCtx = context.getScheduler().getContext();

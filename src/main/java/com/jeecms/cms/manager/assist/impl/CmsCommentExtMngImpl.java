@@ -13,7 +13,8 @@ import com.jeecms.common.hibernate4.Updater;
 @Service
 @Transactional
 public class CmsCommentExtMngImpl implements CmsCommentExtMng {
-	public CmsCommentExt save(String ip, String text, CmsComment comment) {
+	@Override
+    public CmsCommentExt save(String ip, String text, CmsComment comment) {
 		CmsCommentExt ext = new CmsCommentExt();
 		ext.setText(text);
 		ext.setIp(ip);
@@ -23,13 +24,15 @@ public class CmsCommentExtMngImpl implements CmsCommentExtMng {
 		return ext;
 	}
 
-	public CmsCommentExt update(CmsCommentExt bean) {
+	@Override
+    public CmsCommentExt update(CmsCommentExt bean) {
 		Updater<CmsCommentExt> updater = new Updater<CmsCommentExt>(bean);
 		bean = dao.updateByUpdater(updater);
 		return bean;
 	}
 
-	public int deleteByContentId(Integer contentId) {
+	@Override
+    public int deleteByContentId(Integer contentId) {
 		return dao.deleteByContentId(contentId);
 	}
 

@@ -12,7 +12,7 @@ import org.apache.commons.lang.StringUtils;
 /**
  * 图片辅助类
  */
-public abstract class ImageUtils {
+public class ImageUtils {
 	/**
 	 * 图片的后缀
 	 */

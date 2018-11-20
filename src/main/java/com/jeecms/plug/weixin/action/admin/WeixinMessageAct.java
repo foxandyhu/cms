@@ -4,6 +4,7 @@ import static com.jeecms.common.page.SimplePage.cpn;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.jeecms.core.web.WebErrors;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.jeecms.common.page.Pagination;
 import com.jeecms.common.web.CookieUtils;
 import com.jeecms.core.entity.CmsSite;
-import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
 import com.jeecms.plug.weixin.entity.WeixinMenu;
 import com.jeecms.plug.weixin.entity.WeixinMessage;

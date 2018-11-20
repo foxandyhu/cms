@@ -52,8 +52,9 @@ public class ChannelDirective implements TemplateDirectiveModel {
 	public static final String TPL_CHANNEL_NOT_FOUND = "/WEB-INF/t/cms_sys_defined/channel/NotFoundChannelException.html";
 
 	
-	public void execute(Environment env, Map params, TemplateModel[] loopVars,
-			TemplateDirectiveBody body) throws TemplateException, IOException {
+	@Override
+    public void execute(Environment env, Map params, TemplateModel[] loopVars,
+                        TemplateDirectiveBody body) throws TemplateException, IOException {
 		CmsSite site = FrontUtils.getSite(env);
 		Integer id = DirectiveUtils.getInt(PARAM_ID, params);
 		Channel channel;

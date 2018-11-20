@@ -3,16 +3,16 @@ package com.jeecms.core.dao.impl;
 import java.util.Date;
 import java.util.List;
 
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Repository;
 
 import com.jeecms.common.hibernate4.Finder;
-import com.jeecms.common.hibernate4.HibernateBaseDao;
 import com.jeecms.common.page.Pagination;
 import com.jeecms.core.dao.CmsSmsRecordDao;
 import com.jeecms.core.entity.CmsSmsRecord;
 @Repository
-public class CmsSmsRecordDaoImpl extends HibernateBaseDao<CmsSmsRecord, Integer> implements CmsSmsRecordDao {
+public class CmsSmsRecordDaoImpl extends AbstractHibernateBaseDao<CmsSmsRecord, Integer> implements CmsSmsRecordDao {
 
 	@SuppressWarnings("unchecked")
 	@Override

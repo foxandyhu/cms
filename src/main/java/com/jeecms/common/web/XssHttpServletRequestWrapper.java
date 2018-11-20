@@ -15,7 +15,8 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
 	public XssHttpServletRequestWrapper(HttpServletRequest request) {
 		super(request);
 	}
-	public String getQueryString() {
+	@Override
+    public String getQueryString() {
 		String value = super.getQueryString();
 		if (value != null) {
 			value = StrUtils.xssEncode(value);
@@ -28,7 +29,8 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
 	 * 如果需要获得原始的值，则通过super.getParameterValues(name)来获取<br/>
 	 * getParameterNames,getParameterValues和getParameterMap也可能需要覆盖
 	 */
-	public String getParameter(String name) {
+	@Override
+    public String getParameter(String name) {
 		String value = super.getParameter(StrUtils.xssEncode(name));
 		if (value != null) {
 			value = StrUtils.xssEncode(value);
@@ -36,7 +38,8 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
 		return value;
 	}
 	
-	public String[] getParameterValues(String name) {
+	@Override
+    public String[] getParameterValues(String name) {
 		String[]parameters=super.getParameterValues(name);
 		if (parameters==null||parameters.length == 0) {
 			return null;
@@ -51,7 +54,8 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
 	 * 覆盖getHeader方法，将参数名和参数值都做xss过滤。<br/>
 	 * 如果需要获得原始的值，则通过super.getHeaders(name)来获取<br/> getHeaderNames 也可能需要覆盖
 	 */
-	public String getHeader(String name) {
+	@Override
+    public String getHeader(String name) {
 
 		String value = super.getHeader(StrUtils.xssEncode(name));
 		if (value != null) {

@@ -1,6 +1,5 @@
 package com.jeecms.cms.api.admin.assist;
 
-import java.io.File;
 import java.util.Date;
 import java.util.List;
 
@@ -8,13 +7,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.jeecms.config.SocialInfoConfig;
+import com.jeecms.core.web.WebErrors;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -32,13 +31,11 @@ import com.jeecms.cms.manager.assist.CmsConfigContentChargeMng;
 import com.jeecms.common.page.Pagination;
 import com.jeecms.common.security.encoder.Md5PwdEncoder;
 import com.jeecms.common.util.Num62;
-import com.jeecms.common.util.PropertyUtils;
 import com.jeecms.common.util.StrUtils;
 import com.jeecms.common.web.ResponseUtils;
 import com.jeecms.common.web.springmvc.MessageResolver;
 import com.jeecms.core.entity.CmsUser;
 import com.jeecms.core.manager.CmsUserMng;
-import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
 
 @Controller

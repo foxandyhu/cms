@@ -16,7 +16,7 @@ import javax.servlet.ServletInputStream;
  *                           Changshin Lee
  * @version 1.0, 2000/10/27, initial revision
  */
-public class ParamPart extends Part {
+public class ParamPart extends AbstractPart {
   
   /** contents of the parameter */
   private byte[] value;
@@ -90,6 +90,7 @@ public class ParamPart extends Part {
    * 
    * @return true.
    */
+  @Override
   public boolean isParam() {
     return true;
   }

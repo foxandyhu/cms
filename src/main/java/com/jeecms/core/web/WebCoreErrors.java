@@ -4,9 +4,10 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.jeecms.common.web.springmvc.AbstractWebErrors;
 import org.springframework.context.MessageSource;
 
-public class WebCoreErrors extends com.jeecms.common.web.springmvc.WebErrors {
+public class WebCoreErrors extends AbstractWebErrors {
 	/**
 	 * 默认错误页面
 	 */

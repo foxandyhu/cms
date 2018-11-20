@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.jeecms.core.web.WebErrors;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,6 @@ import com.jeecms.cms.service.WeiXinSvc;
 import com.jeecms.core.Constants;
 import com.jeecms.core.entity.CmsSite;
 import com.jeecms.core.manager.CmsSiteMng;
-import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
 import com.jeecms.plug.weixin.entity.Weixin;
 import com.jeecms.plug.weixin.manager.WeixinMng;

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +24,6 @@ import com.jeecms.common.page.Pagination;
 import com.jeecms.common.util.StrUtils;
 import com.jeecms.common.web.ResponseUtils;
 import com.jeecms.core.manager.CmsLogMng;
-import com.jeecms.core.web.WebErrors;
 
 @Controller("adminContentTagApiAct")
 public class ContentTagApiAct {
@@ -197,7 +197,7 @@ public class ContentTagApiAct {
 		ResponseUtils.renderApiJson(response, request, apiResponse);
 	}
 	
-	private WebErrors validateDelete(WebErrors errors,Integer[] idArr){
+	private WebErrors validateDelete(WebErrors errors, Integer[] idArr){
 		if (idArr!=null) {
 			for (int i = 0; i < idArr.length; i++) {
 				vldExist(idArr[i], errors);
@@ -206,7 +206,7 @@ public class ContentTagApiAct {
 		return errors;
 	}
 	
-	private WebErrors validateUpdate(WebErrors errors,Integer id){
+	private WebErrors validateUpdate(WebErrors errors, Integer id){
 		if (id!=null) {
 			vldExist(id, errors);
 		}

@@ -6,14 +6,15 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Repository;
 
 import com.jeecms.common.hibernate4.Finder;
-import com.jeecms.common.hibernate4.HibernateBaseDao;
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 import com.jeecms.common.page.Pagination;
 import com.jeecms.cms.dao.main.CmsThirdAccountDao;
 import com.jeecms.cms.entity.main.CmsThirdAccount;
 
 @Repository
-public class CmsThirdAccountDaoImpl extends HibernateBaseDao<CmsThirdAccount, Long> implements CmsThirdAccountDao {
-	public Pagination getPage(String username,String source,int pageNo, int pageSize) {
+public class CmsThirdAccountDaoImpl extends AbstractHibernateBaseDao<CmsThirdAccount, Long> implements CmsThirdAccountDao {
+	@Override
+    public Pagination getPage(String username, String source, int pageNo, int pageSize) {
 		String hql="from CmsThirdAccount bean where 1=1 ";
 		Finder f=Finder.create(hql);
 		if(StringUtils.isNotBlank(username)){
@@ -25,12 +26,14 @@ public class CmsThirdAccountDaoImpl extends HibernateBaseDao<CmsThirdAccount, Lo
 		return find(f, pageNo, pageSize);
 	}
 
-	public CmsThirdAccount findById(Long id) {
+	@Override
+    public CmsThirdAccount findById(Long id) {
 		CmsThirdAccount entity = get(id);
 		return entity;
 	}
 	
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public CmsThirdAccount findByKey(String key){
 		String hql="from CmsThirdAccount bean where bean.accountKey=:accountKey";
 		Finder f=Finder.create(hql).setParam("accountKey", key);
@@ -42,12 +45,14 @@ public class CmsThirdAccountDaoImpl extends HibernateBaseDao<CmsThirdAccount, Lo
 		}
 	}
 
-	public CmsThirdAccount save(CmsThirdAccount bean) {
+	@Override
+    public CmsThirdAccount save(CmsThirdAccount bean) {
 		getSession().save(bean);
 		return bean;
 	}
 
-	public CmsThirdAccount deleteById(Long id) {
+	@Override
+    public CmsThirdAccount deleteById(Long id) {
 		CmsThirdAccount entity = super.get(id);
 		if (entity != null) {
 			getSession().delete(entity);

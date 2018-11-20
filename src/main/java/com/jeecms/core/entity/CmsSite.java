@@ -1239,7 +1239,7 @@ public class CmsSite implements Serializable {
         if (StringUtils.isNotBlank(pv)) {
             return Long.decode(pv);
         } else {
-            return 0l;
+            return 0L;
         }
     }
 
@@ -1248,7 +1248,7 @@ public class CmsSite implements Serializable {
         if (StringUtils.isNotBlank(visitorNum)) {
             return Long.decode(visitorNum);
         } else {
-            return 0l;
+            return 0L;
         }
     }
 
@@ -1257,7 +1257,7 @@ public class CmsSite implements Serializable {
         if (StringUtils.isNotBlank(pv)) {
             return Long.decode(pv);
         } else {
-            return 0l;
+            return 0L;
         }
     }
 
@@ -1266,7 +1266,7 @@ public class CmsSite implements Serializable {
         if (StringUtils.isNotBlank(visitorNum)) {
             return Long.decode(visitorNum);
         } else {
-            return 0l;
+            return 0L;
         }
     }
 
@@ -1275,7 +1275,7 @@ public class CmsSite implements Serializable {
         if (StringUtils.isNotBlank(pv)) {
             return Long.decode(pv);
         } else {
-            return 0l;
+            return 0L;
         }
     }
 
@@ -1284,7 +1284,7 @@ public class CmsSite implements Serializable {
         if (StringUtils.isNotBlank(visitorNum)) {
             return Long.decode(visitorNum);
         } else {
-            return 0l;
+            return 0L;
         }
     }
 
@@ -1293,7 +1293,7 @@ public class CmsSite implements Serializable {
         if (StringUtils.isNotBlank(pv)) {
             return Long.decode(pv);
         } else {
-            return 0l;
+            return 0L;
         }
     }
 
@@ -1302,7 +1302,7 @@ public class CmsSite implements Serializable {
         if (StringUtils.isNotBlank(visitorNum)) {
             return Long.decode(visitorNum);
         } else {
-            return 0l;
+            return 0L;
         }
     }
 

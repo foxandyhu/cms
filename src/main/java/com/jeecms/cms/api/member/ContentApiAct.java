@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,6 @@ import com.jeecms.core.entity.CmsSite;
 import com.jeecms.core.entity.CmsUser;
 import com.jeecms.core.manager.CmsConfigMng;
 import com.jeecms.core.manager.CmsSiteMng;
-import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
 
 @Controller
@@ -340,7 +340,7 @@ public class ContentApiAct {
 		String message=Constants.API_MESSAGE_PARAM_REQUIRED;
 		String code=ResponseCode.API_CODE_PARAM_REQUIRED;
 		CmsSite currSite=CmsUtils.getSite(request);
-		WebErrors errors=WebErrors.create(request);
+		WebErrors errors= WebErrors.create(request);
 		CmsUser user = CmsUtils.getUser(request);
 		//验证公共非空参数
 		errors=ApiValidate.validateRequiredParams(request,errors,ids,currSite);
@@ -429,7 +429,7 @@ public class ContentApiAct {
 			}
 		}
 		CmsSite currSite=CmsUtils.getSite(request);
-		WebErrors errors=WebErrors.create(request);
+		WebErrors errors= WebErrors.create(request);
 		CmsUser user = CmsUtils.getUser(request);
 		//验证公共非空参数
 		errors=ApiValidate.validateRequiredParams(request,errors, currSite);
@@ -683,7 +683,7 @@ public class ContentApiAct {
 	}
 	
 	private boolean vldChannel(WebErrors errors, CmsSite site, CmsUser user,
-			Integer channelId) {
+							   Integer channelId) {
 		Channel channel = channelMng.findById(channelId);
 		if (errors.ifNotExist(channel, Channel.class, channelId, false)) {
 			return true;
@@ -707,7 +707,7 @@ public class ContentApiAct {
 		String message=Constants.API_MESSAGE_PARAM_REQUIRED;
 		String code=ResponseCode.API_CODE_PARAM_REQUIRED;
 		CmsSite currSite=CmsUtils.getSite(request);
-		WebErrors errors=WebErrors.create(request);
+		WebErrors errors= WebErrors.create(request);
 		CmsUser user=CmsUtils.getUser(request);
 		//验证公共非空参数
 		if(operate.equals(OPERATE_BUY)){

@@ -66,7 +66,7 @@ public class DynamicPageAct {
         //	return FrontUtils.getTplPath(request, site.getSolutionPath(),TPLDIR_INDEX, TPL_INDEX);
         //带有其他路径则是非法请求(非内网)
         String uri = URLHelper.getURI(request);
-        if (StringUtils.isNotBlank(uri) && (!(uri.equals("/") || uri.equals("/index.html")))) {
+        if (StringUtils.isNotBlank(uri) && (!("/".equals(uri) || "/index.html".equals(uri)))) {
             return FrontUtils.pageNotFound(request, response, model);
         }
         //使用静态首页而且静态首页存在
@@ -75,7 +75,7 @@ public class DynamicPageAct {
         } else {
             String tpl = site.getTplIndex();
             String equipment = (String) request.getAttribute("ua");
-            if (StringUtils.isNotBlank(equipment) && !equipment.equals("mobile")
+            if (StringUtils.isNotBlank(equipment) && !"mobile".equals(equipment)
                     && !StringUtils.isBlank(tpl)) {
                 return tpl;
             } else {
@@ -144,7 +144,7 @@ public class DynamicPageAct {
         FrontUtils.frontData(request, model, site);
         FrontUtils.frontPageData(request, model);
         String equipment = (String) request.getAttribute("ua");
-        if (StringUtils.isNotBlank(equipment) && equipment.equals("mobile")) {
+        if (StringUtils.isNotBlank(equipment) && "mobile".equals(equipment)) {
             return channel.getMobileTplChannelOrDef();
         }
         return channel.getTplChannelOrDef();
@@ -237,7 +237,7 @@ public class DynamicPageAct {
         model.addAttribute("pic", content.getPictureByNo(pageNo));
         FrontUtils.frontData(request, model, site);
         String equipment = (String) request.getAttribute("ua");
-        if (StringUtils.isNotBlank(equipment) && equipment.equals("mobile")) {
+        if (StringUtils.isNotBlank(equipment) && "mobile".equals(equipment)) {
             return content.getMobileTplContentOrDef(content.getModel());
         }
         return content.getTplContentOrDef(content.getModel());
@@ -269,13 +269,13 @@ public class DynamicPageAct {
             }
             if (site.getIndexToRoot()) {
 
-                if (StringUtils.isNotBlank(equipment) && equipment.equals("mobile")) {
+                if (StringUtils.isNotBlank(equipment) && "mobile".equals(equipment)) {
                     response.sendRedirect(ctx + INDEX_HTML_MOBILE);
                 } else {
                     response.sendRedirect(ctx + INDEX_HTML);
                 }
             } else {
-                if (StringUtils.isNotBlank(equipment) && equipment.equals("mobile")) {
+                if (StringUtils.isNotBlank(equipment) && "mobile".equals(equipment)) {
                     response.sendRedirect(ctx + site.getStaticMobileDir() + INDEX_HTML);
                 } else {
                     response.sendRedirect(ctx + site.getStaticDir() + INDEX_HTML);

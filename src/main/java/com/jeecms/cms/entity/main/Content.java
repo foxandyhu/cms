@@ -646,6 +646,7 @@ public class Content implements ContentInterface, Serializable {
      *
      * @return
      */
+    @Override
     public String getUrl() {
         if (!StringUtils.isBlank(getLink())) {
             return getLink();
@@ -1669,26 +1670,32 @@ public class Content implements ContentInterface, Serializable {
         this.contentCheck = contentCheck;
     }
 
+    @Override
     public String getDesc() {
         return getDescription();
     }
 
+    @Override
     public String getCtgName() {
         return getChannel().getName();
     }
 
+    @Override
     public String getCtgUrl() {
         return getChannel().getUrl();
     }
 
+    @Override
     public String getImgUrl() {
         return getTitleImg();
     }
 
+    @Override
     public String getImgUrl2() {
         return getTypeImg();
     }
 
+    @Override
     public String getStit() {
         String stit = getShortTitle();
         if (!StringUtils.isBlank(stit)) {
@@ -1698,10 +1705,12 @@ public class Content implements ContentInterface, Serializable {
         }
     }
 
+    @Override
     public String getTit() {
         return getTitle();
     }
 
+    @Override
     public String getTitCol() {
         return getTitleColor();
     }
@@ -1710,10 +1719,12 @@ public class Content implements ContentInterface, Serializable {
         return getSite().getId();
     }
 
+    @Override
     public String getSiteName() {
         return getSite().getName();
     }
 
+    @Override
     public String getSiteUrl() {
         return getSite().getUrl();
     }
@@ -2057,14 +2068,17 @@ public class Content implements ContentInterface, Serializable {
         }
     }
 
+    @Override
     public boolean isTitBold() {
         return getBold();
     }
 
+    @Override
     public Date getDate() {
         return getReleaseDate();
     }
 
+    @Override
     public Boolean getTarget() {
         return null;
     }

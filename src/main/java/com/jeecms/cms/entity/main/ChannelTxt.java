@@ -130,6 +130,7 @@ public class ChannelTxt implements Cloneable, Serializable {
     }
 
 
+    @Override
     public Object clone() {
         ChannelTxt c = null;
         try {

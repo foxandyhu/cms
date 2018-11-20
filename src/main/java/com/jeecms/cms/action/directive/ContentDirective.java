@@ -41,7 +41,8 @@ public class ContentDirective implements TemplateDirectiveModel {
 	 */
 	public static final String PARAM_CHANNEL_ID = "channelId";
 
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public void execute(Environment env, Map params, TemplateModel[] loopVars,
 			TemplateDirectiveBody body) throws TemplateException, IOException {
 		Integer id = getId(params);

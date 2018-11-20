@@ -19,7 +19,8 @@ import com.jeecms.cms.manager.assist.CmsAccountDrawMng;
 @Transactional
 public class CmsAccountDrawMngImpl implements CmsAccountDrawMng {
 	
-	public CmsAccountDraw draw(CmsUser user,Double amount,String applyAccount){
+	@Override
+    public CmsAccountDraw draw(CmsUser user, Double amount, String applyAccount){
 		CmsAccountDraw apply=new CmsAccountDraw();
 		apply.setApplyAccount(applyAccount);
 		apply.setApplyAmount(amount);
@@ -29,7 +30,8 @@ public class CmsAccountDrawMngImpl implements CmsAccountDrawMng {
 		return save(apply);
 	}
 	
-	public Double getAppliedSum(Integer userId){
+	@Override
+    public Double getAppliedSum(Integer userId){
 		Short[]status={0,1};
 		Double applyAmoutTotal=0d;
 		List<CmsAccountDraw>list=dao.getList(userId, status, 1000);
@@ -39,7 +41,8 @@ public class CmsAccountDrawMngImpl implements CmsAccountDrawMng {
 		return applyAmoutTotal;
 	}
 	
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Pagination getPage(Integer userId,Short applyStatus,
 			Date applyTimeBegin,Date applyTimeEnd,int pageNo, int pageSize) {
 		Pagination page = dao.getPage(userId,applyStatus
@@ -47,36 +50,42 @@ public class CmsAccountDrawMngImpl implements CmsAccountDrawMng {
 		return page;
 	}
 	
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public List<CmsAccountDraw> getList(Integer userId,Short applyStatus,
 			Date applyTimeBegin,Date applyTimeEnd,Integer first,Integer count){
 		return dao.getList(userId, applyStatus, applyTimeBegin, 
 				applyTimeEnd, first, count);
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public CmsAccountDraw findById(Integer id) {
 		CmsAccountDraw entity = dao.findById(id);
 		return entity;
 	}
 
-	public CmsAccountDraw save(CmsAccountDraw bean) {
+	@Override
+    public CmsAccountDraw save(CmsAccountDraw bean) {
 		dao.save(bean);
 		return bean;
 	}
 
-	public CmsAccountDraw update(CmsAccountDraw bean) {
+	@Override
+    public CmsAccountDraw update(CmsAccountDraw bean) {
 		Updater<CmsAccountDraw> updater = new Updater<CmsAccountDraw>(bean);
 		bean = dao.updateByUpdater(updater);
 		return bean;
 	}
 
-	public CmsAccountDraw deleteById(Integer id) {
+	@Override
+    public CmsAccountDraw deleteById(Integer id) {
 		CmsAccountDraw bean = dao.deleteById(id);
 		return bean;
 	}
 	
-	public CmsAccountDraw[] deleteByIds(Integer[] ids) {
+	@Override
+    public CmsAccountDraw[] deleteByIds(Integer[] ids) {
 		CmsAccountDraw[] beans = new CmsAccountDraw[ids.length];
 		for (int i = 0,len = ids.length; i < len; i++) {
 			beans[i] = deleteById(ids[i]);

@@ -108,7 +108,8 @@ public class MultiState implements State {
 	}
 	
 	
-	public String toJSONString2() {
+	@Override
+    public String toJSONString2() {
 		
 		String stateVal = this.isSuccess() ? AppInfo.getStateInfo( AppInfo.SUCCESS ) : this.info;
 		

@@ -4,17 +4,19 @@ import org.springframework.stereotype.Repository;
 
 import com.jeecms.cms.dao.main.ContentTxtDao;
 import com.jeecms.cms.entity.main.ContentTxt;
-import com.jeecms.common.hibernate4.HibernateBaseDao;
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 
 @Repository
-public class ContentTxtDaoImpl extends HibernateBaseDao<ContentTxt, Integer>
+public class ContentTxtDaoImpl extends AbstractHibernateBaseDao<ContentTxt, Integer>
 		implements ContentTxtDao {
-	public ContentTxt findById(Integer id) {
+	@Override
+    public ContentTxt findById(Integer id) {
 		ContentTxt entity = get(id);
 		return entity;
 	}
 
-	public ContentTxt save(ContentTxt bean) {
+	@Override
+    public ContentTxt save(ContentTxt bean) {
 		getSession().save(bean);
 		return bean;
 	}

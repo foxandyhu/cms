@@ -5,6 +5,7 @@ import static com.jeecms.core.manager.AuthenticationMng.AUTH_KEY;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebCoreErrors;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +19,6 @@ import com.jeecms.common.web.RequestUtils;
 import com.jeecms.common.web.session.SessionProvider;
 import com.jeecms.core.entity.Authentication;
 import com.jeecms.core.manager.AuthenticationMng;
-import com.jeecms.core.web.WebCoreErrors;
 
 /**
  * 统一认证中心Action
@@ -172,7 +172,7 @@ public class LoginAct {
 	}
 
 	private WebCoreErrors validateSubmit(String username, String password,
-			HttpServletRequest request) {
+										 HttpServletRequest request) {
 		WebCoreErrors errors = WebCoreErrors.create(request);
 		if (errors.ifOutOfLength(username, "username", 3, 100, true)) {
 			return errors;

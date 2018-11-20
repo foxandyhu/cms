@@ -23,6 +23,7 @@ public class AdminCorsConfigurerAdapter extends WebMvcConfigurerAdapter {
 
     private String baseUrl;
 
+    @Override
     public void addCorsMappings(CorsRegistry registry) {
         String pathPattern = "/**";
         CorsRegistration corsRe = (CorsRegistration) registry.addMapping(pathPattern);
@@ -45,6 +46,7 @@ public class AdminCorsConfigurerAdapter extends WebMvcConfigurerAdapter {
         }
     }
 
+    @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(adminApiInterceptor);
         super.addInterceptors(registry);

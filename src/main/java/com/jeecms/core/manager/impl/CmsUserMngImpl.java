@@ -25,6 +25,7 @@ import java.util.Set;
 @Service
 @Transactional
 public class CmsUserMngImpl implements CmsUserMng {
+    @Override
     @Transactional(readOnly = true)
     public Pagination getPage(String username, String email, Integer siteId,
                               Integer groupId, Integer statu, Boolean admin, Integer rank,
@@ -37,6 +38,7 @@ public class CmsUserMngImpl implements CmsUserMng {
         return page;
     }
 
+    @Override
     @Transactional(readOnly = true)
     public List<CmsUser> getList(String username, String email, Integer siteId,
                                  Integer groupId, Integer statu, Boolean admin, Integer rank) {
@@ -45,29 +47,34 @@ public class CmsUserMngImpl implements CmsUserMng {
         return list;
     }
 
+    @Override
     @Transactional(readOnly = true)
     public List<CmsUser> getAdminList(Integer siteId, Boolean allChannel,
                                       Integer statu, Integer rank) {
         return dao.getAdminList(siteId, allChannel, statu, rank);
     }
 
+    @Override
     @Transactional(readOnly = true)
     public Pagination getAdminsByRoleId(Integer roleId, int pageNo, int pageSize) {
         return dao.getAdminsByRoleId(roleId, pageNo, pageSize);
     }
 
+    @Override
     @Transactional(readOnly = true)
     public CmsUser findById(Integer id) {
         CmsUser entity = dao.findById(id);
         return entity;
     }
 
+    @Override
     @Transactional(readOnly = true)
     public CmsUser findByUsername(String username) {
         CmsUser entity = dao.findByUsername(username);
         return entity;
     }
 
+    @Override
     public CmsUser registerMember(String username, String email,
                                   String password, String ip, Integer groupId, Integer grain, boolean uncheck, CmsUserExt userExt, Map<String, String> attr) {
         UnifiedUser unifiedUser = unifiedUserMng.save(username, email,
@@ -98,6 +105,7 @@ public class CmsUserMngImpl implements CmsUserMng {
     }
 
 
+    @Override
     public CmsUser registerMember(String username, String email,
                                   String password, String ip, Integer groupId, boolean uncheck, CmsUserExt userExt, Map<String, String> attr,
                                   Boolean activation, EmailSender sender, MessageTemplate msgTpl) throws UnsupportedEncodingException, MessagingException {
@@ -128,6 +136,7 @@ public class CmsUserMngImpl implements CmsUserMng {
         return user;
     }
 
+    @Override
     public void updateLoginInfo(Integer userId, String ip, Date loginTime, String sessionId) {
         CmsUser user = findById(userId);
         if (user != null) {
@@ -142,6 +151,7 @@ public class CmsUserMngImpl implements CmsUserMng {
         }
     }
 
+    @Override
     public void updateUploadSize(Integer userId, Integer size) {
         CmsUser user = findById(userId);
         user.setUploadTotal(user.getUploadTotal() + size);
@@ -154,15 +164,18 @@ public class CmsUserMngImpl implements CmsUserMng {
         user.setUploadSize(size);
     }
 
+    @Override
     public void updateUser(CmsUser user) {
         Updater<CmsUser> updater = new Updater<CmsUser>(user);
         dao.updateByUpdater(updater);
     }
 
+    @Override
     public boolean isPasswordValid(Integer id, String password) {
         return unifiedUserMng.isPasswordValid(id, password);
     }
 
+    @Override
     public void updatePwdEmail(Integer id, String password, String email) {
         CmsUser user = findById(id);
         if (!StringUtils.isBlank(email)) {
@@ -173,6 +186,7 @@ public class CmsUserMngImpl implements CmsUserMng {
         unifiedUserMng.update(id, password, email);
     }
 
+    @Override
     public CmsUser saveAdmin(String username, String email, String password,
                              String ip, boolean viewOnly, boolean selfAdmin, int rank,
                              Integer groupId, Integer[] roleIds, Integer[] channelIds, Integer[] siteIds,
@@ -227,10 +241,12 @@ public class CmsUserMngImpl implements CmsUserMng {
         return user;
     }
 
+    @Override
     public void addSiteToUser(CmsUser user, CmsSite site, Byte checkStep) {
         cmsUserSiteMng.save(site, user, checkStep, true);
     }
 
+    @Override
     public CmsUser updateAdmin(CmsUser bean, CmsUserExt ext, String password,
                                Integer groupId, Integer[] roleIds, Integer[] channelIds, Integer siteId,
                                Byte step, Boolean allChannel) {
@@ -240,6 +256,7 @@ public class CmsUserMngImpl implements CmsUserMng {
         return user;
     }
 
+    @Override
     public CmsUser updateAdmin(CmsUser bean, CmsUserExt ext, String password,
                                Integer groupId, Integer[] roleIds, Integer[] channelIds, Integer[] siteIds,
                                Byte[] steps, Boolean[] allChannels) {
@@ -286,6 +303,7 @@ public class CmsUserMngImpl implements CmsUserMng {
         return user;
     }
 
+    @Override
     public CmsUser updateMember(Integer id, String email, String password,
                                 Boolean isDisabled, CmsUserExt ext, Integer groupId, Integer grain, Map<String, String> attr) {
         CmsUser entity = findById(id);
@@ -316,6 +334,7 @@ public class CmsUserMngImpl implements CmsUserMng {
         return entity;
     }
 
+    @Override
     public CmsUser updateMember(Integer id, String email, String password, Integer groupId, String realname, String mobile, Boolean sex) {
         CmsUser entity = findById(id);
         CmsUserExt ext = entity.getUserExt();
@@ -339,6 +358,7 @@ public class CmsUserMngImpl implements CmsUserMng {
         return entity;
     }
 
+    @Override
     public CmsUser updateUserConllection(CmsUser user, Integer cid, Integer operate) {
         Updater<CmsUser> updater = new Updater<CmsUser>(user);
         user = dao.updateByUpdater(updater);
@@ -351,6 +371,7 @@ public class CmsUserMngImpl implements CmsUserMng {
         return user;
     }
 
+    @Override
     public CmsUser deleteById(Integer id) {
         unifiedUserMng.deleteById(id);
         CmsUser bean = dao.deleteById(id);
@@ -364,6 +385,7 @@ public class CmsUserMngImpl implements CmsUserMng {
         return bean;
     }
 
+    @Override
     public CmsUser[] deleteByIds(Integer[] ids) {
         CmsUser[] beans = new CmsUser[ids.length];
         for (int i = 0, len = ids.length; i < len; i++) {
@@ -373,14 +395,17 @@ public class CmsUserMngImpl implements CmsUserMng {
         return beans;
     }
 
+    @Override
     public boolean usernameNotExist(String username) {
         return dao.countByUsername(username) <= 0;
     }
 
+    @Override
     public boolean usernameNotExistInMember(String username) {
         return dao.countMemberByUsername(username) <= 0;
     }
 
+    @Override
     public boolean emailNotExist(String email) {
         return dao.countByEmail(email) <= 0;
     }

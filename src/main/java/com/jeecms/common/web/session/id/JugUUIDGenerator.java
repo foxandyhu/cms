@@ -8,7 +8,8 @@ import org.safehaus.uuid.UUIDGenerator;
  * 通过UUID生成SESSION ID
  */
 public class JugUUIDGenerator implements SessionIdGenerator {
-	public String get() {
+	@Override
+    public String get() {
 		UUID uuid = UUIDGenerator.getInstance().generateRandomBasedUUID();
 		return StringUtils.remove(uuid.toString(), '-');
 	}

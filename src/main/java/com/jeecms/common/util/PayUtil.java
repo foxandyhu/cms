@@ -103,7 +103,7 @@ public class PayUtil {
 	     //写日志记录（若要调试，请取消下面两行注释）
 	     //String sWord = "responseTxt=" + responseTxt + "\n isSign=" + isSign + "\n 返回回来的参数：" + AlipayCore.createLinkString(params);
 	    //AlipayCore.logResult(sWord);
-	     if (isSign && responseTxt.equals("true")) {
+	     if (isSign && "true".equals(responseTxt)) {
 	         return true;
 	     } else {
 	         return false;
@@ -197,8 +197,8 @@ public class PayUtil {
 	     }
 	     for (String key : sArray.keySet()) {
 	         String value = sArray.get(key);
-	         if (value == null || value.equals("") || key.equalsIgnoreCase("sign")
-	             || key.equalsIgnoreCase("sign_type")) {
+	         if (value == null || "".equals(value) || "sign".equalsIgnoreCase(key)
+	             || "sign_type".equalsIgnoreCase(key)) {
 	             continue;
 	         }
 	         result.put(key, value);
@@ -468,7 +468,7 @@ public class PayUtil {
 	        String currency =  amount.toString();  
 	        int index = currency.indexOf(".");    
 	        int length = currency.length();    
-	        Long amLong = 0l;    
+	        Long amLong = 0L;
 	        if(index == -1){    
 	            amLong = Long.valueOf(currency+"00");    
 	        }else if(length - index >= 3){    

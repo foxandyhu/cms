@@ -23,7 +23,6 @@ import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -407,6 +406,7 @@ public class MysqlDataApiAct {
             this.tablenames = tablenames;
         }
 
+        @Override
         public void run() {
             FileOutputStream out;
             OutputStreamWriter writer = null;
@@ -491,16 +491,16 @@ public class MysqlDataApiAct {
 
     private String readFile(String filename) throws IOException {
         File file = new File(filename);
-        if (filename == null || filename.equals("")) {
+        if (filename == null || "".equals(filename)) {
             return Constants.API_MESSAGE_PARAM_REQUIRED;
         }
         long len = file.length();
         byte[] bytes = new byte[(int) len];
         BufferedInputStream bufferedInputStream = new BufferedInputStream(new FileInputStream(file));
         int r = bufferedInputStream.read(bytes);
-        if (r != len)
-            // throw new IOException("<@s.m 'db.filereaderror'/>");
+        if (r != len) {
             bufferedInputStream.close();
+        }
         return new String(bytes, "utf-8");
     }
 

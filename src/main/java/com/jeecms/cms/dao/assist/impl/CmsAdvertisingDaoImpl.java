@@ -2,19 +2,20 @@ package com.jeecms.cms.dao.assist.impl;
 
 import java.util.List;
 
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 import org.springframework.stereotype.Repository;
 
 import com.jeecms.cms.dao.assist.CmsAdvertisingDao;
 import com.jeecms.cms.entity.assist.CmsAdvertising;
 import com.jeecms.common.hibernate4.Finder;
-import com.jeecms.common.hibernate4.HibernateBaseDao;
 import com.jeecms.common.page.Pagination;
 
 @Repository
 public class CmsAdvertisingDaoImpl extends
-		HibernateBaseDao<CmsAdvertising, Integer> implements CmsAdvertisingDao {
-	public Pagination getPage(Integer siteId, Integer adspaceId,
-			Boolean enabled, int pageNo, int pageSize) {
+        AbstractHibernateBaseDao<CmsAdvertising, Integer> implements CmsAdvertisingDao {
+	@Override
+    public Pagination getPage(Integer siteId, Integer adspaceId,
+                              Boolean enabled, int pageNo, int pageSize) {
 		Finder f = Finder.create("from CmsAdvertising bean where 1=1");
 		if (siteId != null && adspaceId == null) {
 			f.append(" and bean.site.id=:siteId");
@@ -31,7 +32,8 @@ public class CmsAdvertisingDaoImpl extends
 		return find(f, pageNo, pageSize);
 	}
 
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public List<CmsAdvertising> getList(Integer adspaceId, Boolean enabled) {
 		Finder f = Finder.create("from CmsAdvertising bean where 1=1");
 		if (adspaceId != null) {
@@ -45,17 +47,20 @@ public class CmsAdvertisingDaoImpl extends
 		return find(f);
 	}
 
-	public CmsAdvertising findById(Integer id) {
+	@Override
+    public CmsAdvertising findById(Integer id) {
 		CmsAdvertising entity = get(id);
 		return entity;
 	}
 
-	public CmsAdvertising save(CmsAdvertising bean) {
+	@Override
+    public CmsAdvertising save(CmsAdvertising bean) {
 		getSession().save(bean);
 		return bean;
 	}
 
-	public CmsAdvertising deleteById(Integer id) {
+	@Override
+    public CmsAdvertising deleteById(Integer id) {
 		CmsAdvertising entity = super.get(id);
 		if (entity != null) {
 			getSession().delete(entity);

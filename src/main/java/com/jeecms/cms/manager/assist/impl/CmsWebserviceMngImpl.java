@@ -23,18 +23,21 @@ import com.jeecms.core.entity.CmsUserExt;
 @Service
 @Transactional
 public class CmsWebserviceMngImpl implements CmsWebserviceMng {
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Pagination getPage(int pageNo, int pageSize) {
 		Pagination page = dao.getPage(pageNo, pageSize);
 		return page;
 	}
 	
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public List<CmsWebservice> getList(String type){
 		return dao.getList(type);
 	}
 	
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public boolean hasWebservice(String type){
 		if(getList(type).size()>0){
 			return true;
@@ -43,20 +46,23 @@ public class CmsWebserviceMngImpl implements CmsWebserviceMng {
 		}
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public CmsWebservice findById(Integer id) {
 		CmsWebservice entity = dao.findById(id);
 		return entity;
 	}
 	
-	public void callWebService(String operate,Map<String,String>params){
+	@Override
+    public void callWebService(String operate, Map<String,String>params){
 		List<CmsWebservice>list=getList(operate);
 		for(CmsWebservice s:list){
 			callWebService(s, params);
 		}
 	}
 	
-	public String callWebService(CmsWebservice webservice,Map<String,String>paramsValues){
+	@Override
+    public String callWebService(CmsWebservice webservice, Map<String,String>paramsValues){
 		String endpoint =webservice.getAddress();
 		org.apache.axis.client.Service service = new org.apache.axis.client.Service(); 
 		Call call;
@@ -84,7 +90,8 @@ public class CmsWebserviceMngImpl implements CmsWebserviceMng {
 		return res;
 	}
 	
-	public void callWebService(String admin,String username,String password,String email,CmsUserExt userExt,String operate){
+	@Override
+    public void callWebService(String admin, String username, String password, String email, CmsUserExt userExt, String operate){
 		if(hasWebservice(operate)){
 			Map<String,String>paramsValues=new HashMap<String, String>();
 			paramsValues.put("username", username);
@@ -110,7 +117,8 @@ public class CmsWebserviceMngImpl implements CmsWebserviceMng {
 		}
 	}
 
-	public CmsWebservice save(CmsWebservice bean,String[] paramName, String[] defaultValue) {
+	@Override
+    public CmsWebservice save(CmsWebservice bean, String[] paramName, String[] defaultValue) {
 		bean=dao.save(bean);
 		// 保存参数
 		bean.getParams().clear();
@@ -124,7 +132,8 @@ public class CmsWebserviceMngImpl implements CmsWebserviceMng {
 		return bean;
 	}
 
-	public CmsWebservice update(CmsWebservice bean,String[] paramName, String[] defaultValue) {
+	@Override
+    public CmsWebservice update(CmsWebservice bean, String[] paramName, String[] defaultValue) {
 		Updater<CmsWebservice> updater = new Updater<CmsWebservice>(bean);
 		CmsWebservice entity = dao.updateByUpdater(updater);
 		entity.getParams().clear();
@@ -138,12 +147,14 @@ public class CmsWebserviceMngImpl implements CmsWebserviceMng {
 		return entity;
 	}
 
-	public CmsWebservice deleteById(Integer id) {
+	@Override
+    public CmsWebservice deleteById(Integer id) {
 		CmsWebservice bean = dao.deleteById(id);
 		return bean;
 	}
 	
-	public CmsWebservice[] deleteByIds(Integer[] ids) {
+	@Override
+    public CmsWebservice[] deleteByIds(Integer[] ids) {
 		CmsWebservice[] beans = new CmsWebservice[ids.length];
 		for (int i = 0,len = ids.length; i < len; i++) {
 			beans[i] = deleteById(ids[i]);

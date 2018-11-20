@@ -29,30 +29,35 @@ import com.jeecms.core.entity.CmsUser;
 @Service
 @Transactional
 public class CmsVoteTopicMngImpl implements CmsVoteTopicMng {
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public Pagination getPage(Integer siteId,Short statu, int pageNo, int pageSize) {
 		Pagination page = dao.getPage(siteId,statu, pageNo, pageSize);
 		return page;
 	}
 	
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public  List<CmsVoteTopic> getList(Boolean def,Integer siteId,
 			Integer first, int count){
 		return dao.getList(def,siteId,first,count);
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public CmsVoteTopic findById(Integer id) {
 		CmsVoteTopic entity = dao.findById(id);
 		return entity;
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public CmsVoteTopic getDefTopic(Integer siteId) {
 		return dao.getDefTopic(siteId);
 	}
 
-	public CmsVoteTopic save(CmsVoteTopic bean, Set<CmsVoteSubTopic> subTopics) {
+	@Override
+    public CmsVoteTopic save(CmsVoteTopic bean, Set<CmsVoteSubTopic> subTopics) {
 		int totalCount = 0;
 		bean.setTotalCount(totalCount);
 		bean.init();
@@ -61,7 +66,8 @@ public class CmsVoteTopicMngImpl implements CmsVoteTopicMng {
 		return bean;
 	}
 	
-	public CmsVoteTopic save(CmsVoteTopic bean, Set<CmsVoteSubTopic> subTopics,Map<Integer,Set<CmsVoteItem>>items){
+	@Override
+    public CmsVoteTopic save(CmsVoteTopic bean, Set<CmsVoteSubTopic> subTopics, Map<Integer,Set<CmsVoteItem>>items){
 		int totalCount = 0;
 		bean.setTotalCount(totalCount);
 		bean.init();
@@ -84,7 +90,8 @@ public class CmsVoteTopicMngImpl implements CmsVoteTopicMng {
 		return bean;
 	}
 
-	public CmsVoteTopic update(CmsVoteTopic bean) {
+	@Override
+    public CmsVoteTopic update(CmsVoteTopic bean) {
 		Updater<CmsVoteTopic> updater = new Updater<CmsVoteTopic>(bean);
 		updater.include(CmsVoteTopic.PROP_START_TIME);
 		updater.include(CmsVoteTopic.PROP_END_TIME);
@@ -93,7 +100,8 @@ public class CmsVoteTopicMngImpl implements CmsVoteTopicMng {
 		return bean;
 	}
 	
-	public CmsVoteTopic update(CmsVoteTopic bean, Set<CmsVoteSubTopic> subTopics,Map<Integer,Set<CmsVoteItem>>items){
+	@Override
+    public CmsVoteTopic update(CmsVoteTopic bean, Set<CmsVoteSubTopic> subTopics, Map<Integer,Set<CmsVoteItem>>items){
 		bean=update(bean);
 		bean.getSubtopics().clear();
 		bean.getItems().clear();
@@ -130,9 +138,10 @@ public class CmsVoteTopicMngImpl implements CmsVoteTopicMng {
 		}
 	}
 
-	public CmsVoteTopic vote(Integer topicId,Integer[]subIds,
-			List<Integer[]> itemIds,String[]replys, CmsUser user,
-			String ip, String cookie) {
+	@Override
+    public CmsVoteTopic vote(Integer topicId, Integer[]subIds,
+                             List<Integer[]> itemIds, String[]replys, CmsUser user,
+                             String ip, String cookie) {
 		CmsVoteTopic topic = findById(topicId);
 		Set<CmsVoteItem> items = topic.getItems();
 		List<Integer>itemIdsList=new ArrayList<Integer>();
@@ -173,12 +182,14 @@ public class CmsVoteTopicMngImpl implements CmsVoteTopicMng {
 		return topic;
 	}
 
-	public CmsVoteTopic deleteById(Integer id) {
+	@Override
+    public CmsVoteTopic deleteById(Integer id) {
 		CmsVoteTopic bean = dao.deleteById(id);
 		return bean;
 	}
 
-	public CmsVoteTopic[] deleteByIds(Integer[] ids) {
+	@Override
+    public CmsVoteTopic[] deleteByIds(Integer[] ids) {
 		CmsVoteTopic[] beans = new CmsVoteTopic[ids.length];
 		for (int i = 0, len = ids.length; i < len; i++) {
 			beans[i] = deleteById(ids[i]);

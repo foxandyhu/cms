@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +23,6 @@ import com.jeecms.common.web.ResponseUtils;
 import com.jeecms.core.entity.CmsGroup;
 import com.jeecms.core.manager.CmsGroupMng;
 import com.jeecms.core.manager.CmsLogMng;
-import com.jeecms.core.web.WebErrors;
 
 @Controller
 public class CmsGroupApiAct {
@@ -191,7 +191,7 @@ public class CmsGroupApiAct {
 		ResponseUtils.renderApiJson(response, request, apiResponse);
 	}
 
-	private WebErrors validateArrayLength(WebErrors errors,Integer[] arr1 , Integer[] arr2){
+	private WebErrors validateArrayLength(WebErrors errors, Integer[] arr1 , Integer[] arr2){
 		if (arr1!=null&&arr2!=null) {
 			if (arr1.length!=arr2.length) {
 				errors.addErrorString(Constants.API_MESSAGE_PARAM_ERROR);

@@ -20,7 +20,8 @@ import com.jeecms.core.manager.CmsConfigMng;
 @Service
 @Transactional
 public class ContentCountMngImpl implements ContentCountMng {
-	public int contentUp(Integer id) {
+	@Override
+    public int contentUp(Integer id) {
 		ContentCount c = dao.findById(id);
 		if (c == null) {
 			return 0;
@@ -33,7 +34,8 @@ public class ContentCountMngImpl implements ContentCountMng {
 		return count;
 	}
 
-	public int contentDown(Integer id) {
+	@Override
+    public int contentDown(Integer id) {
 		ContentCount c = dao.findById(id);
 		if (c == null) {
 			return 0;
@@ -43,7 +45,8 @@ public class ContentCountMngImpl implements ContentCountMng {
 		return count;
 	}
 
-	public void downloadCount(Integer contentId) {
+	@Override
+    public void downloadCount(Integer contentId) {
 		ContentCount c = findById(contentId);
 		c.setDownloads(c.getDownloads() + 1);
 		c.setDownloadsMonth(c.getDownloadsMonth() + 1);
@@ -51,7 +54,8 @@ public class ContentCountMngImpl implements ContentCountMng {
 		c.setDownloadsDay((short) (c.getDownloadsDay() + 1));
 	}
 
-	public void commentCount(Integer contentId) {
+	@Override
+    public void commentCount(Integer contentId) {
 		ContentCount c = findById(contentId);
 		c.setComments(c.getComments() + 1);
 		c.setCommentsMonth(c.getCommentsMonth() + 1);
@@ -59,7 +63,8 @@ public class ContentCountMngImpl implements ContentCountMng {
 		c.setCommentsDay((short) (c.getCommentsDay() + 1));
 	}
 
-	public int freshCacheToDB(Ehcache cache) {
+	@Override
+    public int freshCacheToDB(Ehcache cache) {
 		CmsConfig config = cmsConfigMng.get();
 		clearCount(config);
 		int count = dao.freshCacheToDB(cache);
@@ -96,13 +101,15 @@ public class ContentCountMngImpl implements ContentCountMng {
 		}
 	}
 
-	@Transactional(readOnly = true)
+	@Override
+    @Transactional(readOnly = true)
 	public ContentCount findById(Integer id) {
 		ContentCount entity = dao.findById(id);
 		return entity;
 	}
 
-	public ContentCount save(ContentCount count, Content content) {
+	@Override
+    public ContentCount save(ContentCount count, Content content) {
 		count.setContent(content);
 		count.init();
 		dao.save(count);
@@ -110,7 +117,8 @@ public class ContentCountMngImpl implements ContentCountMng {
 		return count;
 	}
 
-	public ContentCount update(ContentCount bean) {
+	@Override
+    public ContentCount update(ContentCount bean) {
 		Updater<ContentCount> updater = new Updater<ContentCount>(bean);
 		ContentCount entity = dao.updateByUpdater(updater);
 		return entity;

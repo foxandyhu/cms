@@ -8,13 +8,13 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -40,7 +40,6 @@ import com.jeecms.cms.manager.main.CmsModelMng;
 import com.jeecms.cms.manager.main.CmsTopicMng;
 import com.jeecms.cms.manager.main.ContentMng;
 import com.jeecms.cms.manager.main.ContentTypeMng;
-import com.jeecms.cms.manager.main.impl.ContentMngImpl;
 import com.jeecms.cms.service.ImageSvc;
 import com.jeecms.cms.service.WeiXinSvc;
 import com.jeecms.cms.staticpage.ContentStatusChangeThread;
@@ -65,7 +64,6 @@ import com.jeecms.core.manager.CmsLogMng;
 import com.jeecms.core.manager.CmsSiteMng;
 import com.jeecms.core.manager.CmsUserMng;
 import com.jeecms.core.manager.FtpMng;
-import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
 import com.jeecms.plug.weixin.entity.Weixin;
 import net.sf.json.JSONObject;
@@ -1391,7 +1389,7 @@ public class ContentApiAct {
 		ResponseUtils.renderApiJson(response, request, apiResponse);
 	}
 	
-	private WebErrors validateContent(WebErrors errors,Integer[] arr,HttpServletRequest request){
+	private WebErrors validateContent(WebErrors errors, Integer[] arr, HttpServletRequest request){
 		CmsSite site = CmsUtils.getSite(request);
 		for (Integer id : arr) {
 			vldExist(id, site.getId(), errors);
@@ -1399,7 +1397,7 @@ public class ContentApiAct {
 		return errors;
 	}
 	
-	private WebErrors validateContent(WebErrors errors,Integer[] arr){
+	private WebErrors validateContent(WebErrors errors, Integer[] arr){
 		if (arr!=null) {
 			for (int i = 0; i < arr.length; i++) {
 				Content content = manager.findById(arr[i]);
@@ -1412,7 +1410,7 @@ public class ContentApiAct {
 		return errors;
 	}
 	
-	private WebErrors validateSendToTopic(WebErrors errors,HttpServletRequest request,Integer[] arr1,Integer[] arr2){
+	private WebErrors validateSendToTopic(WebErrors errors, HttpServletRequest request, Integer[] arr1, Integer[] arr2){
 		CmsSite site = CmsUtils.getSite(request);
 		if (arr1!=null) {
 			for (Integer id : arr1) {
@@ -1438,7 +1436,7 @@ public class ContentApiAct {
 		return false;
 	}
 	
-	private WebErrors validatePriority(WebErrors errors,Integer[] arr1,Byte[] arr2){
+	private WebErrors validatePriority(WebErrors errors, Integer[] arr1, Byte[] arr2){
 		if (arr1!=null&&arr2!=null) {
 			if (arr1.length!=arr2.length) {
 				errors.addError(Constants.API_MESSAGE_PARAM_ERROR);
@@ -1603,8 +1601,8 @@ public class ContentApiAct {
 		return json;
 	}
 	
-	private WebErrors validateSave(Integer channelId,Integer modelId,Integer typeId,
-			HttpServletRequest request) {
+	private WebErrors validateSave(Integer channelId, Integer modelId, Integer typeId,
+								   HttpServletRequest request) {
 		WebErrors errors = WebErrors.create(request);
 		if (errors.ifNull(channelId, "channelId", false)) {
 			return errors;

@@ -2,26 +2,28 @@ package com.jeecms.cms.dao.main.impl;
 
 import java.util.List;
 
+import com.jeecms.common.hibernate4.AbstractHibernateBaseDao;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Repository;
 
 import com.jeecms.common.hibernate4.Finder;
-import com.jeecms.common.hibernate4.HibernateBaseDao;
 import com.jeecms.common.page.Pagination;
 import com.jeecms.cms.dao.main.ContentBuyDao;
 import com.jeecms.cms.entity.main.ContentBuy;
 
 @Repository
-public class ContentBuyDaoImpl extends HibernateBaseDao<ContentBuy, Long> implements ContentBuyDao {
-	public Pagination getPage(String orderNum,Integer buyUserId,Integer authorUserId,
-			Short payMode,int pageNo, int pageSize) {
+public class ContentBuyDaoImpl extends AbstractHibernateBaseDao<ContentBuy, Long> implements ContentBuyDao {
+	@Override
+    public Pagination getPage(String orderNum, Integer buyUserId, Integer authorUserId,
+                              Short payMode, int pageNo, int pageSize) {
 		Finder f=createFinder(orderNum, buyUserId, authorUserId, payMode);
 		Pagination page = find(f, pageNo, pageSize);
 		return page;
 	}
 	
-	public List<ContentBuy> getList(String orderNum,Integer buyUserId,
-			Integer authorUserId,Short payMode,Integer first, Integer count){
+	@Override
+    public List<ContentBuy> getList(String orderNum, Integer buyUserId,
+                                    Integer authorUserId, Short payMode, Integer first, Integer count){
 		Finder f=createFinder(orderNum, buyUserId, authorUserId, payMode);
 		if(first!=null){
 			f.setFirstResult(first);
@@ -32,15 +34,17 @@ public class ContentBuyDaoImpl extends HibernateBaseDao<ContentBuy, Long> implem
 		return find(f);
 	}
 	
-	public Pagination getPageByContent(Integer contentId,
-			Short payMode,int pageNo, int pageSize){
+	@Override
+    public Pagination getPageByContent(Integer contentId,
+                                       Short payMode, int pageNo, int pageSize){
 		Finder f=createFinder(contentId, payMode);
 		Pagination page = find(f, pageNo, pageSize);
 		return page;
 	}
 	
-	public List<ContentBuy> getListByContent(Integer contentId,
-			Short payMode,Integer first, Integer count){
+	@Override
+    public List<ContentBuy> getListByContent(Integer contentId,
+                                             Short payMode, Integer first, Integer count){
 		Finder f=createFinder(contentId, payMode);
 		if(first!=null){
 			f.setFirstResult(first);
@@ -88,12 +92,14 @@ public class ContentBuyDaoImpl extends HibernateBaseDao<ContentBuy, Long> implem
 		return f;
 	}
 
-	public ContentBuy findById(Long id) {
+	@Override
+    public ContentBuy findById(Long id) {
 		ContentBuy entity = get(id);
 		return entity;
 	}
 	
-	public ContentBuy findByOrderNumber(String orderNumber){
+	@Override
+    public ContentBuy findByOrderNumber(String orderNumber){
 		String hql="from ContentBuy bean where bean.orderNumber=:orderNumber";
 		Finder finder=Finder.create(hql).setParam("orderNumber", orderNumber);
 		List<ContentBuy>list=find(finder);
@@ -104,9 +110,10 @@ public class ContentBuyDaoImpl extends HibernateBaseDao<ContentBuy, Long> implem
 		}
 	}
 	
-	public ContentBuy findByOutOrderNum(String orderNum,Integer payMethod){
+	@Override
+    public ContentBuy findByOutOrderNum(String orderNum, Integer payMethod){
 		String hql;
-		if(payMethod==ContentBuy.PAY_METHOD_WECHAT){
+		if(ContentBuy.PAY_METHOD_WECHAT.equals(payMethod)){
 			hql="from ContentBuy bean where bean.orderNumWeiXin=:orderNum";
 		}else{
 			hql="from ContentBuy bean where bean.orderNumAliPay=:orderNum";
@@ -120,7 +127,8 @@ public class ContentBuyDaoImpl extends HibernateBaseDao<ContentBuy, Long> implem
 		}
 	}
 	
-	public ContentBuy find(Integer buyUserId,Integer contentId){
+	@Override
+    public ContentBuy find(Integer buyUserId, Integer contentId){
 		String hql="from ContentBuy bean where bean.content.id=:contentId "
 				+ "and bean.buyUser.id=:buyUserId";
 		Finder finder=Finder.create(hql).setParam("contentId", contentId)
@@ -134,12 +142,14 @@ public class ContentBuyDaoImpl extends HibernateBaseDao<ContentBuy, Long> implem
 		}
 	}
 
-	public ContentBuy save(ContentBuy bean) {
+	@Override
+    public ContentBuy save(ContentBuy bean) {
 		getSession().save(bean);
 		return bean;
 	}
 
-	public ContentBuy deleteById(Long id) {
+	@Override
+    public ContentBuy deleteById(Long id) {
 		ContentBuy entity = super.get(id);
 		if (entity != null) {
 			getSession().delete(entity);

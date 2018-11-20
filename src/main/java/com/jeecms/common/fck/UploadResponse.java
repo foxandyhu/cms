@@ -73,16 +73,16 @@ public class UploadResponse {
 	 *             if the first argument is not an error number (int)
 	 */
 	public UploadResponse(Object... arguments) {
-		if (arguments.length < 1 || arguments.length > 4)
+		if (arguments.length < 1 || arguments.length > 4) {
 			throw new IllegalArgumentException(
 					"The amount of arguments has to be between 1 and 4");
-
+		}
 		parameters = new Object[arguments.length];
 
-		if (!(arguments[0] instanceof Integer))
+		if (!(arguments[0] instanceof Integer)) {
 			throw new IllegalArgumentException(
 					"The first argument has to be an error number (int)");
-
+		}
 		System.arraycopy(arguments, 0, parameters, 0, arguments.length);
 	}
 
@@ -203,8 +203,9 @@ public class UploadResponse {
 				sb.append(parameter);
 			} else {
 				sb.append("'");
-				if (parameter != null)
+				if (parameter != null) {
 					sb.append(parameter);
+				}
 				sb.append("'");
 			}
 			sb.append(",");

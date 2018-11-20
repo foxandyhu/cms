@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.core.web.WebErrors;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,7 +29,6 @@ import com.jeecms.common.web.ResponseUtils;
 import com.jeecms.core.entity.CmsUser;
 import com.jeecms.core.entity.CmsUserResume;
 import com.jeecms.core.manager.CmsUserResumeMng;
-import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
 
 @Controller
@@ -96,7 +96,7 @@ public class ResumeApiAct {
 		String body="\"\"";
 		String message=Constants.API_MESSAGE_PARAM_REQUIRED;
 		String code=ResponseCode.API_CODE_PARAM_REQUIRED;
-		WebErrors errors=WebErrors.create(request);
+		WebErrors errors= WebErrors.create(request);
 		CmsUser user=CmsUtils.getUser(request);
 		//验证公共非空参数
 		errors=ApiValidate.validateRequiredParams(request,errors,resumeName);
@@ -192,7 +192,7 @@ public class ResumeApiAct {
 		String body="\"\"";
 		String message=Constants.API_MESSAGE_PARAM_REQUIRED;
 		String code=ResponseCode.API_CODE_PARAM_REQUIRED;
-		WebErrors errors=WebErrors.create(request);
+		WebErrors errors= WebErrors.create(request);
 		CmsUser user=CmsUtils.getUser(request);
 		//验证公共非空参数
 		errors=ApiValidate.validateRequiredParams(request,errors,contentId);
@@ -241,7 +241,7 @@ public class ResumeApiAct {
 		String body="\"\"";
 		String message=Constants.API_MESSAGE_PARAM_REQUIRED;
 		String code=ResponseCode.API_CODE_PARAM_REQUIRED;
-		WebErrors errors=WebErrors.create(request);
+		WebErrors errors= WebErrors.create(request);
 		errors=ApiValidate.validateRequiredParams(request,errors,ids);
 		if(!errors.hasErrors()){
 			Integer[] intIds=ArrayUtils.parseStringToArray(ids);

@@ -12,11 +12,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class CmsUserExtMngImpl implements CmsUserExtMng {
+    @Override
     @Transactional(readOnly = true)
     public CmsUserExt findById(Integer userId) {
         return dao.findById(userId);
     }
 
+    @Override
     public CmsUserExt save(CmsUserExt ext, CmsUser user) {
         ext.blankToNull();
         ext.setUser(user);
@@ -24,6 +26,7 @@ public class CmsUserExtMngImpl implements CmsUserExtMng {
         return ext;
     }
 
+    @Override
     public CmsUserExt update(CmsUserExt ext, CmsUser user) {
         CmsUserExt entity = dao.findById(user.getId());
         if (entity == null) {
@@ -40,6 +43,7 @@ public class CmsUserExtMngImpl implements CmsUserExtMng {
         }
     }
 
+    @Override
     public void clearDayCount() {
         dao.clearDayCount();
     }

@@ -1,33 +1,19 @@
 package com.jeecms.cms.api.front;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.jeecms.core.web.WebErrors;
 import org.apache.commons.lang.StringUtils;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.aliyuncs.DefaultAcsClient;
-import com.aliyuncs.IAcsClient;
-import com.aliyuncs.dysmsapi.model.v20170525.SendSmsRequest;
 import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.exceptions.ClientException;
-import com.aliyuncs.http.MethodType;
-import com.aliyuncs.profile.DefaultProfile;
-import com.aliyuncs.profile.IClientProfile;
-import com.baidubce.auth.DefaultBceCredentials;
-import com.baidubce.services.sms.SmsClient;
-import com.baidubce.services.sms.SmsClientConfiguration;
-import com.baidubce.services.sms.model.SendMessageV2Request;
 import com.baidubce.services.sms.model.SendMessageV2Response;
-import com.github.qcloudsms.SmsSingleSender;
 import com.github.qcloudsms.SmsSingleSenderResult;
 import com.jeecms.cms.api.ApiResponse;
 import com.jeecms.cms.api.ApiValidate;
@@ -48,7 +34,6 @@ import com.jeecms.core.manager.CmsSmsRecordMng;
 import com.jeecms.core.manager.CmsUserExtMng;
 import com.jeecms.core.manager.CmsUserMng;
 import com.jeecms.core.manager.UnifiedUserMng;
-import com.jeecms.core.web.WebErrors;
 import com.jeecms.core.web.util.CmsUtils;
 import com.octo.captcha.service.image.ImageCaptchaService;
 
@@ -156,10 +141,10 @@ public class CmsSmsApiAct {
 						}
 						if(smsSendType == 1) {//发送短信类型用途  1：注册   2：找回密码
 							session.setAttribute("AUTO_CODE",values);//验证码值
-							session.setAttribute("AUTO_CODE_CREAT_TIME",new Date().getTime()+effectiveTime);//验证码有效时间						
+							session.setAttribute("AUTO_CODE_CREAT_TIME",System.currentTimeMillis()+effectiveTime);//验证码有效时间
 						}else if(smsSendType == 2){
 							session.setAttribute("FORGOTPWD_AUTO_CODE",values);//验证码值
-							session.setAttribute("FORGOTPWD_AUTO_CODE_CREAT_TIME",new Date().getTime()+effectiveTime);//验证码有效时间
+							session.setAttribute("FORGOTPWD_AUTO_CODE_CREAT_TIME",System.currentTimeMillis()+effectiveTime);//验证码有效时间
 						}
 						
 						message = Constants.API_MESSAGE_SUCCESS;
@@ -175,8 +160,8 @@ public class CmsSmsApiAct {
 		ResponseUtils.renderApiJson(response, request, apiResponse);
 	}
 	
-	private WebErrors validateRegister(CmsConfig config,String smsId,
-			String mobilePhone,String vCode,WebErrors errors,HttpServletRequest request,HttpServletResponse response){
+	private WebErrors validateRegister(CmsConfig config, String smsId,
+									   String mobilePhone, String vCode, WebErrors errors, HttpServletRequest request, HttpServletResponse response){
 
 		//判断验证码是否正确
 		errors = validateCode(vCode,errors,request,response);			
@@ -209,8 +194,8 @@ public class CmsSmsApiAct {
 	 * @param:  response    
 	 * @return: WebErrors
 	 */
-	private WebErrors validateForgotPassword(CmsConfig config,String smsId,
-			String mobilePhone,String vCode,WebErrors errors,HttpServletRequest request,HttpServletResponse response,String username){
+	private WebErrors validateForgotPassword(CmsConfig config, String smsId,
+											 String mobilePhone, String vCode, WebErrors errors, HttpServletRequest request, HttpServletResponse response, String username){
 		if(StringUtils.isBlank(username)) {
 			errors.addErrorString(Constants.API_MESSAGE_USER_NOT_FOUND);
 			errors.addErrorString(ResponseCode.API_CODE_USER_NOT_FOUND);
@@ -249,7 +234,7 @@ public class CmsSmsApiAct {
 		return errors;
 	}
 	
-	private WebErrors validateSMS(CmsConfig config,String mobilePhone, WebErrors errors, String smsId) {
+	private WebErrors validateSMS(CmsConfig config, String mobilePhone, WebErrors errors, String smsId) {
 		//判断手机号每日限制是否已达标
 		List<CmsSmsRecord> findByPhone = smsRecordManager.findByPhone(mobilePhone);
 		Integer dayCount = 0;
@@ -275,7 +260,7 @@ public class CmsSmsApiAct {
 						long intervalTime = 1*60*60*1000;//系统默认间隔1分钟
 						Byte intervalUnit =1;
 						long sendTime = record.getSendTime().getTime();
-						long currentTime = new Date().getTime();
+						long currentTime = System.currentTimeMillis();
 						if(bean.getIntervalTime() != null && bean.getIntervalTime() > 0) {
 							intervalTime = bean.getIntervalTime();							
 						}
@@ -314,7 +299,7 @@ public class CmsSmsApiAct {
 		return errors;
 	}
 	
-	private WebErrors validateCode(String vCode,WebErrors errors,HttpServletRequest request,HttpServletResponse response) {
+	private WebErrors validateCode(String vCode, WebErrors errors, HttpServletRequest request, HttpServletResponse response) {
 		if (StringUtils.isBlank(vCode)) {
 			errors.addErrorString(Constants.API_MESSAGE_CAPTCHA_CODE_ERROR);
 			errors.addErrorString(ResponseCode.API_CODE_CAPTCHA_CODE_ERROR);
@@ -334,11 +319,11 @@ public class CmsSmsApiAct {
 		return errors;
 	}
 
-	private WebErrors sendByALi(CmsSms bean,String mobilePhone,String values,WebErrors errors, CmsSite site, String username, Integer smsSendType){
+	private WebErrors sendByALi(CmsSms bean, String mobilePhone, String values, WebErrors errors, CmsSite site, String username, Integer smsSendType){
 		try {			
 			 //请求失败这里会抛ClientException异常
 			 SendSmsResponse sendSmsResponse = SmsSendUtils.sendByALi(bean, mobilePhone, values);
-			 if(sendSmsResponse.getCode() != null && sendSmsResponse.getCode().equals("OK")) {
+			 if(sendSmsResponse.getCode() != null && "OK".equals(sendSmsResponse.getCode())) {
 				 //请求成功				
 				 CmsUser user =null;
 				 if(StringUtils.isNotBlank(username)) {
@@ -371,7 +356,7 @@ public class CmsSmsApiAct {
 	 * @param: @return      
 	 * @return: WebErrors
 	 */
-	private WebErrors sendByBaiDu(CmsSms bean,String mobilePhone,String values,WebErrors errors, CmsSite site, String username, Integer smsSendType){
+	private WebErrors sendByBaiDu(CmsSms bean, String mobilePhone, String values, WebErrors errors, CmsSite site, String username, Integer smsSendType){
 		
         // 发送请求
         SendMessageV2Response response = SmsSendUtils.sendByBaiDu(bean, mobilePhone, values);
@@ -401,7 +386,7 @@ public class CmsSmsApiAct {
 	 * @param smsSendType 
 	 * @return
 	 */
-	private WebErrors sendByTX(CmsSms bean,String mobilePhone,String values,WebErrors errors, CmsSite site, String username, Integer smsSendType){
+	private WebErrors sendByTX(CmsSms bean, String mobilePhone, String values, WebErrors errors, CmsSite site, String username, Integer smsSendType){
 		try {			
 			if (bean.getTemplateCode()!=null) {
 				SmsSingleSenderResult result = SmsSendUtils.sendByTX(bean, mobilePhone, values);

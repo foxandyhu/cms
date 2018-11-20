@@ -22,11 +22,12 @@ public class FreemarkerExceptionHandler implements TemplateExceptionHandler {
         log.debug("[Freemarker Error: " + te.getMessage() + "]");
         try {  
             String[] tmp = te.getMessageWithoutStackTop().split("\n");  
-            if (tmp.length > 1)  
-                tmp = tmp[1].split(" ");  
-            if (tmp.length > 1)  
-                missingVariable = tmp[1];  
-            
+            if (tmp.length > 1) {
+                tmp = tmp[1].split(" ");
+            }
+            if (tmp.length > 1) {
+                missingVariable = tmp[1];
+            }
             out.write("<span style='color:red'>[freemarker标签异常，请联系网站管理员]</span>");  
         } catch (IOException e) {  
         	e.printStackTrace();
