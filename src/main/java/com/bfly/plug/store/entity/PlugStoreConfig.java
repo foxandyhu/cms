@@ -15,7 +15,6 @@ public class PlugStoreConfig implements Serializable {
 
     @Id
     @Column(name="config_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     /**

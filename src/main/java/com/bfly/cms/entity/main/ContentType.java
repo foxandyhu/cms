@@ -66,7 +66,6 @@ public class ContentType implements Serializable {
 
     @Id
     @Column(name = "type_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     /**

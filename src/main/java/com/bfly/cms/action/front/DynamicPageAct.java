@@ -1,5 +1,6 @@
 package com.bfly.cms.action.front;
 
+import com.bfly.cms.annotation.Token;
 import com.bfly.cms.entity.main.Channel;
 import com.bfly.cms.entity.main.Content;
 import com.bfly.cms.entity.main.ContentCheck;
@@ -7,7 +8,6 @@ import com.bfly.cms.manager.assist.CmsKeywordMng;
 import com.bfly.cms.manager.main.ChannelMng;
 import com.bfly.cms.manager.main.ContentBuyMng;
 import com.bfly.cms.manager.main.ContentMng;
-import com.bfly.cms.annotation.Token;
 import com.bfly.common.page.Paginable;
 import com.bfly.common.page.SimplePage;
 import com.bfly.common.web.session.SessionProvider;
@@ -52,18 +52,16 @@ public class DynamicPageAct {
 
 
     /**
-     * TOMCAT的默认路径
+     * 站点首页
      *
-     * @param request
-     * @param model
-     * @return
+     * @author andy_hulibo@163.com
+     * @date 2018/11/21 15:20
      */
     @GetMapping(value = {"/", "/index.html"})
     @Token(save = true)
     public String index(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
         CmsSite site = CmsUtils.getSite(request);
         FrontUtils.frontData(request, model, site);
-        //	return FrontUtils.getTplPath(request, site.getSolutionPath(),TPLDIR_INDEX, TPL_INDEX);
         //带有其他路径则是非法请求(非内网)
         String uri = URLHelper.getURI(request);
         if (StringUtils.isNotBlank(uri) && (!("/".equals(uri) || "/index.html".equals(uri)))) {

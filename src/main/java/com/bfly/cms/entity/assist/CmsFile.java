@@ -12,7 +12,6 @@ public class CmsFile implements Serializable {
 
     @Id
     @Column(name = "file_path")
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private String filePath;
 
     /**

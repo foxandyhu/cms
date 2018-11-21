@@ -1218,7 +1218,7 @@ public class Channel implements Serializable, HibernateTree<Integer>, PriorityIn
     }
 
     public List<Channel> getListForSelect(Set<Channel> rights, Channel exclude, boolean hasContentOnly) {
-        List<Channel> list = new ArrayList<Channel>((getRgt() - getLft()) / 2);
+        List<Channel> list = new ArrayList<>((getRgt() - getLft()) / 2);
         addChildToList(list, this, rights, exclude, hasContentOnly);
         return list;
     }
@@ -1235,7 +1235,7 @@ public class Channel implements Serializable, HibernateTree<Integer>, PriorityIn
 
     public static List<Channel> getListForSelect(List<Channel> topList, Set<Channel> rights, Channel exclude,
                                                  boolean hasContentOnly) {
-        List<Channel> list = new ArrayList<Channel>();
+        List<Channel> list = new ArrayList<>();
         for (Channel c : topList) {
             addChildToList(list, c, rights, exclude, hasContentOnly);
         }
@@ -1315,7 +1315,7 @@ public class Channel implements Serializable, HibernateTree<Integer>, PriorityIn
     public void addToViewGroups(CmsGroup group) {
         Set<CmsGroup> groups = getViewGroups();
         if (groups == null) {
-            groups = new TreeSet<CmsGroup>(new PriorityComparator());
+            groups = new TreeSet<>(new PriorityComparator());
             setViewGroups(groups);
         }
         groups.add(group);
@@ -1325,7 +1325,7 @@ public class Channel implements Serializable, HibernateTree<Integer>, PriorityIn
     public void addToContriGroups(CmsGroup group) {
         Set<CmsGroup> groups = getContriGroups();
         if (groups == null) {
-            groups = new TreeSet<CmsGroup>(new PriorityComparator());
+            groups = new TreeSet<>(new PriorityComparator());
             setContriGroups(groups);
         }
         groups.add(group);
@@ -1335,7 +1335,7 @@ public class Channel implements Serializable, HibernateTree<Integer>, PriorityIn
     public void addToUsers(CmsUser user) {
         Set<CmsUser> set = getUsers();
         if (set == null) {
-            set = new TreeSet<CmsUser>(new PriorityComparator());
+            set = new TreeSet<>(new PriorityComparator());
             setUsers(set);
         }
         set.add(user);
@@ -1345,7 +1345,7 @@ public class Channel implements Serializable, HibernateTree<Integer>, PriorityIn
     public void addToChannelModels(CmsModel model, String tpl, String mtpl) {
         List<ChannelModel> list = getChannelModels();
         if (list == null) {
-            list = new ArrayList<ChannelModel>();
+            list = new ArrayList<>();
             setChannelModels(list);
         }
         ChannelModel cm = new ChannelModel();
@@ -1375,7 +1375,7 @@ public class Channel implements Serializable, HibernateTree<Integer>, PriorityIn
         if (list == null) {
             return null;
         }
-        List<CmsModel> models = new ArrayList<CmsModel>();
+        List<CmsModel> models = new ArrayList<>();
         for (ChannelModel cm : list) {
             models.add(cm.getModel());
         }
@@ -1388,7 +1388,7 @@ public class Channel implements Serializable, HibernateTree<Integer>, PriorityIn
         if (list == null) {
             return allModels;
         }
-        List<CmsModel> models = new ArrayList<CmsModel>();
+        List<CmsModel> models = new ArrayList<>();
         for (ChannelModel cm : list) {
             models.add(cm.getModel());
         }
@@ -1396,7 +1396,7 @@ public class Channel implements Serializable, HibernateTree<Integer>, PriorityIn
     }
 
     public List<String> getModelIds() {
-        List<String> ids = new ArrayList<String>();
+        List<String> ids = new ArrayList<>();
         List<CmsModel> models = getModels();
         if (models != null) {
             for (CmsModel model : models) {
@@ -1417,7 +1417,7 @@ public class Channel implements Serializable, HibernateTree<Integer>, PriorityIn
 
     public List<String> getModelTpls() {
         List<ChannelModel> list = getChannelModelsExtend();
-        List<String> tpls = new ArrayList<String>();
+        List<String> tpls = new ArrayList<>();
         // 当前模板，去除基本路径
         int tplPathLength = getSite().getTplPath().length();
         if (list != null) {

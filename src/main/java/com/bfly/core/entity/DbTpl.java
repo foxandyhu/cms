@@ -33,7 +33,6 @@ public class DbTpl implements Tpl, Serializable {
      */
     @Id
     @Column(name = "tpl_name")
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private String id;
 
     /**

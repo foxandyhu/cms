@@ -34,7 +34,6 @@ public class CmsModel implements Serializable {
 
     @Id
     @Column(name = "model_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     /**

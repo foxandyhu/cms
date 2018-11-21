@@ -19,7 +19,6 @@ public class DbFile implements Serializable {
      */
     @Id
     @Column(name = "filename")
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private String id;
 
     /**

@@ -144,7 +144,6 @@ public class CmsConfigContentCharge implements Serializable {
 
     @Id
     @Column(name = "config_content_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     /**

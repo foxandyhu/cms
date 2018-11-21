@@ -26,6 +26,7 @@ public class CmsLog implements Serializable {
 
     @Id
     @Column(name = "log_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     /**
@@ -47,9 +48,9 @@ public class CmsLog implements Serializable {
     private String ip;
 
     /**
-     * url
+     * URL地址
      */
-    @Column(name = "URL地址")
+    @Column(name = "url")
     private String url;
     /**
      * 日志标题

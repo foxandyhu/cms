@@ -22,7 +22,6 @@ public class Config implements Serializable {
 
     @Id
     @Column(name = "cfg_key")
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private String id;
 
     /**
