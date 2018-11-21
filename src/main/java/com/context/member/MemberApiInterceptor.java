@@ -7,8 +7,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.jeecms.cms.web.CmsThreadVariable;
-import com.jeecms.core.web.WebErrors;
+import com.bfly.cms.web.CmsThreadVariable;
+import com.bfly.core.web.WebErrors;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,23 +17,23 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.jeecms.cms.annotation.SignValidate;
-import com.jeecms.cms.api.ApiResponse;
-import com.jeecms.cms.api.ApiValidate;
-import com.jeecms.cms.api.Constants;
-import com.jeecms.cms.api.ResponseCode;
-import com.jeecms.cms.entity.main.ApiAccount;
-import com.jeecms.cms.entity.main.ApiUserLogin;
-import com.jeecms.cms.manager.main.ApiAccountMng;
-import com.jeecms.cms.manager.main.ApiRecordMng;
-import com.jeecms.cms.manager.main.ApiUserLoginMng;
-import com.jeecms.common.web.CookieUtils;
-import com.jeecms.common.web.RequestUtils;
-import com.jeecms.common.web.ResponseUtils;
-import com.jeecms.core.entity.CmsSite;
-import com.jeecms.core.entity.CmsUser;
-import com.jeecms.core.manager.CmsSiteMng;
-import com.jeecms.core.web.util.CmsUtils;
+import com.bfly.cms.annotation.SignValidate;
+import com.bfly.cms.api.ApiResponse;
+import com.bfly.cms.api.ApiValidate;
+import com.bfly.cms.api.Constants;
+import com.bfly.cms.api.ResponseCode;
+import com.bfly.cms.entity.main.ApiAccount;
+import com.bfly.cms.entity.main.ApiUserLogin;
+import com.bfly.cms.manager.main.ApiAccountMng;
+import com.bfly.cms.manager.main.ApiRecordMng;
+import com.bfly.cms.manager.main.ApiUserLoginMng;
+import com.bfly.common.web.CookieUtils;
+import com.bfly.common.web.RequestUtils;
+import com.bfly.common.web.ResponseUtils;
+import com.bfly.core.entity.CmsSite;
+import com.bfly.core.entity.CmsUser;
+import com.bfly.core.manager.CmsSiteMng;
+import com.bfly.core.web.util.CmsUtils;
 
 /**
  * 会员中心API拦截器

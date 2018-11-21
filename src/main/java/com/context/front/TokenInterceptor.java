@@ -6,15 +6,15 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.jeecms.cms.web.Token;
+import com.bfly.cms.annotation.Token;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.jeecms.common.web.session.SessionProvider;
-import com.jeecms.core.entity.CmsSite;
-import com.jeecms.core.web.util.CmsUtils;
+import com.bfly.common.web.session.SessionProvider;
+import com.bfly.core.entity.CmsSite;
+import com.bfly.core.web.util.CmsUtils;
 
 
 public class TokenInterceptor  extends HandlerInterceptorAdapter{

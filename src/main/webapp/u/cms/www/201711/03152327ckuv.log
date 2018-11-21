@@ -1,23 +1,23 @@
-29-Sep-2017 13:26:48.985 信息 [localhost-startStop-1] org.apache.catalina.core.ApplicationContext.log No Spring WebApplicationInitializer types detected on classpath
-29-Sep-2017 13:26:49.172 信息 [localhost-startStop-1] org.apache.catalina.core.ApplicationContext.log Initializing Spring root WebApplicationContext
-29-Sep-2017 13:26:54.117 信息 [localhost-startStop-1] org.apache.catalina.core.ApplicationContext.log Initializing Spring FrameworkServlet 'JeeBbsAdmin'
-29-Sep-2017 13:26:55.755 信息 [localhost-startStop-1] org.apache.catalina.core.ApplicationContext.log Initializing Spring FrameworkServlet 'JeeBbsFront'
-29-Sep-2017 13:26:56.753 信息 [localhost-startStop-1] org.apache.catalina.core.ApplicationContext.log Initializing Spring FrameworkServlet 'JeeBbsAdminApi'
-29-Sep-2017 13:26:57.003 信息 [localhost-startStop-1] org.apache.catalina.core.ApplicationContext.log Initializing Spring FrameworkServlet 'JeeBbsMemberApi'
-29-Sep-2017 13:30:28.035 信息 [localhost-startStop-1] org.apache.catalina.core.ApplicationContext.log No Spring WebApplicationInitializer types detected on classpath
-29-Sep-2017 13:30:28.253 信息 [localhost-startStop-1] org.apache.catalina.core.ApplicationContext.log Initializing Spring root WebApplicationContext
-29-Sep-2017 13:30:35.370 信息 [localhost-startStop-1] org.apache.catalina.core.ApplicationContext.log Initializing Spring FrameworkServlet 'JeeBbsAdmin'
-29-Sep-2017 13:30:37.905 信息 [localhost-startStop-1] org.apache.catalina.core.ApplicationContext.log Initializing Spring FrameworkServlet 'JeeBbsFront'
-29-Sep-2017 13:30:38.969 信息 [localhost-startStop-1] org.apache.catalina.core.ApplicationContext.log Initializing Spring FrameworkServlet 'JeeBbsAdminApi'
-29-Sep-2017 13:30:39.156 信息 [localhost-startStop-1] org.apache.catalina.core.ApplicationContext.log Initializing Spring FrameworkServlet 'JeeBbsMemberApi'
-29-Sep-2017 13:30:50.076 严重 [http-nio-80-exec-4] org.apache.catalina.core.StandardWrapperValve.invoke Servlet.service() for servlet [JeeBbsAdminApi] in context with path [/jeebbs5] threw exception [Request processing failed; nested exception is com.baidubce.BceServiceException: pause not permitted when live session in state PAUSED (Status Code: 403; Error Code: LiveExceptions.OperationNotPermitted; Request ID: 15d27dcf-e78c-442a-9e11-853012ed196d)] with root cause
+29-Sep-2017 13:26:48.985 锟斤拷息 [localhost-startStop-1] org.apache.catalina.core.ApplicationContext.log No Spring WebApplicationInitializer types detected on classpath
+29-Sep-2017 13:26:49.172 锟斤拷息 [localhost-startStop-1] org.apache.catalina.core.ApplicationContext.log Initializing Spring root WebApplicationContext
+29-Sep-2017 13:26:54.117 锟斤拷息 [localhost-startStop-1] org.apache.catalina.core.ApplicationContext.log Initializing Spring FrameworkServlet 'JeeBbsAdmin'
+29-Sep-2017 13:26:55.755 锟斤拷息 [localhost-startStop-1] org.apache.catalina.core.ApplicationContext.log Initializing Spring FrameworkServlet 'JeeBbsFront'
+29-Sep-2017 13:26:56.753 锟斤拷息 [localhost-startStop-1] org.apache.catalina.core.ApplicationContext.log Initializing Spring FrameworkServlet 'JeeBbsAdminApi'
+29-Sep-2017 13:26:57.003 锟斤拷息 [localhost-startStop-1] org.apache.catalina.core.ApplicationContext.log Initializing Spring FrameworkServlet 'JeeBbsMemberApi'
+29-Sep-2017 13:30:28.035 锟斤拷息 [localhost-startStop-1] org.apache.catalina.core.ApplicationContext.log No Spring WebApplicationInitializer types detected on classpath
+29-Sep-2017 13:30:28.253 锟斤拷息 [localhost-startStop-1] org.apache.catalina.core.ApplicationContext.log Initializing Spring root WebApplicationContext
+29-Sep-2017 13:30:35.370 锟斤拷息 [localhost-startStop-1] org.apache.catalina.core.ApplicationContext.log Initializing Spring FrameworkServlet 'JeeBbsAdmin'
+29-Sep-2017 13:30:37.905 锟斤拷息 [localhost-startStop-1] org.apache.catalina.core.ApplicationContext.log Initializing Spring FrameworkServlet 'JeeBbsFront'
+29-Sep-2017 13:30:38.969 锟斤拷息 [localhost-startStop-1] org.apache.catalina.core.ApplicationContext.log Initializing Spring FrameworkServlet 'JeeBbsAdminApi'
+29-Sep-2017 13:30:39.156 锟斤拷息 [localhost-startStop-1] org.apache.catalina.core.ApplicationContext.log Initializing Spring FrameworkServlet 'JeeBbsMemberApi'
+29-Sep-2017 13:30:50.076 锟斤拷锟斤拷 [http-nio-80-exec-4] org.apache.catalina.core.StandardWrapperValve.invoke Servlet.service() for servlet [JeeBbsAdminApi] in context with path [/jeebbs5] threw exception [Request processing failed; nested exception is com.baidubce.BceServiceException: pause not permitted when live session in state PAUSED (Status Code: 403; Error Code: LiveExceptions.OperationNotPermitted; Request ID: 15d27dcf-e78c-442a-9e11-853012ed196d)] with root cause
  com.baidubce.BceServiceException: pause not permitted when live session in state PAUSED (Status Code: 403; Error Code: LiveExceptions.OperationNotPermitted; Request ID: 15d27dcf-e78c-442a-9e11-853012ed196d)
 	at com.baidubce.http.handler.BceErrorResponseHandler.handle(BceErrorResponseHandler.java:51)
 	at com.baidubce.http.BceHttpClient.execute(BceHttpClient.java:230)
 	at com.baidubce.AbstractBceClient.invokeHttpClient(AbstractBceClient.java:189)
 	at com.baidubce.services.lss.LssClient.pauseDomainStream(LssClient.java:1501)
-	at com.jeecms.plug.live.util.BaiduCloudUtil.controlStram(BaiduCloudUtil.java:67)
-	at com.jeecms.plug.live.util.BaiduCloudUtil.disableStram(BaiduCloudUtil.java:43)
+	at com.bfly.plug.live.util.BaiduCloudUtil.controlStram(BaiduCloudUtil.java:67)
+	at com.bfly.plug.live.util.BaiduCloudUtil.disableStram(BaiduCloudUtil.java:43)
 	at com.jeecms.bbs.api.admin.BbsLiveApiAct.stop(BbsLiveApiAct.java:183)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)

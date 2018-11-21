@@ -18,7 +18,7 @@ import org.springframework.stereotype.Controller;
  */
 @SpringBootApplication
 @ServletComponentScan
-@ComponentScan(basePackages="com.jeecms",excludeFilters=@ComponentScan.Filter(type= FilterType.ANNOTATION,value=Controller.class))
+@ComponentScan(basePackages="com.bfly",excludeFilters=@ComponentScan.Filter(type= FilterType.ANNOTATION,value=Controller.class))
 public class CmsApp extends SpringBootServletInitializer{
 
 	@Override

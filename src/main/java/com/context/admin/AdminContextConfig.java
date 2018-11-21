@@ -1,6 +1,6 @@
 package com.context.admin;
 
-import com.jeecms.common.web.springmvc.BindingInitializer;
+import com.bfly.common.web.springmvc.BindingInitializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -16,7 +16,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"com.jeecms.cms.api.admin", "com.jeecms.plug.store.action.admin", "com.jeecms.plug.weixin.action.admin"}, includeFilters = @Filter(type = FilterType.ANNOTATION, value = Controller.class), useDefaultFilters = false)
+@ComponentScan(basePackages = {"com.bfly.cms.api.admin", "com.bfly.plug.store.action.admin", "com.bfly.plug.weixin.action.admin"}, includeFilters = @Filter(type = FilterType.ANNOTATION, value = Controller.class), useDefaultFilters = false)
 public class AdminContextConfig extends WebMvcConfigurerAdapter {
 
     @Autowired

@@ -6,14 +6,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.jeecms.cms.web.CmsThreadVariable;
+import com.bfly.cms.web.CmsThreadVariable;
 import org.springframework.beans.propertyeditors.LocaleEditor;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
-import com.jeecms.core.entity.CmsSite;
+import com.bfly.core.entity.CmsSite;
 
 /**
  * 后台（管理员）本地化信息拦截器

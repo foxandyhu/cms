@@ -8,8 +8,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.jeecms.cms.web.CmsThreadVariable;
-import com.jeecms.cms.web.SiteNotFoundException;
+import com.bfly.cms.web.CmsThreadVariable;
+import com.bfly.exception.SiteNotFoundException;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -17,14 +17,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.jeecms.common.util.CheckMobile;
-import com.jeecms.common.web.CookieUtils;
-import com.jeecms.common.web.session.SessionProvider;
-import com.jeecms.core.entity.CmsSite;
-import com.jeecms.core.entity.CmsUser;
-import com.jeecms.core.manager.CmsSiteMng;
-import com.jeecms.core.manager.CmsUserMng;
-import com.jeecms.core.web.util.CmsUtils;
+import com.bfly.common.util.CheckMobile;
+import com.bfly.common.web.CookieUtils;
+import com.bfly.common.web.session.SessionProvider;
+import com.bfly.core.entity.CmsSite;
+import com.bfly.core.entity.CmsUser;
+import com.bfly.core.manager.CmsSiteMng;
+import com.bfly.core.manager.CmsUserMng;
+import com.bfly.core.web.util.CmsUtils;
 
 /**
  * CMS上下文信息拦截器

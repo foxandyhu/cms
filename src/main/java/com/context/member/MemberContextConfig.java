@@ -1,6 +1,6 @@
 package com.context.member;
 
-import com.jeecms.common.web.springmvc.BindingInitializer;
+import com.bfly.common.web.springmvc.BindingInitializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -16,7 +16,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"com.jeecms.cms.api.member"}, includeFilters = @Filter(type = FilterType.ANNOTATION, value = Controller.class), useDefaultFilters = false)
+@ComponentScan(basePackages = {"com.bfly.cms.api.member"}, includeFilters = @Filter(type = FilterType.ANNOTATION, value = Controller.class), useDefaultFilters = false)
 public class MemberContextConfig extends WebMvcConfigurerAdapter {
 
     @Autowired

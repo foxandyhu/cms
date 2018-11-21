@@ -1,6 +1,6 @@
 package com.context.front;
 
-import com.jeecms.common.web.springmvc.BindingInitializer;
+import com.bfly.common.web.springmvc.BindingInitializer;
 import freemarker.template.SimpleHash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -38,7 +38,7 @@ import java.util.Properties;
  * @CreateDate: 2018/11/9 11:20
  */
 @Configuration
-@ComponentScan(basePackages = {"com.jeecms.cms.action", "com.jeecms.cms.api.front", "com.jeecms.plug.weixin.action.front"}, includeFilters = @Filter(type = FilterType.ANNOTATION, value = Controller.class), useDefaultFilters = false)
+@ComponentScan(basePackages = {"com.bfly.cms.action", "com.bfly.cms.api.front", "com.bfly.plug.weixin.action.front"}, includeFilters = @Filter(type = FilterType.ANNOTATION, value = Controller.class), useDefaultFilters = false)
 @EnableWebMvc
 public class FrontContextConfig extends WebMvcConfigurerAdapter {
 
@@ -72,7 +72,7 @@ public class FrontContextConfig extends WebMvcConfigurerAdapter {
         p.setProperty("org.springframework.web.bind.MissingServletRequestParameterException", "/WEB-INF/error/requiredParameter.html");
         p.setProperty("org.springframework.beans.TypeMismatchException", "/WEB-INF/error/mismatchParameter.html");
         p.setProperty("org.springframework.web.bind.ServletRequestBindingException", "/WEB-INF/error/bindException.html");
-        p.setProperty("com.jeecms.cms.web.SiteNotFoundException", "/WEB-INF/error/siteNotFoundException.html");
+        p.setProperty("com.bfly.exception.SiteNotFoundException", "/WEB-INF/error/siteNotFoundException.html");
         resolver.setExceptionMappings(p);
         return resolver;
     }
