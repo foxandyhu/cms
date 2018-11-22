@@ -67,7 +67,7 @@ import freemarker.template.TemplateException;
 
 @Service
 @Transactional
-public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
+public class ContentMngImpl implements ContentMng{
 	@Override
     @Transactional(readOnly = true)
 	public Pagination getPageByRight(Integer share,String title, Integer typeId,

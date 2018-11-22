@@ -4,6 +4,7 @@ import com.bfly.cms.staticpage.StaticPageUtils;
 import com.bfly.common.hibernate4.HibernateTree;
 import com.bfly.common.hibernate4.PriorityComparator;
 import com.bfly.common.hibernate4.PriorityInterface;
+import com.bfly.common.hibernate4.TreeIntercptor;
 import com.bfly.core.entity.CmsGroup;
 import com.bfly.core.entity.CmsSite;
 import com.bfly.core.entity.CmsUser;
@@ -29,6 +30,7 @@ import static com.bfly.common.web.Constants.SPT;
 @Table(name = "jc_channel")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 @DynamicUpdate
+@EntityListeners(value = TreeIntercptor.class)
 public class Channel implements Serializable, HibernateTree<Integer>, PriorityInterface, Cloneable {
     private static final long serialVersionUID = 1L;
 
@@ -1469,7 +1471,7 @@ public class Channel implements Serializable, HibernateTree<Integer>, PriorityIn
                     tpls.add("");
                 }
                 /*
-				 * if(StringUtils.isNotBlank(tpl)){
+                 * if(StringUtils.isNotBlank(tpl)){
 				 * tpls.add(tpl.substring(tplPathLength)); }
 				 */
             }

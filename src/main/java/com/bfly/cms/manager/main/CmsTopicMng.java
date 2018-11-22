@@ -3,9 +3,10 @@ package com.bfly.cms.manager.main;
 import java.util.List;
 
 import com.bfly.cms.entity.main.CmsTopic;
+import com.bfly.cms.service.ChannelDeleteChecker;
 import com.bfly.common.page.Pagination;
 
-public interface CmsTopicMng {
+public interface CmsTopicMng extends ChannelDeleteChecker{
 
 	public List<CmsTopic> getListForTag(Integer channelId, boolean recommend,
 			Integer first,Integer count);

@@ -34,8 +34,7 @@ import com.bfly.core.manager.CmsUserMng;
 
 @Service
 @Transactional
-public class CmsAcquisitionMngImpl implements CmsAcquisitionMng,
-		ChannelDeleteChecker {
+public class CmsAcquisitionMngImpl implements CmsAcquisitionMng{
 	@Override
     @Transactional(readOnly = true)
 	public List<CmsAcquisition> getList(Integer siteId) {

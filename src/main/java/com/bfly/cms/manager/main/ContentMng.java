@@ -9,6 +9,7 @@ import com.bfly.cms.entity.main.ContentExt;
 import com.bfly.cms.entity.main.ContentTxt;
 import com.bfly.cms.entity.main.Content.ContentStatus;
 import com.bfly.cms.entity.main.ContentRecord.ContentOperateType;
+import com.bfly.cms.service.ChannelDeleteChecker;
 import com.bfly.cms.service.ContentListener;
 import com.bfly.exception.ContentNotCheckedException;
 import com.bfly.exception.GeneratedZeroStaticPageException;
@@ -18,7 +19,7 @@ import com.bfly.exception.TemplateParseException;
 import com.bfly.common.page.Pagination;
 import com.bfly.core.entity.CmsUser;
 
-public interface ContentMng {
+public interface ContentMng extends ChannelDeleteChecker{
 	public Pagination getPageByRight(Integer share,String title, Integer typeId,
 			Integer currUserId,Integer inputUserId, boolean topLevel, boolean recommend,
 			ContentStatus status, Byte checkStep, Integer siteId,

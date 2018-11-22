@@ -1,6 +1,5 @@
 package com.bfly.config;
 
-import com.bfly.common.hibernate4.TreeIntercptor;
 import com.bfly.common.image.ImageScaleImpl;
 import com.bfly.common.ipseek.IPSeekerImpl;
 import com.bfly.common.web.session.HttpSessionProvider;
@@ -24,12 +23,6 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 @EnableTransactionManagement
 @EnableCaching
 public class ApplicationConfig {
-
-    @Bean
-    public TreeIntercptor treeInterceptor() {
-        TreeIntercptor tor = new TreeIntercptor();
-        return tor;
-    }
 
     @Bean
     public HibernateTransactionManager txManager(SessionFactory sessionFactory) {

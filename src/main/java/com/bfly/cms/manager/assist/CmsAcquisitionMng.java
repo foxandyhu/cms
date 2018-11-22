@@ -8,8 +8,9 @@ import com.bfly.cms.entity.assist.CmsAcquisitionHistory;
 import com.bfly.cms.entity.assist.CmsAcquisitionTemp;
 import com.bfly.cms.entity.assist.CmsAcquisition.AcquisitionResultType;
 import com.bfly.cms.entity.main.Content;
+import com.bfly.cms.service.ChannelDeleteChecker;
 
-public interface CmsAcquisitionMng {
+public interface CmsAcquisitionMng extends ChannelDeleteChecker{
 	public List<CmsAcquisition> getList(Integer siteId);
 
 	public CmsAcquisition findById(Integer id);

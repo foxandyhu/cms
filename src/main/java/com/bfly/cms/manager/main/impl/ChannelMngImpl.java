@@ -1,8 +1,12 @@
 package com.bfly.cms.manager.main.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.bfly.cms.manager.assist.CmsAcquisitionMng;
+import com.bfly.cms.manager.assist.impl.CmsAcquisitionMngImpl;
+import com.bfly.cms.manager.main.*;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.RandomUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +19,6 @@ import com.bfly.cms.entity.main.ChannelCount;
 import com.bfly.cms.entity.main.ChannelExt;
 import com.bfly.cms.entity.main.ChannelTxt;
 import com.bfly.cms.entity.main.CmsModel;
-import com.bfly.cms.manager.main.ChannelCountMng;
-import com.bfly.cms.manager.main.ChannelExtMng;
-import com.bfly.cms.manager.main.ChannelMng;
-import com.bfly.cms.manager.main.ChannelTxtMng;
-import com.bfly.cms.manager.main.CmsModelMng;
 import com.bfly.cms.service.ChannelDeleteChecker;
 import com.bfly.common.hibernate4.Updater;
 import com.bfly.common.page.Pagination;
@@ -381,13 +380,6 @@ public class ChannelMngImpl implements ChannelMng {
 		dao.initWorkFlow(workflowId);
 	}
 
-	private List<ChannelDeleteChecker> deleteCheckerList;
-
-	public void setDeleteCheckerList(
-			List<ChannelDeleteChecker> deleteCheckerList) {
-		this.deleteCheckerList = deleteCheckerList;
-	}
-	
 	private String getChannelPath(String path,Integer siteId){
 		Channel findChannel=findByPath(path, siteId);
 		if(findChannel!=null){
@@ -395,6 +387,16 @@ public class ChannelMngImpl implements ChannelMng {
 			return getChannelPath(path, siteId);
 		}
 		return path;
+	}
+
+	private List<ChannelDeleteChecker> deleteCheckerList;
+
+	@Autowired
+	public void setDeleteCheckerList(ContentMng contentMng, CmsTopicMng cmsTopicMng, CmsAcquisitionMng cmsAcquisitionMng) {
+		this.deleteCheckerList = new ArrayList<>();
+		deleteCheckerList.add(contentMng);
+		deleteCheckerList.add(cmsTopicMng);
+		deleteCheckerList.add(cmsAcquisitionMng);
 	}
 
 	@Autowired
