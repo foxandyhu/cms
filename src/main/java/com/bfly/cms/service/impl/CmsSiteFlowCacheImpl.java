@@ -252,8 +252,7 @@ public class CmsSiteFlowCacheImpl implements CmsSiteFlowCache, DisposableBean {
         CmsSiteAccess bean = new CmsSiteAccess();
 
         Date now = Calendar.getInstance().getTime();
-        java.sql.Date sqlDate = new java.sql.Date(now.getTime());
-        bean.setAccessDate(sqlDate);
+        bean.setAccessDate(now);
 
         bean.setAccessSource(accessSource);
         if (accessSource.equals(getMessage(request, "cmsAccess.externallink"))) {
@@ -263,8 +262,7 @@ public class CmsSiteFlowCacheImpl implements CmsSiteFlowCache, DisposableBean {
             bean.setEngine(getEngine(request, referer));
         }
 
-        Time sqlTime = new Time(now.getTime());
-        bean.setAccessTime(sqlTime);
+        bean.setAccessTime(now);
 
         bean.setIp(ip);
         bean.setArea(IpSeekUtils.getIpProvinceBySina(ip));
@@ -310,14 +308,11 @@ public class CmsSiteFlowCacheImpl implements CmsSiteFlowCache, DisposableBean {
 
     private CmsSiteAccessPages visitPages(CmsSite site, String page, String sessionId, Integer hasVisitCount, Date lastVisitTime) {
         CmsSiteAccessPages bean = new CmsSiteAccessPages();
-        Date time = Calendar.getInstance().getTime();
-//		Date date = DateUtils.getStartDate(Calendar.getInstance().getTime());
+        Date date = Calendar.getInstance().getTime();
         bean.setAccessPage(page);
 
-        Time sqlTime = new Time(time.getTime());
-        java.sql.Date sqlDate = new java.sql.Date(time.getTime());
-        bean.setAccessTime(sqlTime);
-        bean.setAccessDate(sqlDate);
+        bean.setAccessTime(date);
+        bean.setAccessDate(date);
 
         bean.setSite(site);
         bean.setSessionId(sessionId);
@@ -338,7 +333,7 @@ public class CmsSiteFlowCacheImpl implements CmsSiteFlowCache, DisposableBean {
             prePageCacheKey = (String) pageElement.getObjectKey();
         }
         if (prePage != null) {
-            prePage.setVisitSecond(DateUtils.getSecondBetweenDate(prePage.getAccessTime(), time));
+            prePage.setVisitSecond(DateUtils.getSecondBetweenDate(prePage.getAccessTime(), date));
             accessPageCache.put(new Element(prePageCacheKey, prePage));
         }
         return bean;
@@ -393,8 +388,7 @@ public class CmsSiteFlowCacheImpl implements CmsSiteFlowCache, DisposableBean {
             CmsSiteAccessPages page = (CmsSiteAccessPages) element.getObjectValue();
             if (page.getId() == null && page.getSessionId() != null) {
                 if (page.getAccessDate() == null) {
-                    java.sql.Date sqlDate = new java.sql.Date(Calendar.getInstance().getTime().getTime());
-                    page.setAccessDate(sqlDate);
+                    page.setAccessDate(Calendar.getInstance().getTime());
                 }
                 cmsSiteAccessPagesMng.save(page);
             } else {

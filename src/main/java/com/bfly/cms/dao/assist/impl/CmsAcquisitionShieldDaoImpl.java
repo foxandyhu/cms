@@ -10,7 +10,7 @@ import com.bfly.common.hibernate4.Finder;
 import com.bfly.common.hibernate4.AbstractHibernateBaseDao;
 
 @Component
-public class AbstractHibernateSimpleDao extends AbstractHibernateBaseDao<CmsAcquisitionShield, Integer> implements CmsAcquisitionShieldDao {
+public class CmsAcquisitionShieldDaoImpl extends AbstractHibernateBaseDao<CmsAcquisitionShield, Integer> implements CmsAcquisitionShieldDao {
 
     @Override
     public CmsAcquisitionShield save(CmsAcquisitionShield bean) {

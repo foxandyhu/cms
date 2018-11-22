@@ -28,11 +28,11 @@ public class DateUtils {
     public static String COMMON_FORMAT_YEAR = "yyyy";
     public static String COMMON_FORMAT_MERGE_SHORT = "yyyyMMdd";
     public static String COMMON_FORMAT_MERGE_STR = "yyyyMMdd HH:mm:ss";
-    public static ThreadLocal<SimpleDateFormat> dayFormatThreadLocal = new ThreadLocal<SimpleDateFormat>();  //格式为yyyy-MM-dd
-    public static ThreadLocal<SimpleDateFormat> commonFormatThreadLocal = new ThreadLocal<SimpleDateFormat>();  //格式为yyyy-MM-dd HH:mm:ss
-    public static ThreadLocal<SimpleDateFormat> timeFormatThreadLocal = new ThreadLocal<SimpleDateFormat>();  //格式为HH:mm:ss
-    public static ThreadLocal<SimpleDateFormat> formatThreadLocal = new ThreadLocal<SimpleDateFormat>();  //格式为yyyyMMdd
-    public static ThreadLocal<SimpleDateFormat> format1ThreadLocal = new ThreadLocal<SimpleDateFormat>();  //格式为yyyyMMdd HH:mm:ss
+    public static ThreadLocal<SimpleDateFormat> dayFormatThreadLocal = new ThreadLocal<>();  //格式为yyyy-MM-dd
+    public static ThreadLocal<SimpleDateFormat> commonFormatThreadLocal = new ThreadLocal<>();  //格式为yyyy-MM-dd HH:mm:ss
+    public static ThreadLocal<SimpleDateFormat> timeFormatThreadLocal = new ThreadLocal<>();  //格式为HH:mm:ss
+    public static ThreadLocal<SimpleDateFormat> formatThreadLocal = new ThreadLocal<>();  //格式为yyyyMMdd
+    public static ThreadLocal<SimpleDateFormat> format1ThreadLocal = new ThreadLocal<>();  //格式为yyyyMMdd HH:mm:ss
 
 
     public String getNowString() {

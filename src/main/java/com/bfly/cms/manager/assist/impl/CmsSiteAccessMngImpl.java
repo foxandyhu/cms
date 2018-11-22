@@ -58,7 +58,7 @@ public class CmsSiteAccessMngImpl implements CmsSiteAccessMng {
 	
 	@Override
     public void statisticByProperty(String property, Date date, Integer siteId){
-		List<Object[]> resultes=new ArrayList<Object[]>();
+		List<Object[]> resultes=new ArrayList<>();
 		if(StringUtils.isBlank(property)){
 			property=STATISTIC_ALL;
 		}

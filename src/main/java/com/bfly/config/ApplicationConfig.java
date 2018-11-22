@@ -14,6 +14,8 @@ import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 
+import javax.persistence.EntityManagerFactory;
+
 /**
  * @Description: 系统总体配置
  * @Author: andy_hulibo@163.com
@@ -23,6 +25,15 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 @EnableTransactionManagement
 @EnableCaching
 public class ApplicationConfig {
+
+    @Bean
+    public SessionFactory sessionFactory(EntityManagerFactory entityManagerFactory) {
+        if (entityManagerFactory.unwrap(SessionFactory.class) == null) {
+            throw new NullPointerException("factory is not a hibernate factory.");
+        }
+        SessionFactory sessionFactory = entityManagerFactory.unwrap(SessionFactory.class);
+        return sessionFactory;
+    }
 
     @Bean
     public HibernateTransactionManager txManager(SessionFactory sessionFactory) {

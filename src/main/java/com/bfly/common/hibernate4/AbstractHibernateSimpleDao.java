@@ -198,8 +198,6 @@ public abstract class AbstractHibernateSimpleDao {
 	 * @param crit
 	 * @param pageNo
 	 * @param pageSize
-	 * @param projection
-	 * @param orders
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
@@ -293,21 +291,8 @@ public abstract class AbstractHibernateSimpleDao {
 		return query;
 	}
 
-	protected SessionFactory sessionFactory;
-
-	public SessionFactory getSessionFactory(){
-		return sessionFactory;
-	}
-
-	@Bean
 	@Autowired
-	public SessionFactory sessionFactory(EntityManagerFactory entityManagerFactory) {
-		if(entityManagerFactory.unwrap(SessionFactory.class)==null){
-			throw new NullPointerException("factory is not a hibernate factory.");
-		}
-		this.sessionFactory = entityManagerFactory.unwrap(SessionFactory.class);
-		return sessionFactory;
-	}
+	protected SessionFactory sessionFactory;
 
 	protected Session getSession() {
 		return sessionFactory.getCurrentSession();

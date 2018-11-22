@@ -216,7 +216,6 @@ public class DynamicPageAct {
                             }
                             response.sendRedirect(rediretUrl);
                         } catch (IOException e) {
-                            //e.printStackTrace();
                         }
                     }
                 }
@@ -280,7 +279,6 @@ public class DynamicPageAct {
                 }
             }
         } catch (IOException e) {
-            //e.printStackTrace();
         }
         return FrontUtils.getTplPath(request, site.getSolutionPath(), TPLDIR_INDEX, TPL_INDEX);
     }
