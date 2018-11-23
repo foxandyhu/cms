@@ -42,7 +42,7 @@ import com.bfly.core.web.util.CmsUtils;
 @Controller
 public class CmsTaskApiAct {
 	private static final Logger log = LoggerFactory.getLogger(CmsTaskApiAct.class);
-	
+
 	@SuppressWarnings("unchecked")
 	@RequestMapping("/task/list")
 	public void list(Integer pageNo,Integer pageSize,HttpServletRequest request,HttpServletResponse response){
@@ -67,7 +67,7 @@ public class CmsTaskApiAct {
 		ApiResponse apiResponse = new ApiResponse(request, body, message, code);
 		ResponseUtils.renderApiJson(response, request, apiResponse);
 	}
-	
+
 	@RequestMapping("/task/get")
 	public void get(Integer id,HttpServletRequest request,HttpServletResponse response){
 		String body = "\"\"";
@@ -95,7 +95,7 @@ public class CmsTaskApiAct {
 		ApiResponse apiResponse = new ApiResponse(request, body, message, code);
 		ResponseUtils.renderApiJson(response, request, apiResponse);
 	}
-	
+
 	@SignValidate
 	@RequestMapping("/task/save")
 	public void save(CmsTask bean,HttpServletRequest request,HttpServletResponse response) throws ClassNotFoundException, ParseException, SchedulerException{
@@ -182,7 +182,7 @@ public class CmsTaskApiAct {
 		ApiResponse apiResponse = new ApiResponse(request, body, message, code);
 		ResponseUtils.renderApiJson(response, request, apiResponse);
 	}
-	
+
 	@SignValidate
 	@RequestMapping("/task/delete")
 	public void delete(String ids,HttpServletRequest request,HttpServletResponse response) throws SchedulerException{
@@ -216,7 +216,7 @@ public class CmsTaskApiAct {
 		ApiResponse apiResponse = new ApiResponse(request, body, message, code);
 		ResponseUtils.renderApiJson(response, request, apiResponse);
 	}
-	
+
 	private WebErrors validateDelete(WebErrors errors, HttpServletRequest request, Integer[] idArr){
 		CmsSite site = CmsUtils.getSite(request);
 		if (idArr!=null) {
@@ -226,7 +226,7 @@ public class CmsTaskApiAct {
 		}
 		return errors;
 	}
-	
+
 	private boolean vldExist(Integer id, Integer siteId, WebErrors errors) {
 		if (errors.ifNull(id, "id", false)) {
 			return true;
@@ -241,7 +241,7 @@ public class CmsTaskApiAct {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * 开始任务调度
 	 * @param task 任务
@@ -257,7 +257,7 @@ public class CmsTaskApiAct {
 			jobDetailFactoryBean.setName(taskCode);
 			jobDetailFactoryBean.setGroup(Scheduler.DEFAULT_GROUP);
 			jobDetailFactoryBean.setJobClass(getClassByTask(task.getJobClass()));
-			//任务需要参数attr属性 
+			//任务需要参数attr属性
 			jobDetailFactoryBean.setJobDataMap(getJobDataMap(task.getAttr()));
 			jobDetailFactoryBean.afterPropertiesSet();
 			CronTriggerFactoryBean cronTriggerFactoryBean=new CronTriggerFactoryBean();
@@ -266,24 +266,23 @@ public class CmsTaskApiAct {
 			cronTriggerFactoryBean.setGroup(Scheduler.DEFAULT_GROUP);
 			cronTriggerFactoryBean.setName("cron_" + taskCode);
 			cronTriggerFactoryBean.afterPropertiesSet();
-			scheduler.scheduleJob(jobDetailFactoryBean.getObject(), cronTriggerFactoryBean.getObject()); 
+			scheduler.scheduleJob(jobDetailFactoryBean.getObject(), cronTriggerFactoryBean.getObject());
 		}
 	}
-	
+
 	/**
 	 * 结束任务调度
-	 * @param taskName 
+	 * @param taskName
 	 */
 	private void endTask(String taskName) throws SchedulerException{
-		//scheduler.deleteJob(taskName, Scheduler.DEFAULT_GROUP);
 		scheduler.deleteJob(JobKey.jobKey(taskName, Scheduler.DEFAULT_GROUP));
 	}
-	
-	
+
+
 	private Class<?> getClassByTask(String taskClassName) throws ClassNotFoundException{
 		return Class.forName(taskClassName);
 	}
-	
+
 	private JobDataMap getJobDataMap(Map<String,String> params){
 		JobDataMap jdm=new JobDataMap();
 		Set<String>keySet=params.keySet();
@@ -294,7 +293,7 @@ public class CmsTaskApiAct {
 		}
 		return jdm;
 	}
-	
+
 	@Autowired
 	private Scheduler scheduler;
 	@Autowired

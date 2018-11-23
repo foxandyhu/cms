@@ -42,9 +42,7 @@ public abstract class AbstractWebErrors {
 	 *            从request中获得MessageSource和Locale，如果存在的话。
 	 */
 	public AbstractWebErrors(HttpServletRequest request) {
-		WebApplicationContext webApplicationContext = RequestContextUtils.getWebApplicationContext(request);
-		//需要serverlet3.0支持 ，tomcat6不支持serverlet3.0
-		//WebApplicationContext webApplicationContext = RequestContextUtils.findWebApplicationContext(request);
+		WebApplicationContext webApplicationContext = RequestContextUtils.findWebApplicationContext(request);
 		if (webApplicationContext != null) {
 			LocaleResolver localeResolver = RequestContextUtils
 					.getLocaleResolver(request);
