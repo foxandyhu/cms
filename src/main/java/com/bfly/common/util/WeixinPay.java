@@ -1,13 +1,13 @@
 package com.bfly.common.util;
 
-import com.bfly.cms.entity.assist.CmsConfigContentCharge;
-import com.bfly.cms.entity.main.Content;
+import com.bfly.cms.system.entity.CmsConfigContentCharge;
+import com.bfly.cms.content.entity.Content;
 import com.bfly.common.web.ClientCustomSSL;
 import com.bfly.common.web.Constants;
 import com.bfly.common.web.HttpClientUtil;
 import com.bfly.common.web.RequestUtils;
-import com.bfly.core.entity.CmsSite;
-import com.bfly.core.entity.CmsUser;
+import com.bfly.cms.siteconfig.entity.CmsSite;
+import com.bfly.cms.user.entity.CmsUser;
 import com.bfly.core.web.util.CmsUtils;
 import com.bfly.core.web.util.FrontUtils;
 import org.apache.commons.lang.RandomStringUtils;
@@ -21,7 +21,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.bfly.cms.Constants.TPLDIR_SPECIAL;
+import static com.bfly.core.Constants.TPLDIR_SPECIAL;
 
 public class WeixinPay {
     public static final String CONTENT_CODE_WEIXIN = "tpl.content.code.weixin";

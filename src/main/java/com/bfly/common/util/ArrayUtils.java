@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.bfly.cms.api.Constants;
+import com.bfly.core.Constants;
 
 /**
  * @author Tom

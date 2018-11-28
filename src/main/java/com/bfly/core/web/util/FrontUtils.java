@@ -1,42 +1,29 @@
 package com.bfly.core.web.util;
 
-import static com.bfly.cms.Constants.RES_PATH;
-import static com.bfly.cms.Constants.TPLDIR_COMMON;
-import static com.bfly.cms.Constants.TPLDIR_STYLE_LIST;
-import static com.bfly.cms.Constants.TPLDIR_TAG;
-import static com.bfly.cms.Constants.TPL_STYLE_PAGE_CHANNEL;
-import static com.bfly.cms.Constants.TPL_SUFFIX;
-import static com.bfly.common.web.Constants.MESSAGE;
-import static com.bfly.common.web.Constants.UTF8;
-import static com.bfly.core.servlet.ProcessTimeFilter.START_TIME;
-import static com.bfly.common.web.freemarker.DirectiveUtils.PARAM_TPL_SUB;
-import static com.bfly.core.action.front.LoginAct.PROCESS_URL;
-
-import java.io.IOException;
-import java.util.Locale;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.bfly.cms.siteconfig.entity.CmsSite;
+import com.bfly.cms.user.entity.CmsUser;
+import com.bfly.common.web.RequestUtils;
+import com.bfly.common.web.freemarker.DirectiveUtils;
+import com.bfly.common.web.springmvc.MessageResolver;
+import com.bfly.core.web.WebErrors;
+import com.bfly.core.web.util.URLHelper.PageInfo;
+import freemarker.core.Environment;
+import freemarker.template.*;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.propertyeditors.LocaleEditor;
 import org.springframework.context.MessageSource;
 
-import com.bfly.common.web.RequestUtils;
-import com.bfly.common.web.freemarker.DirectiveUtils;
-import com.bfly.common.web.springmvc.MessageResolver;
-import com.bfly.core.entity.CmsSite;
-import com.bfly.core.entity.CmsUser;
-import com.bfly.core.web.WebErrors;
-import com.bfly.core.web.util.URLHelper.PageInfo;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Locale;
+import java.util.Map;
 
-import freemarker.core.Environment;
-import freemarker.template.AdapterTemplateModel;
-import freemarker.template.TemplateException;
-import freemarker.template.TemplateModel;
-import freemarker.template.TemplateModelException;
-import freemarker.template.TemplateNumberModel;
+import static com.bfly.common.web.Constants.MESSAGE;
+import static com.bfly.common.web.Constants.UTF8;
+import static com.bfly.common.web.freemarker.DirectiveUtils.PARAM_TPL_SUB;
+import static com.bfly.core.Constants.*;
+import static com.bfly.core.servlet.ProcessTimeFilter.START_TIME;
 
 /**
  * 前台工具类
@@ -138,6 +125,8 @@ public class FrontUtils {
      * 国际化参数
      */
     public static final String ARGS = "args";
+
+    public static final String PROCESS_URL = "processUrl";
 
     /**
      * 获得模板路径。将对模板文件名称进行本地化处理。
@@ -302,7 +291,6 @@ public class FrontUtils {
      * 为前台模板设置公用数据
      *
      * @param request
-     * @param model
      */
     public static void frontData(HttpServletRequest request,
                                  Map<String, Object> map, CmsSite site) {
@@ -360,8 +348,6 @@ public class FrontUtils {
      *
      * @param pageNo
      * @param href
-     * @param urlFormer
-     * @param urlLatter
      * @param map
      */
     public static void frontPageData(int pageNo, String href,

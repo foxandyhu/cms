@@ -3,7 +3,7 @@ package com.bfly.cms.staticpage;
 import java.io.IOException;
 import java.io.InputStream;
 
-import com.bfly.core.entity.Ftp;
+import com.bfly.cms.siteconfig.entity.Ftp;
 
 public class DistributionThread  implements Runnable{
 	private String path;
@@ -22,7 +22,6 @@ public class DistributionThread  implements Runnable{
 			try {
 				ftp.storeByExt(path,in);
 			} catch (IOException e) {
-				//e.printStackTrace();
 			}
 		}
 	}

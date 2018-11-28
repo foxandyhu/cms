@@ -8,10 +8,10 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.util.Assert;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
-import com.bfly.cms.entity.main.Content;
-import com.bfly.cms.manager.main.ContentMng;
-import com.bfly.cms.service.ContentListener;
-import com.bfly.cms.web.ApplicationContextUtil;
+import com.bfly.cms.content.entity.Content;
+import com.bfly.cms.content.service.ContentMng;
+import com.bfly.cms.content.service.ContentListener;
+import com.bfly.core.web.ApplicationContextUtil;
 
 public class ContentStatusChangeThread extends Thread {
 	

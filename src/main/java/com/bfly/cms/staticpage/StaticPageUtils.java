@@ -6,18 +6,7 @@ import java.util.Date;
 import org.apache.commons.lang.StringUtils;
 
 public class StaticPageUtils {
-	// ${modelId}
-	// ${modelPath}
-	// ${channelId}
-	// ${channelPath}
-	// ${year}
-	// ${month}
-	// ${MM}
-	// ${day}
-	// ${DD}
-	// ${time}
-	// ${contentId}
-	// ${page}
+
 	public static String staticUrlRule(String rule, Integer modelId,
 			String modelPath, Integer channelId, String channelPath,
 			Integer contentId, Date date) {

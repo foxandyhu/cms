@@ -1,7 +1,6 @@
 package com.bfly.config;
 
 import com.alibaba.druid.support.http.StatViewServlet;
-import org.apache.axis.transport.http.AxisServlet;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -15,92 +14,53 @@ import org.springframework.web.util.IntrospectorCleanupListener;
 import java.util.EventListener;
 
 /**
-*  @Description: 系统上下文配置
-*  @Author: andy_hulibo@163.com
-*  @CreateDate: 2018/11/9 10:03
-*/
+ * Application系统上下文配置
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/11/28 13:38
+ */
 @Configuration
-public class ContextConfig{
+public class ContextConfig {
 
-	@Bean
-	public ServletListenerRegistrationBean<EventListener> introspectorCleanupListener(){
-		ServletListenerRegistrationBean<EventListener> listener=new ServletListenerRegistrationBean<>(new IntrospectorCleanupListener());
-		return listener;
-	}
-	
-	@Bean
-	public FilterRegistrationBean openSessionInViewFilter() {
-		FilterRegistrationBean filter=new FilterRegistrationBean();
-		filter.setFilter(new OpenSessionInViewFilter());
-		filter.addUrlPatterns("/*");
-		filter.addInitParameter("encoding","UTF-8");
-		filter.setName("openSessionInViewFilter");
-		return filter;
-	}
+    @Bean
+    public ServletListenerRegistrationBean<EventListener> introSpecTorCleanupListener() {
+        return new ServletListenerRegistrationBean<>(new IntrospectorCleanupListener());
+    }
 
-	@Bean
-	public ServletRegistrationBean axisServlet(){
-		AxisServlet axisServlet=new AxisServlet();
-		ServletRegistrationBean registrationBean= new ServletRegistrationBean(axisServlet);
-		registrationBean.setLoadOnStartup(4);
-		registrationBean.addUrlMappings("/services/*");
-		registrationBean.setName("axisServlet");
-		return registrationBean;
-	}
+    @Bean
+    public FilterRegistrationBean openSessionInViewFilter() {
+        FilterRegistrationBean filter = new FilterRegistrationBean();
+        filter.setFilter(new OpenSessionInViewFilter());
+        filter.addUrlPatterns("/*");
+        filter.addInitParameter("encoding", "UTF-8");
+        filter.setName("openSessionInViewFilter");
+        return filter;
+    }
 
-	@Bean
-	public ServletRegistrationBean druidStatViewServlet(){
-		ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean(new StatViewServlet(),"/druid/*");
-		servletRegistrationBean.addInitParameter("allow","127.0.0.1");
-		servletRegistrationBean.addInitParameter("deny","192.168.1.73");
-		servletRegistrationBean.addInitParameter("loginUsername","admin");
-		servletRegistrationBean.addInitParameter("loginPassword","123456");
-		servletRegistrationBean.addInitParameter("resetEnable","false");
-		servletRegistrationBean.setLoadOnStartup(5);
-		return servletRegistrationBean;
-	}
+    @Bean
+    public ServletRegistrationBean druidStatViewServlet() {
+        ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean(new StatViewServlet(), "/druid/*");
+        servletRegistrationBean.addInitParameter("allow", "127.0.0.1");
+        servletRegistrationBean.addInitParameter("deny", "192.168.1.73");
+        servletRegistrationBean.addInitParameter("loginUsername", "admin");
+        servletRegistrationBean.addInitParameter("loginPassword", "123456");
+        servletRegistrationBean.addInitParameter("resetEnable", "false");
+        servletRegistrationBean.setLoadOnStartup(6);
+        return servletRegistrationBean;
+    }
 
-	@Bean
-	public ServletRegistrationBean cmsAdminApiServlet(){
-		AnnotationConfigWebApplicationContext context=new AnnotationConfigWebApplicationContext();
+    @Bean
+    public ServletRegistrationBean dispatcherServlet() {
+        AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
+        context.scan("com.context");
 
-		context.scan("com.context.admin");
+        DispatcherServlet bbsFrontServlet = new DispatcherServlet(context);
+        context.setServletContext(bbsFrontServlet.getServletContext());
 
-		DispatcherServlet bbsAdminApiServlet=new DispatcherServlet(context);
-		ServletRegistrationBean registrationBean= new ServletRegistrationBean(bbsAdminApiServlet);
-		registrationBean.setLoadOnStartup(6);
-		registrationBean.addInitParameter("dispatchOptionsRequest","true");
-		registrationBean.addUrlMappings("/api/admin/*");
-		registrationBean.setName("cmsAdminApiServlet");
-		return registrationBean;
-	}
-	
-	@Bean
-	public ServletRegistrationBean cmsMemberApiServlet(){
-		AnnotationConfigWebApplicationContext context=new AnnotationConfigWebApplicationContext();
-		context.scan("com.context.member");
-		
-		DispatcherServlet bbsMemberApiServlet=new DispatcherServlet(context);
-		
-		ServletRegistrationBean registrationBean= new ServletRegistrationBean(bbsMemberApiServlet);
-		registrationBean.setLoadOnStartup(7);
-		registrationBean.addUrlMappings("/api/member/*");
-		registrationBean.setName("cmsMemberApiServlet");
-		return registrationBean;
-	}
-
-	@Bean
-	public ServletRegistrationBean dispatcherServlet(){
-		AnnotationConfigWebApplicationContext context=new AnnotationConfigWebApplicationContext();
-		context.scan("com.context.front");
-
-		DispatcherServlet bbsFrontServlet=new DispatcherServlet(context);
-		context.setServletContext(bbsFrontServlet.getServletContext());
-
-		ServletRegistrationBean registrationBean= new ServletRegistrationBean(bbsFrontServlet);
-		registrationBean.setLoadOnStartup(8);
-		registrationBean.addUrlMappings("/api/front/*","/");
-		registrationBean.setName("dispatcherServlet");
-		return registrationBean;
-	}
+        ServletRegistrationBean registrationBean = new ServletRegistrationBean(bbsFrontServlet);
+        registrationBean.setLoadOnStartup(7);
+        registrationBean.addUrlMappings("/");
+        registrationBean.setName("dispatcherServlet");
+        return registrationBean;
+    }
 }

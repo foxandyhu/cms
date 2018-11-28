@@ -1,6 +1,6 @@
 package com.bfly.common.hibernate4;
 
-import com.bfly.cms.entity.main.Channel;
+import com.bfly.cms.channel.entity.Channel;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.FlushMode;
 import org.hibernate.Session;

@@ -2,8 +2,6 @@ package com.bfly.config;
 
 import com.bfly.common.image.ImageScaleImpl;
 import com.bfly.common.ipseek.IPSeekerImpl;
-import com.bfly.common.web.session.HttpSessionProvider;
-import com.bfly.common.web.session.SessionProvider;
 import com.bfly.common.web.springmvc.SimpleFreeMarkerView;
 import org.hibernate.SessionFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -17,9 +15,10 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 import javax.persistence.EntityManagerFactory;
 
 /**
- * @Description: 系统总体配置
- * @Author: andy_hulibo@163.com
- * @CreateDate: 2018/11/10 9:41
+ * 系统总体配置
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/11/28 14:54
  */
 @Configuration
 @EnableTransactionManagement
@@ -31,8 +30,7 @@ public class ApplicationConfig {
         if (entityManagerFactory.unwrap(SessionFactory.class) == null) {
             throw new NullPointerException("factory is not a hibernate factory.");
         }
-        SessionFactory sessionFactory = entityManagerFactory.unwrap(SessionFactory.class);
-        return sessionFactory;
+        return entityManagerFactory.unwrap(SessionFactory.class);
     }
 
     @Bean
@@ -53,12 +51,6 @@ public class ApplicationConfig {
         ImageScaleImpl image = new ImageScaleImpl();
         image.setTryMagick(true);
         return image;
-    }
-
-    @Bean
-    public SessionProvider sessionProvider() {
-        SessionProvider provider = new HttpSessionProvider();
-        return provider;
     }
 
     /**

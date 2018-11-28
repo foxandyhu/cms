@@ -1,6 +1,6 @@
 package com.bfly.common.util;
 
-import static com.bfly.cms.Constants.TPLDIR_SPECIAL;
+import static com.bfly.core.Constants.TPLDIR_SPECIAL;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -30,10 +30,10 @@ import com.alipay.api.request.AlipayTradeWapPayRequest;
 import com.alipay.api.response.AlipayTradeCancelResponse;
 import com.alipay.api.response.AlipayTradePrecreateResponse;
 import com.alipay.api.response.AlipayTradeQueryResponse;
-import com.bfly.cms.entity.assist.CmsConfigContentCharge;
-import com.bfly.cms.entity.main.Content;
+import com.bfly.cms.system.entity.CmsConfigContentCharge;
+import com.bfly.cms.content.entity.Content;
 import com.bfly.common.web.RequestUtils;
-import com.bfly.core.entity.CmsSite;
+import com.bfly.cms.siteconfig.entity.CmsSite;
 import com.bfly.core.web.util.CmsUtils;
 import com.bfly.core.web.util.FrontUtils;
 

@@ -22,7 +22,7 @@ import com.baidubce.services.sms.model.SendMessageV2Request;
 import com.baidubce.services.sms.model.SendMessageV2Response;
 import com.github.qcloudsms.SmsSingleSender;
 import com.github.qcloudsms.SmsSingleSenderResult;
-import com.bfly.core.entity.CmsSms;
+import com.bfly.cms.sms.entity.CmsSms;
 
 public class SmsSendUtils {
 

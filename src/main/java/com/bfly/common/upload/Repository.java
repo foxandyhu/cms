@@ -8,9 +8,9 @@ import java.io.OutputStream;
  * 文件存储接口
  */
 public interface Repository {
-	public String storeByExt(String ext, InputStream in) throws IOException;
+	 String storeByExt(String ext, InputStream in) throws IOException;
 
-	public String storeByName(String name, InputStream in) throws IOException;
+	 String storeByName(String name, InputStream in) throws IOException;
 
-	public boolean retrieve(String name, OutputStream out);
+	 boolean retrieve(String name, OutputStream out);
 }

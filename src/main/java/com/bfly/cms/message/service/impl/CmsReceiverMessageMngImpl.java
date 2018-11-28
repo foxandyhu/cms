@@ -1,0 +1,75 @@
+package com.bfly.cms.message.service.impl;
+
+import com.bfly.cms.message.dao.CmsReceiverMessageDao;
+import com.bfly.cms.message.entity.CmsReceiverMessage;
+import com.bfly.cms.message.service.CmsReceiverMessageMng;
+import com.bfly.common.page.Pagination;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
+import java.util.List;
+
+/**
+ * 
+ * @author andy_hulibo@163.com
+ * @date 2018/11/25 19:04
+ */
+@Service
+@Transactional(rollbackFor = Exception.class)
+public class CmsReceiverMessageMngImpl implements CmsReceiverMessageMng {
+
+	@Override
+    public Pagination getPage(Integer siteId, Integer sendUserId,
+                              Integer receiverUserId, String title, Date sendBeginTime,
+                              Date sendEndTime, Boolean status, Integer box, Boolean cacheable,
+                              int pageNo, int pageSize) {
+		return dao.getPage(siteId, sendUserId, receiverUserId, title,
+				sendBeginTime, sendEndTime, status, box, cacheable, pageNo,
+				pageSize);
+	}
+	
+	@Override
+    public List<CmsReceiverMessage> getList(Integer siteId, Integer sendUserId,
+                                            Integer receiverUserId, String title, Date sendBeginTime,
+                                            Date sendEndTime, Boolean status, Integer box,
+                                            Boolean cacheable, Integer first, Integer count) {
+		return dao.getList(siteId, sendUserId, receiverUserId, title,
+				sendBeginTime, sendEndTime, status, box, cacheable,first,count);
+	}
+	
+	@Override
+    public CmsReceiverMessage find(Integer messageId, Integer box){
+		return dao.find(messageId,box);
+	}
+
+	@Override
+    public CmsReceiverMessage findById(Integer id) {
+		return dao.findById(id);
+	}
+
+	@Override
+    public CmsReceiverMessage save(CmsReceiverMessage bean) {
+		return dao.save(bean);
+	}
+
+	@Override
+    public CmsReceiverMessage update(CmsReceiverMessage bean) {
+		return dao.update(bean);
+	}
+
+	@Override
+    public CmsReceiverMessage deleteById(Integer id) {
+		return dao.deleteById(id);
+	}
+
+	@Override
+    public CmsReceiverMessage[] deleteByIds(Integer[] ids) {
+		return dao.deleteByIds(ids);
+	}
+
+	@Autowired
+	private CmsReceiverMessageDao dao;
+
+}

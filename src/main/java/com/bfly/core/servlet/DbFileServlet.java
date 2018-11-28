@@ -14,8 +14,8 @@ import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import com.bfly.core.entity.DbFile;
-import com.bfly.core.manager.DbFileMng;
+import com.bfly.cms.resource.entity.DbFile;
+import com.bfly.cms.resource.service.DbFileMng;
 
 @WebServlet(name = "DbFile",urlPatterns = {"/dbfile.svl"},loadOnStartup = 2)
 public class DbFileServlet extends HttpServlet {

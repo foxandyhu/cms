@@ -9,7 +9,7 @@ import java.io.InputStream;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.bfly.core.entity.CmsOss;
+import com.bfly.cms.siteconfig.entity.CmsOss;
 import com.qcloud.cos.COSClient;
 import com.qcloud.cos.ClientConfig;
 import com.qcloud.cos.request.DelFileRequest;

@@ -1,14 +1,13 @@
 package com.bfly.core.security;
 
+import com.bfly.cms.logs.service.CmsLogMng;
+import com.bfly.cms.user.entity.CmsUser;
+import com.bfly.cms.user.entity.UnifiedUser;
+import com.bfly.cms.user.service.CmsUserMng;
+import com.bfly.cms.user.service.UnifiedUserMng;
 import com.bfly.common.web.CookieUtils;
 import com.bfly.common.web.RequestUtils;
-import com.bfly.common.web.session.SessionProvider;
-import com.bfly.core.entity.CmsUser;
-import com.bfly.core.entity.UnifiedUser;
-import com.bfly.core.manager.CmsLogMng;
-import com.bfly.core.manager.CmsUserMng;
-import com.bfly.core.manager.UnifiedUserMng;
-import com.bfly.exception.*;
+import com.bfly.core.exception.*;
 import com.octo.captcha.service.image.ImageCaptchaService;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -30,6 +29,8 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 /**
+ * @author andy_hulibo@163.com
+ * @date 2018/11/28 16:08
  * CmsAuthenticationFilter自定义登录认证filter
  */
 public class CmsAuthenticationFilter extends FormAuthenticationFilter {
@@ -59,13 +60,12 @@ public class CmsAuthenticationFilter extends FormAuthenticationFilter {
         if (req.getRequestURI().startsWith(req.getContextPath() + getAdminPrefix())) {
             adminLogin = true;
         }
-        //	String failureUrl = req.getParameter(FAILURE_URL);
         String failureUrl = null;
         //验证码校验
-        if (isCaptchaRequired(username, req, res)) {
+        if (isCaptchaRequired(username, req)) {
             String captcha = request.getParameter(CAPTCHA_PARAM);
             if (captcha != null) {
-                if (!imageCaptchaService.validateResponseForID(session.getSessionId(req, res), captcha)) {
+                if (!imageCaptchaService.validateResponseForID(((HttpServletRequest) request).getSession().getId(), captcha)) {
                     return onLoginFailure(token, failureUrl, adminLogin, new CaptchaErrorException(), request, response);
                 }
             } else {
@@ -92,7 +92,6 @@ public class CmsAuthenticationFilter extends FormAuthenticationFilter {
             subject.login(token);
             return onLoginSuccess(token, adminLogin, subject, request, response);
         } catch (AuthenticationException e) {
-            //e.printStackTrace();
             return onLoginFailure(token, failureUrl, adminLogin, e, request, response);
         }
     }
@@ -117,7 +116,6 @@ public class CmsAuthenticationFilter extends FormAuthenticationFilter {
     protected void issueSuccessRedirect(ServletRequest request, ServletResponse response)
             throws Exception {
         HttpServletRequest req = (HttpServletRequest) request;
-        HttpServletResponse res = (HttpServletResponse) response;
         String successUrl = req.getParameter(RETURN_URL);
         if (StringUtils.isBlank(successUrl)) {
             if (req.getRequestURI().startsWith(
@@ -134,7 +132,6 @@ public class CmsAuthenticationFilter extends FormAuthenticationFilter {
         }
         WebUtils.getAndClearSavedRequest(request);
         WebUtils.issueRedirect(request, response, successUrl, null, true);
-        //WebUtils.redirectToSavedRequest(req, res, successUrl);
     }
 
     @Override
@@ -154,7 +151,7 @@ public class CmsAuthenticationFilter extends FormAuthenticationFilter {
         CmsUser user = cmsUserMng.findByUsername(username);
         String ip = RequestUtils.getIpAddr(req);
         Date now = new Timestamp(System.currentTimeMillis());
-        String userSessionId = session.getSessionId((HttpServletRequest) request, (HttpServletResponse) response);
+        String userSessionId = ((HttpServletRequest) request).getSession().getId();
         userMng.updateLoginInfo(user.getId(), ip, now, userSessionId);
         //管理登录
         if (adminLogin) {
@@ -193,7 +190,6 @@ public class CmsAuthenticationFilter extends FormAuthenticationFilter {
             try {
                 request.getRequestDispatcher(failureUrl).forward(request, response);
             } catch (Exception e1) {
-                //e1.printStackTrace();
             }
         }
         return true;
@@ -204,18 +200,16 @@ public class CmsAuthenticationFilter extends FormAuthenticationFilter {
         if (domain.indexOf(".") > -1) {
             domain = domain.substring(domain.indexOf(".") + 1);
         }
-        CookieUtils.addCookie(request, response, "JSESSIONID", session.getSessionId(request, response), null, domain, "/");
+        CookieUtils.addCookie(request, response, "JSESSIONID", request.getSession().getId(), null, domain, "/");
         try {
             //中文乱码
             CookieUtils.addCookie(request, response, "username", URLEncoder.encode(username, "utf-8"), null, domain, "/");
         } catch (UnsupportedEncodingException e) {
-            //e.printStackTrace();
         }
         CookieUtils.addCookie(request, response, "sso_logout", null, 0, domain, "/");
     }
 
-    private boolean isCaptchaRequired(String username, HttpServletRequest request,
-                                      HttpServletResponse response) {
+    private boolean isCaptchaRequired(String username, HttpServletRequest request) {
         Integer errorRemaining = unifiedUserMng.errorRemaining(username);
         String captcha = RequestUtils.getQueryParam(request, CAPTCHA_PARAM);
         // 如果输入了验证码，那么必须验证；如果没有输入验证码，则根据当前用户判断是否需要验证码。
@@ -225,7 +219,12 @@ public class CmsAuthenticationFilter extends FormAuthenticationFilter {
         return false;
     }
 
-    //用户禁用返回true 未查找到用户或者非禁用返回false
+    /**
+     * 用户禁用返回true 未查找到用户或者非禁用返回false
+     *
+     * @author andy_hulibo@163.com
+     * @date 2018/11/28 16:08
+     */
     private boolean isDisabled(CmsUser user) {
         if (user.getDisabled()) {
             return true;
@@ -234,7 +233,11 @@ public class CmsAuthenticationFilter extends FormAuthenticationFilter {
         }
     }
 
-    //用户激活了返回true 未查找到用户或者非禁用返回false
+    /**
+     * 用户激活了返回true 未查找到用户或者非禁用返回false
+     * @author andy_hulibo@163.com
+     * @date 2018/11/28 16:08
+     */
     private boolean isActive(CmsUser user) {
         UnifiedUser unifiedUser = unifiedUserMng.findById(user.getId());
         if (unifiedUser != null) {
@@ -250,6 +253,7 @@ public class CmsAuthenticationFilter extends FormAuthenticationFilter {
 
     /**
      * 判断用户当前是否已审核.审核返回true,其它状态返回false
+     *
      * @author andy_hulibo@163.com
      * @date 2018/11/20 16:21
      */
@@ -265,8 +269,6 @@ public class CmsAuthenticationFilter extends FormAuthenticationFilter {
     private CmsUserMng userMng;
     @Autowired
     private UnifiedUserMng unifiedUserMng;
-    @Autowired
-    private SessionProvider session;
     @Autowired
     private ImageCaptchaService imageCaptchaService;
     @Autowired

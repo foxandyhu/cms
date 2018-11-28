@@ -1,11 +1,8 @@
 import com.CmsApp;
-import com.bfly.cms.entity.assist.CmsSiteAccessCountHour;
-import com.bfly.cms.entity.assist.CmsSiteAccessPages;
-import com.bfly.cms.manager.assist.CmsSiteAccessCountHourMng;
-import com.bfly.cms.manager.assist.CmsSiteAccessPagesMng;
-import com.bfly.common.util.DateUtils;
-import com.bfly.core.entity.CmsSite;
-import com.bfly.core.manager.CmsSiteMng;
+import com.bfly.cms.statistic.entity.CmsSiteAccessPages;
+import com.bfly.cms.statistic.service.CmsSiteAccessPagesMng;
+import com.bfly.cms.siteconfig.entity.CmsSite;
+import com.bfly.cms.siteconfig.service.CmsSiteMng;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -18,14 +18,14 @@ import java.util.regex.Pattern;
 
 /**
  *
+ * @author andy_hulibo@163.com
+ * @date 2018/11/27 14:41
+ *
  */
 public class ConverEncoding {
 
 	static String CODE = "UTF-8";
-	static String FILE_SUFFIX = ".txt";// 文件扩展名
-	// static String FILE_SUFFIX = ".css";
-	// static String FILE_SUFFIX = ".js";
-	// static String FILE_SUFFIX = ".htm";
+	static String FILE_SUFFIX = ".txt";
 	static String srcDir = "C:\\Users\\Administrator\\Desktop";// 文件所在目录
 
 	/**

@@ -17,12 +17,12 @@ import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.util.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.bfly.cms.web.CmsThreadVariable;
-import com.bfly.core.entity.CmsSite;
-import com.bfly.core.entity.CmsUser;
-import com.bfly.core.entity.UnifiedUser;
-import com.bfly.core.manager.CmsUserMng;
-import com.bfly.core.manager.UnifiedUserMng;
+import com.bfly.core.web.CmsThreadVariable;
+import com.bfly.cms.siteconfig.entity.CmsSite;
+import com.bfly.cms.user.entity.CmsUser;
+import com.bfly.cms.user.entity.UnifiedUser;
+import com.bfly.cms.user.service.CmsUserMng;
+import com.bfly.cms.user.service.UnifiedUserMng;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 

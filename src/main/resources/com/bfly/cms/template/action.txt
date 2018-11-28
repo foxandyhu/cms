@@ -13,7 +13,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import #{entity_p}.#{Entity};
-import com.bfly.core.entity.CmsSite;
+import com.bfly.cms.siteconfig.entity.CmsSite;
 import #{manager_p}.#{Entity}Mng;
 import com.bfly.core.web.util.CmsUtils;
 import com.bfly.core.web.WebErrors;

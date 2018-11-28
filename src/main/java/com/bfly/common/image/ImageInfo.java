@@ -148,7 +148,6 @@ import java.util.Vector;
  * </ul>
  * @author Marco Schmidt
  */
-@SuppressWarnings("unchecked")
 public class ImageInfo {
 	/**
 	 * Return value of {@link #getFormat()} for JPEG streams.

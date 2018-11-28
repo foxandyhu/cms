@@ -15,7 +15,7 @@ import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.model.CannedAccessControlList;
 import com.aliyun.oss.model.CreateBucketRequest;
 import com.aliyun.oss.model.StorageClass;
-import com.bfly.core.entity.CmsOss;
+import com.bfly.cms.siteconfig.entity.CmsOss;
 
 public class AliOssCloudClient {
 	private static final Logger log = LoggerFactory.getLogger(AliOssCloudClient.class);

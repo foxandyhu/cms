@@ -1,7 +1,6 @@
 package com.bfly.common.util;
 
-
-import com.bfly.cms.api.Constants;
+import com.bfly.core.Constants;
 import org.apache.commons.lang.StringUtils;
 import org.htmlparser.Node;
 import org.htmlparser.lexer.Lexer;

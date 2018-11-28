@@ -19,9 +19,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 
-import static com.bfly.cms.Constants.SNAP_PATH;
+import static com.bfly.core.Constants.SNAP_PATH;
 
-@WebServlet(name = "SnapScreen", urlPatterns = "/snapscreen.svl")
+@WebServlet(name = "SnapScreen", urlPatterns = "/snapscreen.svl",loadOnStartup = 4)
 public class SnapScreenServlet extends HttpServlet {
     // 状态
     private static final String STATE = "state";

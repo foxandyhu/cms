@@ -1,8 +1,8 @@
 package com.bfly.config;
 
-import com.bfly.cms.task.LoadTask;
-import com.bfly.cms.task.job.ContentDayJob;
-import com.bfly.cms.task.job.SiteDayJob;
+import com.bfly.cms.task.service.impl.LoadTask;
+import com.bfly.cms.task.service.impl.ContentDayJob;
+import com.bfly.cms.task.service.impl.SiteDayJob;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
