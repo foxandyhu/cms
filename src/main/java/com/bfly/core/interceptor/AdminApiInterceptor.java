@@ -208,7 +208,7 @@ public class AdminApiInterceptor extends AbstractApiInterceptor {
             i++;
         }
         if (start <= 0) {
-            throw new IllegalStateException("admin access path not like '/jeeadmin/jeecms/...' pattern: " + uri);
+            throw new IllegalStateException("admin access path not like '/admin/...' pattern: " + uri);
         }
         return uri.substring(start);
     }

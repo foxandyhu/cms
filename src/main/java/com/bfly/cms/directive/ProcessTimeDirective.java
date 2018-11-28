@@ -23,7 +23,7 @@ import org.springframework.stereotype.Component;
 /**
  * 执行时间标签
  * 
- * 需要拦截器com.jeecms.common.web.ProcessTimeFilter支持
+ * 需要拦截器com.bfly.core.servlet.ProcessTimeFilter支持
  */
 @Component("process_time")
 public class ProcessTimeDirective implements TemplateDirectiveModel {

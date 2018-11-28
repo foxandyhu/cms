@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 /**
  * HTML文本提取并截断
  * 
- * 需要拦截器com.jeecms.common.web.ProcessTimeFilter支持
+ * 需要拦截器com.bfly.core.servlet.ProcessTimeFilter支持
  */
 @Component("html_cut")
 public class HtmlCutDirective implements TemplateDirectiveModel {

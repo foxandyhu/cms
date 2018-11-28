@@ -2,7 +2,7 @@
 <html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>${title} - ${site.name} - Powered by JEECMS</title>
+<title>${title} - ${site.name} - ${company_name}</title>
 <meta content="${content.tagStr!}" http-equiv="keywords" />
 <meta content="${content.description!}" http-equiv="description" />
 <script src="${resSys}/jquery.js" type="text/javascript"></script>
@@ -42,7 +42,7 @@ Cms.siteFlow("${base}", location.href, document.referrer,"${site.config.flowSwit
   <section class="job-item">
     <h1>公司介绍</h1>
     <div class="job-item-txt">
-      <p><a href="http://www.jeecms.com" target="_blank">${content.companyName!}</a></p>
+      <p><a href="/" target="_blank">${content.companyName!}</a></p>
       <p><span>公司性质:</span> ${content.companyNature!}</p>
       <p><span>公司行业:</span> ${content.companyIndustry!}</p>
       <p><span>公司规模:</span> ${content.companyScale!}</p>
