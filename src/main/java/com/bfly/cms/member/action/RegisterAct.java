@@ -17,8 +17,8 @@ import com.bfly.common.web.RequestUtils;
 import com.bfly.common.web.ResponseUtils;
 import com.bfly.common.web.springmvc.MessageResolver;
 import com.bfly.core.annotation.Token;
+import com.bfly.core.base.action.RenderController;
 import com.bfly.core.web.WebErrors;
-import com.bfly.core.web.util.CmsUtils;
 import com.bfly.core.web.util.FrontUtils;
 import com.octo.captcha.service.CaptchaServiceException;
 import com.octo.captcha.service.image.ImageCaptchaService;
@@ -28,9 +28,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -40,37 +40,36 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 
-import static com.bfly.core.Constants.TPLDIR_MEMBER;
-
 /**
  * 前台会员注册Action
+ *
  * @author andy_hulibo@163.com
  * @date 2018/11/28 17:28
  */
 @Controller
-public class RegisterAct {
+public class RegisterAct extends RenderController {
     private static final Logger log = LoggerFactory.getLogger(RegisterAct.class);
 
-    public static final String REGISTER = "tpl.register";
-    public static final String REGISTER_RESULT = "tpl.registerResult";
-    public static final String REGISTER_ACTIVE_SUCCESS = "tpl.registerActiveSuccess";
-    public static final String LOGIN_INPUT = "tpl.loginInput";
-
+    /**
+     * 跳转注册页面
+     *
+     * @author andy_hulibo@163.com
+     * @date 2018/11/29 17:10
+     */
     @Token(save = true)
-    @RequestMapping(value = "/register.html", method = RequestMethod.GET)
-    public String input(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
-        CmsSite site = CmsUtils.getSite(request);
+    @GetMapping(value = "/register.html")
+    public String input(ModelMap model) {
+        CmsSite site = getSite();
         MemberConfig mcfg = site.getConfig().getMemberConfig();
         // 没有开启会员功能
         if (!mcfg.isMemberOn()) {
-            return FrontUtils.showMessage(request, model, "member.memberClose");
+            return renderMessagePage(model, "没有开启会员功能");
         }
         // 没有开启会员注册
         if (!mcfg.isRegisterOn()) {
-            return FrontUtils.showMessage(request, model, "member.registerClose");
+            return renderMessagePage(model, "没有开启会员注册");
         }
         List<CmsConfigItem> items = cmsConfigItemMng.getList(site.getConfig().getId(), CmsConfigItem.CATEGORY_REGISTER);
-        FrontUtils.frontData(request, model, site);
         CmsConfig config = site.getConfig();
         Integer validateType = 0;
         if (config.getValidateType() != null) {
@@ -80,20 +79,24 @@ public class RegisterAct {
         model.addAttribute("items", items);
         //验证类型  0:无 1：邮件验证    2： SMS短信验证
         model.addAttribute("validateType", validateType);
-        return FrontUtils.getTplPath(request, site.getSolutionPath(), TPLDIR_MEMBER, REGISTER);
+        return renderPage("member/register.html", model);
     }
 
+    /**
+     * 提交注册信息
+     *
+     * @author andy_hulibo@163.com
+     * @date 2018/11/29 17:10
+     */
     @Token(remove = true)
-    @RequestMapping(value = "/register.html", method = RequestMethod.POST)
-    public String submit(String username, String email, String loginPassword, CmsUserExt userExt, String captcha,
-                         String nextUrl, HttpServletRequest request, HttpServletResponse response, ModelMap model)
-            throws IOException {
-        CmsSite site = CmsUtils.getSite(request);
-        CmsConfig config = site.getConfig();
+    @PostMapping(value = "/register.html")
+    public String submit(String username, String email, String loginPassword, CmsUserExt userExt, String captcha, String nextUrl, HttpServletRequest request, HttpServletResponse response, ModelMap model) throws IOException {
+        CmsSite site = getSite();
+        CmsConfig config = getSite().getConfig();
         WebErrors errors;
         // 判断是否开启的是SMS验证
         if (config.getValidateType() == 2) {
-            errors = validateSmsSubmit(userExt.getMobile(), username, loginPassword, captcha, site, request, response);
+            errors = validateSmsSubmit(userExt.getMobile(), username, loginPassword, captcha);
         } else {
             errors = validateSubmit(username, email, loginPassword, captcha, site, request);
         }
@@ -102,11 +105,12 @@ public class RegisterAct {
             disabled = true;
         }
         if (errors.hasErrors()) {
-            return FrontUtils.showError(request, response, model, errors);
+            return renderErrorPage(model, errors);
         }
         String ip = RequestUtils.getIpAddr(request);
         Map<String, String> attrs = RequestUtils.getRequestMap(request, "attr_");
-        if (config.getValidateType() == 1) {// 邮件验证
+        // 邮件验证
+        if (config.getValidateType() == 1) {
             EmailSender sender = configMng.getEmailSender();
             MessageTemplate msgTpl = configMng.getRegisterMessageTemplate();
             if (sender == null) {
@@ -117,63 +121,55 @@ public class RegisterAct {
                 model.addAttribute("status", 5);
             } else {
                 try {
-                    cmsUserMng.registerMember(username, email, loginPassword, ip, null, disabled, userExt, attrs, false,
-                            sender, msgTpl);
+                    cmsUserMng.registerMember(username, email, loginPassword, ip, null, disabled, userExt, attrs, false, sender, msgTpl);
                     model.addAttribute("status", 0);
                 } catch (UnsupportedEncodingException e) {
-                    // 发送邮件异常
                     model.addAttribute("status", 100);
                     model.addAttribute("message", e.getMessage());
                     log.error("send email exception.", e);
                 } catch (MessagingException e) {
-                    // 发送邮件异常
                     model.addAttribute("status", 101);
                     model.addAttribute("message", e.getMessage());
                     log.error("send email exception.", e);
                 }
             }
             log.info("member register success. username={}", username);
-            FrontUtils.frontData(request, model, site);
             if (!StringUtils.isBlank(nextUrl)) {
-                response.sendRedirect(nextUrl);
-                return null;
-            } else {
-                return FrontUtils.getTplPath(request, site.getSolutionPath(), TPLDIR_MEMBER, REGISTER_RESULT);
+                return redirect(nextUrl);
             }
-        } else {
-            cmsUserMng.registerMember(username, email, loginPassword, ip, null, null, disabled, userExt, attrs);
-            log.info("member register success. username={}", username);
-            FrontUtils.frontData(request, model, site);
-            FrontUtils.frontPageData(request, model);
-            model.addAttribute("success", true);
-            return FrontUtils.getTplPath(request, site.getSolutionPath(), TPLDIR_MEMBER, LOGIN_INPUT);
+            return renderPage("member/register_result.html", model);
         }
+        cmsUserMng.registerMember(username, email, loginPassword, ip, null, null, disabled, userExt, attrs);
+        log.info("member register success. username={}", username);
+        model.addAttribute("success", true);
+        return renderPagination("member/login_input.html", model);
     }
 
-    @RequestMapping(value = "/active.html", method = RequestMethod.GET)
-    public String active(String username, String key, HttpServletRequest request, HttpServletResponse response,
-                         ModelMap model) throws IOException {
-        CmsSite site = CmsUtils.getSite(request);
-        username = new String(request.getParameter("username").getBytes("iso8859-1"), "GBK");
-        WebErrors errors = validateActive(username, key, request, response);
+    @GetMapping(value = "/active.html")
+    public String active(String key, ModelMap model) throws IOException {
+        String username = getRequest().getParameter("username");
+        WebErrors errors = validateActive(username, key);
         if (errors.hasErrors()) {
-            return FrontUtils.showError(request, response, model, errors);
+            return renderErrorPage(model, errors);
         }
         unifiedUserMng.active(username, key);
-        FrontUtils.frontData(request, model, site);
-        return FrontUtils.getTplPath(request, site.getSolutionPath(), TPLDIR_MEMBER, REGISTER_ACTIVE_SUCCESS);
+        return renderPage("member/register_active_success.html", model);
     }
 
+    /**
+     * 用户名唯一性校验
+     *
+     * @author andy_hulibo@163.com
+     * @date 2018/11/29 17:26
+     */
     @RequestMapping(value = "/username_unique.html")
-    public void usernameUnique(HttpServletRequest request, HttpServletResponse response) {
-        String username = RequestUtils.getQueryParam(request, "username");
-        // 用户名为空，返回false。
+    public void usernameUnique(HttpServletResponse response) {
+        String username = getRequest().getParameter("username");
         if (StringUtils.isBlank(username)) {
             ResponseUtils.renderJson(response, "false");
             return;
         }
-        CmsSite site = CmsUtils.getSite(request);
-        CmsConfig config = site.getConfig();
+        CmsConfig config = getSite().getConfig();
         // 保留字检查不通过，返回false。
         if (!config.getMemberConfig().checkUsernameReserved(username)) {
             ResponseUtils.renderJson(response, "false");
@@ -188,16 +184,14 @@ public class RegisterAct {
     }
 
     /**
-     * @Title: emailUnique
-     * @Description: 判断手机号是否被注册
-     * @param: request
-     * @param: response
-     * @return: void
+     * 手机号码唯一性校验
+     *
+     * @author andy_hulibo@163.com
+     * @date 2018/11/29 17:27
      */
     @RequestMapping(value = "/mobilePhone_unique.html")
-    public void mobilePhoneUnique(HttpServletRequest request, HttpServletResponse response) {
-        String mobilePhone = RequestUtils.getQueryParam(request, "mobile");
-        // mobilePhone为空，返回false。
+    public void mobilePhoneUnique(HttpServletResponse response) {
+        String mobilePhone = getRequest().getParameter("mobile");
         if (StringUtils.isBlank(mobilePhone)) {
             ResponseUtils.renderJson(response, "false");
             return;
@@ -211,15 +205,19 @@ public class RegisterAct {
         ResponseUtils.renderJson(response, "true");
     }
 
+    /**
+     * 邮件地址唯一性校验
+     *
+     * @author andy_hulibo@163.com
+     * @date 2018/11/29 17:27
+     */
     @RequestMapping(value = "/email_unique.html")
-    public void emailUnique(HttpServletRequest request, HttpServletResponse response) {
-        String email = RequestUtils.getQueryParam(request, "email");
-        // email为空，返回false。
+    public void emailUnique(HttpServletResponse response) {
+        String email = getRequest().getParameter("email");
         if (StringUtils.isBlank(email)) {
             ResponseUtils.renderJson(response, "false");
             return;
         }
-        // email存在，返回false。
         if (unifiedUserMng.emailExist(email)) {
             ResponseUtils.renderJson(response, "false");
             return;
@@ -228,7 +226,6 @@ public class RegisterAct {
     }
 
     private WebErrors validateSubmit(String username, String email, String loginPassword, String captcha, CmsSite site, HttpServletRequest request) {
-        MemberConfig mcfg = site.getConfig().getMemberConfig();
         WebErrors errors = WebErrors.create(request);
         try {
             if (!imageCaptchaService.validateResponseForID(request.getSession().getId(), captcha)) {
@@ -240,16 +237,14 @@ public class RegisterAct {
             log.warn("", e);
             return errors;
         }
-        if (errors.ifOutOfLength(username, MessageResolver.getMessage(request, "field.username"),
-                mcfg.getUsernameMinLen(), 100, true)) {
+        MemberConfig mcfg = site.getConfig().getMemberConfig();
+        if (errors.ifOutOfLength(username, MessageResolver.getMessage(request, "field.username"), mcfg.getUsernameMinLen(), 100, true)) {
             return errors;
         }
-        if (errors.ifNotUsername(username, MessageResolver.getMessage(request, "field.username"),
-                mcfg.getUsernameMinLen(), 100, true)) {
+        if (errors.ifNotUsername(username, MessageResolver.getMessage(request, "field.username"), mcfg.getUsernameMinLen(), 100, true)) {
             return errors;
         }
-        if (errors.ifOutOfLength(loginPassword, MessageResolver.getMessage(request, "field.password"),
-                mcfg.getPasswordMinLen(), 100, true)) {
+        if (errors.ifOutOfLength(loginPassword, MessageResolver.getMessage(request, "field.password"), mcfg.getPasswordMinLen(), 100, true)) {
             return errors;
         }
         if (errors.ifNotEmail(email, MessageResolver.getMessage(request, "field.email"), 100, true)) {
@@ -268,55 +263,39 @@ public class RegisterAct {
         return errors;
     }
 
-    /**
-     * @Title: validateSmsSubmit
-     * @Description: 校验SMS
-     * @param: @param username
-     * @param: @param email
-     * @param: @param loginPassword
-     * @param: @param captcha
-     * @param: @param site
-     * @param: @param request
-     * @param: @param response
-     * @param: @return
-     * @return: WebErrors
-     */
-    private WebErrors validateSmsSubmit(String mobile, String username, String loginPassword, String captcha,
-                                        CmsSite site, HttpServletRequest request, HttpServletResponse response) {
-        MemberConfig mcfg = site.getConfig().getMemberConfig();
-        WebErrors errors = WebErrors.create(request);
-        Serializable autoCodeTime = (String) request.getSession().getAttribute("AUTO_CODE_CREAT_TIME");// 验证码有效时间
-        Serializable autoCode = (String) request.getSession().getAttribute("AUTO_CODE");// 验证码值
+    private WebErrors validateSmsSubmit(String mobile, String username, String loginPassword, String captcha) {
+        MemberConfig mcfg = getSite().getConfig().getMemberConfig();
+        WebErrors errors = WebErrors.create(getRequest());
+        // 验证码有效时间
+        Serializable autoCodeTime = (String) getSession().getAttribute("AUTO_CODE_CREAT_TIME");
+        // 验证码值
+        Serializable autoCode = (String) getSession().getAttribute("AUTO_CODE");
         // 判断验证码是否在有效时间范围
         if (autoCodeTime != null && autoCode != null) {
             Long effectiveTime = Long.parseLong(autoCodeTime.toString());
             if (effectiveTime > System.currentTimeMillis()) {
                 // 验证码验证码是否正确
                 if (captcha.equals(autoCode.toString())) {
-                    request.getSession().setAttribute("AUTO_CODE_CREAT_TIME", null);
+                    getSession().setAttribute("AUTO_CODE_CREAT_TIME", null);
                 } else {
                     // 验证码不正确
                     errors.addErrorCode("error.invalidCaptcha");
                 }
             } else {
                 // 验证码失效
-                errors.addErrorCode("error.invalidCaptcha");//loseEfficacyCaptcha
+                errors.addErrorCode("error.invalidCaptcha");
             }
         } else {
             // 验证码错误
             errors.addErrorCode("error.invalidCaptcha");
         }
-
-        if (errors.ifOutOfLength(username, MessageResolver.getMessage(request, "field.username"),
-                mcfg.getUsernameMinLen(), 100, true)) {
+        if (errors.ifOutOfLength(username, "用户名", mcfg.getUsernameMinLen(), 100, true)) {
             return errors;
         }
-        if (errors.ifNotUsername(username, MessageResolver.getMessage(request, "field.username"),
-                mcfg.getUsernameMinLen(), 100, true)) {
+        if (errors.ifNotUsername(username, "用户名", mcfg.getUsernameMinLen(), 100, true)) {
             return errors;
         }
-        if (errors.ifOutOfLength(loginPassword, MessageResolver.getMessage(request, "field.password"),
-                mcfg.getPasswordMinLen(), 100, true)) {
+        if (errors.ifOutOfLength(loginPassword, "密码", mcfg.getPasswordMinLen(), 100, true)) {
             return errors;
         }
         // 保留字检查不通过，返回false。
@@ -337,9 +316,8 @@ public class RegisterAct {
         return errors;
     }
 
-    private WebErrors validateActive(String username, String activationCode, HttpServletRequest request,
-                                     HttpServletResponse response) {
-        WebErrors errors = WebErrors.create(request);
+    private WebErrors validateActive(String username, String activationCode) {
+        WebErrors errors = WebErrors.create(getRequest());
         if (StringUtils.isBlank(username) || StringUtils.isBlank(activationCode)) {
             errors.addErrorCode("error.exceptionParams");
             return errors;

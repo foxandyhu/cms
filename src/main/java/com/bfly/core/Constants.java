@@ -34,59 +34,16 @@ public class Constants {
     public static final String TPLDIR_TOPIC = "topic";
 
     /**
-     * 会员中心模板
-     */
-    public static final String TPLDIR_MEMBER = "member";
-
-    /**
-     * 专用模板
-     */
-    public static final String TPLDIR_SPECIAL = "special";
-
-    /**
-     * 可视化编辑模板
-     */
-    public static final String TPLDIR_VISUAL = "visual";
-
-    /**
      * 公用模板
      */
     public static final String TPLDIR_COMMON = "common";
 
-    /**
-     * 客户端包含模板
-     */
-    public static final String TPLDIR_CSI = "csi";
 
-    /**
-     * 客户端包含用户自定义模板
-     */
-    public static final String TPLDIR_CSI_CUSTOM = "csi_custom";
-
-    /**
-     * 服务器端包含模板
-     */
-    public static final String TPLDIR_SSI = "ssi";
 
     /**
      * 标签模板
      */
     public static final String TPLDIR_TAG = "tag";
-
-    /**
-     * 评论模板
-     */
-    public static final String TPLDIR_COMMENT = "comment";
-
-    /**
-     * 留言模板
-     */
-    public static final String TPLDIR_GUESTBOOK = "guestbook";
-
-    /**
-     * 站内信模板
-     */
-    public static final String TPLDIR_MESSAGE = "message";
 
     /**
      * 列表样式模板
@@ -102,11 +59,6 @@ public class Constants {
      * 模板后缀
      */
     public static final String TPL_SUFFIX = ".html";
-
-    /**
-     * 前台方言
-     */
-    public static final String LOCAL_FRONT = "zh_CN";
 
     /**
      * 上传路径

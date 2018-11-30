@@ -1,299 +1,216 @@
 package com.bfly.cms.member.action;
 
 import com.bfly.cms.funds.service.CmsUserAccountMng;
-import com.bfly.cms.siteconfig.entity.CmsSite;
 import com.bfly.cms.system.entity.MemberConfig;
 import com.bfly.cms.user.entity.CmsUser;
 import com.bfly.cms.user.entity.CmsUserExt;
 import com.bfly.cms.user.service.CmsUserExtMng;
 import com.bfly.cms.user.service.CmsUserMng;
 import com.bfly.common.web.ResponseUtils;
+import com.bfly.core.base.action.RenderController;
 import com.bfly.core.web.WebErrors;
 import com.bfly.core.web.util.CmsUtils;
-import com.bfly.core.web.util.FrontUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static com.bfly.core.Constants.TPLDIR_MEMBER;
-
 /**
+ * 会员中心Action
+ *
  * @author andy_hulibo@163.com
  * @date 2018/11/28 17:27
- * 会员中心Action
  */
 @Controller
-public class MemberAct {
+public class MemberAct extends RenderController {
+
     private static final Logger log = LoggerFactory.getLogger(MemberAct.class);
 
-    public static final String MEMBER_CENTER = "tpl.memberCenter";
-    public static final String MEMBER_PROFILE = "tpl.memberProfile";
-    public static final String MEMBER_PORTRAIT = "tpl.memberPortrait";
-    public static final String MEMBER_PASSWORD = "tpl.memberPassword";
-    public static final String MEMBER_ACCOUNT = "tpl.memberAccount";
+    /**
+     * 校验
+     *
+     * @author andy_hulibo@163.com
+     * @date 2018/11/30 16:17
+     */
+    private String check(ModelMap model) {
+        MemberConfig mcfg = getSite().getConfig().getMemberConfig();
+        if (!mcfg.isMemberOn()) {
+            return renderMessagePage(model, "member.memberClose");
+        }
+        if (getUser() == null) {
+            return renderLoginPage(model);
+        }
+        return null;
+    }
 
     /**
      * 会员中心页
-     * <p>
-     * 如果没有登录则跳转到登陆页
      *
-     * @param request
-     * @param response
-     * @param model
-     * @return
+     * @author andy_hulibo@163.com
+     * @date 2018/11/30 16:37
      */
-    @RequestMapping(value = "/member/index.html", method = RequestMethod.GET)
-    public String index(HttpServletRequest request,
-                        HttpServletResponse response, ModelMap model) {
-        CmsSite site = CmsUtils.getSite(request);
-        CmsUser user = CmsUtils.getUser(request);
-        FrontUtils.frontData(request, model, site);
-        MemberConfig mcfg = site.getConfig().getMemberConfig();
-        // 没有开启会员功能
-        if (!mcfg.isMemberOn()) {
-            return FrontUtils.showMessage(request, model, "member.memberClose");
+    @GetMapping(value = "/member/index.html")
+    public String index(ModelMap model) {
+        String result = check(model);
+        if (result != null) {
+            return result;
         }
-        if (user == null) {
-            return FrontUtils.showLogin(request, model, site);
-        }
-        return FrontUtils.getTplPath(request, site.getSolutionPath(),
-                TPLDIR_MEMBER, MEMBER_CENTER);
+        return renderPage("member/member_center.html", model);
     }
 
     /**
      * 个人资料输入页
      *
-     * @param request
-     * @param response
-     * @param model
-     * @return
+     * @author andy_hulibo@163.com
+     * @date 2018/11/30 16:39
      */
-    @RequestMapping(value = "/member/profile.html", method = RequestMethod.GET)
-    public String profileInput(HttpServletRequest request,
-                               HttpServletResponse response, ModelMap model) {
-        CmsSite site = CmsUtils.getSite(request);
-        CmsUser user = CmsUtils.getUser(request);
-        FrontUtils.frontData(request, model, site);
-        MemberConfig mcfg = site.getConfig().getMemberConfig();
-        // 没有开启会员功能
-        if (!mcfg.isMemberOn()) {
-            return FrontUtils.showMessage(request, model, "member.memberClose");
+    @GetMapping(value = "/member/profile.html")
+    public String profileInput(ModelMap model) {
+        String result = check(model);
+        if (result != null) {
+            return result;
         }
-        if (user == null) {
-            return FrontUtils.showLogin(request, model, site);
-        }
-        return FrontUtils.getTplPath(request, site.getSolutionPath(),
-                TPLDIR_MEMBER, MEMBER_PROFILE);
+        return renderPage("member/member_profile.html", model);
     }
 
     /**
      * 更换头像
      *
-     * @param request
-     * @param response
-     * @param model
-     * @return
+     * @author andy_hulibo@163.com
+     * @date 2018/11/30 16:39
      */
-    @RequestMapping(value = "/member/portrait.html", method = RequestMethod.GET)
-    public String portrait(HttpServletRequest request,
-                           HttpServletResponse response, ModelMap model) {
-        CmsSite site = CmsUtils.getSite(request);
-        CmsUser user = CmsUtils.getUser(request);
-        FrontUtils.frontData(request, model, site);
-        MemberConfig mcfg = site.getConfig().getMemberConfig();
-        // 没有开启会员功能
-        if (!mcfg.isMemberOn()) {
-            return FrontUtils.showMessage(request, model, "member.memberClose");
+    @GetMapping(value = "/member/portrait.html")
+    public String portrait(ModelMap model) {
+        String result = check(model);
+        if (result != null) {
+            return result;
         }
-        if (user == null) {
-            return FrontUtils.showLogin(request, model, site);
-        }
-        return FrontUtils.getTplPath(request, site.getSolutionPath(),
-                TPLDIR_MEMBER, MEMBER_PORTRAIT);
+        return renderPage("member/member_portrait.html", model);
     }
 
     /**
      * 个人资料提交页
      *
-     * @param request
-     * @param response
-     * @param model
-     * @return
-     * @throws IOException
+     * @author andy_hulibo@163.com
+     * @date 2018/11/30 16:40
      */
-    @RequestMapping(value = "/member/profile.html", method = RequestMethod.POST)
-    public String profileSubmit(CmsUserExt ext, String nextUrl,
-                                HttpServletRequest request, HttpServletResponse response,
-                                ModelMap model) throws IOException {
-        CmsSite site = CmsUtils.getSite(request);
-        CmsUser user = CmsUtils.getUser(request);
-        FrontUtils.frontData(request, model, site);
-        MemberConfig mcfg = site.getConfig().getMemberConfig();
-        // 没有开启会员功能
-        if (!mcfg.isMemberOn()) {
-            return FrontUtils.showMessage(request, model, "member.memberClose");
+    @PostMapping(value = "/member/profile.html")
+    public String profileSubmit(CmsUserExt ext, String nextUrl, ModelMap model) throws IOException {
+        String result = check(model);
+        if (result != null) {
+            return result;
         }
-        if (user == null) {
-            return FrontUtils.showLogin(request, model, site);
-        }
+        CmsUser user = getUser();
         ext.setId(user.getId());
-        ext = cmsUserExtMng.update(ext, user);
+        cmsUserExtMng.update(ext, user);
         log.info("update CmsUserExt success. id={}", user.getId());
-        return FrontUtils.showSuccess(request, model, nextUrl);
+        return renderSuccessPage(model, nextUrl);
     }
 
     /**
      * 密码修改输入页
      *
-     * @param request
-     * @param response
-     * @param model
-     * @return
+     * @author andy_hulibo@163.com
+     * @date 2018/11/30 16:41
      */
-    @RequestMapping(value = "/member/pwd.html", method = RequestMethod.GET)
-    public String passwordInput(HttpServletRequest request,
-                                HttpServletResponse response, ModelMap model) {
-        CmsSite site = CmsUtils.getSite(request);
-        CmsUser user = CmsUtils.getUser(request);
-        FrontUtils.frontData(request, model, site);
-        MemberConfig mcfg = site.getConfig().getMemberConfig();
-        // 没有开启会员功能
-        if (!mcfg.isMemberOn()) {
-            return FrontUtils.showMessage(request, model, "member.memberClose");
+    @GetMapping(value = "/member/pwd.html")
+    public String passwordInput(ModelMap model) {
+        String result = check(model);
+        if (result != null) {
+            return result;
         }
-        if (user == null) {
-            return FrontUtils.showLogin(request, model, site);
-        }
-        return FrontUtils.getTplPath(request, site.getSolutionPath(),
-                TPLDIR_MEMBER, MEMBER_PASSWORD);
+        return renderPage("member/member_password.html", model);
     }
 
     /**
      * 密码修改提交页
      *
-     * @param origPwd  原始密码
-     * @param newPwd   新密码
-     * @param email    邮箱
-     * @param nextUrl  下一个页面地址
-     * @param request
-     * @param response
-     * @param model
-     * @return
-     * @throws IOException
+     * @author andy_hulibo@163.com
+     * @date 2018/11/30 16:42
      */
-    @RequestMapping(value = "/member/pwd.html", method = RequestMethod.POST)
-    public String passwordSubmit(String origPwd, String newPwd, String email,
-                                 String nextUrl, HttpServletRequest request,
-                                 HttpServletResponse response, ModelMap model) throws IOException {
-        CmsSite site = CmsUtils.getSite(request);
-        CmsUser user = CmsUtils.getUser(request);
-        FrontUtils.frontData(request, model, site);
-        MemberConfig mcfg = site.getConfig().getMemberConfig();
-        // 没有开启会员功能
-        if (!mcfg.isMemberOn()) {
-            return FrontUtils.showMessage(request, model, "member.memberClose");
+    @PostMapping(value = "/member/pwd.html")
+    public String passwordSubmit(String origPwd, String newPwd, String email, String nextUrl, ModelMap model) throws IOException {
+        String result = check(model);
+        if (result != null) {
+            return result;
         }
-        if (user == null) {
-            return FrontUtils.showLogin(request, model, site);
-        }
-        WebErrors errors = validatePasswordSubmit(user.getId(), origPwd,
-                newPwd, email, request);
+        CmsUser user = getUser();
+        WebErrors errors = validatePasswordSubmit(user.getId(), origPwd, newPwd, email);
         if (errors.hasErrors()) {
-            return FrontUtils.showError(request, response, model, errors);
+            return renderErrorPage(model, errors);
         }
         cmsUserMng.updatePwdEmail(user.getId(), newPwd, email);
-
-        return FrontUtils.showSuccess(request, model, nextUrl);
+        return renderSuccessPage(model, nextUrl);
     }
 
     /**
      * 完善账户资料
      *
-     * @param request
-     * @param response
-     * @param model
-     * @return
+     * @author andy_hulibo@163.com
+     * @date 2018/11/30 16:45
      */
-    @RequestMapping(value = "/member/account.html", method = RequestMethod.GET)
-    public String accountInput(HttpServletRequest request,
-                               HttpServletResponse response, ModelMap model) {
-        CmsSite site = CmsUtils.getSite(request);
-        CmsUser user = CmsUtils.getUser(request);
-        FrontUtils.frontData(request, model, site);
-        MemberConfig mcfg = site.getConfig().getMemberConfig();
-        // 没有开启会员功能
-        if (!mcfg.isMemberOn()) {
-            return FrontUtils.showMessage(request, model, "member.memberClose");
+    @GetMapping(value = "/member/account.html")
+    public String accountInput(ModelMap model) {
+        String result = check(model);
+        if (result != null) {
+            return result;
         }
-        if (user == null) {
-            return FrontUtils.showLogin(request, model, site);
-        }
-        return FrontUtils.getTplPath(request, site.getSolutionPath(),
-                TPLDIR_MEMBER, MEMBER_ACCOUNT);
+        return renderPage("member/member_account.html", model);
     }
 
-    //完善用户账户资料
-    @RequestMapping(value = "/member/account.html", method = RequestMethod.POST)
-    public String accountSubmit(String accountWeiXin, String accountAlipy,
-                                Short drawAccount, String nextUrl, HttpServletRequest request,
-                                HttpServletResponse response, ModelMap model) throws IOException {
-        CmsSite site = CmsUtils.getSite(request);
-        CmsUser user = CmsUtils.getUser(request);
-        FrontUtils.frontData(request, model, site);
-        MemberConfig mcfg = site.getConfig().getMemberConfig();
-        // 没有开启会员功能
-        if (!mcfg.isMemberOn()) {
-            return FrontUtils.showMessage(request, model, "member.memberClose");
+    /**
+     * 完善用户账户资料
+     *
+     * @author andy_hulibo@163.com
+     * @date 2018/11/30 16:44
+     */
+    @PostMapping(value = "/member/account.html")
+    public String accountSubmit(String accountWeiXin, String accountAlipy, Short drawAccount, String nextUrl, ModelMap model) throws IOException {
+        String result = check(model);
+        if (result != null) {
+            return result;
         }
-        if (user == null) {
-            return FrontUtils.showLogin(request, model, site);
-        }
-
-        WebErrors errors = WebErrors.create(request);
+        WebErrors errors = WebErrors.create(getRequest());
         if (drawAccount == null) {
             errors.addErrorCode("error.needParams");
         } else {
-            if (!(drawAccount == 0 && StringUtils.isNotBlank(accountWeiXin)
-                    || drawAccount == 1 && StringUtils.isNotBlank(accountAlipy))) {
+            boolean flag = !(drawAccount == 0 && StringUtils.isNotBlank(accountWeiXin) || drawAccount == 1 && StringUtils.isNotBlank(accountAlipy));
+            if (flag) {
                 errors.addErrorCode("error.needParams");
             }
         }
         if (errors.hasErrors()) {
-            return FrontUtils.showError(request, response, model, errors);
+            return renderErrorPage(model, errors);
         }
-        cmsUserAccountMng.updateAccountInfo(accountWeiXin, accountAlipy, drawAccount, user);
-        log.info("update CmsUserExt success. id={}", user.getId());
-        return FrontUtils.showSuccess(request, model, nextUrl);
+        cmsUserAccountMng.updateAccountInfo(accountWeiXin, accountAlipy, drawAccount, getUser());
+        log.info("update CmsUserExt success. id={}", getUser().getId());
+        return renderSuccessPage(model, nextUrl);
     }
 
 
     /**
      * 验证密码是否正确
      *
-     * @param origPwd  原密码
-     * @param request
-     * @param response
+     * @author andy_hulibo@163.com
+     * @date 2018/11/30 16:44
      */
     @RequestMapping("/member/checkPwd.html")
-    public void checkPwd(String origPwd, HttpServletRequest request,
-                         HttpServletResponse response) {
-        CmsUser user = CmsUtils.getUser(request);
+    public void checkPwd(String origPwd, HttpServletResponse response) {
+        CmsUser user = CmsUtils.getUser(getRequest());
         boolean pass = cmsUserMng.isPasswordValid(user.getId(), origPwd);
         ResponseUtils.renderJson(response, pass ? "true" : "false");
     }
 
-    private WebErrors validatePasswordSubmit(Integer id, String origPwd,
-                                             String newPwd, String email, HttpServletRequest request) {
-        WebErrors errors = WebErrors.create(request);
+    private WebErrors validatePasswordSubmit(Integer id, String origPwd, String newPwd, String email) {
+        WebErrors errors = WebErrors.create(getRequest());
         if (errors.ifBlank(origPwd, "origPwd", 100, true)) {
             return errors;
         }

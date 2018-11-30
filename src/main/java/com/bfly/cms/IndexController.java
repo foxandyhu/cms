@@ -15,10 +15,9 @@ import com.bfly.common.page.Paginable;
 import com.bfly.common.page.SimplePage;
 import com.bfly.common.web.springmvc.RealPathResolver;
 import com.bfly.core.annotation.Token;
-import com.bfly.core.web.util.CmsUtils;
+import com.bfly.core.base.action.RenderController;
 import com.bfly.core.web.util.FrontUtils;
 import com.bfly.core.web.util.URLHelper;
-import com.bfly.core.web.util.URLHelper.PageInfo;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,25 +29,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.io.IOException;
 import java.util.Set;
 
-import static com.bfly.common.web.Constants.*;
-import static com.bfly.core.Constants.TPLDIR_INDEX;
+import static com.bfly.common.web.Constants.INDEX;
+import static com.bfly.common.web.Constants.INDEX_HTML;
 
+/**
+ * 网站首页Controller
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/11/29 10:29
+ */
 @Controller
-public class IndexController {
-    private static final Logger log = LoggerFactory
-            .getLogger(IndexController.class);
-    /**
-     * 首页模板名称
-     */
-    public static final String TPL_INDEX = "tpl.index";
-    public static final String GROUP_FORBIDDEN = "login.groupAccessForbidden";
-    public static final String CONTENT_STATUS_FORBIDDEN = "content.notChecked";
-
+public class IndexController extends RenderController {
+    private static final Logger log = LoggerFactory.getLogger(IndexController.class);
 
     /**
      * 站点首页
@@ -58,114 +53,83 @@ public class IndexController {
      */
     @GetMapping(value = {"/", "/index.html"})
     @Token(save = true)
-    public String index(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
-        CmsSite site = CmsUtils.getSite(request);
-        FrontUtils.frontData(request, model, site);
-        //带有其他路径则是非法请求(非内网)
-        String uri = URLHelper.getURI(request);
-        if (StringUtils.isNotBlank(uri) && (!("/".equals(uri) || "/index.html".equals(uri)))) {
-            return FrontUtils.pageNotFound(request, response, model);
+    public String index(ModelMap model) {
+        //首页静态化且存在静态文件
+        if (existIndexPage(getSite())) {
+            return renderStaticPage("index/index.html");
         }
-        //使用静态首页而且静态首页存在
-        if (existIndexPage(site)) {
-            return goToIndexPage(request, response, site);
-        } else {
-            String tpl = site.getTplIndex();
-            String equipment = (String) request.getAttribute("ua");
-            if (StringUtils.isNotBlank(equipment) && !"mobile".equals(equipment)
-                    && !StringUtils.isBlank(tpl)) {
-                return tpl;
-            } else {
-                return FrontUtils.getTplPath(request, site.getSolutionPath(), TPLDIR_INDEX, TPL_INDEX);
-            }
-        }
+        return renderPage("index/index.html", model);
     }
 
     /**
      * 动态页入口
+     * 尽量不要携带太多参数，多使用标签获取数据。
+     * 目前已知的需要携带翻页信息。获得页号和翻页信息吧。
+     *
+     * @author andy_hulibo@163.com
+     * @date 2018/11/29 10:32
      */
     @Token(save = true)
     @RequestMapping(value = "/**/*.*", method = RequestMethod.GET)
-    public String dynamic(HttpServletRequest request,
-                          HttpServletResponse response, ModelMap model) {
-        // 尽量不要携带太多参数，多使用标签获取数据。
-        // 目前已知的需要携带翻页信息。
-        // 获得页号和翻页信息吧。
+    public String dynamic(HttpServletRequest request, ModelMap model) {
         int pageNo = URLHelper.getPageNo(request);
-        String[] params = URLHelper.getParams(request);
-        PageInfo info = URLHelper.getPageInfo(request);
         String[] paths = URLHelper.getPaths(request);
         int len = paths.length;
-        if (len == 1) {
+        switch (len) {
             // 单页
-            return channel(paths[0], true, pageNo, params, info, request, response,
-                    model);
-        } else if (len == 2) {
-            if (paths[1].equals(INDEX)) {
+            case 1:
+                return channel(paths[0], true, model);
+            case 2:
                 // 栏目页
-                return channel(paths[0], false, pageNo, params, info, request,
-                        response, model);
-            } else {
+                if (paths[1].equals(INDEX)) {
+                    return channel(paths[0], false, model);
+                }
                 // 内容页
                 try {
                     Integer id = Integer.parseInt(paths[1]);
-                    return content(id, pageNo, params, info, request, response,
-                            model);
+                    return content(id, pageNo, model);
                 } catch (NumberFormatException e) {
-                    log.debug("Content id must String: {}", paths[1]);
-                    return FrontUtils.pageNotFound(request, response, model);
+                    return renderNotFoundPage(model);
                 }
-            }
-        } else {
-            log.debug("Illegal path length: {}, paths: {}", len, paths);
-            return FrontUtils.pageNotFound(request, response, model);
+            default:
+                log.warn("Illegal path length: {}, paths: {}", len, paths);
+                return renderNotFoundPage(model);
         }
     }
 
-    public String channel(String path, boolean checkAlone, int pageNo, String[] params,
-                          PageInfo info, HttpServletRequest request,
-                          HttpServletResponse response, ModelMap model) {
-        CmsSite site = CmsUtils.getSite(request);
-        Channel channel = channelMng.findByPathForTag(path, site.getId());
+    public String channel(String path, boolean checkAlone, ModelMap model) {
+        Channel channel = channelMng.findByPathForTag(path, getSite().getId());
         if (channel == null) {
-            log.debug("Channel path not found: {}", path);
-            return FrontUtils.pageNotFound(request, response, model);
+            log.warn("Channel path not found: {}", path);
+            return renderNotFoundPage(model);
         }
         //检查是否单页
-        if (checkAlone) {
-            if (channel.getHasContent()) {
-                return FrontUtils.pageNotFound(request, response, model);
-            }
+        if (checkAlone && channel.getHasContent()) {
+            return renderNotFoundPage(model);
         }
         model.addAttribute("channel", channel);
-        FrontUtils.frontData(request, model, site);
-        FrontUtils.frontPageData(request, model);
-        String equipment = (String) request.getAttribute("ua");
-        if (StringUtils.isNotBlank(equipment) && "mobile".equals(equipment)) {
-            return channel.getMobileTplChannelOrDef();
-        }
-        return channel.getTplChannelOrDef();
+        renderPagination(null, model);
+        return isMobileRequest() ? channel.getMobileTplChannelOrDef() : channel.getTplChannelOrDef();
     }
 
-    public String content(Integer id, int pageNo, String[] params,
-                          PageInfo info, HttpServletRequest request,
-                          HttpServletResponse response, ModelMap model) {
+    public String content(Integer id, int pageNo, ModelMap model) {
         Content content = contentMng.findById(id);
         if (content == null) {
             log.debug("Content id not found: {}", id);
-            return FrontUtils.pageNotFound(request, response, model);
+            return renderNotFoundPage(model);
         }
         Integer pageCount = content.getPageCount();
         if (pageNo > pageCount || pageNo < 0) {
-            return FrontUtils.pageNotFound(request, response, model);
+            return renderNotFoundPage(model);
         }
+
         //非终审文章
-        CmsConfig config = CmsUtils.getSite(request).getConfig();
-        Boolean preview = config.getConfigAttr().getPreview();
+        CmsConfig config = getSite().getConfig();
         if (config.getViewOnlyChecked() && !content.getStatus().equals(ContentCheck.CHECKED)) {
-            return FrontUtils.showMessage(request, model, CONTENT_STATUS_FORBIDDEN);
+            return renderMessagePage(model, "未终审的文章");
         }
-        CmsUser user = CmsUtils.getUser(request);
+
+        CmsUser user = getUser();
         CmsSite site = content.getSite();
         Set<CmsGroup> groups = content.getViewGroupsExt();
         int len = groups.size();
@@ -173,8 +137,8 @@ public class IndexController {
         if (len != 0) {
             // 没有登录
             if (user == null) {
-                request.getSession().setAttribute("loginSource", "needPerm");
-                return FrontUtils.showLogin(request, model, site);
+                getSession().setAttribute("loginSource", "needPerm");
+                return renderLoginPage(model);
             }
             // 已经登录但没有权限
             Integer gid = user.getGroup().getId();
@@ -186,13 +150,13 @@ public class IndexController {
                 }
             }
             //无权限且不支持预览
-            if (!right && !preview) {
-                String gname = user.getGroup().getName();
-                return FrontUtils.showMessage(request, model, GROUP_FORBIDDEN,
-                        gname);
+            Boolean preview = config.getConfigAttr().getPreview();
+            if (!preview) {
+                String gName = user.getGroup().getName();
+                return renderMessagePage(model, "所在组无权限且不支持预览", gName);
             }
-            //无权限支持预览
-            if (!right && preview) {
+            if (!right) {
+                //无权限支持预览
                 model.addAttribute("preview", preview);
                 model.addAttribute("groups", groups);
             }
@@ -200,23 +164,19 @@ public class IndexController {
         //收费模式
         if (content.getCharge()) {
             if (user == null) {
-                request.getSession().setAttribute("loginSource", "charge");
-                return FrontUtils.showLogin(request, model, site);
-            } else {
-                //非作者且未购买
-                if (!content.getUser().equals(user)) {
-                    //用户已登录判断是否已经购买
-                    boolean hasBuy = contentBuyMng.hasBuyContent(user.getId(), content.getId());
-                    if (!hasBuy) {
-                        try {
-                            String rediretUrl = "/content/buy.html?contentId=" + content.getId();
-                            if (StringUtils.isNotBlank(site.getContextPath())) {
-                                rediretUrl = site.getContextPath() + rediretUrl;
-                            }
-                            response.sendRedirect(rediretUrl);
-                        } catch (IOException e) {
-                        }
+                getSession().setAttribute("loginSource", "charge");
+                return renderLoginPage(model);
+            }
+            //非作者且未购买
+            if (!content.getUser().getId().equals(user.getId())) {
+                //用户已登录判断是否已经购买
+                boolean hasBuy = contentBuyMng.hasBuyContent(user.getId(), content.getId());
+                if (!hasBuy) {
+                    String rediretUrl = "/content/buy.html?contentId=" + content.getId();
+                    if (StringUtils.isNotBlank(site.getContextPath())) {
+                        rediretUrl = site.getContextPath() + rediretUrl;
                     }
+                    return redirect(rediretUrl);
                 }
             }
         }
@@ -225,21 +185,22 @@ public class IndexController {
         txt = cmsKeywordMng.attachKeyword(site.getId(), txt);
         Paginable pagination = new SimplePage(pageNo, 1, content.getPageCount());
         model.addAttribute("pagination", pagination);
-        FrontUtils.frontPageData(request, model);
+        FrontUtils.frontPageData(getRequest(), model);
         model.addAttribute("content", content);
         model.addAttribute("channel", content.getChannel());
         model.addAttribute("title", content.getTitleByNo(pageNo));
         model.addAttribute("txt", txt);
         model.addAttribute("pic", content.getPictureByNo(pageNo));
-        FrontUtils.frontData(request, model, site);
-        String equipment = (String) request.getAttribute("ua");
-        if (StringUtils.isNotBlank(equipment) && "mobile".equals(equipment)) {
-            return content.getMobileTplContentOrDef(content.getModel());
-        }
-        return content.getTplContentOrDef(content.getModel());
+        renderPage(null, model);
+        return isMobileRequest() ? content.getMobileTplContentOrDef(content.getModel()) : content.getTplContentOrDef(content.getModel());
     }
 
-
+    /**
+     * 检查站点首页是否静态化
+     *
+     * @author andy_hulibo@163.com
+     * @date 2018/11/29 11:36
+     */
     private boolean existIndexPage(CmsSite site) {
         boolean exist = false;
         if (site.getStaticIndex()) {
@@ -255,33 +216,6 @@ public class IndexController {
         }
         return exist;
     }
-
-    private String goToIndexPage(HttpServletRequest request, HttpServletResponse response, CmsSite site) {
-        String equipment = (String) request.getAttribute("ua");
-        try {
-            String ctx = "";
-            if (StringUtils.isNotBlank(site.getContextPath())) {
-                ctx = site.getContextPath();
-            }
-            if (site.getIndexToRoot()) {
-
-                if (StringUtils.isNotBlank(equipment) && "mobile".equals(equipment)) {
-                    response.sendRedirect(ctx + INDEX_HTML_MOBILE);
-                } else {
-                    response.sendRedirect(ctx + INDEX_HTML);
-                }
-            } else {
-                if (StringUtils.isNotBlank(equipment) && "mobile".equals(equipment)) {
-                    response.sendRedirect(ctx + site.getStaticMobileDir() + INDEX_HTML);
-                } else {
-                    response.sendRedirect(ctx + site.getStaticDir() + INDEX_HTML);
-                }
-            }
-        } catch (IOException e) {
-        }
-        return FrontUtils.getTplPath(request, site.getSolutionPath(), TPLDIR_INDEX, TPL_INDEX);
-    }
-
 
     @Autowired
     private ChannelMng channelMng;

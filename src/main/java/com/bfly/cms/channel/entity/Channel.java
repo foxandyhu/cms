@@ -1285,10 +1285,9 @@ public class Channel implements Serializable, HibernateTree<Integer>, PriorityIn
         String tpl = getMobileTplChannel();
         if (!StringUtils.isBlank(tpl)) {
             return tpl;
-        } else {
-            String sol = getSite().getMobileSolutionPath();
-            return getModel().getTplChannel(sol, true);
         }
+        String sol = getSite().getMobileSolutionPath();
+        return getModel().getTplChannel(sol, true);
     }
 
     public String getTplContentOrDef(CmsModel contentModel) {
@@ -1636,9 +1635,8 @@ public class Channel implements Serializable, HibernateTree<Integer>, PriorityIn
         ChannelExt ext = getChannelExt();
         if (ext != null) {
             return ext.getTplMobileChannel();
-        } else {
-            return null;
         }
+        return null;
     }
 
     public String getTplContent() {

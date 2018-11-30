@@ -187,10 +187,10 @@ public class StaticPageSvcImpl implements StaticPageSvc {
 
     @Override
     public void index(CmsSite site) throws IOException, TemplateException {
-        Map<String, Object> data = new HashMap<String, Object>();
+        Map<String, Object> data = new HashMap<>(5);
         FrontUtils.frontData(data, site, null, site.getUrlStatic(), null);
 
-        String tpl = site.getTplIndexOrDef();
+        String tpl = site.getTplIndexDefault();
         index(site, tpl, data, false);
         if (site.getMobileStaticSync()) {
             String mobileTpl = site.getMobileTplIndexOrDef();

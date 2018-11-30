@@ -1,30 +1,24 @@
 package com.bfly.cms.system.action;
 
-import static com.bfly.core.Constants.TPLDIR_SPECIAL;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.bfly.core.base.action.RenderController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
 
-import com.bfly.cms.siteconfig.entity.CmsSite;
-import com.bfly.core.web.util.CmsUtils;
-import com.bfly.core.web.util.FrontUtils;
+import javax.servlet.http.HttpServletResponse;
 
+/**
+ * RSS Controller
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/11/30 10:51
+ */
 @Controller
-public class RssAct {
-	public static final String RSS_TPL = "tpl.rss";
+public class RssAct extends RenderController {
 
-	@RequestMapping(value = "/rss.html", method = RequestMethod.GET)
-	public String rss(HttpServletRequest request, HttpServletResponse response,
-			ModelMap model) {
-		response.setContentType("text/xml;charset=UTF-8");
-		CmsSite site = CmsUtils.getSite(request);
-		FrontUtils.frontData(request, model, site);
-		return FrontUtils.getTplPath(request, site.getSolutionPath(),
-				TPLDIR_SPECIAL, RSS_TPL);
-	}
+    @GetMapping(value = "/rss.html")
+    public String rss(HttpServletResponse response, ModelMap model) {
+        response.setContentType("text/xml;charset=UTF-8");
+        return renderPage("special/RSS.html", model);
+    }
 }

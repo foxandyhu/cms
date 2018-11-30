@@ -20,45 +20,48 @@ import com.octo.captcha.service.image.ImageCaptchaService;
 
 /**
  * 提供验证码图片的Servlet
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/11/29 10:03
  */
-@WebServlet(name = "Jcaptcha",urlPatterns = {"/captcha.svl"},loadOnStartup = 3)
+@WebServlet(name = "Jcaptcha", urlPatterns = {"/captcha.svl"}, loadOnStartup = 3)
 public class JcaptchaServlet extends HttpServlet {
-	public static final String CAPTCHA_IMAGE_FORMAT = "jpeg";
+    public static final String CAPTCHA_IMAGE_FORMAT = "jpeg";
 
-	private ImageCaptchaService captchaService;
+    private ImageCaptchaService captchaService;
 
-	@Override
-	public void init() throws ServletException {
-		WebApplicationContext appCtx = WebApplicationContextUtils
-				.getWebApplicationContext(getServletContext());
-		captchaService = BeanFactoryUtils.beanOfTypeIncludingAncestors(appCtx, ImageCaptchaService.class);
-	}
+    @Override
+    public void init() throws ServletException {
+        WebApplicationContext appCtx = WebApplicationContextUtils
+                .getWebApplicationContext(getServletContext());
+        captchaService = BeanFactoryUtils.beanOfTypeIncludingAncestors(appCtx, ImageCaptchaService.class);
+    }
 
-	@Override
-	protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
-		byte[] captchaChallengeAsJpeg;
-		ByteArrayOutputStream jpegOutputStream = new ByteArrayOutputStream();
-		try {
-			String captchaId = request.getSession().getId();
-			BufferedImage challenge = captchaService.getImageChallengeForID(captchaId, request.getLocale());
-			ImageIO.write(challenge, CAPTCHA_IMAGE_FORMAT, jpegOutputStream);
-		} catch (IllegalArgumentException e) {
-			response.sendError(HttpServletResponse.SC_NOT_FOUND);
-			return;
-		} catch (CaptchaServiceException e) {
-			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-			return;
-		}
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        byte[] captchaChallengeAsJpeg;
+        ByteArrayOutputStream jpegOutputStream = new ByteArrayOutputStream();
+        try {
+            String captchaId = request.getSession().getId();
+            BufferedImage challenge = captchaService.getImageChallengeForID(captchaId, request.getLocale());
+            ImageIO.write(challenge, CAPTCHA_IMAGE_FORMAT, jpegOutputStream);
+        } catch (IllegalArgumentException e) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
+            return;
+        } catch (CaptchaServiceException e) {
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            return;
+        }
 
-		captchaChallengeAsJpeg = jpegOutputStream.toByteArray();
-		response.setHeader("Cache-Control", "no-store");
-		response.setHeader("Pragma", "no-cache");
-		response.setDateHeader("Expires", 0);
-		response.setContentType("image/" + CAPTCHA_IMAGE_FORMAT);
+        captchaChallengeAsJpeg = jpegOutputStream.toByteArray();
+        response.setHeader("Cache-Control", "no-store");
+        response.setHeader("Pragma", "no-cache");
+        response.setDateHeader("Expires", 0);
+        response.setContentType("image/" + CAPTCHA_IMAGE_FORMAT);
 
-		ServletOutputStream responseOutputStream = response.getOutputStream();
-		responseOutputStream.write(captchaChallengeAsJpeg);
-		responseOutputStream.flush();
-		responseOutputStream.close();
-	}
+        ServletOutputStream responseOutputStream = response.getOutputStream();
+        responseOutputStream.write(captchaChallengeAsJpeg);
+        responseOutputStream.flush();
+        responseOutputStream.close();
+    }
 }

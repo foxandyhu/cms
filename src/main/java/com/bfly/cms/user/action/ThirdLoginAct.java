@@ -17,12 +17,10 @@ import com.bfly.cms.user.service.UnifiedUserMng;
 import com.bfly.common.util.Num62;
 import com.bfly.common.web.*;
 import com.bfly.config.SocialInfoConfig;
+import com.bfly.core.base.action.RenderController;
 import com.bfly.core.web.WebErrors;
-import com.bfly.core.web.util.CmsUtils;
-import com.bfly.core.web.util.FrontUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.util.ThreadContext;
@@ -33,50 +31,47 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.bfly.core.Constants.TPLDIR_INDEX;
-import static com.bfly.core.Constants.TPLDIR_MEMBER;
-
 
 /**
- * @author andy_hulibo@163.com
- * @date 2018/11/28 15:51
  * 第三方登录Action
  * 腾讯qq、新浪微博登陆、微信登陆
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/11/28 15:51
  */
 @Controller
-public class ThirdLoginAct {
-    public static final String TPL_BIND = "tpl.member.bind";
-    public static final String TPL_AUTH = "tpl.member.auth";
-    public static final String TPL_INDEX = "tpl.index";
+public class ThirdLoginAct extends RenderController {
 
     @RequestMapping(value = "/public_auth.html")
-    public String auth(String openId, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
-        CmsSite site = CmsUtils.getSite(request);
-        FrontUtils.frontData(request, model, site);
-        return FrontUtils.getTplPath(request, site.getSolutionPath(),
-                TPLDIR_MEMBER, TPL_AUTH);
+    public String auth(ModelMap model) {
+        return renderPage("member/auth.html", model);
     }
 
     @RequestMapping(value = "/public_auth_login.html")
-    public void authLogin(String key, String source, HttpServletRequest request, HttpServletResponse response, ModelMap model) throws JSONException {
+    public void authLogin(String key, String source, HttpServletResponse response) throws JSONException {
         if (StringUtils.isNotBlank(source)) {
-            if (source.equals(CmsThirdAccount.QQ_PLAT)) {
-                request.getSession().setAttribute(CmsThirdAccount.QQ_KEY, key);
-            } else if (source.equals(CmsThirdAccount.QQ_WEBO_PLAT)) {
-                request.getSession().setAttribute(CmsThirdAccount.QQ_WEBO_KEY, key);
-            } else if (source.equals(CmsThirdAccount.SINA_PLAT)) {
-                request.getSession().setAttribute(CmsThirdAccount.SINA_KEY, key);
+            switch (source) {
+                case CmsThirdAccount.QQ_PLAT:
+                    getSession().setAttribute(CmsThirdAccount.QQ_KEY, key);
+                    break;
+                case CmsThirdAccount.QQ_WEBO_PLAT:
+                    getSession().setAttribute(CmsThirdAccount.QQ_WEBO_KEY, key);
+                    break;
+                case CmsThirdAccount.SINA_PLAT:
+                    getSession().setAttribute(CmsThirdAccount.SINA_KEY, key);
+                    break;
+                default:
             }
+
         }
         JSONObject json = new JSONObject();
         //库中存放的是加密后的key
@@ -87,28 +82,22 @@ public class ThirdLoginAct {
         if (account != null) {
             json.put("succ", true);
             //已绑定直接登陆
-            loginByKey(key, request, response, model);
+            loginByKey(key, response);
         } else {
             json.put("succ", false);
         }
         ResponseUtils.renderJson(response, json.toString());
     }
 
-    @RequestMapping(value = "/public_bind.html", method = RequestMethod.GET)
-    public String bind_get(HttpServletRequest request,
-                           HttpServletResponse response, ModelMap model) {
-        CmsSite site = CmsUtils.getSite(request);
-        FrontUtils.frontData(request, model, site);
-        return FrontUtils.getTplPath(request, site.getSolutionPath(),
-                TPLDIR_MEMBER, TPL_BIND);
+    @GetMapping(value = "/public_bind.html")
+    public String bindGet(ModelMap model) {
+        return renderPage("member/bind.html", model);
     }
 
-    @RequestMapping(value = "/public_bind.html", method = RequestMethod.POST)
-    public String bind_post(String username, String password, HttpServletRequest request,
-                            HttpServletResponse response, ModelMap model) {
+    @PostMapping(value = "/public_bind.html")
+    public String bindPost(HttpServletResponse response, String username, String password, ModelMap model) {
         boolean usernameExist = unifiedUserMng.usernameExist(username);
-        CmsSite site = CmsUtils.getSite(request);
-        WebErrors errors = WebErrors.create(request);
+        WebErrors errors = WebErrors.create(getRequest());
         String source = "";
         if (!usernameExist) {
             //用户名不存在
@@ -120,10 +109,10 @@ public class ThirdLoginAct {
                 errors.addErrorCode("error.passwordInvalid");
             } else {
                 //获取用户来源
-                String openId = (String) request.getSession().getAttribute(CmsThirdAccount.QQ_KEY);
-                String uid = (String) request.getSession().getAttribute(CmsThirdAccount.SINA_KEY);
-                String weboOpenId = (String) request.getSession().getAttribute(CmsThirdAccount.QQ_WEBO_KEY);
-                String weixinOpenId = (String) request.getSession().getAttribute(CmsThirdAccount.WEIXIN_KEY);
+                String openId = (String) getSession().getAttribute(CmsThirdAccount.QQ_KEY);
+                String uid = (String) getSession().getAttribute(CmsThirdAccount.SINA_KEY);
+                String weboOpenId = (String) getSession().getAttribute(CmsThirdAccount.QQ_WEBO_KEY);
+                String weixinOpenId = (String) getSession().getAttribute(CmsThirdAccount.WEIXIN_KEY);
                 if (StringUtils.isNotBlank(openId)) {
                     source = CmsThirdAccount.QQ_PLAT;
                 } else if (StringUtils.isNotBlank(uid)) {
@@ -134,7 +123,7 @@ public class ThirdLoginAct {
                     source = CmsThirdAccount.WEIXIN_PLAT;
                 }
                 //提交登录并绑定账号
-                loginByUsername(username, request, response);
+                loginByUsername(username, response);
             }
         }
         if (errors.hasErrors()) {
@@ -144,18 +133,12 @@ public class ThirdLoginAct {
             model.addAttribute("success", true);
         }
         model.addAttribute("source", source);
-        FrontUtils.frontData(request, model, site);
-        return FrontUtils.getTplPath(request, site.getSolutionPath(), TPLDIR_MEMBER, TPL_BIND);
+        return renderPage("member/bind.html", model);
     }
 
     @RequestMapping(value = "/public_bind_username.html")
-    public String bind_username_post(String username,
-                                     String nickname, Integer sex, String province,
-                                     String city, String headimgurl,
-                                     HttpServletRequest request,
-                                     HttpServletResponse response, ModelMap model) {
-        CmsSite site = CmsUtils.getSite(request);
-        WebErrors errors = WebErrors.create(request);
+    public String bindUsernamePost(String username, String nickname, Integer sex, String province, String city, String headimgurl, HttpServletResponse response, ModelMap model) {
+        WebErrors errors = WebErrors.create(getRequest());
         String source = "";
         if (StringUtils.isBlank(username)) {
             //用户名为空
@@ -167,10 +150,10 @@ public class ThirdLoginAct {
                 errors.addErrorCode("error.usernameExist");
             } else {
                 //获取用户来源
-                String openId = (String) request.getSession().getAttribute(CmsThirdAccount.QQ_KEY);
-                String uid = (String) request.getSession().getAttribute(CmsThirdAccount.SINA_KEY);
-                String weboOpenId = (String) request.getSession().getAttribute(CmsThirdAccount.QQ_WEBO_KEY);
-                String weixinOpenId = (String) request.getSession().getAttribute(CmsThirdAccount.WEIXIN_KEY);
+                String openId = (String) getSession().getAttribute(CmsThirdAccount.QQ_KEY);
+                String uid = (String) getSession().getAttribute(CmsThirdAccount.SINA_KEY);
+                String weboOpenId = (String) getSession().getAttribute(CmsThirdAccount.QQ_WEBO_KEY);
+                String weixinOpenId = (String) getSession().getAttribute(CmsThirdAccount.WEIXIN_KEY);
                 //(获取到登录授权key后可以注册用户)
                 CmsUserExt ext = new CmsUserExt();
                 if (StringUtils.isNotBlank(weixinOpenId)) {
@@ -194,20 +177,15 @@ public class ThirdLoginAct {
                     }
                     if (StringUtils.isNotBlank(headimgurl)) {
                         CmsConfig config = cmsConfigMng.get();
+                        CmsSite site = getSite();
                         Ftp ftp = site.getUploadFtp();
-                        String imageUrl = imgSvc.crawlImg(headimgurl,
-                                config.getContextPath(), config.getUploadToDb(),
-                                config.getDbFileUri(), ftp, site.getUploadOss(),
-                                site.getUploadPath());
+                        String imageUrl = imgSvc.crawlImg(headimgurl, config.getContextPath(), config.getUploadToDb(), config.getDbFileUri(), ftp, site.getUploadOss(), site.getUploadPath());
                         ext.setUserImg(imageUrl);
                     }
                 }
-                if (StringUtils.isNotBlank(openId) ||
-                        StringUtils.isNotBlank(uid) ||
-                        StringUtils.isNotBlank(weboOpenId) ||
-                        StringUtils.isNotBlank(weixinOpenId)) {
+                if (StringUtils.isNotBlank(openId) || StringUtils.isNotBlank(uid) || StringUtils.isNotBlank(weboOpenId) || StringUtils.isNotBlank(weixinOpenId)) {
                     //初始设置密码同用户名
-                    cmsUserMng.registerMember(username, null, username, RequestUtils.getIpAddr(request), null, null, false, ext, null);
+                    cmsUserMng.registerMember(username, null, username, RequestUtils.getIpAddr(getRequest()), null, null, false, ext, null);
                 }
                 if (StringUtils.isNotBlank(openId)) {
                     source = CmsThirdAccount.QQ_PLAT;
@@ -219,7 +197,7 @@ public class ThirdLoginAct {
                     source = CmsThirdAccount.WEIXIN_PLAT;
                 }
                 //提交登录并绑定账号
-                loginByUsername(username, request, response);
+                loginByUsername(username, response);
             }
         }
         if (errors.hasErrors()) {
@@ -229,33 +207,28 @@ public class ThirdLoginAct {
             model.addAttribute("success", true);
         }
         model.addAttribute("source", source);
-        FrontUtils.frontData(request, model, site);
-        return FrontUtils.getTplPath(request, site.getSolutionPath(), TPLDIR_MEMBER, TPL_BIND);
+        return renderPage("member/bind.html", model);
     }
 
 
     @RequestMapping(value = "/weixin_login.html")
-    public String weixinLogin(HttpServletRequest request,
-                              HttpServletResponse response, ModelMap model) {
-        CmsSite site = CmsUtils.getSite(request);
+    public String weixinLogin() {
+        CmsSite site = getSite();
         String codeUrl;
         CmsConfig config = cmsConfigMng.get();
-        String auth_url = "/weixin_auth.html";
-        String redirect_uri = site.getUrlPrefixWithNoDefaultPort();
+        String authUrl = "/weixin_auth.html";
+        String redirectUri = site.getUrlPrefixWithNoDefaultPort();
         if (StringUtils.isNotBlank(site.getContextPath())) {
-            redirect_uri += site.getContextPath();
+            redirectUri += site.getContextPath();
         }
-        redirect_uri += auth_url;
-        codeUrl = socialInfoConfig.getWeixin().getAuth().getCodeUrl() + "&appid=" + config.getWeixinLoginId() + "&redirect_uri=" + redirect_uri
+        redirectUri += authUrl;
+        codeUrl = socialInfoConfig.getWeixin().getAuth().getCodeUrl() + "&appid=" + config.getWeixinLoginId() + "&redirect_uri=" + redirectUri
                 + "&state=" + RandomStringUtils.random(10, Num62.N36_CHARS) + "#wechat_redirect";
         return "redirect:" + codeUrl;
     }
 
     @RequestMapping(value = "/weixin_auth.html")
-    public String weixinAuth(String code, HttpServletRequest request,
-                             HttpServletResponse response, ModelMap model) {
-        CmsSite site = CmsUtils.getSite(request);
-        FrontUtils.frontData(request, model, site);
+    public String weixinAuth(String code, HttpServletResponse response, ModelMap model) {
         CmsConfig config = cmsConfigMng.get();
         String tokenUrl = socialInfoConfig.getWeixin().getAuth().getAccessTokenUrl() + "&appid=" + config.getWeixinLoginId() + "&secret=" + config.getWeixinLoginSecret() + "&code=" + code;
         JSONObject json = null;
@@ -268,59 +241,61 @@ public class ThirdLoginAct {
         if (json != null) {
             try {
                 String openid = json.getString("openid");
-                String access_token = json.getString("access_token");
-                if (StringUtils.isNotBlank(openid) && StringUtils.isNotBlank(access_token)) {
+                String accessToken = json.getString("access_token");
+                if (StringUtils.isNotBlank(openid) && StringUtils.isNotBlank(accessToken)) {
                     //库中存储的是加密后的
                     String md5OpenId = pwdEncoder.encodePassword(openid);
                     CmsThirdAccount account = accountMng.findByKey(md5OpenId);
                     if (account != null) {
                         //已绑定直接登陆
-                        loginByKey(md5OpenId, request, response, model);
-                        return FrontUtils.getTplPath(request, site.getSolutionPath(), TPLDIR_INDEX, TPL_INDEX);
-                    } else {
-                        String userUrl = socialInfoConfig.getWeixin().getAuth().getUserInfoUrl() + "&access_token=" + access_token + "&openid=" + openid;
-                        try {
-                            //获取用户信息
-                            json = new JSONObject(HttpClientUtil.getInstance().get(userUrl));
-                            String nickname = (String) json.get("nickname");
-                            Integer sex = (Integer) json.get("sex");
-                            String province = (String) json.get("province");
-                            String city = (String) json.get("city");
-                            String headimgurl = (String) json.get("headimgurl");
-                            model.addAttribute("nickname", nickname);
-                            model.addAttribute("sex", sex);
-                            model.addAttribute("province", province);
-                            model.addAttribute("city", city);
-                            model.addAttribute("headimgurl", headimgurl);
-                            request.getSession().setAttribute(CmsThirdAccount.WEIXIN_KEY, openid);
-                            return FrontUtils.getTplPath(request, site.getSolutionPath(),
-                                    TPLDIR_MEMBER, TPL_BIND);
-                        } catch (JSONException e3) {
-                            e3.printStackTrace();
-                        }
+                        loginByKey(md5OpenId, response);
+                        return renderPage("index/index.html");
+                    }
+                    String userUrl = socialInfoConfig.getWeixin().getAuth().getUserInfoUrl() + "&access_token=" + accessToken + "&openid=" + openid;
+                    try {
+                        //获取用户信息
+                        json = new JSONObject(HttpClientUtil.getInstance().get(userUrl));
+                        String nickname = (String) json.get("nickname");
+                        Integer sex = (Integer) json.get("sex");
+                        String province = (String) json.get("province");
+                        String city = (String) json.get("city");
+                        String headimgurl = (String) json.get("headimgurl");
+                        model.addAttribute("nickname", nickname);
+                        model.addAttribute("sex", sex);
+                        model.addAttribute("province", province);
+                        model.addAttribute("city", city);
+                        model.addAttribute("headimgurl", headimgurl);
+                        getSession().setAttribute(CmsThirdAccount.WEIXIN_KEY, openid);
+                        return renderPage("member/bind.html", model);
+                    } catch (JSONException e3) {
+                        e3.printStackTrace();
                     }
                 }
             } catch (JSONException e) {
-                WebErrors errors = WebErrors.create(request);
+                WebErrors errors = WebErrors.create(getRequest());
                 String errcode = null;
                 try {
                     errcode = json.getString("errcode");
                 } catch (JSONException e1) {
-                    //e1.printStackTrace();
+                    e1.printStackTrace();
                 }
                 if (StringUtils.isNotBlank(errcode)) {
                     errors.addErrorCode("weixin.auth.fail");
                 }
-                return FrontUtils.showError(request, response, model, errors);
+                return renderErrorPage(model, errors);
             }
         }
-        return FrontUtils.showMessage(request, model, "weixin.auth.succ");
+        return renderMessagePage(model, "weixin.auth.succ");
     }
 
-    //判断用户是否登录
+    /**
+     * 判断用户是否登录
+     *
+     * @author andy_hulibo@163.com
+     * @date 2018/11/30 15:39
+     */
     @RequestMapping(value = "/sso/authenticate.html")
-    public void authenticate(String username, String sessionId, HttpServletRequest request,
-                             HttpServletResponse response, ModelMap model) {
+    public void authenticate(String username, String sessionId, HttpServletResponse response) {
         CmsUser user = cmsUserMng.findByUsername(username);
         if (user != null && sessionId != null) {
             String userSessionId = user.getSessionId();
@@ -335,8 +310,8 @@ public class ThirdLoginAct {
     }
 
     @RequestMapping(value = "/sso/login.html")
-    public void loginSso(String username, String sessionId, String ssoLogout, HttpServletRequest request, HttpServletResponse response) {
-        CmsUser user = CmsUtils.getUser(request);
+    public void loginSso(String username, String sessionId, String ssoLogout, HttpServletResponse response) {
+        CmsUser user = getUser();
         if (StringUtils.isNotBlank(username)) {
             JSONObject object = new JSONObject();
             try {
@@ -346,7 +321,7 @@ public class ThirdLoginAct {
                     List<String> authenticateUrls = config.getSsoAuthenticateUrls();
                     String success = authenticate(username, sessionId, authenticateUrls);
                     if ("true".equals(success)) {
-                        LoginUtils.loginShiro(request, response, username);
+                        LoginUtils.loginShiro(getRequest(), response, username);
                         user = cmsUserMng.findByUsername(username);
                         if (user != null) {
                             cmsUserMng.updateLoginInfo(user.getId(), null, null, sessionId);
@@ -358,7 +333,6 @@ public class ThirdLoginAct {
                     object.put("result", "logout");
                 }
             } catch (JSONException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
             ResponseUtils.renderJson(response, object.toString());
@@ -383,11 +357,7 @@ public class ThirdLoginAct {
         String success = "false";
         try {
             success = HttpRequestUtil.request(authenticateUrl, params, "post", "utf-8");
-        } catch (ClientProtocolException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return success;
@@ -396,32 +366,31 @@ public class ThirdLoginAct {
     /**
      * 用户名登陆,绑定用户名和第三方账户key
      *
-     * @param username
-     * @param request
-     * @param response
+     * @author andy_hulibo@163.com
+     * @date 2018/11/30 15:28
      */
-    private void loginByUsername(String username, HttpServletRequest request, HttpServletResponse response) {
-        String openId = (String) request.getSession().getAttribute(CmsThirdAccount.QQ_KEY);
-        String uid = (String) request.getSession().getAttribute(CmsThirdAccount.SINA_KEY);
-        String weboOpenId = (String) request.getSession().getAttribute(CmsThirdAccount.QQ_WEBO_KEY);
-        String weixinOpenId = (String) request.getSession().getAttribute(CmsThirdAccount.WEIXIN_KEY);
+    private void loginByUsername(String username, HttpServletResponse response) {
+        String openId = (String) getSession().getAttribute(CmsThirdAccount.QQ_KEY);
+        String uid = (String) getSession().getAttribute(CmsThirdAccount.SINA_KEY);
+        String weboOpenId = (String) getSession().getAttribute(CmsThirdAccount.QQ_WEBO_KEY);
+        String weixinOpenId = (String) getSession().getAttribute(CmsThirdAccount.WEIXIN_KEY);
         if (StringUtils.isNotBlank(openId)) {
-            loginShiro(request, response, username);
+            loginShiro(response, username);
             //绑定账户
             bind(username, openId, CmsThirdAccount.QQ_PLAT);
         }
         if (StringUtils.isNotBlank(uid)) {
-            loginShiro(request, response, username);
+            loginShiro(response, username);
             //绑定账户
             bind(username, uid, CmsThirdAccount.SINA_PLAT);
         }
         if (StringUtils.isNotBlank(weboOpenId)) {
-            loginShiro(request, response, username);
+            loginShiro(response, username);
             //绑定账户
             bind(username, weboOpenId, CmsThirdAccount.QQ_WEBO_PLAT);
         }
         if (StringUtils.isNotBlank(weixinOpenId)) {
-            loginShiro(request, response, username);
+            loginShiro(response, username);
             //绑定账户
             bind(username, weixinOpenId, CmsThirdAccount.WEIXIN_PLAT);
         }
@@ -430,24 +399,21 @@ public class ThirdLoginAct {
     /**
      * 已绑定用户key登录
      *
-     * @param key
-     * @param request
-     * @param response
-     * @param model
+     * @author andy_hulibo@163.com
+     * @date 2018/11/30 15:28
      */
-    private void loginByKey(String key, HttpServletRequest request,
-                            HttpServletResponse response, ModelMap model) {
+    private void loginByKey(String key, HttpServletResponse response) {
         CmsThirdAccount account = accountMng.findByKey(key);
         if (StringUtils.isNotBlank(key) && account != null) {
             String username = account.getUsername();
-            loginShiro(request, response, username);
+            loginShiro(response, username);
         }
     }
 
 
-    private void loginShiro(HttpServletRequest request, HttpServletResponse response, String username) {
+    private void loginShiro(HttpServletResponse response, String username) {
         PrincipalCollection principals = new SimplePrincipalCollection(username, username);
-        Builder builder = new WebSubject.Builder(request, response);
+        Builder builder = new WebSubject.Builder(getRequest(), response);
         builder.principals(principals);
         builder.authenticated(true);
         WebSubject subject = builder.buildWebSubject();

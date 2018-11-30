@@ -4,16 +4,15 @@ import com.bfly.cms.message.entity.CmsMessage;
 import com.bfly.cms.message.entity.CmsReceiverMessage;
 import com.bfly.cms.message.service.CmsMessageMng;
 import com.bfly.cms.message.service.CmsReceiverMessageMng;
-import com.bfly.cms.siteconfig.entity.CmsSite;
 import com.bfly.cms.system.entity.MemberConfig;
 import com.bfly.cms.user.entity.CmsUser;
 import com.bfly.cms.user.service.CmsUserMng;
 import com.bfly.common.page.Pagination;
 import com.bfly.common.web.CookieUtils;
 import com.bfly.common.web.ResponseUtils;
+import com.bfly.core.base.action.RenderController;
 import com.bfly.core.web.WebErrors;
 import com.bfly.core.web.util.CmsUtils;
-import com.bfly.core.web.util.FrontUtils;
 import com.octo.captcha.service.CaptchaServiceException;
 import com.octo.captcha.service.image.ImageCaptchaService;
 import org.json.JSONException;
@@ -25,7 +24,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.Iterator;
@@ -33,48 +31,45 @@ import java.util.List;
 import java.util.Set;
 
 import static com.bfly.common.page.SimplePage.cpn;
-import static com.bfly.core.Constants.TPLDIR_MESSAGE;
 
 /**
- * 站内信Action
+ * 站内信Controller
  *
- * @author 江西金磊科技发展有限公司
+ * @author andy_hulibo@163.com
+ * @date 2018/11/30 11:03
  */
-@Controller("memberMessageAct")
-public class MessageAct {
+@Controller
+public class MessageAct extends RenderController {
     private static final Logger log = LoggerFactory.getLogger(MessageAct.class);
 
-    public static final String MESSAGE_IN_BOX_LIST = "tpl.messageInBoxLists";
-    public static final String MESSAGE_DRAFT_LIST = "tpl.messageDraftLists";
-    public static final String MESSAGE_SEND_LIST = "tpl.messageSendLists";
-    public static final String MESSAGE_TRASH_LIST = "tpl.messageTrashLists";
-    public static final String MESSAGE_MNG = "tpl.messageMng";
-    public static final String MESSAGE_ADD = "tpl.messageAdd";
-    public static final String MESSAGE_EDIT = "tpl.messageEdit";
-    public static final String MESSAGE_READ = "tpl.messageRead";
-    public static final String MESSAGE_REPLY = "tpl.messageReply";
+    /**
+     * 校验
+     *
+     * @author andy_hulibo@163.com
+     * @date 2018/11/30 11:08
+     */
+    private String check(ModelMap model) {
+        MemberConfig mcfg = getSite().getConfig().getMemberConfig();
+        if (!mcfg.isMemberOn()) {
+            return renderMessagePage(model, "没有开启会员功能");
+        }
+        if (getUser() == null) {
+            return renderLoginPage(model);
+        }
+        return null;
+    }
 
     /**
      * 我的信息
-     * <p>
-     * 如果没有登录则跳转到登陆页
      *
-     * @param request
-     * @param model
-     * @return
+     * @author andy_hulibo@163.com
+     * @date 2018/11/30 11:04
      */
     @RequestMapping(value = "/member/message_mng.html")
-    public String message_mng(Integer box, String msg, HttpServletRequest request, ModelMap model) {
-        CmsSite site = CmsUtils.getSite(request);
-        CmsUser user = CmsUtils.getUser(request);
-        FrontUtils.frontData(request, model, site);
-        MemberConfig mcfg = site.getConfig().getMemberConfig();
-        // 没有开启会员功能
-        if (!mcfg.isMemberOn()) {
-            return FrontUtils.showMessage(request, model, "member.memberClose");
-        }
-        if (user == null) {
-            return FrontUtils.showLogin(request, model, site);
+    public String messageMng(Integer box, String msg, ModelMap model) {
+        String result = check(model);
+        if (result != null) {
+            return result;
         }
         if (box != null) {
             model.addAttribute("box", box);
@@ -82,63 +77,47 @@ public class MessageAct {
             model.addAttribute("box", 0);
         }
         model.addAttribute("msg", msg);
-        return FrontUtils.getTplPath(request, site.getSolutionPath(),
-                TPLDIR_MESSAGE, MESSAGE_MNG);
+        return renderPage("message/message_manager.html", model);
     }
 
     /**
-     * @param pageNo
-     * @param title         标题
-     * @param sendBeginTime
-     * @param sendEndTime
-     * @param status        信件状态 0未读，1已读
-     * @param box           信件邮箱 0收件箱 1发件箱 2草稿箱 3垃圾箱
-     * @param request
-     * @param response
-     * @param model
-     * @return
+     * @param title  标题
+     * @param status 信件状态 0未读，1已读
+     * @param box    信件邮箱 0收件箱 1发件箱 2草稿箱 3垃圾箱
      */
     @RequestMapping(value = "/member/message_list.html")
-    public String message_inbox(Integer pageNo, String title, Date sendBeginTime, Date sendEndTime, Boolean status, Integer box, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
-        CmsSite site = CmsUtils.getSite(request);
-        CmsUser user = CmsUtils.getUser(request);
-        FrontUtils.frontData(request, model, site);
-        MemberConfig mcfg = site.getConfig().getMemberConfig();
-        // 没有开启会员功能
-        if (!mcfg.isMemberOn()) {
-            return FrontUtils.showMessage(request, model, "member.memberClose");
-        }
-        if (user == null) {
-            return FrontUtils.showLogin(request, model, site);
+    public String messageInbox(Integer pageNo, String title, Date sendBeginTime, Date sendEndTime, Boolean status, Integer box, ModelMap model) {
+        String result = check(model);
+        if (result != null) {
+            return result;
         }
         Pagination pagination = null;
-        String returnPage = MESSAGE_IN_BOX_LIST;
-        if (box.equals(0)) {
+        String returnPage;
+        switch (box) {
             // 收件箱
-            pagination = receiverMessageMng.getPage(site.getId(), null, user
-                            .getId(), title, sendBeginTime, sendEndTime, status, box,
-                    false, cpn(pageNo), CookieUtils.getPageSize(request));
-            returnPage = MESSAGE_IN_BOX_LIST;
-        } else if (box.equals(1)) {
-            // 发件箱
-            pagination = messageMng.getPage(site.getId(), user.getId(), null,
-                    title, sendBeginTime, sendEndTime, status, box, false,
-                    cpn(pageNo), CookieUtils.getPageSize(request));
-            returnPage = MESSAGE_SEND_LIST;
-        } else if (box.equals(2)) {
-            // 草稿箱
-            pagination = messageMng.getPage(site.getId(), user.getId(), null,
-                    title, sendBeginTime, sendEndTime, status, box, false,
-                    cpn(pageNo), CookieUtils.getPageSize(request));
-            returnPage = MESSAGE_DRAFT_LIST;
-        } else if (box.equals(3)) {
-            // 垃圾箱(可能从收件箱或者从发件箱转过来)
-            pagination = receiverMessageMng.getPage(site.getId(), user.getId(),
-                    user.getId(), title, sendBeginTime, sendEndTime, status,
-                    box, false, cpn(pageNo), CookieUtils.getPageSize(request));
-            returnPage = MESSAGE_TRASH_LIST;
+            case 0:
+                pagination = receiverMessageMng.getPage(getSite().getId(), null, getUser().getId(), title, sendBeginTime, sendEndTime, status, box, false, cpn(pageNo), CookieUtils.getPageSize(getRequest()));
+                returnPage = "inbox.html";
+                break;
+            case 1:
+                // 发件箱
+                pagination = messageMng.getPage(getSite().getId(), getUser().getId(), null, title, sendBeginTime, sendEndTime, status, box, false, cpn(pageNo), CookieUtils.getPageSize(getRequest()));
+                returnPage = "sendbox.html";
+                break;
+            case 2:
+                // 草稿箱
+                pagination = messageMng.getPage(getSite().getId(), getUser().getId(), null, title, sendBeginTime, sendEndTime, status, box, false, cpn(pageNo), CookieUtils.getPageSize(getRequest()));
+                returnPage = "draftbox.html";
+                break;
+            case 3:
+                // 垃圾箱(可能从收件箱或者从发件箱转过来)
+                pagination = receiverMessageMng.getPage(getSite().getId(), getUser().getId(), getUser().getId(), title, sendBeginTime, sendEndTime, status, box, false, cpn(pageNo), CookieUtils.getPageSize(getRequest()));
+                returnPage = "trashbox.html";
+                break;
+            default:
+                returnPage = "inbox.html";
         }
-        model.addAttribute("msg", request.getAttribute("msg"));
+        model.addAttribute("msg", getRequest().getAttribute("msg"));
         model.addAttribute("pagination", pagination);
         model.addAttribute("pageNo", pageNo);
         model.addAttribute("title", title);
@@ -146,150 +125,117 @@ public class MessageAct {
         model.addAttribute("sendEndTime", sendEndTime);
         model.addAttribute("status", status);
         model.addAttribute("box", box);
-        return FrontUtils.getTplPath(request, site.getSolutionPath(),
-                TPLDIR_MESSAGE, returnPage);
+        return renderPage("message/" + returnPage, model);
     }
 
     @RequestMapping(value = "/member/message_add.html")
-    public String message_add(HttpServletRequest request,
-                              HttpServletResponse response, ModelMap model) {
-        CmsSite site = CmsUtils.getSite(request);
-        CmsUser user = CmsUtils.getUser(request);
-        FrontUtils.frontData(request, model, site);
-        MemberConfig mcfg = site.getConfig().getMemberConfig();
-        // 没有开启会员功能
-        if (!mcfg.isMemberOn()) {
-            return FrontUtils.showMessage(request, model, "member.memberClose");
+    public String messageAdd(ModelMap model) {
+        String result = check(model);
+        if (result != null) {
+            return result;
         }
-        if (user == null) {
-            return FrontUtils.showLogin(request, model, site);
-        }
-        return FrontUtils.getTplPath(request, site.getSolutionPath(),
-                TPLDIR_MESSAGE, MESSAGE_ADD);
+        return renderPage("message/send.html", model);
     }
 
     @RequestMapping(value = "/member/message_reply.html")
-    public String message_reply(Integer id, HttpServletRequest request,
-                                HttpServletResponse response, ModelMap model) {
-        CmsSite site = CmsUtils.getSite(request);
-        CmsUser user = CmsUtils.getUser(request);
-        FrontUtils.frontData(request, model, site);
-        MemberConfig mcfg = site.getConfig().getMemberConfig();
-        // 没有开启会员功能
-        if (!mcfg.isMemberOn()) {
-            return FrontUtils.showMessage(request, model, "member.memberClose");
-        }
-        if (user == null) {
-            return FrontUtils.showLogin(request, model, site);
+    public String messageReply(Integer id, ModelMap model) {
+        String result = check(model);
+        if (result != null) {
+            return result;
         }
         CmsReceiverMessage message = receiverMessageMng.findById(id);
         // 非收件人无法回复信件
-        if (!message.getMsgReceiverUser().equals(user)) {
-            WebErrors errors = WebErrors.create(request);
+        if (!message.getMsgReceiverUser().equals(getUser())) {
+            WebErrors errors = WebErrors.create(getRequest());
             errors.addErrorCode("error.noPermissionsView");
-            return FrontUtils.showError(request, response, model, errors);
+            return renderErrorPage(model, errors);
         }
         model.addAttribute("message", message);
-        return FrontUtils.getTplPath(request, site.getSolutionPath(),
-                TPLDIR_MESSAGE, MESSAGE_REPLY);
+        return renderPage("message/reply.html", model);
     }
 
-    // 直接发送
+    /**
+     * 直接发送
+     *
+     * @author andy_hulibo@163.com
+     * @date 2018/11/30 11:20
+     */
     @RequestMapping(value = "/member/message_send.html")
-    public String message_send(CmsMessage message, String username,
-                               String captcha, String nextUrl, HttpServletRequest request,
-                               HttpServletResponse response, ModelMap model) {
-        CmsSite site = CmsUtils.getSite(request);
-        CmsUser user = CmsUtils.getUser(request);
-        FrontUtils.frontData(request, model, site);
-        MemberConfig mcfg = site.getConfig().getMemberConfig();
-        // 没有开启会员功能
-        if (!mcfg.isMemberOn()) {
-            return FrontUtils.showMessage(request, model, "member.memberClose");
+    public String messageSend(CmsMessage message, String username, String captcha, String nextUrl, ModelMap model) {
+        String result = check(model);
+        if (result != null) {
+            return result;
         }
-        if (user == null) {
-            return FrontUtils.showLogin(request, model, site);
-        }
-        WebErrors errors = validateCaptcha(captcha, request, response);
+        WebErrors errors = validateCaptcha(captcha);
         if (errors.hasErrors()) {
-            return FrontUtils.showError(request, response, model, errors);
+            return renderErrorPage(model, errors);
         }
         // 发送端
         message.setMsgBox(1);
-        message.setMsgSendUser(user);
+        message.setMsgSendUser(getUser());
         CmsUser msgReceiverUser = userMng.findByUsername(username);
         message.setMsgReceiverUser(msgReceiverUser);
         message.setMsgStatus(false);
         message.setSendTime(new Date());
-        message.setSite(site);
+        message.setSite(getSite());
         messageMng.save(message);
         CmsReceiverMessage receiverMessage = new CmsReceiverMessage(message);
         receiverMessage.setMsgBox(0);
         receiverMessage.setMessage(message);
         // 接收端（有一定冗余）
         receiverMessageMng.save(receiverMessage);
-        log.info("member CmsMessage save CmsMessage success. id={}", message
-                .getId());
-        return FrontUtils.showSuccess(request, model, nextUrl);
+        log.info("member CmsMessage save CmsMessage success. id={}", message.getId());
+        return renderSuccessPage(model, nextUrl);
     }
 
-    // 存草稿
+    /**
+     * 存草稿
+     *
+     * @author andy_hulibo@163.com
+     * @date 2018/11/30 11:22
+     */
     @RequestMapping(value = "/member/message_save.html")
-    public String message_save(CmsMessage message, String username,
-                               String captcha, String nextUrl, HttpServletRequest request,
-                               HttpServletResponse response, ModelMap model) {
-        CmsSite site = CmsUtils.getSite(request);
-        CmsUser user = CmsUtils.getUser(request);
-        FrontUtils.frontData(request, model, site);
-        MemberConfig mcfg = site.getConfig().getMemberConfig();
-        // 没有开启会员功能
-        if (!mcfg.isMemberOn()) {
-            return FrontUtils.showMessage(request, model, "member.memberClose");
+    public String messageSave(CmsMessage message, String username, String captcha, String nextUrl, ModelMap model) {
+        String result = check(model);
+        if (result != null) {
+            return result;
         }
-        if (user == null) {
-            return FrontUtils.showLogin(request, model, site);
-        }
-        WebErrors errors = validateCaptcha(captcha, request, response);
+        WebErrors errors = validateCaptcha(captcha);
         if (errors.hasErrors()) {
-            return FrontUtils.showError(request, response, model, errors);
+            return renderErrorPage(model, errors);
         }
         message.setMsgBox(2);
-        message.setMsgSendUser(user);
+        message.setMsgSendUser(getUser());
         CmsUser msgReceiverUser = userMng.findByUsername(username);
         message.setMsgReceiverUser(msgReceiverUser);
         message.setMsgStatus(false);
         // 作为草稿和发件箱的区别
         message.setSendTime(null);
-        // message.setSendTime(new Date());
-        message.setSite(site);
+        message.setSite(getSite());
         messageMng.save(message);
         CmsReceiverMessage receiverMessage = new CmsReceiverMessage(message);
         receiverMessage.setMsgBox(2);
         receiverMessage.setMessage(message);
         // 接收端（有一定冗余）
         receiverMessageMng.save(receiverMessage);
-        return FrontUtils.showSuccess(request, model, nextUrl);
+        return renderSuccessPage(model, nextUrl);
     }
 
-    // 发送
+    /**
+     * 发送
+     *
+     * @author andy_hulibo@163.com
+     * @date 2018/11/30 11:23
+     */
     @RequestMapping(value = "/member/message_tosend.html")
-    public String message_tosend(Integer id, String nextUrl, String captcha,
-                                 HttpServletRequest request, HttpServletResponse response,
-                                 ModelMap model) {
-        CmsSite site = CmsUtils.getSite(request);
-        CmsUser user = CmsUtils.getUser(request);
-        FrontUtils.frontData(request, model, site);
-        MemberConfig mcfg = site.getConfig().getMemberConfig();
-        // 没有开启会员功能
-        if (!mcfg.isMemberOn()) {
-            return FrontUtils.showMessage(request, model, "member.memberClose");
+    public String messageToSend(Integer id, String nextUrl, String captcha, ModelMap model) {
+        String result = check(model);
+        if (result != null) {
+            return result;
         }
-        if (user == null) {
-            return FrontUtils.showLogin(request, model, site);
-        }
-        WebErrors errors = validateCaptcha(captcha, request, response);
+        WebErrors errors = validateCaptcha(captcha);
         if (errors.hasErrors()) {
-            return FrontUtils.showError(request, response, model, errors);
+            return renderErrorPage(model, errors);
         }
         CmsMessage message = messageMng.findById(id);
         message.setMsgBox(1);
@@ -308,53 +254,35 @@ public class MessageAct {
         }
         log.info("member CmsMessage save CmsMessage success. id={}", message
                 .getId());
-        return FrontUtils.showSuccess(request, model, nextUrl);
+        return renderSuccessPage(model, nextUrl);
     }
 
     @RequestMapping(value = "/member/message_edit.html")
-    public String message_edit(Integer id, HttpServletRequest request,
-                               HttpServletResponse response, ModelMap model) {
-        CmsSite site = CmsUtils.getSite(request);
-        CmsUser user = CmsUtils.getUser(request);
-        FrontUtils.frontData(request, model, site);
-        MemberConfig mcfg = site.getConfig().getMemberConfig();
-        // 没有开启会员功能
-        if (!mcfg.isMemberOn()) {
-            return FrontUtils.showMessage(request, model, "member.memberClose");
-        }
-        if (user == null) {
-            return FrontUtils.showLogin(request, model, site);
+    public String messageEdit(Integer id, ModelMap model) {
+        String result = check(model);
+        if (result != null) {
+            return result;
         }
         CmsMessage message = messageMng.findById(id);
         // 非发件人无权查看信件
-        if (!message.getMsgSendUser().equals(user)) {
-            WebErrors errors = WebErrors.create(request);
+        if (!message.getMsgSendUser().equals(getUser())) {
+            WebErrors errors = WebErrors.create(getRequest());
             errors.addErrorCode("error.noPermissionsView");
-            return FrontUtils.showError(request, response, model, errors);
+            return renderErrorPage(model, errors);
         }
         model.addAttribute("message", message);
-        return FrontUtils.getTplPath(request, site.getSolutionPath(),
-                TPLDIR_MESSAGE, MESSAGE_EDIT);
+        return renderPage("message/edit.html", model);
     }
 
     @RequestMapping(value = "/member/message_update.html")
-    public String message_update(CmsMessage message, String nextUrl,
-                                 String captcha, HttpServletRequest request,
-                                 HttpServletResponse response, ModelMap model) {
-        CmsSite site = CmsUtils.getSite(request);
-        CmsUser user = CmsUtils.getUser(request);
-        FrontUtils.frontData(request, model, site);
-        MemberConfig mcfg = site.getConfig().getMemberConfig();
-        // 没有开启会员功能
-        if (!mcfg.isMemberOn()) {
-            return FrontUtils.showMessage(request, model, "member.memberClose");
+    public String messageUpdate(CmsMessage message, String nextUrl, String captcha, ModelMap model) {
+        String result = check(model);
+        if (result != null) {
+            return result;
         }
-        if (user == null) {
-            return FrontUtils.showLogin(request, model, site);
-        }
-        WebErrors errors = validateCaptcha(captcha, request, response);
+        WebErrors errors = validateCaptcha(captcha);
         if (errors.hasErrors()) {
-            return FrontUtils.showError(request, response, model, errors);
+            return renderErrorPage(model, errors);
         }
         message = messageMng.update(message);
         // 更新发送表的信息，收件表的信息同步更新
@@ -372,42 +300,30 @@ public class MessageAct {
         }
         log.info("member CmsMessage update CmsMessage success. id={}", message
                 .getId());
-        return FrontUtils.showSuccess(request, model, nextUrl);
+        return renderSuccessPage(model, nextUrl);
     }
 
     @RequestMapping(value = "/member/message_read.html")
-    public String message_read(Integer id, Integer box,
-                               HttpServletRequest request, HttpServletResponse response,
-                               ModelMap model) {
-        CmsSite site = CmsUtils.getSite(request);
-        CmsUser user = CmsUtils.getUser(request);
-        FrontUtils.frontData(request, model, site);
-        MemberConfig mcfg = site.getConfig().getMemberConfig();
-        // 没有开启会员功能
-        if (!mcfg.isMemberOn()) {
-            return FrontUtils.showMessage(request, model, "member.memberClose");
-        }
-        if (user == null) {
-            return FrontUtils.showLogin(request, model, site);
+    public String messageRead(Integer id, Integer box, ModelMap model) {
+        String result = check(model);
+        if (result != null) {
+            return result;
         }
         CmsReceiverMessage message = receiverMessageMng.findById(id);
         if (message != null) {
             // 阅读收信
             // 非收件人和发件人无权查看信件
-            if (!message.getMsgReceiverUser().equals(user)
-                    && !message.getMsgSendUser().equals(user)) {
-                WebErrors errors = WebErrors.create(request);
+            CmsUser user = getUser();
+            if (!message.getMsgReceiverUser().equals(getUser()) && !message.getMsgSendUser().equals(user)) {
+                WebErrors errors = WebErrors.create(getRequest());
                 errors.addErrorCode("error.noPermissionsView");
-                return FrontUtils.showError(request, response, model, errors);
+                return renderErrorPage(model, errors);
             }
             // 收件人查看更新已读状态
             if (message.getMsgReceiverUser().equals(user)) {
                 message.setMsgStatus(true);
                 receiverMessageMng.update(message);
-                log
-                        .info(
-                                "member CmsMessage read CmsMessage success. id={}",
-                                id);
+                log.info("member CmsMessage read CmsMessage success. id={}", id);
             }
             model.addAttribute("message", message);
         } else {
@@ -416,24 +332,17 @@ public class MessageAct {
             model.addAttribute("message", msg);
         }
         model.addAttribute("box", box);
-        return FrontUtils.getTplPath(request, site.getSolutionPath(),
-                TPLDIR_MESSAGE, MESSAGE_READ);
+        return renderPage("message/read.html", model);
     }
 
-    // 转发
+    /**
+     * 转发
+     */
     @RequestMapping(value = "/member/message_forward.html")
-    public String message_forward(Integer id, HttpServletRequest request,
-                                  HttpServletResponse response, ModelMap model) {
-        CmsSite site = CmsUtils.getSite(request);
-        CmsUser user = CmsUtils.getUser(request);
-        FrontUtils.frontData(request, model, site);
-        MemberConfig mcfg = site.getConfig().getMemberConfig();
-        // 没有开启会员功能
-        if (!mcfg.isMemberOn()) {
-            return FrontUtils.showMessage(request, model, "member.memberClose");
-        }
-        if (user == null) {
-            return FrontUtils.showLogin(request, model, site);
+    public String messageForward(Integer id, ModelMap model) {
+        String result = check(model);
+        if (result != null) {
+            return result;
         }
         CmsReceiverMessage receiverMessage = receiverMessageMng.findById(id);
         CmsMessage message;
@@ -443,15 +352,15 @@ public class MessageAct {
             message = messageMng.findById(id);
             model.addAttribute("message", message);
         }
-        return FrontUtils.getTplPath(request, site.getSolutionPath(),
-                TPLDIR_MESSAGE, MESSAGE_ADD);
+        return renderPage("message/send.html", model);
     }
 
-    // 清空信息到垃圾箱
+    /**
+     * 清空信息到垃圾箱
+     */
     @RequestMapping(value = "/member/message_trash.html")
-    public void message_trash(HttpServletRequest request,
-                              HttpServletResponse response, ModelMap model) throws JSONException {
-        CmsUser user = CmsUtils.getUser(request);
+    public void messageTrash(HttpServletResponse response) throws JSONException {
+        CmsUser user = CmsUtils.getUser(getRequest());
         JSONObject object = new JSONObject();
         CmsMessage message;
         CmsReceiverMessage receiverMessage;
@@ -459,7 +368,7 @@ public class MessageAct {
             object.put("result", false);
         } else {
             Iterator<CmsReceiverMessage> it;
-            String[] ids = request.getParameterValues("ids");
+            String[] ids = getRequest().getParameterValues("ids");
             Integer id;
             if (ids != null && ids.length > 0) {
                 for (Integer i = 0; i < ids.length; i++) {
@@ -508,84 +417,93 @@ public class MessageAct {
         ResponseUtils.renderJson(response, object.toString());
     }
 
-    // 还原垃圾箱信息
+    /**
+     * 还原垃圾箱信息
+     *
+     * @author andy_hulibo@163.com
+     * @date 2018/11/30 11:30
+     */
     @RequestMapping(value = "/member/message_revert.html")
-    public void message_revert(HttpServletRequest request,
-                               HttpServletResponse response, ModelMap model) throws JSONException {
-        CmsUser user = CmsUtils.getUser(request);
+    public void messageRevert(HttpServletResponse response) throws JSONException {
+        CmsUser user = getUser();
         JSONObject object = new JSONObject();
         CmsReceiverMessage receiverMessage;
         if (user == null) {
             object.put("result", false);
         } else {
-            String[] ids = request.getParameterValues("ids");
-            for (Integer i = 0; i < ids.length; i++) {
-                Integer id = Integer.parseInt(ids[i]);
+            String[] ids = getRequest().getParameterValues("ids");
+            for (String idStr : ids) {
+                Integer id = Integer.parseInt(idStr);
                 receiverMessage = receiverMessageMng.findById(id);
                 // 收件箱
-                if (receiverMessage != null
-                        && receiverMessage.getMsgReceiverUser().equals(user)) {
+                if (receiverMessage != null && receiverMessage.getMsgReceiverUser().equals(user)) {
                     receiverMessage.setMsgBox(0);
                     receiverMessageMng.update(receiverMessage);
                 }
-                log.info("member CmsMessage revert CmsMessage success. id={}",
-                        ids[i]);
+                log.info("member CmsMessage revert CmsMessage success. id={}", idStr);
             }
             object.put("result", true);
         }
         ResponseUtils.renderJson(response, object.toString());
     }
 
-    // 清空垃圾箱信息
+    /**
+     * 清空垃圾箱信息
+     *
+     * @author andy_hulibo@163.com
+     * @date 2018/11/30 11:31
+     */
     @RequestMapping(value = "/member/message_empty.html")
-    public void message_empty(HttpServletRequest request,
-                              HttpServletResponse response, ModelMap model) throws JSONException {
-        CmsUser user = CmsUtils.getUser(request);
+    public void messageEmpty(HttpServletResponse response) throws JSONException {
+        CmsUser user = getUser();
         JSONObject object = new JSONObject();
-        CmsMessage message;
         CmsReceiverMessage receiverMessage;
         if (user == null) {
             object.put("result", false);
         } else {
-            String[] ids = request.getParameterValues("ids");
-            for (Integer i = 0; i < ids.length; i++) {
+            String[] ids = getRequest().getParameterValues("ids");
+            for (String idStr : ids) {
                 // 清空收到的站内信
-                Integer id = Integer.parseInt(ids[i]);
+                Integer id = Integer.parseInt(idStr);
                 receiverMessage = receiverMessageMng.findById(id);
-                if (receiverMessage != null
-                        && receiverMessage.getMsgReceiverUser().equals(user)) {
+                if (receiverMessage != null && receiverMessage.getMsgReceiverUser().equals(user)) {
                     receiverMessageMng.deleteById(id);
                 } else {
-                    // 清空发送的站内信
-                    message = receiverMessage.getMessage();
-                    if (receiverMessage.getMsgBox().equals(3)) {
-                        // 草稿直接删除
-                        receiverMessage.setMessage(null);
-                        if (message != null) {
-                            messageMng.deleteById(message.getId());
+                    CmsMessage message=null;
+                    if (receiverMessage != null) {
+                        // 清空发送的站内信
+                        message = receiverMessage.getMessage();
+                        if (receiverMessage.getMsgBox().equals(3)) {
+                            // 草稿直接删除
+                            receiverMessage.setMessage(null);
+                            if (message != null) {
+                                messageMng.deleteById(message.getId());
+                            }
+                        } else {
+                            // 非草稿删除和主表的关联
+                            receiverMessage.setMessage(null);
                         }
-                    } else {
-                        // 非草稿删除和主表的关联
-                        receiverMessage.setMessage(null);
                     }
-                    if (message != null
-                            && message.getMsgSendUser().equals(user)) {
+                    if (message != null && message.getMsgSendUser().equals(user)) {
                         messageMng.deleteById(message.getId());
                     }
                 }
-                log.info("member CmsMessage empty CmsMessage success. id={}",
-                        ids[i]);
+                log.info("member CmsMessage empty CmsMessage success. id={}", idStr);
             }
             object.put("result", true);
         }
         ResponseUtils.renderJson(response, object.toString());
     }
 
-    // 查找是否存在该用户
+    /**
+     * 查找是否存在该用户
+     *
+     * @author andy_hulibo@163.com
+     * @date 2018/11/30 11:31
+     */
     @RequestMapping(value = "/member/message_findUser.html")
-    public void findUserByUserName(String username, HttpServletRequest request,
-                                   HttpServletResponse response, ModelMap model) throws JSONException {
-        CmsUser user = CmsUtils.getUser(request);
+    public void findUserByUserName(String username, HttpServletResponse response) throws JSONException {
+        CmsUser user = getUser();
         JSONObject object = new JSONObject();
         if (user == null) {
             object.put("result", false);
@@ -598,19 +516,20 @@ public class MessageAct {
         ResponseUtils.renderJson(response, object.toString());
     }
 
-    // 查找未读信息条数
+    /**
+     * 查找未读信息条数
+     *
+     * @author andy_hulibo@163.com
+     * @date 2018/11/30 11:31
+     */
     @RequestMapping(value = "/member/message_countUnreadMsg.html")
-    public void findUnreadMessagesByUser(HttpServletRequest request,
-                                         HttpServletResponse response, ModelMap model) throws JSONException {
-        CmsUser user = CmsUtils.getUser(request);
-        CmsSite site = CmsUtils.getSite(request);
+    public void findUnreadMessagesByUser(HttpServletResponse response) throws JSONException {
+        CmsUser user = getUser();
         JSONObject object = new JSONObject();
         if (user == null) {
             object.put("result", false);
         } else {
-            List<CmsReceiverMessage> receiverMessages = receiverMessageMng
-                    .getList(site.getId(), null, user.getId(), null, null,
-                            null, false, 0, false, 0, 500);
+            List<CmsReceiverMessage> receiverMessages = receiverMessageMng.getList(getSite().getId(), null, user.getId(), null, null, null, false, 0, false, 0, 500);
             object.put("result", true);
             if (receiverMessages != null && receiverMessages.size() > 0) {
                 object.put("count", receiverMessages.size());
@@ -622,59 +541,51 @@ public class MessageAct {
         ResponseUtils.renderJson(response, object.toString());
     }
 
-    // 物理删除信件（暂时无用）
+    /**
+     * 物理删除信件（暂时无用）
+     *
+     * @author andy_hulibo@163.com
+     * @date 2018/11/30 11:32
+     */
     @RequestMapping(value = "/member/message_delete.html")
-    public String message_delete(String nextUrl,
-                                 HttpServletRequest request, HttpServletResponse response,
-                                 ModelMap model) {
-        CmsSite site = CmsUtils.getSite(request);
-        CmsUser user = CmsUtils.getUser(request);
-        FrontUtils.frontData(request, model, site);
-        MemberConfig mcfg = site.getConfig().getMemberConfig();
-        // 没有开启会员功能
-        if (!mcfg.isMemberOn()) {
-            return FrontUtils.showMessage(request, model, "member.memberClose");
-        }
-        if (user == null) {
-            return FrontUtils.showLogin(request, model, site);
+    public String messageDelete(String nextUrl, ModelMap model) {
+        String result = check(model);
+        if (result != null) {
+            return result;
         }
         CmsMessage message;
         Boolean permission = true;
-        String ids[] = request.getParameterValues("ids");
-        if (ids != null && ids.length > 0) {
+        String ids[] = getRequest().getParameterValues("ids");
+        if (ids != null) {
             Integer[] intIds = new Integer[ids.length];
+            CmsUser user = getUser();
             for (Integer i = 0; i < ids.length; i++) {
                 Integer id = Integer.parseInt(ids[i]);
                 intIds[i] = id;
                 message = messageMng.findById(id);
                 // 非收件人和发件人无权查看信件
-                if (!message.getMsgReceiverUser().equals(user)
-                        && !message.getMsgSendUser().equals(user)) {
+                if (!message.getMsgReceiverUser().equals(user) && !message.getMsgSendUser().equals(user)) {
                     permission = false;
                 }
             }
             if (permission) {
                 messageMng.deleteByIds(intIds);
-                for (Integer i = 0; i < ids.length; i++) {
-                    log
-                            .info(
-                                    "member CmsMessage delete CmsMessage success. id={}",
-                                    ids[i]);
+                for (String id : ids) {
+                    log.info("member CmsMessage delete CmsMessage success. id={}", id);
                 }
             } else {
-                WebErrors errors = WebErrors.create(request);
+                WebErrors errors = WebErrors.create(getRequest());
                 errors.addErrorCode("error.noPermissionsView");
-                return FrontUtils.showError(request, response, model, errors);
+                return renderErrorPage(model, errors);
             }
         }
-        return FrontUtils.showSuccess(request, model, nextUrl);
+        return renderSuccessPage(model, nextUrl);
     }
 
-    private WebErrors validateCaptcha(String captcha,
-                                      HttpServletRequest request, HttpServletResponse response) {
-        WebErrors errors = WebErrors.create(request);
+    private WebErrors validateCaptcha(String captcha) {
+        WebErrors errors = WebErrors.create(getRequest());
         try {
-            if (!imageCaptchaService.validateResponseForID(request.getSession().getId(), captcha)) {
+            if (!imageCaptchaService.validateResponseForID(getSession().getId(), captcha)) {
                 errors.addErrorCode("error.invalidCaptcha");
                 return errors;
             }

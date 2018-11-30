@@ -1,15 +1,15 @@
 package com.bfly.cms.vote.action;
 
-import com.bfly.core.web.ApiResponse;
-import com.bfly.core.web.ApiValidate;
-import com.bfly.core.Constants;
-import com.bfly.core.web.ResponseCode;
 import com.bfly.cms.user.entity.CmsUser;
 import com.bfly.cms.vote.entity.CmsVoteTopic;
 import com.bfly.cms.webservice.entity.ApiRecord;
 import com.bfly.cms.webservice.service.ApiRecordMng;
 import com.bfly.common.util.ArrayUtils;
 import com.bfly.common.web.ResponseUtils;
+import com.bfly.core.Constants;
+import com.bfly.core.web.ApiResponse;
+import com.bfly.core.web.ApiValidate;
+import com.bfly.core.web.ResponseCode;
 import com.bfly.core.web.WebErrors;
 import com.bfly.core.web.util.CmsUtils;
 import org.apache.commons.lang.StringUtils;
@@ -75,9 +75,7 @@ public class CmsVoteApiAct extends AbstractVote {
      * @param id 投票ID
      */
     @RequestMapping(value = "/api/front/vote/get")
-    public void cmsVoteGet(Integer id,
-                           HttpServletRequest request, HttpServletResponse response)
-            throws JSONException {
+    public void cmsVoteGet(Integer id, HttpServletRequest request, HttpServletResponse response) throws JSONException {
         String body = "\"\"";
         String message = Constants.API_MESSAGE_PARAM_REQUIRED;
         String code = ResponseCode.API_CODE_PARAM_REQUIRED;

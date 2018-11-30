@@ -1,14 +1,10 @@
 package com.bfly.cms.content.action;
 
-import com.bfly.core.web.ApiResponse;
-import com.bfly.core.web.ApiValidate;
-import com.bfly.core.Constants;
-import com.bfly.core.web.ResponseCode;
 import com.bfly.cms.channel.entity.Channel;
 import com.bfly.cms.channel.service.ChannelMng;
 import com.bfly.cms.content.entity.CmsTopic;
-import com.bfly.cms.logs.service.CmsLogMng;
 import com.bfly.cms.content.service.CmsTopicMng;
+import com.bfly.cms.logs.service.CmsLogMng;
 import com.bfly.cms.resource.service.CmsFileMng;
 import com.bfly.cms.resource.service.TplManager;
 import com.bfly.cms.siteconfig.entity.CmsSite;
@@ -17,7 +13,11 @@ import com.bfly.common.util.ChineseCharToEn;
 import com.bfly.common.util.StrUtils;
 import com.bfly.common.web.ResponseUtils;
 import com.bfly.common.web.springmvc.MessageResolver;
+import com.bfly.core.Constants;
 import com.bfly.core.annotation.SignValidate;
+import com.bfly.core.web.ApiResponse;
+import com.bfly.core.web.ApiValidate;
+import com.bfly.core.web.ResponseCode;
 import com.bfly.core.web.WebErrors;
 import com.bfly.core.web.util.CmsUtils;
 import com.bfly.core.web.util.CoreUtils;
@@ -36,7 +36,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.bfly.core.Constants.TPLDIR_TOPIC;
-import static com.bfly.cms.content.action.TopicAct.TOPIC_INDEX;
 
 /**
  * 专题管理Controller
@@ -275,7 +274,7 @@ public class CmsTopicApiAct {
         List<String> tplList = tplManager.getNameListByPrefix(site
                 .getSolutionPath()
                 + "/" + TPLDIR_TOPIC + "/");
-        String tplIndex = MessageResolver.getMessage(request, TOPIC_INDEX);
+        String tplIndex = MessageResolver.getMessage(request, "tpl.topicIndex");
         tplList = CoreUtils.tplTrim(tplList, site.getTplPath(), tpl, tplIndex);
         return tplList;
     }

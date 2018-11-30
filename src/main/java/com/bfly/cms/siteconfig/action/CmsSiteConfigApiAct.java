@@ -95,10 +95,6 @@ public class CmsSiteConfigApiAct {
                     code = ResponseCode.API_CODE_ACCESSPATH_EXIST;
                 }
             } else {
-                String tplPath = bean.getTplPath();
-                if (StringUtils.isNotBlank(bean.getTplIndex())) {
-                    bean.setTplIndex(tplPath + bean.getTplIndex());
-                }
                 bean.setId(site.getId());
                 if (ossId != null) {
                     CmsOss oss = ossMng.findById(ossId);

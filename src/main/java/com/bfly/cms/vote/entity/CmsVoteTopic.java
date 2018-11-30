@@ -1,8 +1,8 @@
 package com.bfly.cms.vote.entity;
 
+import com.bfly.cms.siteconfig.entity.CmsSite;
 import com.bfly.common.hibernate4.PriorityComparator;
 import com.bfly.common.util.DateUtils;
-import com.bfly.cms.siteconfig.entity.CmsSite;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -27,6 +27,71 @@ import java.util.Set;
 @Table(name = "jc_vote_topic")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class CmsVoteTopic implements Serializable {
+
+    /**
+     * 投票cookie前缀
+     */
+    public static final String VOTE_COOKIE_PREFIX = "_vote_cookie_";
+
+    /**
+     * 投票ID不能为空
+     */
+    public static final int VOTE_STATUS_ID_NULL = 1;
+
+    /**
+     * 回复内容含有敏感词
+     */
+    public static final int VOTE_STATUS_HAS_SENSITIVE = 10;
+
+    /**
+     * 投票主题不存在
+     */
+    public static final int VOTE_STATUS_NOT_FOUND = 100;
+
+    /**
+     * 投票项不合法
+     */
+    public static final int VOTE_STATUS_ITEM_ILLEGAL = 101;
+
+    /**
+     * 需要登录才能投票
+     */
+    public static final int VOTE_STATUS_NEED_LOGIN = 501;
+
+    /**
+     * 投票主题已经关闭
+     */
+    public static final int VOTE_STATUS_CLOSED = 200;
+
+    /**
+     * 投票还没有开始
+     */
+    public static final int VOTE_STATUS_NOT_BEGIN = 202;
+
+    /**
+     * 投票已经结束
+     */
+    public static final int VOTE_STATUS_ENDED = 203;
+
+    /**
+     * 规定时间内，同一会员不能重复投票
+     */
+    public static final int VOTE_STATUS_LIMIT_USER_REPEAT = 204;
+
+    /**
+     * 投票项不能为空
+     */
+    public static final int VOTE_STATUS_ITEM_NULL = 2;
+
+    /**
+     * 规定时间内，同一IP不能重复投票
+     */
+    public static final int VOTE_STATUS_LIMIT_IP_REPEAT = 205;
+
+    /**
+     * 规定时间内，同一COOKIE不能重复投票
+     */
+    public static final int VOTE_STATUS_LIMIT_COOKIE_REPEAT = 206;
     private static final long serialVersionUID = 1L;
     public static String PROP_REPEATE_HOUR = "repeateHour";
     public static String PROP_END_TIME = "endTime";
@@ -367,7 +432,7 @@ public class CmsVoteTopic implements Serializable {
     @SortComparator(value = PriorityComparator.class)
     private Set<CmsVoteItem> items;
 
-    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true,mappedBy = "voteTopic")
+    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true, mappedBy = "voteTopic")
     @SortComparator(value = PriorityComparator.class)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
     private Set<CmsVoteSubTopic> subtopics;

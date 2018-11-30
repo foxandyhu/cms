@@ -9,21 +9,16 @@ import com.bfly.cms.content.service.ContentBuyMng;
 import com.bfly.cms.content.service.ContentChargeMng;
 import com.bfly.cms.content.service.ContentMng;
 import com.bfly.cms.funds.service.CmsUserAccountMng;
-import com.bfly.cms.siteconfig.entity.CmsSite;
 import com.bfly.cms.system.entity.CmsConfigContentCharge;
 import com.bfly.cms.system.service.CmsConfigContentChargeMng;
 import com.bfly.cms.user.entity.CmsUser;
 import com.bfly.cms.user.service.CmsUserMng;
 import com.bfly.common.page.Pagination;
 import com.bfly.common.util.*;
-import com.bfly.common.web.Constants;
-import com.bfly.common.web.CookieUtils;
-import com.bfly.common.web.HttpClientUtil;
-import com.bfly.common.web.ResponseUtils;
+import com.bfly.common.web.*;
 import com.bfly.config.SocialInfoConfig;
+import com.bfly.core.base.action.RenderController;
 import com.bfly.core.web.WebErrors;
-import com.bfly.core.web.util.CmsUtils;
-import com.bfly.core.web.util.FrontUtils;
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
 import org.apache.commons.lang.RandomStringUtils;
@@ -38,73 +33,63 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
 
 import static com.bfly.common.page.SimplePage.cpn;
-import static com.bfly.core.Constants.TPLDIR_SPECIAL;
 
+/**
+ * 付费内容订单
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/11/29 17:48
+ */
 @Controller
-public class ContentOrderAct {
-    //收费
-    public static final Integer CONTENT_PAY_MODEL_CHARGE = 1;
-    //打赏
-    public static final Integer CONTENT_PAY_MODEL_REWARD = 2;
+public class ContentOrderAct extends RenderController {
 
-    public static final String CONTENT_REWARD = "tpl.content.reward";
-    public static final String CONTENT_ALIPAY_MOBILE = "tpl.content.alipay.mobile";
-    public static final String CONTENT_ORDERS = "tpl.content.orders";
-
-    //支付购买（先选择支付方式，在进行支付）
+    /**
+     * 支付购买（先选择支付方式，在进行支付）
+     *
+     * @author andy_hulibo@163.com
+     * @date 2018/11/29 17:49
+     */
     @RequestMapping(value = "/content/buy.html")
-    public String contentBuy(Integer contentId,
-                             HttpServletRequest request,
-                             HttpServletResponse response, ModelMap model) throws JSONException {
-        WebErrors errors = WebErrors.create(request);
-        CmsUser user = CmsUtils.getUser(request);
-        CmsSite site = CmsUtils.getSite(request);
-        if (user == null) {
-            return FrontUtils.showLogin(request, model, site);
-        } else {
-            if (contentId == null) {
-                errors.addErrorCode("error.required", "contentId");
-                return FrontUtils.showError(request, response, model, errors);
-            } else {
-                Content content = contentMng.findById(contentId);
-                if (content != null) {
-                    if (content.getChargeAmount() <= 0) {
-                        errors.addErrorCode("error.contentChargeAmountError");
-                        return FrontUtils.showError(request, response, model, errors);
-                    } else {
-                        String ua = request.getHeader("user-agent")
-                                .toLowerCase();
-                        boolean webCatBrowser = false;
-                        String wxopenid = null;
-                        if (ua.indexOf("micromessenger") > 0) {
-                            // 是微信浏览器
-                            webCatBrowser = true;
-                            wxopenid = (String) request.getSession().getAttribute("wxopenid");
-                        }
-                        String orderNumber = System.currentTimeMillis() + RandomStringUtils.random(5, Num62.N10_CHARS);
-                        FrontUtils.frontData(request, model, site);
-                        model.addAttribute("contentId", contentId);
-                        model.addAttribute("orderNumber", orderNumber);
-                        model.addAttribute("content", content);
-                        model.addAttribute("type", ContentCharge.MODEL_CHARGE);
-                        model.addAttribute("webCatBrowser", webCatBrowser);
-                        model.addAttribute("wxopenid", wxopenid);
-                        return FrontUtils.getTplPath(request, site.getSolutionPath(),
-                                TPLDIR_SPECIAL, CONTENT_REWARD);
-                    }
-                } else {
-                    errors.addErrorCode("error.beanNotFound", "content");
-                    return FrontUtils.showError(request, response, model, errors);
-                }
-            }
+    public String contentBuy(Integer contentId, ModelMap model) throws JSONException {
+        WebErrors errors = WebErrors.create(getRequest());
+        if (getUser() == null) {
+            return renderLoginPage(model);
         }
+        if (contentId == null) {
+            errors.addErrorCode("error.required", "contentId");
+            return renderErrorPage(model, errors);
+        }
+        Content content = contentMng.findById(contentId);
+        if (content == null) {
+            errors.addErrorCode("error.beanNotFound", "content");
+            return renderErrorPage(model, errors);
+        }
+        if (content.getChargeAmount() <= 0) {
+            errors.addErrorCode("error.contentChargeAmountError");
+            return renderErrorPage(model, errors);
+        }
+        String ua = getRequest().getHeader("user-agent").toLowerCase();
+        boolean webCatBrowser = false;
+        String wxOpenId = null;
+        if (ua.indexOf("micromessenger") > 0) {
+            // 是微信浏览器
+            webCatBrowser = true;
+            wxOpenId = (String) getSession().getAttribute("wxopenid");
+        }
+        String orderNumber = System.currentTimeMillis() + RandomStringUtils.random(5, Num62.N10_CHARS);
+        model.addAttribute("contentId", contentId);
+        model.addAttribute("orderNumber", orderNumber);
+        model.addAttribute("content", content);
+        model.addAttribute("type", ContentCharge.MODEL_CHARGE);
+        model.addAttribute("webCatBrowser", webCatBrowser);
+        model.addAttribute("wxopenid", wxOpenId);
+        return renderPage("special/content_reward.html", model);
     }
 
     /**
@@ -114,128 +99,107 @@ public class ContentOrderAct {
      * @date 2018/11/28 15:53
      */
     @RequestMapping(value = "/content/reward.html")
-    public String contentReward(Integer contentId, HttpServletRequest request, HttpServletResponse response, ModelMap model) throws JSONException {
-        WebErrors errors = WebErrors.create(request);
-        CmsSite site = CmsUtils.getSite(request);
+    public String contentReward(Integer contentId, ModelMap model) throws JSONException {
+        WebErrors errors = WebErrors.create(getRequest());
         if (contentId == null) {
             errors.addErrorCode("error.required", "contentId");
-            return FrontUtils.showError(request, response, model, errors);
-        } else {
-            Content content = contentMng.findById(contentId);
-            if (content != null) {
-                String ua = request.getHeader("user-agent")
-                        .toLowerCase();
-                boolean webCatBrowser = false;
-                String wxopenid = null;
-                if (ua.indexOf("micromessenger") > 0) {
-                    // 是微信浏览器
-                    webCatBrowser = true;
-                    wxopenid = (String) request.getSession().getAttribute("wxopenid");
-                }
-
-                CmsConfigContentCharge config = configContentChargeMng.getDefault();
-                Double max = config.getRewardMax();
-                Double min = config.getRewardMin();
-                List<Double> randomList = new ArrayList<>();
-                Double s = 1d;
-                for (int i = 0; i < 6; i++) {
-                    s = StrUtils.retainTwoDecimal(min + ((max - min) * new Random().nextDouble()));
-                    randomList.add(s);
-                }
-                String orderNumber = System.currentTimeMillis() + RandomStringUtils.random(5, Num62.N10_CHARS);
-                FrontUtils.frontData(request, model, site);
-                model.addAttribute("contentId", contentId);
-                model.addAttribute("orderNumber", orderNumber);
-                model.addAttribute("content", content);
-                model.addAttribute("type", ContentCharge.MODEL_REWARD);
-                model.addAttribute("webCatBrowser", webCatBrowser);
-                model.addAttribute("wxopenid", wxopenid);
-                model.addAttribute("randomList", randomList);
-                model.addAttribute("randomOne", s);
-                return FrontUtils.getTplPath(request, site.getSolutionPath(),
-                        TPLDIR_SPECIAL, CONTENT_REWARD);
-            } else {
-                errors.addErrorCode("error.beanNotFound", "content");
-                return FrontUtils.showError(request, response, model, errors);
-            }
+            return renderErrorPage(model, errors);
         }
-    }
-
-    @RequestMapping(value = "/content/fixSelect.html")
-    public String contentFixSelect(
-            Integer contentId, String orderNumber,
-            Double rewardAmount, Short chargeReward,
-            HttpServletRequest request,
-            HttpServletResponse response, ModelMap model) throws JSONException {
-        WebErrors errors = WebErrors.create(request);
-        CmsSite site = CmsUtils.getSite(request);
-        String ua = ((HttpServletRequest) request).getHeader("user-agent")
-                .toLowerCase();
+        Content content = contentMng.findById(contentId);
+        if (content == null) {
+            errors.addErrorCode("error.beanNotFound", "content");
+            return renderErrorPage(model, errors);
+        }
+        String ua = getRequest().getHeader("user-agent").toLowerCase();
         boolean webCatBrowser = false;
         String wxopenid = null;
         if (ua.indexOf("micromessenger") > 0) {
             // 是微信浏览器
             webCatBrowser = true;
-            wxopenid = (String) request.getSession().getAttribute("wxopenid");
+            wxopenid = (String) getSession().getAttribute("wxopenid");
+        }
+        CmsConfigContentCharge config = configContentChargeMng.getDefault();
+        Double max = config.getRewardMax();
+        Double min = config.getRewardMin();
+        List<Double> randomList = new ArrayList<>();
+        Double s = 1d;
+        for (int i = 0; i < 6; i++) {
+            s = StrUtils.retainTwoDecimal(min + ((max - min) * new Random().nextDouble()));
+            randomList.add(s);
+        }
+        String orderNumber = System.currentTimeMillis() + RandomStringUtils.random(5, Num62.N10_CHARS);
+        model.addAttribute("contentId", contentId);
+        model.addAttribute("orderNumber", orderNumber);
+        model.addAttribute("content", content);
+        model.addAttribute("type", ContentCharge.MODEL_REWARD);
+        model.addAttribute("webCatBrowser", webCatBrowser);
+        model.addAttribute("wxopenid", wxopenid);
+        model.addAttribute("randomList", randomList);
+        model.addAttribute("randomOne", s);
+        return renderPage("special/content_reward.html", model);
+    }
+
+    @RequestMapping(value = "/content/fixSelect.html")
+    public String contentFixSelect(Integer contentId, String orderNumber, Double rewardAmount, Short chargeReward, ModelMap model) throws JSONException {
+        WebErrors errors = WebErrors.create(getRequest());
+        String ua = getRequest().getHeader("user-agent").toLowerCase();
+        boolean webCatBrowser = false;
+        String wxopenid = null;
+        if (ua.indexOf("micromessenger") > 0) {
+            // 是微信浏览器
+            webCatBrowser = true;
+            wxopenid = (String) getSession().getAttribute("wxopenid");
         }
         if (contentId == null) {
             errors.addErrorCode("error.required", "contentId");
-            return FrontUtils.showError(request, response, model, errors);
-        } else {
-            Content content = contentMng.findById(contentId);
-            if (content != null) {
-                FrontUtils.frontData(request, model, site);
-                model.addAttribute("contentId", contentId);
-                model.addAttribute("orderNumber", orderNumber);
-                model.addAttribute("chargeReward", chargeReward);
-                model.addAttribute("content", content);
-                model.addAttribute("type", ContentCharge.MODEL_REWARD);
-                model.addAttribute("webCatBrowser", webCatBrowser);
-                model.addAttribute("wxopenid", wxopenid);
-                model.addAttribute("rewardAmount", rewardAmount);
-                return FrontUtils.getTplPath(request, site.getSolutionPath(),
-                        TPLDIR_SPECIAL, CONTENT_REWARD);
-            } else {
-                errors.addErrorCode("error.beanNotFound", "content");
-                return FrontUtils.showError(request, response, model, errors);
-            }
+            return renderErrorPage(model, errors);
         }
+        Content content = contentMng.findById(contentId);
+        if (content == null) {
+            errors.addErrorCode("error.beanNotFound", "content");
+            return renderErrorPage(model, errors);
+        }
+        model.addAttribute("contentId", contentId);
+        model.addAttribute("orderNumber", orderNumber);
+        model.addAttribute("chargeReward", chargeReward);
+        model.addAttribute("content", content);
+        model.addAttribute("type", ContentCharge.MODEL_REWARD);
+        model.addAttribute("webCatBrowser", webCatBrowser);
+        model.addAttribute("wxopenid", wxopenid);
+        model.addAttribute("rewardAmount", rewardAmount);
+        return renderPage("special/content_reward.html", model);
     }
 
-    //内容购买或打赏记录
+    /**
+     * 内容购买或打赏记录
+     *
+     * @author andy_hulibo@163.com
+     * @date 2018/11/29 18:00
+     */
     @RequestMapping(value = "/content/orders.html")
-    public String contentOrders(Integer contentId, Short type, Integer pageNo,
-                                HttpServletRequest request, HttpServletResponse response
-            , ModelMap model) throws JSONException {
-        WebErrors errors = WebErrors.create(request);
-        CmsSite site = CmsUtils.getSite(request);
+    public String contentOrders(Integer contentId, Short type, Integer pageNo, ModelMap model) throws JSONException {
+        WebErrors errors = WebErrors.create(getRequest());
         if (type == null) {
             type = ContentCharge.MODEL_REWARD;
         }
         if (contentId == null) {
             errors.addErrorCode("error.required", "contentId");
-            return FrontUtils.showError(request, response, model, errors);
-        } else {
-            Content content = contentMng.findById(contentId);
-            if (content != null) {
-                FrontUtils.frontData(request, model, site);
-                Pagination pagination = contentBuyMng.getPageByContent(contentId,
-                        type, cpn(pageNo), CookieUtils.getPageSize(request));
-                model.addAttribute("contentId", contentId);
-                model.addAttribute("type", type);
-                model.addAttribute("pagination", pagination);
-                return FrontUtils.getTplPath(request, site.getSolutionPath(),
-                        TPLDIR_SPECIAL, CONTENT_ORDERS);
-            } else {
-                errors.addErrorCode("error.beanNotFound", "content");
-                return FrontUtils.showError(request, response, model, errors);
-            }
+            return renderErrorPage(model, errors);
         }
+        Content content = contentMng.findById(contentId);
+        if (content == null) {
+            errors.addErrorCode("error.beanNotFound", "content");
+            return renderErrorPage(model, errors);
+        }
+        Pagination pagination = contentBuyMng.getPageByContent(contentId, type, cpn(pageNo), CookieUtils.getPageSize(getRequest()));
+        model.addAttribute("contentId", contentId);
+        model.addAttribute("type", type);
+        model.addAttribute("pagination", pagination);
+        return renderPage("special/content_orders.html", model);
     }
 
     @RequestMapping(value = "/reward/random.html")
-    public void randomReward(HttpServletRequest request,
-                             HttpServletResponse response) {
+    public void randomReward(HttpServletResponse response) {
         CmsConfigContentCharge config = configContentChargeMng.getDefault();
         Double max = config.getRewardMax();
         Double min = config.getRewardMin();
@@ -250,111 +214,114 @@ public class ContentOrderAct {
      * @param orderNumber  订单号
      * @param payMethod    支付方式 1微信扫码 2支付宝即时支付  3微信浏览器打开[微信移动端] 4支付宝扫码5支付宝手机网页
      * @param rewardAmount 金额
+     * @author andy_hulibo@163.com
+     * @date 2018/11/29 18:02
      */
     @RequestMapping(value = "/content/selectPay.html")
-    public String selectPay(Integer contentId, String orderNumber,
-                            Integer payMethod, Double rewardAmount, Short chargeReward,
-                            HttpServletRequest request,
-                            HttpServletResponse response, ModelMap model) throws JSONException {
-        WebErrors errors = WebErrors.create(request);
-        CmsUser user = CmsUtils.getUser(request);
-        CmsSite site = CmsUtils.getSite(request);
+    public String selectPay(Integer contentId, String orderNumber, Integer payMethod, Double rewardAmount, Short chargeReward, ModelMap model, HttpServletResponse response) throws JSONException {
+        WebErrors errors = WebErrors.create(getRequest());
         if (contentId == null) {
             errors.addErrorCode("error.required", "contentId");
-            return FrontUtils.showError(request, response, model, errors);
+            return renderErrorPage(model, errors);
+        }
+        Content content = contentMng.findById(contentId);
+        if (content == null) {
+            errors.addErrorCode("error.beanNotFound", "content");
+            return renderErrorPage(model, errors);
+        }
+        //收费模式金额必须大于0
+        if (content.getChargeModel().equals(ContentCharge.MODEL_CHARGE) && content.getChargeAmount() <= 0) {
+            errors.addErrorCode("error.contentChargeAmountError");
+            return renderErrorPage(model, errors);
+        }
+        CmsConfigContentCharge config = configContentChargeMng.getDefault();
+        //收取模式（收费 和打赏）
+        if (chargeReward == null) {
+            chargeReward = ContentCharge.MODEL_CHARGE;
+        }
+        CmsUser user = getUser();
+        if (user != null) {
+            cache.put(new Element(orderNumber, contentId + "," + user.getId() + "," + rewardAmount + "," + chargeReward));
         } else {
-            Content content = contentMng.findById(contentId);
-            if (content != null) {
-                //收费模式金额必须大于0
-                if (content.getChargeModel().equals(ContentCharge.MODEL_CHARGE)
-                        && content.getChargeAmount() <= 0) {
-                    errors.addErrorCode("error.contentChargeAmountError");
-                    return FrontUtils.showError(request, response, model, errors);
-                } else {
-                    CmsConfigContentCharge config = configContentChargeMng.getDefault();
-                    //收取模式（收费 和打赏）
-                    if (chargeReward == null) {
-                        chargeReward = ContentCharge.MODEL_CHARGE;
-                    }
-                    if (user != null) {
-                        cache.put(new Element(orderNumber,
-                                contentId + "," + user.getId() + "," + rewardAmount + "," + chargeReward));
-                    } else {
-                        cache.put(new Element(orderNumber,
-                                contentId + ",," + rewardAmount + "," + chargeReward));
-                    }
-                    Double totalAmount = content.getChargeAmount();
-                    if (rewardAmount != null) {
-                        totalAmount = rewardAmount;
-                    }
-                    if (payMethod != null) {
-                        if (payMethod == 1) {
-                            return WeixinPay.enterWeiXinPay(socialInfoConfig.getWeixin().getOrder().getPayUrl(), config, content,
-                                    orderNumber, rewardAmount, request, response, model);
-                        } else if (payMethod == 3) {
-                            String openId = (String) request.getSession().getAttribute("wxopenid");
-                            return WeixinPay.weixinPayByMobile(socialInfoConfig.getWeixin().getOrder().getPayUrl(), config,
-                                    openId, content, orderNumber, rewardAmount,
-                                    request, response, model);
-                        } else if (payMethod == 2) {
-                            return AliPay.enterAliPayImmediate(config, orderNumber, content, rewardAmount,
-                                    request, response, model);
-                        } else if (payMethod == 4) {
-                            return AliPay.enterAlipayScanCode(request, response, model,
-                                    socialInfoConfig.getAlipay().getOpenapiUrl(), config, content,
-                                    orderNumber, totalAmount);
-                        } else if (payMethod == 5) {
-                            model.addAttribute("orderNumber", orderNumber);
-                            model.addAttribute("content", content);
-                            model.addAttribute("type", chargeReward);
-                            model.addAttribute("rewardAmount", rewardAmount);
-                            FrontUtils.frontData(request, model, site);
-                            return FrontUtils.getTplPath(request, site.getSolutionPath(),
-                                    TPLDIR_SPECIAL, CONTENT_ALIPAY_MOBILE);
-                        }
-                    }//支付宝
-                    return AliPay.enterAliPayImmediate(config, orderNumber, content, rewardAmount,
-                            request, response, model);
+            cache.put(new Element(orderNumber, contentId + ",," + rewardAmount + "," + chargeReward));
+        }
+        Double totalAmount = content.getChargeAmount();
+        if (rewardAmount != null) {
+            totalAmount = rewardAmount;
+        }
+        switch (payMethod) {
+            case 1:
+                try {
+                    WeixinPay.enterWeiXinPay(getSite(), getUser(), socialInfoConfig.getWeixin().getOrder().getPayUrl(), RequestUtils.getIpAddr(getRequest()), config, content, orderNumber, rewardAmount, model);
+                    return renderPage("special/content_code_weixin.html", model);
+                } catch (Exception e) {
+                    return renderMessagePage(model, e.getMessage());
                 }
-            } else {
-                errors.addErrorCode("error.beanNotFound", "content");
-                return FrontUtils.showError(request, response, model, errors);
-            }
+            case 3:
+                String openId = (String) getSession().getAttribute("wxopenid");
+                try {
+                    WeixinPay.weixinPayByMobile(getSite(), getUser(), socialInfoConfig.getWeixin().getOrder().getPayUrl(), RequestUtils.getIpAddr(getRequest()), config, openId, content, orderNumber, rewardAmount, model);
+                    return renderPage("special/content_prepay.html", model);
+                } catch (Exception e) {
+                    return renderMessagePage(model, e.getMessage());
+                }
+            case 2:
+                try {
+                    String url = AliPay.enterAliPayImmediate(getSite(), config, orderNumber, content, rewardAmount, RequestUtils.getIpAddr(getRequest()));
+                    return redirect(url);
+                } catch (Exception e) {
+                    return renderNotFoundPage(model);
+                }
+            case 4:
+                try {
+                    AliPay.enterAlipayScanCode(model, socialInfoConfig.getAlipay().getOpenapiUrl(), config, content, orderNumber, totalAmount);
+                    return renderPage("special/content_code_alipy.html", model);
+                } catch (Exception e) {
+                    errors.addErrorCode(e.getMessage());
+                    return renderErrorPage(model, errors);
+                }
+            case 5:
+                model.addAttribute("orderNumber", orderNumber);
+                model.addAttribute("content", content);
+                model.addAttribute("type", chargeReward);
+                model.addAttribute("rewardAmount", rewardAmount);
+                return renderPage("special/content_alipy_mobile.html", model);
+            default:
+                return AliPay.enterAliPayImmediate(getSite(), config, orderNumber, content, rewardAmount, RequestUtils.getIpAddr(getRequest()));
         }
     }
 
     @RequestMapping(value = "/content/alipayInMobile.html")
-    public String enterAlipayInMobile(Integer contentId, String orderNumber,
-                                      Double rewardAmount, HttpServletRequest request,
-                                      HttpServletResponse response, ModelMap model) throws JSONException {
-        WebErrors errors = WebErrors.create(request);
+    public String enterAlipayInMobile(Integer contentId, String orderNumber, Double rewardAmount, HttpServletResponse response, ModelMap model) throws JSONException {
+        WebErrors errors = WebErrors.create(getRequest());
         if (contentId == null) {
             errors.addErrorCode("error.required", "contentId");
-            return FrontUtils.showError(request, response, model, errors);
-        } else {
-            Content content = contentMng.findById(contentId);
-            CmsConfigContentCharge config = configContentChargeMng.getDefault();
-            if (content != null) {
-                Double totalAmount = content.getChargeAmount();
-                if (rewardAmount != null) {
-                    totalAmount = rewardAmount;
-                }
-                AliPay.enterAlipayInMobile(request, response,
-                        socialInfoConfig.getAlipay().getOpenapiUrl(), config, content, orderNumber, totalAmount);
-                return "";
-            } else {
-                errors.addErrorCode("error.beanNotFound", "content");
-                return FrontUtils.showError(request, response, model, errors);
-            }
+            return renderErrorPage(model, errors);
         }
+        Content content = contentMng.findById(contentId);
+        CmsConfigContentCharge config = configContentChargeMng.getDefault();
+        if (content == null) {
+            errors.addErrorCode("error.beanNotFound", "content");
+            return renderErrorPage(model, errors);
+        }
+        Double totalAmount = content.getChargeAmount();
+        if (rewardAmount != null) {
+            totalAmount = rewardAmount;
+        }
+        AliPay.enterAlipayInMobile(response, socialInfoConfig.getAlipay().getOpenapiUrl(), config, content, orderNumber, totalAmount);
+        return "";
+
     }
 
 
     /**
      * 微信回调
+     *
+     * @author andy_hulibo@163.com
+     * @date 2018/11/29 18:14
      */
     @RequestMapping(value = "/order/payCallByWeiXin.html")
-    public void orderPayCallByWeiXin(String orderNumber, HttpServletRequest request, HttpServletResponse response) throws JDOMException, IOException, JSONException {
+    public void orderPayCallByWeiXin(String orderNumber, HttpServletResponse response) throws JDOMException, IOException, JSONException {
         JSONObject json = new JSONObject();
         CmsConfigContentCharge config = configContentChargeMng.getDefault();
         if (StringUtils.isNotBlank(orderNumber)) {
@@ -369,40 +336,39 @@ public class ContentOrderAct {
             }
         } else {
             // 回调结果
-            String xml_receive_result = PayUtil.getWeiXinResponse(request);
-            if (StringUtils.isBlank(xml_receive_result)) {
+            String xmlReceiveResult = PayUtil.getWeiXinResponse(getRequest());
+            if (StringUtils.isBlank(xmlReceiveResult)) {
                 //检测到您可能没有进行扫码支付，请支付
                 json.put("status", 5);
             } else {
-                Map<String, String> result_map = PayUtil.parseXMLToMap(xml_receive_result);
-                String sign_receive = result_map.get("sign");
-                result_map.remove("sign");
+                Map<String, String> resultMap = PayUtil.parseXMLToMap(xmlReceiveResult);
+                String signReceive = resultMap.get("sign");
+                resultMap.remove("sign");
                 String key = config.getWeixinPassword();
                 if (key == null) {
                     //微信扫码支付密钥错误，请通知商户
                     json.put("status", 1);
                 }
-                String checkSign = PayUtil.createSign(result_map, key);
-                if (checkSign != null && checkSign.equals(sign_receive)) {
+                String checkSign = PayUtil.createSign(resultMap, key);
+                if (checkSign != null && checkSign.equals(signReceive)) {
                     try {
-                        if (result_map != null) {
-                            String return_code = result_map.get("return_code");
+                        if (resultMap != null) {
+                            String return_code = resultMap.get("return_code");
                             if ("SUCCESS".equals(return_code)
-                                    && "SUCCESS".equals(result_map
+                                    && "SUCCESS".equals(resultMap
                                     .get("result_code"))) {
                                 // 微信返回的微信订单号（属于微信商户管理平台的订单号，跟自己的系统订单号不一样）
-                                String transaction_id = result_map
+                                String transaction_id = resultMap
                                         .get("transaction_id");
                                 // 商户系统的订单号，与请求一致。
-                                String out_trade_no = result_map.get("out_trade_no");
+                                String out_trade_no = resultMap.get("out_trade_no");
                                 // 通知微信该订单已处理
                                 WeixinPay.noticeWeChatSuccess(socialInfoConfig.getWeixin().getOrder().getPayUrl());
                                 payAfter(out_trade_no, config.getChargeRatio(), transaction_id, null);
                                 //支付成功
                                 json.put("status", 0);
-                            } else if ("SUCCESS".equals(return_code)
-                                    && result_map.get("err_code") != null) {
-                                String message = result_map.get("err_code_des");
+                            } else if ("SUCCESS".equals(return_code) && resultMap.get("err_code") != null) {
+                                String message = resultMap.get("err_code_des");
                                 json.put("status", 2);
                                 json.put("error", message);
                             }
@@ -411,7 +377,7 @@ public class ContentOrderAct {
                         e.printStackTrace();
                     }
                 } else {
-                    Map<String, String> parames = new HashMap<String, String>();
+                    Map<String, String> parames = new HashMap<>(2);
                     parames.put("return_code", "FAIL");
                     parames.put("return_msg", "校验错误");
                     // 将参数转成xml格式
@@ -429,36 +395,35 @@ public class ContentOrderAct {
         ResponseUtils.renderJson(response, json.toString());
     }
 
-    //支付宝即时支付回调地址
+    /**
+     * 支付宝即时支付回调地址
+     *
+     * @author andy_hulibo@163.com
+     * @date 2018/11/29 18:15
+     */
     @RequestMapping(value = "/order/payCallByAliPay.html")
-    public String payCallByAliPay(HttpServletRequest request,
-                                  HttpServletResponse response, ModelMap model)
-            throws UnsupportedEncodingException {
+    public String payCallByAliPay(HttpServletResponse response, ModelMap model) throws UnsupportedEncodingException {
         CmsConfigContentCharge config = configContentChargeMng.getDefault();
-        CmsSite site = CmsUtils.getSite(request);
         //获取支付宝POST过来反馈信息
-        Map<String, String> params = new HashMap<String, String>();
-        Map requestParams = request.getParameterMap();
+        Map<String, String> params = new HashMap<>(5);
+        Map requestParams = getRequest().getParameterMap();
         for (Iterator iter = requestParams.keySet().iterator(); iter.hasNext(); ) {
             String name = (String) iter.next();
             String[] values = (String[]) requestParams.get(name);
             String valueStr = "";
             for (int i = 0; i < values.length; i++) {
-                valueStr = (i == values.length - 1) ? valueStr + values[i]
-                        : valueStr + values[i] + ",";
+                valueStr = (i == values.length - 1) ? valueStr + values[i] : valueStr + values[i] + ",";
             }
-            //乱码解决，这段代码在出现乱码时使用。如果mysign和sign不相等也可以使用这段代码转化
-            //valueStr = new String(valueStr.getBytes("ISO-8859-1"), "gbk");
             params.put(name, valueStr);
         }
         //商户订单号
-        String out_trade_no = new String(request.getParameter("out_trade_no").getBytes("ISO-8859-1"), "UTF-8");
+        String out_trade_no = getRequest().getParameter("out_trade_no");
         //支付宝交易号
-        String trade_no = new String(request.getParameter("trade_no").getBytes("ISO-8859-1"), "UTF-8");
+        String trade_no = getRequest().getParameter("trade_no");
         //交易状态
-        String trade_status = new String(request.getParameter("trade_status").getBytes("ISO-8859-1"), "UTF-8");
-        FrontUtils.frontData(request, model, site);
-        if (PayUtil.verifyAliPay(params, config.getAlipayPartnerId(), config.getAlipayKey())) {//验证成功
+        String trade_status = getRequest().getParameter("trade_status");
+        //验证成功
+        if (PayUtil.verifyAliPay(params, config.getAlipayPartnerId(), config.getAlipayKey())) {
             if ("TRADE_FINISHED".equals(trade_status) || "TRADE_SUCCESS".equals(trade_status)) {
                 //判断该笔订单是否在商户网站中已经做过处理
                 //如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
@@ -467,7 +432,6 @@ public class ContentOrderAct {
                 try {
                     response.sendRedirect(content.getUrl());
                 } catch (IOException e) {
-                    //e.printStackTrace();
                 }
                 return content.getUrl();
                 //注意：TRADE_FINISHED
@@ -477,33 +441,29 @@ public class ContentOrderAct {
                 //TRADE_SUCCESS
                 //该种交易状态只在一种情况下出现——开通了高级即时到账，买家付款成功后。
             }
-        } else {//验证失败
-            return FrontUtils.showMessage(request, model, "error.alipay.status.valifail");
         }
-        return FrontUtils.showMessage(request, model, "error.alipay.status.payfail");
+        //验证失败
+        return renderMessagePage(model, "支付宝验证失败");
     }
 
-    //支付宝查询订单状态（扫码支付和手机网页支付均由此处理订单）
+    /**
+     * 支付宝查询订单状态（扫码支付和手机网页支付均由此处理订单）
+     *
+     * @author andy_hulibo@163.com
+     * @date 2018/11/29 18:17
+     */
     @RequestMapping(value = "/content/orderQuery.html")
-    public void aliPayOrderQuery(String orderNumber, HttpServletRequest request,
-                                 HttpServletResponse response, ModelMap model)
-            throws UnsupportedEncodingException {
+    public void aliPayOrderQuery(String orderNumber, HttpServletResponse response, ModelMap model) throws UnsupportedEncodingException {
         CmsConfigContentCharge config = configContentChargeMng.getDefault();
         JSONObject json = new JSONObject();
-        CmsSite site = CmsUtils.getSite(request);
-        FrontUtils.frontData(request, model, site);
-        AlipayTradeQueryResponse res = AliPay.query(socialInfoConfig.getAlipay().getOpenapiUrl(), config,
-                orderNumber, null);
+        AlipayTradeQueryResponse res = AliPay.query(socialInfoConfig.getAlipay().getOpenapiUrl(), config, orderNumber, null);
         try {
             if (null != res && res.isSuccess()) {
                 if ("10000".equals(res.getCode())) {
-                    if ("TRADE_SUCCESS".equalsIgnoreCase(res
-                            .getTradeStatus())) {
+                    if ("TRADE_SUCCESS".equalsIgnoreCase(res.getTradeStatus())) {
                         json.put("status", 0);
-                        payAfter(orderNumber, config.getChargeRatio(),
-                                null, res.getTradeNo());
-                    } else if ("WAIT_BUYER_PAY".equalsIgnoreCase(res
-                            .getTradeStatus())) {
+                        payAfter(orderNumber, config.getChargeRatio(), null, res.getTradeNo());
+                    } else if ("WAIT_BUYER_PAY".equalsIgnoreCase(res.getTradeStatus())) {
                         // 等待用户付款状态，需要轮询查询用户的付款结果
                         json.put("status", 1);
                     } else if ("TRADE_CLOSED".equalsIgnoreCase(res.getTradeStatus())) {
@@ -526,9 +486,7 @@ public class ContentOrderAct {
         ResponseUtils.renderJson(response, json.toString());
     }
 
-    private Content payAfter(String orderNumber, Double ratio,
-                             String weixinOrderNum,
-                             String alipyOrderNum) {
+    private Content payAfter(String orderNumber, Double ratio, String weixinOrderNum, String alipyOrderNum) {
         Element e = cache.get(orderNumber);
         Content content = null;
         if (e != null && StringUtils.isNotBlank(orderNumber)) {

@@ -22,8 +22,7 @@ import static com.bfly.common.web.Constants.UTF8;
  * HttpServletRequest帮助类
  */
 public class RequestUtils {
-    private static final Logger log = LoggerFactory
-            .getLogger(RequestUtils.class);
+    private static final Logger log = LoggerFactory.getLogger(RequestUtils.class);
 
     /**
      * 获取QueryString的参数，并使用URLDecoder以UTF-8格式转码。如果请求是以post方法提交的，
@@ -57,7 +56,6 @@ public class RequestUtils {
         }
     }
 
-    @SuppressWarnings("unchecked")
     public static Map<String, Object> getQueryParams(HttpServletRequest request) {
         Map<String, String[]> map;
         if (request.getMethod().equalsIgnoreCase(POST)) {
@@ -65,7 +63,7 @@ public class RequestUtils {
         } else {
             String s = request.getQueryString();
             if (StringUtils.isBlank(s)) {
-                return new HashMap<String, Object>();
+                return new HashMap<>(5);
             }
             try {
                 s = URLDecoder.decode(s, UTF8);
@@ -112,14 +110,14 @@ public class RequestUtils {
      * @throws IllegalArgumentException if the query string is invalid
      */
     public static Map<String, String[]> parseQueryString(String s) {
-        String valArray[] = null;
+        String valArray[];
         if (s == null) {
             throw new IllegalArgumentException();
         }
-        Map<String, String[]> ht = new HashMap<String, String[]>();
+        Map<String, String[]> ht = new HashMap<>();
         StringTokenizer st = new StringTokenizer(s, "&");
         while (st.hasMoreTokens()) {
-            String pair = (String) st.nextToken();
+            String pair = st.nextToken();
             int pos = pair.indexOf('=');
             if (pos == -1) {
                 continue;
@@ -127,7 +125,7 @@ public class RequestUtils {
             String key = pair.substring(0, pos);
             String val = pair.substring(pos + 1, pair.length());
             if (ht.containsKey(key)) {
-                String oldVals[] = (String[]) ht.get(key);
+                String oldVals[] = ht.get(key);
                 valArray = new String[oldVals.length + 1];
                 for (int i = 0; i < oldVals.length; i++) {
                     valArray[i] = oldVals[i];

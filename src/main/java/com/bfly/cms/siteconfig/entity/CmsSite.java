@@ -177,12 +177,6 @@ public class CmsSite implements Serializable {
     private String domainRedirect;
 
     /**
-     * 首页模板
-     */
-    @Column(name = "tpl_index")
-    private String tplIndex;
-
-    /**
      * 站点关键字
      */
     @Column(name = "keywords")
@@ -450,14 +444,6 @@ public class CmsSite implements Serializable {
 
     public void setDomainRedirect(String domainRedirect) {
         this.domainRedirect = domainRedirect;
-    }
-
-    public String getTplIndex() {
-        return tplIndex;
-    }
-
-    public void setTplIndex(String tplIndex) {
-        this.tplIndex = tplIndex;
     }
 
     public String getKeywords() {
@@ -747,16 +733,6 @@ public class CmsSite implements Serializable {
         } else {
             json.put("staticIndex", "");
         }
-        int tplPathLength = getTplPath().length();
-        String tplIndex = getTplIndex();
-        if (!StringUtils.isBlank(tplIndex)) {
-            tplIndex = tplIndex.substring(tplPathLength);
-        }
-        if (StringUtils.isNotBlank(tplIndex)) {
-            json.put("tplIndex", tplIndex);
-        } else {
-            json.put("tplIndex", "");
-        }
         if (StringUtils.isNotBlank(getLocaleAdmin())) {
             json.put("localeAdmin", getLocaleAdmin());
         } else {
@@ -803,20 +779,6 @@ public class CmsSite implements Serializable {
     }
 
     /**
-     * 返回首页模板
-     *
-     * @return
-     */
-    public String getTplIndexOrDef() {
-        String tpl = getTplIndex();
-        if (!StringUtils.isBlank(tpl)) {
-            return tpl;
-        } else {
-            return getTplIndexDefault();
-        }
-    }
-
-    /**
      * 返回手机首页模板
      *
      * @return
@@ -835,7 +797,7 @@ public class CmsSite implements Serializable {
      *
      * @return
      */
-    private String getTplIndexDefault() {
+    public String getTplIndexDefault() {
         StringBuilder t = new StringBuilder();
         t.append(getTplIndexPrefix(TPLDIR_INDEX));
         t.append(TPL_SUFFIX);

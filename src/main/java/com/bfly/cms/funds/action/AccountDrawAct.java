@@ -1,203 +1,179 @@
 package com.bfly.cms.funds.action;
 
-import static com.bfly.core.Constants.TPLDIR_MEMBER;
-import static com.bfly.common.page.SimplePage.cpn;
-
-import java.io.IOException;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.bfly.cms.funds.entity.CmsAccountDraw;
+import com.bfly.cms.funds.service.CmsAccountDrawMng;
+import com.bfly.cms.system.entity.CmsConfigContentCharge;
+import com.bfly.cms.system.entity.MemberConfig;
+import com.bfly.cms.system.service.CmsConfigContentChargeMng;
+import com.bfly.cms.user.entity.CmsUser;
+import com.bfly.common.page.Pagination;
+import com.bfly.common.web.CookieUtils;
+import com.bfly.core.base.action.RenderController;
 import com.bfly.core.web.WebErrors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.bfly.cms.funds.entity.CmsAccountDraw;
-import com.bfly.cms.system.entity.CmsConfigContentCharge;
-import com.bfly.cms.funds.service.CmsAccountDrawMng;
-import com.bfly.cms.system.service.CmsConfigContentChargeMng;
-import com.bfly.common.page.Pagination;
-import com.bfly.common.web.CookieUtils;
-import com.bfly.cms.siteconfig.entity.CmsSite;
-import com.bfly.cms.user.entity.CmsUser;
-import com.bfly.cms.system.entity.MemberConfig;
-import com.bfly.core.web.util.CmsUtils;
-import com.bfly.core.web.util.FrontUtils;
+import java.io.IOException;
+
+import static com.bfly.common.page.SimplePage.cpn;
 
 /**
  * 账户提现
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/11/30 17:00
  */
 @Controller
-public class AccountDrawAct {
-	private static final Logger log = LoggerFactory.getLogger(AccountDrawAct.class);
+public class AccountDrawAct extends RenderController {
 
-	public static final String MEMBER_ACCOUNT_DRAW = "tpl.memberAccountDraw";
-	public static final String MEMBER_ACCOUNT_DRAW_LIST = "tpl.memberAccountDrawList";
+    private static final Logger log = LoggerFactory.getLogger(AccountDrawAct.class);
 
-	@RequestMapping(value = "/member/draw_list.html")
-	public String drawList(Integer pageNo,HttpServletRequest request,
-			HttpServletResponse response, ModelMap model) {
-		CmsSite site = CmsUtils.getSite(request);
-		CmsUser user = CmsUtils.getUser(request);
-		FrontUtils.frontData(request, model, site);
-		MemberConfig mcfg = site.getConfig().getMemberConfig();
-		// 没有开启会员功能
-		if (!mcfg.isMemberOn()) {
-			return FrontUtils.showMessage(request, model, "member.memberClose");
-		}
-		if (user == null) {
-			return FrontUtils.showLogin(request, model, site);
-		}
-		if(user.getUserAccount()==null){
-			WebErrors errors= WebErrors.create(request);
-			errors.addErrorCode("error.userAccount.notfound");
-			return FrontUtils.showError(request, response, model, errors);
-		}
-		Pagination pagination=accountDrawMng.getPage(user.getId(),null,null,null,
-				cpn(pageNo), CookieUtils.getPageSize(request));
-		model.addAttribute("pagination",pagination);
-		model.addAttribute("userAccount",user.getUserAccount());
-		return FrontUtils.getTplPath(request, site.getSolutionPath(),
-				TPLDIR_MEMBER, MEMBER_ACCOUNT_DRAW_LIST);
-	}
-	
-	@RequestMapping(value = "/member/draw_del.html")
-	public String drawDel(Integer[] ids,Integer pageNo,
-			String nextUrl,HttpServletRequest request,
-			HttpServletResponse response, ModelMap model) {
-		CmsSite site = CmsUtils.getSite(request);
-		CmsUser user = CmsUtils.getUser(request);
-		WebErrors errors = validateDelete(ids, site, user, request);
-		if (errors.hasErrors()) {
-			return FrontUtils.showError(request, response, model, errors);
-		}
-		accountDrawMng.deleteByIds(ids);
-		FrontUtils.frontData(request, model, site);
-		return FrontUtils.showSuccess(request, model, nextUrl);
-	}
-	
-	/**
-	 * 提现申请输入页
-	 * 
-	 * @param request
-	 * @param response
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value = "/member/draw.html", method = RequestMethod.GET)
-	public String drawInput(HttpServletRequest request,
-			HttpServletResponse response, ModelMap model) {
-		CmsSite site = CmsUtils.getSite(request);
-		CmsUser user = CmsUtils.getUser(request);
-		CmsConfigContentCharge config=configContentChargeMng.getDefault();
-		FrontUtils.frontData(request, model, site);
-		MemberConfig mcfg = site.getConfig().getMemberConfig();
-		// 没有开启会员功能
-		if (!mcfg.isMemberOn()) {
-			return FrontUtils.showMessage(request, model, "member.memberClose");
-		}
-		if (user == null) {
-			return FrontUtils.showLogin(request, model, site);
-		}
-		Double appliedSum=accountDrawMng.getAppliedSum(user.getId());
-		model.addAttribute("userAccount", user.getUserAccount());
-		model.addAttribute("minDrawAmount",config.getMinDrawAmount());
-		if(user.getUserAccount()!=null){
-			model.addAttribute("maxDrawAmount",user.getUserAccount().getContentNoPayAmount()-appliedSum);
-		}
-		return FrontUtils.getTplPath(request, site.getSolutionPath(),
-				TPLDIR_MEMBER, MEMBER_ACCOUNT_DRAW);
-	}
-	
+    /**
+     * 校验
+     *
+     * @author andy_hulibo@163.com
+     * @date 2018/11/30 17:01
+     */
+    private String check(ModelMap model) {
+        MemberConfig mcfg = getSite().getConfig().getMemberConfig();
+        // 没有开启会员功能
+        if (!mcfg.isMemberOn()) {
+            return renderMessagePage(model, "member.memberClose");
+        }
+        if (getUser() == null) {
+            return renderLoginPage(model);
+        }
+        return null;
+    }
 
-	/**
-	 * 提现申请提交页
-	 * 
-	 * @param request
-	 * @param response
-	 * @param model
-	 * @return
-	 * @throws IOException
-	 */
-	@RequestMapping(value = "/member/draw.html", method = RequestMethod.POST)
-	public String drawSubmit(Double drawAmout,String applyAcount,
-			String nextUrl,HttpServletRequest request, HttpServletResponse response,
-			ModelMap model) throws IOException {
-		CmsSite site = CmsUtils.getSite(request);
-		CmsUser user = CmsUtils.getUser(request);
-		FrontUtils.frontData(request, model, site);
-		MemberConfig mcfg = site.getConfig().getMemberConfig();
-		// 没有开启会员功能
-		if (!mcfg.isMemberOn()) {
-			return FrontUtils.showMessage(request, model, "member.memberClose");
-		}
-		if (user == null) {
-			return FrontUtils.showLogin(request, model, site);
-		}
-		WebErrors errors= WebErrors.create(request);
-		if(user.getUserAccount()==null){
-			errors.addErrorCode("error.userAccount.notfound");
-			return FrontUtils.showError(request, response, model, errors);
-		}
-		if(drawAmout!=null){
-			CmsConfigContentCharge config=configContentChargeMng.getDefault();
-			if(drawAmout>user.getUserAccount().getContentNoPayAmount()){
-				errors.addErrorCode("error.userAccount.balanceNotEnough");
-			}
-			if(drawAmout<config.getMinDrawAmount()){
-				errors.addErrorCode("error.userAccount.drawLessMinAmount",config.getMinDrawAmount());
-			}
-			if(errors.hasErrors()){
-				return FrontUtils.showError(request, response, model, errors);
-			}
-		}
-		accountDrawMng.draw(user, drawAmout, applyAcount);
-		log.info("update CmsUserExt success. id={}", user.getId());
-		return FrontUtils.showSuccess(request, model, nextUrl);
-	}
-	
-	private WebErrors validateDelete(Integer[] ids, CmsSite site, CmsUser user,
-									 HttpServletRequest request) {
-		WebErrors errors = WebErrors.create(request);
-		if (vldOpt(errors, site, user, ids)) {
-			return errors;
-		}
-		return errors;
-	}
-	
-	private boolean vldOpt(WebErrors errors, CmsSite site, CmsUser user,
-						   Integer[] ids) {
-		for (Integer id : ids) {
-			if (errors.ifNull(id, "id", true)) {
-				return true;
-			}
-			CmsAccountDraw d = accountDrawMng.findById(id);
-			// 数据不存在
-			if (errors.ifNotExist(d, CmsAccountDraw.class, id, true)) {
-				return true;
-			}
-			// 非本用户数据
-			if (!d.getDrawUser().getId().equals(user.getId())) {
-				errors.noPermission(CmsAccountDraw.class, id, true);
-				return true;
-			}
-			// 提现申请状态是申请成功待支付和提现成功
-			if (CmsAccountDraw.CHECKED_SUCC.equals(d.getApplyStatus())
-					||CmsAccountDraw.DRAW_SUCC.equals(d.getApplyStatus())) {
-				errors.addErrorCode("error.account.draw.hasChecked");
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	@Autowired
-	private CmsAccountDrawMng accountDrawMng;
-	@Autowired
-	private CmsConfigContentChargeMng configContentChargeMng;
+    @RequestMapping(value = "/member/draw_list.html")
+    public String drawList(Integer pageNo, ModelMap model) {
+        String result = check(model);
+        if (result != null) {
+            return result;
+        }
+        CmsUser user = getUser();
+        if (user.getUserAccount() == null) {
+            WebErrors errors = WebErrors.create(getRequest());
+            errors.addErrorCode("error.userAccount.notfound");
+            return renderErrorPage(model, errors);
+        }
+        Pagination pagination = accountDrawMng.getPage(user.getId(), null, null, null, cpn(pageNo), CookieUtils.getPageSize(getRequest()));
+        model.addAttribute("pagination", pagination);
+        model.addAttribute("userAccount", user.getUserAccount());
+        return renderPage("member/member_account_draw_list.html", model);
+    }
+
+    @RequestMapping(value = "/member/draw_del.html")
+    public String drawDel(Integer[] ids, String nextUrl, ModelMap model) {
+        WebErrors errors = validateDelete(ids);
+        if (errors.hasErrors()) {
+            return renderErrorPage(model, errors);
+        }
+        accountDrawMng.deleteByIds(ids);
+        return renderSuccessPage(model, nextUrl);
+    }
+
+    /**
+     * 提现申请输入页
+     *
+     * @author andy_hulibo@163.com
+     * @date 2018/11/30 17:05
+     */
+    @GetMapping(value = "/member/draw.html")
+    public String drawInput(ModelMap model) {
+        String result = check(model);
+        if (result != null) {
+            return result;
+        }
+        CmsUser user = getUser();
+        CmsConfigContentCharge config = configContentChargeMng.getDefault();
+        Double appliedSum = accountDrawMng.getAppliedSum(user.getId());
+        model.addAttribute("userAccount", user.getUserAccount());
+        model.addAttribute("minDrawAmount", config.getMinDrawAmount());
+        if (user.getUserAccount() != null) {
+            model.addAttribute("maxDrawAmount", user.getUserAccount().getContentNoPayAmount() - appliedSum);
+        }
+        return renderPage("member/member_account_draw.html", model);
+    }
+
+
+    /**
+     * 提现申请提交页
+     *
+     * @author andy_hulibo@163.com
+     * @date 2018/11/30 17:07
+     */
+    @PostMapping(value = "/member/draw.html")
+    public String drawSubmit(Double drawAmout, String applyAcount, String nextUrl, ModelMap model) throws IOException {
+        String result = check(model);
+        if (result != null) {
+            return result;
+        }
+        WebErrors errors = WebErrors.create(getRequest());
+        CmsUser user = getUser();
+        if (user.getUserAccount() == null) {
+            errors.addErrorCode("error.userAccount.notfound");
+            return renderErrorPage(model, errors);
+        }
+        if (drawAmout != null) {
+            CmsConfigContentCharge config = configContentChargeMng.getDefault();
+            if (drawAmout > user.getUserAccount().getContentNoPayAmount()) {
+                errors.addErrorCode("error.userAccount.balanceNotEnough");
+            }
+            if (drawAmout < config.getMinDrawAmount()) {
+                errors.addErrorCode("error.userAccount.drawLessMinAmount", config.getMinDrawAmount());
+            }
+            if (errors.hasErrors()) {
+                return renderErrorPage(model, errors);
+            }
+        }
+        accountDrawMng.draw(user, drawAmout, applyAcount);
+        log.info("update CmsUserExt success. id={}", user.getId());
+        return renderSuccessPage(model, nextUrl);
+    }
+
+    private WebErrors validateDelete(Integer[] ids) {
+        WebErrors errors = WebErrors.create(getRequest());
+        if (vldOpt(errors, ids)) {
+            return errors;
+        }
+        return errors;
+    }
+
+    private boolean vldOpt(WebErrors errors, Integer[] ids) {
+        for (Integer id : ids) {
+            if (errors.ifNull(id, "id", true)) {
+                return true;
+            }
+            CmsAccountDraw d = accountDrawMng.findById(id);
+            // 数据不存在
+            if (errors.ifNotExist(d, CmsAccountDraw.class, id, true)) {
+                return true;
+            }
+            // 非本用户数据
+            if (!d.getDrawUser().getId().equals(getUser().getId())) {
+                errors.noPermission(CmsAccountDraw.class, id, true);
+                return true;
+            }
+            // 提现申请状态是申请成功待支付和提现成功
+            if (CmsAccountDraw.CHECKED_SUCC.equals(d.getApplyStatus())
+                    || CmsAccountDraw.DRAW_SUCC.equals(d.getApplyStatus())) {
+                errors.addErrorCode("error.account.draw.hasChecked");
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Autowired
+    private CmsAccountDrawMng accountDrawMng;
+    @Autowired
+    private CmsConfigContentChargeMng configContentChargeMng;
 }

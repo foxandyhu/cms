@@ -5,214 +5,75 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2f3edc67-cc8f-4618-a901-7cdf459bae87" name="Default Changelist" comment="代码优化,优化结构,spring boot整合">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/member/action/UserContentBuyAct.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/core/base/action/AbstractController.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/core/base/action/RenderController.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/AbstractContentMemberAct.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/UserContentBuyAct.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/VisualAct.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/weixin/action/MessageAct.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/config/CaptchaConfig.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/visual/temp1.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/visual/temp2.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/visual/temp3.html" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/directive/HtmlCutDirective.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/directive/HtmlCutDirective.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/directive/ProcessTimeDirective.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/directive/ProcessTimeDirective.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/common/web/Constants.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/common/web/Constants.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/common/web/springmvc/SimpleFreeMarkerView.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/common/web/springmvc/SimpleFreeMarkerView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/core/interceptor/AdminApiInterceptor.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/core/interceptor/AdminApiInterceptor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/alone/alone.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/alone/alone.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/alone/alone_survey.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/alone/alone_survey.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/channel/car.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/channel/car.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/channel/download.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/channel/download.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/channel/download_child.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/channel/download_child.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/channel/download_recommend.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/channel/download_recommend.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/channel/job.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/channel/job.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/channel/news.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/channel/news.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/channel/news_child.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/channel/news_child.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/channel/news_message.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/channel/news_message.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/channel/news_survey.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/channel/news_survey.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/channel/news_wldc.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/channel/news_wldc.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/channel/pic.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/channel/pic.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/channel/pic_child.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/channel/pic_child.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/channel/vedio.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/channel/vedio.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/channel/vedio_child.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/channel/vedio_child.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/channel/vedio_playinlist.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/channel/vedio_playinlist.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/channel/video.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/channel/video.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/comment/comment_list.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/comment/comment_list.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/comment/comment_manager.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/comment/comment_manager.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/comment/comment_reply.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/comment/comment_reply.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/common/error_page.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/common/error_page.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/common/message_page.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/common/message_page.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/common/page_not_found.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/common/page_not_found.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/common/success_page.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/common/success_page.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/content/download.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/content/download.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/content/job.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/content/job.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/content/news.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/content/news.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/content/news2.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/content/news2.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/content/pic.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/content/pic.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/content/pic_load.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/content/pic_load.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/content/vedio.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/content/vedio.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/content/vediockplay.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/content/vediockplay.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/content/video.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/content/video.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/csi/index.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/csi/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/guestbook/guestbook_detail.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/guestbook/guestbook_detail.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/guestbook/guestbook_list.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/guestbook/guestbook_list.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/guestbook/guestbook_replay.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/guestbook/guestbook_replay.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/IndexController.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/IndexController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/ad/action/AdvertisingAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/ad/action/AdvertisingAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/channel/entity/Channel.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/channel/entity/Channel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/comment/action/CommentAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/comment/action/CommentAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/comment/action/CommentMemberAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/comment/action/CommentMemberAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/comment/action/GuestbookAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/comment/action/GuestbookAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/comment/action/GuestbookMemberAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/comment/action/GuestbookMemberAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/CmsTopicApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/CmsTopicApiAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/CollectionMemberAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/CollectionMemberAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/ContentOrderAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/ContentOrderAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/ContributeAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/ContributeAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/TopicAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/TopicAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/directive/PaginationDirective.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/directive/PaginationDirective.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/funds/action/AccountDrawAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/funds/action/AccountDrawAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/member/action/CasLoginAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/member/action/CasLoginAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/member/action/ForgotPasswordAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/member/action/ForgotPasswordAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/member/action/ImageCutAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/member/action/ImageCutAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/member/action/ImageUploadAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/member/action/ImageUploadAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/member/action/MemberAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/member/action/MemberAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/member/action/RegisterAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/member/action/RegisterAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/message/action/MessageAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/message/action/MessageAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/resource/action/CsiCustomAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/resource/action/CsiCustomAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/siteconfig/action/CmsSiteConfigApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/siteconfig/action/CmsSiteConfigApiAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/siteconfig/entity/CmsSite.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/siteconfig/entity/CmsSite.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/staticpage/action/StaticPageCheckPermAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/staticpage/action/StaticPageCheckPermAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/staticpage/service/impl/StaticPageSvcImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/staticpage/service/impl/StaticPageSvcImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/system/action/RssAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/system/action/RssAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/user/action/ThirdLoginAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/user/action/ThirdLoginAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/vote/action/AbstractVote.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/vote/action/AbstractVote.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/vote/action/CmsVoteApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/vote/action/CmsVoteApiAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/vote/action/VoteAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/vote/action/VoteAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/vote/entity/CmsVoteTopic.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/vote/entity/CmsVoteTopic.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/weixin/action/WeiXinAuthAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/weixin/action/WeiXinAuthAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/weixin/action/WeixinMessageAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/weixin/action/WeixinMessageAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/words/action/SearchAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/words/action/SearchAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/words/action/TagAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/words/action/TagAct.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/common/ipseek/IPLocation.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/common/ipseek/IPLocation.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/common/ipseek/IPSeeker.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/common/ipseek/IPSeeker.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/common/util/AliPay.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/common/util/AliPay.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/common/util/WeixinPay.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/common/util/WeixinPay.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/common/web/CookieUtils.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/common/web/CookieUtils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/common/web/RequestUtils.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/common/web/RequestUtils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/common/web/ResponseUtils.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/common/web/ResponseUtils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/common/web/springmvc/MessageResolver.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/common/web/springmvc/MessageResolver.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/config/ApplicationConfig.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/config/ApplicationConfig.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/core/Constants.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/core/Constants.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/core/servlet/JcaptchaServlet.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/core/servlet/JcaptchaServlet.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/core/servlet/ProcessTimeFilter.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/core/servlet/ProcessTimeFilter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/core/web/util/FrontUtils.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/core/web/util/FrontUtils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/core/web/util/URLHelper.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/core/web/util/URLHelper.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/include/footer.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/include/footer.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/include/nav.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/include/nav.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/include/navi.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/include/navi.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/index/index.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/index/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/buy_list.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/buy_list.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/collection_list.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/collection_list.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/content_charge_list.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/content_charge_list.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/contribute_add.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/contribute_add.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/contribute_edit.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/contribute_edit.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/contribute_list.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/contribute_list.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/doc_add.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/doc_add.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/doc_edit.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/doc_edit.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/doc_list.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/doc_list.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/forgot_password_input.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/forgot_password_input.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/forgot_password_result.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/forgot_password_result.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/job_applys.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/job_applys.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/login_input.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/login_input.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/login_status.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/login_status.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/member_account.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/member_account.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/member_account_draw.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/member_account_draw.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/member_account_draw_list.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/member_account_draw_list.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/member_center.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/member_center.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/member_password.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/member_password.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/member_portrait.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/member_portrait.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/member_profile.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/member_profile.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/order_list.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/order_list.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/password_reset.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/password_reset.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/register.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/register.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/register_active_success.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/register_active_success.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/register_result.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/register_result.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/resume_edit.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/resume_edit.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/set_new_password.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/set_new_password.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/weixin_auth.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/weixin_auth.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/weixin_auth_enter.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/weixin_auth_enter.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/message/message_manager.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/message/message_manager.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/message/reply.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/message/reply.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/message/send.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/message/send.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/RSS.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/RSS.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/comment_page.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/comment_page.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/content_alipy_mobile.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/content_alipy_mobile.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/content_orders.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/content_orders.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/content_prepay.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/content_prepay.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/content_reward.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/content_reward.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/doc.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/doc.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/guestbook_ctg.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/guestbook_ctg.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/guestbook_detail.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/guestbook_detail.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/guestbook_index.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/guestbook_index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/search_error.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/search_error.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/search_input.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/search_input.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/search_job.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/search_job.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/search_result.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/search_result.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/tag_default.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/tag_default.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/tag_index.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/tag_index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/vote_input.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/vote_input.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/vote_reply_result.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/vote_reply_result.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/vote_result.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/vote_result.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/topic/topic_default.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/topic/topic_default.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/topic/topic_index.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/topic/topic_index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/visual/temp2.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/visual/temp2.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/visual/temp3.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/visual/temp3.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/alone/alone.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/alone/alone.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/alone/alone_survey.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/alone/alone_survey.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/alone/alone_survey.html.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/alone/alone_survey.html.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/channel/doc.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/channel/doc.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/channel/doc_child.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/channel/doc_child.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/channel/download.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/channel/download.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/channel/download_child.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/channel/download_child.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/channel/download_recommend.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/channel/download_recommend.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/channel/job.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/channel/job.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/channel/news.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/channel/news.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/channel/news_child.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/channel/news_child.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/channel/news_message.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/channel/news_message.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/channel/news_survey.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/channel/news_survey.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/channel/news_video.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/channel/news_video.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/channel/news_wldc.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/channel/news_wldc.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/channel/pic.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/channel/pic.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/channel/pic_child.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/channel/pic_child.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/channel/vedio.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/channel/vedio.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/channel/vedio_child.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/channel/vedio_child.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/channel/vedio_playinlist.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/channel/vedio_playinlist.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/channel/video.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/channel/video.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/comment/comment_list.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/comment/comment_list.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/comment/comment_manager.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/comment/comment_manager.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/comment/comment_reply.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/comment/comment_reply.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/common/error_page.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/common/error_page.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/common/message_page.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/common/message_page.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/common/page_not_found.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/common/page_not_found.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/common/success_page.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/common/success_page.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/content/doc.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/content/doc.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/content/doc_single.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/content/doc_single.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/content/download.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/content/download.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/content/job.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/content/job.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/content/news.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/content/news.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/content/pic.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/content/pic.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/content/pic_load.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/content/pic_load.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/content/vedio.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/content/vedio.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/content/vediockplay.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/content/vediockplay.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/content/video.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/content/video.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/guestbook/guestbook_detail.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/guestbook/guestbook_detail.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/guestbook/guestbook_list.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/guestbook/guestbook_list.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/guestbook/guestbook_replay.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/guestbook/guestbook_replay.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/include/footer.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/include/footer.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/include/header.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/include/header.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/include/header_diaocha.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/include/header_diaocha.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/include/header_lanmu.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/include/header_lanmu.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/include/header_message.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/include/header_message.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/include/header_wldc.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/include/header_wldc.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/index/index.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/index/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/buy_list.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/buy_list.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/collection_list.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/collection_list.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/content_charge_list.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/content_charge_list.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/contribute_add.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/contribute_add.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/contribute_edit.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/contribute_edit.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/contribute_list.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/contribute_list.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/doc_add.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/doc_add.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/doc_edit.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/doc_edit.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/doc_list.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/doc_list.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/forgot_password_input.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/forgot_password_input.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/forgot_password_result.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/forgot_password_result.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/job_applys.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/job_applys.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/login_input.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/login_input.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/login_status.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/login_status.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/member_center.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/member_center.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/member_header.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/member_header.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/member_password.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/member_password.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/member_portrait.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/member_portrait.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/member_profile.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/member_profile.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/order_list.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/order_list.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/password_reset.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/password_reset.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/register.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/register.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/register_active_success.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/register_active_success.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/register_result.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/register_result.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/resume_edit.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/resume_edit.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/weixin_auth.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/weixin_auth.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/weixin_auth_enter.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/weixin_auth_enter.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/message/message_manager.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/message/message_manager.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/message/reply.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/message/reply.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/message/send.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/message/send.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/comment_page.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/comment_page.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/content_alipy_mobile.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/content_alipy_mobile.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/content_order.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/content_order.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/content_orders.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/content_orders.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/content_prepay.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/content_prepay.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/content_reward.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/content_reward.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/guestbook_ctg.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/guestbook_ctg.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/guestbook_detail.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/guestbook_detail.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/guestbook_index.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/guestbook_index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/search_error.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/search_error.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/search_input.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/search_input.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/search_job.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/search_job.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/search_result.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/search_result.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/tag_default.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/tag_default.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/tag_index.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/tag_index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/vote_input.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/vote_input.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/vote_reply_result.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/vote_reply_result.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/vote_result.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/vote_result.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/member_footer.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/member_footer.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/member_footer.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/member_footer.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/topic/topic_default.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/topic/topic_default.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/topic/topic_index.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/topic/topic_index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/visual/temp2.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/visual/temp2.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/visual/temp3.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/visual/temp3.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/r/cms/www/default/css/global.css" afterPath="$PROJECT_DIR$/src/main/webapp/r/cms/www/default/css/global.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/r/cms/www/mobile/css/global.css" afterPath="$PROJECT_DIR$/src/main/webapp/r/cms/www/mobile/css/global.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/r/cms/www/mobile/css/layout.css" afterPath="$PROJECT_DIR$/src/main/webapp/r/cms/www/mobile/css/layout.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/r/cms/www/mobile/css/regist.css" afterPath="$PROJECT_DIR$/src/main/webapp/r/cms/www/mobile/css/regist.css" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/job/action/ResumeAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/job/action/ResumeActController.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/common/ipseek/IPSeekerImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/common/ipseek/IpSeekerImpl.java" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -285,7 +146,7 @@
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -296,36 +157,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>excludeUrls</find>
-      <find>setExcludeUrls</find>
-      <find>apiAccountMng</find>
-      <find>cmsSiteMng</find>
-      <find>validateSign</find>
-      <find>getByCookie</find>
-      <find>getByParams</find>
-      <find>getByDefault</find>
-      <find>getByUserSites</find>
-      <find>getSite</find>
-      <find>hasRepeatDomainSite</find>
-      <find>getURI</find>
-      <find>hasUrlPerm``</find>
-      <find>getUserPermission</find>
-      <find>isFireWallAllow</find>
-      <find>HttpSessionProvider</find>
-      <find>session</find>
-      <find>SessionCache</find>
-      <find>JdkUUIDGenerator</find>
-      <find>JugUUIDGenerator</find>
-      <find>SessionIdGenerator</find>
-      <find>isAuthWeek</find>
-      <find>SessionProvider</find>
-      <find>activeLogin</find>
-      <find>SessionPro</find>
-      <find>axis</find>
-      <find>org.apache.axis</find>
-      <find>Call</find>
-      <find>Powered by JEECMS</find>
-      <find>jeecms</find>
+      <find>tpl.contributeList</find>
+      <find>CONTRIBUTE_UPLOADMIDIA</find>
+      <find>tpl.uploadMedia</find>
+      <find>tpl.uploadAttachment</find>
+      <find>tpl.memberCenter</find>
+      <find>tpl.memberProfile</find>
+      <find>tpl.memberPortrait</find>
+      <find>tpl.memberPassword</find>
+      <find>tpl.memberAccount</find>
+      <find>tpl.loginInput</find>
+      <find>tpl.loginCsi</find>
+      <find>tpl.iframe_upload</find>
+      <find>tpl.memberAccountDrawList</find>
+      <find>tpl.memberAccountDraw</find>
+      <find>tpl.image_area_select</find>
+      <find>tpl.image_cuted</find>
+      <find>tpl.collectionList</find>
+      <find>csi_custom</find>
+      <find>Cms.collectCsi</find>
+      <find>FrontUtils.f</find>
+      <find>FrontUtils.`</find>
+      <find>getTplPath</find>
+      <find>showMessage</find>
+      <find>GROUP_FORBIDDEN</find>
+      <find>login.groupAccessForbidden</find>
+      <find>FrontUtils.showError</find>
+      <find>FrontUtils.getTplPath</find>
+      <find>getTplPathgetTplPath</find>
+      <find>FrontUtils.showLogin</find>
+      <find>com.bfly</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -350,10 +211,11 @@
       <dir>G:\创业\cms\src\main\java\com\bfly\cms\lucene</dir>
       <dir>G:\创业\cms\src</dir>
       <dir>G:\创业\cms\src\main\java\com\bfly\cms\api</dir>
-      <dir>G:\创业\cms\src\main\java\com\bfly\cms\content</dir>
       <dir>G:\创业\cms\src\main\java\com\bfly\cms\staticpage\action</dir>
-      <dir>G:\创业\cms\src\main\java\com\bfly\cms</dir>
+      <dir>G:\创业\cms\src\main\java\com\bfly\cms\content</dir>
       <dir>G:\创业\cms</dir>
+      <dir>G:\创业\cms\src\main\java\com\bfly\cms</dir>
+      <dir>G:\创业\cms\src\main\java\com\bfly</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -362,57 +224,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/context/TokenInterceptor.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/context/MemberApiInterceptor.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/core/servlet/FireWallInterceptor.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/common/web/session/id/SessionIdGenerator.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/common/web/session/id/JdkUUIDGenerator.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/common/web/session/id/JugUUIDGenerator.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/common/web/session/cache/EhcacheSessionCache.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/context/FireWallInterceptor.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/config/ApplicationConfig.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/context/AbstractApiInterceptor.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/user/service/AuthenticationMng.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/user/service/impl/AuthenticationMngImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/sms/action/CmsSmsApiAct.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/comment/action/CommentAct.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/IndexController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/comment/action/GuestbookAct.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/words/action/SearchAct.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/user/action/ThirdLoginAct.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/ContentOrderAct.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/webservice/service/impl/ApiUserLoginMngImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/core/security/CmsAuthenticationFilter.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/message/action/MessageAct.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/common/web/springmvc/MessageResolver.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/directive/PaginationDirective.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/job/action/ResumeAct.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/core/base/action/BaseController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/core/base/action/AbstractController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/ad/action/AdvertisingAct.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/job/action/AbstractController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/common/web/ResponseUtils.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/job/action/ResumeActController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/member/action/ForgotPasswordAct.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/member/action/ProcessAct.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/common/web/CookieUtils.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/vote/entity/CmsVoteTopic.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/vote/action/VoteAct.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/vote/action/AbstractVote.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/vote/action/CmsVoteApiAct.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/words/action/TagAct.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/UserContentBuyAct.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/member/action/UserContentBuyAct.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/common/web/RequestUtils.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/words/action/SearchAct.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/system/action/RssAct.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/comment/action/CommentAct.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/message/action/MessageAct.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/common/util/WeixinPay.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/common/util/AliPay.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/ContentOrderAct.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/comment/action/GuestbookAct.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/comment/action/GuestbookMemberAct.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/CmsTopicApiAct.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/TopicAct.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/user/action/ThirdLoginAct.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/weixin/action/WeiXinAuthAct.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/member/action/CasLoginAct.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/AbstractContentMemberAct.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/staticpage/action/StaticApiAct.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/staticpage/dao/impl/StaticPageDaoImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/core/servlet/JcaptchaServlet.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/context/AdminApiInterceptor.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/context/FrontLocaleInterceptor.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/context/FrontContextInterceptor.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/context/ContextConfig.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/user/service/impl/CmsUserMngImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/context/WebContextConfig.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/context/WebContextInterceptor.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/core/interceptor/WebContextInterceptor.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/user/action/CmsAdminAbstractApi.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/config/ContextConfig.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/member/action/CmsMemberApiAct.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/ContributeAct.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/member/action/MemberAct.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/member/action/CasLoginAct.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/member/action/ImageUploadAct.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/funds/action/AccountDrawAct.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/member/action/ImageCutAct.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/CollectionMemberAct.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/resource/action/CsiCustomAct.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/core/Constants.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/comment/action/CommentMemberAct.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/staticpage/action/StaticPageCheckPermAct.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/member/action/RegisterAct.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/user/action/CmsAdminGlobalApiAct.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/user/action/CmsAdminLocalApiAct.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/user/action/UserApiAct.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/user/action/UserMemberApiAct.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/common/web/springmvc/SimpleFreeMarkerView.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/resume_edit.html" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/channel/news_child.html" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/channel/entity/Channel.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/IndexController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/core/web/util/FrontUtils.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/weixin/action/MessageAct.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/weixin/action/WeixinMessageAct.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/core/base/action/RenderController.java" />
       </list>
     </option>
   </component>
@@ -572,6 +434,17 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="jeecmsv9f" type="58d84e3e:PackageViewProjectNode" />
+              <item name="cms" type="616d4139:PackageViewModuleNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="Scope">
         <subPane subId="Project Files">
           <expand>
@@ -647,30 +520,45 @@
               <item name="cms" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="bfly" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="jeecmsv9f" type="b2602c69:ProjectViewProjectNode" />
               <item name="cms" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="bfly" type="462c0819:PsiDirectoryNode" />
-              <item name="common" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
             </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="PackagesPane">
-        <subPane>
-          <expand>
             <path>
-              <item name="jeecmsv9f" type="58d84e3e:PackageViewProjectNode" />
-              <item name="cms" type="616d4139:PackageViewModuleNode" />
+              <item name="jeecmsv9f" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cms" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
+              <item name="t" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="jeecmsv9f" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cms" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
+              <item name="t" type="462c0819:PsiDirectoryNode" />
+              <item name="www" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="jeecmsv9f" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cms" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
+              <item name="t" type="462c0819:PsiDirectoryNode" />
+              <item name="www" type="462c0819:PsiDirectoryNode" />
+              <item name="default" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -681,14 +569,14 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/com/bfly/cms/vote/service" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/com/bfly/cms/member/action" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="preferences.applicationServers" />
     <property name="project.structure.last.edited" value="Facets" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://G:/创业/cms/src/main/java/com/bfly/cms/webservice/entity/ApiAccount.java&#10;sqlexceptionhelper&#9;PSI&#9;JAVA://org.hibernate.engine.jdbc.spi.SqlExceptionHelper&#10;DaoSupport&#9;PSI&#9;JAVA://org.springframework.dao.support.DaoSupport&#10;ContentCount&#9;PSI&#9;JAVA://com.jeecms.cms.entity.main.ContentCount&#10;ContentCheck&#9;PSI&#9;JAVA://com.jeecms.cms.entity.main.ContentCheck&#10;CmsCommentEx&#9;PSI&#9;JAVA://com.jeecms.cms.entity.assist.CmsCommentExt&#10;ChannelExt&#9;PSI&#9;JAVA://com.jeecms.cms.entity.main.ChannelExt&#10;CmsUserAccount&#9;PSI&#9;JAVA://com.jeecms.core.entity.CmsUserAccount&#10;ContentExt&#9;PSI&#9;JAVA://com.jeecms.cms.entity.main.ContentExt&#10;ContentCharge&#9;FILE&#9;file://G:/创业/cms/src/main/java/com/jeecms/cms/entity/main/ContentCharge.java&#10;ChannelTxt&#9;FILE&#9;file://G:/创业/cms/src/main/java/com/jeecms/cms/entity/main/ChannelTxt.java&#10;CmsUserExt&#9;FILE&#9;file://G:/创业/cms/src/main/java/com/jeecms/core/entity/CmsUserExt.java&#10;ChannelCount&#9;FILE&#9;file://G:/创业/cms/src/main/java/com/jeecms/cms/entity/main/ChannelCount.java&#10;CmsSiteCompany&#9;PSI&#9;JAVA://com.jeecms.core.entity.CmsSiteCompany&#10;Weixin&#9;FILE&#9;file://G:/创业/cms/src/main/java/com/jeecms/plug/weixin/entity/Weixin.java&#10;CmsUserResume&#9;PSI&#9;JAVA://com.jeecms.core.entity.CmsUserResume&#10;ContentTxt&#9;PSI&#9;JAVA://com.jeecms.cms.entity.main.ContentTxt" />
+    <property name="SearchEverywhereHistoryKey" value="cmsu&#9;FILE&#9;file://G:/创业/cms/src/main/java/com/bfly/core/web/util/CmsUtils.java&#10;front&#9;FILE&#9;file://G:/创业/cms/src/main/java/com/bfly/core/web/util/FrontUtils.java&#10;sqlexceptionhelper&#9;PSI&#9;JAVA://org.hibernate.engine.jdbc.spi.SqlExceptionHelper&#10;DaoSupport&#9;PSI&#9;JAVA://org.springframework.dao.support.DaoSupport&#10;ContentCount&#9;PSI&#9;JAVA://com.jeecms.cms.entity.main.ContentCount&#10;ContentCheck&#9;PSI&#9;JAVA://com.jeecms.cms.entity.main.ContentCheck&#10;CmsCommentEx&#9;PSI&#9;JAVA://com.jeecms.cms.entity.assist.CmsCommentExt&#10;ChannelExt&#9;PSI&#9;JAVA://com.jeecms.cms.entity.main.ChannelExt&#10;CmsUserAccount&#9;PSI&#9;JAVA://com.jeecms.core.entity.CmsUserAccount&#10;ContentExt&#9;PSI&#9;JAVA://com.jeecms.cms.entity.main.ContentExt&#10;ContentCharge&#9;FILE&#9;file://G:/创业/cms/src/main/java/com/jeecms/cms/entity/main/ContentCharge.java&#10;ChannelTxt&#9;FILE&#9;file://G:/创业/cms/src/main/java/com/jeecms/cms/entity/main/ChannelTxt.java&#10;CmsUserExt&#9;FILE&#9;file://G:/创业/cms/src/main/java/com/jeecms/core/entity/CmsUserExt.java&#10;ChannelCount&#9;FILE&#9;file://G:/创业/cms/src/main/java/com/jeecms/cms/entity/main/ChannelCount.java&#10;CmsSiteCompany&#9;PSI&#9;JAVA://com.jeecms.core.entity.CmsSiteCompany&#10;Weixin&#9;FILE&#9;file://G:/创业/cms/src/main/java/com/jeecms/plug/weixin/entity/Weixin.java&#10;CmsUserResume&#9;PSI&#9;JAVA://com.jeecms.core.entity.CmsUserResume&#10;ContentTxt&#9;PSI&#9;JAVA://com.jeecms.cms.entity.main.ContentTxt" />
     <property name="RequestMappingsPanelWidth0" value="75" />
     <property name="RequestMappingsPanelOrder0" value="0" />
     <property name="RequestMappingsPanelWidth1" value="75" />
@@ -698,11 +586,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="G:\创业\cms\src\main\java\com\bfly\cms\member\action" />
       <recent name="G:\创业\cms\src\main\java\com\bfly\cms\vote\service" />
       <recent name="G:\创业\cms\src\main\java\com\bfly\cms\vote\service\impl" />
       <recent name="G:\创业\cms\src\main\java\com\bfly\cms\content\service\impl" />
       <recent name="G:\创业\cms\src\main\java\com\bfly\cms\content\service" />
-      <recent name="G:\创业\cms\src\main\java\com\bfly\cms\comment\service" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.context" />
@@ -712,11 +600,11 @@
       <recent name="com.bfly.cms.content.service.impl" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.bfly.core.base.action" />
       <recent name="com.context" />
       <recent name="com.bfly.cms.webservice.action" />
       <recent name="com.bfly.common.hibernate4" />
       <recent name="com.bfly.cms.service" />
-      <recent name="com.context.admin" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="G:\创业\cms\src\main\webapp\jeeadmin\jeecms" />
@@ -985,7 +873,9 @@
       <workItem from="1543112323768" duration="11296000" />
       <workItem from="1543197880301" duration="27390000" />
       <workItem from="1543282874792" duration="23331000" />
-      <workItem from="1543368569864" duration="21290000" />
+      <workItem from="1543368569864" duration="21410000" />
+      <workItem from="1543453463310" duration="25897000" />
+      <workItem from="1543540626102" duration="25533000" />
     </task>
     <task id="LOCAL-00001" summary="代码优化">
       <created>1542355815388</created>
@@ -1106,7 +996,14 @@
       <option name="project" value="LOCAL" />
       <updated>1543398079282</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="代码优化,优化结构,spring boot整合">
+      <created>1543400158770</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1543400158770</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1142,7 +1039,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="432012000" />
+    <option name="totallyTimeSpent" value="483562000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1162,12 +1059,12 @@
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32894737" sideWeight="0.4969743" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.7265239" sideWeight="0.5030257" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32894737" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.66886324" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32784185" sideWeight="0.4969743" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23827533" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24583964" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32980332" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
@@ -1176,7 +1073,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.24962178" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5914333" sideWeight="0.4969743" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.66556835" sideWeight="0.4969743" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32980332" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1196,7 +1093,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32980332" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.24962178" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5453048" sideWeight="0.4969743" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42174628" sideWeight="0.4969743" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32980332" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41021416" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
@@ -1204,10 +1101,10 @@
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32894737" sideWeight="0.4969743" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.44645798" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.66886324" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32784185" sideWeight="0.4969743" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3161876" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24583964" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32980332" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6046128" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1276,7 +1173,7 @@
           <option name="timeStamp" value="181" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="189" />
+      <option name="time" value="196" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1334,411 +1231,563 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/guestbook_ctg.html">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/comment/service/CmsCommentMng.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="4" column="28" lean-forward="false" selection-start-line="4" selection-start-column="28" selection-end-line="4" selection-end-column="28" />
+        <state relative-caret-position="193">
+          <caret line="59" column="16" lean-forward="false" selection-start-line="59" selection-start-column="16" selection-end-line="59" selection-end-column="16" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/guestbook_detail.html">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/comment/action/CommentAct.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="4" column="28" lean-forward="false" selection-start-line="4" selection-start-column="28" selection-end-line="4" selection-end-column="28" />
+        <state relative-caret-position="264">
+          <caret line="35" column="25" lean-forward="true" selection-start-line="35" selection-start-column="25" selection-end-line="35" selection-end-column="25" />
+          <folding>
+            <element signature="method#custom#0;class#CommentAct#0" expanded="false" />
+            <element signature="method#list#0;class#CommentAct#0" expanded="false" />
+            <element signature="method#up#0;class#CommentAct#0" expanded="false" />
+            <element signature="method#down#0;class#CommentAct#0" expanded="false" />
+            <element signature="e#8479#8480#0" expanded="false" />
+            <element signature="e#8530#8531#0" expanded="false" />
+            <element signature="method#exist#0;class#CommentAct#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/message/entity/CmsMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="20" column="19" lean-forward="true" selection-start-line="20" selection-start-column="19" selection-end-line="20" selection-end-column="19" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/guestbook_index.html">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/message/action/MessageApiAct.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="6" column="27" lean-forward="false" selection-start-line="6" selection-start-column="27" selection-end-line="6" selection-end-column="27" />
+        <state relative-caret-position="292">
+          <caret line="40" column="8" lean-forward="true" selection-start-line="40" selection-start-column="8" selection-end-line="40" selection-end-column="8" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/search_error.html">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/message/service/CmsReceiverMessageMng.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="5" column="31" lean-forward="false" selection-start-line="5" selection-start-column="31" selection-end-line="5" selection-end-column="31" />
+        <state relative-caret-position="292">
+          <caret line="37" column="36" lean-forward="true" selection-start-line="37" selection-start-column="36" selection-end-line="37" selection-end-column="36" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/search_input.html">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/message/entity/CmsReceiverMessage.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="5" column="31" lean-forward="false" selection-start-line="5" selection-start-column="31" selection-end-line="5" selection-end-column="31" />
+        <state relative-caret-position="193">
+          <caret line="150" column="22" lean-forward="false" selection-start-line="150" selection-start-column="22" selection-end-line="150" selection-end-column="22" />
+          <folding>
+            <element signature="e#3393#3394#0" expanded="false" />
+            <element signature="e#3423#3424#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/common/web/CookieUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="13" column="30" lean-forward="true" selection-start-line="13" selection-start-column="30" selection-end-line="13" selection-end-column="30" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/search_job.html">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/common/util/PayUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="4" column="31" lean-forward="false" selection-start-line="4" selection-start-column="31" selection-end-line="4" selection-end-column="31" />
+        <state relative-caret-position="193">
+          <caret line="52" column="25" lean-forward="false" selection-start-line="52" selection-start-column="25" selection-end-line="52" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/tag_default.html">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/common/util/WeixinPay.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="5" column="32" lean-forward="false" selection-start-line="5" selection-start-column="32" selection-end-line="5" selection-end-column="32" />
+        <state relative-caret-position="165">
+          <caret line="19" column="7" lean-forward="true" selection-start-line="19" selection-start-column="7" selection-end-line="19" selection-end-column="7" />
+          <folding>
+            <element signature="method#weixinUniformOrder#0;class#WeixinPay#0" expanded="false" />
+            <element signature="method#weixinOrderQuery#0;class#WeixinPay#0" expanded="false" />
+            <element signature="method#enterWeiXinPay#0;class#WeixinPay#0" expanded="false" />
+            <element signature="method#weixinPayByMobile#0;class#WeixinPay#0" expanded="false" />
+            <element signature="method#payToUser#0;class#WeixinPay#0" expanded="false" />
+            <element signature="method#noticeWeChatSuccess#0;class#WeixinPay#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/common/util/AliPay.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-500">
+          <caret line="82" column="68" lean-forward="false" selection-start-line="82" selection-start-column="68" selection-end-line="82" selection-end-column="68" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="method#enterAlipayScanCode#0;class#AliPay#0" expanded="false" />
+            <element signature="method#query#0;class#AliPay#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/ContentOrderAct.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="366">
+          <caret line="15" column="39" lean-forward="true" selection-start-line="15" selection-start-column="39" selection-end-line="15" selection-end-column="39" />
+          <folding>
+            <element signature="method#contentBuy#0;class#ContentOrderAct#0" expanded="false" />
+            <element signature="method#contentReward#0;class#ContentOrderAct#0" expanded="false" />
+            <element signature="method#contentFixSelect#0;class#ContentOrderAct#0" expanded="false" />
+            <element signature="method#contentOrders#0;class#ContentOrderAct#0" expanded="false" />
+            <element signature="method#randomReward#0;class#ContentOrderAct#0" expanded="false" />
+            <element signature="method#orderPayCallByWeiXin#0;class#ContentOrderAct#0" expanded="false" />
+            <element signature="method#payCallByAliPay#0;class#ContentOrderAct#0" expanded="false" />
+            <element signature="method#aliPayOrderQuery#0;class#ContentOrderAct#0" expanded="false" />
+            <element signature="method#payAfter#0;class#ContentOrderAct#0" expanded="false" />
+            <element signature="method#setCache#0;class#ContentOrderAct#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/comment/action/GuestbookAct.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="293">
+          <caret line="146" column="44" lean-forward="true" selection-start-line="146" selection-start-column="44" selection-end-line="146" selection-end-column="44" />
+          <folding>
+            <element signature="method#index#0;class#GuestbookAct#0" expanded="false" />
+            <element signature="method#detail#0;class#GuestbookAct#0" expanded="false" />
+            <element signature="method#submit#0;class#GuestbookAct#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/comment/action/GuestbookMemberAct.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="16" column="3" lean-forward="true" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
+          <folding>
+            <element signature="method#myguestbook#0;class#GuestbookMemberAct#0" expanded="false" />
+            <element signature="method#guestbook_detail#0;class#GuestbookMemberAct#0" expanded="false" />
+            <element signature="method#guestbook_replay#0;class#GuestbookMemberAct#0" expanded="false" />
+            <element signature="method#check#0;class#GuestbookMemberAct#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/core/web/util/CoreUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="11" column="7" lean-forward="true" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/tag_index.html">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/CmsTopicApiAct.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="4" column="33" lean-forward="false" selection-start-line="4" selection-start-column="33" selection-end-line="4" selection-end-column="33" />
+        <state relative-caret-position="293">
+          <caret line="34" column="27" lean-forward="true" selection-start-line="34" selection-start-column="27" selection-end-line="34" selection-end-column="27" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/vote_reply_result.html">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/TopicAct.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="4" column="23" lean-forward="false" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
+        <state relative-caret-position="198">
+          <caret line="16" column="2" lean-forward="true" selection-start-line="16" selection-start-column="2" selection-end-line="16" selection-end-column="2" />
+          <folding>
+            <element signature="method#index#0;class#TopicAct#0" expanded="false" />
+            <element signature="method#topic#0;class#TopicAct#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/apache/shiro/shiro-web/1.4.0/shiro-web-1.4.0.jar!/org/apache/shiro/web/subject/WebSubject.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="226">
+          <caret line="23" column="46" lean-forward="false" selection-start-line="23" selection-start-column="46" selection-end-line="23" selection-end-column="46" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/special/vote_result.html">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/common/web/LoginUtils.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="4" column="23" lean-forward="false" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
+        <state relative-caret-position="193">
+          <caret line="15" column="56" lean-forward="false" selection-start-line="15" selection-start-column="56" selection-end-line="15" selection-end-column="56" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/visual/temp2.html">
+    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/json/json/20171018/json-20171018-sources.jar!/org/json/JSONObject.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="5" column="40" lean-forward="false" selection-start-line="5" selection-start-column="40" selection-end-line="5" selection-end-column="40" />
+        <state relative-caret-position="325">
+          <caret line="808" column="9" lean-forward="true" selection-start-line="808" selection-start-column="9" selection-end-line="808" selection-end-column="9" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/alone/alone.html">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/user/action/ThirdLoginAct.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="5" column="54" lean-forward="false" selection-start-line="5" selection-start-column="54" selection-end-line="5" selection-end-column="54" />
+        <state relative-caret-position="330">
+          <caret line="47" column="30" lean-forward="true" selection-start-line="47" selection-start-column="30" selection-end-line="47" selection-end-column="30" />
+          <folding>
+            <element signature="e#1958#1959#0" expanded="false" />
+            <element signature="e#2018#2019#0" expanded="false" />
+            <element signature="e#3348#3349#0" expanded="false" />
+            <element signature="e#3408#3409#0" expanded="false" />
+            <element signature="method#bindPost#0;class#ThirdLoginAct#0" expanded="false" />
+            <element signature="method#bindUsernamePost#0;class#ThirdLoginAct#0" expanded="false" />
+            <element signature="method#weixinLogin#0;class#ThirdLoginAct#0" expanded="false" />
+            <element signature="method#authenticate#0;class#ThirdLoginAct#0" expanded="false" />
+            <element signature="method#loginSso#0;class#ThirdLoginAct#0" expanded="false" />
+            <element signature="method#authenticate#1;class#ThirdLoginAct#0" expanded="false" />
+            <element signature="method#authenticate#2;class#ThirdLoginAct#0" expanded="false" />
+            <element signature="method#loginByUsername#0;class#ThirdLoginAct#0" expanded="false" />
+            <element signature="method#loginByKey#0;class#ThirdLoginAct#0" expanded="false" />
+            <element signature="method#loginShiro#0;class#ThirdLoginAct#0" expanded="false" />
+            <element signature="method#bind#0;class#ThirdLoginAct#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/weixin/action/WeiXinAuthAct.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="34" column="25" lean-forward="true" selection-start-line="34" selection-start-column="25" selection-end-line="34" selection-end-column="25" />
+          <folding>
+            <element signature="method#weixinAuthEnter#0;class#WeiXinAuthAct#0" expanded="false" />
+            <element signature="method#weixinAuth#0;class#WeiXinAuthAct#0" expanded="false" />
+            <element signature="method#getWeixinOpenId#0;class#WeiXinAuthAct#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/AbstractContentMemberAct.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1914">
+          <caret line="97" column="0" lean-forward="false" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/alone/alone_survey.html">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/ContributeAct.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="8" column="22" lean-forward="false" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
+        <state relative-caret-position="170">
+          <caret line="70" column="6" lean-forward="true" selection-start-line="70" selection-start-column="6" selection-end-line="70" selection-end-column="6" />
+          <folding>
+            <element signature="method#check#0;class#ContributeAct#0" expanded="false" />
+            <element signature="method#list#0;class#ContributeAct#0" expanded="false" />
+            <element signature="method#update#0;class#ContributeAct#0" expanded="false" />
+            <element signature="method#delete#0;class#ContributeAct#0" expanded="false" />
+            <element signature="method#validateDelete#0;class#ContributeAct#0" expanded="false" />
+            <element signature="method#vldOpt#0;class#ContributeAct#0" expanded="false" />
+            <element signature="method#vldChannel#0;class#ContributeAct#0" expanded="false" />
+            <element signature="method#afterContentStatusChange#0;class#ContributeAct#0" expanded="false" />
+            <element signature="method#uploadAttachment#0;class#ContributeAct#0" expanded="false" />
+            <element signature="method#validateUpload#0;class#ContributeAct#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/member/action/MemberAct.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="28" column="30" lean-forward="true" selection-start-line="28" selection-start-column="30" selection-end-line="28" selection-end-column="30" />
+          <folding>
+            <element signature="method#check#0;class#MemberAct#0" expanded="false" />
+            <element signature="method#index#0;class#MemberAct#0" expanded="false" />
+            <element signature="method#profileInput#0;class#MemberAct#0" expanded="false" />
+            <element signature="method#portrait#0;class#MemberAct#0" expanded="false" />
+            <element signature="method#profileSubmit#0;class#MemberAct#0" expanded="false" />
+            <element signature="method#accountSubmit#0;class#MemberAct#0" expanded="false" />
+            <element signature="method#checkPwd#0;class#MemberAct#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/webservice/service/ApiUserLoginMng.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="193">
+          <caret line="118" column="17" lean-forward="false" selection-start-line="118" selection-start-column="17" selection-end-line="118" selection-end-column="17" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/alone/alone_survey.html.html">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/member/action/CasLoginAct.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="8" column="22" lean-forward="false" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
+        <state relative-caret-position="264">
+          <caret line="34" column="11" lean-forward="true" selection-start-line="34" selection-start-column="11" selection-end-line="34" selection-end-column="11" />
+          <folding>
+            <element signature="method#input#0;class#CasLoginAct#0" expanded="false" />
+            <element signature="method#submit#0;class#CasLoginAct#0" expanded="false" />
+            <element signature="method#csi#0;class#CasLoginAct#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/member/action/ImageUploadAct.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="193">
+          <caret line="69" column="27" lean-forward="true" selection-start-line="69" selection-start-column="27" selection-end-line="69" selection-end-column="27" />
+          <folding>
+            <element signature="method#mark#0;class#ImageUploadAct#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/image_cuted.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="8" column="18" lean-forward="true" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="18" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/common/error_page.html">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/member/action/ImageCutAct.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="6" column="22" lean-forward="false" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
+        <state relative-caret-position="174">
+          <caret line="32" column="26" lean-forward="false" selection-start-line="32" selection-start-column="26" selection-end-line="32" selection-end-column="26" />
+          <folding>
+            <element signature="method#check#0;class#ImageCutAct#0" expanded="false" />
+            <element signature="method#imageAreaSelect#0;class#ImageCutAct#0" expanded="false" />
+            <element signature="method#imageCut#0;class#ImageCutAct#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/default/member/collection_list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="11" column="18" lean-forward="true" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/common/message_page.html">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/CollectionMemberAct.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="5" column="22" lean-forward="false" selection-start-line="5" selection-start-column="22" selection-end-line="5" selection-end-column="22" />
+        <state relative-caret-position="152">
+          <caret line="99" column="25" lean-forward="true" selection-start-line="99" selection-start-column="25" selection-end-line="99" selection-end-column="25" />
+          <folding>
+            <element signature="method#check#0;class#CollectionMemberAct#0" expanded="false" />
+            <element signature="method#collectionList#0;class#CollectionMemberAct#0" expanded="false" />
+            <element signature="method#collect#0;class#CollectionMemberAct#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/resource/action/CsiCustomAct.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/common/page_not_found.html">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/funds/action/AccountDrawAct.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="6" column="22" lean-forward="false" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
+        <state relative-caret-position="132">
+          <caret line="93" column="7" lean-forward="false" selection-start-line="93" selection-start-column="7" selection-end-line="93" selection-end-column="7" />
+          <folding>
+            <element signature="method#check#0;class#AccountDrawAct#0" expanded="false" />
+            <element signature="method#drawList#0;class#AccountDrawAct#0" expanded="false" />
+            <element signature="method#drawDel#0;class#AccountDrawAct#0" expanded="false" />
+            <element signature="method#drawSubmit#0;class#AccountDrawAct#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/core/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4422">
+          <caret line="62" column="0" lean-forward="false" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/common/success_page.html">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/comment/action/CommentMemberAct.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="5" column="22" lean-forward="false" selection-start-line="5" selection-start-column="22" selection-end-line="5" selection-end-column="22" />
+        <state relative-caret-position="292">
+          <caret line="138" column="45" lean-forward="false" selection-start-line="138" selection-start-column="45" selection-end-line="138" selection-end-column="45" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/buy_list.html">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/staticpage/action/StaticPageCheckPermAct.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="5" column="29" lean-forward="false" selection-start-line="5" selection-start-column="29" selection-end-line="5" selection-end-column="29" />
+        <state relative-caret-position="231">
+          <caret line="25" column="2" lean-forward="true" selection-start-line="25" selection-start-column="2" selection-end-line="25" selection-end-column="2" />
+          <folding>
+            <element signature="e#2875#2876#0" expanded="false" />
+            <element signature="e#2920#2921#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/content/entity/CmsModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="185">
+          <caret line="352" column="18" lean-forward="false" selection-start-line="352" selection-start-column="18" selection-end-line="352" selection-end-column="18" />
+          <folding>
+            <element signature="e#4371#4372#0" expanded="false" />
+            <element signature="e#4404#4405#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/channel/entity/Channel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="1289" column="33" lean-forward="false" selection-start-line="1289" selection-start-column="33" selection-end-line="1289" selection-end-column="33" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/collection_list.html">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/staticpage/dao/impl/StaticPageDaoImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="4" column="28" lean-forward="false" selection-start-line="4" selection-start-column="28" selection-end-line="4" selection-end-column="28" />
+        <state relative-caret-position="1373">
+          <caret line="196" column="43" lean-forward="false" selection-start-line="196" selection-start-column="43" selection-end-line="196" selection-end-column="43" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/content_charge_list.html">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/core/web/util/FrontUtils.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="5" column="31" lean-forward="false" selection-start-line="5" selection-start-column="31" selection-end-line="5" selection-end-column="31" />
+        <state relative-caret-position="858">
+          <caret line="144" column="14" lean-forward="true" selection-start-line="144" selection-start-column="14" selection-end-line="144" selection-end-column="14" />
+          <folding>
+            <element signature="method#getTplPath#0;class#FrontUtils#0" expanded="false" />
+            <element signature="method#getTplPath#1;class#FrontUtils#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/member/action/RegisterAct.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="185">
+          <caret line="249" column="53" lean-forward="false" selection-start-line="249" selection-start-column="53" selection-end-line="249" selection-end-column="53" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/contribute_add.html">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/weixin/action/MessageAct.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="4" column="28" lean-forward="false" selection-start-line="4" selection-start-column="28" selection-end-line="4" selection-end-column="28" />
+        <state relative-caret-position="330">
+          <caret line="35" column="4" lean-forward="true" selection-start-line="35" selection-start-column="4" selection-end-line="35" selection-end-column="4" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/contribute_edit.html">
+    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/commons-codec/commons-codec/1.11/commons-codec-1.11.jar!/org/apache/commons/codec/digest/DigestUtils.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="4" column="29" lean-forward="false" selection-start-line="4" selection-start-column="29" selection-end-line="4" selection-end-column="29" />
+        <state relative-caret-position="226">
+          <caret line="262" column="29" lean-forward="false" selection-start-line="262" selection-start-column="29" selection-end-line="262" selection-end-column="29" />
+          <folding>
+            <element signature="e#7167#7168#0" expanded="true" />
+            <element signature="e#7203#7204#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/commons-codec/commons-codec/1.11/commons-codec-1.11-sources.jar!/org/apache/commons/codec/digest/DigestUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="94">
+          <caret line="848" column="45" lean-forward="false" selection-start-line="848" selection-start-column="38" selection-end-line="848" selection-end-column="45" />
+          <folding>
+            <element signature="e#26897#26898#0" expanded="false" />
+            <element signature="e#26933#26934#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/weixin/action/WeixinMessageAct.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2726">
+          <caret line="160" column="0" lean-forward="false" selection-start-line="160" selection-start-column="0" selection-end-line="160" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/contribute_list.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="4" column="29" lean-forward="false" selection-start-line="4" selection-start-column="29" selection-end-line="4" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/doc_add.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="4" column="28" lean-forward="false" selection-start-line="4" selection-start-column="28" selection-end-line="4" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/doc_edit.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="4" column="28" lean-forward="false" selection-start-line="4" selection-start-column="28" selection-end-line="4" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/doc_list.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="4" column="29" lean-forward="false" selection-start-line="4" selection-start-column="29" selection-end-line="4" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/forgot_password_input.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="6" column="22" lean-forward="false" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/forgot_password_result.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="6" column="22" lean-forward="false" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/job_applys.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="4" column="33" lean-forward="false" selection-start-line="4" selection-start-column="33" selection-end-line="4" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/login_input.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="6" column="22" lean-forward="false" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/login_status.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="4" column="29" lean-forward="false" selection-start-line="4" selection-start-column="29" selection-end-line="4" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/member_center.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="4" column="29" lean-forward="false" selection-start-line="4" selection-start-column="29" selection-end-line="4" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/member_password.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="4" column="28" lean-forward="false" selection-start-line="4" selection-start-column="28" selection-end-line="4" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/member_profile.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="4" column="31" lean-forward="false" selection-start-line="4" selection-start-column="31" selection-end-line="4" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/register_active_success.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="4" column="31" lean-forward="false" selection-start-line="4" selection-start-column="31" selection-end-line="4" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/register_result.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="4" column="29" lean-forward="false" selection-start-line="4" selection-start-column="29" selection-end-line="4" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/weixin_auth.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="4" column="29" lean-forward="false" selection-start-line="4" selection-start-column="29" selection-end-line="4" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/member/weixin_auth_enter.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="4" column="29" lean-forward="false" selection-start-line="4" selection-start-column="29" selection-end-line="4" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/content_alipy_mobile.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="4" column="30" lean-forward="false" selection-start-line="4" selection-start-column="30" selection-end-line="4" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/content_prepay.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="4" column="29" lean-forward="false" selection-start-line="4" selection-start-column="29" selection-end-line="4" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/guestbook_ctg.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="4" column="28" lean-forward="false" selection-start-line="4" selection-start-column="28" selection-end-line="4" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/guestbook_detail.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="4" column="28" lean-forward="false" selection-start-line="4" selection-start-column="28" selection-end-line="4" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/search_error.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="5" column="31" lean-forward="false" selection-start-line="5" selection-start-column="31" selection-end-line="5" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/search_job.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="6" column="22" lean-forward="false" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/vote_input.html">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/message/action/MessageAct.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="99">
-          <caret line="3" column="37" lean-forward="false" selection-start-line="3" selection-start-column="22" selection-end-line="3" selection-end-column="37" />
-          <folding />
+          <caret line="33" column="0" lean-forward="true" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+          <folding>
+            <element signature="method#check#0;class#MessageAct#0" expanded="false" />
+            <element signature="method#messageMng#0;class#MessageAct#0" expanded="false" />
+            <element signature="method#messageInbox#0;class#MessageAct#0" expanded="false" />
+            <element signature="method#messageAdd#0;class#MessageAct#0" expanded="false" />
+            <element signature="method#messageReply#0;class#MessageAct#0" expanded="false" />
+            <element signature="method#messageSend#0;class#MessageAct#0" expanded="false" />
+            <element signature="method#messageSave#0;class#MessageAct#0" expanded="false" />
+            <element signature="method#messageToSend#0;class#MessageAct#0" expanded="false" />
+            <element signature="method#messageEdit#0;class#MessageAct#0" expanded="false" />
+            <element signature="method#messageUpdate#0;class#MessageAct#0" expanded="false" />
+            <element signature="method#messageRead#0;class#MessageAct#0" expanded="false" />
+            <element signature="method#messageForward#0;class#MessageAct#0" expanded="false" />
+            <element signature="method#messageTrash#0;class#MessageAct#0" expanded="false" />
+            <element signature="method#messageRevert#0;class#MessageAct#0" expanded="false" />
+            <element signature="method#findUserByUserName#0;class#MessageAct#0" expanded="false" />
+            <element signature="method#findUnreadMessagesByUser#0;class#MessageAct#0" expanded="false" />
+            <element signature="method#messageDelete#0;class#MessageAct#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/vote_reply_result.html">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/siteconfig/entity/CmsSite.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="5" column="22" lean-forward="false" selection-start-line="5" selection-start-column="22" selection-end-line="5" selection-end-column="22" />
-          <folding />
+        <state relative-caret-position="125">
+          <caret line="141" column="0" lean-forward="true" selection-start-line="141" selection-start-column="0" selection-end-line="141" selection-end-column="0" />
+          <folding>
+            <element signature="e#11730#11731#0" expanded="true" />
+            <element signature="e#11770#11771#0" expanded="true" />
+            <element signature="e#27390#27391#0" expanded="true" />
+            <element signature="e#27470#27471#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/special/vote_result.html">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/core/base/action/RenderController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="3" column="22" lean-forward="false" selection-start-line="3" selection-start-column="22" selection-end-line="3" selection-end-column="22" />
-          <folding />
+        <state relative-caret-position="264">
+          <caret line="19" column="25" lean-forward="true" selection-start-line="19" selection-start-column="25" selection-end-line="19" selection-end-column="25" />
+          <folding>
+            <element signature="method#renderCommonData#0;class#RenderController#0" expanded="false" />
+            <element signature="method#renderCommonPageData#0;class#RenderController#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/topic/topic_default.html">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/IndexController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="5" column="40" lean-forward="false" selection-start-line="5" selection-start-column="40" selection-end-line="5" selection-end-column="40" />
-          <folding />
+        <state relative-caret-position="253">
+          <caret line="63" column="7" lean-forward="true" selection-start-line="63" selection-start-column="7" selection-end-line="63" selection-end-column="7" />
+          <folding>
+            <element signature="method#dynamic#0;class#IndexController#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/topic/topic_index.html">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/core/base/action/AbstractController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="4" column="29" lean-forward="false" selection-start-line="4" selection-start-column="29" selection-end-line="4" selection-end-column="29" />
-          <folding />
+        <state relative-caret-position="264">
+          <caret line="24" column="7" lean-forward="true" selection-start-line="24" selection-start-column="7" selection-end-line="24" selection-end-column="7" />
+          <folding>
+            <element signature="e#1949#1950#0" expanded="true" />
+            <element signature="e#2017#2018#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/t/cms/www/mobile/visual/temp2.html">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/core/web/util/CmsUtils.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="5" column="40" lean-forward="false" selection-start-line="5" selection-start-column="40" selection-end-line="5" selection-end-column="40" />
-          <folding />
+        <state relative-caret-position="264">
+          <caret line="20" column="12" lean-forward="true" selection-start-line="20" selection-start-column="12" selection-end-line="20" selection-end-column="12" />
+          <folding>
+            <element signature="e#1261#1262#0" expanded="true" />
+            <element signature="e#1324#1325#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

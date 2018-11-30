@@ -27,8 +27,7 @@ public final class MessageResolver {
         if (messageSource == null) {
             throw new IllegalStateException("WebApplicationContext not found!");
         }
-        LocaleResolver localeResolver = RequestContextUtils
-                .getLocaleResolver(request);
+        LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
         Locale locale;
         if (localeResolver != null) {
             locale = localeResolver.resolveLocale(request);

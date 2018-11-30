@@ -8,13 +8,12 @@ import com.bfly.cms.system.service.MessageTemplate;
 import com.bfly.cms.user.entity.UnifiedUser;
 import com.bfly.cms.user.service.PwdEncoder;
 import com.bfly.cms.user.service.UnifiedUserMng;
-import com.bfly.common.web.RequestUtils;
 import com.bfly.core.Constants;
 import com.bfly.core.annotation.Token;
+import com.bfly.core.base.action.RenderController;
 import com.bfly.core.web.ResponseCode;
 import com.bfly.core.web.WebErrors;
 import com.bfly.core.web.util.CmsUtils;
-import com.bfly.core.web.util.FrontUtils;
 import com.octo.captcha.service.CaptchaServiceException;
 import com.octo.captcha.service.image.ImageCaptchaService;
 import org.apache.commons.lang.StringUtils;
@@ -23,14 +22,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.Serializable;
-
-import static com.bfly.core.Constants.TPLDIR_MEMBER;
 
 /**
  * @author andy_hulibo@163.com
@@ -42,26 +38,18 @@ import static com.bfly.core.Constants.TPLDIR_MEMBER;
  * 如果输入错误或服务器邮箱等信息设置不完整，则给出提示信息<li>
  */
 @Controller
-public class ForgotPasswordAct {
-    private static Logger log = LoggerFactory
-            .getLogger(ForgotPasswordAct.class);
+public class ForgotPasswordAct extends RenderController {
 
-    public static final String FORGOT_PASSWORD_INPUT = "tpl.forgotPasswordInput";
-    public static final String FORGOT_PASSWORD_RESULT = "tpl.forgotPasswordResult";
-    public static final String PASSWORD_RESET = "tpl.passwordReset";
-    public static final String PASSWORD_SMS_RESET = "tpl.setNewPassword";
+    private static Logger log = LoggerFactory.getLogger(ForgotPasswordAct.class);
 
     /**
+     * @author andy_hulibo@163.com
+     * @date 2018/11/29 17:31
      * 找回密码输入页
-     *
-     * @param request
-     * @param response
-     * @return
      */
     @Token(save = true)
-    @RequestMapping(value = "/member/forgot_password.html", method = RequestMethod.GET)
-    public String forgotPasswordInput(HttpServletRequest request,
-                                      HttpServletResponse response, ModelMap model) {
+    @GetMapping(value = "/member/forgot_password.html")
+    public String forgotPasswordInput(HttpServletRequest request, ModelMap model) {
         CmsSite site = CmsUtils.getSite(request);
         CmsConfig config = site.getConfig();
 
@@ -69,35 +57,28 @@ public class ForgotPasswordAct {
         if (config.getValidateType() != null) {
             validateType = config.getValidateType();
         }
-        Integer isSMSForgotPassword = 0;//是否开启SMS找回密码
+        //是否开启SMS找回密码
+        Integer isSMSForgotPassword = 0;
         if (validateType == 2) {
             isSMSForgotPassword = 1;
         }
-
         model.addAttribute("isSMSForgotPassword", isSMSForgotPassword);
-        FrontUtils.frontData(request, model, site);
-        return FrontUtils.getTplPath(request, site.getSolutionPath(),
-                TPLDIR_MEMBER, FORGOT_PASSWORD_INPUT);
+        return renderPage("member/forgot_password_input.html", model);
     }
 
     /**
      * 找回密码提交页
      *
-     * @param email
-     * @param captcha
-     * @param request
-     * @param response
-     * @return
+     * @author andy_hulibo@163.com
+     * @date 2018/11/29 17:34
      */
     @Token(remove = true)
-    @RequestMapping(value = "/member/forgot_password.html", method = RequestMethod.POST)
-    public String forgotPasswordSubmit(String email,
-                                       String captcha, HttpServletRequest request,
-                                       HttpServletResponse response, ModelMap model, String mobile) {
-        CmsSite site = CmsUtils.getSite(request);
+    @PostMapping(value = "/member/forgot_password.html")
+    public String forgotPasswordSubmit(String email, String captcha, ModelMap model, String mobile) {
+        CmsSite site = getSite();
         CmsConfig config = site.getConfig();
         WebErrors errors;
-        String username = RequestUtils.getQueryParam(request, "username");
+        String username = getRequest().getParameter("username");
 
         //是否开启SMS找回密码
         Boolean isSMSForgotPassword = false;
@@ -106,31 +87,26 @@ public class ForgotPasswordAct {
         }
 
         if (isSMSForgotPassword) {
-            errors = validateSMSForgotPasswordSubmit(username, mobile,
-                    captcha, request, response);
+            errors = validateSMSForgotPasswordSubmit(username, mobile, captcha);
         } else {
-            errors = validateForgotPasswordSubmit(username, email,
-                    captcha, request, response);
+            errors = validateForgotPasswordSubmit(username, email, captcha);
+        }
+        if (errors.hasErrors()) {
+            return renderErrorPage(model, errors);
         }
 
-        if (errors.hasErrors()) {
-            return FrontUtils.showError(request, response, model, errors);
-        }
         if (isSMSForgotPassword) {
             //把用户保存到SESSION中
             UnifiedUser user = unifiedUserMng.getByUsername(username);
-            request.getSession().setAttribute("FOTGOTPWD_USER_ID", user.getId());
+            getSession().setAttribute("FOTGOTPWD_USER_ID", user.getId());
             //跳转到创建新密码页面
             model.addAttribute("username", username);
-            FrontUtils.frontData(request, model, site);
-            return FrontUtils.getTplPath(request, site.getSolutionPath(),
-                    TPLDIR_MEMBER, PASSWORD_SMS_RESET);
+            return renderPage("member/set_new_password.html", model);
         }
         UnifiedUser user = unifiedUserMng.getByUsername(username);
         EmailSender sender = configMng.getEmailSender();
         MessageTemplate msgTpl = configMng.getForgotPasswordMessageTemplate();
         model.addAttribute("user", user);
-        FrontUtils.frontData(request, model, site);
         if (user == null) {
             // 用户名不存在
             model.addAttribute("status", 1);
@@ -157,18 +133,14 @@ public class ForgotPasswordAct {
                 log.error("send email exception.", e);
             }
         }
-        return FrontUtils.getTplPath(request, site.getSolutionPath(),
-                TPLDIR_MEMBER, FORGOT_PASSWORD_RESULT);
+        return renderPage("member/forgot_password_result.html", model);
     }
 
-    @RequestMapping(value = "/member/password_reset.html", method = RequestMethod.GET)
-    public String passwordReset(Integer uid, String key,
-                                HttpServletRequest request, HttpServletResponse response,
-                                ModelMap model) {
-        CmsSite site = CmsUtils.getSite(request);
-        WebErrors errors = validatePasswordReset(uid, key, request);
+    @GetMapping(value = "/member/password_reset.html")
+    public String passwordReset(Integer uid, String key, ModelMap model) {
+        WebErrors errors = validatePasswordReset(uid, key);
         if (errors.hasErrors()) {
-            return FrontUtils.showError(request, response, model, errors);
+            return renderErrorPage(model, errors);
         }
         UnifiedUser user = unifiedUserMng.findById(uid);
         if (user == null) {
@@ -184,19 +156,19 @@ public class ForgotPasswordAct {
             unifiedUserMng.resetPassword(uid);
             model.addAttribute("status", 0);
         }
-        FrontUtils.frontData(request, model, site);
-        return FrontUtils.getTplPath(request, site.getSolutionPath(),
-                TPLDIR_MEMBER, PASSWORD_RESET);
+        return renderPage("member/password_reset.html", model);
     }
 
-    //SMS验证密码修改
-    @RequestMapping(value = "sms_password_reset.html", method = RequestMethod.POST)
-    public String smsRestPassword(String username, String loginPassword, HttpServletRequest request,
-                                  HttpServletResponse response, ModelMap model) {
-        CmsSite site = CmsUtils.getSite(request);
-        WebErrors errors = WebErrors.create(request);
-        //获取session中的用户ID
-        Integer userId = (Integer) request.getSession().getAttribute("FOTGOTPWD_USER_ID");
+    /**
+     * SMS验证密码修改
+     *
+     * @author andy_hulibo@163.com
+     * @date 2018/11/29 17:41
+     */
+    @PostMapping(value = "sms_password_reset.html")
+    public String smsRestPassword(String username, String loginPassword, ModelMap model) {
+        WebErrors errors = WebErrors.create(getRequest());
+        Integer userId = (Integer) getSession().getAttribute("FOTGOTPWD_USER_ID");
 
         if (StringUtils.isBlank(username) || StringUtils.isBlank(loginPassword)) {
             errors.addErrorString(Constants.API_MESSAGE_PARAM_REQUIRED);
@@ -207,7 +179,7 @@ public class ForgotPasswordAct {
             errors.addErrorString(ResponseCode.API_CODE_USER_STATUS_OVER_TIME);
         }
         if (errors.hasErrors()) {
-            return FrontUtils.showError(request, response, model, errors);
+            return renderErrorPage(model, errors);
         }
         UnifiedUser user = unifiedUserMng.findById(userId);
         if (user == null) {
@@ -219,22 +191,17 @@ public class ForgotPasswordAct {
         }
 
         if (errors.hasErrors()) {
-            return FrontUtils.showError(request, response, model, errors);
-        } else {
-            user.setPassword(pwdEncoder.encodePassword(loginPassword));
-            unifiedUserMng.restPassword(user);
-            model.addAttribute("status", 0);
+            return renderErrorPage(model, errors);
         }
-        FrontUtils.frontData(request, model, site);
-        return FrontUtils.getTplPath(request, site.getSolutionPath(),
-                TPLDIR_MEMBER, PASSWORD_RESET);
+        user.setPassword(pwdEncoder.encodePassword(loginPassword));
+        unifiedUserMng.restPassword(user);
+        model.addAttribute("status", 0);
+        return renderPage("member/password_reset.html", model);
     }
 
 
-    private WebErrors validateForgotPasswordSubmit(String username,
-                                                   String email, String captcha, HttpServletRequest request,
-                                                   HttpServletResponse response) {
-        WebErrors errors = WebErrors.create(request);
+    private WebErrors validateForgotPasswordSubmit(String username, String email, String captcha) {
+        WebErrors errors = WebErrors.create(getRequest());
         if (errors.ifBlank(username, "username", 100, true)) {
             return errors;
         }
@@ -245,7 +212,7 @@ public class ForgotPasswordAct {
             return errors;
         }
         try {
-            if (!imageCaptchaService.validateResponseForID(request.getSession().getId(), captcha)) {
+            if (!imageCaptchaService.validateResponseForID(getSession().getId(), captcha)) {
                 errors.addErrorCode("error.invalidCaptcha");
                 return errors;
             }
@@ -257,13 +224,8 @@ public class ForgotPasswordAct {
         return errors;
     }
 
-    /**
-     * 校验SMS找回密码
-     */
-    private WebErrors validateSMSForgotPasswordSubmit(String username,
-                                                      String mobile, String captcha, HttpServletRequest request,
-                                                      HttpServletResponse response) {
-        WebErrors errors = WebErrors.create(request);
+    private WebErrors validateSMSForgotPasswordSubmit(String username, String mobile, String captcha) {
+        WebErrors errors = WebErrors.create(getRequest());
         if (errors.ifBlank(username, "username", 100, true)) {
             return errors;
         }
@@ -274,23 +236,23 @@ public class ForgotPasswordAct {
             return errors;
         }
         // 验证码有效时间
-        Serializable autoCodeTime = (String) request.getSession().getAttribute("FORGOTPWD_AUTO_CODE_CREAT_TIME");
+        Serializable autoCodeTime = (String) getSession().getAttribute("FORGOTPWD_AUTO_CODE_CREAT_TIME");
         // 验证码值
-        Serializable autoCode = (String) request.getSession().getAttribute("FORGOTPWD_AUTO_CODE");
+        Serializable autoCode = (String) getSession().getAttribute("FORGOTPWD_AUTO_CODE");
         // 判断验证码是否在有效时间范围
         if (autoCodeTime != null && autoCode != null) {
             Long effectiveTime = Long.parseLong(autoCodeTime.toString());
             if (effectiveTime > System.currentTimeMillis()) {
                 // 验证码验证码是否正确
                 if (captcha.equals(autoCode.toString())) {
-                    request.getSession().setAttribute("FORGOTPWD_AUTO_CODE_CREAT_TIME", null);
+                    getSession().setAttribute("FORGOTPWD_AUTO_CODE_CREAT_TIME", null);
                 } else {
                     // 验证码不正确
                     errors.addErrorCode("error.invalidCaptcha");
                 }
             } else {
                 // 验证码失效
-                errors.addErrorCode("error.invalidCaptcha");//loseEfficacyCaptcha
+                errors.addErrorCode("error.invalidCaptcha");
             }
         } else {
             // 验证码错误
@@ -299,9 +261,8 @@ public class ForgotPasswordAct {
         return errors;
     }
 
-    private WebErrors validatePasswordReset(Integer uid, String key,
-                                            HttpServletRequest request) {
-        WebErrors errors = WebErrors.create(request);
+    private WebErrors validatePasswordReset(Integer uid, String key) {
+        WebErrors errors = WebErrors.create(getRequest());
         if (errors.ifNull(uid, "uid", true)) {
             return errors;
         }

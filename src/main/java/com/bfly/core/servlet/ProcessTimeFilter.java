@@ -16,32 +16,35 @@ import org.slf4j.LoggerFactory;
 
 /**
  * 执行时间过滤器
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/11/29 10:28
  */
-@WebFilter(filterName = "processTime",urlPatterns = {"*.htm"})
+@WebFilter(filterName = "processTime", urlPatterns = {"*.htm"})
 public class ProcessTimeFilter implements Filter {
-	protected final Logger log = LoggerFactory
-			.getLogger(ProcessTimeFilter.class);
-	/**
-	 * 请求执行开始时间
-	 */
-	public static final String START_TIME = "_start_time";
+    protected final Logger log = LoggerFactory
+            .getLogger(ProcessTimeFilter.class);
+    /**
+     * 请求执行开始时间
+     */
+    public static final String START_TIME = "_start_time";
 
-	@Override
+    @Override
     public void destroy() {
-	}
+    }
 
-	@Override
+    @Override
     public void doFilter(ServletRequest req, ServletResponse response,
                          FilterChain chain) throws IOException, ServletException {
-		HttpServletRequest request = (HttpServletRequest) req;
-		long time = System.currentTimeMillis();
-		request.setAttribute(START_TIME, time);
-		chain.doFilter(request, response);
-		time = System.currentTimeMillis() - time;
-		log.debug("process in {} ms: {}", time, request.getRequestURI());
-	}
+        HttpServletRequest request = (HttpServletRequest) req;
+        long time = System.currentTimeMillis();
+        request.setAttribute(START_TIME, time);
+        chain.doFilter(request, response);
+        time = System.currentTimeMillis() - time;
+        log.debug("process in {} ms: {}", time, request.getRequestURI());
+    }
 
-	@Override
+    @Override
     public void init(FilterConfig arg0) throws ServletException {
-	}
+    }
 }

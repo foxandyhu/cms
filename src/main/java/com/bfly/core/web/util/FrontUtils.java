@@ -26,25 +26,12 @@ import static com.bfly.core.Constants.*;
 import static com.bfly.core.servlet.ProcessTimeFilter.START_TIME;
 
 /**
- * 前台工具类
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/11/30 17:36
  */
 public class FrontUtils {
-    /**
-     * 页面没有找到
-     */
-    public static final String PAGE_NOT_FOUND = "tpl.pageNotFound";
-    /**
-     * 操作成功页面
-     */
-    public static final String SUCCESS_PAGE = "tpl.successPage";
-    /**
-     * 操作失败页面
-     */
-    public static final String ERROR_PAGE = "tpl.errorPage";
-    /**
-     * 信息提示页面
-     */
-    public static final String MESSAGE_PAGE = "tpl.messagePage";
+
     /**
      * 系统资源路径
      */
@@ -117,18 +104,6 @@ public class FrontUtils {
     public static final String PARAM_USER_PAGE = "userPage";
 
     /**
-     * 返回页面
-     */
-    public static final String RETURN_URL = "returnUrl";
-
-    /**
-     * 国际化参数
-     */
-    public static final String ARGS = "args";
-
-    public static final String PROCESS_URL = "processUrl";
-
-    /**
      * 获得模板路径。将对模板文件名称进行本地化处理。
      *
      * @param request
@@ -137,8 +112,7 @@ public class FrontUtils {
      * @param name     模板名称。本地化处理。
      * @return
      */
-    public static String getTplPath(HttpServletRequest request,
-                                    String solution, String dir, String name) {
+    public static String getTplPath(HttpServletRequest request, String solution, String dir, String name) {
         String equipment = (String) request.getAttribute("ua");
         CmsSite site = CmsUtils.getSite(request);
         if (StringUtils.isNotBlank(equipment) && "mobile".equals(equipment)) {
@@ -179,128 +153,6 @@ public class FrontUtils {
         return solution + "/" + dir + "/" + name + TPL_SUFFIX;
     }
 
-    /**
-     * 页面没有找到
-     *
-     * @param request
-     * @param response
-     * @return 返回“页面没有找到”的模板
-     */
-    public static String pageNotFound(HttpServletRequest request,
-                                      HttpServletResponse response, Map<String, Object> model) {
-        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-        CmsSite site = CmsUtils.getSite(request);
-        frontData(request, model, site);
-        return getTplPath(request, site.getSolutionPath(), TPLDIR_COMMON,
-                PAGE_NOT_FOUND);
-    }
-
-    /**
-     * 成功提示页面
-     *
-     * @param request
-     * @param model
-     * @return
-     */
-    public static String showSuccess(HttpServletRequest request,
-                                     Map<String, Object> model, String nextUrl) {
-        CmsSite site = CmsUtils.getSite(request);
-        frontData(request, model, site);
-        if (!StringUtils.isBlank(nextUrl)) {
-            model.put("nextUrl", nextUrl);
-        }
-        return getTplPath(request, site.getSolutionPath(), TPLDIR_COMMON,
-                SUCCESS_PAGE);
-    }
-
-    /**
-     * 错误提示页面
-     *
-     * @param request
-     * @param response
-     * @param model
-     * @return
-     */
-    public static String showError(HttpServletRequest request,
-                                   HttpServletResponse response, Map<String, Object> model,
-                                   WebErrors errors) {
-        CmsSite site = CmsUtils.getSite(request);
-        frontData(request, model, site);
-        errors.toModel(model);
-        return getTplPath(request, site.getSolutionPath(), TPLDIR_COMMON,
-                ERROR_PAGE);
-    }
-
-    /**
-     * 信息提示页面
-     *
-     * @param request
-     * @param model
-     * @param message 进行国际化处理
-     * @return
-     */
-    public static String showMessage(HttpServletRequest request,
-                                     Map<String, Object> model, String message, String... args) {
-        CmsSite site = CmsUtils.getSite(request);
-        frontData(request, model, site);
-        model.put(MESSAGE, message);
-        if (args != null) {
-            model.put(ARGS, args);
-        }
-        return getTplPath(request, site.getSolutionPath(), TPLDIR_COMMON, MESSAGE_PAGE);
-    }
-
-    /**
-     * 显示登录页面
-     *
-     * @param request
-     * @param model
-     * @param site
-     * @param message
-     * @return
-     */
-    public static String showLogin(HttpServletRequest request,
-                                   Map<String, Object> model, CmsSite site, String message) {
-        if (!StringUtils.isBlank(message)) {
-            model.put(MESSAGE, message);
-        }
-        StringBuilder buff = new StringBuilder("redirect:");
-        buff.append(site.getLoginUrl()).append("?");
-        buff.append(RETURN_URL).append("=");
-        buff.append(RequestUtils.getLocation(request));
-        if (!StringUtils.isBlank(site.getProcessUrl())) {
-            buff.append("&").append(PROCESS_URL).append(site.getProcessUrl());
-        }
-        return buff.toString();
-    }
-
-    /**
-     * 显示登录页面
-     *
-     * @param request
-     * @param model
-     * @param site
-     * @return
-     */
-    public static String showLogin(HttpServletRequest request,
-                                   Map<String, Object> model, CmsSite site) {
-        return showLogin(request, model, site, "true");
-    }
-
-    /**
-     * 为前台模板设置公用数据
-     *
-     * @param request
-     */
-    public static void frontData(HttpServletRequest request,
-                                 Map<String, Object> map, CmsSite site) {
-        CmsUser user = CmsUtils.getUser(request);
-        String location = RequestUtils.getLocation(request);
-        Long startTime = (Long) request.getAttribute(START_TIME);
-        map.put("token", request.getAttribute("token"));
-        frontData(map, site, user, location, startTime);
-    }
-
     public static void frontData(Map<String, Object> map, CmsSite site,
                                  CmsUser user, String location, Long startTime) {
         if (startTime != null) {
@@ -333,8 +185,7 @@ public class FrontUtils {
      * @param request
      * @param map
      */
-    public static void frontPageData(HttpServletRequest request,
-                                     Map<String, Object> map) {
+    public static void frontPageData(HttpServletRequest request, Map<String, Object> map) {
         int pageNo = URLHelper.getPageNo(request);
         PageInfo info = URLHelper.getPageInfo(request);
         String href = info.getHref();
@@ -350,8 +201,7 @@ public class FrontUtils {
      * @param href
      * @param map
      */
-    public static void frontPageData(int pageNo, String href,
-                                     String hrefFormer, String hrefLatter, Map<String, Object> map) {
+    public static void frontPageData(int pageNo, String href,String hrefFormer, String hrefLatter, Map<String, Object> map) {
         map.put(PAGE_NO, pageNo);
         map.put(HREF, href);
         map.put(HREF_FORMER, hrefFormer);

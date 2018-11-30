@@ -1,5 +1,7 @@
 package com.bfly.common.ipseek;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 
 import java.io.FileNotFoundException;
@@ -8,18 +10,35 @@ import java.io.RandomAccessFile;
 import java.util.HashMap;
 import java.util.Map;
 
-public class IPSeekerImpl implements IPSeeker {
-    // 用来做为cache，查询一个ip时首先查看cache，以减少不必要的重复查找
+/**
+ * @author andy_hulibo@163.com
+ * @date 2018/11/29 10:20
+ */
+public class IpSeekerImpl implements IPSeeker {
+
+    private Logger logger = LoggerFactory.getLogger(IpSeekerImpl.class);
+
+    /**
+     * 用来做为cache，查询一个ip时首先查看cache，以减少不必要的重复查找
+     */
     private Map<String, IPLocation> ipCache;
-    // 随机文件访问类
+
+    /**
+     * 随机文件访问类
+     */
     private RandomAccessFile ipFile;
-    // 起始地区的开始和结束的绝对偏移
+
+    /**
+     * 起始地区的开始和结束的绝对偏移
+     */
     private long ipBegin, ipEnd;
-    // 为提高效率而采用的临时变量
+
+    /**
+     * 为提高效率而采用的临时变量
+     */
     private IPLocation loc;
     private byte[] b4;
     private byte[] b3;
-    private String dir;
     private String filename;
 
     public void init() {
@@ -27,9 +46,9 @@ public class IPSeekerImpl implements IPSeeker {
         try {
             file = new ClassPathResource(filename).getFile().getPath();
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("初始化IP库出错",e);
         }
-        ipCache = new HashMap<>();
+        ipCache = new HashMap<>(5);
         loc = new IPLocation();
         b4 = new byte[4];
         b3 = new byte[3];
@@ -39,18 +58,16 @@ public class IPSeekerImpl implements IPSeeker {
             throw new IPParseException("ip data file not found!", e);
         }
         // 如果打开文件成功，读取文件头信息
-        if (ipFile != null) {
-            try {
-                ipBegin = readLong4(0);
-                ipEnd = readLong4(4);
-                if (ipBegin == -1 || ipEnd == -1) {
-                    ipFile.close();
-                    ipFile = null;
-                }
-            } catch (IOException e) {
-                // LogFactory.log("IP地址信息文件格式有错误，IP显示功能将无法使用", Level.ERROR, e);
+        try {
+            ipBegin = readLong4(0);
+            ipEnd = readLong4(4);
+            if (ipBegin == -1 || ipEnd == -1) {
+                ipFile.close();
                 ipFile = null;
             }
+        } catch (IOException e) {
+            logger.error("IP地址信息文件格式有错误，IP显示功能将无法使用", e);
+            ipFile = null;
         }
     }
 
@@ -65,7 +82,7 @@ public class IPSeekerImpl implements IPSeeker {
      * @param ip ip的字节数组形式
      * @return 国家名字符串
      */
-    public String getCountry(byte[] ip) {
+    private String getCountry(byte[] ip) {
         // 检查ip地址文件是否正常
         if (ipFile == null) {
             return Message.bad_ip_file;
@@ -89,7 +106,7 @@ public class IPSeekerImpl implements IPSeeker {
      * @param ip IP的字符串形式
      * @return 国家名字符串
      */
-    public String getCountry(String ip) {
+    private String getCountry(String ip) {
         return getCountry(Util.getIpByteArrayFromString(ip));
     }
 
@@ -99,7 +116,7 @@ public class IPSeekerImpl implements IPSeeker {
      * @param ip ip的字节数组形式
      * @return 地区名字符串
      */
-    public String getArea(byte[] ip) {
+    private String getArea(byte[] ip) {
         // 检查ip地址文件是否正常
         if (ipFile == null) {
             return Message.bad_ip_file;
@@ -123,7 +140,7 @@ public class IPSeekerImpl implements IPSeeker {
      * @param ip IP的字符串形式
      * @return 地区名字符串
      */
-    public String getArea(String ip) {
+    private String getArea(String ip) {
         return getArea(Util.getIpByteArrayFromString(ip));
     }
 
@@ -150,7 +167,7 @@ public class IPSeekerImpl implements IPSeeker {
     /**
      * 从offset位置读取4个字节为一个long，因为java为big-endian格式，所以没办法 用了这么一个函数来做转换
      *
-     * @param offset
+     * @param offset offset
      * @return 读取的long值，返回-1表示读取文件失败
      */
     private long readLong4(long offset) {
@@ -209,8 +226,8 @@ public class IPSeekerImpl implements IPSeeker {
      * 从offset位置读取四个字节的ip地址放入ip数组中，读取后的ip为big-endian格式，但是
      * 文件中是little-endian形式，将会进行转换
      *
-     * @param offset
-     * @param ip
+     * @param offset offset
+     * @param ip     IP
      */
     private void readIP(long offset, byte[] ip) {
         try {
@@ -223,7 +240,7 @@ public class IPSeekerImpl implements IPSeeker {
             ip[1] = ip[2];
             ip[2] = temp;
         } catch (IOException e) {
-            // LogFactory.log("", Level.ERROR, e);
+            logger.error("读取IP出错", e);
         }
     }
 
@@ -235,7 +252,8 @@ public class IPSeekerImpl implements IPSeeker {
      * @return 相等返回0，ip大于beginIp则返回1，小于返回-1。
      */
     private int compareIP(byte[] ip, byte[] beginIp) {
-        for (int i = 0; i < 4; i++) {
+        int length = 4;
+        for (int i = 0; i < length; i++) {
             int r = compareByte(ip[i], beginIp[i]);
             if (r != 0) {
                 return r;
@@ -247,14 +265,16 @@ public class IPSeekerImpl implements IPSeeker {
     /**
      * 把两个byte当作无符号数进行比较
      *
-     * @param b1
-     * @param b2
+     * @param b1 参数
+     * @param b2 参数
      * @return 若b1大于b2则返回1，相等返回0，小于返回-1
      */
     private int compareByte(byte b1, byte b2) {
-        if ((b1 & 0xFF) > (b2 & 0xFF)) { // 比较是否大于
+        // 比较是否大于
+        int b = 0xFF;
+        if ((b1 & b) > (b2 & b)) {
             return 1;
-        } else if ((b1 ^ b2) == 0) {// 判断是否相等
+        } else if ((b1 ^ b2) == 0) {
             return 0;
         } else {
             return -1;
@@ -275,8 +295,7 @@ public class IPSeekerImpl implements IPSeeker {
         r = compareIP(ip, b4);
         if (r == 0) {
             return ipBegin;
-        }
-        else if (r < 0) {
+        } else if (r < 0) {
             return -1;
         }
         // 开始二分搜索
@@ -284,18 +303,16 @@ public class IPSeekerImpl implements IPSeeker {
             m = getMiddleOffset(i, j);
             readIP(m, b4);
             r = compareIP(ip, b4);
-            // log.debug(Utils.getIpStringFromBytes(b));
             if (r > 0) {
                 i = m;
-            }
-            else if (r < 0) {
+            } else if (r < 0) {
                 if (m == j) {
                     j -= IP_RECORD_LENGTH;
                     m = j;
                 } else {
                     j = m;
                 }
-            } else{
+            } else {
                 return readLong3(m + 4);
             }
         }
@@ -306,8 +323,7 @@ public class IPSeekerImpl implements IPSeeker {
         r = compareIP(ip, b4);
         if (r <= 0) {
             return m;
-        }
-        else {
+        } else {
             return -1;
         }
     }
@@ -315,9 +331,9 @@ public class IPSeekerImpl implements IPSeeker {
     /**
      * 得到begin偏移和end偏移中间位置记录的偏移
      *
-     * @param begin
-     * @param end
-     * @return
+     * @param begin 开始
+     * @param end   结束
+     * @return 偏移
      */
     private long getMiddleOffset(long begin, long end) {
         long records = (end - begin) / IP_RECORD_LENGTH;
@@ -373,7 +389,7 @@ public class IPSeekerImpl implements IPSeeker {
      *
      * @param offset 地区记录的起始偏移
      * @return 地区名字符串
-     * @throws IOException
+     * @throws IOException Exception
      */
     private String readArea(long offset) throws IOException {
         ipFile.seek(offset);
@@ -382,8 +398,7 @@ public class IPSeekerImpl implements IPSeeker {
             long areaOffset = readLong3(offset + 1);
             if (areaOffset == 0) {
                 return Message.unknown_area;
-            }
-            else {
+            } else {
                 return readString(areaOffset);
             }
         } else {
@@ -410,19 +425,13 @@ public class IPSeekerImpl implements IPSeeker {
                     buf = tmp;
                 }
             }
-            // for(i = 0, buf[i] = ipFile.readByte(); buf[i] != 0; buf[++i] =
-            // ipFile.readByte());
             if (i != 0) {
                 return Util.getString(buf, 0, i, "GBK");
             }
         } catch (IOException e) {
-            // LogFactory.log("", Level.ERROR, e);
+            logger.error("", e);
         }
         return "";
-    }
-
-    public void setDir(String dir) {
-        this.dir = dir;
     }
 
     public void setFilename(String filename) {

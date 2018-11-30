@@ -5,14 +5,12 @@ import com.bfly.cms.comment.entity.CmsComment;
 import com.bfly.cms.comment.service.CmsCommentMng;
 import com.bfly.cms.content.entity.Content;
 import com.bfly.cms.content.service.ContentMng;
-import com.bfly.cms.siteconfig.entity.CmsSite;
 import com.bfly.cms.system.entity.CmsConfig;
 import com.bfly.cms.user.entity.CmsUser;
 import com.bfly.cms.words.service.CmsSensitivityMng;
 import com.bfly.common.web.RequestUtils;
 import com.bfly.common.web.ResponseUtils;
-import com.bfly.core.web.util.CmsUtils;
-import com.bfly.core.web.util.FrontUtils;
+import com.bfly.core.base.action.RenderController;
 import com.octo.captcha.service.CaptchaServiceException;
 import com.octo.captcha.service.image.ImageCaptchaService;
 import org.apache.commons.lang.StringUtils;
@@ -23,82 +21,60 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-import static com.bfly.core.Constants.TPLDIR_CSI;
-import static com.bfly.core.Constants.TPLDIR_SPECIAL;
-
+/**
+ * 评论Controller
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/11/30 10:53
+ */
 @Controller
-public class CommentAct {
+public class CommentAct extends RenderController {
     private static final Logger log = LoggerFactory.getLogger(CommentAct.class);
 
-    public static final String COMMENT_PAGE = "tpl.commentPage";
-    public static final String COMMENT_LIST = "tpl.commentList";
-    public static final String COMMENT_INPUT = "tpl.commentInput";
-
-    @RequestMapping(value = "/comment*.html", method = RequestMethod.GET)
-    public String page(Integer contentId, Integer pageNo,
-                       HttpServletRequest request, HttpServletResponse response,
-                       ModelMap model) {
-        CmsSite site = CmsUtils.getSite(request);
+    @GetMapping(value = "/comment*.html")
+    public String page(Integer contentId, ModelMap model) {
         if (contentId == null) {
-            return FrontUtils.showMessage(request, model,
-                    "comment.contentNotFound");
+            return renderMessagePage(model, "comment.contentNotFound");
         }
         Content content = contentMng.findById(contentId);
         if (content == null) {
-            return FrontUtils.showMessage(request, model,
-                    "comment.contentNotFound");
+            return renderMessagePage(model, "comment.contentNotFound");
         }
         if (content.getChannel().getCommentControl() == ChannelExt.COMMENT_OFF) {
-            return FrontUtils.showMessage(request, model, "comment.closed");
+            return renderMessagePage(model, "comment.closed");
         }
-        // 将request中所有参数保存至model中。
-        model.putAll(RequestUtils.getQueryParams(request));
-        FrontUtils.frontData(request, model, site);
-        FrontUtils.frontPageData(request, model);
+        model.putAll(RequestUtils.getQueryParams(getRequest()));
         model.addAttribute("content", content);
-        return FrontUtils.getTplPath(request, site.getSolutionPath(),
-                TPLDIR_SPECIAL, COMMENT_PAGE);
+        return renderPagination("special/comment_page.html", model);
     }
 
     @RequestMapping(value = "/comment_input_csi.html")
-    public String custom(String tpl, Integer contentId, HttpServletRequest request,
-                         HttpServletResponse response, ModelMap model) {
-        log.debug("visit csi custom template: {}", tpl);
-        CmsSite site = CmsUtils.getSite(request);
+    public String custom(Integer contentId, ModelMap model) {
         if (contentId == null) {
-            return FrontUtils.showMessage(request, model,
-                    "comment.contentNotFound");
+            return renderMessagePage(model, "comment.contentNotFound");
         }
         Content content = contentMng.findById(contentId);
         if (content == null) {
-            return FrontUtils.showMessage(request, model,
-                    "comment.contentNotFound");
+            return renderMessagePage(model, "comment.contentNotFound");
         }
         if (content.getChannel().getCommentControl() == ChannelExt.COMMENT_OFF) {
-            return FrontUtils.showMessage(request, model, "comment.closed");
+            return renderMessagePage(model, "comment.closed");
         }
-        // 将request中所有参数保存至model中。
-        model.putAll(RequestUtils.getQueryParams(request));
+        model.putAll(RequestUtils.getQueryParams(getRequest()));
         model.addAttribute("content", content);
-        FrontUtils.frontData(request, model, site);
-        return FrontUtils.getTplPath(request, site.getSolutionPath(),
-                TPLDIR_SPECIAL, COMMENT_INPUT);
+        return renderPage("special/comment_input.html", model);
     }
 
     @RequestMapping(value = "/comment_list.html")
-    public String list(Integer siteId, Integer contentId, Integer parentId,
-                       Integer greatTo, Integer recommend, Short checked,
-                       Integer orderBy, Integer count,
-                       HttpServletRequest request, HttpServletResponse response,
-                       ModelMap model) {
+    public String list(Integer siteId, Integer contentId, Integer parentId, Integer greatTo, Integer recommend, Short checked, Integer orderBy, Integer count, ModelMap model) {
         if (count == null || count <= 0 || count > 200) {
             count = 200;
         }
@@ -114,24 +90,17 @@ public class CommentAct {
         } else {
             rec = null;
         }
-        List<CmsComment> list = cmsCommentMng.getListForTag(siteId, contentId,
-                parentId, greatTo, checked, rec, desc, 0, count);
-        // 将request中所有参数
-        model.putAll(RequestUtils.getQueryParams(request));
+        List<CmsComment> list = cmsCommentMng.getListForTag(siteId, contentId, parentId, greatTo, checked, rec, desc, 0, count);
+        model.putAll(RequestUtils.getQueryParams(getRequest()));
         model.addAttribute("list", list);
         model.addAttribute("contentId", contentId);
         model.addAttribute("content", contentMng.findById(contentId));
-        CmsSite site = CmsUtils.getSite(request);
-        FrontUtils.frontData(request, model, site);
-        return FrontUtils.getTplPath(request, site.getSolutionPath(),
-                TPLDIR_CSI, COMMENT_LIST);
+        return renderPage("csi/comment_list.html", model);
     }
 
-    @RequestMapping(value = "/comment.html", method = RequestMethod.POST)
-    public void submit(Integer contentId, Integer parentId, Integer score,String text, String captcha,HttpServletRequest request, HttpServletResponse response) throws JSONException, IOException {
-        CmsSite site = CmsUtils.getSite(request);
-        CmsUser user = CmsUtils.getUser(request);
-        CmsConfig config = site.getConfig();
+    @PostMapping(value = "/comment.html")
+    public void submit(HttpServletResponse response, Integer contentId, Integer parentId, Integer score, String text, String captcha) throws JSONException, IOException {
+        CmsConfig config = getSite().getConfig();
         JSONObject json = new JSONObject();
         if (contentId == null) {
             json.put("success", false);
@@ -145,10 +114,11 @@ public class CommentAct {
             ResponseUtils.renderJson(response, json.toString());
             return;
         }
+        CmsUser user = getUser();
         if (user == null || user.getGroup().getNeedCaptcha()) {
             // 验证码错误
             try {
-                if (!imageCaptchaService.validateResponseForID(request.getSession().getId(), captcha)) {
+                if (!imageCaptchaService.validateResponseForID(getSession().getId(), captcha)) {
                     json.put("success", false);
                     json.put("status", 1);
                     ResponseUtils.renderJson(response, json.toString());
@@ -203,8 +173,7 @@ public class CommentAct {
                     ResponseUtils.renderJson(response, json.toString());
                     return;
                 }
-                cmsCommentMng.comment(score, text, RequestUtils.getIpAddr(request),
-                        contentId, site.getId(), userId, checked, false, parentId);
+                cmsCommentMng.comment(score, text, RequestUtils.getIpAddr(getRequest()), contentId, getSite().getId(), userId, checked, false, parentId);
                 json.put("success", true);
                 json.put("status", 0);
             } else {
@@ -216,8 +185,7 @@ public class CommentAct {
     }
 
     @RequestMapping(value = "/comment_up.html")
-    public void up(Integer commentId, HttpServletRequest request,
-                   HttpServletResponse response) {
+    public void up(Integer commentId, HttpServletResponse response) {
         if (exist(commentId)) {
             cmsCommentMng.ups(commentId);
             ResponseUtils.renderJson(response, "true");
@@ -227,8 +195,7 @@ public class CommentAct {
     }
 
     @RequestMapping(value = "/comment_down.html")
-    public void down(Integer commentId, HttpServletRequest request,
-                     HttpServletResponse response) {
+    public void down(Integer commentId, HttpServletResponse response) {
         if (exist(commentId)) {
             cmsCommentMng.downs(commentId);
             ResponseUtils.renderJson(response, "true");
@@ -238,11 +205,7 @@ public class CommentAct {
     }
 
     private boolean hasCommented(CmsUser user, Content content) {
-        if (content.hasCommentUser(user)) {
-            return true;
-        } else {
-            return false;
-        }
+        return content.hasCommentUser(user);
     }
 
     private boolean exist(Integer id) {

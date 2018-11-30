@@ -1,73 +1,57 @@
 package com.bfly.cms.words.action;
 
-import static com.bfly.core.Constants.TPLDIR_SPECIAL;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.bfly.cms.words.entity.ContentTag;
+import com.bfly.cms.words.service.ContentTagMng;
+import com.bfly.core.base.action.RenderController;
+import com.bfly.core.web.util.FrontUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.bfly.cms.words.entity.ContentTag;
-import com.bfly.cms.words.service.ContentTagMng;
-import com.bfly.cms.siteconfig.entity.CmsSite;
-import com.bfly.core.web.util.CmsUtils;
-import com.bfly.core.web.util.FrontUtils;
-
+/**
+ * 标签Controller
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/11/30 9:56
+ */
 @Controller
-public class TagAct {
+public class TagAct extends RenderController {
 
-	public static final String TAGS_INDEX = "tpl.tagIndex";
-	public static final String TAGS_DETAIL = "tpl.tagDetail";
+    @GetMapping(value = "/tag*.html")
+    public String index(ModelMap model) {
+        return renderPagination("special/tag_index.html", model);
+    }
 
-	@RequestMapping(value = "/tag*.html", method = RequestMethod.GET)
-	public String index(HttpServletRequest request,
-			HttpServletResponse response, ModelMap model) {
-		CmsSite site = CmsUtils.getSite(request);
-		FrontUtils.frontData(request, model, site);
-		FrontUtils.frontPageData(request, model);
-		return FrontUtils.getTplPath(request, site.getSolutionPath(),
-				TPLDIR_SPECIAL, TAGS_INDEX);
-	}
+    @GetMapping(value = "/tag/{path}.html")
+    public String tags(@PathVariable String path, ModelMap model) {
+        if (StringUtils.isBlank(path)) {
+            return renderNotFoundPage(model);
+        }
+        int index = path.indexOf("_");
+        int pageNo, id;
+        try {
+            if (index != -1) {
+                id = Integer.valueOf(path.substring(0, index));
+                pageNo = Integer.valueOf(path.substring(index + 1, path.length()));
+            } else {
+                id = Integer.valueOf(path);
+                pageNo = 1;
+            }
+        } catch (NumberFormatException e) {
+            return renderNotFoundPage(model);
+        }
+        ContentTag tag = contentTagMng.findById(id);
+        if (tag == null) {
+            return renderNotFoundPage(model);
+        }
+        model.addAttribute("tag", tag);
+        model.addAttribute(FrontUtils.PAGE_NO, pageNo);
+        return renderPagination("special/tag_default.html", model);
+    }
 
-	@RequestMapping(value = "/tag/{path}.html", method = RequestMethod.GET)
-	public String tags(@PathVariable String path, HttpServletRequest request,
-			HttpServletResponse response, ModelMap model) {
-		CmsSite site = CmsUtils.getSite(request);
-		if (StringUtils.isBlank(path)) {
-			return FrontUtils.pageNotFound(request, response, model);
-		}
-		int index = path.indexOf("_");
-		int pageNo, id;
-		try {
-			if (index != -1) {
-				id = Integer.valueOf(path.substring(0, index));
-				pageNo = Integer.valueOf(path.substring(index + 1, path
-						.length()));
-			} else {
-				id = Integer.valueOf(path);
-				pageNo = 1;
-			}
-		} catch (NumberFormatException e) {
-			return FrontUtils.pageNotFound(request, response, model);
-		}
-		ContentTag tag = contentTagMng.findById(id);
-		if (tag == null) {
-			return FrontUtils.pageNotFound(request, response, model);
-		}
-		model.addAttribute("tag", tag);
-		model.addAttribute(FrontUtils.PAGE_NO, pageNo);
-		FrontUtils.frontData(request, model, site);
-		FrontUtils.frontPageData(request, model);
-		return FrontUtils.getTplPath(request, site.getSolutionPath(),
-				TPLDIR_SPECIAL, TAGS_DETAIL);
-	}
-
-	@Autowired
-	private ContentTagMng contentTagMng;
+    @Autowired
+    private ContentTagMng contentTagMng;
 }
