@@ -41,8 +41,9 @@ public class CmsSiteMngImpl implements CmsSiteMng {
 
     @Override
     @Transactional(readOnly = true, rollbackFor = Exception.class)
-    public List<CmsSite> getListFromCache() {
-        return dao.getList(true);
+    public CmsSite getSite() {
+        List<CmsSite> sites=dao.getList(true);
+        return sites!=null && sites.size()>0?sites.get(0):null;
     }
 
     @Override

@@ -9,7 +9,7 @@ import com.bfly.core.web.CmsThreadVariable;
 import com.bfly.common.image.ImageUtils;
 import com.bfly.common.upload.FileUpload;
 import com.bfly.common.web.springmvc.RealPathResolver;
-import com.bfly.config.SocialInfoConfig;
+import com.bfly.core.config.SocialInfoConfig;
 import com.bfly.cms.system.entity.CmsConfig;
 import com.bfly.cms.siteconfig.entity.CmsSite;
 import com.bfly.cms.siteconfig.entity.Ftp;

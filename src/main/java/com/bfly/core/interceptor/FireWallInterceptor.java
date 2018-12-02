@@ -1,7 +1,7 @@
 package com.bfly.core.interceptor;
 
 import com.bfly.common.web.RequestUtils;
-import com.bfly.config.FireWallProperty;
+import com.bfly.core.config.FireWallProperty;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

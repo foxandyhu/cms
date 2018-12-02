@@ -3,6 +3,7 @@ package com.context;
 import com.bfly.common.web.springmvc.BindingInitializer;
 import com.bfly.core.interceptor.*;
 import freemarker.template.SimpleHash;
+import freemarker.template.TemplateDirectiveModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
@@ -136,23 +137,11 @@ public class WebContextConfig extends WebMvcConfigurerAdapter {
         return new CommonsMultipartResolver();
     }
 
-    @Value("#{'${spring.view.directive}'.split(',')}")
-    private List<String> directives;
-
     @EventListener
     public void handleContextRefresh(ContextRefreshedEvent event) throws Exception {
         ApplicationContext context = event.getApplicationContext();
+        Map<String, TemplateDirectiveModel> map = context.getParent().getBeansOfType(TemplateDirectiveModel.class);
         FreeMarkerConfigurer config = context.getBean(FreeMarkerConfigurer.class);
-        Map<String, Object> map = new HashMap<String, Object>(15) {
-            private static final long serialVersionUID = 723383891389861471L;
-
-            {
-                for (String key : directives) {
-                    Object obj = context.getBean(key);
-                    put(key, obj);
-                }
-            }
-        };
         config.getConfiguration().setAllSharedVariables(new SimpleHash(map, config.getConfiguration().getObjectWrapper()));
     }
 }

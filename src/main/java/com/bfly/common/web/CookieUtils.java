@@ -102,9 +102,7 @@ public class CookieUtils {
         return cookie;
     }
 
-    public static Cookie addCookie(HttpServletRequest request,
-                                   HttpServletResponse response, String name, String value,
-                                   Integer expiry, String domain, String path) {
+    public static Cookie addCookie(HttpServletResponse response, String name, String value, Integer expiry, String domain, String path) {
         Cookie cookie = new Cookie(name, value);
         if (expiry != null) {
             cookie.setMaxAge(expiry);

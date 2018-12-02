@@ -1,67 +1,61 @@
 package com.bfly.cms.user.dao.impl;
 
-import java.util.List;
-
+import com.bfly.cms.user.dao.UnifiedUserDao;
+import com.bfly.cms.user.entity.UnifiedUser;
+import com.bfly.common.page.Pagination;
+import com.bfly.core.base.dao.impl.AbstractHibernateBaseDao;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
-import com.bfly.core.base.dao.impl.AbstractHibernateBaseDao;
-import com.bfly.common.page.Pagination;
-import com.bfly.cms.user.dao.UnifiedUserDao;
-import com.bfly.cms.user.entity.UnifiedUser;
-
+/**
+ * @author andy_hulibo@163.com
+ * @date 2018/12/2 17:17
+ */
 @Repository
-public class UnifiedUserDaoImpl extends AbstractHibernateBaseDao<UnifiedUser, Integer>
-		implements UnifiedUserDao {
-	@Override
+public class UnifiedUserDaoImpl extends AbstractHibernateBaseDao<UnifiedUser, Integer> implements UnifiedUserDao {
+
+    @Override
     public UnifiedUser getByUsername(String username) {
-		return findUniqueByProperty("username", username);
-	}
+        return findUniqueByProperty("username", username);
+    }
 
-	@Override
-    public List<UnifiedUser> getByEmail(String email) {
-		return findByProperty("email", email);
-	}
-
-	@Override
+    @Override
     public int countByEmail(String email) {
-		String hql = "select count(*) from UnifiedUser bean where bean.email=:email";
-		Query query = getSession().createQuery(hql);
-		query.setParameter("email", email);
-		return ((Number) query.iterate().next()).intValue();
-	}
+        String hql = "select count(*) from UnifiedUser bean where bean.email=:email";
+        Query query = getSession().createQuery(hql);
+        query.setParameter("email", email);
+        return ((Number) query.iterate().next()).intValue();
+    }
 
-	@Override
+    @Override
     public Pagination getPage(int pageNo, int pageSize) {
-		Criteria crit = createCriteria();
-		Pagination page = findByCriteria(crit, pageNo, pageSize);
-		return page;
-	}
+        Criteria crit = createCriteria();
+        return findByCriteria(crit, pageNo, pageSize);
+    }
 
-	@Override
+    @Override
     public UnifiedUser findById(Integer id) {
-		UnifiedUser entity = get(id);
-		return entity;
-	}
+        return get(id);
+    }
 
-	@Override
+    @Override
     public UnifiedUser save(UnifiedUser bean) {
-		getSession().save(bean);
-		return bean;
-	}
+        getSession().save(bean);
+        return bean;
+    }
 
-	@Override
+    @Override
     public UnifiedUser deleteById(Integer id) {
-		UnifiedUser entity = super.get(id);
-		if (entity != null) {
-			getSession().delete(entity);
-		}
-		return entity;
-	}
+        UnifiedUser entity = super.get(id);
+        if (entity != null) {
+            getSession().delete(entity);
+        }
+        return entity;
+    }
 
-	@Override
-	protected Class<UnifiedUser> getEntityClass() {
-		return UnifiedUser.class;
-	}
+    @Override
+    protected Class<UnifiedUser> getEntityClass() {
+        return UnifiedUser.class;
+    }
 }

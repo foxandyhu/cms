@@ -6,11 +6,11 @@ import com.bfly.cms.system.service.ConfigMng;
 import com.bfly.cms.system.service.MessageTemplate;
 import com.bfly.cms.user.dao.UnifiedUserDao;
 import com.bfly.cms.user.entity.UnifiedUser;
+import com.bfly.cms.user.service.PwdEncoder;
 import com.bfly.cms.user.service.UnifiedUserMng;
 import com.bfly.common.email.EmailSendTool;
 import com.bfly.common.hibernate4.Updater;
 import com.bfly.common.page.Pagination;
-import com.bfly.cms.user.service.PwdEncoder;
 import com.bfly.core.exception.BadCredentialsException;
 import com.bfly.core.exception.UsernameNotFoundException;
 import org.apache.commons.lang.RandomStringUtils;
@@ -23,48 +23,42 @@ import javax.mail.MessagingException;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
+/**
+ * @author andy_hulibo@163.com
+ * @date 2018/12/2 17:13
+ */
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 public class UnifiedUserMngImpl implements UnifiedUserMng {
+
     @Override
-    public UnifiedUser passwordForgotten(Integer userId, EmailSender email,
-                                         MessageTemplate tpl) {
+    public UnifiedUser passwordForgotten(Integer userId, EmailSender email, MessageTemplate tpl) {
         UnifiedUser user = findById(userId);
         String uuid = StringUtils.remove(UUID.randomUUID().toString(), '-');
         user.setResetKey(uuid);
         String resetPwd = RandomStringUtils.randomNumeric(10);
         user.setResetPwd(resetPwd);
-        senderEmail(user.getId(), user.getUsername(), user.getEmail(), user
-                .getResetKey(), user.getResetPwd(), email, tpl);
+        senderEmail(user.getId(), user.getUsername(), user.getEmail(), user.getResetKey(), user.getResetPwd(), email, tpl);
         return user;
     }
 
-    private void senderEmail(final Integer uid, final String username,
-                             final String to, final String resetKey, final String resetPwd,
-                             final EmailSender email, final MessageTemplate tpl) {
+    private void senderEmail(final Integer uid, final String username, final String to, final String resetKey, final String resetPwd, final EmailSender email, final MessageTemplate tpl) {
         String text = tpl.getForgotPasswordText();
         text = StringUtils.replace(text, "${uid}", String.valueOf(uid));
         text = StringUtils.replace(text, "${username}", username);
         text = StringUtils.replace(text, "${resetKey}", resetKey);
         text = StringUtils.replace(text, "${resetPwd}", resetPwd);
-        EmailSendTool sendEmail = new EmailSendTool(email.getHost(),
-                email.getPort(), email.getUsername(), email.getPassword(), to, tpl
-                .getForgotPasswordSubject(), text, email.getPersonal(), "", "");
+        EmailSendTool sendEmail = new EmailSendTool(email.getHost(), email.getPort(), email.getUsername(), email.getPassword(), to, tpl.getForgotPasswordSubject(), text, email.getPersonal(), "", "");
         sendEmail.sendEmil();
     }
 
-    private void senderEmail(final String username, final String to,
-                             final String activationCode, final EmailSender email,
-                             final MessageTemplate tpl) throws UnsupportedEncodingException, MessagingException {
+    private void senderEmail(final String username, final String to, final String activationCode, final EmailSender email, final MessageTemplate tpl) throws UnsupportedEncodingException, MessagingException {
         String text = tpl.getRegisterText();
         text = StringUtils.replace(text, "${username}", username);
         text = StringUtils.replace(text, "${activationCode}", activationCode);
-        EmailSendTool sendEmail = new EmailSendTool(email.getHost(),
-                email.getPort(), email.getUsername(), email.getPassword(), to, tpl
-                .getRegisterSubject(), text, email.getPersonal(), "", "");
+        EmailSendTool sendEmail = new EmailSendTool(email.getHost(), email.getPort(), email.getUsername(), email.getPassword(), to, tpl.getRegisterSubject(), text, email.getPersonal(), "", "");
         sendEmail.sendEmil();
     }
 
@@ -92,20 +86,17 @@ public class UnifiedUserMngImpl implements UnifiedUserMng {
         int maxErrorInterval = configLogin.getErrorInterval() * 60 * 1000;
         Integer errorCount = user.getErrorCount();
         Date errorTime = user.getErrorTime();
-        if (errorCount <= 0 || errorTime == null
-                || errorTime.getTime() + maxErrorInterval < now) {
+        if (errorCount <= 0 || errorTime == null || errorTime.getTime() + maxErrorInterval < now) {
             return maxErrorTimes;
         }
         return maxErrorTimes - errorCount;
     }
 
     @Override
-    public UnifiedUser login(String username, String password, String ip)
-            throws UsernameNotFoundException, BadCredentialsException {
+    public UnifiedUser login(String username, String password, String ip) throws UsernameNotFoundException, BadCredentialsException {
         UnifiedUser user = getByUsername(username);
         if (user == null) {
-            throw new UsernameNotFoundException("username not found: "
-                    + username);
+            throw new UsernameNotFoundException("username not found: " + username);
         }
         if (!pwdEncoder.isPasswordValid(user.getPassword(), password)) {
             updateLoginError(user.getId(), ip);
@@ -141,9 +132,7 @@ public class UnifiedUserMngImpl implements UnifiedUserMng {
         Date errorTime = user.getErrorTime();
 
         user.setErrorIp(ip);
-        if (errorTime == null
-                || errorTime.getTime() + errorInterval * 60 * 1000 < now
-                .getTime()) {
+        if (errorTime == null || errorTime.getTime() + errorInterval * 60 * 1000 < now.getTime()) {
             user.setErrorTime(now);
             user.setErrorCount(1);
         } else {
@@ -167,27 +156,19 @@ public class UnifiedUserMngImpl implements UnifiedUserMng {
     }
 
     @Override
-    public List<UnifiedUser> getByEmail(String email) {
-        return dao.getByEmail(email);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true, rollbackFor = Exception.class)
     public Pagination getPage(int pageNo, int pageSize) {
-        Pagination page = dao.getPage(pageNo, pageSize);
-        return page;
+        return dao.getPage(pageNo, pageSize);
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true, rollbackFor = Exception.class)
     public UnifiedUser findById(Integer id) {
-        UnifiedUser entity = dao.findById(id);
-        return entity;
+        return dao.findById(id);
     }
 
     @Override
-    public UnifiedUser save(String username, String email, String password,
-                            String ip) {
+    public UnifiedUser save(String username, String email, String password, String ip) {
         Date now = new Timestamp(System.currentTimeMillis());
         UnifiedUser user = new UnifiedUser();
         user.setUsername(username);
@@ -205,9 +186,7 @@ public class UnifiedUserMngImpl implements UnifiedUserMng {
     }
 
     @Override
-    public UnifiedUser save(String username, String email, String password,
-                            String ip, Boolean activation, EmailSender sender,
-                            MessageTemplate msgTpl) throws UnsupportedEncodingException, MessagingException {
+    public UnifiedUser save(String username, String email, String password, String ip, Boolean activation, EmailSender sender, MessageTemplate msgTpl) throws UnsupportedEncodingException, MessagingException {
         Date now = new Timestamp(System.currentTimeMillis());
         UnifiedUser user = new UnifiedUser();
         user.setUsername(username);
@@ -253,8 +232,7 @@ public class UnifiedUserMngImpl implements UnifiedUserMng {
 
     @Override
     public UnifiedUser deleteById(Integer id) {
-        UnifiedUser bean = dao.deleteById(id);
-        return bean;
+        return dao.deleteById(id);
     }
 
     @Override
@@ -275,16 +253,9 @@ public class UnifiedUserMngImpl implements UnifiedUserMng {
     }
 
     @Override
-    public UnifiedUser activeLogin(UnifiedUser user, String ip) {
-        updateLoginSuccess(user.getId(), ip);
-        return user;
-    }
-
-    @Override
     public void restPassword(UnifiedUser user) {
-        Updater<UnifiedUser> updater = new Updater<UnifiedUser>(user);
+        Updater<UnifiedUser> updater = new Updater<>(user);
         dao.updateByUpdater(updater);
-
     }
 
     @Autowired

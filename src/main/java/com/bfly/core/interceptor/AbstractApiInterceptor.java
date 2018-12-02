@@ -98,8 +98,8 @@ public abstract class AbstractApiInterceptor extends HandlerInterceptorAdapter {
     }
 
     protected CmsSite getByDefault() {
-        List<CmsSite> list = cmsSiteMng.getListFromCache();
-        return list.size() > 0 ? list.get(0) : null;
+        CmsSite site = cmsSiteMng.getSite();
+        return site;
     }
 
     protected CmsSite getByDomain(HttpServletRequest request) {

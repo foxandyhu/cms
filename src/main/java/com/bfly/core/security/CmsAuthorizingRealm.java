@@ -1,13 +1,12 @@
 package com.bfly.core.security;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.AuthenticationInfo;
-import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.SimpleAuthenticationInfo;
-import org.apache.shiro.authc.UsernamePasswordToken;
+import com.bfly.cms.siteconfig.entity.CmsSite;
+import com.bfly.cms.user.entity.CmsUser;
+import com.bfly.cms.user.entity.UnifiedUser;
+import com.bfly.cms.user.service.CmsUserMng;
+import com.bfly.cms.user.service.UnifiedUserMng;
+import com.bfly.core.web.CmsThreadVariable;
+import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -16,74 +15,76 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.util.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import com.bfly.core.web.CmsThreadVariable;
-import com.bfly.cms.siteconfig.entity.CmsSite;
-import com.bfly.cms.user.entity.CmsUser;
-import com.bfly.cms.user.entity.UnifiedUser;
-import com.bfly.cms.user.service.CmsUserMng;
-import com.bfly.cms.user.service.UnifiedUserMng;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * 自定义DB Realm
- * 
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/12/1 21:27
  */
 @Component("authorizingRealm")
 public class CmsAuthorizingRealm extends AuthorizingRealm {
 
-	/**
-	 * 登录认证
-	 */
-	@Override
-    protected AuthenticationInfo doGetAuthenticationInfo(
-			AuthenticationToken authcToken) throws AuthenticationException {
-		UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
-		CmsUser user = cmsUserMng.findByUsername(token.getUsername());
-		if (user != null) {
-			UnifiedUser unifiedUser = unifiedUserMng.findById(user.getId());
-			return new SimpleAuthenticationInfo(user.getUsername(), unifiedUser.getPassword(), getName());
-		} else {
-			return null;
-		}
-	}
+    /**
+     * 会员中心登录认证
+     *
+     * @author andy_hulibo@163.com
+     * @date 2018/12/1 11:46
+     */
+    @Override
+    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
+        UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
+        CmsUser user = cmsUserMng.findByUsername(token.getUsername());
+        if (user != null) {
+            UnifiedUser unifiedUser = unifiedUserMng.findById(user.getId());
+            return new SimpleAuthenticationInfo(user.getUsername(), unifiedUser.getPassword(), getName());
+        }
+        return null;
+    }
 
-	/**
-	 * 授权
-	 */
-	@Override
+    /**
+     * 当用户进行访问链接时的授权方法
+     *
+     * @author andy_hulibo@163.com
+     * @date 2018/12/1 12:38
+     */
+    @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-		String username = (String) principals.getPrimaryPrincipal();
-		CmsUser user = cmsUserMng.findByUsername(username);
-		CmsSite site=CmsThreadVariable.getSite();
-		SimpleAuthorizationInfo auth = new SimpleAuthorizationInfo();
-		if (user != null) {
-			Set<String>viewPermissionSet=new HashSet<String>();
-			Set<String> perms = user.getPerms(site.getId(),viewPermissionSet);
-			if (!CollectionUtils.isEmpty(perms)) {
-				// 权限加入AuthorizationInfo认证对象
-				auth.setStringPermissions(perms);
-			}
-		}
-		return auth;
-	}
-	
-	public void removeUserAuthorizationInfoCache(String username){
-		  SimplePrincipalCollection pc = new SimplePrincipalCollection();
-		  pc.add(username, super.getName()); 
-		  super.clearCachedAuthorizationInfo(pc);
-	}
+        String username = (String) principals.getPrimaryPrincipal();
+        CmsUser user = cmsUserMng.findByUsername(username);
+        CmsSite site = CmsThreadVariable.getSite();
+        SimpleAuthorizationInfo auth = new SimpleAuthorizationInfo();
+        if (user != null) {
+            Set<String> viewPermissionSet = new HashSet<>();
+            Set<String> perms = user.getPerms(site.getId(), viewPermissionSet);
+            if (!CollectionUtils.isEmpty(perms)) {
+                // 权限加入AuthorizationInfo认证对象
+                auth.setStringPermissions(perms);
+            }
+        }
+        return auth;
+    }
 
-	@Autowired
-	protected CmsUserMng cmsUserMng;
-	@Autowired
-	protected UnifiedUserMng unifiedUserMng;
+    public void removeUserAuthorizationInfoCache(String username) {
+        SimplePrincipalCollection pc = new SimplePrincipalCollection();
+        pc.add(username, super.getName());
+        super.clearCachedAuthorizationInfo(pc);
+    }
 
-	@Override
-	@Autowired
-	@Qualifier("hashedCredentialsMatcher")
-	public void setCredentialsMatcher(CredentialsMatcher credentialsMatcher) {
-		super.setCredentialsMatcher(credentialsMatcher);
-	}
+    @Autowired
+    protected CmsUserMng cmsUserMng;
+    @Autowired
+    protected UnifiedUserMng unifiedUserMng;
+
+    @Override
+    @Autowired
+    @Qualifier("hashedCredentialsMatcher")
+    public void setCredentialsMatcher(CredentialsMatcher credentialsMatcher) {
+        super.setCredentialsMatcher(credentialsMatcher);
+    }
 }

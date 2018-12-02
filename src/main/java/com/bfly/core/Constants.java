@@ -423,4 +423,21 @@ public class Constants {
     public static final String WEIXIN_APPSECRET = "wxAppSecret";
     public static final String WEIXIN_TOKEN = "wxToken";
     public static final int DISTRIBUTE_THREAD_COUNT = 10;
+
+    /**
+     * 用户KEY标识
+     */
+    public static final String USER_KEY = "_user_key";
+
+    /**
+     * 站点KEY标识
+     */
+    public static final String SITE_KEY = "_site_key";
+
+    /**
+     * 浏览器请求key标识
+     * @author andy_hulibo@163.com
+     * @date 2018/12/2 12:12
+     */
+    public static final String USER_AGENT_KEY="ua";
 }

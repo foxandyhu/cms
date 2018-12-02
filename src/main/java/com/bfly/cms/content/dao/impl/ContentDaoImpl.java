@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.*;
 
-import static com.bfly.cms.directive.abs.AbstractContentDirective.*;
+import static com.bfly.web.content.directive.AbstractContentDirective.*;
 import static com.bfly.cms.content.entity.Content.ContentStatus.*;
 
 /**

@@ -25,13 +25,13 @@ public interface CmsSiteMng {
     List<CmsSite> getList();
 
     /**
-     * 获得所有缓存站点信息
+     * 获得站点信息
      *
-     * @return 站点集合
+     * @return 站点
      * @author andy_hulibo@163.com
      * @date 2018/11/23 11:01
      */
-    List<CmsSite> getListFromCache();
+    CmsSite getSite();
 
     /**
      * 根据站点域名获得对应的站点
@@ -117,7 +117,7 @@ public interface CmsSiteMng {
      * 更新站点属性
      *
      * @param siteId 站点ID
-     * @param attr  更新的属性集合
+     * @param attr   更新的属性集合
      * @author andy_hulibo@163.com
      * @date 2018/11/23 11:47
      */

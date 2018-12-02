@@ -1,7 +1,7 @@
 package com.bfly.cms.content.service.impl;
 
 import com.bfly.cms.content.entity.Content;
-import com.bfly.config.SocialInfoConfig;
+import com.bfly.core.config.SocialInfoConfig;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;

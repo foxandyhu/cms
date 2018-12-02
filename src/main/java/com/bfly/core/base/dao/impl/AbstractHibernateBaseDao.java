@@ -25,8 +25,7 @@ import java.util.List;
  * @author andy_hulibo@163.com
  * @date 2018/11/23 11:40
  */
-public abstract class AbstractHibernateBaseDao<T, ID extends Serializable> extends
-        AbstractHibernateDao {
+public abstract class AbstractHibernateBaseDao<T, ID extends Serializable> extends AbstractHibernateDao {
 
     /**
      * 根据主键查询对象

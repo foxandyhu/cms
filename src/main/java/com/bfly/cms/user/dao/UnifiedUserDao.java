@@ -1,25 +1,27 @@
 package com.bfly.cms.user.dao;
 
-import java.util.List;
-
+import com.bfly.cms.user.entity.UnifiedUser;
 import com.bfly.common.hibernate4.Updater;
 import com.bfly.common.page.Pagination;
-import com.bfly.cms.user.entity.UnifiedUser;
 
+/**
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/12/2 17:16
+ */
 public interface UnifiedUserDao {
-	 UnifiedUser getByUsername(String username);
 
-	 List<UnifiedUser> getByEmail(String email);
+    UnifiedUser getByUsername(String username);
 
-	 int countByEmail(String email);
+    int countByEmail(String email);
 
-	 Pagination getPage(int pageNo, int pageSize);
+    Pagination getPage(int pageNo, int pageSize);
 
-	 UnifiedUser findById(Integer id);
+    UnifiedUser findById(Integer id);
 
-	 UnifiedUser save(UnifiedUser bean);
+    UnifiedUser save(UnifiedUser bean);
 
-	 UnifiedUser updateByUpdater(Updater<UnifiedUser> updater);
+    UnifiedUser updateByUpdater(Updater<UnifiedUser> updater);
 
-	 UnifiedUser deleteById(Integer id);
+    UnifiedUser deleteById(Integer id);
 }

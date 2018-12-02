@@ -1,22 +1,18 @@
 package com.bfly.cms.statistic.service.impl;
 
+import com.bfly.cms.siteconfig.entity.CmsSite;
+import com.bfly.cms.siteconfig.service.CmsSiteMng;
 import com.bfly.cms.statistic.entity.CmsSiteAccess;
 import com.bfly.cms.statistic.entity.CmsSiteAccessPages;
-import com.bfly.cms.statistic.service.CmsSiteAccessCountHourMng;
-import com.bfly.cms.statistic.service.CmsSiteAccessCountMng;
-import com.bfly.cms.statistic.service.CmsSiteAccessMng;
-import com.bfly.cms.statistic.service.CmsSiteAccessPagesMng;
-import com.bfly.cms.statistic.service.CmsSiteFlowCache;
+import com.bfly.cms.statistic.service.*;
+import com.bfly.cms.system.entity.CmsConfig;
+import com.bfly.cms.system.service.CmsConfigMng;
 import com.bfly.common.ipseek.IpSeekUtils;
 import com.bfly.common.util.DateFormatUtils;
 import com.bfly.common.util.DateUtils;
 import com.bfly.common.util.UserAgentUtils;
 import com.bfly.common.web.RequestUtils;
 import com.bfly.common.web.springmvc.MessageResolver;
-import com.bfly.cms.system.entity.CmsConfig;
-import com.bfly.cms.siteconfig.entity.CmsSite;
-import com.bfly.cms.system.service.CmsConfigMng;
-import com.bfly.cms.siteconfig.service.CmsSiteMng;
 import com.bfly.core.web.util.CmsUtils;
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
@@ -462,10 +458,8 @@ public class CmsSiteFlowCacheImpl implements CmsSiteFlowCache, DisposableBean {
                 attr.put(CmsSite.MONTH_VISITORS, "0");
             }
         }
-        List<CmsSite> siteList = cmsSiteMng.getListFromCache();
-        for (CmsSite site : siteList) {
-            cmsSiteMng.updateAttr(site.getId(), attr);
-        }
+        CmsSite site = cmsSiteMng.getSite();
+        cmsSiteMng.updateAttr(site.getId(), attr);
     }
 
     /**

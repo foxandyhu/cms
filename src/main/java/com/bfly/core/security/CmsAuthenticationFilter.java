@@ -1,6 +1,5 @@
 package com.bfly.core.security;
 
-import com.bfly.cms.logs.service.CmsLogMng;
 import com.bfly.cms.user.entity.CmsUser;
 import com.bfly.cms.user.entity.UnifiedUser;
 import com.bfly.cms.user.service.CmsUserMng;
@@ -18,6 +17,7 @@ import org.apache.shiro.web.util.WebUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -25,7 +25,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -33,18 +32,14 @@ import java.util.Date;
  * @date 2018/11/28 16:08
  * CmsAuthenticationFilter自定义登录认证filter
  */
+@Component
 public class CmsAuthenticationFilter extends FormAuthenticationFilter {
 
     private Logger logger = LoggerFactory.getLogger(CmsAuthenticationFilter.class);
 
-    /**
-     * 验证码名称
-     */
-    public static final String CAPTCHA_PARAM = "captcha";
-    /**
-     * 返回URL
-     */
-    public static final String RETURN_URL = "returnUrl";
+    private static final String CAPTCHA_PARAM = "captcha";
+
+    private static final String RETURN_URL = "returnUrl";
 
     @Override
     protected boolean executeLogin(ServletRequest request, ServletResponse response) throws Exception {
@@ -54,109 +49,53 @@ public class CmsAuthenticationFilter extends FormAuthenticationFilter {
             throw new IllegalStateException(msg);
         }
         HttpServletRequest req = (HttpServletRequest) request;
-        HttpServletResponse res = (HttpServletResponse) response;
         String username = (String) token.getPrincipal();
-        boolean adminLogin = false;
-        if (req.getRequestURI().startsWith(req.getContextPath() + getAdminPrefix())) {
-            adminLogin = true;
-        }
-        String failureUrl = null;
         //验证码校验
         if (isCaptchaRequired(username, req)) {
             String captcha = request.getParameter(CAPTCHA_PARAM);
             if (captcha != null) {
                 if (!imageCaptchaService.validateResponseForID(((HttpServletRequest) request).getSession().getId(), captcha)) {
-                    return onLoginFailure(token, failureUrl, adminLogin, new CaptchaErrorException(), request, response);
+                    return onLoginFailure(token, new CaptchaErrorException(), request, response);
                 }
-            } else {
-                return onLoginFailure(token, failureUrl, adminLogin, new CaptchaRequiredException(), request, response);
             }
+            return onLoginFailure(token, new CaptchaRequiredException(), request, response);
         }
         CmsUser user = userMng.findByUsername(username);
         if (user != null) {
-            if (isDisabled(user)) {
-                return onLoginFailure(token, failureUrl, adminLogin, new DisabledException(), request, response);
+            if (user.getDisabled()) {
+                return onLoginFailure(token, new DisabledException(), request, response);
             }
             if (!isActive(user)) {
-                return onLoginFailure(token, failureUrl, adminLogin, new InactiveException(), request, response);
+                return onLoginFailure(token, new InactiveException(), request, response);
             }
-            /**
-             * 判断用户是否审核
-             */
             if (!isChecked(user)) {
-                return onLoginFailure(token, failureUrl, adminLogin, new UserUnCheckedException(), request, response);
+                return onLoginFailure(token, new UserUnCheckedException(), request, response);
             }
         }
         try {
             Subject subject = getSubject(request, response);
             subject.login(token);
-            return onLoginSuccess(token, adminLogin, subject, request, response);
+            return onLoginSuccess(token, subject, request, response);
         } catch (AuthenticationException e) {
-            return onLoginFailure(token, failureUrl, adminLogin, e, request, response);
+            return onLoginFailure(token, e, request, response);
         }
-    }
-
-    @Override
-    public boolean onPreHandle(ServletRequest request,
-                               ServletResponse response, Object mappedValue) throws Exception {
-        boolean isAllowed = isAccessAllowed(request, response, mappedValue);
-        //登录跳转
-        if (isAllowed && isLoginRequest(request, response)) {
-            try {
-                issueSuccessRedirect(request, response);
-            } catch (Exception e) {
-                logger.error("", e);
-            }
-            return false;
-        }
-        return isAllowed || onAccessDenied(request, response, mappedValue);
-    }
-
-    @Override
-    protected void issueSuccessRedirect(ServletRequest request, ServletResponse response)
-            throws Exception {
-        HttpServletRequest req = (HttpServletRequest) request;
-        String successUrl = req.getParameter(RETURN_URL);
-        if (StringUtils.isBlank(successUrl)) {
-            if (req.getRequestURI().startsWith(
-                    req.getContextPath() + getAdminPrefix())) {
-                // 后台直接返回首页
-                successUrl = getAdminIndex();
-                // 清除SavedRequest
-                WebUtils.getAndClearSavedRequest(request);
-                WebUtils.issueRedirect(request, response, successUrl, null, true);
-                return;
-            } else {
-                successUrl = getSuccessUrl();
-            }
-        }
-        WebUtils.getAndClearSavedRequest(request);
-        WebUtils.issueRedirect(request, response, successUrl, null, true);
-    }
-
-    @Override
-    protected boolean isLoginRequest(ServletRequest req, ServletResponse resp) {
-        return pathsMatch(getLoginUrl(), req) || pathsMatch(getAdminLogin(), req);
     }
 
     /**
      * 登录成功
+     *
+     * @author andy_hulibo@163.com
+     * @date 2018/12/1 21:29
      */
-    private boolean onLoginSuccess(AuthenticationToken token, boolean adminLogin, Subject subject,
-                                   ServletRequest request, ServletResponse response)
-            throws Exception {
+    @Override
+    protected boolean onLoginSuccess(AuthenticationToken token, Subject subject, ServletRequest request, ServletResponse response) throws Exception {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
         String username = (String) subject.getPrincipal();
         CmsUser user = cmsUserMng.findByUsername(username);
         String ip = RequestUtils.getIpAddr(req);
-        Date now = new Timestamp(System.currentTimeMillis());
         String userSessionId = ((HttpServletRequest) request).getSession().getId();
-        userMng.updateLoginInfo(user.getId(), ip, now, userSessionId);
-        //管理登录
-        if (adminLogin) {
-            cmsLogMng.loginSuccess(req, user);
-        }
+        userMng.updateLoginInfo(user.getId(), ip, new Date(), userSessionId);
         unifiedUserMng.updateLoginSuccess(user.getId(), ip);
         loginCookie(username, req, res);
         return super.onLoginSuccess(token, subject, request, response);
@@ -164,9 +103,12 @@ public class CmsAuthenticationFilter extends FormAuthenticationFilter {
 
     /**
      * 登录失败
+     *
+     * @author andy_hulibo@163.com
+     * @date 2018/12/1 21:29
      */
-    private boolean onLoginFailure(AuthenticationToken token, String failureUrl, boolean adminLogin, AuthenticationException e, ServletRequest request,
-                                   ServletResponse response) {
+    @Override
+    protected boolean onLoginFailure(AuthenticationToken token, AuthenticationException e, ServletRequest request, ServletResponse response) {
         String username = (String) token.getPrincipal();
         HttpServletRequest req = (HttpServletRequest) request;
         String ip = RequestUtils.getIpAddr(req);
@@ -174,81 +116,54 @@ public class CmsAuthenticationFilter extends FormAuthenticationFilter {
         if (user != null) {
             unifiedUserMng.updateLoginError(user.getId(), ip);
         }
-        //管理登录
-        if (adminLogin) {
-            cmsLogMng.loginFailure(req, "username=" + username);
-        }
-        return onLoginFailure(failureUrl, token, e, request, response);
+        return super.onLoginFailure(token,e, request,response);
     }
 
-    private boolean onLoginFailure(String failureUrl, AuthenticationToken token,
-                                   AuthenticationException e, ServletRequest request,
-                                   ServletResponse response) {
-        String className = e.getClass().getName();
-        request.setAttribute(getFailureKeyAttribute(), className);
-        if (failureUrl != null || StringUtils.isNotBlank(failureUrl)) {
-            try {
-                request.getRequestDispatcher(failureUrl).forward(request, response);
-            } catch (Exception e1) {
-            }
+    @Override
+    protected void issueSuccessRedirect(ServletRequest request, ServletResponse response) throws Exception {
+        HttpServletRequest req = (HttpServletRequest) request;
+        String successUrl = req.getParameter(RETURN_URL);
+        if (StringUtils.isBlank(successUrl)) {
+            successUrl = getSuccessUrl();
         }
-        return true;
+        WebUtils.getAndClearSavedRequest(request);
+        WebUtils.issueRedirect(request, response, successUrl, null, true);
     }
 
     private void loginCookie(String username, HttpServletRequest request, HttpServletResponse response) {
         String domain = request.getServerName();
-        if (domain.indexOf(".") > -1) {
-            domain = domain.substring(domain.indexOf(".") + 1);
+        String dot = ".";
+        if (domain.contains(dot)) {
+            domain = domain.substring(domain.indexOf(dot) + 1);
         }
-        CookieUtils.addCookie(request, response, "JSESSIONID", request.getSession().getId(), null, domain, "/");
+        CookieUtils.addCookie(response, "JSESSIONID", request.getSession().getId(), null, domain, "/");
         try {
-            //中文乱码
-            CookieUtils.addCookie(request, response, "username", URLEncoder.encode(username, "utf-8"), null, domain, "/");
+            CookieUtils.addCookie(response, "username", URLEncoder.encode(username, "utf-8"), null, domain, "/");
         } catch (UnsupportedEncodingException e) {
+            logger.error("登录Cookie出错", e);
         }
-        CookieUtils.addCookie(request, response, "sso_logout", null, 0, domain, "/");
+        CookieUtils.addCookie(response, "sso_logout", null, 0, domain, "/");
     }
 
     private boolean isCaptchaRequired(String username, HttpServletRequest request) {
         Integer errorRemaining = unifiedUserMng.errorRemaining(username);
         String captcha = RequestUtils.getQueryParam(request, CAPTCHA_PARAM);
         // 如果输入了验证码，那么必须验证；如果没有输入验证码，则根据当前用户判断是否需要验证码。
-        if (!StringUtils.isBlank(captcha) || (errorRemaining != null && errorRemaining < 0)) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * 用户禁用返回true 未查找到用户或者非禁用返回false
-     *
-     * @author andy_hulibo@163.com
-     * @date 2018/11/28 16:08
-     */
-    private boolean isDisabled(CmsUser user) {
-        if (user.getDisabled()) {
-            return true;
-        } else {
-            return false;
-        }
+        return !StringUtils.isBlank(captcha) || (errorRemaining != null && errorRemaining < 0);
     }
 
     /**
      * 用户激活了返回true 未查找到用户或者非禁用返回false
+     *
      * @author andy_hulibo@163.com
      * @date 2018/11/28 16:08
      */
     private boolean isActive(CmsUser user) {
         UnifiedUser unifiedUser = unifiedUserMng.findById(user.getId());
         if (unifiedUser != null) {
-            if (unifiedUser.getActivation()) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            return false;
+            return unifiedUser.getActivation();
         }
+        return false;
     }
 
     /**
@@ -258,10 +173,7 @@ public class CmsAuthenticationFilter extends FormAuthenticationFilter {
      * @date 2018/11/20 16:21
      */
     private boolean isChecked(CmsUser user) {
-        if (CmsUser.USER_STATU_CHECKED.equals(user.getStatu())) {
-            return true;
-        }
-        return false;
+        return CmsUser.USER_STATU_CHECKED.equals(user.getStatu());
     }
 
 
@@ -272,36 +184,5 @@ public class CmsAuthenticationFilter extends FormAuthenticationFilter {
     @Autowired
     private ImageCaptchaService imageCaptchaService;
     @Autowired
-    private CmsLogMng cmsLogMng;
-    @Autowired
     private CmsUserMng cmsUserMng;
-
-    private String adminPrefix;
-    private String adminIndex;
-    private String adminLogin;
-
-    public String getAdminPrefix() {
-        return adminPrefix;
-    }
-
-    public void setAdminPrefix(String adminPrefix) {
-        this.adminPrefix = adminPrefix;
-    }
-
-    public String getAdminIndex() {
-        return adminIndex;
-    }
-
-    public void setAdminIndex(String adminIndex) {
-        this.adminIndex = adminIndex;
-    }
-
-    public String getAdminLogin() {
-        return adminLogin;
-    }
-
-    public void setAdminLogin(String adminLogin) {
-        this.adminLogin = adminLogin;
-    }
-
 }

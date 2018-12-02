@@ -16,7 +16,7 @@ import com.bfly.common.page.Pagination;
 import com.bfly.common.util.AliPay;
 import com.bfly.common.util.Num62;
 import com.bfly.common.util.WeixinPay;
-import com.bfly.config.SocialInfoConfig;
+import com.bfly.core.config.SocialInfoConfig;
 import com.bfly.cms.user.entity.CmsUser;
 import com.bfly.cms.funds.service.CmsUserAccountMng;
 import com.bfly.cms.user.service.CmsUserMng;
