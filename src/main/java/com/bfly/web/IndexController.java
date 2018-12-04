@@ -98,7 +98,7 @@ public class IndexController extends RenderController {
     }
 
     public String channel(String path, boolean checkAlone, ModelMap model) {
-        Channel channel = channelMng.findByPathForTag(path, getSite().getId());
+        Channel channel = channelMng.findByPathForTag(path);
         if (channel == null) {
             log.warn("Channel path not found: {}", path);
             return renderNotFoundPage(model);
@@ -167,17 +167,14 @@ public class IndexController extends RenderController {
                 getSession().setAttribute("loginSource", "charge");
                 return renderLoginPage(model);
             }
-            //非作者且未购买
-            if (!content.getUser().getId().equals(user.getId())) {
-                //用户已登录判断是否已经购买
-                boolean hasBuy = contentBuyMng.hasBuyContent(user.getId(), content.getId());
-                if (!hasBuy) {
-                    String rediretUrl = "/content/buy.html?contentId=" + content.getId();
-                    if (StringUtils.isNotBlank(site.getContextPath())) {
-                        rediretUrl = site.getContextPath() + rediretUrl;
-                    }
-                    return redirect(rediretUrl);
+            //用户已登录判断是否已经购买
+            boolean hasBuy = contentBuyMng.hasBuyContent(user.getId(), content.getId());
+            if (!hasBuy) {
+                String rediretUrl = "/content/buy.html?contentId=" + content.getId();
+                if (StringUtils.isNotBlank(site.getContextPath())) {
+                    rediretUrl = site.getContextPath() + rediretUrl;
                 }
+                return redirect(rediretUrl);
             }
         }
         String txt = content.getTxtByNo(pageNo);

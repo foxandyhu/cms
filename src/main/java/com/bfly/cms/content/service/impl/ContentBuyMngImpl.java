@@ -62,7 +62,7 @@ public class ContentBuyMngImpl implements ContentBuyMng {
                     //购买行为订单金额需要大于内容收费金额 或者是打赏新闻
                     if ((buy && orderAmount >= content.getChargeAmount()) || !buy) {
                         Double ratio = config.getChargeRatio();
-                        contentBuy.setAuthorUser(content.getUser());
+                        contentBuy.setAuthorUser(content.getAdmin());
                         //打赏可以匿名
                         if (buyUserId != null) {
                             contentBuy.setBuyUser(userMng.findById(buyUserId));

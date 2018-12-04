@@ -58,7 +58,7 @@ public class WebContextConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        adminInterceptor.setExcludeUrls(new String[]{"/user/getPerms/**"});
+        adminInterceptor.setExcludeUrls(new String[]{"/api/admin/user/login","/api/admin/user/getPerms"});
         registry.addInterceptor(fireWallInterceptor).addPathPatterns("/api/admin/**");
         registry.addInterceptor(adminInterceptor).addPathPatterns("/api/admin/**");
 

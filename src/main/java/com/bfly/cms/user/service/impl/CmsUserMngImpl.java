@@ -7,14 +7,14 @@ import com.bfly.cms.siteconfig.entity.CmsSite;
 import com.bfly.cms.siteconfig.service.CmsSiteMng;
 import com.bfly.cms.system.entity.EmailSender;
 import com.bfly.cms.system.service.MessageTemplate;
+import com.bfly.cms.user.dao.CmsUserDao;
 import com.bfly.cms.user.entity.CmsGroup;
+import com.bfly.cms.user.entity.CmsUser;
 import com.bfly.cms.user.entity.CmsUserExt;
 import com.bfly.cms.user.entity.UnifiedUser;
 import com.bfly.cms.user.service.*;
-import com.bfly.cms.user.entity.CmsUser;
 import com.bfly.common.hibernate4.Updater;
 import com.bfly.common.page.Pagination;
-import com.bfly.cms.user.dao.CmsUserDao;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -73,7 +73,7 @@ public class CmsUserMngImpl implements CmsUserMng {
     }
 
     @Override
-    @Transactional(readOnly = true,rollbackFor = Exception.class)
+    @Transactional(readOnly = true, rollbackFor = Exception.class)
     public CmsUser findByUsername(String username) {
         CmsUser entity = dao.findByUsername(username);
         return entity;
@@ -214,11 +214,6 @@ public class CmsUserMngImpl implements CmsUserMng {
         user.init();
         dao.save(user);
         cmsUserExtMng.save(userExt, user);
-        if (roleIds != null) {
-            for (Integer rid : roleIds) {
-                user.addToRoles(cmsRoleMng.findById(rid));
-            }
-        }
         if (channelIds != null) {
             Channel channel;
             for (Integer cid : channelIds) {
@@ -272,13 +267,6 @@ public class CmsUserMngImpl implements CmsUserMng {
         CmsUser user = dao.updateByUpdater(updater);
         user.setGroup(cmsGroupMng.findById(groupId));
         cmsUserExtMng.update(ext, user);
-        // 更新角色
-        user.getRoles().clear();
-        if (roleIds != null) {
-            for (Integer rid : roleIds) {
-                user.addToRoles(cmsRoleMng.findById(rid));
-            }
-        }
         // 更新栏目权限
         Set<Channel> channels = user.getChannels();
         // 清除
@@ -307,7 +295,7 @@ public class CmsUserMngImpl implements CmsUserMng {
                                 Boolean isDisabled, CmsUserExt ext, Integer groupId, Integer grain, Map<String, String> attr) {
         CmsUser entity = findById(id);
         entity.setEmail(email);
-		/*
+        /*
 		if (!StringUtils.isBlank(email)) {
 			entity.setEmail(email);
 		}

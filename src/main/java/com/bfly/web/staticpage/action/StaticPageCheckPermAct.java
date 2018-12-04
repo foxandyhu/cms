@@ -71,12 +71,10 @@ public class StaticPageCheckPermAct extends RenderController {
             if (user == null) {
                 result = "3";
             } else {
-                if (!content.getUser().equals(user)) {
                     boolean hasBuy = contentBuyMng.hasBuyContent(user.getId(), contentId);
                     if (!hasBuy) {
                         result = "5";
                     }
-                }
             }
         }
         ResponseUtils.renderJson(response, result);

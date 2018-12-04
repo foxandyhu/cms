@@ -1,6 +1,5 @@
 package com.bfly.cms.content.entity;
 
-import com.bfly.cms.siteconfig.entity.CmsSite;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -13,8 +12,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import static com.bfly.core.Constants.*;
 import static com.bfly.common.web.Constants.DEFAULT;
+import static com.bfly.core.Constants.*;
 
 /**
  * CMS模型类
@@ -113,14 +112,6 @@ public class CmsModel implements Serializable {
      */
     @Column(name = "is_global")
     private Boolean global;
-
-
-    /**
-     * 非全站模型所属站点
-     */
-    @ManyToOne
-    @JoinColumn(name = "site_id")
-    private CmsSite site;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "model")
     private Set<CmsModelItem> items;
@@ -256,15 +247,6 @@ public class CmsModel implements Serializable {
     public void setGlobal(Boolean global) {
         this.global = global;
     }
-
-    public CmsSite getSite() {
-        return site;
-    }
-
-    public void setSite(CmsSite site) {
-        this.site = site;
-    }
-
 
     public Set<CmsModelItem> getItems() {
         return items;

@@ -1,5 +1,6 @@
 package com.bfly.admin.content.action;
 
+import com.bfly.core.base.action.BaseAdminController;
 import com.bfly.core.web.ApiResponse;
 import com.bfly.core.Constants;
 import com.bfly.core.web.ResponseCode;
@@ -30,12 +31,12 @@ import java.util.List;
  */
 @Controller
 @RequestMapping(value = "/api/admin")
-public class ContentReuseApiAct {
+public class ContentReuseApiAct extends BaseAdminController{
 
     @RequestMapping("/content/reuse_list")
     public void list(String queryStatus, Integer queryTypeId, Boolean txtImgWhole, Boolean trimHtml,
                      Boolean queryTopLevel, Boolean queryRecommend, String queryUsername, String queryTitle,
-                     Integer queryOrderBy, Integer querySiteId, Integer pageNo, Integer pageSize,
+                     Integer queryOrderBy,Integer pageNo, Integer pageSize,
                      Integer format, Boolean hasCollect, Integer https,
                      HttpServletRequest request, HttpServletResponse response) {
         if (pageNo == null) {
@@ -86,12 +87,9 @@ public class ContentReuseApiAct {
         } else {
             queryInputUserId = 0;
         }
-        if (querySiteId == null) {
-            querySiteId = CmsUtils.getSiteId(request);
-        }
         Pagination p = contentMng.getPageBySite(queryTitle, queryTypeId,
-                CmsUtils.getUserId(request), queryInputUserId, queryTopLevel, queryRecommend, status,
-                querySiteId, queryOrderBy, pageNo, pageSize);
+                getAdmin().getId(), queryInputUserId, queryTopLevel, queryRecommend, status,
+                queryOrderBy, pageNo, pageSize);
         List<Content> list = (List<Content>) p.getList();
         JSONArray jsonArray = new JSONArray();
         if (list != null && list.size() > 0) {
@@ -109,7 +107,7 @@ public class ContentReuseApiAct {
     @RequestMapping("/content/reuse_page")
     public void getPage(String queryStatus, Integer queryTypeId,
                         Boolean queryTopLevel, Boolean queryRecommend, String queryUsername, String queryTitle,
-                        Integer queryOrderBy, Integer querySiteId, Integer pageNo, Integer pageSize,
+                        Integer queryOrderBy,Integer pageNo, Integer pageSize,
                         HttpServletRequest request, HttpServletResponse response) {
         if (pageNo == null) {
             pageNo = 1;
@@ -144,12 +142,9 @@ public class ContentReuseApiAct {
         } else {
             queryInputUserId = 0;
         }
-        if (querySiteId == null) {
-            querySiteId = CmsUtils.getSiteId(request);
-        }
         Pagination p = contentMng.getPageCountBySite(queryTitle, queryTypeId,
-                CmsUtils.getUserId(request), queryInputUserId, queryTopLevel, queryRecommend, status,
-                querySiteId, queryOrderBy, pageNo, pageSize);
+               getAdmin().getId(), queryInputUserId, queryTopLevel, queryRecommend, status,
+                queryOrderBy, pageNo, pageSize);
         JSONObject json = getPage(p);
         String message = Constants.API_MESSAGE_SUCCESS;
         String code = ResponseCode.API_CODE_CALL_SUCCESS;

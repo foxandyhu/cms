@@ -1,11 +1,9 @@
 package com.bfly.core.security;
 
-import com.bfly.cms.siteconfig.entity.CmsSite;
 import com.bfly.cms.user.entity.CmsUser;
 import com.bfly.cms.user.entity.UnifiedUser;
 import com.bfly.cms.user.service.CmsUserMng;
 import com.bfly.cms.user.service.UnifiedUserMng;
-import com.bfly.core.web.CmsThreadVariable;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -13,13 +11,9 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
-import org.apache.shiro.util.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
-
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * 自定义DB Realm
@@ -55,19 +49,7 @@ public class CmsAuthorizingRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        String username = (String) principals.getPrimaryPrincipal();
-        CmsUser user = cmsUserMng.findByUsername(username);
-        CmsSite site = CmsThreadVariable.getSite();
-        SimpleAuthorizationInfo auth = new SimpleAuthorizationInfo();
-        if (user != null) {
-            Set<String> viewPermissionSet = new HashSet<>();
-            Set<String> perms = user.getPerms(site.getId(), viewPermissionSet);
-            if (!CollectionUtils.isEmpty(perms)) {
-                // 权限加入AuthorizationInfo认证对象
-                auth.setStringPermissions(perms);
-            }
-        }
-        return auth;
+        return new SimpleAuthorizationInfo();
     }
 
     public void removeUserAuthorizationInfoCache(String username) {

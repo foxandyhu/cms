@@ -71,7 +71,7 @@ public class ContentCollectionApiAct {
 		errors=ApiValidate.validateRequiredParams(request,errors);
 		if(!errors.hasErrors()){
 			contents=contentMng.getListForCollection(
-					siteId, user.getId(), first, count);
+				 user.getId(), first, count);
 			JSONArray jsonArray=new JSONArray();
 			if(contents!=null&&contents.size()>0){
 				for(int i=0;i<contents.size();i++){
@@ -90,10 +90,6 @@ public class ContentCollectionApiAct {
 	 * 收藏API
 	 * @param id   内容ID 必选
 	 * @param operate 操作 非必选  1收藏 0 取消收藏   默认1 
-	 * @param appId appid 必选
-	 * @param nonce_str 随机字符串  必选
-	 * @param sign 签名 必选
-	 * @param sessionKey 会话标识 必选
 	 */
 	@SignValidate
 	@RequestMapping(value = "/content/collect")

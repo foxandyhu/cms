@@ -1,27 +1,28 @@
 package com.bfly.admin.channel.action;
 
-import com.bfly.core.web.ApiResponse;
-import com.bfly.core.web.ApiValidate;
-import com.bfly.core.Constants;
-import com.bfly.core.web.ResponseCode;
 import com.bfly.cms.channel.entity.Channel;
+import com.bfly.cms.channel.entity.ChannelExt;
 import com.bfly.cms.channel.entity.ChannelTxt;
 import com.bfly.cms.channel.service.ChannelMng;
 import com.bfly.cms.content.entity.CmsModel;
 import com.bfly.cms.content.service.CmsModelMng;
-import com.bfly.cms.channel.entity.ChannelExt;
 import com.bfly.cms.logs.service.CmsLogMng;
 import com.bfly.cms.siteconfig.entity.CmsSite;
+import com.bfly.cms.siteconfig.service.CmsSiteMng;
 import com.bfly.common.util.ChineseCharToEn;
 import com.bfly.common.util.StrUtils;
 import com.bfly.common.web.RequestUtils;
 import com.bfly.common.web.ResponseUtils;
+import com.bfly.core.Constants;
 import com.bfly.core.annotation.SignValidate;
+import com.bfly.core.base.action.BaseAdminController;
+import com.bfly.core.exception.ApiException;
+import com.bfly.core.web.ApiResponse;
+import com.bfly.core.web.ApiValidate;
+import com.bfly.core.web.ResponseCode;
 import com.bfly.core.web.WebErrors;
-import com.bfly.core.web.util.CmsUtils;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,19 +46,17 @@ import java.util.regex.Pattern;
  */
 @Controller("adminChannelApiAct")
 @RequestMapping(value = "/api/admin")
-public class ChannelAdminApiAct {
+public class ChannelAdminApiAct extends BaseAdminController {
 
     private static final Logger log = LoggerFactory.getLogger(ChannelAdminApiAct.class);
 
 
     @RequestMapping("/channel/select")
-    public void channelSelect(Boolean hasContentOnly, Integer excludeId,
-                              HttpServletRequest request, HttpServletResponse response) {
-        CmsSite site = CmsUtils.getSite(request);
+    public void channelSelect(Boolean hasContentOnly, Integer excludeId, HttpServletRequest request, HttpServletResponse response) {
         if (hasContentOnly == null) {
             hasContentOnly = true;
         }
-        List<Channel> topList = channelMng.getTopList(site.getId(), hasContentOnly);
+        List<Channel> topList = channelMng.getTopList(hasContentOnly);
         JSONArray jsonArray = new JSONArray();
         if (topList != null && topList.size() > 0) {
             int j = 0;
@@ -72,33 +71,27 @@ public class ChannelAdminApiAct {
             }
         }
         String body = jsonArray.toString();
-        String message = Constants.API_MESSAGE_SUCCESS;
-        String code = ResponseCode.API_CODE_CALL_SUCCESS;
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
     /**
      * 栏目列表API
      *
-     * @param parentId 父栏目ID
-     * @param all
+     * @author andy_hulibo@163.com
+     * @date 2018/12/4 13:57
      */
     @RequestMapping(value = "/channel/list")
-    public void channelList(Integer https, Integer parentId, Boolean all,
-                            HttpServletRequest request, HttpServletResponse response) {
-        String message;
-        String code = ResponseCode.API_CODE_CALL_SUCCESS;
+    public void channelList(Integer https, Integer parentId, Boolean all, HttpServletRequest request, HttpServletResponse response) {
         if (https == null) {
             https = Constants.URL_HTTP;
         }
         if (all == null) {
             all = false;
         }
-        Integer siteId = CmsUtils.getSiteId(request);
         List<Channel> list;
         if (parentId == null) {
-            list = channelMng.getTopList(siteId, false);
+            list = channelMng.getTopList(false);
         } else {
             list = channelMng.getChildList(parentId, false);
         }
@@ -109,29 +102,20 @@ public class ChannelAdminApiAct {
             }
         }
         String body = jsonArray.toString();
-        message = Constants.API_MESSAGE_SUCCESS;
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
 
     @RequestMapping(value = "/channel/tree")
-    public void tree(Integer https, Integer parentId,
-                     HttpServletRequest request, HttpServletResponse response) {
-        String code = ResponseCode.API_CODE_CALL_SUCCESS;
+    public void tree(Integer https, Integer parentId, HttpServletRequest request, HttpServletResponse response) {
         if (https == null) {
             https = Constants.URL_HTTP;
         }
-        boolean isRoot;
-        if (parentId == null || parentId == 0) {
-            isRoot = true;
-        } else {
-            isRoot = false;
-        }
+        boolean isRoot = parentId == null || parentId == 0;
         List<Channel> list;
         if (isRoot) {
-            CmsSite site = CmsUtils.getSite(request);
-            list = channelMng.getTopList(site.getId(), false);
+            list = channelMng.getTopList(false);
         } else {
             list = channelMng.getChildList(parentId, false);
         }
@@ -142,28 +126,19 @@ public class ChannelAdminApiAct {
             }
         }
         String body = jsonArray.toString();
-        String message = Constants.API_MESSAGE_SUCCESS;
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
     /**
      * 获取栏目信息
      * id或者path
-     * path和siteId必须一起使用
      *
-     * @param id     栏目id
-     * @param path   栏目路径
-     * @param siteId 站点id
+     * @param id   栏目id
+     * @param path 栏目路径
      */
     @RequestMapping(value = "/channel/get")
-    public void channelGet(Integer https,
-                           Integer id, String path, Integer siteId,
-                           HttpServletRequest request,
-                           HttpServletResponse response) {
-        String message;
-        String code;
-        String body = "\"\"";
+    public void channelGet(Integer https, Integer id, String path, HttpServletRequest request, HttpServletResponse response) {
         Channel channel;
         if (https == null) {
             https = Constants.URL_HTTP;
@@ -175,48 +150,32 @@ public class ChannelAdminApiAct {
                 channel = channelMng.findById(id);
             }
         } else {
-            if (siteId == null) {
-                siteId = CmsUtils.getSiteId(request);
-            }
-            channel = channelMng.findByPathForTag(path, siteId);
+            channel = channelMng.findByPathForTag(path);
         }
-        if (channel != null) {
-            channel.init();
-            List<CmsModel> modelList = modelMng.getList(false, true, siteId);
-            JSONObject json = channel.convertToJson(https, false, true, modelList);
-            message = Constants.API_MESSAGE_SUCCESS;
-            code = ResponseCode.API_CODE_CALL_SUCCESS;
-            body = json.toString();
-        } else {
-            code = ResponseCode.API_CODE_NOT_FOUND;
-            message = Constants.API_MESSAGE_OBJECT_NOT_FOUND;
+        if (channel == null) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_PARAM_ERROR);
         }
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        channel.init();
+        List<CmsModel> modelList = modelMng.getList(false, true);
+        JSONObject json = channel.convertToJson(https, false, true, modelList);
+        String body = json.toString();
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
     /**
      * 栏目保存接口
      *
-     * @param parentId   父栏目ID 非必选
-     * @param txt        栏目文本内容 非必选
-     * @param modelId    模型ID 必选  新闻 1
-     * @param workflowId 应用工作流ID 非必选
+     * @param parentId 父栏目ID 非必选
+     * @param txt      栏目文本内容 非必选
+     * @param modelId  模型ID 必选  新闻 1
      */
     @SignValidate
     @RequestMapping(value = "/channel/save")
-    public void save(Integer parentId, Channel bean, ChannelExt ext,
-                     ChannelTxt txt, String viewGroupIds, String contriGroupIds,
-                     Integer modelId, Integer workflowId,
-                     String modelIds, String tpls, String mtpls,
-                     HttpServletRequest request, HttpServletResponse response) {
-        String body = "\"\"";
-        String message = Constants.API_STATUS_FAIL;
-        String code = ResponseCode.API_CODE_CALL_FAIL;
+    public void save(Integer parentId, Channel bean, ChannelExt ext, ChannelTxt txt, String viewGroupIds, String contriGroupIds, Integer modelId, String modelIds, String tpls, String mtpls, HttpServletRequest request, HttpServletResponse response) {
         WebErrors errors = WebErrors.create(request);
         //验证公共非空参数
-        errors = ApiValidate.validateRequiredParams(request, errors,
-                ext.getName(), bean.getPath(), modelId);
+        errors = ApiValidate.validateRequiredParams(request, errors, ext.getName(), bean.getPath(), modelId);
         Integer[] viewGroupIdArray = null;
         if (StringUtils.isNotBlank(viewGroupIds)) {
             viewGroupIdArray = StrUtils.getInts(viewGroupIds);
@@ -253,79 +212,60 @@ public class ChannelAdminApiAct {
         if (bean.getDisplay() == null) {
             bean.setDisplay(true);
         }
-        if (!errors.hasErrors()) {
-            if (validatePath(bean.getPath())) {
-                CmsSite site = CmsUtils.getSite(request);
-                // 加上模板前缀
-                String tplPath = site.getTplPath();
-                if (!StringUtils.isBlank(ext.getTplChannel())) {
-                    ext.setTplChannel(tplPath + ext.getTplChannel());
-                }
-                if (!StringUtils.isBlank(ext.getTplContent())) {
-                    ext.setTplContent(tplPath + ext.getTplContent());
-                }
-                if (!StringUtils.isBlank(ext.getTplMobileChannel())) {
-                    ext.setTplMobileChannel(tplPath + ext.getTplMobileChannel());
-                }
-                if (tplArray != null && tplArray.length > 0) {
-                    for (int t = 0; t < tplArray.length; t++) {
-                        if (!StringUtils.isBlank(tplArray[t]) && !tplArray[t].startsWith(tplPath)) {
-                            tplArray[t] = tplPath + tplArray[t];
-                        }
-                    }
-                }
-                if (mtplArray != null && mtplArray.length > 0) {
-                    for (int t = 0; t < mtplArray.length; t++) {
-                        if (!StringUtils.isBlank(mtplArray[t]) && !mtplArray[t].startsWith(tplPath)) {
-                            mtplArray[t] = tplPath + mtplArray[t];
-                        }
-                    }
-                }
-                bean.setAttr(RequestUtils.getRequestMap(request, "attr_"));
-                bean = channelMng.save(bean, ext, txt, viewGroupIdArray, contriGroupIdArray,
-                        null, CmsUtils.getSiteId(request), parentId, modelId,
-                        modelIdArray, tplArray, mtplArray, false);
-                log.info("save Channel id={}, name={}", bean.getId(), bean.getName());
-                cmsLogMng.operating(request, "channel.log.save", "id=" + bean.getId()
-                        + ";title=" + bean.getTitle());
-                body = "{\"id\":" + "\"" + bean.getId() + "\"}";
-                message = Constants.API_MESSAGE_SUCCESS;
-                code = ResponseCode.API_CODE_CALL_SUCCESS;
-            } else {
-                message = Constants.API_MESSAGE_PARAM_ERROR;
-                code = ResponseCode.API_CODE_PARAM_ERROR;
-            }
-        } else {
-            message = Constants.API_MESSAGE_PARAM_REQUIRED;
-            code = ResponseCode.API_CODE_PARAM_ERROR;
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
         }
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        if (validatePath(bean.getPath())) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_PARAM_ERROR);
+        }
+        CmsSite site = siteMng.getSite();
+        // 加上模板前缀
+        String tplPath = site.getTplPath();
+        if (!StringUtils.isBlank(ext.getTplChannel())) {
+            ext.setTplChannel(tplPath + ext.getTplChannel());
+        }
+        if (!StringUtils.isBlank(ext.getTplContent())) {
+            ext.setTplContent(tplPath + ext.getTplContent());
+        }
+        if (!StringUtils.isBlank(ext.getTplMobileChannel())) {
+            ext.setTplMobileChannel(tplPath + ext.getTplMobileChannel());
+        }
+        if (tplArray != null && tplArray.length > 0) {
+            for (int t = 0; t < tplArray.length; t++) {
+                if (!StringUtils.isBlank(tplArray[t]) && !tplArray[t].startsWith(tplPath)) {
+                    tplArray[t] = tplPath + tplArray[t];
+                }
+            }
+        }
+        if (mtplArray != null && mtplArray.length > 0) {
+            for (int t = 0; t < mtplArray.length; t++) {
+                if (!StringUtils.isBlank(mtplArray[t]) && !mtplArray[t].startsWith(tplPath)) {
+                    mtplArray[t] = tplPath + mtplArray[t];
+                }
+            }
+        }
+        bean.setAttr(RequestUtils.getRequestMap(request, "attr_"));
+        bean = channelMng.save(bean, ext, txt, viewGroupIdArray, contriGroupIdArray, null, parentId, modelId, modelIdArray, tplArray, mtplArray, false);
+        log.info("save Channel id={}, name={}", bean.getId(), bean.getName());
+        cmsLogMng.operating(request, "channel.log.save", "id=" + bean.getId() + ";title=" + bean.getTitle());
+        String body = "{\"id\":" + "\"" + bean.getId() + "\"}";
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
     /**
      * 栏目修改接口
      *
-     * @param parentId   父栏目ID 非必选
-     * @param txt        栏目文本内容 非必选
-     * @param modelId    模型ID 非必选  新闻 1
-     * @param workflowId 应用工作流ID 非必选
-     * @throws JSONException
+     * @param parentId 父栏目ID 非必选
+     * @param txt      栏目文本内容 非必选
+     * @param modelId  模型ID 非必选  新闻 1
      */
     @SignValidate
     @RequestMapping(value = "/channel/update")
-    public void update(Integer parentId, Channel bean, ChannelExt ext,
-                       ChannelTxt txt, String viewGroupIds, String contriGroupIds,
-                       String modelIds, String tpls, String mtpls,
-                       Integer workflowId, Integer modelId, HttpServletRequest request,
-                       HttpServletResponse response) {
-        String body = "\"\"";
-        String message = Constants.API_STATUS_FAIL;
-        String code = ResponseCode.API_CODE_CALL_FAIL;
+    public void update(Integer parentId, Channel bean, ChannelExt ext, ChannelTxt txt, String viewGroupIds, String contriGroupIds, String modelIds, String tpls, String mtpls, Integer modelId, HttpServletRequest request, HttpServletResponse response) {
         WebErrors errors = validateUpdate(bean.getId(), request);
         //验证公共非空参数
-        errors = ApiValidate.validateRequiredParams(request, errors,
-                ext.getName(), bean.getPath(), modelId);
+        errors = ApiValidate.validateRequiredParams(request, errors, ext.getName(), bean.getPath(), modelId);
         Integer[] viewGroupIdArray = null;
         if (StringUtils.isNotBlank(viewGroupIds)) {
             viewGroupIdArray = StrUtils.getInts(viewGroupIds);
@@ -362,213 +302,169 @@ public class ChannelAdminApiAct {
         if (bean.getDisplay() == null) {
             bean.setDisplay(true);
         }
-        if (!errors.hasErrors()) {
-            if (validatePath(bean.getPath())) {
-                CmsSite site = CmsUtils.getSite(request);
-                // 加上模板前缀
-                String tplPath = site.getTplPath();
-                if (!StringUtils.isBlank(ext.getTplChannel())) {
-                    ext.setTplChannel(tplPath + ext.getTplChannel());
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
+        }
+        if (validatePath(bean.getPath())) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_PARAM_ERROR);
+        }
+        CmsSite site = siteMng.getSite();
+        // 加上模板前缀
+        String tplPath = site.getTplPath();
+        if (!StringUtils.isBlank(ext.getTplChannel())) {
+            ext.setTplChannel(tplPath + ext.getTplChannel());
+        }
+        if (!StringUtils.isBlank(ext.getTplContent())) {
+            ext.setTplContent(tplPath + ext.getTplContent());
+        }
+        if (!StringUtils.isBlank(ext.getTplMobileChannel())) {
+            ext.setTplMobileChannel(tplPath + ext.getTplMobileChannel());
+        }
+        if (tplArray != null && tplArray.length > 0) {
+            for (int t = 0; t < tplArray.length; t++) {
+                if (!StringUtils.isBlank(tplArray[t]) && !tplArray[t].startsWith(tplPath)) {
+                    tplArray[t] = tplPath + tplArray[t];
                 }
-                if (!StringUtils.isBlank(ext.getTplContent())) {
-                    ext.setTplContent(tplPath + ext.getTplContent());
-                }
-                if (!StringUtils.isBlank(ext.getTplMobileChannel())) {
-                    ext.setTplMobileChannel(tplPath + ext.getTplMobileChannel());
-                }
-                if (tplArray != null && tplArray.length > 0) {
-                    for (int t = 0; t < tplArray.length; t++) {
-                        if (!StringUtils.isBlank(tplArray[t]) && !tplArray[t].startsWith(tplPath)) {
-                            tplArray[t] = tplPath + tplArray[t];
-                        }
-                    }
-                }
-                if (mtplArray != null && mtplArray.length > 0) {
-                    for (int t = 0; t < mtplArray.length; t++) {
-                        if (!StringUtils.isBlank(mtplArray[t]) && !mtplArray[t].startsWith(tplPath)) {
-                            mtplArray[t] = tplPath + mtplArray[t];
-                        }
-                    }
-                }
-                Map<String, String> attr = RequestUtils.getRequestMap(request, "attr_");
-                bean = channelMng.update(bean, ext, txt, viewGroupIdArray, contriGroupIdArray,
-                        null, parentId, attr, modelId, modelIdArray, tplArray, mtplArray);
-                log.info("update Channel id={}.", bean.getId());
-                cmsLogMng.operating(request, "channel.log.update", "id=" + bean.getId()
-                        + ";name=" + bean.getName());
-                body = "{\"id\":" + "\"" + bean.getId() + "\"}";
-                message = Constants.API_MESSAGE_SUCCESS;
-                code = ResponseCode.API_CODE_CALL_SUCCESS;
-            } else {
-                message = Constants.API_MESSAGE_PARAM_ERROR;
-                code = ResponseCode.API_CODE_PARAM_ERROR;
             }
         }
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        if (mtplArray != null && mtplArray.length > 0) {
+            for (int t = 0; t < mtplArray.length; t++) {
+                if (!StringUtils.isBlank(mtplArray[t]) && !mtplArray[t].startsWith(tplPath)) {
+                    mtplArray[t] = tplPath + mtplArray[t];
+                }
+            }
+        }
+        Map<String, String> attr = RequestUtils.getRequestMap(request, "attr_");
+        bean = channelMng.update(bean, ext, txt, viewGroupIdArray, contriGroupIdArray, null, parentId, attr, modelId, modelIdArray, tplArray, mtplArray);
+        log.info("update Channel id={}.", bean.getId());
+        cmsLogMng.operating(request, "channel.log.update", "id=" + bean.getId() + ";name=" + bean.getName());
+        String body = "{\"id\":" + "\"" + bean.getId() + "\"}";
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
     @SignValidate
     @RequestMapping("/channel/delete")
-    public void delete(String ids,
-                       HttpServletRequest request, HttpServletResponse response) {
+    public void delete(String ids, HttpServletRequest request, HttpServletResponse response) {
         Integer[] idArray = null;
-        String body = "\"\"";
-        String message = Constants.API_STATUS_FAIL;
-        String code = ResponseCode.API_CODE_CALL_FAIL;
         WebErrors errors = WebErrors.create(request);
-        //验证公共非空参数
-        errors = ApiValidate.validateRequiredParams(request, errors, ids);
         if (StringUtils.isNotBlank(ids)) {
             idArray = StrUtils.getInts(ids);
         }
-        if (idArray == null || idArray.length <= 0) {
-            errors.addErrorString(Constants.API_MESSAGE_APP_PARAM_ERROR);
-            message = Constants.API_MESSAGE_PARAM_REQUIRED;
-            code = ResponseCode.API_CODE_PARAM_ERROR;
-        } else {
-            errors = validateDelete(idArray, request);
-            message = Constants.API_MESSAGE_DELETE_ERROR;
-            code = ResponseCode.API_CODE_DELETE_ERROR;
+        errors = ApiValidate.validateRequiredParams(request, errors, ids);
+        if (idArray == null || errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
         }
-        if (!errors.hasErrors()) {
-            try {
-                Channel[] beans = channelMng.deleteByIds(idArray);
-                message = Constants.API_MESSAGE_SUCCESS;
-                code = ResponseCode.API_CODE_CALL_SUCCESS;
-                for (Channel bean : beans) {
-                    log.info("delete Channel id={}", bean.getId());
-                    cmsLogMng.operating(request, "channel.log.delete", "id="
-                            + bean.getId() + ";title=" + bean.getTitle());
-                }
-            } catch (Exception e) {
-                message = Constants.API_MESSAGE_DELETE_ERROR;
-                code = ResponseCode.API_CODE_DELETE_ERROR;
+        errors = validateDelete(idArray, request);
+        if (errors.hasErrors()) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_PARAM_ERROR);
+        }
+        try {
+            Channel[] beans = channelMng.deleteByIds(idArray);
+            for (Channel bean : beans) {
+                log.info("delete Channel id={}", bean.getId());
+                cmsLogMng.operating(request, "channel.log.delete", "id=" + bean.getId() + ";title=" + bean.getTitle());
             }
+        } catch (Exception e) {
+            throw new ApiException("删除出错", ResponseCode.API_CODE_DELETE_ERROR);
         }
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        ApiResponse apiResponse = ApiResponse.getSuccess();
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
     @SignValidate
     @RequestMapping(value = "/channel/copy")
-    public void channelCopy(
-            String ids, String solution, String mobileSolution,
-            HttpServletRequest request, HttpServletResponse response) {
-        String body = "\"\"";
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_CALL_FAIL;
+    public void channelCopy(String ids, String solution, String mobileSolution, HttpServletRequest request, HttpServletResponse response) {
         WebErrors errors = WebErrors.create(request);
-        //验证公共非空参数
-        errors = ApiValidate.validateRequiredParams(request, errors, ids);
         Integer[] channelIds = null;
         if (StringUtils.isNotBlank(ids)) {
             channelIds = StrUtils.getInts(ids);
         }
-        if (channelIds == null || channelIds.length <= 0) {
-            errors.addErrorString(Constants.API_MESSAGE_APP_PARAM_ERROR);
+        if (channelIds == null) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_PARAM_ERROR);
         }
-        if (!errors.hasErrors()) {
-            CmsSite site = CmsUtils.getSite(request);
-            Map<String, String> pathMap = new HashMap<String, String>();
-            for (Integer id : channelIds) {
-                channelMng.copy(id, solution, mobileSolution, site.getId(), pathMap);
-                message = Constants.API_MESSAGE_SUCCESS;
-                code = ResponseCode.API_CODE_CALL_SUCCESS;
-            }
-            //临时存放新旧栏目路径对应关系
-            pathMap.clear();
-            pathMap = null;
+        errors = ApiValidate.validateRequiredParams(request, errors, ids);
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
         }
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        Map<String, String> pathMap = new HashMap<>(5);
+        for (Integer id : channelIds) {
+            channelMng.copy(id, solution, mobileSolution, pathMap);
+        }
+        //临时存放新旧栏目路径对应关系
+        pathMap.clear();
+        ApiResponse apiResponse = ApiResponse.getSuccess();
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
     @SignValidate
     @RequestMapping("/channel/priority")
-    public void priority(String ids, String prioritys,
-                         HttpServletRequest request, HttpServletResponse response) {
-        String body = "\"\"";
-        String message = Constants.API_STATUS_FAIL;
-        String code = ResponseCode.API_CODE_CALL_FAIL;
+    public void priority(String ids, String prioritys, HttpServletRequest request, HttpServletResponse response) {
         WebErrors errors = WebErrors.create(request);
-        //验证公共非空参数
-        errors = ApiValidate.validateRequiredParams(request, errors, ids, prioritys);
         Integer[] idInts = null, priorityInts = null;
         if (StringUtils.isNotBlank(ids)) {
             idInts = StrUtils.getInts(ids);
             priorityInts = StrUtils.getInts(prioritys);
         }
-        if (idInts == null || idInts.length <= 0 ||
-                priorityInts == null || priorityInts.length <= 0) {
-            errors.addErrorString(Constants.API_MESSAGE_PARAM_REQUIRED);
+        if (idInts == null || priorityInts == null) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_PARAM_ERROR);
         }
-        if (!errors.hasErrors()) {
-            errors = validatePriority(idInts, priorityInts, request);
+        errors = ApiValidate.validateRequiredParams(request, errors, ids, prioritys);
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
         }
-        if (!errors.hasErrors()) {
-            channelMng.updatePriority(idInts, priorityInts);
-            message = Constants.API_MESSAGE_SUCCESS;
-            code = ResponseCode.API_CODE_CALL_SUCCESS;
+        errors = validatePriority(idInts, priorityInts, request);
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
         }
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        channelMng.updatePriority(idInts, priorityInts);
+        ApiResponse apiResponse = ApiResponse.getSuccess();
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
     @RequestMapping(value = "/channel/create_path")
-    public void createPath(String name, HttpServletRequest request,
-                           HttpServletResponse response) {
-        String body = "\"\"";
-        String message = Constants.API_STATUS_FAIL;
-        String code = ResponseCode.API_CODE_CALL_FAIL;
+    public void createPath(String name, HttpServletRequest request, HttpServletResponse response) {
         WebErrors errors = WebErrors.create(request);
         //验证公共非空参数
         errors = ApiValidate.validateRequiredParams(request, errors, name);
-        if (!errors.hasErrors()) {
-            String path;
-            if (StringUtils.isBlank(name)) {
-                path = "";
-            } else {
-                path = ChineseCharToEn.getAllFirstLetter(name);
-            }
-            body = "\"" + path + "\"";
-            message = Constants.API_MESSAGE_SUCCESS;
-            code = ResponseCode.API_CODE_CALL_SUCCESS;
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
         }
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        String path;
+        if (StringUtils.isBlank(name)) {
+            path = "";
+        } else {
+            path = ChineseCharToEn.getAllFirstLetter(name);
+        }
+        String body = "\"" + path + "\"";
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
     @RequestMapping(value = "/channel/v_check_path")
-    public void checkPath(Integer id, String path,
-                          HttpServletRequest request, HttpServletResponse response) {
-        String body = "\"\"";
-        String message = Constants.API_STATUS_FAIL;
-        String code = ResponseCode.API_CODE_CALL_FAIL;
+    public void checkPath(Integer id, String path, HttpServletRequest request, HttpServletResponse response) {
         WebErrors errors = WebErrors.create(request);
-        //验证公共非空参数
         errors = ApiValidate.validateRequiredParams(request, errors, path);
-        if (!errors.hasErrors()) {
-            String pass;
-            if (StringUtils.isBlank(path)) {
-                pass = "false";
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
+        }
+        String pass;
+        if (StringUtils.isBlank(path)) {
+            pass = "false";
+        } else {
+            Channel c = channelMng.findByPath(path);
+            if (c == null) {
+                pass = "true";
             } else {
-                Channel c = channelMng.findByPath(path, CmsUtils.getSiteId(request));
-                if (c == null) {
+                if (id != null && c.getId().equals(id)) {
                     pass = "true";
                 } else {
-                    if (id != null && c.getId().equals(id)) {
-                        pass = "true";
-                    } else {
-                        pass = "false";
-                    }
+                    pass = "false";
                 }
             }
-            body = "\"" + pass + "\"";
-            message = Constants.API_MESSAGE_SUCCESS;
-            code = ResponseCode.API_CODE_CALL_SUCCESS;
         }
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        String body = "\"" + pass + "\"";
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
@@ -618,8 +514,7 @@ public class ChannelAdminApiAct {
 
     private WebErrors validateUpdate(Integer id, HttpServletRequest request) {
         WebErrors errors = WebErrors.create(request);
-        CmsSite site = CmsUtils.getSite(request);
-        if (vldExist(id, site.getId(), errors)) {
+        if (vldExist(id, errors)) {
             return errors;
         }
         return errors;
@@ -627,10 +522,9 @@ public class ChannelAdminApiAct {
 
     private WebErrors validateDelete(Integer[] ids, HttpServletRequest request) {
         WebErrors errors = WebErrors.create(request);
-        CmsSite site = CmsUtils.getSite(request);
         errors.ifEmpty(ids, "ids", false);
         for (Integer id : ids) {
-            if (vldExist(id, site.getId(), errors)) {
+            if (vldExist(id, errors)) {
                 return errors;
             }
             // 检查是否可以删除
@@ -644,9 +538,7 @@ public class ChannelAdminApiAct {
     }
 
 
-    private WebErrors validatePriority(Integer[] wids, Integer[] priority,
-                                       HttpServletRequest request) {
-        CmsSite site = CmsUtils.getSite(request);
+    private WebErrors validatePriority(Integer[] wids, Integer[] priority, HttpServletRequest request) {
         WebErrors errors = WebErrors.create(request);
         if (errors.ifEmpty(wids, "wids", false)) {
             return errors;
@@ -659,7 +551,7 @@ public class ChannelAdminApiAct {
             return errors;
         }
         for (int i = 0, len = wids.length; i < len; i++) {
-            if (vldExist(wids[i], site.getId(), errors)) {
+            if (vldExist(wids[i], errors)) {
                 return errors;
             }
             if (priority[i] == null) {
@@ -669,16 +561,12 @@ public class ChannelAdminApiAct {
         return errors;
     }
 
-    private boolean vldExist(Integer id, Integer siteId, WebErrors errors) {
+    private boolean vldExist(Integer id, WebErrors errors) {
         if (errors.ifNull(id, "id", false)) {
             return true;
         }
         Channel entity = channelMng.findById(id);
         if (errors.ifNotExist(entity, Channel.class, id, false)) {
-            return true;
-        }
-        if (!entity.getSite().getId().equals(siteId)) {
-            errors.addErrorString("error.notInSite");
             return true;
         }
         return false;
@@ -696,5 +584,7 @@ public class ChannelAdminApiAct {
     private CmsLogMng cmsLogMng;
     @Autowired
     private CmsModelMng modelMng;
+    @Autowired
+    private CmsSiteMng siteMng;
 }
 

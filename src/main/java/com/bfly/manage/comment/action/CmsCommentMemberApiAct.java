@@ -74,7 +74,7 @@ public class CmsCommentMemberApiAct {
 						userId = user.getId();
 					}
 					CmsComment comment=cmsCommentMng.comment(score,text, RequestUtils.getIpAddr(request),
-							contentId, content.getSiteId(), 
+							contentId,
 							userId, checked, false,parentId);
 					body="{\"id\":"+"\""+comment.getId()+"\"}";
 					message=Constants.API_MESSAGE_SUCCESS;
@@ -90,9 +90,7 @@ public class CmsCommentMemberApiAct {
 	/**
 	 * 我的评论
 	 * @param siteId 站点ID 非必须
-	 * @param appId appId 必选
-	 * @param sessionKey 会话标识 必选
-	 * @param first 开始 
+	 * @param first 开始
 	 * @param count 数量
 	 */
 	@RequestMapping(value = "/comment/mylist")
@@ -112,7 +110,7 @@ public class CmsCommentMemberApiAct {
 		CmsUser user = CmsUtils.getUser(request);
 		List<CmsComment> list = null ;
 		if(user!=null){
-			list= cmsCommentMng.getListForMember(siteId, null,
+			list= cmsCommentMng.getListForMember( null,
 					user.getId(), null, null, null, null, true,first,
 					count);
 		}

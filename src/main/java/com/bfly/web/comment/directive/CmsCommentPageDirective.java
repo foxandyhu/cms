@@ -42,12 +42,12 @@ public class CmsCommentPageDirective extends AbstractCmsCommentDirective {
 	public void execute(Environment env, Map params, TemplateModel[] loopVars,
 			TemplateDirectiveBody body) throws TemplateException, IOException {
 		CmsSite site = FrontUtils.getSite(env);
-		Pagination page = cmsCommentMng.getPageForTag(null,
+		Pagination page = cmsCommentMng.getPageForTag(
 				getContentId(params), getGreaterThen(params),
 				getChecked(params), getRecommend(params), getDesc(params),
 				FrontUtils.getPageNo(env), FrontUtils.getCount(params));
 
-		Map<String, TemplateModel> paramWrap = new HashMap<String, TemplateModel>(
+		Map<String, TemplateModel> paramWrap = new HashMap<>(
 				params);
 		paramWrap.put(OUT_PAGINATION, DefaultObjectWrapperBuilderFactory.getDefaultObjectWrapper().wrap(page));
 		paramWrap.put(OUT_LIST, DefaultObjectWrapperBuilderFactory.getDefaultObjectWrapper().wrap(page.getList()));

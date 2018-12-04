@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.bfly.cms.user.entity.CmsAdmin;
+import com.bfly.cms.user.service.CmsAdminService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -74,131 +76,131 @@ import freemarker.template.TemplateException;
 public class ContentMngImpl implements ContentMng{
 
 	@Override
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true,rollbackFor = Exception.class)
 	public Pagination getPageByRight(Integer share,String title, Integer typeId,
 			Integer currUserId,Integer inputUserId, boolean topLevel, boolean recommend,
-			ContentStatus status, Byte checkStep, Integer siteId,
+			ContentStatus status, Byte checkStep,
 			Integer channelId,Integer userId, int orderBy, int pageNo,
 			int pageSize) {
-		CmsUser user = cmsUserMng.findById(userId);
-		CmsUserSite us = user.getUserSite(siteId);
+		CmsAdmin admin = adminService.findById(userId);
+		CmsUserSite us = admin.getUserSite();
 		Pagination p;
 		
-		p = this.getPageCountByRight(share, title, typeId, currUserId, inputUserId, topLevel, recommend, status, checkStep, siteId, channelId, userId, orderBy, pageNo, pageSize);
+		p = this.getPageCountByRight(share, title, typeId, currUserId, inputUserId, topLevel, recommend, status, checkStep, channelId, userId, orderBy, pageNo, pageSize);
 		pageNo = p.getPageNo();
 		
 		boolean allChannel = us.getAllChannel();
-		boolean selfData = user.getSelfAdmin();
+		boolean selfData = admin.getSelfAdmin();
 		if (allChannel && selfData) {
 			// 拥有所有栏目权限，只能管理自己的数据
 			p = dao.getPageBySelf(share,title, typeId, inputUserId, topLevel,
-					recommend, status, checkStep, siteId, channelId, userId,
+					recommend, status, checkStep,  channelId, userId,
 					orderBy, pageNo, pageSize);
 		} else if (allChannel && !selfData) {
 			// 拥有所有栏目权限，能够管理不属于自己的数据
 			p = dao.getPage(share,title, typeId,currUserId, inputUserId, topLevel, recommend,
-					status, checkStep, siteId,null,channelId,orderBy, pageNo,
+					status, checkStep, null,channelId,orderBy, pageNo,
 					pageSize);
 		} else {
 			p = dao.getPageByRight(share,title, typeId, currUserId,inputUserId, topLevel,
-					recommend, status, checkStep, siteId, channelId,userId, selfData,
+					recommend, status, checkStep, channelId,userId, selfData,
 					orderBy, pageNo, pageSize);
 		}
 		return p;
 	}
 	
 	@Override
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true,rollbackFor = Exception.class)
 	public Pagination getPageCountByRight(Integer share,String title, Integer typeId,
 			Integer currUserId,Integer inputUserId, boolean topLevel, boolean recommend,
-			ContentStatus status, Byte checkStep, Integer siteId,
+			ContentStatus status, Byte checkStep,
 			Integer channelId,Integer userId, int orderBy, int pageNo,
 			int pageSize) {
-		CmsUser user = cmsUserMng.findById(userId);
-		CmsUserSite us = user.getUserSite(siteId);
+		CmsAdmin admin = adminService.findById(userId);
+		CmsUserSite us = admin.getUserSite();
 		Pagination p;
 		boolean allChannel = us.getAllChannel();
-		boolean selfData = user.getSelfAdmin();
+		boolean selfData = admin.getSelfAdmin();
 		if (allChannel && selfData) {
 			// 拥有所有栏目权限，只能管理自己的数据
 			p = dao.getPageCountBySelf(share,title, typeId, inputUserId, topLevel,
-					recommend, status, checkStep, siteId, channelId, userId,
+					recommend, status, checkStep,  channelId, userId,
 					orderBy, pageNo, pageSize);
 		} else if (allChannel && !selfData) {
 			// 拥有所有栏目权限，能够管理不属于自己的数据
 			p = dao.getPageCount(share,title, typeId,currUserId, inputUserId, topLevel, recommend,
-					status, checkStep, siteId,null,channelId,orderBy, pageNo,
+					status, checkStep, null,channelId,orderBy, pageNo,
 					pageSize);
 		} else {
 			p = dao.getPageCountByRight(share,title, typeId, currUserId,inputUserId, topLevel,
-					recommend, status, checkStep, siteId, channelId,userId, selfData,
+					recommend, status, checkStep,  channelId,userId, selfData,
 					orderBy, pageNo, pageSize);
 		}
 		return p;
 	}
 	
 	@Override
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true,rollbackFor = Exception.class)
 	public Pagination getPageBySite(String title, Integer typeId,Integer currUserId,Integer inputUserId,boolean topLevel,
-			boolean recommend,ContentStatus status, Integer siteId,int orderBy, int pageNo,int pageSize){
+			boolean recommend,ContentStatus status, int orderBy, int pageNo,int pageSize){
 		return dao.getPage(Content.CONTENT_QUERY_NOT_SHARE,
-				title, typeId, currUserId, inputUserId, topLevel, recommend, status, null, siteId, null, null, orderBy, pageNo, pageSize);
+				title, typeId, currUserId, inputUserId, topLevel, recommend, status, null, null, null, orderBy, pageNo, pageSize);
 	}
 	
 	@Override
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true,rollbackFor = Exception.class)
 	public Pagination getPageCountBySite(String title, Integer typeId,Integer currUserId,Integer inputUserId,boolean topLevel,
-			boolean recommend,ContentStatus status, Integer siteId,int orderBy, int pageNo,int pageSize){
+			boolean recommend,ContentStatus status,int orderBy, int pageNo,int pageSize){
 		return dao.getPageCount(Content.CONTENT_QUERY_NOT_SHARE,
-				title, typeId, currUserId, inputUserId, topLevel, recommend, status, null, siteId, null, null, orderBy, pageNo, pageSize);
+				title, typeId, currUserId, inputUserId, topLevel, recommend, status, null, null, null, orderBy, pageNo, pageSize);
 	}
 
 	@Override
-    @Transactional(readOnly = true)
-	public Pagination getPageForMember(String title, Integer channelId,Integer siteId,Integer modelId, Integer memberId, int pageNo, int pageSize) {
+    @Transactional(readOnly = true,rollbackFor = Exception.class)
+	public Pagination getPageForMember(String title, Integer channelId,Integer modelId, Integer memberId, int pageNo, int pageSize) {
 		return dao.getPageForMember(Content.CONTENT_QUERY_NOT_SHARE,
-				title, null,memberId,memberId, false, false,ContentStatus.all, null, siteId,modelId,  channelId, 0, pageNo,pageSize);
+				title, null,memberId,memberId, false, false,ContentStatus.all, null, modelId,  channelId, 0, pageNo,pageSize);
 	}
 	
 	@Override
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true,rollbackFor = Exception.class)
 	public List<Content> getListForMember(String title, Integer channelId,
-			Integer siteId, Integer modelId,Integer memberId, int first, int count){
+		Integer modelId,Integer memberId, int first, int count){
 		return dao.getList(title, null,memberId,memberId, false,
-				false,ContentStatus.all, null, siteId,modelId,
+				false,ContentStatus.all, null, modelId,
 				channelId, 0, first,count);
 	}
 	
 	@Override
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true,rollbackFor = Exception.class)
 	public  List<Content> getExpiredTopLevelContents(byte topLevel,Date expiredDay){
 		return dao.getExpiredTopLevelContents(topLevel,expiredDay);
 	}
 	
 	@Override
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true,rollbackFor = Exception.class)
 	public  List<Content> getPigeonholeContents(Date pigeonholeDay){
 		return dao.getPigeonholeContents(pigeonholeDay);
 	}
 	
 	@Override
-    @Transactional(readOnly = true)
-	public Content getSide(Integer id, Integer siteId, Integer channelId,
+    @Transactional(readOnly = true,rollbackFor = Exception.class)
+	public Content getSide(Integer id, Integer channelId,
 			boolean next) {
-		return dao.getSide(id, siteId, channelId, next, true);
+		return dao.getSide(id,  channelId, next, true);
 	}
 
 	@Override
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true,rollbackFor = Exception.class)
 	public List<Content> getListByIdsForTag(Integer[] ids, int orderBy) {
 		if (ids.length == 1) {
 			Content content = findById(ids[0]);
 			List<Content> list;
 			if (content != null) {
-				list = new ArrayList<Content>(1);
+				list = new ArrayList<>(1);
 				list.add(content);
 			} else {
-				list = new ArrayList<Content>(0);
+				list = new ArrayList<>(0);
 			}
 			return list;
 		} else {
@@ -207,25 +209,23 @@ public class ContentMngImpl implements ContentMng{
 	}
 
 	@Override
-    @Transactional(readOnly = true)
-	public Pagination getPageBySiteIdsForTag(Integer[] siteIds,
-			Integer[] typeIds, Boolean titleImg, Boolean recommend,
+    @Transactional(readOnly = true,rollbackFor = Exception.class)
+	public Pagination getPageBySiteIdsForTag( Integer[] typeIds, Boolean titleImg, Boolean recommend,
 			String title,Map<String,String[]>attr,int orderBy, int pageNo, int pageSize) {
-		return dao.getPageBySiteIdsForTag(siteIds, typeIds, titleImg,
+		return dao.getPageBySiteIdsForTag( typeIds, titleImg,
 				recommend, title, attr,orderBy, pageNo, pageSize);
 	}
 
 	@Override
-    @Transactional(readOnly = true)
-	public List<Content> getListBySiteIdsForTag(Integer[] siteIds,
-			Integer[] typeIds, Boolean titleImg, Boolean recommend,
+    @Transactional(readOnly = true,rollbackFor = Exception.class)
+	public List<Content> getListBySiteIdsForTag(Integer[] typeIds, Boolean titleImg, Boolean recommend,
 			String title, Map<String,String[]>attr,int orderBy,Integer first, Integer count) {
-		return dao.getListBySiteIdsForTag(siteIds, typeIds, titleImg,
+		return dao.getListBySiteIdsForTag(typeIds, titleImg,
 				recommend, title,attr, orderBy, first, count);
 	}
 
 	@Override
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true,rollbackFor = Exception.class)
 	public Pagination getPageByChannelIdsForTag(Integer[] channelIds,
 			Integer[] typeIds, Boolean titleImg, Boolean recommend,
 			String title,Map<String,String[]>attr,int orderBy, int option, int pageNo, int pageSize) {
@@ -234,7 +234,7 @@ public class ContentMngImpl implements ContentMng{
 	}
 
 	@Override
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true,rollbackFor = Exception.class)
 	public List<Content> getListByChannelIdsForTag(Integer[] channelIds,
 			Integer[] typeIds, Boolean titleImg, Boolean recommend,
 			String title, Map<String,String[]>attr,int orderBy,int option, Integer first,Integer count) {
@@ -243,66 +243,65 @@ public class ContentMngImpl implements ContentMng{
 	}
 
 	@Override
-    @Transactional(readOnly = true)
-	public Pagination getPageByChannelPathsForTag(String[] paths,
-			Integer[] siteIds, Integer[] typeIds, Boolean titleImg,
+    @Transactional(readOnly = true,rollbackFor = Exception.class)
+	public Pagination getPageByChannelPathsForTag(String[] paths, Integer[] typeIds, Boolean titleImg,
 			Boolean recommend, String title,Map<String,String[]>attr,int orderBy, int pageNo, int pageSize) {
-		return dao.getPageByChannelPathsForTag(paths, siteIds, typeIds,
+		return dao.getPageByChannelPathsForTag(paths,typeIds,
 				titleImg, recommend, title,attr, orderBy, pageNo, pageSize);
 	}
 
 	@Override
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true,rollbackFor = Exception.class)
 	public List<Content> getListByChannelPathsForTag(String[] paths,
-			Integer[] siteIds, Integer[] typeIds, Boolean titleImg,
+			 Integer[] typeIds, Boolean titleImg,
 			Boolean recommend, String title,Map<String,String[]>attr,int orderBy, Integer first, Integer count) {
-		return dao.getListByChannelPathsForTag(paths, siteIds, typeIds,
+		return dao.getListByChannelPathsForTag(paths,  typeIds,
 				titleImg, recommend, title,attr, orderBy, first, count);
 	}
 
 	@Override
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true,rollbackFor = Exception.class)
 	public Pagination getPageByTopicIdForTag(Integer topicId,
-			Integer[] siteIds, Integer[] channelIds, Integer[] typeIds,
+			 Integer[] channelIds, Integer[] typeIds,
 			Boolean titleImg, Boolean recommend, String title, Map<String,String[]>attr,int orderBy,int pageNo,
 			int pageSize) {
-		return dao.getPageByTopicIdForTag(topicId, siteIds, channelIds,
+		return dao.getPageByTopicIdForTag(topicId, channelIds,
 				typeIds, titleImg, recommend, title,attr, orderBy, pageNo, pageSize);
 	}
 
 	@Override
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true,rollbackFor = Exception.class)
 	public List<Content> getListByTopicIdForTag(Integer topicId,
-			Integer[] siteIds, Integer[] channelIds, Integer[] typeIds,
+			 Integer[] channelIds, Integer[] typeIds,
 			Boolean titleImg, Boolean recommend, String title, Map<String,String[]>attr,int orderBy,Integer first,
 			Integer count) {
-		return dao.getListByTopicIdForTag(topicId, siteIds, channelIds,
+		return dao.getListByTopicIdForTag(topicId,  channelIds,
 				typeIds, titleImg, recommend, title,attr, orderBy, first, count);
 	}
 
 	@Override
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true,rollbackFor = Exception.class)
 	public Pagination getPageByTagIdsForTag(Integer[] tagIds,
-			Integer[] siteIds, Integer[] channelIds, Integer[] typeIds,
+			 Integer[] channelIds, Integer[] typeIds,
 			Integer excludeId, Boolean titleImg, Boolean recommend,
 			String title, Map<String,String[]>attr,int orderBy,int pageNo, int pageSize) {
-		return dao.getPageByTagIdsForTag(tagIds, siteIds, channelIds, typeIds,
+		return dao.getPageByTagIdsForTag(tagIds, channelIds, typeIds,
 				excludeId, titleImg, recommend, title, attr,orderBy, pageNo,
 				pageSize);
 	}
 
 	@Override
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true,rollbackFor = Exception.class)
 	public List<Content> getListByTagIdsForTag(Integer[] tagIds,
-			Integer[] siteIds, Integer[] channelIds, Integer[] typeIds,
+			 Integer[] channelIds, Integer[] typeIds,
 			Integer excludeId, Boolean titleImg, Boolean recommend,
 			String title,Map<String,String[]>attr, int orderBy,Integer first, Integer count) {
-		return dao.getListByTagIdsForTag(tagIds, siteIds, channelIds, typeIds,
+		return dao.getListByTagIdsForTag(tagIds,  channelIds, typeIds,
 				excludeId, titleImg, recommend, title,attr, orderBy, first, count);
 	}
 
 	@Override
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true,rollbackFor = Exception.class)
 	public Content findById(Integer id) {
 		Content entity = dao.findById(id);
 		return entity;
@@ -317,12 +316,12 @@ public class ContentMngImpl implements ContentMng{
                         Boolean draft, Boolean contribute, Short charge,
                         Double chargeAmount, Boolean rewardPattern,
                         Double rewardRandomMin, Double rewardRandomMax,
-                        Double[] rewardFix, CmsUser user,
+                        Double[] rewardFix, CmsAdmin admin,
                         boolean forMember) {
 		if(charge==null){
 			charge=ContentCharge.MODEL_FREE;
 		}
-		saveContent(bean, ext, txt,channelId, typeId, draft, contribute,user,forMember);
+		saveContent(bean, ext, txt,channelId, typeId, draft, contribute,admin,forMember);
 		// 保存副栏目
 		if (channelIds != null && channelIds.length > 0) {
 			for (Integer cid : channelIds) {
@@ -368,7 +367,7 @@ public class ContentMngImpl implements ContentMng{
 			}
 		}
 		//文章操作记录
-		contentRecordMng.record(bean, user, ContentOperateType.add);
+		contentRecordMng.record(bean, admin, ContentOperateType.add);
 		//栏目内容发布数（未审核通过的也算）
 		channelCountMng.afterSaveContent(channel);
 		
@@ -392,26 +391,25 @@ public class ContentMngImpl implements ContentMng{
 	//导入word执行
 	@Override
     public Content save(Content bean, ContentExt ext, ContentTxt txt, Integer channelId,
-                        Integer typeId, Boolean draft, CmsUser user, boolean forMember){
-		saveContent(bean, ext, txt,channelId, typeId, draft, false,user, forMember);
+                        Integer typeId, Boolean draft, CmsAdmin admin, boolean forMember){
+		saveContent(bean, ext, txt,channelId, typeId, draft, false,admin, forMember);
 		// 执行监听器
 		//afterSave(bean);
 		return bean;
 	}
 	
 	private Content saveContent(Content bean, ContentExt ext, ContentTxt txt,Integer channelId,
-			Integer typeId,Boolean draft, Boolean contribute,CmsUser user,boolean forMember){
+			Integer typeId,Boolean draft, Boolean contribute,CmsAdmin admin,boolean forMember){
 		Channel channel = channelMng.findById(channelId);
 		bean.setChannel(channel);
 		bean.setType(contentTypeMng.findById(typeId));
-		bean.setUser(user);
+		bean.setAdmin(admin);
 		Byte userStep;
 		if (forMember) {
 			// 会员的审核级别按0处理
 			userStep = 0;
 		} else {
-			CmsSite site = bean.getSite();
-			userStep = user.getCheckStep(site.getId());
+			userStep = admin.getCheckStep();
 		}
 		//推荐级别控制
 		if(!bean.getRecommend() || bean.getRecommendLevel() < 0){
@@ -455,7 +453,7 @@ public class ContentMngImpl implements ContentMng{
                           Integer typeId, Boolean draft, Short charge,
                           Double chargeAmount, Boolean rewardPattern,
                           Double rewardRandomMin, Double rewardRandomMax,
-                          Double[] rewardFix, CmsUser user,
+                          Double[] rewardFix, CmsAdmin admin,
                           boolean forMember) {
 		Content entity = findById(bean.getId());
 		// 执行监听器
@@ -467,7 +465,7 @@ public class ContentMngImpl implements ContentMng{
 		}
 		
 		// 更新主表
-		Updater<Content> updater = new Updater<Content>(bean);
+		Updater<Content> updater = new Updater<>(bean);
 		bean = dao.updateByUpdater(updater);
 		// 审核更新处理，如果站点设置为审核退回，且当前文章审核级别大于管理员审核级别，则将文章审核级别修改成管理员的审核级别。
 		Byte userStep;
@@ -475,8 +473,7 @@ public class ContentMngImpl implements ContentMng{
 			// 会员的审核级别按0处理
 			userStep = 0;
 		} else {
-			CmsSite site = bean.getSite();
-			userStep = user.getCheckStep(site.getId());
+			userStep = admin.getCheckStep();
 		}
 		AfterCheckEnum after = bean.getChannel().getAfterCheckEnum();
 		if (after == AfterCheckEnum.BACK_UPDATE
@@ -490,7 +487,7 @@ public class ContentMngImpl implements ContentMng{
 		}
 		//修改后退回
 		if (after == AfterCheckEnum.BACK_UPDATE) {
-			reject(bean.getId(), user, userStep, "");
+			reject(bean.getId(), admin, userStep, "");
 		}
 		// 草稿
 		if (draft != null) {
@@ -578,7 +575,7 @@ public class ContentMngImpl implements ContentMng{
 				}
 			}
 		}
-		contentRecordMng.record(bean, user, ContentOperateType.edit);
+		contentRecordMng.record(bean, admin, ContentOperateType.edit);
 		//打赏固定值
 		bean.getRewardFixs().clear();
 		if(rewardPattern!=null&&rewardPattern){
@@ -590,8 +587,6 @@ public class ContentMngImpl implements ContentMng{
 				}
 			}
 		}
-		// 执行监听器
-		//afterChange(bean, mapList);
 		return bean;
 	}
 	
@@ -603,9 +598,9 @@ public class ContentMngImpl implements ContentMng{
 	}
 	
 	@Override
-    public Content update(CmsUser user, Content bean, ContentOperateType operate){
+    public Content update(CmsAdmin admin, Content bean, ContentOperateType operate){
 		// 保存操作记录
-		contentRecordMng.record(bean, user, operate);
+		contentRecordMng.record(bean, admin, operate);
 		return update(bean);
 	}
 	
@@ -645,11 +640,10 @@ public class ContentMngImpl implements ContentMng{
 	 * 审核入口 
 	 */
 	@Override
-    public Content check(Integer id, CmsUser user) {
+    public Content check(Integer id, CmsAdmin admin) {
 		Content content = findById(id);
-		//List<Map<String, Object>> mapList = preChange(content);
 		ContentCheck check = content.getContentCheck();
-		byte userStep = user.getCheckStep(content.getSite().getId());
+		byte userStep = admin.getCheckStep();
 		byte contentStep = check.getCheckStep();
 		byte finalStep = content.getChannel().getFinalStepExtends();
 		// 用户审核级别小于当前审核级别，则不能审核
@@ -669,47 +663,42 @@ public class ContentMngImpl implements ContentMng{
 			// 终审，清除退回意见
 			check.setCheckOpinion(null);
 			//终审，设置审核者
-			check.setReviewer(user);
+			check.setReviewer(admin);
 			check.setCheckDate(Calendar.getInstance().getTime());
 		}
-		contentRecordMng.record(content, user, ContentOperateType.check);
-		
-		// 执行监听器
-		//afterChange(content, mapList);
+		contentRecordMng.record(content, admin, ContentOperateType.check);
 		return content;
 	}
 	
 	@Override
-    public Content[] check(Integer[] ids, CmsUser user) {
+    public Content[] check(Integer[] ids, CmsAdmin admin) {
 		Content[] beans = new Content[ids.length];
 		for (int i = 0, len = ids.length; i < len; i++) {
-			beans[i] = check(ids[i], user);
+			beans[i] = check(ids[i], admin);
 		}
 		return beans;
 	}
 	
 	@Override
-    public Content submit(Integer id, CmsUser user){
-		Content content = check(id, user);
+    public Content submit(Integer id, CmsAdmin admin){
+		Content content = check(id, admin);
 		return content;
 	}
 
 	@Override
-    public Content[] submit(Integer[] ids, CmsUser user){
+    public Content[] submit(Integer[] ids,CmsAdmin admin){
 		Content[] beans = new Content[ids.length];
 		for (int i = 0, len = ids.length; i < len; i++) {
-			beans[i] = submit(ids[i], user);
+			beans[i] = submit(ids[i], admin);
 		}
 		return beans;
 	}
 
 	@Override
-    public Content reject(Integer id, CmsUser user, Byte step, String opinion) {
+    public Content reject(Integer id, CmsAdmin admin, Byte step, String opinion) {
 		Content content = findById(id);
 		// 执行监听器
-		//List<Map<String, Object>> mapList = preChange(content);
-		Integer siteId = content.getSite().getId();
-		byte userStep = user.getCheckStep(siteId);
+		byte userStep = admin.getCheckStep();
 		byte contentStep = content.getCheckStep();
 		// 用户审核级别小于当前审核级别，则不能退回
 		if (userStep < contentStep) {
@@ -739,38 +728,38 @@ public class ContentMngImpl implements ContentMng{
 				check.setCheckStep((byte) (check.getCheckStep() - 1));
 			}
 		}
-		contentRecordMng.record(content, user, ContentOperateType.rejected);
+		contentRecordMng.record(content, admin, ContentOperateType.rejected);
 		// 执行监听器
 		//afterChange(content, mapList);
 		return content;
 	}
 
 	@Override
-    public Content[] reject(Integer[] ids, CmsUser user, Byte step, String opinion) {
+    public Content[] reject(Integer[] ids, CmsAdmin admin, Byte step, String opinion) {
 		Content[] beans = new Content[ids.length];
 		for (int i = 0, len = ids.length; i < len; i++) {
-			beans[i] = reject(ids[i], user,step, opinion);
+			beans[i] = reject(ids[i], admin,step, opinion);
 		}
 		return beans;
 	}
 
 	@Override
-    public Content cycle(CmsUser user, Integer id) {
+    public Content cycle(CmsAdmin admin, Integer id) {
 		Content content = findById(id);
 		// 执行监听器
 		//List<Map<String, Object>> mapList = preChange(content);
 		content.setStatus(ContentCheck.RECYCLE);
 		// 执行监听器
 		//afterChange(content, mapList);
-		contentRecordMng.record(content, user, ContentOperateType.cycle);
+		contentRecordMng.record(content, admin, ContentOperateType.cycle);
 		return content;
 	}
 
 	@Override
-    public Content[] cycle(CmsUser user, Integer[] ids) {
+    public Content[] cycle( CmsAdmin admin, Integer[] ids) {
 		Content[] beans = new Content[ids.length];
 		for (int i = 0, len = ids.length; i < len; i++) {
-			beans[i] = cycle(user,ids[i]);
+			beans[i] = cycle(admin,ids[i]);
 		}
 		return beans;
 	}
@@ -832,11 +821,9 @@ public class ContentMngImpl implements ContentMng{
 	}
 
 	@Override
-    public Content[] contentStatic(CmsUser user, Integer[] ids)
-			throws TemplateNotFoundException, TemplateParseException,
-			GeneratedZeroStaticPageException, StaticPageNotOpenException, ContentNotCheckedException {
+    public Content[] contentStatic(CmsAdmin admin, Integer[] ids) throws TemplateNotFoundException, TemplateParseException, GeneratedZeroStaticPageException, StaticPageNotOpenException, ContentNotCheckedException {
 		int count = 0;
-		List<Content> list = new ArrayList<Content>();
+		List<Content> list = new ArrayList<>();
 		for (int i = 0, len = ids.length; i < len; i++) {
 			Content content = findById(ids[i]);
 			try {
@@ -858,22 +845,20 @@ public class ContentMngImpl implements ContentMng{
 				throw new TemplateParseException("content.tplContentException",
 						count, content.getTitle());
 			}
-			contentRecordMng.record(content, user, ContentOperateType.createPage);
+			contentRecordMng.record(content, admin, ContentOperateType.createPage);
 		}
 		Content[] beans = new Content[count];
 		return list.toArray(beans);
 	}
 	
 	@Override
-    public Pagination getPageForCollection(Integer siteId, Integer memberId,
-                                           int pageNo, int pageSize){
-		return dao.getPageForCollection(siteId,memberId,pageNo,pageSize);
+    public Pagination getPageForCollection(Integer memberId, int pageNo, int pageSize){
+		return dao.getPageForCollection(memberId,pageNo,pageSize);
 	}
 	
 	@Override
-    public List<Content> getListForCollection(Integer siteId, Integer memberId,
-                                              Integer first, Integer count){
-		return dao.getListForCollection(siteId,memberId,first,count);
+    public List<Content> getListForCollection(Integer memberId, Integer first, Integer count){
+		return dao.getListForCollection(memberId,first,count);
 	}
 	
 	@Override
@@ -917,12 +902,11 @@ public class ContentMngImpl implements ContentMng{
 		}
 	}
 
-	// LOOK 了解下应用场景
 	@Override
     public List<Map<String, Object>> preChange(Content content) {
 		if (listenerList != null) {
 			int len = listenerList.size();
-			List<Map<String, Object>> list = new ArrayList<Map<String, Object>>(len);
+			List<Map<String, Object>> list = new ArrayList<>(len);
 			for (ContentListener listener : listenerList) {
 				list.add(listener.preChange(content));
 			}
@@ -1006,4 +990,6 @@ public class ContentMngImpl implements ContentMng{
 	private ChannelCountMng channelCountMng;
 	@Autowired
 	private ContentChargeMng contentChargeMng;
+	@Autowired
+	private CmsAdminService adminService;
 }

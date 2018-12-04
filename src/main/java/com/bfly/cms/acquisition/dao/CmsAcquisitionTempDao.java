@@ -5,8 +5,13 @@ import com.bfly.common.hibernate4.Updater;
 
 import java.util.List;
 
+/**
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/12/4 10:03
+ */
 public interface CmsAcquisitionTempDao {
-    List<CmsAcquisitionTemp> getList(Integer siteId);
+    List<CmsAcquisitionTemp> getList();
 
     CmsAcquisitionTemp findById(Integer id);
 
@@ -16,7 +21,7 @@ public interface CmsAcquisitionTempDao {
 
     CmsAcquisitionTemp deleteById(Integer id);
 
-    Integer getPercent(Integer siteId);
+    Integer getPercent();
 
-    void clear(Integer siteId, String channelUrl);
+    void clear(String channelUrl);
 }

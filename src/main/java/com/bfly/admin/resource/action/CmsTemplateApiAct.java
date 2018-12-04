@@ -65,7 +65,7 @@ public class CmsTemplateApiAct {
         CmsSite site = CmsUtils.getSite(request);
         JSONArray jsonArray = new JSONArray();
         //查询所有模型
-        List<CmsModel> models = modelMng.getList(true, true, site.getId());
+        List<CmsModel> models = modelMng.getList(true, true);
         int index = 0;
         for (CmsModel model : models) {
             JSONObject json = new JSONObject();

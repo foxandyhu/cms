@@ -54,10 +54,9 @@ public class CmsStatisticApiAct {
      * @date 2018/11/27 9:55
      */
     @RequestMapping("/statistic/member/list")
-    public void memberList(String queryModel, Date begin, Date end,
-                           HttpServletRequest request, HttpServletResponse response) {
+    public void memberList(String queryModel, Date begin, Date end, HttpServletRequest request, HttpServletResponse response) {
         CmsStatisticModel statisticModel = getStatisticModel(queryModel);
-        Map<String, Object> restrictions = new HashMap<String, Object>();
+        Map<String, Object> restrictions = new HashMap<>(1);
         Integer siteId = CmsUtils.getSiteId(request);
         restrictions.put(SITEID, siteId);
         Date now = Calendar.getInstance().getTime();
@@ -308,10 +307,10 @@ public class CmsStatisticApiAct {
         }
         if (channelLevel.equals(1)) {
             //顶层栏目
-            list = channelMng.getTopList(siteId, false);
+            list = channelMng.getTopList(false);
         } else {
             //底层栏目
-            list = channelMng.getBottomList(siteId, false);
+            list = channelMng.getBottomList( false);
         }
         //view比较的列
         Collections.sort(list, new ListChannelComparator(view));

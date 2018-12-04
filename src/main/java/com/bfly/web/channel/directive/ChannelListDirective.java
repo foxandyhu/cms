@@ -43,17 +43,13 @@ public class ChannelListDirective extends AbstractChannelDirective {
 			TemplateDirectiveBody body) throws TemplateException, IOException {
 		CmsSite site = FrontUtils.getSite(env);
 		Integer parentId = DirectiveUtils.getInt(PARAM_PARENT_ID, params);
-		Integer siteId = DirectiveUtils.getInt(PARAM_SITE_ID, params);
 		boolean hasContentOnly = getHasContentOnly(params);
 
 		List<Channel> list;
 		if (parentId != null) {
 			list = channelMng.getChildListForTag(parentId, hasContentOnly);
 		} else {
-			if (siteId == null) {
-				siteId = site.getId();
-			}
-			list = channelMng.getTopListForTag(siteId, hasContentOnly);
+			list = channelMng.getTopListForTag(hasContentOnly);
 		}
 
 		Map<String, TemplateModel> paramWrap = new HashMap<String, TemplateModel>(

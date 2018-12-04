@@ -135,7 +135,7 @@ public class GuestbookAct extends RenderController {
             return;
         }
         String ip = RequestUtils.getIpAddr(getRequest());
-        cmsGuestbookMng.save(user, siteId, ctgId, ip, title, content, email, phone, qq);
+        cmsGuestbookMng.save(user,  ctgId, ip, title, content, email, phone, qq);
         json.put("success", true);
         json.put("status", 0);
         ResponseUtils.renderJson(response, json.toString());

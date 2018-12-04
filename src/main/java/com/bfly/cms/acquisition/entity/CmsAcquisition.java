@@ -2,9 +2,8 @@ package com.bfly.cms.acquisition.entity;
 
 import com.bfly.cms.channel.entity.Channel;
 import com.bfly.cms.content.entity.ContentType;
+import com.bfly.cms.user.entity.CmsAdmin;
 import com.bfly.common.util.DateUtils;
-import com.bfly.cms.siteconfig.entity.CmsSite;
-import com.bfly.cms.user.entity.CmsUser;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONObject;
 
@@ -748,24 +747,20 @@ public class CmsAcquisition implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private CmsUser user;
+    private CmsAdmin admin;
 
     @ManyToOne
     @JoinColumn(name = "type_id")
     private ContentType type;
 
     @ManyToOne
-    @JoinColumn(name = "site_id")
-    private CmsSite site;
-
-    @ManyToOne
     @JoinColumn(name = "channel_id")
     private Channel channel;
 
-    @OneToMany(mappedBy = "acquisition",cascade = CascadeType.REMOVE,orphanRemoval = true)
+    @OneToMany(mappedBy = "acquisition", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Set<CmsAcquisitionReplace> replaceWords;
 
-    @OneToMany(mappedBy = "acquisition",cascade = CascadeType.REMOVE,orphanRemoval = true)
+    @OneToMany(mappedBy = "acquisition", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Set<CmsAcquisitionShield> shields;
 
 
@@ -1231,15 +1226,13 @@ public class CmsAcquisition implements Serializable {
         this.originAppoint = originAppoint;
     }
 
-    public CmsUser getUser() {
-        return user;
+    public CmsAdmin getAdmin() {
+        return admin;
     }
 
-
-    public void setUser(CmsUser user) {
-        this.user = user;
+    public void setAdmin(CmsAdmin admin) {
+        this.admin = admin;
     }
-
 
     public ContentType getType() {
         return type;
@@ -1248,16 +1241,6 @@ public class CmsAcquisition implements Serializable {
 
     public void setType(ContentType type) {
         this.type = type;
-    }
-
-
-    public CmsSite getSite() {
-        return site;
-    }
-
-
-    public void setSite(CmsSite site) {
-        this.site = site;
     }
 
     public Channel getChannel() {

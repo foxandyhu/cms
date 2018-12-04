@@ -1,20 +1,19 @@
 package com.bfly.admin.content.action;
 
-import com.bfly.core.web.ApiResponse;
-import com.bfly.core.Constants;
-import com.bfly.core.web.ResponseCode;
 import com.bfly.cms.content.entity.ContentBuy;
 import com.bfly.cms.content.entity.ContentCharge;
 import com.bfly.cms.content.service.ContentBuyMng;
 import com.bfly.cms.content.service.ContentChargeMng;
-import com.bfly.cms.system.entity.CmsConfigContentCharge;
-import com.bfly.cms.system.service.CmsConfigContentChargeMng;
-import com.bfly.common.page.Pagination;
-import com.bfly.common.web.ResponseUtils;
-import com.bfly.cms.user.entity.CmsUser;
 import com.bfly.cms.funds.entity.CmsUserAccount;
 import com.bfly.cms.funds.service.CmsUserAccountMng;
+import com.bfly.cms.system.entity.CmsConfigContentCharge;
+import com.bfly.cms.system.service.CmsConfigContentChargeMng;
+import com.bfly.cms.user.entity.CmsUser;
 import com.bfly.cms.user.service.CmsUserMng;
+import com.bfly.common.page.Pagination;
+import com.bfly.common.web.ResponseUtils;
+import com.bfly.core.base.action.BaseAdminController;
+import com.bfly.core.web.ApiResponse;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,17 +33,16 @@ import java.util.List;
  */
 @Controller
 @RequestMapping(value = "/api/admin")
-public class CmsContentChargeApiAct {
+public class CmsContentChargeApiAct extends BaseAdminController{
 
     /**
      * 内容收费统计
+     *
      * @author andy_hulibo@163.com
      * @date 2018/11/26 16:12
      */
     @RequestMapping("/contentBuy/charge_list")
-    public void contentBuyList(String contentTitle, String author,
-                               Date buyTimeBegin, Date buyTimeEnd, Integer orderBy, Integer pageNo, Integer pageSize,
-                               HttpServletRequest request, HttpServletResponse response) {
+    public void contentBuyList(String contentTitle, String author, Date buyTimeBegin, Date buyTimeEnd, Integer orderBy, Integer pageNo, Integer pageSize, HttpServletRequest request, HttpServletResponse response) {
         if (orderBy == null) {
             orderBy = 1;
         }
@@ -63,8 +61,7 @@ public class CmsContentChargeApiAct {
                 authorUserId = 0;
             }
         }
-        Pagination page = contentChargeMng.getPage(contentTitle,
-                authorUserId, buyTimeBegin, buyTimeEnd, orderBy, pageNo, pageSize);
+        Pagination page = contentChargeMng.getPage(contentTitle, authorUserId, buyTimeBegin, buyTimeEnd, orderBy, pageNo, pageSize);
         List<ContentCharge> list = (List<ContentCharge>) page.getList();
         int totalCount = page.getTotalCount();
         JSONArray jsonArray = new JSONArray();
@@ -73,10 +70,8 @@ public class CmsContentChargeApiAct {
                 jsonArray.put(i, list.get(i).convertToJson());
             }
         }
-        String message = Constants.API_MESSAGE_SUCCESS;
-        String code = ResponseCode.API_CODE_CALL_SUCCESS;
         String body = jsonArray.toString() + ",\"totalCount\":" + totalCount;
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
@@ -87,9 +82,7 @@ public class CmsContentChargeApiAct {
      * @date 2018/11/26 16:12
      */
     @RequestMapping("/contentBuy/user_account_list")
-    public void userAccountList(String username,
-                                Date drawTimeBegin, Date drawTimeEnd, Integer orderBy, Integer pageNo, Integer pageSize,
-                                HttpServletRequest request, HttpServletResponse response) {
+    public void userAccountList(String username, Date drawTimeBegin, Date drawTimeEnd, Integer orderBy, Integer pageNo, Integer pageSize, HttpServletRequest request, HttpServletResponse response) {
         if (orderBy == null) {
             orderBy = 1;
         }
@@ -99,8 +92,7 @@ public class CmsContentChargeApiAct {
         if (pageSize == null) {
             pageSize = 10;
         }
-        Pagination page = userAccountMng.getPage(username,
-                drawTimeBegin, drawTimeEnd, orderBy, pageNo, pageSize);
+        Pagination page = userAccountMng.getPage(username, drawTimeBegin, drawTimeEnd, orderBy, pageNo, pageSize);
         int totalCount = page.getTotalCount();
         List<CmsUserAccount> list = (List<CmsUserAccount>) page.getList();
         JSONArray jsonArray = new JSONArray();
@@ -109,10 +101,8 @@ public class CmsContentChargeApiAct {
                 jsonArray.put(i, list.get(i).convertToJson());
             }
         }
-        String message = Constants.API_MESSAGE_SUCCESS;
-        String code = ResponseCode.API_CODE_CALL_SUCCESS;
         String body = jsonArray.toString() + ",\"totalCount\":" + totalCount;
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
@@ -123,9 +113,7 @@ public class CmsContentChargeApiAct {
      * @date 2018/11/26 16:03
      */
     @RequestMapping("/contentBuy/user_order_list")
-    public void userBuyList(String orderNum, String buyusername,
-                            String authorusername, Short payMode, Integer pageNo, Integer pageSize,
-                            HttpServletRequest request, HttpServletResponse response) {
+    public void userBuyList(String orderNum, String buyusername, String authorusername, Short payMode, Integer pageNo, Integer pageSize, HttpServletRequest request, HttpServletResponse response) {
         if (pageNo == null) {
             pageNo = 1;
         }
@@ -148,8 +136,7 @@ public class CmsContentChargeApiAct {
         if (payMode == null) {
             payMode = 0;
         }
-        Pagination page = contentBuyMng.getPage(orderNum, buyUserId, authorUserId,
-                payMode, pageNo, pageSize);
+        Pagination page = contentBuyMng.getPage(orderNum, buyUserId, authorUserId, payMode, pageNo, pageSize);
         int totalCount = page.getTotalCount();
         List<ContentBuy> list = (List<ContentBuy>) page.getList();
         JSONArray jsonArray = new JSONArray();
@@ -158,10 +145,8 @@ public class CmsContentChargeApiAct {
                 jsonArray.put(i, list.get(i).convertToJson());
             }
         }
-        String message = Constants.API_MESSAGE_SUCCESS;
-        String code = ResponseCode.API_CODE_CALL_SUCCESS;
         String body = jsonArray.toString() + ",\"totalCount\":" + totalCount;
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
@@ -169,9 +154,7 @@ public class CmsContentChargeApiAct {
     public void commissionStatic(HttpServletRequest request, HttpServletResponse response) {
         CmsConfigContentCharge bean = configContentChargeMng.getDefault();
         String body = bean.convertToJson().toString();
-        String message = Constants.API_MESSAGE_SUCCESS;
-        String code = ResponseCode.API_CODE_CALL_SUCCESS;
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 

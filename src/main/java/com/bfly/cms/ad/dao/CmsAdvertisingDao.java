@@ -6,9 +6,13 @@ import com.bfly.common.page.Pagination;
 
 import java.util.List;
 
+/**
+ * @author andy_hulibo@163.com
+ * @date 2018/12/4 11:01
+ */
 public interface CmsAdvertisingDao {
-    Pagination getPage(Integer siteId, Integer adspaceId,
-                       Boolean enabled, int pageNo, int pageSize);
+
+    Pagination getPage(Integer adspaceId, Boolean enabled, int pageNo, int pageSize);
 
     List<CmsAdvertising> getList(Integer adspaceId, Boolean enabled);
 

@@ -1,26 +1,21 @@
 package com.bfly.admin.acquisition.action;
 
-import com.bfly.core.web.ApiResponse;
-import com.bfly.core.web.ApiValidate;
-import com.bfly.core.Constants;
-import com.bfly.core.web.ResponseCode;
-import com.bfly.cms.acquisition.entity.CmsAcquisition;
-import com.bfly.cms.acquisition.entity.CmsAcquisitionHistory;
-import com.bfly.cms.acquisition.entity.CmsAcquisitionTemp;
+import com.bfly.cms.acquisition.entity.*;
 import com.bfly.cms.acquisition.service.AcquisitionSvc;
 import com.bfly.cms.acquisition.service.CmsAcquisitionHistoryMng;
 import com.bfly.cms.acquisition.service.CmsAcquisitionMng;
 import com.bfly.cms.acquisition.service.CmsAcquisitionTempMng;
-import com.bfly.cms.acquisition.entity.CmsAcquisitionReplace;
-import com.bfly.cms.acquisition.entity.CmsAcquisitionShield;
 import com.bfly.cms.logs.service.CmsLogMng;
-import com.bfly.cms.siteconfig.entity.CmsSite;
 import com.bfly.common.page.Pagination;
 import com.bfly.common.util.StrUtils;
 import com.bfly.common.web.ResponseUtils;
 import com.bfly.core.annotation.SignValidate;
+import com.bfly.core.base.action.BaseAdminController;
+import com.bfly.core.exception.ApiException;
+import com.bfly.core.web.ApiResponse;
+import com.bfly.core.web.ApiValidate;
+import com.bfly.core.web.ResponseCode;
 import com.bfly.core.web.WebErrors;
-import com.bfly.core.web.util.CmsUtils;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -44,298 +39,235 @@ import java.util.List;
  */
 @Controller
 @RequestMapping(value = "/api/admin")
-public class CmsAcquisitionApiAct {
-    private static final Logger log = LoggerFactory
-            .getLogger(CmsAcquisitionApiAct.class);
+public class CmsAcquisitionApiAct extends BaseAdminController {
+    private static final Logger log = LoggerFactory.getLogger(CmsAcquisitionApiAct.class);
 
     @RequestMapping("/acquisition/list")
     public void list(HttpServletRequest request, HttpServletResponse response) {
-        CmsSite site = CmsUtils.getSite(request);
-        List<CmsAcquisition> list = manager.getList(site.getId());
+        List<CmsAcquisition> list = manager.getList();
         JSONArray jsonArray = new JSONArray();
         if (list != null && list.size() > 0) {
             for (int i = 0; i < list.size(); i++) {
                 jsonArray.put(i, list.get(i).convertToJson());
             }
         }
-        String message = Constants.API_MESSAGE_SUCCESS;
-        String code = ResponseCode.API_CODE_CALL_SUCCESS;
         String body = jsonArray.toString();
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
     @RequestMapping("/acquisition/get")
     public void get(Integer id, HttpServletRequest request, HttpServletResponse response) {
-        String body = "\"\"";
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
-        CmsAcquisition bean = null;
-        if (id != null) {
-            if (id.equals(0)) {
-                bean = new CmsAcquisition();
-            } else {
-                bean = manager.findById(id);
-            }
-            if (bean == null) {
-                message = Constants.API_MESSAGE_OBJECT_NOT_FOUND;
-                code = ResponseCode.API_CODE_NOT_FOUND;
-            } else {
-                bean.init();
-                JSONArray replaces = new JSONArray();
-                int i = 0;
-                if (bean.getReplaceWords() != null && bean.getReplaceWords().size() > 0) {
-                    for (CmsAcquisitionReplace replace : bean.getReplaceWords()) {
-                        replaces.put(i, replace.convertToJson());
-                        i++;
-                    }
-                }
-                JSONArray shields = new JSONArray();
-                int j = 0;
-                if (bean.getShields() != null && bean.getShields().size() > 0) {
-                    for (CmsAcquisitionShield shield : bean.getShields()) {
-                        shields.put(j, shield.convertToJson());
-                        j++;
-                    }
-                }
-                JSONObject object = new JSONObject();
-                object.put("acq", bean.convertToJson());
-                object.put("replaces", replaces);
-                object.put("shields", shields);
-                body = object.toString();
-                message = Constants.API_MESSAGE_SUCCESS;
-                code = ResponseCode.API_CODE_CALL_SUCCESS;
+        CmsAcquisition bean;
+        if (id == null) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
+        }
+        if (id.equals(0)) {
+            bean = new CmsAcquisition();
+        } else {
+            bean = manager.findById(id);
+        }
+        if (bean == null) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_NOT_FOUND);
+        }
+        bean.init();
+        JSONArray replaces = new JSONArray();
+        int i = 0;
+        if (bean.getReplaceWords() != null) {
+            for (CmsAcquisitionReplace replace : bean.getReplaceWords()) {
+                replaces.put(i, replace.convertToJson());
+                i++;
             }
         }
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        JSONArray shields = new JSONArray();
+        int j = 0;
+        if (bean.getShields() != null) {
+            for (CmsAcquisitionShield shield : bean.getShields()) {
+                shields.put(j, shield.convertToJson());
+                j++;
+            }
+        }
+        JSONObject object = new JSONObject();
+        object.put("acq", bean.convertToJson());
+        object.put("replaces", replaces);
+        object.put("shields", shields);
+        String body = object.toString();
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
     @SignValidate
     @RequestMapping("/acquisition/save")
-    public void save(CmsAcquisition bean, Integer channelId, Integer typeId,
-                     HttpServletRequest request, HttpServletResponse response, String replaceArrs
-            , String shieldArrs) {
-        String body = "\"\"";
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
+    public void save(CmsAcquisition bean, Integer channelId, Integer typeId, HttpServletRequest request, HttpServletResponse response, String replaceArrs, String shieldArrs) {
         WebErrors errors = WebErrors.create(request);
         errors = ApiValidate.validateRequiredParams(request, errors, bean.getName(), channelId, typeId);
-        if (!errors.hasErrors()) {
-            bean.setSite(CmsUtils.getSite(request));
-            bean.init();
-            Integer siteId = CmsUtils.getSiteId(request);
-            Integer userId = CmsUtils.getUserId(request);
-            String[] keywords = null;
-            String[] replaceWords = null;
-            String[] shieldStarts = null;
-            String[] shieldEnds = null;
-            //获取批量屏蔽数组
-            List<String[]> shields = strForJson("shieldArrs", shieldArrs, shieldStarts, shieldEnds);
-            shieldStarts = shields.get(0);
-            shieldEnds = shields.get(1);
-            //获取批量替换数组
-            List<String[]> replaces = strForJson("replaceArrs", replaceArrs, keywords, replaceWords);
-            keywords = replaces.get(0);
-            replaceWords = replaces.get(1);
-            bean = manager.save(bean, channelId, typeId, userId, siteId, keywords, replaceWords
-                    , shieldStarts, shieldEnds);
-            log.info("save CmsAcquisition id={}", bean.getId());
-            cmsLogMng.operating(request, "cmsAcquisition.log.save", "id="
-                    + bean.getId() + ";name=" + bean.getName());
-            body = "{\"id\":" + bean.getId() + "}";
-            message = Constants.API_MESSAGE_SUCCESS;
-            code = ResponseCode.API_CODE_CALL_SUCCESS;
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
         }
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        bean.init();
+        String[] keywords = null;
+        String[] replaceWords = null;
+        String[] shieldStarts = null;
+        String[] shieldEnds = null;
+        //获取批量屏蔽数组
+        List<String[]> shields = strForJson("shieldArrs", shieldArrs, shieldStarts, shieldEnds);
+        shieldStarts = shields.get(0);
+        shieldEnds = shields.get(1);
+        //获取批量替换数组
+        List<String[]> replaces = strForJson("replaceArrs", replaceArrs, keywords, replaceWords);
+        keywords = replaces.get(0);
+        replaceWords = replaces.get(1);
+        bean = manager.save(bean, channelId, typeId, getAdmin().getId(), keywords, replaceWords, shieldStarts, shieldEnds);
+
+        log.info("save CmsAcquisition id={}", bean.getId());
+
+        cmsLogMng.operating(request, "cmsAcquisition.log.save", "id=" + bean.getId() + ";name=" + bean.getName());
+        String body = "{\"id\":" + bean.getId() + "}";
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
     @SignValidate
     @RequestMapping("/acquisition/update")
-    public void update(CmsAcquisition bean, Integer channelId, Integer typeId,
-                       HttpServletResponse response, HttpServletRequest request, String replaceArrs
-            , String shieldArrs) {
-        String body = "\"\"";
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
+    public void update(CmsAcquisition bean, Integer channelId, Integer typeId, HttpServletResponse response, HttpServletRequest request, String replaceArrs, String shieldArrs) {
         WebErrors errors = WebErrors.create(request);
         errors = ApiValidate.validateRequiredParams(request, errors, bean.getId(), bean.getName(), channelId, typeId);
-        if (!errors.hasErrors()) {
-            errors = validateUpdate(errors, bean.getId(), request);
-            if (!errors.hasErrors()) {
-                String[] keywords = null;
-                String[] replaceWords = null;
-                String[] shieldStarts = null;
-                String[] shieldEnds = null;
-                //获取批量屏蔽数组
-                List<String[]> shields = strForJson("shieldArrs", shieldArrs, shieldStarts, shieldEnds);
-                shieldStarts = shields.get(0);
-                shieldEnds = shields.get(1);
-                //获取批量替换数组
-                List<String[]> replaces = strForJson("replaceArrs", replaceArrs, keywords, replaceWords);
-                keywords = replaces.get(0);
-                replaceWords = replaces.get(1);
-                bean = manager.update(bean, channelId, typeId, keywords, replaceWords
-                        , shieldStarts, shieldEnds);
-                log.info("update CmsAcquisition id={}.", bean.getId());
-                cmsLogMng.operating(request, "cmsAcquisition.log.update", "id="
-                        + bean.getId() + ";name=" + bean.getName());
-                body = "{\"id\":" + bean.getId() + "}";
-                message = Constants.API_MESSAGE_SUCCESS;
-                code = ResponseCode.API_CODE_CALL_SUCCESS;
-            } else {
-                message = errors.getErrors().get(0);
-                code = ResponseCode.API_CODE_PARAM_ERROR;
-            }
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
         }
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        errors = validateUpdate(errors, bean.getId(), request);
+        if (errors.hasErrors()) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_PARAM_ERROR);
+        }
+        String[] keywords = null;
+        String[] replaceWords = null;
+        String[] shieldStarts = null;
+        String[] shieldEnds = null;
+        //获取批量屏蔽数组
+        List<String[]> shields = strForJson("shieldArrs", shieldArrs, shieldStarts, shieldEnds);
+        shieldStarts = shields.get(0);
+        shieldEnds = shields.get(1);
+        //获取批量替换数组
+        List<String[]> replaces = strForJson("replaceArrs", replaceArrs, keywords, replaceWords);
+        keywords = replaces.get(0);
+        replaceWords = replaces.get(1);
+        bean = manager.update(bean, channelId, typeId, keywords, replaceWords, shieldStarts, shieldEnds);
+
+        log.info("update CmsAcquisition id={}.", bean.getId());
+
+        cmsLogMng.operating(request, "cmsAcquisition.log.update", "id=" + bean.getId() + ";name=" + bean.getName());
+        String body = "{\"id\":" + bean.getId() + "}";
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
     @SignValidate
     @RequestMapping("/acquisition/delete")
     public void delete(String ids, HttpServletRequest request, HttpServletResponse response) {
-        String body = "\"\"";
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
         WebErrors errors = WebErrors.create(request);
         errors = ApiValidate.validateRequiredParams(request, errors, ids);
-        if (!errors.hasErrors()) {
-            Integer[] idArr = StrUtils.getInts(ids);
-            errors = validateArr(errors, idArr, request);
-            if (errors.hasErrors()) {
-                message = errors.getErrors().get(0);
-                code = ResponseCode.API_CODE_PARAM_ERROR;
-            } else {
-                try {
-                    CmsAcquisition[] beans = manager.deleteByIds(idArr);
-                    for (CmsAcquisition bean : beans) {
-                        log.info("delete CmsAcquisition id={}", bean.getId());
-                        cmsLogMng.operating(request, "cmsAcquisition.log.delete", "id="
-                                + bean.getId() + ";name=" + bean.getName());
-                    }
-                    message = Constants.API_MESSAGE_SUCCESS;
-                    code = ResponseCode.API_CODE_CALL_SUCCESS;
-                } catch (Exception e) {
-                    message = Constants.API_MESSAGE_DELETE_ERROR;
-                    code = ResponseCode.API_CODE_DELETE_ERROR;
-                }
-            }
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
         }
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        Integer[] idArr = StrUtils.getInts(ids);
+        errors = validateArr(errors, idArr);
+        if (errors.hasErrors()) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_PARAM_ERROR);
+        }
+        try {
+            CmsAcquisition[] beans = manager.deleteByIds(idArr);
+            for (CmsAcquisition bean : beans) {
+                log.info("delete CmsAcquisition id={}", bean.getId());
+                cmsLogMng.operating(request, "cmsAcquisition.log.delete", "id=" + bean.getId() + ";name=" + bean.getName());
+            }
+        } catch (Exception e) {
+            throw new ApiException("删除错误", ResponseCode.API_CODE_DELETE_ERROR);
+        }
+        ApiResponse apiResponse = ApiResponse.getSuccess();
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
     @SignValidate
     @RequestMapping("/acquisition/start")
     public void start(String ids, HttpServletRequest request, HttpServletResponse response) {
-        String body = "\"\"";
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
         WebErrors errors = WebErrors.create(request);
-        Integer siteId = CmsUtils.getSiteId(request);
         errors = ApiValidate.validateRequiredParams(request, errors, ids);
-        if (!errors.hasErrors()) {
-            Integer[] idArr = StrUtils.getInts(ids);
-            errors = validateArr(errors, idArr, request);
-            if (errors.hasErrors()) {
-                message = errors.getErrors().get(0);
-                code = ResponseCode.API_CODE_PARAM_ERROR;
-            } else {
-                Integer queueNum = manager.hasStarted(siteId);
-                if (queueNum == 0) {
-                    acquisitionSvc.start(idArr[0]);
-                }
-                manager.addToQueue(idArr, queueNum);
-                log.info("start CmsAcquisition ids={}", Arrays.toString(idArr));
-                message = Constants.API_MESSAGE_SUCCESS;
-                code = ResponseCode.API_CODE_CALL_SUCCESS;
-            }
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
         }
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        Integer[] idArr = StrUtils.getInts(ids);
+        errors = validateArr(errors, idArr);
+        if (errors.hasErrors()) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_PARAM_ERROR);
+        }
+        Integer queueNum = manager.hasStarted();
+        if (queueNum == 0) {
+            acquisitionSvc.start(idArr[0]);
+        }
+        manager.addToQueue(idArr, queueNum);
+        log.info("start CmsAcquisition ids={}", Arrays.toString(idArr));
+        ApiResponse apiResponse = ApiResponse.getSuccess();
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
     @SignValidate
     @RequestMapping("/acquisition/end")
     public void end(Integer id, HttpServletResponse response, HttpServletRequest request) {
-        String body = "\"\"";
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
         WebErrors errors = WebErrors.create(request);
-        Integer siteId = CmsUtils.getSiteId(request);
         errors = ApiValidate.validateRequiredParams(request, errors, id);
-        if (!errors.hasErrors()) {
-            errors = validateExist(errors, id, request);
-            if (errors.hasErrors()) {
-                message = errors.getErrors().get(0);
-                code = ResponseCode.API_CODE_PARAM_ERROR;
-            } else {
-                manager.end(id);
-                CmsAcquisition acqu = manager.popAcquFromQueue(siteId);
-                if (acqu != null) {
-                    Integer acquId = acqu.getId();
-                    acquisitionSvc.start(acquId);
-                }
-                log.info("end CmsAcquisition id={}", id);
-                body = "{\"id\":" + id + "}";
-                message = Constants.API_MESSAGE_SUCCESS;
-                code = ResponseCode.API_CODE_CALL_SUCCESS;
-            }
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
         }
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        errors = validateExist(errors, id);
+        if (errors.hasErrors()) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_PARAM_ERROR);
+        }
+        manager.end(id);
+        CmsAcquisition acqu = manager.popAcquFromQueue();
+        if (acqu != null) {
+            acquisitionSvc.start(acqu.getId());
+        }
+        log.info("end CmsAcquisition id={}", id);
+        String body = "{\"id\":" + id + "}";
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
     @SignValidate
     @RequestMapping("/acquisition/pause")
     public void pause(Integer id, HttpServletRequest request, HttpServletResponse response) {
-        String body = "\"\"";
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
         WebErrors errors = WebErrors.create(request);
         errors = ApiValidate.validateRequiredParams(request, errors, id);
-        if (!errors.hasErrors()) {
-            errors = validateExist(errors, id, request);
-            if (errors.hasErrors()) {
-                message = errors.getErrors().get(0);
-                code = ResponseCode.API_CODE_PARAM_ERROR;
-            } else {
-                manager.pause(id);
-                log.info("pause CmsAcquisition id={}", id);
-                body = "{\"id\":" + id + "}";
-                message = Constants.API_MESSAGE_SUCCESS;
-                code = ResponseCode.API_CODE_CALL_SUCCESS;
-            }
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
         }
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        errors = validateExist(errors, id);
+        if (errors.hasErrors()) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_PARAM_ERROR);
+        }
+        manager.pause(id);
+        log.info("pause CmsAcquisition id={}", id);
+        String body = "{\"id\":" + id + "}";
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
     @SignValidate
     @RequestMapping("/acquisition/cancel")
-    public void cancel(Integer id, Integer sortId, HttpServletRequest request, HttpServletResponse response) {
-        String body = "\"\"";
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
+    public void cancel(Integer id, HttpServletRequest request, HttpServletResponse response) {
         WebErrors errors = WebErrors.create(request);
-        Integer siteId = CmsUtils.getSiteId(request);
         errors = ApiValidate.validateRequiredParams(request, errors, id);
-        if (!errors.hasErrors()) {
-            errors = validateExist(errors, id, request);
-            if (errors.hasErrors()) {
-                message = errors.getErrors().get(0);
-                code = ResponseCode.API_CODE_PARAM_ERROR;
-            } else {
-                manager.cancel(siteId, id);
-                log.info("cancel CmsAcquisition id={}", id);
-                body = "{\"id\":" + id + "}";
-                message = Constants.API_MESSAGE_SUCCESS;
-                code = ResponseCode.API_CODE_CALL_SUCCESS;
-            }
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
         }
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        errors = validateExist(errors, id);
+        if (errors.hasErrors()) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_PARAM_ERROR);
+        }
+        manager.cancel(id);
+        log.info("cancel CmsAcquisition id={}", id);
+        String body = "{\"id\":" + id + "}";
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
@@ -347,31 +279,26 @@ public class CmsAcquisitionApiAct {
      */
     @RequestMapping("/acquisition/progress_data")
     public void progressData(HttpServletRequest request, HttpServletResponse response) {
-        CmsSite site = CmsUtils.getSite(request);
-        Integer siteId = site.getId();
-        CmsAcquisition bean = manager.getStarted(siteId);
+        CmsAcquisition bean = manager.getStarted();
         JSONObject json = new JSONObject();
         if (bean != null) {
-            List<CmsAcquisitionTemp> list = cmsAcquisitionTempMng.getList(siteId);
+            List<CmsAcquisitionTemp> list = cmsAcquisitionTempMng.getList();
             JSONArray jsonArray = new JSONArray();
-            if (list != null && list.size() > 0) {
+            if (list != null) {
                 for (int i = 0; i < list.size(); i++) {
                     jsonArray.put(i, createEasyJson(list.get(i)));
                 }
             }
-            Integer percent = cmsAcquisitionTempMng.getPercent(siteId);
+            Integer percent = cmsAcquisitionTempMng.getPercent();
             json.put("list", jsonArray);
             json.put("acquisition", createEasyAcq(bean));
             json.put("percent", percent);
             json.put("havaAcquisition", true);
         } else {
             json.put("havaAcquisition", false);
-            cmsAcquisitionTempMng.clear(siteId);
+            cmsAcquisitionTempMng.clear();
         }
-        String body = json.toString();
-        String message = Constants.API_MESSAGE_SUCCESS;
-        String code = ResponseCode.API_CODE_CALL_SUCCESS;
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        ApiResponse apiResponse = ApiResponse.getSuccess(json.toString());
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
@@ -400,62 +327,46 @@ public class CmsAcquisitionApiAct {
      * @date 2018/11/26 16:55
      */
     @RequestMapping("/acquisition/history")
-    public void history(Integer acquId, Integer pageNo, Integer pageSize,
-                        HttpServletRequest request, HttpServletResponse response) {
+    public void history(Integer acquId, Integer pageNo, Integer pageSize, HttpServletRequest request, HttpServletResponse response) {
         if (pageNo == null) {
             pageNo = 1;
         }
         if (pageSize == null) {
             pageSize = 10;
         }
-        Integer siteId = CmsUtils.getSiteId(request);
-        Pagination page = cmsAcquisitionHistoryMng.getPage(siteId, acquId, pageNo, pageSize);
+        Pagination page = cmsAcquisitionHistoryMng.getPage(acquId, pageNo, pageSize);
         int totalCount = page.getTotalCount();
         List<CmsAcquisitionHistory> list = (List<CmsAcquisitionHistory>) page.getList();
         JSONArray jsonArray = new JSONArray();
-        if (list != null && list.size() > 0) {
+        if (list != null) {
             for (int i = 0; i < list.size(); i++) {
                 jsonArray.put(i, list.get(i).convertToJson());
             }
         }
-        String message = Constants.API_MESSAGE_SUCCESS;
-        String code = ResponseCode.API_CODE_CALL_SUCCESS;
         String body = jsonArray.toString() + ",\"totalCount\":" + totalCount;
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
     @SignValidate
     @RequestMapping("/acquisition/history_delete")
     public void historyDelete(String ids, HttpServletRequest request, HttpServletResponse response) {
-        String body = "\"\"";
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
         WebErrors errors = WebErrors.create(request);
-        if (!errors.hasErrors()) {
-            Integer[] idArr = StrUtils.getInts(ids);
-            errors = validateHistoryDelete(errors, idArr, request);
-            if (errors.hasErrors()) {
-                message = errors.getErrors().get(0);
-                code = ResponseCode.API_CODE_PARAM_ERROR;
-            } else {
-                try {
-                    CmsAcquisitionHistory[] beans = cmsAcquisitionHistoryMng
-                            .deleteByIds(idArr);
-                    for (CmsAcquisitionHistory bean : beans) {
-                        log.info("delete CmsAcquisitionHistory id={}", bean.getId());
-                        cmsLogMng.operating(request, "cmsAcquisitionHistory.log.delete",
-                                "id=" + bean.getId() + ";name=" + bean.getTitle());
-                    }
-                    message = Constants.API_MESSAGE_SUCCESS;
-                    code = ResponseCode.API_CODE_CALL_SUCCESS;
-                } catch (Exception e) {
-                    message = Constants.API_MESSAGE_DELETE_ERROR;
-                    code = ResponseCode.API_CODE_DELETE_ERROR;
-                }
-            }
+        Integer[] idArr = StrUtils.getInts(ids);
+        errors = validateHistoryDelete(errors, idArr);
+        if (errors.hasErrors()) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_PARAM_ERROR);
         }
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        try {
+            CmsAcquisitionHistory[] beans = cmsAcquisitionHistoryMng.deleteByIds(idArr);
+            for (CmsAcquisitionHistory bean : beans) {
+                log.info("delete CmsAcquisitionHistory id={}", bean.getId());
+                cmsLogMng.operating(request, "cmsAcquisitionHistory.log.delete", "id=" + bean.getId() + ";name=" + bean.getTitle());
+            }
+        } catch (Exception e) {
+            throw new ApiException("删除错误", ResponseCode.API_CODE_DELETE_ERROR);
+        }
+        ApiResponse apiResponse = ApiResponse.getSuccess();
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
@@ -484,69 +395,52 @@ public class CmsAcquisitionApiAct {
         return json;
     }
 
-    private WebErrors validateHistoryDelete(WebErrors errors, Integer[] ids,
-                                            HttpServletRequest request) {
-        CmsSite site = CmsUtils.getSite(request);
+    private WebErrors validateHistoryDelete(WebErrors errors, Integer[] ids) {
         if (errors.ifEmpty(ids, "ids", false)) {
             return errors;
         }
         for (Integer id : ids) {
-            vldHistoryExist(id, site.getId(), errors);
+            vldHistoryExist(id, errors);
         }
         return errors;
     }
 
-    private boolean vldHistoryExist(Integer id, Integer siteId, WebErrors errors) {
+    private boolean vldHistoryExist(Integer id, WebErrors errors) {
         if (errors.ifNull(id, "id", false)) {
             return true;
         }
         CmsAcquisitionHistory entity = cmsAcquisitionHistoryMng.findById(id);
-        if (errors.ifNotExist(entity, CmsAcquisitionHistory.class, id, false)) {
-            return true;
-        }
-        if (!entity.getAcquisition().getSite().getId().equals(siteId)) {
-            errors.addErrorString("error.notInSite");
-            return true;
-        }
-        return false;
+        return errors.ifNotExist(entity, CmsAcquisitionHistory.class, id, false);
     }
 
-    private WebErrors validateExist(WebErrors errors, Integer id, HttpServletRequest request) {
+    private WebErrors validateExist(WebErrors errors, Integer id) {
         if (id != null) {
-            vldExist(id, CmsUtils.getSiteId(request), errors);
+            vldExist(id, errors);
         }
         return errors;
     }
 
-    private WebErrors validateArr(WebErrors errors, Integer[] ids, HttpServletRequest request) {
-        CmsSite site = CmsUtils.getSite(request);
+    private WebErrors validateArr(WebErrors errors, Integer[] ids) {
         if (errors.ifEmpty(ids, "ids", false)) {
             return errors;
         }
         for (Integer id : ids) {
-            vldExist(id, site.getId(), errors);
+            vldExist(id, errors);
         }
         return errors;
     }
 
     private WebErrors validateUpdate(WebErrors errors, Integer id, HttpServletRequest request) {
-        CmsSite site = CmsUtils.getSite(request);
-        if (vldExist(id, site.getId(), errors)) {
-            return errors;
-        }
+        vldExist(id, errors);
         return errors;
     }
 
-    private boolean vldExist(Integer id, Integer siteId, WebErrors errors) {
+    private boolean vldExist(Integer id, WebErrors errors) {
         if (errors.ifNull(id, "id", false)) {
             return true;
         }
         CmsAcquisition entity = manager.findById(id);
         if (errors.ifNotExist(entity, CmsAcquisition.class, id, false)) {
-            return true;
-        }
-        if (!entity.getSite().getId().equals(siteId)) {
-            errors.addErrorString("error.notInSite");
             return true;
         }
         return false;

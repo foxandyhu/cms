@@ -1,17 +1,18 @@
 package com.bfly.admin.content.action;
 
-import com.bfly.core.annotation.SignValidate;
-import com.bfly.core.web.ApiResponse;
-import com.bfly.core.web.ApiValidate;
-import com.bfly.core.Constants;
-import com.bfly.core.web.ResponseCode;
 import com.bfly.cms.content.entity.CmsModel;
-import com.bfly.cms.logs.service.CmsLogMng;
 import com.bfly.cms.content.service.CmsModelMng;
+import com.bfly.cms.logs.service.CmsLogMng;
 import com.bfly.common.util.StrUtils;
 import com.bfly.common.web.ResponseUtils;
+import com.bfly.core.Constants;
+import com.bfly.core.annotation.SignValidate;
+import com.bfly.core.base.action.BaseAdminController;
+import com.bfly.core.exception.ApiException;
+import com.bfly.core.web.ApiResponse;
+import com.bfly.core.web.ApiValidate;
+import com.bfly.core.web.ResponseCode;
 import com.bfly.core.web.WebErrors;
-import com.bfly.core.web.util.CmsUtils;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -31,7 +32,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping(value = "/api/admin")
-public class CmsModelApiAct {
+public class CmsModelApiAct extends BaseAdminController {
     private static final Logger log = LoggerFactory.getLogger(CmsModelApiAct.class);
 
     /**
@@ -45,7 +46,7 @@ public class CmsModelApiAct {
         if (containDisabled == null) {
             containDisabled = true;
         }
-        List<CmsModel> list = manager.getList(containDisabled, hasContent, CmsUtils.getSiteId(request));
+        List<CmsModel> list = manager.getList(containDisabled, hasContent);
         JSONArray jsonArray = new JSONArray();
         if (list != null && list.size() > 0) {
             for (int i = 0; i < list.size(); i++) {
@@ -53,9 +54,7 @@ public class CmsModelApiAct {
             }
         }
         String body = jsonArray.toString();
-        String message = Constants.API_MESSAGE_SUCCESS;
-        String code = ResponseCode.API_CODE_CALL_SUCCESS;
-        ApiResponse apiResult = new ApiResponse(request, body, message, code);
+        ApiResponse apiResult = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResult);
     }
 
@@ -68,30 +67,24 @@ public class CmsModelApiAct {
      */
     @RequestMapping("/model/get")
     public void get(Integer id, HttpServletRequest request, HttpServletResponse response) {
-        String body = "\"\"";
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
-        CmsModel bean;
         WebErrors errors = WebErrors.create(request);
         errors = ApiValidate.validateRequiredParams(request, errors, id);
-        if (!errors.hasErrors()) {
-            if (id.equals(0)) {
-                bean = new CmsModel();
-            } else {
-                bean = manager.findById(id);
-            }
-            if (bean != null) {
-                bean.init();
-                JSONObject json = bean.convertToJson();
-                body = json.toString();
-                message = Constants.API_MESSAGE_SUCCESS;
-                code = ResponseCode.API_CODE_CALL_SUCCESS;
-            } else {
-                message = Constants.API_MESSAGE_OBJECT_NOT_FOUND;
-                code = ResponseCode.API_CODE_NOT_FOUND;
-            }
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
         }
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        CmsModel bean;
+        if (id.equals(0)) {
+            bean = new CmsModel();
+        } else {
+            bean = manager.findById(id);
+        }
+        if (bean == null) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_PARAM_ERROR);
+        }
+        bean.init();
+        JSONObject json = bean.convertToJson();
+        String body = json.toString();
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
@@ -104,29 +97,23 @@ public class CmsModelApiAct {
      */
     @RequestMapping("/model/check_id")
     public void chekcID(Integer id, HttpServletRequest request, HttpServletResponse response) {
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
         boolean result = false;
         JSONObject json = new JSONObject();
         WebErrors errors = WebErrors.create(request);
         errors = ApiValidate.validateRequiredParams(request, errors, id);
-        if (!errors.hasErrors()) {
-            if (id > 0) {
-                CmsModel model = manager.findById(id);
-                //id不能重复
-                if (model == null) {
-                    result = true;
-                }
-                message = Constants.API_MESSAGE_SUCCESS;
-                code = ResponseCode.API_CODE_CALL_SUCCESS;
-            } else {
-                message = Constants.API_MESSAGE_PARAM_ERROR;
-                code = ResponseCode.API_CODE_PARAM_ERROR;
-            }
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
+        }
+        if (id <= 0) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_PARAM_ERROR);
+        }
+        CmsModel model = manager.findById(id);
+        if (model == null) {
+            result = true;
         }
         json.put("result", result);
         String body = json.toString();
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
@@ -140,32 +127,21 @@ public class CmsModelApiAct {
     @SignValidate
     @RequestMapping("/model/save")
     public void save(CmsModel bean, HttpServletRequest request, HttpServletResponse response) {
-        String body = "\"\"";
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
         WebErrors errors = WebErrors.create(request);
-        errors = ApiValidate.validateRequiredParams(request, errors, bean.getId(), bean.getName()
-                , bean.getGlobal(), bean.getPath(), bean.getTplChannelPrefix(), bean.getPriority(), bean.getDisabled());
-        if (!errors.hasErrors()) {
-            CmsModel model = manager.findById(bean.getId());
-            if (model != null) {
-                message = Constants.API_MESSAGE_MODEL_EXIST;
-                code = ResponseCode.API_CODE_MODEL_EXIST;
-            } else {
-                bean.init();
-                if (!bean.getGlobal()) {
-                    bean.setSite(CmsUtils.getSite(request));
-                }
-                bean = manager.save(bean);
-                log.info("save CmsModel id={}", bean.getId());
-                cmsLogMng.operating(request, "cmsModel.log.save", "id=" + bean.getId()
-                        + ";name=" + bean.getName());
-                body = "{\"id\":" + "\"" + bean.getId() + "\"}";
-                message = Constants.API_MESSAGE_SUCCESS;
-                code = ResponseCode.API_CODE_CALL_SUCCESS;
-            }
+        errors = ApiValidate.validateRequiredParams(request, errors, bean.getId(), bean.getName(), bean.getGlobal(), bean.getPath(), bean.getTplChannelPrefix(), bean.getPriority(), bean.getDisabled());
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
         }
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        CmsModel model = manager.findById(bean.getId());
+        if (model != null) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_PARAM_ERROR);
+        }
+        bean.init();
+        bean = manager.save(bean);
+        log.info("save CmsModel id={}", bean.getId());
+        cmsLogMng.operating(request, "cmsModel.log.save", "id=" + bean.getId() + ";name=" + bean.getName());
+        String body = "{\"id\":" + "\"" + bean.getId() + "\"}";
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
@@ -178,31 +154,20 @@ public class CmsModelApiAct {
     @SignValidate
     @RequestMapping("/model/update")
     public void update(CmsModel bean, HttpServletRequest request, HttpServletResponse response) {
-        String body = "\"\"";
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
         WebErrors errors = WebErrors.create(request);
-        errors = ApiValidate.validateRequiredParams(request, errors, bean.getId(), bean.getName()
-                , bean.getGlobal(), bean.getPath(), bean.getTplChannelPrefix(), bean.getPriority(), bean.getDisabled());
-        if (!errors.hasErrors()) {
-            CmsModel model = manager.findById(bean.getId());
-            if (model == null) {
-                message = Constants.API_MESSAGE_OBJECT_NOT_FOUND;
-                code = ResponseCode.API_CODE_NOT_FOUND;
-            } else {
-                if (!bean.getGlobal()) {
-                    bean.setSite(CmsUtils.getSite(request));
-                }
-                bean = manager.update(bean);
-                log.info("update CmsModel id={}", bean.getId());
-                cmsLogMng.operating(request, "cmsModel.log.update", "id="
-                        + bean.getId() + ";name=" + bean.getName());
-                body = "{\"id\":" + "\"" + bean.getId() + "\"}";
-                message = Constants.API_MESSAGE_SUCCESS;
-                code = ResponseCode.API_CODE_CALL_SUCCESS;
-            }
+        errors = ApiValidate.validateRequiredParams(request, errors, bean.getId(), bean.getName(), bean.getGlobal(), bean.getPath(), bean.getTplChannelPrefix(), bean.getPriority(), bean.getDisabled());
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
         }
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        CmsModel model = manager.findById(bean.getId());
+        if (model == null) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_PARAM_ERROR);
+        }
+        bean = manager.update(bean);
+        log.info("update CmsModel id={}", bean.getId());
+        cmsLogMng.operating(request, "cmsModel.log.update", "id=" + bean.getId() + ";name=" + bean.getName());
+        String body = "{\"id\":" + "\"" + bean.getId() + "\"}";
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
@@ -215,28 +180,22 @@ public class CmsModelApiAct {
     @SignValidate
     @RequestMapping("/model/delete")
     public void delete(String ids, HttpServletResponse response, HttpServletRequest request) {
-        String body = "\"\"";
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
         WebErrors errors = WebErrors.create(request);
         errors = ApiValidate.validateRequiredParams(request, errors, ids);
-        if (!errors.hasErrors()) {
-            try {
-                Integer[] idArray = StrUtils.getInts(ids);
-                CmsModel[] beans = manager.deleteByIds(idArray);
-                for (CmsModel bean : beans) {
-                    log.info("delete CmsModel id={}", bean.getId());
-                    cmsLogMng.operating(request, "cmsModel.log.delete", "id="
-                            + bean.getId() + ";name=" + bean.getName());
-                }
-                message = Constants.API_MESSAGE_SUCCESS;
-                code = ResponseCode.API_CODE_CALL_SUCCESS;
-            } catch (Exception e) {
-                message = Constants.API_MESSAGE_DELETE_ERROR;
-                code = ResponseCode.API_CODE_DELETE_ERROR;
-            }
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
         }
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        try {
+            Integer[] idArray = StrUtils.getInts(ids);
+            CmsModel[] beans = manager.deleteByIds(idArray);
+            for (CmsModel bean : beans) {
+                log.info("delete CmsModel id={}", bean.getId());
+                cmsLogMng.operating(request, "cmsModel.log.delete", "id=" + bean.getId() + ";name=" + bean.getName());
+            }
+        } catch (Exception e) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_PARAM_ERROR);
+        }
+        ApiResponse apiResponse = ApiResponse.getSuccess();
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
@@ -248,28 +207,21 @@ public class CmsModelApiAct {
      */
     @SignValidate
     @RequestMapping("/model/priority")
-    public void priority(String ids, String priorities, String disableds,
-                         Integer defId, HttpServletRequest request, HttpServletResponse response) {
-        String body = "\"\"";
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
+    public void priority(String ids, String priorities, String disableds, Integer defId, HttpServletRequest request, HttpServletResponse response) {
         WebErrors errors = WebErrors.create(request);
         errors = ApiValidate.validateRequiredParams(request, errors, ids, priorities, disableds, defId);
-        if (!errors.hasErrors()) {
-            Integer[] wid = StrUtils.getInts(ids);
-            Integer[] priority = StrUtils.getInts(priorities);
-            Boolean[] disabled = strToBoolean(disableds);
-            errors = validatePriority(wid, priority, disabled, defId, request);
-            if (errors.hasErrors()) {
-                message = errors.getErrors().get(0);
-                code = ResponseCode.API_CODE_CALL_FAIL;
-            } else {
-                manager.updatePriority(wid, priority, disabled, defId);
-                message = Constants.API_MESSAGE_SUCCESS;
-                code = ResponseCode.API_CODE_CALL_SUCCESS;
-            }
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
         }
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        Integer[] wid = StrUtils.getInts(ids);
+        Integer[] priority = StrUtils.getInts(priorities);
+        Boolean[] disabled = strToBoolean(disableds);
+        errors = validatePriority(wid, priority, disabled, defId, request);
+        if (errors.hasErrors()) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_PARAM_ERROR);
+        }
+        manager.updatePriority(wid, priority, disabled, defId);
+        ApiResponse apiResponse = ApiResponse.getSuccess();
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
@@ -285,8 +237,7 @@ public class CmsModelApiAct {
         return booleans;
     }
 
-    private WebErrors validatePriority(Integer[] wid, Integer[] priority,
-                                       Boolean[] disabled, Integer defId, HttpServletRequest request) {
+    private WebErrors validatePriority(Integer[] wid, Integer[] priority, Boolean[] disabled, Integer defId, HttpServletRequest request) {
         WebErrors errors = WebErrors.create(request);
         if (wid.length != priority.length || wid.length != disabled.length) {
             String s = Constants.API_MESSAGE_PARAM_ERROR;

@@ -38,7 +38,8 @@ public abstract class AbstractApiInterceptor extends HandlerInterceptorAdapter {
     private static final String SITE_PARAM = "_site_id_param";
     private static final String SITE_COOKIE = "_site_id_cookie";
 
-    protected Object[] validateSign(HttpServletRequest request, WebErrors errors) {
+    @Deprecated
+    protected Object[] validateSign(HttpServletRequest request, WebErrors errors) throws Exception {
         boolean valid = true;
         String sign = request.getParameter(Constants.COMMON_PARAM_SIGN);
         String appId = request.getParameter(Constants.COMMON_PARAM_APPID);
@@ -51,7 +52,7 @@ public abstract class AbstractApiInterceptor extends HandlerInterceptorAdapter {
             valid = false;
         } else {
             // 验证签名
-            errors = ApiValidate.validateSign(request, errors, apiAccount, sign);
+            ApiValidate.validateSign(request, apiAccount, sign);
             // Account可能获取不到，需要再次判断
             if (errors.hasErrors()) {
                 code = ResponseCode.API_CODE_SIGN_ERROR;

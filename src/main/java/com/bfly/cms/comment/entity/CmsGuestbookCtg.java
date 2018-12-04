@@ -1,6 +1,5 @@
 package com.bfly.cms.comment.entity;
 
-import com.bfly.cms.siteconfig.entity.CmsSite;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -90,11 +89,6 @@ public class CmsGuestbookCtg implements Serializable {
     @Column(name = "description")
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "site_id")
-    private CmsSite site;
-
-
     public Integer getId() {
         return id;
     }
@@ -132,16 +126,6 @@ public class CmsGuestbookCtg implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-
-    public CmsSite getSite() {
-        return site;
-    }
-
-
-    public void setSite(CmsSite site) {
-        this.site = site;
     }
 
 }

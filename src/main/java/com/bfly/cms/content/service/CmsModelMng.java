@@ -16,13 +16,12 @@ public interface CmsModelMng {
      * 获得模型列表
      *
      * @param isDisabled 是否禁用
-     * @param siteId     站点
      * @param hasContent 是否有内容
      * @return 模型集合
      * @author andy_hulibo@163.com
      * @date 2018/11/26 10:47
      */
-    List<CmsModel> getList(boolean isDisabled, Boolean hasContent, Integer siteId);
+    List<CmsModel> getList(boolean isDisabled, Boolean hasContent);
 
     /**
      * 获得默认模型

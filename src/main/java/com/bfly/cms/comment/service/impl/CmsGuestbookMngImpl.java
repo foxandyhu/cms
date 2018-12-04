@@ -1,56 +1,53 @@
 package com.bfly.cms.comment.service.impl;
 
-import java.sql.Timestamp;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.bfly.cms.comment.dao.CmsGuestbookDao;
 import com.bfly.cms.comment.entity.CmsGuestbook;
 import com.bfly.cms.comment.entity.CmsGuestbookExt;
 import com.bfly.cms.comment.service.CmsGuestbookCtgMng;
 import com.bfly.cms.comment.service.CmsGuestbookExtMng;
 import com.bfly.cms.comment.service.CmsGuestbookMng;
-import com.bfly.common.hibernate4.Updater;
-import com.bfly.common.page.Pagination;
+import com.bfly.cms.user.entity.CmsAdmin;
 import com.bfly.cms.user.entity.CmsUser;
 import com.bfly.cms.user.entity.CmsUserExt;
-import com.bfly.cms.siteconfig.service.CmsSiteMng;
 import com.bfly.cms.user.service.CmsUserExtMng;
+import com.bfly.common.hibernate4.Updater;
+import com.bfly.common.page.Pagination;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
+import java.util.List;
+
+/**
+ * 
+ * @author andy_hulibo@163.com
+ * @date 2018/12/4 14:46
+ */
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 public class CmsGuestbookMngImpl implements CmsGuestbookMng {
+
 	@Override
-    @Transactional(readOnly = true)
-	public Pagination getPage(Integer siteId, Integer ctgId,Integer ctgIds[],
-			Integer userId, Boolean recommend,Short checked,
-			boolean desc, boolean cacheable, int pageNo,int pageSize) {
-		return dao.getPage(siteId, ctgId,ctgIds,userId, recommend, checked, desc, cacheable,
-				pageNo, pageSize);
+    @Transactional(readOnly = true,rollbackFor = Exception.class)
+	public Pagination getPage(Integer ctgId,Integer ctgIds[], Integer userId, Boolean recommend,Short checked, boolean desc, boolean cacheable, int pageNo,int pageSize) {
+		return dao.getPage(ctgId,ctgIds,userId, recommend, checked, desc, cacheable, pageNo, pageSize);
 	}
 
 	@Override
-    @Transactional(readOnly = true)
-	public List<CmsGuestbook> getList(Integer siteId, Integer ctgId,
-			Integer userId,Boolean recommend, Short checked, boolean desc,
-			boolean cacheable, int first, int max) {
-		return dao.getList(siteId, ctgId,userId, recommend, checked, desc, cacheable,
-				first, max);
+    @Transactional(readOnly = true,rollbackFor = Exception.class)
+	public List<CmsGuestbook> getList( Integer ctgId, Integer userId,Boolean recommend, Short checked, boolean desc, boolean cacheable, int first, int max) {
+		return dao.getList( ctgId,userId, recommend, checked, desc, cacheable, first, max);
 	}
 
 	@Override
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true,rollbackFor = Exception.class)
 	public CmsGuestbook findById(Integer id) {
-		CmsGuestbook entity = dao.findById(id);
-		return entity;
+		return dao.findById(id);
 	}
 
 	@Override
-    public CmsGuestbook save(CmsGuestbook bean, CmsGuestbookExt ext,
-                             Integer ctgId, String ip) {
+    public CmsGuestbook save(CmsGuestbook bean, CmsGuestbookExt ext, Integer ctgId, String ip) {
 		bean.setCtg(cmsGuestbookCtgMng.findById(ctgId));
 		bean.setIp(ip);
 		bean.setCreateTime(new Timestamp(System.currentTimeMillis()));
@@ -61,12 +58,9 @@ public class CmsGuestbookMngImpl implements CmsGuestbookMng {
 	}
 
 	@Override
-    public CmsGuestbook save(CmsUser member, Integer siteId, Integer ctgId,
-                             String ip, String title, String content, String email,
-                             String phone, String qq) {
+    public CmsGuestbook save(CmsUser member, Integer ctgId, String ip, String title, String content, String email, String phone, String qq) {
 		CmsGuestbook guestbook = new CmsGuestbook();
 		guestbook.setMember(member);
-		guestbook.setSite(cmsSiteMng.findById(siteId));
 		guestbook.setIp(ip);
 		CmsGuestbookExt ext = new CmsGuestbookExt();
 		ext.setTitle(title);
@@ -84,9 +78,8 @@ public class CmsGuestbookMngImpl implements CmsGuestbookMng {
 	}
 
 	@Override
-    public CmsGuestbook update(CmsGuestbook bean, CmsGuestbookExt ext,
-                               Integer ctgId) {
-		Updater<CmsGuestbook> updater = new Updater<CmsGuestbook>(bean);
+    public CmsGuestbook update(CmsGuestbook bean, CmsGuestbookExt ext, Integer ctgId) {
+		Updater<CmsGuestbook> updater = new Updater<>(bean);
 		bean = dao.updateByUpdater(updater);
 		bean.setCtg(cmsGuestbookCtgMng.findById(ctgId));
 		cmsGuestbookExtMng.update(ext);
@@ -95,8 +88,7 @@ public class CmsGuestbookMngImpl implements CmsGuestbookMng {
 
 	@Override
     public CmsGuestbook deleteById(Integer id) {
-		CmsGuestbook bean = dao.deleteById(id);
-		return bean;
+		return dao.deleteById(id);
 	}
 
 	@Override
@@ -109,20 +101,20 @@ public class CmsGuestbookMngImpl implements CmsGuestbookMng {
 	}
 	
 	@Override
-    public CmsGuestbook[] checkByIds(Integer[] ids, CmsUser checkUser, Short checkStatus) {
+    public CmsGuestbook[] checkByIds(Integer[] ids, CmsAdmin admin, Short checkStatus) {
 		CmsGuestbook[] beans = new CmsGuestbook[ids.length];
 		for (int i = 0, len = ids.length; i < len; i++) {
-			beans[i] = checkById(ids[i],checkUser,checkStatus);
+			beans[i] = checkById(ids[i],admin,checkStatus);
 		}
 		return beans;
 	}
 	
-	private CmsGuestbook checkById(Integer id,CmsUser checkUser,Short checkStatus){
+	private CmsGuestbook checkById(Integer id, CmsAdmin admin, Short checkStatus){
 		CmsGuestbook bean=findById(id);
-		Updater<CmsGuestbook> updater = new Updater<CmsGuestbook>(bean);
+		Updater<CmsGuestbook> updater = new Updater<>(bean);
 		bean = dao.updateByUpdater(updater);
 		if(checkStatus!=null && !checkStatus.equals(0)){
-			bean.setAdmin(checkUser);
+			bean.setAdmin(admin);
 		}
 		bean.setChecked(checkStatus);
 		return bean;
@@ -133,8 +125,6 @@ public class CmsGuestbookMngImpl implements CmsGuestbookMng {
 	private CmsGuestbookCtgMng cmsGuestbookCtgMng;
 	@Autowired
 	private CmsGuestbookExtMng cmsGuestbookExtMng;
-	@Autowired
-	private CmsSiteMng cmsSiteMng;
 	@Autowired
 	private CmsGuestbookDao dao;
 	@Autowired

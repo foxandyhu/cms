@@ -1,6 +1,5 @@
 package com.bfly.cms.content.entity;
 
-import com.bfly.cms.siteconfig.entity.CmsSite;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -12,6 +11,7 @@ import java.util.*;
 
 /**
  * 评分组
+ *
  * @author andy_hulibo@163.com
  * @date 2018/11/17 9:45
  */
@@ -49,13 +49,6 @@ public class CmsScoreGroup implements Serializable {
      */
     @Column(name = "def")
     private boolean def;
-
-    /**
-     * 所属站点
-     */
-    @ManyToOne
-    @JoinColumn(name = "site_id")
-    private CmsSite site;
 
     @OneToMany(mappedBy = "group", fetch = FetchType.LAZY)
     private Set<CmsScoreItem> items;
@@ -106,15 +99,6 @@ public class CmsScoreGroup implements Serializable {
     public void setDef(boolean def) {
         this.def = def;
     }
-
-    public CmsSite getSite() {
-        return site;
-    }
-
-    public void setSite(CmsSite site) {
-        this.site = site;
-    }
-
 
     public Set<CmsScoreItem> getItems() {
         return items;

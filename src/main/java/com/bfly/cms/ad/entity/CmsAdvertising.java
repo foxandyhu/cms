@@ -1,8 +1,6 @@
 package com.bfly.cms.ad.entity;
 
-import com.bfly.cms.ad.entity.CmsAdvertisingSpace;
 import com.bfly.common.util.DateUtils;
-import com.bfly.cms.siteconfig.entity.CmsSite;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -16,12 +14,13 @@ import java.util.Map;
 
 /**
  * CMS广告
+ *
  * @author andy_hulibo@163.com
  * @date 2018/11/16 16:42
  */
 @Entity
 @Table(name = "jc_advertising")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE,region = "beanCache")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class CmsAdvertising implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -35,55 +34,55 @@ public class CmsAdvertising implements Serializable {
     private Integer id;
 
     /**
-     *广告名称
+     * 广告名称
      */
     @Column(name = "ad_name")
     private String name;
 
     /**
-     *广告类型
+     * 广告类型
      */
     @Column(name = "category")
     private String category;
 
     /**
-     *广告代码
+     * 广告代码
      */
     @Column(name = "ad_code")
     private String code;
 
     /**
-     *广告权重
+     * 广告权重
      */
     @Column(name = "ad_weight")
     private Integer weight;
 
     /**
-     *展现次数
+     * 展现次数
      */
     @Column(name = "display_count")
     private Long displayCount;
 
     /**
-     *点击次数
+     * 点击次数
      */
     @Column(name = "click_count")
     private Long clickCount;
 
     /**
-     *开始时间
+     * 开始时间
      */
     @Column(name = "start_time")
     private Date startTime;
 
     /**
-     *结束时间
+     * 结束时间
      */
     @Column(name = "end_time")
     private Date endTime;
 
     /**
-     *是否启用
+     * 是否启用
      */
     @Column(name = "is_enabled")
     private Boolean enabled;
@@ -92,15 +91,11 @@ public class CmsAdvertising implements Serializable {
     @JoinColumn(name = "adspace_id")
     private CmsAdvertisingSpace adspace;
 
-    @ManyToOne
-    @JoinColumn(name = "site_id")
-    private CmsSite site;
-
     @ElementCollection
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE,region = "beanCache")
-    @CollectionTable(name = "jc_advertising_attr",joinColumns = @JoinColumn(name = "advertising_id"))
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
+    @CollectionTable(name = "jc_advertising_attr", joinColumns = @JoinColumn(name = "advertising_id"))
     @MapKeyColumn(name = "attr_name")
-    @Column(name="attr_value")
+    @Column(name = "attr_value")
     private Map<String, String> attr;
 
 
@@ -195,17 +190,6 @@ public class CmsAdvertising implements Serializable {
     public void setAdspace(CmsAdvertisingSpace adspace) {
         this.adspace = adspace;
     }
-
-
-    public CmsSite getSite() {
-        return site;
-    }
-
-
-    public void setSite(CmsSite site) {
-        this.site = site;
-    }
-
 
     public Map<String, String> getAttr() {
         return attr;

@@ -8,6 +8,7 @@ import com.bfly.cms.logs.service.CmsLogMng;
 import com.bfly.cms.resource.service.CmsFileMng;
 import com.bfly.cms.resource.service.TplManager;
 import com.bfly.cms.siteconfig.entity.CmsSite;
+import com.bfly.cms.siteconfig.service.CmsSiteMng;
 import com.bfly.common.page.Pagination;
 import com.bfly.common.util.ChineseCharToEn;
 import com.bfly.common.util.StrUtils;
@@ -15,11 +16,12 @@ import com.bfly.common.web.ResponseUtils;
 import com.bfly.common.web.springmvc.MessageResolver;
 import com.bfly.core.Constants;
 import com.bfly.core.annotation.SignValidate;
+import com.bfly.core.base.action.BaseAdminController;
+import com.bfly.core.exception.ApiException;
 import com.bfly.core.web.ApiResponse;
 import com.bfly.core.web.ApiValidate;
 import com.bfly.core.web.ResponseCode;
 import com.bfly.core.web.WebErrors;
-import com.bfly.core.web.util.CmsUtils;
 import com.bfly.core.web.util.CoreUtils;
 import net.sf.json.JSONObject;
 import org.apache.commons.lang.StringUtils;
@@ -32,7 +34,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.bfly.core.Constants.TPLDIR_TOPIC;
@@ -45,7 +46,7 @@ import static com.bfly.core.Constants.TPLDIR_TOPIC;
  */
 @Controller
 @RequestMapping(value = "/api/admin")
-public class CmsTopicApiAct {
+public class CmsTopicApiAct extends BaseAdminController {
     private static final Logger log = LoggerFactory.getLogger(CmsTopicApiAct.class);
 
     /**
@@ -55,8 +56,7 @@ public class CmsTopicApiAct {
      * @date 2018/11/27 10:28
      */
     @RequestMapping("/topic/list")
-    public void list(String initials, Integer pageNo, Integer pageSize, HttpServletRequest request,
-                     HttpServletResponse response) {
+    public void list(String initials, Integer pageNo, Integer pageSize, HttpServletRequest request, HttpServletResponse response) {
         if (pageNo == null) {
             pageNo = 1;
         }
@@ -72,171 +72,130 @@ public class CmsTopicApiAct {
                 jsonArray.put(i, list.get(i).convertToJson());
             }
         }
-        String message = Constants.API_MESSAGE_SUCCESS;
-        String code = ResponseCode.API_CODE_CALL_SUCCESS;
         String body = jsonArray.toString() + ",\"totalCount\":" + totalCount;
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
     @RequestMapping("/topic/get")
     public void get(Integer id, HttpServletResponse response, HttpServletRequest request) {
-        String body = "\"\"";
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
-        CmsTopic bean = null;
-        if (id != null) {
-            if (id.equals(0)) {
-                bean = new CmsTopic();
-            } else {
-                bean = manager.findById(id);
-            }
-            if (bean != null) {
-                bean.init();
-                body = bean.convertToJson().toString();
-                message = Constants.API_MESSAGE_SUCCESS;
-                code = ResponseCode.API_CODE_CALL_SUCCESS;
-            } else {
-                message = Constants.API_MESSAGE_OBJECT_NOT_FOUND;
-                code = ResponseCode.API_CODE_NOT_FOUND;
-            }
+        CmsTopic bean;
+        if (id == null) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_PARAM_ERROR);
         }
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        if (id.equals(0)) {
+            bean = new CmsTopic();
+        } else {
+            bean = manager.findById(id);
+        }
+        if (bean == null) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_PARAM_ERROR);
+        }
+        bean.init();
+        String body = bean.convertToJson().toString();
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
     @SignValidate
     @RequestMapping("/topic/save")
-    public void save(CmsTopic bean, Integer channelId, String channelIds,
-                     HttpServletRequest request, HttpServletResponse response) {
-        String body = "\"\"";
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
+    public void save(CmsTopic bean, Integer channelId, String channelIds, HttpServletRequest request, HttpServletResponse response) {
         WebErrors errors = WebErrors.create(request);
-        errors = ApiValidate.validateRequiredParams(request, errors, bean.getName(),
-                bean.getPriority(), bean.getRecommend());
-        if (!errors.hasErrors()) {
-            Integer[] channelIdArray = StrUtils.getInts(channelIds);
-            bean.init();
-            //添加首字母拼音字段数据
-            bean.setInitials(ChineseCharToEn.getAllFirstLetter(bean.getName()));
-            bean = manager.save(bean, channelId, channelIdArray);
-            fileMng.updateFileByPath(bean.getContentImg(), true, null);
-            fileMng.updateFileByPath(bean.getTitleImg(), true, null);
-            log.info("save CmsTopic id={}", bean.getId());
-            cmsLogMng.operating(request, "cmsTopic.log.save", "id=" + bean.getId()
-                    + ";name=" + bean.getName());
-            body = "{\"id\":" + "\"" + bean.getId() + "\"}";
-            message = Constants.API_MESSAGE_SUCCESS;
-            code = ResponseCode.API_CODE_CALL_SUCCESS;
+        errors = ApiValidate.validateRequiredParams(request, errors, bean.getName(), bean.getPriority(), bean.getRecommend());
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
         }
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        Integer[] channelIdArray = StrUtils.getInts(channelIds);
+        bean.init();
+        //添加首字母拼音字段数据
+        bean.setInitials(ChineseCharToEn.getAllFirstLetter(bean.getName()));
+        bean = manager.save(bean, channelId, channelIdArray);
+        fileMng.updateFileByPath(bean.getContentImg(), true, null);
+        fileMng.updateFileByPath(bean.getTitleImg(), true, null);
+        log.info("save CmsTopic id={}", bean.getId());
+        cmsLogMng.operating(request, "cmsTopic.log.save", "id=" + bean.getId() + ";name=" + bean.getName());
+        String body = "{\"id\":" + "\"" + bean.getId() + "\"}";
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
     @SignValidate
     @RequestMapping("/topic/update")
-    public void update(CmsTopic bean, Integer channelId, String channelIds,
-                       String oldTitleImg, String oldContentImg,
-                       HttpServletRequest request, HttpServletResponse response) {
-        String body = "\"\"";
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
+    public void update(CmsTopic bean, Integer channelId, String channelIds, String oldTitleImg, String oldContentImg, HttpServletRequest request, HttpServletResponse response) {
         WebErrors errors = WebErrors.create(request);
-        errors = ApiValidate.validateRequiredParams(request, errors, bean.getId(), bean.getName(),
-                bean.getPriority(), bean.getRecommend());
-        if (!errors.hasErrors()) {
-            Integer[] channelIdArray = StrUtils.getInts(channelIds);
-            //更新首字母拼音字段数据
-            bean.setInitials(ChineseCharToEn.getAllFirstLetter(bean.getName()));
-            bean = manager.update(bean, channelId, channelIdArray);
-            //旧标题图
-            fileMng.updateFileByPath(oldTitleImg, false, null);
-            //旧内容图
-            fileMng.updateFileByPath(oldContentImg, false, null);
-            fileMng.updateFileByPath(bean.getContentImg(), true, null);
-            fileMng.updateFileByPath(bean.getTitleImg(), true, null);
-            log.info("update CmsTopic id={}.", bean.getId());
-            cmsLogMng.operating(request, "cmsTopic.log.update", "id="
-                    + bean.getId() + ";name=" + bean.getName());
-            body = "{\"id\":" + "\"" + bean.getId() + "\"}";
-            message = Constants.API_MESSAGE_SUCCESS;
-            code = ResponseCode.API_CODE_CALL_SUCCESS;
+        errors = ApiValidate.validateRequiredParams(request, errors, bean.getId(), bean.getName(), bean.getPriority(), bean.getRecommend());
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
         }
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        Integer[] channelIdArray = StrUtils.getInts(channelIds);
+        //更新首字母拼音字段数据
+        bean.setInitials(ChineseCharToEn.getAllFirstLetter(bean.getName()));
+        bean = manager.update(bean, channelId, channelIdArray);
+        //旧标题图
+        fileMng.updateFileByPath(oldTitleImg, false, null);
+        //旧内容图
+        fileMng.updateFileByPath(oldContentImg, false, null);
+        fileMng.updateFileByPath(bean.getContentImg(), true, null);
+        fileMng.updateFileByPath(bean.getTitleImg(), true, null);
+        log.info("update CmsTopic id={}.", bean.getId());
+        cmsLogMng.operating(request, "cmsTopic.log.update", "id=" + bean.getId() + ";name=" + bean.getName());
+        String body = "{\"id\":" + "\"" + bean.getId() + "\"}";
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
     @SignValidate
     @RequestMapping("/topic/delete")
     public void delete(String ids, HttpServletRequest request, HttpServletResponse response) {
-        String body = "\"\"";
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
         WebErrors errors = WebErrors.create(request);
         errors = ApiValidate.validateRequiredParams(request, errors, ids);
-        if (!errors.hasErrors()) {
-            try {
-                Integer[] idArray = StrUtils.getInts(ids);
-                CmsTopic[] beans = manager.deleteByIds(idArray);
-                for (CmsTopic bean : beans) {
-                    fileMng.updateFileByPath(bean.getContentImg(), false, null);
-                    fileMng.updateFileByPath(bean.getTitleImg(), false, null);
-                    log.info("delete CmsTopic id={}", bean.getId());
-                    cmsLogMng.operating(request, "cmsTopic.log.delete", "id="
-                            + bean.getId() + ";name=" + bean.getName());
-                }
-                message = Constants.API_MESSAGE_SUCCESS;
-                code = ResponseCode.API_CODE_CALL_SUCCESS;
-            } catch (Exception e) {
-                message = Constants.API_MESSAGE_DELETE_ERROR;
-                code = ResponseCode.API_CODE_DELETE_ERROR;
-            }
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
         }
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        try {
+            Integer[] idArray = StrUtils.getInts(ids);
+            CmsTopic[] beans = manager.deleteByIds(idArray);
+            for (CmsTopic bean : beans) {
+                fileMng.updateFileByPath(bean.getContentImg(), false, null);
+                fileMng.updateFileByPath(bean.getTitleImg(), false, null);
+                log.info("delete CmsTopic id={}", bean.getId());
+                cmsLogMng.operating(request, "cmsTopic.log.delete", "id=" + bean.getId() + ";name=" + bean.getName());
+            }
+        } catch (Exception e) {
+            throw new ApiException("删除出错", ResponseCode.API_CODE_DELETE_ERROR);
+        }
+        ApiResponse apiResponse = ApiResponse.getSuccess();
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
     @SignValidate
     @RequestMapping("/topic/priority")
-    public void priority(String ids, String priorities,
-                         HttpServletRequest request, HttpServletResponse response) {
-        String body = "\"\"";
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
+    public void priority(String ids, String priorities, HttpServletRequest request, HttpServletResponse response) {
         WebErrors errors = WebErrors.create(request);
         errors = ApiValidate.validateRequiredParams(request, errors, ids, priorities);
-        if (!errors.hasErrors()) {
-            Integer[] idArray = StrUtils.getInts(ids);
-            Integer[] priority = StrUtils.getInts(priorities);
-            errors = validatePriority(errors, idArray, priority);
-            if (errors.hasErrors()) {
-                message = errors.getErrors().get(0);
-                code = ResponseCode.API_CODE_PARAM_ERROR;
-            } else {
-                manager.updatePriority(idArray, priority);
-                message = Constants.API_MESSAGE_SUCCESS;
-                code = ResponseCode.API_CODE_CALL_SUCCESS;
-            }
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
         }
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        Integer[] idArray = StrUtils.getInts(ids);
+        Integer[] priority = StrUtils.getInts(priorities);
+        errors = validatePriority(errors, idArray, priority);
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_ERROR);
+        }
+        manager.updatePriority(idArray, priority);
+        ApiResponse apiResponse = ApiResponse.getSuccess();
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
     @RequestMapping("/topic/by_channel")
     public void channel(Integer channelId, HttpServletRequest request, HttpServletResponse response) {
-        String body = "\"\"";
-        String message = Constants.API_MESSAGE_SUCCESS;
-        String code = ResponseCode.API_CODE_CALL_SUCCESS;
-        List<CmsTopic> list = new ArrayList<>();
+        List<CmsTopic> list;
         if (channelId != null && !channelId.equals(0)) {
             Channel channel = channelMng.findById(channelId);
             if (channel == null) {
-                message = Constants.API_MESSAGE_OBJECT_NOT_FOUND;
-                code = ResponseCode.API_CODE_NOT_FOUND;
-            } else {
-                list = manager.getListByChannel(channelId);
+                throw new ApiException("参数错误", ResponseCode.API_CODE_PARAM_ERROR);
             }
+            list = manager.getListByChannel(channelId);
         } else {
             list = manager.getListForTag(null, false, 0, Integer.MAX_VALUE);
         }
@@ -246,16 +205,14 @@ public class CmsTopicApiAct {
                 jsonArray.put(i, byChannelToJson(list.get(i)));
             }
         }
-        body = jsonArray.toString();
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        String body = jsonArray.toString();
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
     @RequestMapping("/topic/tpl_list")
     public void tplList(HttpServletRequest request, HttpServletResponse response) {
-        CmsSite site = CmsUtils.getSite(request);
-        // 模板
-        List<String> list = getTplList(request, site, null);
+        List<String> list = getTplList(request, null);
         JSONArray jsonArray = new JSONArray();
         if (list != null && list.size() > 0) {
             for (int i = 0; i < list.size(); i++) {
@@ -263,17 +220,13 @@ public class CmsTopicApiAct {
             }
         }
         String body = jsonArray.toString();
-        String message = Constants.API_MESSAGE_SUCCESS;
-        String code = ResponseCode.API_CODE_CALL_SUCCESS;
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
-    private List<String> getTplList(HttpServletRequest request, CmsSite site,
-                                    String tpl) {
-        List<String> tplList = tplManager.getNameListByPrefix(site
-                .getSolutionPath()
-                + "/" + TPLDIR_TOPIC + "/");
+    private List<String> getTplList(HttpServletRequest request, String tpl) {
+        CmsSite site = siteMng.getSite();
+        List<String> tplList = tplManager.getNameListByPrefix(site.getSolutionPath() + "/" + TPLDIR_TOPIC + "/");
         String tplIndex = MessageResolver.getMessage(request, "tpl.topicIndex");
         tplList = CoreUtils.tplTrim(tplList, site.getTplPath(), tpl, tplIndex);
         return tplList;
@@ -314,4 +267,6 @@ public class CmsTopicApiAct {
     private CmsFileMng fileMng;
     @Autowired
     private CmsTopicMng manager;
+    @Autowired
+    private CmsSiteMng siteMng;
 }

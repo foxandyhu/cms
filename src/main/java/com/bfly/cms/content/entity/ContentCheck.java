@@ -1,5 +1,6 @@
 package com.bfly.cms.content.entity;
 
+import com.bfly.cms.user.entity.CmsAdmin;
 import com.bfly.cms.user.entity.CmsUser;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.annotations.Cache;
@@ -100,7 +101,7 @@ public class ContentCheck implements Serializable {
      */
     @ManyToOne
     @JoinColumn(name = "reviewer")
-    private CmsUser reviewer;
+    private CmsAdmin reviewer;
 
     @OneToOne
     @MapsId
@@ -152,11 +153,11 @@ public class ContentCheck implements Serializable {
         this.checkDate = checkDate;
     }
 
-    public CmsUser getReviewer() {
+    public CmsAdmin getReviewer() {
         return reviewer;
     }
 
-    public void setReviewer(CmsUser reviewer) {
+    public void setReviewer(CmsAdmin admin) {
         this.reviewer = reviewer;
     }
 

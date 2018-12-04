@@ -52,9 +52,9 @@ public class CmsGuestbookCtgListDirective implements TemplateDirectiveModel {
 		CmsSite site = FrontUtils.getSite(env);
 
 		List<CmsGuestbookCtg> list = cmsGuestbookCtgMng
-				.getList(getSiteId(params));
+				.getList();
 		
-		Map<String, TemplateModel> paramWrap = new HashMap<String, TemplateModel>(
+		Map<String, TemplateModel> paramWrap = new HashMap<>(
 				params);
 		paramWrap.put(OUT_LIST, DefaultObjectWrapperBuilderFactory.getDefaultObjectWrapper().wrap(list));
 		Map<String, TemplateModel> origMap = DirectiveUtils

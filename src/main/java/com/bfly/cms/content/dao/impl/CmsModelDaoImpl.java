@@ -15,13 +15,12 @@ import com.bfly.core.base.dao.impl.AbstractHibernateBaseDao;
  * @date 2018/11/26 10:56
  */
 @Repository
-public class CmsModelDaoImpl extends AbstractHibernateBaseDao<CmsModel, Integer>
-		implements CmsModelDao {
+public class CmsModelDaoImpl extends AbstractHibernateBaseDao<CmsModel, Integer> implements CmsModelDao {
 
 	@Override
-	public List<CmsModel> getList(boolean containDisabled,Boolean hasContent,Integer siteId) {
+	public List<CmsModel> getList(boolean containDisabled,Boolean hasContent) {
 		Finder f = Finder.create("select bean from CmsModel bean where "
-				+ "(bean.global=true or bean.site.id=:siteId)").setParam("siteId", siteId);
+				+ "(bean.global=true or bean.site.id=:siteId)");
 		if (!containDisabled) {
 			f.append(" and bean.disabled=false");
 		}

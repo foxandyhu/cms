@@ -1,25 +1,30 @@
 package com.bfly.cms.acquisition.service;
 
-import java.util.List;
-
 import com.bfly.cms.acquisition.entity.CmsAcquisitionTemp;
 
+import java.util.List;
+
+/**
+ * @author andy_hulibo@163.com
+ * @date 2018/12/4 10:05
+ */
 public interface CmsAcquisitionTempMng {
-	 List<CmsAcquisitionTemp> getList(Integer siteId);
 
-	 CmsAcquisitionTemp findById(Integer id);
+    List<CmsAcquisitionTemp> getList();
 
-	 CmsAcquisitionTemp save(CmsAcquisitionTemp bean);
+    CmsAcquisitionTemp findById(Integer id);
 
-	 CmsAcquisitionTemp update(CmsAcquisitionTemp bean);
+    CmsAcquisitionTemp save(CmsAcquisitionTemp bean);
 
-	 CmsAcquisitionTemp deleteById(Integer id);
+    CmsAcquisitionTemp update(CmsAcquisitionTemp bean);
 
-	 CmsAcquisitionTemp[] deleteByIds(Integer[] ids);
-	
-	 Integer getPercent(Integer siteId);
-	
-	 void clear(Integer siteId);
-	
-	 void clear(Integer siteId, String channelUrl);
+    CmsAcquisitionTemp deleteById(Integer id);
+
+    CmsAcquisitionTemp[] deleteByIds(Integer[] ids);
+
+    Integer getPercent();
+
+    void clear();
+
+    void clear(String channelUrl);
 }

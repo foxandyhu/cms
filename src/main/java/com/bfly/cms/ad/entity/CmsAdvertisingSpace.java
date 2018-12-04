@@ -1,6 +1,5 @@
 package com.bfly.cms.ad.entity;
 
-import com.bfly.cms.siteconfig.entity.CmsSite;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -74,11 +73,6 @@ public class CmsAdvertisingSpace implements Serializable {
     @Column(name = "is_enabled")
     private Boolean enabled;
 
-    @ManyToOne
-    @JoinColumn(name = "site_id")
-    private CmsSite site;
-
-
     public Integer getId() {
         return id;
     }
@@ -110,15 +104,4 @@ public class CmsAdvertisingSpace implements Serializable {
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
     }
-
-
-    public CmsSite getSite() {
-        return site;
-    }
-
-    public void setSite(CmsSite site) {
-        this.site = site;
-    }
-
-
 }

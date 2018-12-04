@@ -54,7 +54,7 @@ public class CmsGuestbookApiAct {
 		if(orderBy!=null&&orderBy.equals(0)){
 			orderDesc=false;
 		}
-		List<CmsGuestbook> list = cmsGuestbookMng.getList(siteId,
+		List<CmsGuestbook> list = cmsGuestbookMng.getList(
 				ctgId, null,recommend, checked,
 				orderDesc, orderDesc, first, count);
 		JSONArray jsonArray=new JSONArray();
@@ -81,7 +81,7 @@ public class CmsGuestbookApiAct {
 		if (siteId == null) {
 			siteId = CmsUtils.getSiteId(request);
 		}
-		List<CmsGuestbookCtg> list = cmsGuestbookCtgMng.getList(siteId);
+		List<CmsGuestbookCtg> list = cmsGuestbookCtgMng.getList();
 		JSONArray jsonArray=new JSONArray();
 		if(list!=null&&list.size()>0){
 			for(int i=0;i<list.size();i++){

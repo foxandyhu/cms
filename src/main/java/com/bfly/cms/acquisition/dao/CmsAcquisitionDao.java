@@ -6,7 +6,7 @@ import com.bfly.cms.acquisition.entity.CmsAcquisition;
 import com.bfly.common.hibernate4.Updater;
 
 public interface CmsAcquisitionDao {
-    List<CmsAcquisition> getList(Integer siteId);
+    List<CmsAcquisition> getList();
 
     CmsAcquisition findById(Integer id);
 
@@ -18,11 +18,11 @@ public interface CmsAcquisitionDao {
 
     int countByChannelId(Integer channelId);
 
-    CmsAcquisition getStarted(Integer siteId);
+    CmsAcquisition getStarted();
 
-    Integer getMaxQueue(Integer siteId);
+    Integer getMaxQueue();
 
-    List<CmsAcquisition> getLargerQueues(Integer siteId, Integer queueNum);
+    List<CmsAcquisition> getLargerQueues(Integer queueNum);
 
-    CmsAcquisition popAcquFromQueue(Integer siteId);
+    CmsAcquisition popAcquFromQueue();
 }

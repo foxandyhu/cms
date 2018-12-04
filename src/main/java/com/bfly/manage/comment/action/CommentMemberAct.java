@@ -62,7 +62,7 @@ public class CommentMemberAct extends RenderController {
         }
         CmsSite site = getSite();
         CmsUser user = getUser();
-        Pagination pagination = commentMng.getPageForMember(site.getId(), null, user.getId(), null, null, null, null, true, cpn(pageNo), CookieUtils.getPageSize(getRequest()));
+        Pagination pagination = commentMng.getPageForMember(null, user.getId(), null, null, null, null, true, cpn(pageNo), CookieUtils.getPageSize(getRequest()));
         model.addAttribute("pagination", pagination);
         return renderPage("comment/comment_list.html", model);
     }
@@ -101,7 +101,7 @@ public class CommentMemberAct extends RenderController {
         if (result != null) {
             return result;
         }
-        Pagination pagination = commentMng.getPageForMember(getSite().getId(), null, null, getUser().getId(), null, null, null, true, cpn(pageNo), CookieUtils.getPageSize(getRequest()));
+        Pagination pagination = commentMng.getPageForMember( null, null, getUser().getId(), null, null, null, true, cpn(pageNo), CookieUtils.getPageSize(getRequest()));
         model.addAttribute("pagination", pagination);
         return renderPage("comment/comment_manager.html");
     }
@@ -132,7 +132,7 @@ public class CommentMemberAct extends RenderController {
             log.info("delete CmsComment id={}", bean.getId());
         } else {
             // 依据评论人或者评论ip删除评论
-            List<CmsComment> comments = commentMng.getListForDel(getSite().getId(), user.getId(), userId, ip);
+            List<CmsComment> comments = commentMng.getListForDel(user.getId(), userId, ip);
             for (CmsComment comment : comments) {
                 if (!canDeleteComment(comment, user)) {
                     return renderMessagePage(model, "comment.deleteError");
@@ -146,14 +146,14 @@ public class CommentMemberAct extends RenderController {
 
     private boolean canDeleteComment(CmsComment comment, CmsUser user) {
         //匿名用户评论文章的所有者可以删除
-        if (comment.getCommentUser() == null && !comment.getContent().getUser().equals(user)) {
+        if (comment.getCommentUser() == null && !comment.getContent().getAdmin().equals(user)) {
             return false;
         }
-        if (comment.getCommentUser() == null && comment.getContent().getUser().equals(user)) {
+        if (comment.getCommentUser() == null && comment.getContent().getAdmin().equals(user)) {
             return true;
         }
         //非匿名用户评论 文章的所有者可以删除，评论者也可以删除
-        return comment.getCommentUser().equals(user) || comment.getContent().getUser().equals(user);
+        return comment.getCommentUser().equals(user) || comment.getContent().getAdmin().equals(user);
     }
 
     @Autowired

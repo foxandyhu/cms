@@ -15,28 +15,23 @@ import java.util.List;
  * @date 2018/11/26 14:27
  */
 @Repository
-public class ChannelDaoImpl extends AbstractHibernateBaseDao<Channel, Integer>
-        implements ChannelDao {
+public class ChannelDaoImpl extends AbstractHibernateBaseDao<Channel, Integer> implements ChannelDao {
 
     @Override
-    public List<Channel> getTopList(Integer siteId, boolean hasContentOnly,
-                                    boolean displayOnly, boolean cacheable) {
-        Finder f = getTopFinder(siteId, hasContentOnly, displayOnly, cacheable);
+    public List<Channel> getTopList(boolean hasContentOnly, boolean displayOnly, boolean cacheable) {
+        Finder f = getTopFinder(hasContentOnly, displayOnly, cacheable);
         return find(f);
     }
 
     @Override
-    public Pagination getTopPage(Integer siteId, boolean hasContentOnly,
-                                 boolean displayOnly, boolean cacheable, int pageNo, int pageSize) {
-        Finder f = getTopFinder(siteId, hasContentOnly, displayOnly, cacheable);
+    public Pagination getTopPage(boolean hasContentOnly, boolean displayOnly, boolean cacheable, int pageNo, int pageSize) {
+        Finder f = getTopFinder(hasContentOnly, displayOnly, cacheable);
         return find(f, pageNo, pageSize);
     }
 
-    private Finder getTopFinder(Integer siteId, boolean hasContentOnly,
-                                boolean displayOnly, boolean cacheable) {
+    private Finder getTopFinder(boolean hasContentOnly, boolean displayOnly, boolean cacheable) {
         Finder f = Finder.create("from Channel bean");
-        f.append(" where bean.site.id=:siteId and bean.parent.id is null");
-        f.setParam("siteId", siteId);
+        f.append(" where bean.parent.id is null");
         if (hasContentOnly) {
             f.append(" and bean.hasContent=true");
         }
@@ -49,36 +44,15 @@ public class ChannelDaoImpl extends AbstractHibernateBaseDao<Channel, Integer>
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public List<Channel> getTopListByRigth(Integer userId, Integer siteId,
-                                           boolean hasContentOnly) {
-        Finder f = Finder.create("select bean from Channel bean");
-        f.append(" join bean.users user");
-        f.append(" where user.id=:userId and bean.site.id=:siteId");
-        f.setParam("userId", userId).setParam("siteId", siteId);
-        if (hasContentOnly) {
-            f.append(" and bean.hasContent=true");
-        }
-        f.append(" and bean.parent.id is null");
-        f.append(" order by bean.priority asc,bean.id asc");
-        f.setCacheable(true);
+    public List<Channel> getChildList(Integer parentId, boolean hasContentOnly, boolean displayOnly) {
+        Finder f = getChildFinder(parentId, hasContentOnly, displayOnly);
         return find(f);
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public List<Channel> getChildList(Integer parentId, boolean hasContentOnly,
-                                      boolean displayOnly, boolean cacheable) {
-        Finder f = getChildFinder(parentId, hasContentOnly, displayOnly,
-                cacheable);
-        return find(f);
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public List<Channel> getBottomList(Integer siteId, boolean hasContentOnly) {
+    public List<Channel> getBottomList(boolean hasContentOnly) {
         Finder f = Finder.create("select  bean from Channel bean");
-        f.append(" where bean.site.id=:siteId").setParam("siteId", siteId);
+        f.append(" where bean.site.id=:siteId");
         if (hasContentOnly) {
             f.append(" and bean.hasContent=true");
         }
@@ -89,15 +63,12 @@ public class ChannelDaoImpl extends AbstractHibernateBaseDao<Channel, Integer>
     }
 
     @Override
-    public Pagination getChildPage(Integer parentId, boolean hasContentOnly,
-                                   boolean displayOnly, boolean cacheable, int pageNo, int pageSize) {
-        Finder f = getChildFinder(parentId, hasContentOnly, displayOnly,
-                cacheable);
+    public Pagination getChildPage(Integer parentId, boolean hasContentOnly, boolean displayOnly, int pageNo, int pageSize) {
+        Finder f = getChildFinder(parentId, hasContentOnly, displayOnly);
         return find(f, pageNo, pageSize);
     }
 
-    private Finder getChildFinder(Integer parentId, boolean hasContentOnly,
-                                  boolean displayOnly, boolean cacheable) {
+    private Finder getChildFinder(Integer parentId, boolean hasContentOnly, boolean displayOnly) {
         Finder f = Finder.create("from Channel bean");
         f.append(" where bean.parent.id=:parentId");
         f.setParam("parentId", parentId);
@@ -113,32 +84,15 @@ public class ChannelDaoImpl extends AbstractHibernateBaseDao<Channel, Integer>
     }
 
     @Override
-    public List<Channel> getChildListByRight(Integer userId, Integer parentId,
-                                             boolean hasContentOnly) {
-        Finder f = Finder.create("select bean from Channel bean");
-        f.append(" join bean.users user");
-        f.append(" where user.id=:userId and bean.parent.id=:parentId");
-        f.setParam("userId", userId).setParam("parentId", parentId);
-        if (hasContentOnly) {
-            f.append(" and bean.hasContent=true");
-        }
-        f.append(" order by bean.priority asc,bean.id asc");
-        f.setCacheable(true);
-        return find(f);
-    }
-
-
-    @Override
     public Channel findById(Integer id) {
-        Channel entity = get(id);
-        return entity;
+        return get(id);
     }
 
     @Override
-    public Channel findByPath(String path, Integer siteId, boolean cacheable) {
-        String hql = "from Channel bean where bean.path=? and bean.site.id=?";
+    public Channel findByPath(String path, boolean cacheable) {
+        String hql = "from Channel bean where bean.path=?";
         Query query = getSession().createQuery(hql);
-        query.setParameter(0, path).setParameter(1, siteId);
+        query.setParameter(0, path);
         // 做一些容错处理，因为毕竟没有在数据库中限定path是唯一的。
         query.setMaxResults(1);
         return (Channel) query.setCacheable(cacheable).uniqueResult();

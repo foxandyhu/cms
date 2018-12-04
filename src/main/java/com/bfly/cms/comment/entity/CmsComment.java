@@ -1,10 +1,10 @@
 package com.bfly.cms.comment.entity;
 
 import com.bfly.cms.content.entity.Content;
-import com.bfly.common.util.DateUtils;
-import com.bfly.common.util.StrUtils;
 import com.bfly.cms.siteconfig.entity.CmsSite;
 import com.bfly.cms.user.entity.CmsUser;
+import com.bfly.common.util.DateUtils;
+import com.bfly.common.util.StrUtils;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -103,11 +103,6 @@ public class CmsComment implements Serializable {
     @ManyToOne
     @JoinColumn(name = "comment_user_id")
     private CmsUser commentUser;
-
-    @ManyToOne
-    @JoinColumn(name = "site_id")
-    private CmsSite site;
-
 
     public Integer getId() {
         return id;
@@ -223,14 +218,6 @@ public class CmsComment implements Serializable {
 
     public void setCommentUser(CmsUser commentUser) {
         this.commentUser = commentUser;
-    }
-
-    public CmsSite getSite() {
-        return site;
-    }
-
-    public void setSite(CmsSite site) {
-        this.site = site;
     }
 
     public Set<CmsComment> getChild() {

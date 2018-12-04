@@ -89,7 +89,7 @@ public class CmsAdApiAct {
 		if(siteId==null){
 			siteId=CmsUtils.getSiteId(request);
 		}
-		List<CmsAdvertisingSpace> list = advertisingSpaceMng.getList(siteId);
+		List<CmsAdvertisingSpace> list = advertisingSpaceMng.getList();
 		JSONArray jsonArray=new JSONArray();
 		if(list!=null&&list.size()>0){
 			for(int i=0;i<list.size();i++){

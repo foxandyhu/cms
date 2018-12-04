@@ -119,8 +119,6 @@ public class UserApiAct {
     }
 
 
-
-
     /**
      * 获取用户状态API
      *
@@ -134,7 +132,7 @@ public class UserApiAct {
     public void getUserStatus(
             String username, String sessionKey,
             String appId, String nonce_str, String sign,
-            HttpServletRequest request, HttpServletResponse response) {
+            HttpServletRequest request, HttpServletResponse response) throws Exception {
         String body = "\"\"";
         String message = Constants.API_STATUS_FAIL;
         String code = ResponseCode.API_CODE_CALL_SUCCESS;
@@ -151,7 +149,7 @@ public class UserApiAct {
                 code = ResponseCode.API_CODE_APP_PARAM_ERROR;
             } else {
                 //验证签名
-                errors = ApiValidate.validateSign(request, errors, apiAccount, sign);
+                ApiValidate.validateSign(request, apiAccount, sign);
                 if (errors.hasErrors()) {
                     code = ResponseCode.API_CODE_SIGN_ERROR;
                 }
@@ -231,7 +229,7 @@ public class UserApiAct {
     public void weixinAppLogin(
             String js_code, String grant_type,
             String appId, String nonce_str, String sign,
-            HttpServletRequest request, HttpServletResponse response) {
+            HttpServletRequest request, HttpServletResponse response) throws Exception{
         String body = "\"\"";
         String message = Constants.API_STATUS_FAIL;
         String code = ResponseCode.API_CODE_CALL_SUCCESS;
@@ -250,7 +248,7 @@ public class UserApiAct {
                 code = ResponseCode.API_CODE_APP_PARAM_ERROR;
             } else {
                 //验证签名
-                errors = ApiValidate.validateSign(request, errors, apiAccount, sign);
+                ApiValidate.validateSign(request, apiAccount, sign);
                 if (errors.hasErrors()) {
                     code = ResponseCode.API_CODE_SIGN_ERROR;
                 }
@@ -313,7 +311,7 @@ public class UserApiAct {
             String thirdKey, String source, String username,
             String appId, String nonce_str, String sign,
             HttpServletRequest request, HttpServletResponse response)
-            throws JSONException {
+            throws Exception {
         String body = "\"\"";
         String message = Constants.API_STATUS_FAIL;
         String code = ResponseCode.API_CODE_CALL_SUCCESS;
@@ -332,7 +330,7 @@ public class UserApiAct {
                 code = ResponseCode.API_CODE_APP_PARAM_ERROR;
             } else {
                 //验证签名
-                errors = ApiValidate.validateSign(request, errors, apiAccount, sign);
+                ApiValidate.validateSign(request, apiAccount, sign);
                 if (errors.hasErrors()) {
                     code = ResponseCode.API_CODE_SIGN_ERROR;
                 }

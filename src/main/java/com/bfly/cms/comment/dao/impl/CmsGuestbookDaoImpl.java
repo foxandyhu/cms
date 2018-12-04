@@ -1,46 +1,39 @@
 package com.bfly.cms.comment.dao.impl;
 
-import java.util.List;
-
-import org.springframework.stereotype.Repository;
-
 import com.bfly.cms.comment.dao.CmsGuestbookDao;
 import com.bfly.cms.comment.entity.CmsGuestbook;
-import com.bfly.core.base.dao.impl.Finder;
-import com.bfly.core.base.dao.impl.AbstractHibernateBaseDao;
 import com.bfly.common.page.Pagination;
+import com.bfly.core.base.dao.impl.AbstractHibernateBaseDao;
+import com.bfly.core.base.dao.impl.Finder;
+import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
+/**
+ * 
+ * @author andy_hulibo@163.com
+ * @date 2018/12/4 14:46
+ */
 @Repository
-public class CmsGuestbookDaoImpl extends
-        AbstractHibernateBaseDao<CmsGuestbook, Integer> implements CmsGuestbookDao {
+public class CmsGuestbookDaoImpl extends AbstractHibernateBaseDao<CmsGuestbook, Integer> implements CmsGuestbookDao {
+
 	@Override
-    public Pagination getPage(Integer siteId, Integer ctgId, Integer ctgIds[],
-                              Integer userId, Boolean recommend, Short checked, boolean asc,
-                              boolean cacheable, int pageNo, int pageSize) {
-		Finder f = createFinder(siteId, ctgId, ctgIds,userId,recommend, checked, asc,
-				cacheable);
+    public Pagination getPage(Integer ctgId, Integer ctgIds[], Integer userId, Boolean recommend, Short checked, boolean asc, boolean cacheable, int pageNo, int pageSize) {
+		Finder f = createFinder(ctgId, ctgIds,userId,recommend, checked, asc, cacheable);
 		return find(f, pageNo, pageSize);
 	}
 
 	@Override
-    @SuppressWarnings("unchecked")
-	public List<CmsGuestbook> getList(Integer siteId, Integer ctgId,
-			Integer userId,Boolean recommend, Short checked, boolean desc,
-			boolean cacheable, int first, int max) {
-		Finder f = createFinder(siteId, ctgId, null,userId,recommend, checked, desc,
-				cacheable);
+	public List<CmsGuestbook> getList(Integer ctgId, Integer userId,Boolean recommend, Short checked, boolean desc, boolean cacheable, int first, int max) {
+		Finder f = createFinder( ctgId, null,userId,recommend, checked, desc, cacheable);
 		f.setFirstResult(first);
 		f.setMaxResults(max);
 		return find(f);
 	}
 
-	private Finder createFinder(Integer siteId, Integer ctgId,Integer ctgIds[],Integer userId,
+	private Finder createFinder(Integer ctgId,Integer ctgIds[],Integer userId,
 			Boolean recommend, Short checked, boolean desc, boolean cacheable) {
 		Finder f = Finder.create("from CmsGuestbook bean where 1=1");
-		if (siteId != null) {
-			f.append(" and bean.site.id=:siteId");
-			f.setParam("siteId", siteId);
-		}
 		if (ctgId != null) {
 			f.append(" and bean.ctg.id =:ctgId");
 			f.setParam("ctgId", ctgId);
@@ -72,8 +65,7 @@ public class CmsGuestbookDaoImpl extends
 
 	@Override
     public CmsGuestbook findById(Integer id) {
-		CmsGuestbook entity = get(id);
-		return entity;
+		return get(id);
 	}
 
 	@Override

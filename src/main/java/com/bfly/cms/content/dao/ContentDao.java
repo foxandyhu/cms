@@ -50,7 +50,6 @@ public interface ContentDao {
      * @param recommend   是否推荐。
      * @param status      状态。
      * @param checkStep   审核步骤。当状态为prepared、passed、rejected时，不能为null。
-     * @param siteId      站点ID。可以为null。
      * @param channelId   栏目ID。可以为null。
      * @param orderBy     排序方式
      * @param pageNo
@@ -60,24 +59,24 @@ public interface ContentDao {
     Pagination getPage(Integer share, String title,
                        Integer typeId, Integer currUserId,
                        Integer inputUserId, boolean topLevel, boolean recommend,
-                       ContentStatus status, Byte checkStep, Integer siteId, Integer modelId,
+                       ContentStatus status, Byte checkStep, Integer modelId,
                        Integer channelId, int orderBy, int pageNo, int pageSize);
 
     Pagination getPageCount(Integer share, String title,
                             Integer typeId, Integer currUserId,
                             Integer inputUserId, boolean topLevel, boolean recommend,
-                            ContentStatus status, Byte checkStep, Integer siteId, Integer modelId,
+                            ContentStatus status, Byte checkStep,  Integer modelId,
                             Integer channelId, int orderBy, int pageNo, int pageSize);
 
     Pagination getPageForMember(Integer share, String title,
                                 Integer typeId, Integer currUserId,
                                 Integer inputUserId, boolean topLevel, boolean recommend,
-                                ContentStatus status, Byte checkStep, Integer siteId, Integer modelId,
+                                ContentStatus status, Byte checkStep,Integer modelId,
                                 Integer channelId, int orderBy, int pageNo, int pageSize);
 
     List<Content> getList(String title, Integer typeId, Integer currUserId,
                           Integer inputUserId, boolean topLevel, boolean recommend,
-                          ContentStatus status, Byte checkStep, Integer siteId, Integer modelId,
+                          ContentStatus status, Byte checkStep, Integer modelId,
                           Integer channelId, int orderBy, int first, int count);
 
     /**
@@ -90,7 +89,6 @@ public interface ContentDao {
      * @param recommend   是否推荐。
      * @param status      状态。
      * @param checkStep   审核步骤。当状态为prepared、passed、rejected时，不能为null。
-     * @param siteId      站点ID。可以为null。
      * @param channelId   站点ID。可以为null。
      * @param userId      用户ID
      * @param orderBy     排序方式
@@ -100,13 +98,13 @@ public interface ContentDao {
      */
     Pagination getPageBySelf(Integer share, String title, Integer typeId,
                              Integer inputUserId, boolean topLevel, boolean recommend,
-                             ContentStatus status, Byte checkStep, Integer siteId,
+                             ContentStatus status, Byte checkStep,
                              Integer channelId, Integer userId, int orderBy, int pageNo,
                              int pageSize);
 
     Pagination getPageCountBySelf(Integer share, String title, Integer typeId,
                                   Integer inputUserId, boolean topLevel, boolean recommend,
-                                  ContentStatus status, Byte checkStep, Integer siteId,
+                                  ContentStatus status, Byte checkStep,
                                   Integer channelId, Integer userId, int orderBy, int pageNo,
                                   int pageSize);
 
@@ -120,7 +118,6 @@ public interface ContentDao {
      * @param recommend   是否推荐。
      * @param status      状态。
      * @param checkStep   审核步骤。当状态为prepared、passed、rejected时，不能为null。
-     * @param siteId      站点ID。可以为null。
      * @param channelId   栏目ID。可以为null。
      * @param userId      用户ID。
      * @param selfData    是否只获取自己发表的数据。
@@ -131,13 +128,13 @@ public interface ContentDao {
      */
     Pagination getPageByRight(Integer share, String title, Integer typeId,
                               Integer currUserId, Integer inputUserId, boolean topLevel, boolean recommend,
-                              ContentStatus status, Byte checkStep, Integer siteId,
+                              ContentStatus status, Byte checkStep,
                               Integer channelId, Integer userId, boolean selfData, int orderBy,
                               int pageNo, int pageSize);
 
     Pagination getPageCountByRight(Integer share, String title, Integer typeId,
                                    Integer currUserId, Integer inputUserId, boolean topLevel, boolean recommend,
-                                   ContentStatus status, Byte checkStep, Integer siteId,
+                                   ContentStatus status, Byte checkStep,
                                    Integer channelId, Integer userId, boolean selfData, int orderBy,
                                    int pageNo, int pageSize);
 
@@ -149,13 +146,12 @@ public interface ContentDao {
      * 获得一篇内容的上一篇或下一篇内容
      *
      * @param id        文章ID。
-     * @param siteId    站点ID。可以为null。
      * @param channelId 栏目ID。可以为null。
      * @param next      根据文章ID，大者为下一篇，小者为上一篇。true：下一篇；fasle：上一篇。
      * @param cacheable 是否使用缓存。
      * @return
      */
-    public Content getSide(Integer id, Integer siteId, Integer channelId,
+    public Content getSide(Integer id,  Integer channelId,
                            boolean next, boolean cacheable);
 
     /**
@@ -167,11 +163,11 @@ public interface ContentDao {
      */
     List<Content> getListByIdsForTag(Integer[] ids, int orderBy);
 
-    Pagination getPageBySiteIdsForTag(Integer[] siteIds,
+    Pagination getPageBySiteIdsForTag(
                                       Integer[] typeIds, Boolean titleImg, Boolean recommend,
                                       String title, Map<String, String[]> attr, int orderBy, int pageNo, int pageSize);
 
-    List<Content> getListBySiteIdsForTag(Integer[] siteIds,
+    List<Content> getListBySiteIdsForTag(
                                          Integer[] typeIds, Boolean titleImg, Boolean recommend,
                                          String title, Map<String, String[]> attr, int orderBy, Integer first, Integer count);
 
@@ -183,37 +179,31 @@ public interface ContentDao {
                                             Integer[] typeIds, Boolean titleImg, Boolean recommend,
                                             String title, Map<String, String[]> attr, int orderBy, int option, Integer first, Integer count);
 
-    Pagination getPageByChannelPathsForTag(String[] paths,
-                                           Integer[] siteIds, Integer[] typeIds, Boolean titleImg,
+    Pagination getPageByChannelPathsForTag(String[] paths,Integer[] typeIds, Boolean titleImg,
                                            Boolean recommend, String title, Map<String, String[]> attr, int orderBy, int pageNo, int pageSize);
 
-    List<Content> getListByChannelPathsForTag(String[] paths,
-                                              Integer[] siteIds, Integer[] typeIds, Boolean titleImg,
+    List<Content> getListByChannelPathsForTag(String[] paths,Integer[] typeIds, Boolean titleImg,
                                               Boolean recommend, String title, Map<String, String[]> attr, int orderBy, Integer first, Integer count);
 
-    Pagination getPageByTopicIdForTag(Integer topicId,
-                                      Integer[] siteIds, Integer[] channelIds, Integer[] typeIds,
+    Pagination getPageByTopicIdForTag(Integer topicId,Integer[] channelIds, Integer[] typeIds,
                                       Boolean titleImg, Boolean recommend, String title, Map<String, String[]> attr, int orderBy, int pageNo,
                                       int pageSize);
 
-    List<Content> getListByTopicIdForTag(Integer topicId,
-                                         Integer[] siteIds, Integer[] channelIds, Integer[] typeIds,
+    List<Content> getListByTopicIdForTag(Integer topicId,Integer[] channelIds, Integer[] typeIds,
                                          Boolean titleImg, Boolean recommend, String title, Map<String, String[]> attr, int orderBy, Integer first,
                                          Integer count);
 
-    Pagination getPageByTagIdsForTag(Integer[] tagIds,
-                                     Integer[] siteIds, Integer[] channelIds, Integer[] typeIds,
+    Pagination getPageByTagIdsForTag(Integer[] tagIds,Integer[] channelIds, Integer[] typeIds,
                                      Integer excludeId, Boolean titleImg, Boolean recommend,
                                      String title, Map<String, String[]> attr, int orderBy, int pageNo, int pageSize);
 
-    List<Content> getListByTagIdsForTag(Integer[] tagIds,
-                                        Integer[] siteIds, Integer[] channelIds, Integer[] typeIds,
+    List<Content> getListByTagIdsForTag(Integer[] tagIds,Integer[] channelIds, Integer[] typeIds,
                                         Integer excludeId, Boolean titleImg, Boolean recommend,
                                         String title, Map<String, String[]> attr, int orderBy, Integer first, Integer count);
 
-    Pagination getPageForCollection(Integer siteId, Integer memberId, int pageNo, int pageSize);
+    Pagination getPageForCollection(Integer memberId, int pageNo, int pageSize);
 
-    List<Content> getListForCollection(Integer siteId, Integer memberId,
+    List<Content> getListForCollection( Integer memberId,
                                        Integer first, Integer count);
 
     int countByChannelId(int channelId);

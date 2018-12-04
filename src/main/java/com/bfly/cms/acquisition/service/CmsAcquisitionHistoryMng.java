@@ -6,9 +6,9 @@ import com.bfly.cms.acquisition.entity.CmsAcquisitionHistory;
 import com.bfly.common.page.Pagination;
 
 public interface CmsAcquisitionHistoryMng {
-	 List<CmsAcquisitionHistory> getList(Integer siteId, Integer acquId);
+	 List<CmsAcquisitionHistory> getList(Integer acquId);
 
-	 Pagination getPage(Integer siteId, Integer acquId, Integer pageNo,
+	 Pagination getPage(Integer acquId, Integer pageNo,
 			Integer pageSize);
 
 	 CmsAcquisitionHistory findById(Integer id);

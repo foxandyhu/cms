@@ -105,7 +105,7 @@ public class ContributeAct extends RenderController {
         CmsSite site = getSite();
         CmsUser user = getUser();
         Set<Channel> rights = user.getGroup().getContriChannels();
-        List<Channel> topList = channelMng.getTopList(site.getId(), true);
+        List<Channel> topList = channelMng.getTopList(true);
         List<Channel> channelList = Channel.getListForSelect(topList, rights, true);
         model.addAttribute("site", site);
         model.addAttribute("channelList", channelList);
@@ -189,7 +189,7 @@ public class ContributeAct extends RenderController {
         Content content = contentMng.findById(id);
         // 获得本站栏目列表
         Set<Channel> rights = getUser().getGroup().getContriChannels();
-        List<Channel> topList = channelMng.getTopList(getSite().getId(), true);
+        List<Channel> topList = channelMng.getTopList(true);
         List<Channel> channelList = Channel.getListForSelect(topList, rights, true);
         model.addAttribute("content", content);
         model.addAttribute("site", getSite());
@@ -336,7 +336,7 @@ public class ContributeAct extends RenderController {
                 return true;
             }
             // 非本用户数据
-            if (!c.getUser().getId().equals(getUser().getId())) {
+            if (!c.getAdmin().getId().equals(getUser().getId())) {
                 errors.noPermission(Content.class, id, true);
                 return true;
             }

@@ -1,102 +1,98 @@
 package com.bfly.cms.ad.service.impl;
 
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.bfly.cms.ad.dao.CmsAdvertisingDao;
 import com.bfly.cms.ad.entity.CmsAdvertising;
 import com.bfly.cms.ad.service.CmsAdvertisingMng;
 import com.bfly.cms.ad.service.CmsAdvertisingSpaceMng;
 import com.bfly.common.hibernate4.Updater;
 import com.bfly.common.page.Pagination;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Map;
+
+/**
+ * @author andy_hulibo@163.com
+ * @date 2018/12/4 11:00
+ */
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 public class CmsAdvertisingMngImpl implements CmsAdvertisingMng {
-	@Override
-    @Transactional(readOnly = true)
-	public Pagination getPage(Integer siteId, Integer adspaceId,
-			Boolean enabled, int pageNo, int pageSize) {
-		Pagination page = dao.getPage(siteId, adspaceId, enabled, pageNo,
-				pageSize);
-		return page;
-	}
 
-	@Override
-    @Transactional(readOnly = true)
-	public List<CmsAdvertising> getList(Integer adspaceId, Boolean enabled) {
-		return dao.getList(adspaceId, enabled);
-	}
+    @Override
+    @Transactional(readOnly = true, rollbackFor = Exception.class)
+    public Pagination getPage(Integer adspaceId, Boolean enabled, int pageNo, int pageSize) {
+        return dao.getPage(adspaceId, enabled, pageNo, pageSize);
+    }
 
-	@Override
-    @Transactional(readOnly = true)
-	public CmsAdvertising findById(Integer id) {
-		CmsAdvertising entity = dao.findById(id);
-		return entity;
-	}
+    @Override
+    @Transactional(readOnly = true, rollbackFor = Exception.class)
+    public List<CmsAdvertising> getList(Integer adspaceId, Boolean enabled) {
+        return dao.getList(adspaceId, enabled);
+    }
 
-	@Override
-    public CmsAdvertising save(CmsAdvertising bean, Integer adspaceId,
-                               Map<String, String> attr) {
-		bean.setAdspace(cmsAdvertisingSpaceMng.findById(adspaceId));
-		bean.setAttr(attr);
-		bean.init();
-		dao.save(bean);
-		return bean;
-	}
+    @Override
+    @Transactional(readOnly = true, rollbackFor = Exception.class)
+    public CmsAdvertising findById(Integer id) {
+        return dao.findById(id);
+    }
 
-	@Override
-    public CmsAdvertising update(CmsAdvertising bean, Integer adspaceId,
-                                 Map<String, String> attr) {
-		Updater<CmsAdvertising> updater = new Updater<CmsAdvertising>(bean);
-		updater.include(CmsAdvertising.PROP_CODE);
-		updater.include(CmsAdvertising.PROP_START_TIME);
-		updater.include(CmsAdvertising.PROP_END_TIME);
-		bean = dao.updateByUpdater(updater);
-		bean.setAdspace(cmsAdvertisingSpaceMng.findById(adspaceId));
-		bean.getAttr().clear();
-		bean.getAttr().putAll(attr);
-		return bean;
-	}
+    @Override
+    public CmsAdvertising save(CmsAdvertising bean, Integer adspaceId, Map<String, String> attr) {
+        bean.setAdspace(cmsAdvertisingSpaceMng.findById(adspaceId));
+        bean.setAttr(attr);
+        bean.init();
+        return dao.save(bean);
+    }
 
-	@Override
+    @Override
+    public CmsAdvertising update(CmsAdvertising bean, Integer adspaceId, Map<String, String> attr) {
+        Updater<CmsAdvertising> updater = new Updater<>(bean);
+        updater.include(CmsAdvertising.PROP_CODE);
+        updater.include(CmsAdvertising.PROP_START_TIME);
+        updater.include(CmsAdvertising.PROP_END_TIME);
+        bean = dao.updateByUpdater(updater);
+        bean.setAdspace(cmsAdvertisingSpaceMng.findById(adspaceId));
+        bean.getAttr().clear();
+        bean.getAttr().putAll(attr);
+        return bean;
+    }
+
+    @Override
     public CmsAdvertising deleteById(Integer id) {
-		CmsAdvertising bean = dao.deleteById(id);
-		return bean;
-	}
+        return dao.deleteById(id);
+    }
 
-	@Override
+    @Override
     public CmsAdvertising[] deleteByIds(Integer[] ids) {
-		CmsAdvertising[] beans = new CmsAdvertising[ids.length];
-		for (int i = 0, len = ids.length; i < len; i++) {
-			beans[i] = deleteById(ids[i]);
-		}
-		return beans;
-	}
+        CmsAdvertising[] beans = new CmsAdvertising[ids.length];
+        for (int i = 0, len = ids.length; i < len; i++) {
+            beans[i] = deleteById(ids[i]);
+        }
+        return beans;
+    }
 
-	@Override
+    @Override
     public void display(Integer id) {
-		CmsAdvertising ad = findById(id);
-		if (ad != null) {
-			ad.setDisplayCount(ad.getDisplayCount() + 1);
-		}
-	}
+        CmsAdvertising ad = findById(id);
+        if (ad != null) {
+            ad.setDisplayCount(ad.getDisplayCount() + 1);
+        }
+    }
 
-	@Override
+    @Override
     public void click(Integer id) {
-		CmsAdvertising ad = findById(id);
-		if (ad != null) {
-			ad.setClickCount(ad.getClickCount() + 1);
-		}
-	}
+        CmsAdvertising ad = findById(id);
+        if (ad != null) {
+            ad.setClickCount(ad.getClickCount() + 1);
+        }
+    }
 
-	@Autowired
-	private CmsAdvertisingSpaceMng cmsAdvertisingSpaceMng;
-	@Autowired
-	private CmsAdvertisingDao dao;
+    @Autowired
+    private CmsAdvertisingSpaceMng cmsAdvertisingSpaceMng;
+    @Autowired
+    private CmsAdvertisingDao dao;
 
 }

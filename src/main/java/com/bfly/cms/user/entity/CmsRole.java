@@ -67,7 +67,7 @@ public class CmsRole implements Serializable {
     @ManyToMany
     @JoinTable(name = "jc_user_role", joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "role_id"), inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"))
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
-    private Set<CmsUser> users;
+    private Set<CmsAdmin> admins;
 
 
     public Integer getId() {
@@ -128,12 +128,12 @@ public class CmsRole implements Serializable {
         this.perms = perms;
     }
 
-    public Set<CmsUser> getUsers() {
-        return users;
+    public Set<CmsAdmin> getAdmins() {
+        return admins;
     }
 
-    public void setUsers(Set<CmsUser> users) {
-        this.users = users;
+    public void setAdmins(Set<CmsAdmin> admins) {
+        this.admins = admins;
     }
 
     public JSONObject convertToJson() {
@@ -200,14 +200,14 @@ public class CmsRole implements Serializable {
         return ids;
     }
 
-    public void delFromUsers(CmsUser user) {
-        if (user == null) {
+    public void delFromUsers(CmsAdmin admin) {
+        if (admin == null) {
             return;
         }
-        Set<CmsUser> set = getUsers();
+        Set<CmsAdmin> set = getAdmins();
         if (set == null) {
             return;
         }
-        set.remove(user);
+        set.remove(admin);
     }
 }

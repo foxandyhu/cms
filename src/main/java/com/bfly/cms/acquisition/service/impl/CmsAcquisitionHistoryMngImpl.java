@@ -12,26 +12,31 @@ import com.bfly.cms.acquisition.service.CmsAcquisitionHistoryMng;
 import com.bfly.common.hibernate4.Updater;
 import com.bfly.common.page.Pagination;
 
+/**
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/12/4 9:56
+ */
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 public class CmsAcquisitionHistoryMngImpl implements CmsAcquisitionHistoryMng {
+
 	@Override
-    @Transactional(readOnly = true)
-	public List<CmsAcquisitionHistory> getList(Integer siteId,Integer acquId) {
-		return dao.getList(siteId, acquId);
+    @Transactional(readOnly = true,rollbackFor = Exception.class)
+	public List<CmsAcquisitionHistory> getList(Integer acquId) {
+		return dao.getList(acquId);
 	}
 	
 	@Override
-    @Transactional(readOnly = true)
-	public Pagination getPage(Integer siteId,Integer acquId, Integer pageNo, Integer pageSize) {
-		return dao.getPage(siteId, acquId, pageNo, pageSize);
+    @Transactional(readOnly = true,rollbackFor = Exception.class)
+	public Pagination getPage(Integer acquId, Integer pageNo, Integer pageSize) {
+		return dao.getPage(acquId, pageNo, pageSize);
 	}
 
 	@Override
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true,rollbackFor = Exception.class)
 	public CmsAcquisitionHistory findById(Integer id) {
-		CmsAcquisitionHistory entity = dao.findById(id);
-		return entity;
+		return dao.findById(id);
 	}
 
 
@@ -43,15 +48,14 @@ public class CmsAcquisitionHistoryMngImpl implements CmsAcquisitionHistoryMng {
 
 	@Override
     public CmsAcquisitionHistory update(CmsAcquisitionHistory bean) {
-		Updater<CmsAcquisitionHistory> updater = new Updater<CmsAcquisitionHistory>(bean);
+		Updater<CmsAcquisitionHistory> updater = new Updater<>(bean);
 		bean = dao.updateByUpdater(updater);
 		return bean;
 	}
 
 	@Override
     public CmsAcquisitionHistory deleteById(Integer id) {
-		CmsAcquisitionHistory bean = dao.deleteById(id);
-		return bean;
+		return dao.deleteById(id);
 	}
 
 	@Override

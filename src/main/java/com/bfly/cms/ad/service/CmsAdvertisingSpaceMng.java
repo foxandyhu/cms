@@ -4,8 +4,14 @@ import java.util.List;
 
 import com.bfly.cms.ad.entity.CmsAdvertisingSpace;
 
+/**
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/12/4 11:24
+ */
 public interface CmsAdvertisingSpaceMng {
-	 List<CmsAdvertisingSpace> getList(Integer siteId);
+
+	 List<CmsAdvertisingSpace> getList();
 
 	 CmsAdvertisingSpace findById(Integer id);
 

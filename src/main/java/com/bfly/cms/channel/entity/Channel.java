@@ -2,14 +2,14 @@ package com.bfly.cms.channel.entity;
 
 import com.bfly.cms.content.entity.CmsModel;
 import com.bfly.cms.content.entity.CmsModelItem;
+import com.bfly.cms.siteconfig.entity.CmsSite;
 import com.bfly.cms.staticpage.StaticPageUtils;
+import com.bfly.cms.user.entity.CmsGroup;
+import com.bfly.cms.user.entity.CmsUser;
 import com.bfly.common.hibernate4.HibernateTree;
 import com.bfly.common.hibernate4.PriorityComparator;
 import com.bfly.common.hibernate4.PriorityInterface;
 import com.bfly.common.hibernate4.TreeIntercptor;
-import com.bfly.cms.user.entity.CmsGroup;
-import com.bfly.cms.siteconfig.entity.CmsSite;
-import com.bfly.cms.user.entity.CmsUser;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -27,6 +27,9 @@ import static com.bfly.common.web.Constants.SPT;
 
 /**
  * 栏目实体类
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/12/4 12:21
  */
 @Entity
 @Table(name = "jc_channel")
@@ -80,8 +83,7 @@ public class Channel implements Serializable, HibernateTree<Integer>, PriorityIn
     @OneToOne(cascade = CascadeType.REMOVE, mappedBy = "channel")
     private ChannelExt channelExt;
 
-    @ManyToOne
-    @JoinColumn(name = "site_id")
+    @Transient
     private CmsSite site;
 
     @ManyToOne

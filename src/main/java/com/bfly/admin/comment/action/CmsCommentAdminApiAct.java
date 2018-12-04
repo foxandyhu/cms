@@ -1,19 +1,19 @@
 package com.bfly.admin.comment.action;
 
-import com.bfly.core.web.ApiResponse;
-import com.bfly.core.web.ApiValidate;
-import com.bfly.core.Constants;
-import com.bfly.core.web.ResponseCode;
 import com.bfly.cms.comment.entity.CmsComment;
-import com.bfly.cms.comment.service.CmsCommentMng;
 import com.bfly.cms.comment.entity.CmsCommentExt;
+import com.bfly.cms.comment.service.CmsCommentMng;
 import com.bfly.cms.logs.service.CmsLogMng;
-import com.bfly.cms.siteconfig.entity.CmsSite;
 import com.bfly.common.page.Pagination;
 import com.bfly.common.util.DateUtils;
 import com.bfly.common.util.StrUtils;
 import com.bfly.common.web.ResponseUtils;
 import com.bfly.core.annotation.SignValidate;
+import com.bfly.core.base.action.BaseAdminController;
+import com.bfly.core.exception.ApiException;
+import com.bfly.core.web.ApiResponse;
+import com.bfly.core.web.ApiValidate;
+import com.bfly.core.web.ResponseCode;
 import com.bfly.core.web.WebErrors;
 import com.bfly.core.web.util.CmsUtils;
 import net.sf.json.JSONObject;
@@ -38,7 +38,7 @@ import java.util.List;
  */
 @Controller("adminCmsCommentApiAct")
 @RequestMapping(value = "/api/admin")
-public class CmsCommentAdminApiAct {
+public class CmsCommentAdminApiAct extends BaseAdminController {
     private static final Logger log = LoggerFactory.getLogger(CmsCommentAdminApiAct.class);
 
     /**
@@ -48,34 +48,27 @@ public class CmsCommentAdminApiAct {
      * @date 2018/11/26 16:28
      */
     @RequestMapping("/comment/list_by_content")
-    public void list(Integer queryContentId, Short queryChecked, Boolean queryRecommend, Integer pageNo,
-                     Integer pageSize, HttpServletRequest request, HttpServletResponse response) {
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
-        String body = "\"\"";
-        if (queryContentId != null) {
-            if (pageNo == null) {
-                pageNo = 1;
-            }
-            if (pageSize == null) {
-                pageSize = 10;
-            }
-            CmsSite site = CmsUtils.getSite(request);
-            Pagination page = manager.getPage(site.getId(), queryContentId, null, queryChecked, queryRecommend, true,
-                    pageNo, pageSize);
-            int totalCount = page.getTotalCount();
-            List<CmsComment> list = (List<CmsComment>) page.getList();
-            JSONArray jsonArray = new JSONArray();
-            if (list != null && list.size() > 0) {
-                for (int i = 0; i < list.size(); i++) {
-                    jsonArray.put(i, list.get(i).convertToJson());
-                }
-            }
-            message = Constants.API_MESSAGE_SUCCESS;
-            code = ResponseCode.API_CODE_CALL_SUCCESS;
-            body = jsonArray.toString() + ",\"totalCount\":" + totalCount;
+    public void list(Integer queryContentId, Short queryChecked, Boolean queryRecommend, Integer pageNo, Integer pageSize, HttpServletRequest request, HttpServletResponse response) {
+        if (queryContentId == null) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
         }
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        if (pageNo == null) {
+            pageNo = 1;
+        }
+        if (pageSize == null) {
+            pageSize = 10;
+        }
+        Pagination page = manager.getPage(queryContentId, null, queryChecked, queryRecommend, true, pageNo, pageSize);
+        int totalCount = page.getTotalCount();
+        List<CmsComment> list = (List<CmsComment>) page.getList();
+        JSONArray jsonArray = new JSONArray();
+        if (list != null && list.size() > 0) {
+            for (int i = 0; i < list.size(); i++) {
+                jsonArray.put(i, list.get(i).convertToJson());
+            }
+        }
+        String body = jsonArray.toString() + ",\"totalCount\":" + totalCount;
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
@@ -86,17 +79,14 @@ public class CmsCommentAdminApiAct {
      * @date 2018/11/26 16:25
      */
     @RequestMapping("/comment/list")
-    public void newList(Integer queryContentId, Short queryChecked, Boolean queryRecommend, Integer pageNo,
-                        Integer pageSize, HttpServletRequest request, HttpServletResponse response) {
+    public void newList(Integer queryContentId, Short queryChecked, Boolean queryRecommend, Integer pageNo, Integer pageSize, HttpServletRequest request, HttpServletResponse response) {
         if (pageNo == null) {
             pageNo = 1;
         }
         if (pageSize == null) {
             pageSize = 10;
         }
-        Pagination page = manager.getNewPage(CmsUtils.getSiteId(request),
-                queryContentId, queryChecked, queryRecommend,
-                pageNo, pageSize);
+        Pagination page = manager.getNewPage(queryContentId, queryChecked, queryRecommend, pageNo, pageSize);
         List<CmsComment> list = (List<CmsComment>) page.getList();
         int totalCount = page.getTotalCount();
         JSONArray jsonArray = new JSONArray();
@@ -105,100 +95,80 @@ public class CmsCommentAdminApiAct {
                 jsonArray.put(i, createCommentJson(list.get(i)));
             }
         }
-        String message = Constants.API_MESSAGE_SUCCESS;
-        String code = ResponseCode.API_CODE_CALL_SUCCESS;
         String body = jsonArray.toString() + ",\"totalCount\":" + totalCount;
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
     @RequestMapping("/comment/get")
     public void get(Integer id, HttpServletRequest request, HttpServletResponse response) {
-        String body = "\"\"";
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
-        CmsComment bean = null;
-        if (id != null) {
-            if (id.equals(0)) {
-                bean = new CmsComment();
-            } else {
-                bean = manager.findById(id);
-            }
-            if (bean != null) {
-                bean.init();
-                body = bean.convertToJson().toString();
-                message = Constants.API_MESSAGE_SUCCESS;
-                code = ResponseCode.API_CODE_CALL_SUCCESS;
-            } else {
-                message = Constants.API_MESSAGE_OBJECT_NOT_FOUND;
-                code = ResponseCode.API_CODE_NOT_FOUND;
-            }
+        if (id == null) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
         }
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        CmsComment bean;
+        if (id.equals(0)) {
+            bean = new CmsComment();
+        } else {
+            bean = manager.findById(id);
+        }
+        if (bean == null) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_PARAM_ERROR);
+        }
+        bean.init();
+        String body = bean.convertToJson().toString();
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
     @SignValidate
     @RequestMapping("/comment/update")
     public void update(CmsComment bean, CmsCommentExt ext, HttpServletRequest request, HttpServletResponse response) {
-        String body = "\"\"";
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
         WebErrors errors = WebErrors.create(request);
         errors = ApiValidate.validateRequiredParams(request, errors, bean.getId());
-        if (!errors.hasErrors()) {
-            errors = validateUpdate(errors, bean.getId(), request);
-            if (!errors.hasErrors()) {
-                // 若回复内容不为空而且回复更新，则设置回复时间，已最新回复时间为准
-                if (StringUtils.isNotBlank(ext.getReply())) {
-                    bean.setReplayTime(new Date());
-                    bean.setReplayUser(CmsUtils.getUser(request));
-                }
-                bean = manager.update(bean, ext);
-                log.info("update CmsComment id={}.", bean.getId());
-                cmsLogMng.operating(request, "cmsComment.log.update", "id=" + bean.getId());
-                body = "{\"id\":\"" + bean.getId() + "\"}";
-                message = Constants.API_MESSAGE_SUCCESS;
-                code = ResponseCode.API_CODE_CALL_SUCCESS;
-            } else {
-                message = errors.getErrors().get(0);
-                code = ResponseCode.API_CODE_CALL_FAIL;
-            }
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
         }
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        errors = validateUpdate(errors, bean.getId());
+        if (errors.hasErrors()) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_PARAM_ERROR);
+        }
+        // 若回复内容不为空而且回复更新，则设置回复时间，已最新回复时间为准
+        if (StringUtils.isNotBlank(ext.getReply())) {
+            bean.setReplayTime(new Date());
+            bean.setReplayUser(CmsUtils.getUser(request));
+        }
+        bean = manager.update(bean, ext);
+        log.info("update CmsComment id={}.", bean.getId());
+        cmsLogMng.operating(request, "cmsComment.log.update", "id=" + bean.getId());
+        String body = "{\"id\":\"" + bean.getId() + "\"}";
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
     @SignValidate
     @RequestMapping("/comment/delete")
     public void delete(String ids, HttpServletRequest request, HttpServletResponse response) {
-        String body = "\"\"";
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
         WebErrors errors = WebErrors.create(request);
         errors = ApiValidate.validateRequiredParams(request, errors, ids);
-        if (!errors.hasErrors()) {
-            Integer[] idArr = StrUtils.getInts(ids);
-            errors = validateExist(idArr, request);
-            if (errors.hasErrors()) {
-                message = errors.getErrors().get(0);
-                code = ResponseCode.API_CODE_PARAM_ERROR;
-            } else {
-                try {
-                    CmsComment[] beans = manager.deleteByIds(idArr);
-                    for (CmsComment bean : beans) {
-                        log.info("delete CmsComment id={}", bean.getId());
-                        cmsLogMng.operating(request, "cmsComment.log.delete", "id=" + bean.getId());
-                    }
-                    message = Constants.API_MESSAGE_SUCCESS;
-                    code = ResponseCode.API_CODE_CALL_SUCCESS;
-                } catch (Exception e) {
-                    message = Constants.API_MESSAGE_DELETE_ERROR;
-                    code = ResponseCode.API_CODE_DELETE_ERROR;
-                }
-            }
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
         }
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        Integer[] idArr = StrUtils.getInts(ids);
+        errors = validateExist(idArr, request);
+        if (errors.hasErrors()) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_PARAM_ERROR);
+        }
+        try {
+            CmsComment[] beans = manager.deleteByIds(idArr);
+            for (CmsComment bean : beans) {
+                log.info("delete CmsComment id={}", bean.getId());
+                cmsLogMng.operating(request, "cmsComment.log.delete", "id=" + bean.getId());
+            }
+        } catch (Exception e) {
+            log.error("删除出错", e);
+            throw new ApiException("删除出错", ResponseCode.API_CODE_DELETE_ERROR);
+        }
+        ApiResponse apiResponse = ApiResponse.getSuccess();
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
@@ -213,77 +183,58 @@ public class CmsCommentAdminApiAct {
     @SignValidate
     @RequestMapping("/comment/check")
     public void check(String ids, Short isCheck, HttpServletRequest request, HttpServletResponse response) {
-        String body = "\"\"";
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
         WebErrors errors = WebErrors.create(request);
         errors = ApiValidate.validateRequiredParams(request, errors, ids, isCheck);
-        if (!errors.hasErrors()) {
-            Integer[] idArr = StrUtils.getInts(ids);
-            errors = validateExist(idArr, request);
-            if (errors.hasErrors()) {
-                message = errors.getErrors().get(0);
-                code = ResponseCode.API_CODE_PARAM_ERROR;
-            } else {
-                CmsComment[] beans = manager.checkByIds(idArr, CmsUtils.getUser(request), isCheck);
-                for (CmsComment bean : beans) {
-                    log.info("check CmsGuestbook id={}", bean.getId());
-                    cmsLogMng.operating(request, "cmsComment.log.check",
-                            "id=" + bean.getId() + ";title=" + bean.getReplayHtml());
-                }
-                message = Constants.API_MESSAGE_SUCCESS;
-                code = ResponseCode.API_CODE_CALL_SUCCESS;
-            }
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
         }
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        Integer[] idArr = StrUtils.getInts(ids);
+        errors = validateExist(idArr, request);
+        if (errors.hasErrors()) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_PARAM_ERROR);
+        }
+        CmsComment[] beans = manager.checkByIds(idArr, isCheck);
+        for (CmsComment bean : beans) {
+            log.info("check CmsGuestbook id={}", bean.getId());
+            cmsLogMng.operating(request, "cmsComment.log.check", "id=" + bean.getId() + ";title=" + bean.getReplayHtml());
+        }
+        ApiResponse apiResponse = ApiResponse.getSuccess();
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
     @SignValidate
     @RequestMapping("/comment/recommend")
     public void recommend(Integer id, Boolean isRecommend, HttpServletRequest request, HttpServletResponse response) {
-        String body = "\"\"";
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
         WebErrors errors = WebErrors.create(request);
         errors = ApiValidate.validateRequiredParams(request, errors, id, isRecommend);
-        if (!errors.hasErrors()) {
-            CmsComment bean = manager.findById(id);
-            if (bean == null) {
-                message = Constants.API_MESSAGE_OBJECT_NOT_FOUND;
-                code = ResponseCode.API_CODE_NOT_FOUND;
-            } else {
-                bean.setRecommend(isRecommend);
-                manager.update(bean, bean.getCommentExt());
-                code = ResponseCode.API_CODE_CALL_SUCCESS;
-                message = Constants.API_MESSAGE_SUCCESS;
-            }
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
         }
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        CmsComment bean = manager.findById(id);
+        if (bean == null) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_PARAM_ERROR);
+        }
+        bean.setRecommend(isRecommend);
+        manager.update(bean, bean.getCommentExt());
+        ApiResponse apiResponse = ApiResponse.getSuccess();
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
     @SignValidate
     @RequestMapping("/comment/reply")
     public void reply(Integer id, String reply, HttpServletRequest request, HttpServletResponse response) {
-        String body = "\"\"";
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
         WebErrors errors = WebErrors.create(request);
         errors = ApiValidate.validateRequiredParams(request, errors, id, reply);
-        if (!errors.hasErrors()) {
-            CmsComment bean = manager.findById(id);
-            if (bean == null) {
-                message = Constants.API_MESSAGE_OBJECT_NOT_FOUND;
-                code = ResponseCode.API_CODE_NOT_FOUND;
-            } else {
-                bean.getCommentExt().setReply(reply);
-                manager.update(bean, bean.getCommentExt());
-                message = Constants.API_MESSAGE_SUCCESS;
-                code = ResponseCode.API_CODE_CALL_SUCCESS;
-            }
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
         }
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        CmsComment bean = manager.findById(id);
+        if (bean == null) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_PARAM_ERROR);
+        }
+        bean.getCommentExt().setReply(reply);
+        manager.update(bean, bean.getCommentExt());
+        ApiResponse apiResponse = ApiResponse.getSuccess();
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
@@ -359,9 +310,8 @@ public class CmsCommentAdminApiAct {
     }
 
 
-    private WebErrors validateUpdate(WebErrors errors, Integer id, HttpServletRequest request) {
-        CmsSite site = CmsUtils.getSite(request);
-        if (vldExist(id, site.getId(), errors)) {
+    private WebErrors validateUpdate(WebErrors errors, Integer id) {
+        if (vldExist(id, errors)) {
             return errors;
         }
         return errors;
@@ -369,29 +319,21 @@ public class CmsCommentAdminApiAct {
 
     private WebErrors validateExist(Integer[] ids, HttpServletRequest request) {
         WebErrors errors = WebErrors.create(request);
-        CmsSite site = CmsUtils.getSite(request);
         if (errors.ifEmpty(ids, "ids", false)) {
             return errors;
         }
         for (Integer id : ids) {
-            vldExist(id, site.getId(), errors);
+            vldExist(id, errors);
         }
         return errors;
     }
 
-    private boolean vldExist(Integer id, Integer siteId, WebErrors errors) {
+    private boolean vldExist(Integer id, WebErrors errors) {
         if (errors.ifNull(id, "id", false)) {
             return true;
         }
         CmsComment entity = manager.findById(id);
-        if (errors.ifNotExist(entity, CmsComment.class, id, false)) {
-            return true;
-        }
-        if (!entity.getSite().getId().equals(siteId)) {
-            errors.addErrorString("error.notInSite");
-            return true;
-        }
-        return false;
+        return errors.ifNotExist(entity, CmsComment.class, id, false);
     }
 
     @Autowired

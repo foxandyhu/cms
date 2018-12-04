@@ -68,13 +68,9 @@ public class ChannelDirective implements TemplateDirectiveModel {
 				hasParam=false;
 				//throw new ParamsRequiredException(PARAM_ID);
 			}
-			Integer siteId = DirectiveUtils.getInt(PARAM_SITE_ID, params);
-			if (siteId == null) {
-				siteId = site.getId();
-			}
-			channel = channelMng.findByPathForTag(path, siteId);
+			channel = channelMng.findByPathForTag(path);
 		}
-		Map<String, TemplateModel> paramWrap = new HashMap<String, TemplateModel>(
+		Map<String, TemplateModel> paramWrap = new HashMap<>(
 				params);
 		if(channel!=null){
 			paramWrap.put(OUT_BEAN, DefaultObjectWrapperBuilderFactory.getDefaultObjectWrapper().wrap(channel));

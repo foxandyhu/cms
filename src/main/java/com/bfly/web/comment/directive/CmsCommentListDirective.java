@@ -48,12 +48,12 @@ public class CmsCommentListDirective extends AbstractCmsCommentDirective {
 			TemplateDirectiveBody body) throws TemplateException, IOException {
 		CmsSite site = FrontUtils.getSite(env);
 
-		List<CmsComment> list = cmsCommentMng.getListForTag(getSiteId(params),
+		List<CmsComment> list = cmsCommentMng.getListForTag(
 				getContentId(params),getParentId(params), getGreaterThen(params),
 				getChecked(params), getRecommend(params), getDesc(params),
 				0,FrontUtils.getCount(params));
 
-		Map<String, TemplateModel> paramWrap = new HashMap<String, TemplateModel>(
+		Map<String, TemplateModel> paramWrap = new HashMap<>(
 				params);
 		paramWrap.put(OUT_LIST, DefaultObjectWrapperBuilderFactory.getDefaultObjectWrapper().wrap(list));
 		Map<String, TemplateModel> origMap = DirectiveUtils

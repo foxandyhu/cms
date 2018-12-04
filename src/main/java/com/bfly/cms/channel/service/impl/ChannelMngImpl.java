@@ -1,26 +1,28 @@
 package com.bfly.cms.channel.service.impl;
 
 import com.bfly.cms.acquisition.service.CmsAcquisitionMng;
+import com.bfly.cms.channel.dao.ChannelDao;
 import com.bfly.cms.channel.entity.Channel;
+import com.bfly.cms.channel.entity.ChannelCount;
+import com.bfly.cms.channel.entity.ChannelExt;
+import com.bfly.cms.channel.entity.ChannelTxt;
 import com.bfly.cms.channel.service.ChannelCountMng;
 import com.bfly.cms.channel.service.ChannelExtMng;
 import com.bfly.cms.channel.service.ChannelMng;
 import com.bfly.cms.channel.service.ChannelTxtMng;
 import com.bfly.cms.content.entity.CmsModel;
-import com.bfly.cms.content.service.*;
-import com.bfly.cms.channel.dao.ChannelDao;
-import com.bfly.cms.channel.entity.ChannelCount;
-import com.bfly.cms.channel.entity.ChannelExt;
-import com.bfly.cms.channel.entity.ChannelTxt;
+import com.bfly.cms.content.service.ChannelDeleteChecker;
+import com.bfly.cms.content.service.CmsModelMng;
+import com.bfly.cms.content.service.CmsTopicMng;
+import com.bfly.cms.content.service.ContentMng;
 import com.bfly.cms.siteconfig.entity.CmsSite;
 import com.bfly.cms.siteconfig.service.CmsSiteMng;
-import com.bfly.common.hibernate4.Updater;
-import com.bfly.common.page.Pagination;
 import com.bfly.cms.user.entity.CmsGroup;
 import com.bfly.cms.user.entity.CmsUser;
-import com.bfly.cms.user.entity.CmsUserSite;
 import com.bfly.cms.user.service.CmsGroupMng;
 import com.bfly.cms.user.service.CmsUserMng;
+import com.bfly.common.hibernate4.Updater;
+import com.bfly.common.page.Pagination;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.RandomUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,109 +43,83 @@ public class ChannelMngImpl implements ChannelMng {
 
     @Override
     @Transactional(readOnly = true, rollbackFor = Exception.class)
-    public List<Channel> getTopList(Integer siteId, boolean hasContentOnly) {
-        return dao.getTopList(siteId, hasContentOnly, false, true);
+    public List<Channel> getTopList(boolean hasContentOnly) {
+        return dao.getTopList(hasContentOnly, false, true);
     }
 
     @Override
     @Transactional(readOnly = true, rollbackFor = Exception.class)
-    public List<Channel> getTopListByRigth(Integer userId, Integer siteId,
-                                           boolean hasContentOnly) {
-        CmsUser user = cmsUserMng.findById(userId);
-        CmsUserSite us = user.getUserSite(siteId);
-        if (us.getAllChannel()) {
-            return getTopList(siteId, hasContentOnly);
-        } else {
-            return dao.getTopListByRigth(userId, siteId, hasContentOnly);
-        }
+    public List<Channel> getTopListByRigth(boolean hasContentOnly) {
+        return getTopList(hasContentOnly);
     }
 
     @Override
     @Transactional(readOnly = true, rollbackFor = Exception.class)
-    public List<Channel> getTopListForTag(Integer siteId, boolean hasContentOnly) {
-        return dao.getTopList(siteId, hasContentOnly, true, true);
+    public List<Channel> getTopListForTag(boolean hasContentOnly) {
+        return dao.getTopList(hasContentOnly, true, true);
     }
 
     @Override
     @Transactional(readOnly = true, rollbackFor = Exception.class)
-    public Pagination getTopPageForTag(Integer siteId, boolean hasContentOnly,
-                                       int pageNo, int pageSize) {
-        return dao.getTopPage(siteId, hasContentOnly, false, true, pageNo,
-                pageSize);
+    public Pagination getTopPageForTag(boolean hasContentOnly, int pageNo, int pageSize) {
+        return dao.getTopPage(hasContentOnly, false, true, pageNo, pageSize);
     }
 
     @Override
     @Transactional(readOnly = true, rollbackFor = Exception.class)
     public List<Channel> getChildList(Integer parentId, boolean hasContentOnly) {
-        return dao.getChildList(parentId, hasContentOnly, false, true);
+        return dao.getChildList(parentId, hasContentOnly, false);
     }
 
     @Override
     @Transactional(readOnly = true, rollbackFor = Exception.class)
-    public List<Channel> getChildListByRight(Integer userId, Integer siteId,
-                                             Integer parentId, boolean hasContentOnly) {
-        CmsUser user = cmsUserMng.findById(userId);
-        CmsUserSite us = user.getUserSite(siteId);
-        if (us.getAllChannel()) {
-            return getChildList(parentId, hasContentOnly);
-        } else {
-            return dao.getChildListByRight(userId, parentId, hasContentOnly);
-        }
+    public List<Channel> getChildListByRight(Integer parentId, boolean hasContentOnly) {
+        return getChildList(parentId, hasContentOnly);
     }
 
     @Override
     @Transactional(readOnly = true, rollbackFor = Exception.class)
-    public List<Channel> getChildListForTag(Integer parentId,
-                                            boolean hasContentOnly) {
-        return dao.getChildList(parentId, hasContentOnly, true, true);
+    public List<Channel> getChildListForTag(Integer parentId, boolean hasContentOnly) {
+        return dao.getChildList(parentId, hasContentOnly, true);
     }
 
     @Override
     @Transactional(readOnly = true, rollbackFor = Exception.class)
-    public List<Channel> getBottomList(Integer siteId, boolean hasContentOnly) {
-        return dao.getBottomList(siteId, hasContentOnly);
+    public List<Channel> getBottomList(boolean hasContentOnly) {
+        return dao.getBottomList(hasContentOnly);
     }
 
     @Override
     @Transactional(readOnly = true, rollbackFor = Exception.class)
-    public Pagination getChildPageForTag(Integer parentId,
-                                         boolean hasContentOnly, int pageNo, int pageSize) {
-        return dao.getChildPage(parentId, hasContentOnly, true, true, pageNo,
-                pageSize);
+    public Pagination getChildPageForTag(Integer parentId, boolean hasContentOnly, int pageNo, int pageSize) {
+        return dao.getChildPage(parentId, hasContentOnly, true, pageNo, pageSize);
     }
 
     @Override
     @Transactional(readOnly = true, rollbackFor = Exception.class)
     public Channel findById(Integer id) {
-        Channel entity = dao.findById(id);
-        return entity;
+        return dao.findById(id);
     }
 
     @Override
     @Transactional(readOnly = true, rollbackFor = Exception.class)
-    public Channel findByPath(String path, Integer siteId) {
-        return dao.findByPath(path, siteId, false);
+    public Channel findByPath(String path) {
+        return dao.findByPath(path, false);
     }
 
     @Override
     @Transactional(readOnly = true, rollbackFor = Exception.class)
-    public Channel findByPathForTag(String path, Integer siteId) {
-        return dao.findByPath(path, siteId, true);
+    public Channel findByPathForTag(String path) {
+        return dao.findByPath(path, true);
     }
 
     @Override
-    public Channel save(Channel bean, ChannelExt ext, ChannelTxt txt,
-                        Integer[] viewGroupIds, Integer[] contriGroupIds,
-                        Integer[] userIds, Integer siteId, Integer parentId,
-                        Integer modelId, Integer[] modelIds,
-                        String[] tpls, String[] mtpls, boolean isCopy) {
+    public Channel save(Channel bean, ChannelExt ext, ChannelTxt txt, Integer[] viewGroupIds, Integer[] contriGroupIds, Integer[] userIds, Integer parentId, Integer modelId, Integer[] modelIds, String[] tpls, String[] mtpls, boolean isCopy) {
         if (parentId != null) {
             bean.setParent(findById(parentId));
         } else {
             bean.setParent(null);
         }
-        CmsSite site = cmsSiteMng.findById(siteId);
-        bean.setSite(site);
         CmsModel model = cmsModelMng.findById(modelId);
         bean.setModel(model);
         bean.setHasContent(model.getHasContent());
@@ -182,9 +158,7 @@ public class ChannelMngImpl implements ChannelMng {
     }
 
     @Override
-    public Channel copy(Integer cid, String solution,
-                        String mobileSolution, Integer siteId,
-                        Map<String, String> pathMap) {
+    public Channel copy(Integer cid, String solution, String mobileSolution, Map<String, String> pathMap) {
         Channel c = findById(cid);
         Channel channel = new Channel();
         if (c != null) {
@@ -197,15 +171,14 @@ public class ChannelMngImpl implements ChannelMng {
             }
             String path = c.getPath();
             //判断栏目路径是否重复，重复则创建新的栏目路径,需要存储对应关系，方便建立子栏目的对应关系结构
-            String newpath = getChannelPath(path, siteId);
+            String newpath = getChannelPath(path);
             pathMap.put(path, newpath);
             channel.setPath(newpath);
             Integer parentId = null;
             //有上层栏目，则新复制的栏目上层需要查找路径同上层栏目路径，新的栏目parent不是当前栏目的父栏目
             //新栏目的路径从pathMap中获取
             if (c.getParent() != null) {
-                Channel newParent = findByPath(
-                        pathMap.get(c.getParent().getPath()), siteId);
+                Channel newParent = findByPath(pathMap.get(c.getParent().getPath()));
                 if (newParent != null) {
                     parentId = newParent.getId();
                 }
@@ -227,7 +200,7 @@ public class ChannelMngImpl implements ChannelMng {
             channel.setChannelExt(ext);
             ext.setChannel(channel);
             channelTxt.setChannel(channel);
-            CmsSite site = cmsSiteMng.findById(siteId);
+            CmsSite site = cmsSiteMng.getSite();
 
             // 加上模板前缀
             String tplPath = site.getTplPath();
@@ -253,19 +226,13 @@ public class ChannelMngImpl implements ChannelMng {
                     }
                 }
             }
-            channel = save(channel, ext, channelTxt,
-                    c.getViewGroupIds(), c.getContriGroupIds(),
-                    c.getUserIds(), siteId, parentId, c.getModel().getId(),
-                    c.getModelIntIds(), tpls, mtpls, true);
+            channel = save(channel, ext, channelTxt, c.getViewGroupIds(), c.getContriGroupIds(), c.getUserIds(), parentId, c.getModel().getId(), c.getModelIntIds(), tpls, mtpls, true);
         }
         return channel;
     }
 
     @Override
-    public Channel update(Channel bean, ChannelExt ext, ChannelTxt txt,
-                          Integer[] viewGroupIds, Integer[] contriGroupIds,
-                          Integer[] userIds, Integer parentId, Map<String, String> attr, Integer modelId,
-                          Integer[] modelIds, String[] tpls, String[] mtpls) {
+    public Channel update(Channel bean, ChannelExt ext, ChannelTxt txt, Integer[] viewGroupIds, Integer[] contriGroupIds, Integer[] userIds, Integer parentId, Map<String, String> attr, Integer modelId, Integer[] modelIds, String[] tpls, String[] mtpls) {
         // 更新主表
         Updater<Channel> updater = new Updater<>(bean);
         bean = dao.updateByUpdater(updater);
@@ -381,11 +348,11 @@ public class ChannelMngImpl implements ChannelMng {
         return beans;
     }
 
-    private String getChannelPath(String path, Integer siteId) {
-        Channel findChannel = findByPath(path, siteId);
+    private String getChannelPath(String path) {
+        Channel findChannel = findByPath(path);
         if (findChannel != null) {
             path = path + RandomUtils.nextInt();
-            return getChannelPath(path, siteId);
+            return getChannelPath(path);
         }
         return path;
     }

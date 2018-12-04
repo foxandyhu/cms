@@ -105,11 +105,11 @@ public class ContentApiAct {
 		if(intIds!=null){
 			contents=contentMng.getListByIdsForTag(intIds, orderBy);
 		}else if(intTagIds!=null){
-			contents=contentMng.getListByTagIdsForTag(intTagIds, intSiteIds,
+			contents=contentMng.getListByTagIdsForTag(intTagIds,
 					intChannelIds, intTypeIds, null, titleImg, recommend,
 					title,null,orderBy, first, count);
 		}else if(topicId!=null){
-			contents=contentMng.getListByTopicIdForTag(topicId, intSiteIds,
+			contents=contentMng.getListByTopicIdForTag(topicId,
 					intChannelIds, intTypeIds, titleImg, recommend, title,
 					null,orderBy,first, count);
 		}else if(intChannelIds!=null){
@@ -117,7 +117,7 @@ public class ContentApiAct {
 					intTypeIds, titleImg, recommend, title,null,
 					orderBy,channelOption, first,count);
 		}else if(intSiteIds!=null){
-			contents=contentMng.getListBySiteIdsForTag(intSiteIds, intTypeIds,
+			contents=contentMng.getListBySiteIdsForTag(intTypeIds,
 					titleImg, recommend, title,null,
 					orderBy,first, count);
 		}
@@ -201,7 +201,7 @@ public class ContentApiAct {
 			JSONArray jsonArray=new JSONArray();
 			if(user!=null){
 				List<Content>contents=contentMng.getListForMember(title, channelId, 
-						siteId, modelId, user.getId(), first, count);
+						modelId, user.getId(), first, count);
 				if(contents!=null&&contents.size()>0){
 					for(int i=0;i<contents.size();i++){
 						jsonArray.put(i, contents.get(i).convertToJson(format,https,false,true, txtImgWhole,trimHtml));
@@ -222,9 +222,7 @@ public class ContentApiAct {
 	 * @param next 非必选   1下一篇 0 上一篇  为空则是当前id内容
 	 * @param channelId  栏目id  非必选
 	 * @param siteId 站点id  非必选 默认当前站
-	 * @param sessionKey 会话标识 非必选
-	 * @param appId appId 非必选 如果存在以及sessionKey存在则判断用户是否收藏了该内容
-	 */ 
+	 */
 	@RequestMapping(value = "/content/get")
 	public void contentGet(Integer format,Integer https,Integer id,Integer next,
 			Integer channelId,Integer siteId,Boolean txtImgWhole,Boolean trimHtml,
@@ -257,7 +255,7 @@ public class ContentApiAct {
 			if(next.equals(1)){
 				nextBool=true;
 			}
-			content = contentMng.getSide(id, siteId, channelId, nextBool);
+			content = contentMng.getSide(id,  channelId, nextBool);
 		}
 		if (content != null) {
 			boolean hasCollect=false;

@@ -14,26 +14,24 @@ import com.bfly.cms.acquisition.dao.CmsAcquisitionTempDao;
 import com.bfly.cms.acquisition.entity.CmsAcquisitionTemp;
 import com.bfly.core.base.dao.impl.Finder;
 
+/**
+ * 
+ * @author andy_hulibo@163.com
+ * @date 2018/12/4 10:03
+ */
 @Repository
-public class CmsAcquisitionTempDaoImpl extends
-        AbstractHibernateBaseDao<CmsAcquisitionTemp, Integer> implements
-		CmsAcquisitionTempDao {
+public class CmsAcquisitionTempDaoImpl extends AbstractHibernateBaseDao<CmsAcquisitionTemp, Integer> implements CmsAcquisitionTempDao {
 
 	@Override
-	public List<CmsAcquisitionTemp> getList(Integer siteId) {
+	public List<CmsAcquisitionTemp> getList() {
 		Finder f = Finder.create("from CmsAcquisitionTemp bean where 1=1");
-		if (siteId != null) {
-			f.append(" and bean.site.id=:siteId");
-			f.setParam("siteId", siteId);
-		}
 		f.append(" order by bean.id desc");
 		return find(f);
 	}
 
 	@Override
     public CmsAcquisitionTemp findById(Integer id) {
-		CmsAcquisitionTemp entity = get(id);
-		return entity;
+		return  get(id);
 	}
 
 	@Override
@@ -52,21 +50,16 @@ public class CmsAcquisitionTempDaoImpl extends
 	}
 
 	@Override
-    public Integer getPercent(Integer siteId) {
-		Query query = getSession()
-				.createQuery(
-						"select max(percent) from CmsAcquisitionTemp where site.id=:siteId")
-				.setParameter("siteId", siteId);
-		return (Integer) (query.uniqueResult() == null ? 0 : query
-				.uniqueResult());
+    public Integer getPercent() {
+		Query query = getSession().createQuery("select max(percent) from CmsAcquisitionTemp");
+		return (Integer) (query.uniqueResult() == null ? 0 : query.uniqueResult());
 	}
 
 	@Override
-    public void clear(Integer siteId, String channelUrl) {
+    public void clear(String channelUrl) {
 		StringBuilder sb = new StringBuilder(100);
-		Map<String, Object> params = new HashMap<String, Object>();
-		sb.append("delete from CmsAcquisitionTemp where site.id=:siteId");
-		params.put("siteId", siteId);
+		Map<String, Object> params = new HashMap<>(2);
+		sb.append("delete from CmsAcquisitionTemp");
 		if (StringUtils.isNotBlank(channelUrl)) {
 			sb.append(" and channelUrl!=:channelUrl");
 			params.put("channelUrl", channelUrl);

@@ -1,23 +1,24 @@
 package com.bfly.cms.acquisition.service.impl;
 
 import com.bfly.cms.acquisition.entity.*;
-import com.bfly.core.Constants;
-import com.bfly.cms.content.entity.*;
 import com.bfly.cms.acquisition.entity.CmsAcquisition.AcquisitionResultType;
+import com.bfly.cms.acquisition.service.AcquisitionSvc;
 import com.bfly.cms.acquisition.service.CmsAcquisitionHistoryMng;
 import com.bfly.cms.acquisition.service.CmsAcquisitionMng;
 import com.bfly.cms.acquisition.service.CmsAcquisitionTempMng;
+import com.bfly.cms.content.entity.Content;
+import com.bfly.cms.content.entity.ContentCount;
 import com.bfly.cms.content.service.ContentCountMng;
-import com.bfly.cms.acquisition.service.AcquisitionSvc;
 import com.bfly.cms.resource.service.ImageSvc;
-import com.bfly.common.image.ImageUtils;
-import com.bfly.cms.system.entity.CmsConfig;
 import com.bfly.cms.siteconfig.entity.CmsOss;
 import com.bfly.cms.siteconfig.entity.CmsSite;
 import com.bfly.cms.siteconfig.entity.Ftp;
-import com.bfly.cms.system.service.CmsConfigMng;
 import com.bfly.cms.siteconfig.service.CmsSiteMng;
 import com.bfly.cms.siteconfig.service.FtpMng;
+import com.bfly.cms.system.entity.CmsConfig;
+import com.bfly.cms.system.service.CmsConfigMng;
+import com.bfly.common.image.ImageUtils;
+import com.bfly.core.Constants;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -41,17 +42,20 @@ import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+/**
+ * @author andy_hulibo@163.com
+ * @date 2018/12/4 10:15
+ */
 @Service
 public class AcquisitionSvcImpl implements AcquisitionSvc {
+
     private Logger log = LoggerFactory.getLogger(AcquisitionSvcImpl.class);
 
     @Override
     public boolean start(Integer id) {
         CmsAcquisition acqu = cmsAcquisitionMng.findById(id);
         Set<CmsAcquisitionReplace> set = acqu.getReplaceWords();
-        set.size();
         Set<CmsAcquisitionShield> shields = acqu.getShields();
-        shields.size();
         if (acqu == null || acqu.getStatus() == CmsAcquisition.START) {
             return false;
         }
@@ -61,31 +65,13 @@ public class AcquisitionSvcImpl implements AcquisitionSvc {
     }
 
     private void end(CmsAcquisition acqu) {
-        Integer siteId = acqu.getSite().getId();
         cmsAcquisitionMng.end(acqu.getId());
-        CmsAcquisition acquisition = cmsAcquisitionMng.popAcquFromQueue(siteId);
+        CmsAcquisition acquisition = cmsAcquisitionMng.popAcquFromQueue();
         if (acquisition != null) {
             Integer id = acquisition.getId();
             start(id);
         }
     }
-
-    @Autowired
-    private CmsAcquisitionMng cmsAcquisitionMng;
-    @Autowired
-    private CmsAcquisitionHistoryMng cmsAcquisitionHistoryMng;
-    @Autowired
-    private CmsAcquisitionTempMng cmsAcquisitionTempMng;
-    @Autowired
-    private CmsSiteMng siteMng;
-    @Autowired
-    private CmsConfigMng cmsConfigMng;
-    @Autowired
-    private ImageSvc imgSvc;
-    @Autowired
-    private ContentCountMng contentCountMng;
-    @Autowired
-    private FtpMng ftpMng;
 
     private class AcquisitionThread extends Thread {
         private CmsAcquisition acqu;
@@ -140,12 +126,9 @@ public class AcquisitionSvcImpl implements AcquisitionSvc {
                     link = contentList.get(j);
                     float curr = contentList.size() - j;
                     float total = contentList.size();
-                    CmsAcquisitionTemp temp = AcquisitionSvcImpl.this.newTemp(
-                            url, link, contentList.size() - j, curr, total,
-                            acqu.getSite());
-                    CmsAcquisitionHistory history = AcquisitionSvcImpl.this
-                            .newHistory(url, link, acqu);
-                    CmsSite site = acqu.getSite();
+                    CmsAcquisitionTemp temp = AcquisitionSvcImpl.this.newTemp(url, link, contentList.size() - j, curr, total);
+                    CmsAcquisitionHistory history = AcquisitionSvcImpl.this.newHistory(url, link, acqu);
+                    CmsSite site = siteMng.getSite();
                     site = siteMng.findById(site.getId());
                     CmsConfig config = cmsConfigMng.get();
                     Ftp ftp = null;
@@ -157,8 +140,7 @@ public class AcquisitionSvcImpl implements AcquisitionSvc {
                     if (site.getUploadOss() != null) {
                         oss = site.getUploadOss();
                     }
-                    saveContent(client, handler, config, site, acquId, link,
-                            ftp, oss, temp, history);
+                    saveContent(client, handler, config, site, acquId, link, ftp, oss, temp, history);
                 }
                 currItem = 1;
             }
@@ -171,17 +153,15 @@ public class AcquisitionSvcImpl implements AcquisitionSvc {
             log.info("Acquisition#{} complete", acqu.getId());
         }
 
-        private List<String> getContentList(HttpClient client,
-                                            CharsetHandler handler, String url, CmsAcquisition acqu) {
+        private List<String> getContentList(HttpClient client, CharsetHandler handler, String url, CmsAcquisition acqu) {
             String linksetStart = acqu.getLinksetStart();
             String linksetEnd = acqu.getLinksetEnd();
             String linkStart = acqu.getLinkStart();
             String linkEnd = acqu.getLinkEnd();
-            List<String> list = new ArrayList<String>();
+            List<String> list = new ArrayList<>();
             try {
                 HttpGet httpget = new HttpGet(new URI(url));
-                String base = url.substring(0, url.indexOf("/", url
-                        .indexOf("//") + 2));
+                String base = url.substring(0, url.indexOf("/", url.indexOf("//") + 2));
                 String html = client.execute(httpget, handler);
                 int start = html.indexOf(linksetStart);
                 if (start == -1) {
@@ -196,7 +176,7 @@ public class AcquisitionSvcImpl implements AcquisitionSvc {
                 //批量屏蔽
                 if (shields != null) {
                     for (CmsAcquisitionShield shield : shields) {
-                        html = shieldContent(shield, s);
+                        shieldContent(shield, s);
                     }
                 }
                 //批量替换
@@ -251,9 +231,7 @@ public class AcquisitionSvcImpl implements AcquisitionSvc {
             return html;
         }
 
-        private Content saveContent(HttpClient client, CharsetHandler handler, CmsConfig config,
-                                    CmsSite site, Integer acquId, String url, Ftp ftp, CmsOss oss,
-                                    CmsAcquisitionTemp temp, CmsAcquisitionHistory history) {
+        private Content saveContent(HttpClient client, CharsetHandler handler, CmsConfig config, CmsSite site, Integer acquId, String url, Ftp ftp, CmsOss oss, CmsAcquisitionTemp temp, CmsAcquisitionHistory history) {
             CmsAcquisition acqu = cmsAcquisitionMng.findById(acquId);
             String titleStart = acqu.getTitleStart();
             String titleEnd = acqu.getTitleEnd();
@@ -286,39 +264,32 @@ public class AcquisitionSvcImpl implements AcquisitionSvc {
                 int start, end;
                 HttpGet httpget = new HttpGet(new URI(url));
                 String html = client.execute(httpget, handler);
-                Set<String> set = new HashSet<String>();
+                Set<String> set = new HashSet<>();
                 //如果包含分页则获取分页链接
                 if (StringUtils.isNotBlank(contentPageStart) && StringUtils.isNotBlank(contentPageEnd)) {
-                    set = getPageList(set, 0, 0, html, contentPageStart, contentPageEnd,
-                            contentPagePrefix, pageLinkStart, pageLinkEnd);
+                    set = getPageList(set, 0, 0, html, contentPageStart, contentPageEnd, contentPagePrefix, pageLinkStart, pageLinkEnd);
                 }
                 start = html.indexOf(titleStart);
                 if (start == -1) {
-                    return handerResult(temp, history, null,
-                            AcquisitionResultType.TITLESTARTNOTFOUND);
+                    return handerResult(temp, history, null, AcquisitionResultType.TITLESTARTNOTFOUND);
                 }
                 start += titleStart.length();
                 end = html.indexOf(titleEnd, start);
                 if (end == -1) {
-                    return handerResult(temp, history, null,
-                            AcquisitionResultType.TITLEENDNOTFOUND);
+                    return handerResult(temp, history, null, AcquisitionResultType.TITLEENDNOTFOUND);
                 }
                 String title = html.substring(start, end);
-                if (cmsAcquisitionHistoryMng
-                        .checkExistByProperties(true, title)) {
-                    return handerResult(temp, history, title,
-                            AcquisitionResultType.TITLEEXIST, true);
+                if (cmsAcquisitionHistoryMng.checkExistByProperties(true, title)) {
+                    return handerResult(temp, history, title, AcquisitionResultType.TITLEEXIST, true);
                 }
                 start = html.indexOf(contentStart);
                 if (start == -1) {
-                    return handerResult(temp, history, title,
-                            AcquisitionResultType.CONTENTSTARTNOTFOUND);
+                    return handerResult(temp, history, title, AcquisitionResultType.CONTENTSTARTNOTFOUND);
                 }
                 start += contentStart.length();
                 end = html.indexOf(contentEnd, start);
                 if (end == -1) {
-                    return handerResult(temp, history, title,
-                            AcquisitionResultType.CONTENTENDNOTFOUND);
+                    return handerResult(temp, history, title, AcquisitionResultType.CONTENTENDNOTFOUND);
                 }
                 String txt = html.substring(start, end);
                 String typeImg = null;
@@ -332,9 +303,7 @@ public class AcquisitionSvcImpl implements AcquisitionSvc {
                         } else {
                             imgRealUrl = img;
                         }
-                        String imageUrl = imgSvc.crawlImg(imgRealUrl, config.getContextPath(),
-                                config.getUploadToDb(), config.getDbFileUri(), ftp,
-                                oss, site.getUploadPath());
+                        String imageUrl = imgSvc.crawlImg(imgRealUrl, config.getContextPath(), config.getUploadToDb(), config.getDbFileUri(), ftp, oss, site.getUploadPath());
                         if (firstImg == 1) {
                             //默认类型图默认第一张为类型图
                             if (acqu.getDefTypeImg()) {
@@ -348,31 +317,26 @@ public class AcquisitionSvcImpl implements AcquisitionSvc {
                                 if (StringUtils.isNotBlank(typeImgStart)) {
                                     start = html.indexOf(typeImgStart);
                                     if (start == -1) {
-                                        return handerResult(temp, history, null,
-                                                AcquisitionResultType.TYPEIMGSTARTNOTFOUND);
+                                        return handerResult(temp, history, null, AcquisitionResultType.TYPEIMGSTARTNOTFOUND);
                                     }
                                     start += typeImgStart.length();
                                     end = html.indexOf(typeImgEnd, start);
                                     if (end == -1) {
-                                        return handerResult(temp, history, null,
-                                                AcquisitionResultType.TYPEIMGENDNOTFOUND);
+                                        return handerResult(temp, history, null, AcquisitionResultType.TYPEIMGENDNOTFOUND);
                                     }
                                     typeImg = html.substring(start, end);
-                                    typeImg = imgSvc.crawlImg(typeImg, null,
-                                            config.getUploadToDb(), config.getDbFileUri(), ftp,
-                                            oss, site.getUploadPath());
+                                    typeImg = imgSvc.crawlImg(typeImg, null, config.getUploadToDb(), config.getDbFileUri(), ftp, oss, site.getUploadPath());
                                 }
                             }
                         }
-
                         txt = txt.replace(img, imageUrl);
                     }
                 }
                 //存在分页情况时获取分页正文
                 if (set.size() > 0) {
                     txt = "";
-                    for (String PageUrl : set) {
-                        txt += getPageTxt(contentStart, contentEnd, PageUrl, client, handler, httpget, config, site, ftp, oss);
+                    for (String pageUrl : set) {
+                        txt += getPageTxt(contentStart, contentEnd, pageUrl, client, handler, httpget, config, site, ftp, oss);
                         txt += Constants.NEXT_PAGE;
                     }
                 }
@@ -381,14 +345,12 @@ public class AcquisitionSvcImpl implements AcquisitionSvc {
                 if (StringUtils.isNotBlank(authorStart)) {
                     start = html.indexOf(authorStart);
                     if (start == -1) {
-                        return handerResult(temp, history, null,
-                                AcquisitionResultType.AUTHORSTARTNOTFOUND);
+                        return handerResult(temp, history, null, AcquisitionResultType.AUTHORSTARTNOTFOUND);
                     }
                     start += authorStart.length();
                     end = html.indexOf(authorEnd, start);
                     if (end == -1) {
-                        return handerResult(temp, history, null,
-                                AcquisitionResultType.AUTHORENDNOTFOUND);
+                        return handerResult(temp, history, null, AcquisitionResultType.AUTHORENDNOTFOUND);
                     }
                     author = html.substring(start, end);
                 }
@@ -400,14 +362,12 @@ public class AcquisitionSvcImpl implements AcquisitionSvc {
                     if (StringUtils.isNotBlank(originStart)) {
                         start = html.indexOf(originStart);
                         if (start == -1) {
-                            return handerResult(temp, history, null,
-                                    AcquisitionResultType.ORIGINSTARTNOTFOUND);
+                            return handerResult(temp, history, null, AcquisitionResultType.ORIGINSTARTNOTFOUND);
                         }
                         start += originStart.length();
                         end = html.indexOf(originEnd, start);
                         if (end == -1) {
-                            return handerResult(temp, history, null,
-                                    AcquisitionResultType.ORIGINENDNOTFOUND);
+                            return handerResult(temp, history, null, AcquisitionResultType.ORIGINENDNOTFOUND);
                         }
                         origin = html.substring(start, end);
                     }
@@ -417,14 +377,12 @@ public class AcquisitionSvcImpl implements AcquisitionSvc {
                 if (StringUtils.isNotBlank(descriptionStart)) {
                     start = html.indexOf(descriptionStart);
                     if (start == -1) {
-                        return handerResult(temp, history, null,
-                                AcquisitionResultType.DESCRISTARTNOTFOUND);
+                        return handerResult(temp, history, null, AcquisitionResultType.DESCRISTARTNOTFOUND);
                     }
                     start += descriptionStart.length();
                     end = html.indexOf(descriptionEnd, start);
                     if (end == -1) {
-                        return handerResult(temp, history, null,
-                                AcquisitionResultType.DESCRIENDNOTFOUND);
+                        return handerResult(temp, history, null, AcquisitionResultType.DESCRIENDNOTFOUND);
                     }
                     description = html.substring(start, end);
                 }
@@ -433,14 +391,12 @@ public class AcquisitionSvcImpl implements AcquisitionSvc {
                 if (StringUtils.isNotBlank(releaseTimeStart)) {
                     start = html.indexOf(releaseTimeStart);
                     if (start == -1) {
-                        return handerResult(temp, history, null,
-                                AcquisitionResultType.RELEASESTARTNOTFOUND);
+                        return handerResult(temp, history, null, AcquisitionResultType.RELEASESTARTNOTFOUND);
                     }
                     start += releaseTimeStart.length();
                     end = html.indexOf(releaseTimeEnd, start);
                     if (end == -1) {
-                        return handerResult(temp, history, null,
-                                AcquisitionResultType.RELEASEENDNOTFOUND);
+                        return handerResult(temp, history, null, AcquisitionResultType.RELEASEENDNOTFOUND);
                     }
                     String releaseDate = html.substring(start, end);
                     SimpleDateFormat df = new SimpleDateFormat(acqu.getReleaseTimeFormat());
@@ -452,14 +408,12 @@ public class AcquisitionSvcImpl implements AcquisitionSvc {
                 if (StringUtils.isNotBlank(viewLink)) {
                     start = html.indexOf(viewIdStart);
                     if (start == -1) {
-                        return handerResult(temp, history, null,
-                                AcquisitionResultType.VIEWIDSTARTNOTFOUND);
+                        return handerResult(temp, history, null, AcquisitionResultType.VIEWIDSTARTNOTFOUND);
                     }
                     start += viewIdStart.length();
                     end = html.indexOf(viewIdEnd, start);
                     if (end == -1) {
-                        return handerResult(temp, history, null,
-                                AcquisitionResultType.VIEWIDENDNOTFOUND);
+                        return handerResult(temp, history, null, AcquisitionResultType.VIEWIDENDNOTFOUND);
                     }
                     viewLink += html.substring(start, end);
                     HttpGet viewHttpGet = new HttpGet(new URI(viewLink));
@@ -468,20 +422,17 @@ public class AcquisitionSvcImpl implements AcquisitionSvc {
                 if (StringUtils.isNotBlank(viewStart)) {
                     start = html.indexOf(viewStart);
                     if (start == -1) {
-                        return handerResult(temp, history, null,
-                                AcquisitionResultType.VIEWSTARTNOTFOUND);
+                        return handerResult(temp, history, null, AcquisitionResultType.VIEWSTARTNOTFOUND);
                     }
                     start += viewStart.length();
                     end = html.indexOf(viewEnd, start);
                     if (end == -1) {
-                        return handerResult(temp, history, null,
-                                AcquisitionResultType.VIEWENDNOTFOUND);
+                        return handerResult(temp, history, null, AcquisitionResultType.VIEWENDNOTFOUND);
                     }
                     view = html.substring(start, end);
                 }
 
-                Content content = cmsAcquisitionMng.saveContent(title, txt, origin, author, description, releaseTime,
-                        acquId, AcquisitionResultType.SUCCESS, temp, history, typeImg);
+                Content content = cmsAcquisitionMng.saveContent(title, txt, origin, author, description, releaseTime, acquId, AcquisitionResultType.SUCCESS, temp, history, typeImg);
                 if (StringUtils.isNotBlank(view)) {
                     ContentCount count = content.getContentCount();
                     int c = Integer.parseInt(view);
@@ -498,25 +449,17 @@ public class AcquisitionSvcImpl implements AcquisitionSvc {
             } catch (Exception e) {
                 e.printStackTrace();
                 log.warn(null, e);
-                return handerResult(temp, history, null,
-                        AcquisitionResultType.UNKNOW);
+                return handerResult(temp, history, null, AcquisitionResultType.UNKNOW);
             }
         }
 
         /**
          * 获取分页链接集合
          *
-         * @param set
-         * @param start
-         * @param end
-         * @param html
-         * @param contentPageStart
-         * @param contentPageEnd
-         * @param contentPagePrefix
-         * @return
+         * @author andy_hulibo@163.com
+         * @date 2018/12/4 10:20
          */
-        private Set<String> getPageList(Set<String> set, int start, int end, String html, String contentPageStart,
-                                        String contentPageEnd, String contentPagePrefix, String pageLinkStart, String pageLinkEnd) {
+        private Set<String> getPageList(Set<String> set, int start, int end, String html, String contentPageStart, String contentPageEnd, String contentPagePrefix, String pageLinkStart, String pageLinkEnd) {
             start = html.indexOf(contentPageStart);
             if (start == -1) {
                 return set;
@@ -551,20 +494,10 @@ public class AcquisitionSvcImpl implements AcquisitionSvc {
         /**
          * 获取分页内容
          *
-         * @param contentStart
-         * @param contentEnd
-         * @param url
-         * @param client
-         * @param handler
-         * @param httpget
-         * @param config
-         * @param site
-         * @param ftp
-         * @param oss
-         * @return
+         * @author andy_hulibo@163.com
+         * @date 2018/12/4 10:20
          */
-        private String getPageTxt(String contentStart, String contentEnd, String url, HttpClient client,
-                                  CharsetHandler handler, HttpGet httpget, CmsConfig config, CmsSite site, Ftp ftp, CmsOss oss) {
+        private String getPageTxt(String contentStart, String contentEnd, String url, HttpClient client, CharsetHandler handler, HttpGet httpget, CmsConfig config, CmsSite site, Ftp ftp, CmsOss oss) {
             String txt = null;
             try {
                 int start, end;
@@ -608,15 +541,11 @@ public class AcquisitionSvcImpl implements AcquisitionSvc {
         }
 
 
-        private Content handerResult(CmsAcquisitionTemp temp,
-                                     CmsAcquisitionHistory history, String title,
-                                     AcquisitionResultType errorType) {
+        private Content handerResult(CmsAcquisitionTemp temp, CmsAcquisitionHistory history, String title, AcquisitionResultType errorType) {
             return handerResult(temp, history, title, errorType, false);
         }
 
-        private Content handerResult(CmsAcquisitionTemp temp,
-                                     CmsAcquisitionHistory history, String title,
-                                     AcquisitionResultType errorType, Boolean repeat) {
+        private Content handerResult(CmsAcquisitionTemp temp, CmsAcquisitionHistory history, String title, AcquisitionResultType errorType, Boolean repeat) {
             temp.setDescription(errorType.name());
             temp.setTitle(title);
             cmsAcquisitionTempMng.save(temp);
@@ -629,22 +558,18 @@ public class AcquisitionSvcImpl implements AcquisitionSvc {
         }
     }
 
-    private CmsAcquisitionTemp newTemp(String channelUrl, String contentUrl,
-                                       Integer id, Float curr, Float total, CmsSite site) {
+    private CmsAcquisitionTemp newTemp(String channelUrl, String contentUrl, Integer id, Float curr, Float total) {
         CmsAcquisitionTemp temp = new CmsAcquisitionTemp();
         temp.setChannelUrl(channelUrl);
         temp.setContentUrl(contentUrl);
         temp.setSeq(id);
         NumberFormat nf = NumberFormat.getPercentInstance();
         String percent = nf.format(curr / total);
-        temp.setPercent(Integer.parseInt(percent.substring(0,
-                percent.length() - 1)));
-        temp.setSite(site);
+        temp.setPercent(Integer.parseInt(percent.substring(0, percent.length() - 1)));
         return temp;
     }
 
-    private CmsAcquisitionHistory newHistory(String channelUrl,
-                                             String contentUrl, CmsAcquisition acqu) {
+    private CmsAcquisitionHistory newHistory(String channelUrl, String contentUrl, CmsAcquisition acqu) {
         CmsAcquisitionHistory history = new CmsAcquisitionHistory();
         history.setChannelUrl(channelUrl);
         history.setContentUrl(contentUrl);
@@ -660,12 +585,10 @@ public class AcquisitionSvcImpl implements AcquisitionSvc {
         }
 
         @Override
-        public String handleResponse(HttpResponse response)
-                throws ClientProtocolException, IOException {
+        public String handleResponse(HttpResponse response) throws ClientProtocolException, IOException {
             StatusLine statusLine = response.getStatusLine();
             if (statusLine.getStatusCode() >= 300) {
-                throw new HttpResponseException(statusLine.getStatusCode(),
-                        statusLine.getReasonPhrase());
+                throw new HttpResponseException(statusLine.getStatusCode(), statusLine.getReasonPhrase());
             }
             HttpEntity entity = response.getEntity();
             if (entity != null) {
@@ -679,4 +602,21 @@ public class AcquisitionSvcImpl implements AcquisitionSvc {
             }
         }
     }
+
+    @Autowired
+    private CmsAcquisitionMng cmsAcquisitionMng;
+    @Autowired
+    private CmsAcquisitionHistoryMng cmsAcquisitionHistoryMng;
+    @Autowired
+    private CmsAcquisitionTempMng cmsAcquisitionTempMng;
+    @Autowired
+    private CmsSiteMng siteMng;
+    @Autowired
+    private CmsConfigMng cmsConfigMng;
+    @Autowired
+    private ImageSvc imgSvc;
+    @Autowired
+    private ContentCountMng contentCountMng;
+    @Autowired
+    private FtpMng ftpMng;
 }

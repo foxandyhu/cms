@@ -51,9 +51,8 @@ public class ContentDirective implements TemplateDirectiveModel {
 		if (next == null) {
 			content = contentMng.findById(id);
 		} else {
-			CmsSite site = FrontUtils.getSite(env);
 			Integer channelId = DirectiveUtils.getInt(PARAM_CHANNEL_ID, params);
-			content = contentMng.getSide(id, site.getId(), channelId, next);
+			content = contentMng.getSide(id,  channelId, next);
 		}
 
 		Map<String, TemplateModel> paramWrap = new HashMap<String, TemplateModel>(

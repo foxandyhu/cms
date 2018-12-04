@@ -21,35 +21,30 @@ public class CmsAdvertisingSpaceMngImpl implements CmsAdvertisingSpaceMng {
 
     @Override
     @Transactional(readOnly = true, rollbackFor = Exception.class)
-    public List<CmsAdvertisingSpace> getList(Integer siteId) {
-        return dao.getList(siteId);
+    public List<CmsAdvertisingSpace> getList() {
+        return dao.getList();
     }
 
     @Override
     @Transactional(readOnly = true, rollbackFor = Exception.class)
     public CmsAdvertisingSpace findById(Integer id) {
-        CmsAdvertisingSpace entity = dao.findById(id);
-        return entity;
+        return dao.findById(id);
     }
 
     @Override
     public CmsAdvertisingSpace save(CmsAdvertisingSpace bean) {
-        dao.save(bean);
-        return bean;
+        return dao.save(bean);
     }
 
     @Override
     public CmsAdvertisingSpace update(CmsAdvertisingSpace bean) {
-        Updater<CmsAdvertisingSpace> updater = new Updater<>(
-                bean);
-        bean = dao.updateByUpdater(updater);
-        return bean;
+        Updater<CmsAdvertisingSpace> updater = new Updater<>(bean);
+        return dao.updateByUpdater(updater);
     }
 
     @Override
     public CmsAdvertisingSpace deleteById(Integer id) {
-        CmsAdvertisingSpace bean = dao.deleteById(id);
-        return bean;
+        return dao.deleteById(id);
     }
 
     @Override

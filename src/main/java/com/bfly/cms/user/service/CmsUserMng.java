@@ -24,7 +24,7 @@ public interface CmsUserMng {
 	 List<CmsUser> getList(String username, String email, Integer siteId,
 			Integer groupId,Integer statu, Boolean admin, Integer rank);
 
-	 List<CmsUser> getAdminList(Integer siteId, Boolean allChannel,
+	 List<CmsUser> getAdminList(Boolean allChannel,
 			Integer statu, Integer rank);
 	
 	

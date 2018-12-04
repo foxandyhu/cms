@@ -1,95 +1,83 @@
 package com.bfly.cms.acquisition.dao.impl;
 
-import java.util.List;
-
+import com.bfly.cms.acquisition.dao.CmsAcquisitionDao;
+import com.bfly.cms.acquisition.entity.CmsAcquisition;
+import com.bfly.core.base.dao.impl.AbstractHibernateBaseDao;
+import com.bfly.core.base.dao.impl.Finder;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
-import com.bfly.cms.acquisition.dao.CmsAcquisitionDao;
-import com.bfly.cms.acquisition.entity.CmsAcquisition;
-import com.bfly.core.base.dao.impl.Finder;
-import com.bfly.core.base.dao.impl.AbstractHibernateBaseDao;
+import java.util.List;
 
 @Repository
-public class CmsAcquisitionDaoImpl extends
-        AbstractHibernateBaseDao<CmsAcquisition, Integer> implements CmsAcquisitionDao {
+public class CmsAcquisitionDaoImpl extends AbstractHibernateBaseDao<CmsAcquisition, Integer> implements CmsAcquisitionDao {
 
-	@Override
-	public List<CmsAcquisition> getList(Integer siteId) {
-		Finder f = Finder.create("from CmsAcquisition bean");
-		if (siteId != null) {
-			f.append(" where bean.site.id=:siteId");
-			f.setParam("siteId", siteId);
-		}
-		f.append(" order by bean.id asc");
-		return find(f);
-	}
+    @Override
+    public List<CmsAcquisition> getList() {
+        Finder f = Finder.create("from CmsAcquisition bean");
+        f.append(" order by bean.id asc");
+        return find(f);
+    }
 
-	@Override
+    @Override
     public CmsAcquisition findById(Integer id) {
-		CmsAcquisition entity = get(id);
-		return entity;
-	}
+        CmsAcquisition entity = get(id);
+        return entity;
+    }
 
-	@Override
+    @Override
     public CmsAcquisition save(CmsAcquisition bean) {
-		getSession().save(bean);
-		return bean;
-	}
+        getSession().save(bean);
+        return bean;
+    }
 
-	@Override
+    @Override
     public CmsAcquisition deleteById(Integer id) {
-		CmsAcquisition entity = super.get(id);
-		if (entity != null) {
-			getSession().delete(entity);
-		}
-		return entity;
-	}
+        CmsAcquisition entity = super.get(id);
+        if (entity != null) {
+            getSession().delete(entity);
+        }
+        return entity;
+    }
 
-	@Override
+    @Override
     public int countByChannelId(Integer channelId) {
-		String hql = "select count(*) from CmsAcquisition bean"
-				+ " where bean.channel.id=:channelId";
-		Query query = getSession().createQuery(hql);
-		query.setParameter("channelId", channelId);
-		return ((Number) query.iterate().next()).intValue();
-	}
+        String hql = "select count(*) from CmsAcquisition bean"
+                + " where bean.channel.id=:channelId";
+        Query query = getSession().createQuery(hql);
+        query.setParameter("channelId", channelId);
+        return ((Number) query.iterate().next()).intValue();
+    }
 
-	@Override
-    public CmsAcquisition getStarted(Integer siteId) {
-		Criteria crit = createCriteria(
-				Restrictions.eq("status", CmsAcquisition.START),
-				Restrictions.eq("site.id", siteId)).setMaxResults(1);
-		return (CmsAcquisition) crit.uniqueResult();
-	}
+    @Override
+    public CmsAcquisition getStarted() {
+        Criteria crit = createCriteria(Restrictions.eq("status", CmsAcquisition.START)).setMaxResults(1);
+        return (CmsAcquisition) crit.uniqueResult();
+    }
 
-	@Override
-    public Integer getMaxQueue(Integer siteId) {
-		Query query = createQuery("select max(bean.queue) from CmsAcquisition bean where bean.site.id=?",siteId);
-		return ((Number) query.iterate().next()).intValue();
-	}
+    @Override
+    public Integer getMaxQueue() {
+        Query query = createQuery("select max(bean.queue) from CmsAcquisition bean");
+        return ((Number) query.iterate().next()).intValue();
+    }
 
-	@Override
-    @SuppressWarnings("unchecked")
-	public List<CmsAcquisition> getLargerQueues(Integer siteId, Integer queueNum) {
-		Finder f = Finder.create("from CmsAcquisition bean where bean.queue>:queueNum and bean.site.id=:siteId")
-				.setParam("queueNum", queueNum)
-				.setParam("siteId", siteId);
-		return find(f);
-	}
+    @Override
+    public List<CmsAcquisition> getLargerQueues(Integer queueNum) {
+        Finder f = Finder.create("from CmsAcquisition bean where bean.queue>:queueNum and bean.site.id=:siteId").setParam("queueNum", queueNum);
+        return find(f);
+    }
 
-	@Override
-    public CmsAcquisition popAcquFromQueue(Integer siteId) {
-		Query query = getSession().createQuery("from CmsAcquisition bean where bean.queue>0 and bean.site.id=:siteId order by bean.queue")
-				.setParameter("siteId", siteId).setMaxResults(1);
-		return (CmsAcquisition) query.uniqueResult();
-	}
+    @Override
+    public CmsAcquisition popAcquFromQueue() {
+        Query query = getSession().createQuery("from CmsAcquisition bean where bean.queue>0 order by bean.queue").setMaxResults(1);
+        return (CmsAcquisition) query.uniqueResult();
+    }
 
-	@Override
-	protected Class<CmsAcquisition> getEntityClass() {
-		return CmsAcquisition.class;
-	}
+    @Override
+    protected Class<CmsAcquisition> getEntityClass() {
+        return CmsAcquisition.class;
+    }
 
 }

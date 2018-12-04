@@ -9,25 +9,22 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * @author andy_hulibo@163.com
+ * @date 2018/12/4 14:16
+ */
 @Repository
-public class CmsCommentDaoImpl extends AbstractHibernateBaseDao<CmsComment, Integer>
-        implements CmsCommentDao {
+public class CmsCommentDaoImpl extends AbstractHibernateBaseDao<CmsComment, Integer> implements CmsCommentDao {
+
     @Override
-    public Pagination getPage(Integer siteId, Integer contentId,
-                              Integer greaterThen, Short checked, Boolean recommend,
-                              boolean desc, int pageNo, int pageSize, boolean cacheable) {
-        Finder f = getFinder(siteId, contentId, null, null, null, greaterThen, checked,
-                recommend, desc, cacheable);
+    public Pagination getPage(Integer contentId, Integer greaterThen, Short checked, Boolean recommend, boolean desc, int pageNo, int pageSize, boolean cacheable) {
+        Finder f = getFinder(contentId, null, null, null, greaterThen, checked, recommend, desc, cacheable);
         return find(f, pageNo, pageSize);
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public List<CmsComment> getList(Integer siteId, Integer contentId,
-                                    Integer parentId, Integer greaterThen, Short checked, Boolean recommend,
-                                    boolean desc, Integer first, int count, boolean cacheable) {
-        Finder f = getFinder(siteId, contentId, parentId, null, null, greaterThen, checked,
-                recommend, desc, cacheable);
+    public List<CmsComment> getList(Integer contentId, Integer parentId, Integer greaterThen, Short checked, Boolean recommend, boolean desc, Integer first, int count, boolean cacheable) {
+        Finder f = getFinder(contentId, parentId, null, null, greaterThen, checked, recommend, desc, cacheable);
         if (first != null) {
             f.setFirstResult(first);
         }
@@ -36,21 +33,14 @@ public class CmsCommentDaoImpl extends AbstractHibernateBaseDao<CmsComment, Inte
     }
 
     @Override
-    public Pagination getPageForMember(Integer siteId, Integer contentId, Integer toUserId, Integer fromUserId,
-                                       Integer greaterThen, Short checked, Boolean recommend,
-                                       boolean desc, int pageNo, int pageSize, boolean cacheable) {
-        Finder f = getFinder(siteId, contentId, null, toUserId, fromUserId, greaterThen, checked,
-                recommend, desc, cacheable);
+    public Pagination getPageForMember(Integer contentId, Integer toUserId, Integer fromUserId, Integer greaterThen, Short checked, Boolean recommend, boolean desc, int pageNo, int pageSize, boolean cacheable) {
+        Finder f = getFinder(contentId, null, toUserId, fromUserId, greaterThen, checked, recommend, desc, cacheable);
         return find(f, pageNo, pageSize);
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public List<CmsComment> getListForMember(Integer siteId, Integer contentId, Integer toUserId, Integer fromUserId,
-                                             Integer greaterThen, Short checked, Boolean recommend,
-                                             boolean desc, Integer first, Integer count, boolean cacheable) {
-        Finder f = getFinder(siteId, contentId, null, toUserId, fromUserId, greaterThen, checked,
-                recommend, desc, cacheable);
+    public List<CmsComment> getListForMember(Integer contentId, Integer toUserId, Integer fromUserId, Integer greaterThen, Short checked, Boolean recommend, boolean desc, Integer first, Integer count, boolean cacheable) {
+        Finder f = getFinder(contentId, null, toUserId, fromUserId, greaterThen, checked, recommend, desc, cacheable);
         if (first != null) {
             f.setFirstResult(first);
         }
@@ -61,13 +51,8 @@ public class CmsCommentDaoImpl extends AbstractHibernateBaseDao<CmsComment, Inte
     }
 
     @Override
-    public List<CmsComment> getListForDel(Integer siteId, Integer userId,
-                                          Integer commentUserId, String ip) {
+    public List<CmsComment> getListForDel(Integer userId, Integer commentUserId, String ip) {
         Finder f = Finder.create("from CmsComment bean where 1=1");
-        if (siteId != null) {
-            f.append(" and bean.site.id=:siteId");
-            f.setParam("siteId", siteId);
-        }
         if (commentUserId != null) {
             f.append(" and bean.commentUser.id=:commentUserId");
             f.setParam("commentUserId", commentUserId);
@@ -80,10 +65,7 @@ public class CmsCommentDaoImpl extends AbstractHibernateBaseDao<CmsComment, Inte
         return find(f);
     }
 
-    private Finder getFinder(Integer siteId, Integer contentId,
-                             Integer parentId, Integer toUserId, Integer fromUserId,
-                             Integer greaterThen, Short checked, Boolean recommend,
-                             boolean desc, boolean cacheable) {
+    private Finder getFinder(Integer contentId, Integer parentId, Integer toUserId, Integer fromUserId, Integer greaterThen, Short checked, Boolean recommend, boolean desc, boolean cacheable) {
         Finder f = Finder.create("from CmsComment bean where 1=1");
         if (parentId != null) {
             f.append(" and bean.parent.id=:parentId");
@@ -92,9 +74,6 @@ public class CmsCommentDaoImpl extends AbstractHibernateBaseDao<CmsComment, Inte
             //按照内容ID来查询对内容的直接评论
             f.append(" and (bean.content.id=:contentId and bean.parent is null )");
             f.setParam("contentId", contentId);
-        } else if (siteId != null) {
-            f.append(" and bean.site.id=:siteId");
-            f.setParam("siteId", siteId);
         }
         if (toUserId != null) {
             f.append(" and bean.commentUser.id=:commentUserId");
@@ -126,8 +105,7 @@ public class CmsCommentDaoImpl extends AbstractHibernateBaseDao<CmsComment, Inte
 
     @Override
     public CmsComment findById(Integer id) {
-        CmsComment entity = get(id);
-        return entity;
+        return get(id);
     }
 
     @Override
@@ -148,8 +126,7 @@ public class CmsCommentDaoImpl extends AbstractHibernateBaseDao<CmsComment, Inte
     @Override
     public int deleteByContentId(Integer contentId) {
         String hql = "delete from CmsComment bean where bean.content.id=:contentId";
-        return getSession().createQuery(hql).setParameter("contentId",
-                contentId).executeUpdate();
+        return getSession().createQuery(hql).setParameter("contentId", contentId).executeUpdate();
     }
 
     @Override
@@ -159,17 +136,11 @@ public class CmsCommentDaoImpl extends AbstractHibernateBaseDao<CmsComment, Inte
 
 
     @Override
-    public Pagination getNewPage(Integer siteId, Integer contentId, Short checked,
-                                 Boolean recommend, int pageNo,
-                                 int pageSize, boolean cacheable) {
-        //max(bean.id),bean.content.id
+    public Pagination getNewPage(Integer contentId, Short checked, Boolean recommend, int pageNo, int pageSize) {
         String hql = "select c from CmsComment c where c.id in("
                 + "select max(bean.id) from CmsComment bean where 1=1 ";
         Finder f = Finder.create(hql);
         f.append(" and bean.replayTime is null");
-        if (siteId != null) {
-            f.append(" and bean.site.id=" + siteId);
-        }
         if (contentId != null) {
             f.append(" and bean.content.id=" + contentId);
         }
@@ -181,7 +152,6 @@ public class CmsCommentDaoImpl extends AbstractHibernateBaseDao<CmsComment, Inte
         }
         f.append(" group by bean.content.id)");
         f.append(" order by c.createTime desc");
-        //return find(f, pageNo, pageSize);
         return find(f, pageNo, pageSize);
     }
 }

@@ -7,21 +7,17 @@ import com.bfly.common.page.Pagination;
 import java.util.List;
 
 public interface ChannelDao {
-    List<Channel> getTopList(Integer siteId, boolean hasContentOnly, boolean displayOnly, boolean cacheable);
+    List<Channel> getTopList(boolean hasContentOnly, boolean displayOnly, boolean cacheable);
 
-    Pagination getTopPage(Integer siteId, boolean hasContentOnly, boolean displayOnly, boolean cacheable, int pageNo, int pageSize);
+    Pagination getTopPage(boolean hasContentOnly, boolean displayOnly, boolean cacheable, int pageNo, int pageSize);
 
-    List<Channel> getTopListByRigth(Integer userId, Integer siteId, boolean hasContentOnly);
+    List<Channel> getChildList(Integer parentId, boolean hasContentOnly, boolean displayOnly);
 
-    List<Channel> getChildList(Integer parentId, boolean hasContentOnly, boolean displayOnly, boolean cacheable);
+    List<Channel> getBottomList(boolean hasContentOnly);
 
-    List<Channel> getBottomList(Integer siteId, boolean hasContentOnly);
+    Pagination getChildPage(Integer parentId, boolean hasContentOnly, boolean displayOnly, int pageNo, int pageSize);
 
-    Pagination getChildPage(Integer parentId, boolean hasContentOnly, boolean displayOnly, boolean cacheable, int pageNo, int pageSize);
-
-    List<Channel> getChildListByRight(Integer userId, Integer parentId, boolean hasContentOnly);
-
-    Channel findByPath(String path, Integer siteId, boolean cacheable);
+    Channel findByPath(String path, boolean cacheable);
 
     Channel findById(Integer id);
 

@@ -257,8 +257,8 @@ public class RequestUtils {
     }
 
     public static Map<String, String> getSignMap(HttpServletRequest request) {
-        Map<String, String> param = new HashMap<String, String>();
-        Enumeration penum = (Enumeration) request.getParameterNames();
+        Map<String, String> param = new HashMap<>(5);
+        Enumeration penum =request.getParameterNames();
         while (penum.hasMoreElements()) {
             String pKey = (String) penum.nextElement();
             String value = request.getParameter(pKey);

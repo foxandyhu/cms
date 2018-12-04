@@ -424,6 +424,12 @@ public class Constants {
     public static final String WEIXIN_TOKEN = "wxToken";
     public static final int DISTRIBUTE_THREAD_COUNT = 10;
 
+
+    /**
+     * 管理员KEY标识
+     */
+    public static final String ADMIN_KEY = "_admin_key";
+
     /**
      * 用户KEY标识
      */

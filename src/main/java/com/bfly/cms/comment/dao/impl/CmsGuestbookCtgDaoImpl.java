@@ -1,48 +1,47 @@
 package com.bfly.cms.comment.dao.impl;
 
-import java.util.List;
-
+import com.bfly.cms.comment.dao.CmsGuestbookCtgDao;
+import com.bfly.cms.comment.entity.CmsGuestbookCtg;
 import com.bfly.core.base.dao.impl.AbstractHibernateBaseDao;
 import org.springframework.stereotype.Repository;
 
-import com.bfly.cms.comment.dao.CmsGuestbookCtgDao;
-import com.bfly.cms.comment.entity.CmsGuestbookCtg;
+import java.util.List;
 
+/**
+ * @author andy_hulibo@163.com
+ * @date 2018/12/4 14:48
+ */
 @Repository
-public class CmsGuestbookCtgDaoImpl extends
-        AbstractHibernateBaseDao<CmsGuestbookCtg, Integer> implements
-		CmsGuestbookCtgDao {
-	@Override
-    @SuppressWarnings("unchecked")
-	public List<CmsGuestbookCtg> getList(Integer siteId) {
-		String hql = "from CmsGuestbookCtg bean"
-				+ " where bean.site.id=? order by bean.priority asc";
-		return find(hql, siteId);
-	}
+public class CmsGuestbookCtgDaoImpl extends AbstractHibernateBaseDao<CmsGuestbookCtg, Integer> implements CmsGuestbookCtgDao {
 
-	@Override
+    @Override
+    public List<CmsGuestbookCtg> getList() {
+        String hql = "from CmsGuestbookCtg bean order by bean.priority asc";
+        return find(hql);
+    }
+
+    @Override
     public CmsGuestbookCtg findById(Integer id) {
-		CmsGuestbookCtg entity = get(id);
-		return entity;
-	}
+        return get(id);
+    }
 
-	@Override
+    @Override
     public CmsGuestbookCtg save(CmsGuestbookCtg bean) {
-		getSession().save(bean);
-		return bean;
-	}
+        getSession().save(bean);
+        return bean;
+    }
 
-	@Override
+    @Override
     public CmsGuestbookCtg deleteById(Integer id) {
-		CmsGuestbookCtg entity = super.get(id);
-		if (entity != null) {
-			getSession().delete(entity);
-		}
-		return entity;
-	}
+        CmsGuestbookCtg entity = super.get(id);
+        if (entity != null) {
+            getSession().delete(entity);
+        }
+        return entity;
+    }
 
-	@Override
-	protected Class<CmsGuestbookCtg> getEntityClass() {
-		return CmsGuestbookCtg.class;
-	}
+    @Override
+    protected Class<CmsGuestbookCtg> getEntityClass() {
+        return CmsGuestbookCtg.class;
+    }
 }

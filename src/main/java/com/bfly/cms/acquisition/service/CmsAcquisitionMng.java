@@ -11,7 +11,7 @@ import com.bfly.cms.content.entity.Content;
 import com.bfly.cms.content.service.ChannelDeleteChecker;
 
 public interface CmsAcquisitionMng extends ChannelDeleteChecker {
-	 List<CmsAcquisition> getList(Integer siteId);
+	 List<CmsAcquisition> getList();
 
 	 CmsAcquisition findById(Integer id);
 
@@ -23,37 +23,29 @@ public interface CmsAcquisitionMng extends ChannelDeleteChecker {
 
 	 void end(Integer id);
 
-	 boolean isNeedBreak(Integer id, int currNum, int currItem,
-			int totalItem);
+	 boolean isNeedBreak(Integer id, int currNum, int currItem, int totalItem);
 
-	 CmsAcquisition save(CmsAcquisition bean, Integer channelId,
-			Integer typeId, Integer userId, Integer siteId,String[] keyword,String[] replaceWords
-			,String[] shieldStarts,String[] shieldEnds);
+	 CmsAcquisition save(CmsAcquisition bean, Integer channelId, Integer typeId, Integer userId,String[] keyword,String[] replaceWords,String[] shieldStarts,String[] shieldEnds);
 
-	 CmsAcquisition update(CmsAcquisition bean, Integer channelId,
-			Integer typeId,String[] keywords,String[] replaceWords
-			,String[] shieldStarts,String[] shieldEnds);
+	 CmsAcquisition update(CmsAcquisition bean, Integer channelId, Integer typeId,String[] keywords,String[] replaceWords,String[] shieldStarts,String[] shieldEnds);
 
 	 CmsAcquisition deleteById(Integer id);
 
 	 CmsAcquisition[] deleteByIds(Integer[] ids);
 
-	 Content saveContent(String title, String txt, String origin,
-						 String author, String description, Date releaseDate, Integer acquId,
-						 AcquisitionResultType resultType, CmsAcquisitionTemp temp,
-						 CmsAcquisitionHistory history, String typeImg);
+	 Content saveContent(String title, String txt, String origin, String author, String description, Date releaseDate, Integer acquId, AcquisitionResultType resultType, CmsAcquisitionTemp temp, CmsAcquisitionHistory history, String typeImg);
 
-	 CmsAcquisition getStarted(Integer siteId);
+	 CmsAcquisition getStarted();
 	
-	 Integer getMaxQueue(Integer siteId);
+	 Integer getMaxQueue();
 
-	 Integer hasStarted(Integer siteId);
+	 Integer hasStarted();
 	
 	 void addToQueue(Integer[] ids, Integer queueNum);
 	
-	 void cancel(Integer siteId, Integer id);
+	 void cancel(Integer id);
 	
-	 List<CmsAcquisition> getLargerQueues(Integer siteId, Integer queueNum);
+	 List<CmsAcquisition> getLargerQueues(Integer queueNum);
 	
-	 CmsAcquisition popAcquFromQueue(Integer siteId);
+	 CmsAcquisition popAcquFromQueue();
 }

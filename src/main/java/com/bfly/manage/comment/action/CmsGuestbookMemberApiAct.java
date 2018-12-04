@@ -57,7 +57,7 @@ public class CmsGuestbookMemberApiAct {
 				if(siteId==null){
 					siteId=CmsUtils.getSiteId(request);
 				}
-				CmsGuestbook guestbook=cmsGuestbookMng.save(user, siteId, 
+				CmsGuestbook guestbook=cmsGuestbookMng.save(user,
 						ctgId, ip, title, content, email,phone, qq);
 				body="{\"id\":"+"\""+guestbook.getId()+"\"}";
 				message=Constants.API_MESSAGE_SUCCESS;
@@ -75,8 +75,6 @@ public class CmsGuestbookMemberApiAct {
 	 * 我的留言API
 	 * @param siteId 站点ID   非必选
 	 * @param ctgId 分类ID  非必选
-	 * @param appId appId 必选
-	 * @param sessionKey 会话标识 必选
 	 * @param first 开始 非必选 默认0
 	 * @param count 数量  非必选 默认10
 	 */
@@ -97,7 +95,7 @@ public class CmsGuestbookMemberApiAct {
 		CmsUser user = CmsUtils.getUser(request);
 		List<CmsGuestbook> list = null ;
 		if(user!=null){
-			list= cmsGuestbookMng.getList(siteId, ctgId, user.getId(), null,
+			list= cmsGuestbookMng.getList(ctgId, user.getId(), null,
 					null, true, true, first, count);
 		}
 		JSONArray jsonArray=new JSONArray();

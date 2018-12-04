@@ -1,21 +1,21 @@
 package com.bfly.cms.content.entity;
 
-import com.bfly.core.Constants;
 import com.bfly.cms.channel.entity.Channel;
-import com.bfly.cms.comment.entity.CmsComment;
-import com.bfly.cms.resource.entity.CmsFile;
-import com.bfly.cms.job.entity.CmsJobApply;
 import com.bfly.cms.channel.entity.Channel.AfterCheckEnum;
+import com.bfly.cms.comment.entity.CmsComment;
+import com.bfly.cms.job.entity.CmsJobApply;
+import com.bfly.cms.resource.entity.CmsFile;
+import com.bfly.cms.siteconfig.entity.CmsSite;
+import com.bfly.cms.siteconfig.entity.Ftp;
 import com.bfly.cms.staticpage.StaticPageUtils;
-import com.bfly.core.web.CmsThreadVariable;
+import com.bfly.cms.user.entity.CmsAdmin;
+import com.bfly.cms.user.entity.CmsGroup;
+import com.bfly.cms.user.entity.CmsUser;
 import com.bfly.cms.words.entity.ContentTag;
 import com.bfly.common.image.ImageUtils;
 import com.bfly.common.util.DateUtils;
 import com.bfly.common.util.StrUtils;
-import com.bfly.cms.user.entity.CmsGroup;
-import com.bfly.cms.siteconfig.entity.CmsSite;
-import com.bfly.cms.user.entity.CmsUser;
-import com.bfly.cms.siteconfig.entity.Ftp;
+import com.bfly.core.Constants;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -223,7 +223,7 @@ public class Content implements ContentInterface, Serializable {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private CmsUser user;
+    private CmsAdmin admin;
 
     @ManyToOne
     @JoinColumn(name = "channel_id")
@@ -285,7 +285,7 @@ public class Content implements ContentInterface, Serializable {
 
 
     @ElementCollection
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE,region = "beanCache")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
     @CollectionTable(name = "jc_content_attr", joinColumns = @JoinColumn(name = "content_id"))
     @MapKeyColumn(name = "attr_name")
     @Column(name = "attr_value")
@@ -504,12 +504,12 @@ public class Content implements ContentInterface, Serializable {
     }
 
 
-    public CmsUser getUser() {
-        return user;
+    public CmsAdmin getAdmin() {
+        return admin;
     }
 
-    public void setUser(CmsUser user) {
-        this.user = user;
+    public void setAdmin(CmsAdmin admin) {
+        this.admin = admin;
     }
 
     public Channel getChannel() {
@@ -1083,12 +1083,11 @@ public class Content implements ContentInterface, Serializable {
 
     /**
      * 是否有审核后的编辑权限。从CmsThread中获得当前用户。
-     *
-     * @return
      */
     public boolean isHasUpdateRight() {
-        CmsUser user = CmsThreadVariable.getUser();
+        CmsAdmin user = null;//CmsThreadVariable.getUser();
         if (user == null) {
+            //这里需要重构 2018/12/04
             throw new IllegalStateException("CmsUser not found in CmsThread");
         }
         return isHasUpdateRight(user);
@@ -1096,15 +1095,11 @@ public class Content implements ContentInterface, Serializable {
 
     /**
      * 是否有审核后的编辑权限
-     *
-     * @param user
-     * @return
      */
-    public boolean isHasUpdateRight(CmsUser user) {
+    public boolean isHasUpdateRight(CmsAdmin admin) {
         AfterCheckEnum after = getChannel().getAfterCheckEnum();
         if (AfterCheckEnum.CANNOT_UPDATE == after) {
-            CmsSite site = getSite();
-            Byte userStep = user.getCheckStep(site.getId());
+            Byte userStep = admin.getCheckStep();
             Byte channelStep = getChannel().getFinalStepExtends();
             boolean checked = getStatus() == ContentCheck.CHECKED;
             // 如果内容审核级别大于用户审核级别，或者内容已经审核且用户审核级别小于栏目审核级别。
@@ -1129,24 +1124,21 @@ public class Content implements ContentInterface, Serializable {
      * @return
      */
     public boolean isHasDeleteRight() {
-        CmsUser user = CmsThreadVariable.getUser();
-        if (user == null) {
+        CmsAdmin admin = null;//CmsThreadVariable.getUser();
+        if (admin == null) {
+            //这里需要重构 2018/12/04
             throw new IllegalStateException("CmsUser not found in CmsThread");
         }
-        return isHasDeleteRight(user);
+        return isHasDeleteRight(admin);
     }
 
     /**
      * 是否有审核后的删除权限
-     *
-     * @param user
-     * @return
      */
-    public boolean isHasDeleteRight(CmsUser user) {
+    public boolean isHasDeleteRight(CmsAdmin admin) {
         Channel.AfterCheckEnum after = getChannel().getAfterCheckEnum();
         if (Channel.AfterCheckEnum.CANNOT_UPDATE == after) {
-            CmsSite site = getSite();
-            Byte userStep = user.getCheckStep(site.getId());
+            Byte userStep = admin.getCheckStep();
             Byte channelStep = getChannel().getFinalStepExtends();
             boolean checked = getStatus() == ContentCheck.CHECKED;
             // 如果内容审核级别大于用户审核级别，或者内容已经审核且用户审核级别小于栏目审核级别。
@@ -2108,12 +2100,12 @@ public class Content implements ContentInterface, Serializable {
         content.setUpsDay(getUpsDay());
         content.setType(getType());
         content.setSite(getSite());
-        content.setUser(getUser());
+        content.setAdmin(getAdmin());
         content.setChannel(getChannel());
         content.setModel(getModel());
         Map<String, String> attrs = getAttr();
         if (attrs != null && !attrs.isEmpty()) {
-            Map<String, String> newAttrs = new HashMap<String, String>();
+            Map<String, String> newAttrs = new HashMap<>(5);
             String key;
             Set<String> keyset = attrs.keySet();
             Iterator<String> keyIt = keyset.iterator();
@@ -2598,20 +2590,15 @@ public class Content implements ContentInterface, Serializable {
         } else {
             json.put("modelId", "");
         }
-        if (getUser() != null && StringUtils.isNotBlank(getUser().getUsername())) {
-            json.put("userName", getUser().getUsername());
+        if (getAdmin() != null && StringUtils.isNotBlank(getAdmin().getUsername())) {
+            json.put("userName", getAdmin().getUsername());
         } else {
             json.put("userName", "");
         }
-        if (getUser() != null && getUser().getId() != null) {
-            json.put("userId", getUser().getId());
+        if (getAdmin() != null && getAdmin().getId() != null) {
+            json.put("userId", getAdmin().getId());
         } else {
             json.put("userId", "");
-        }
-        if (getUser() != null && StringUtils.isNotBlank(getUser().getRealname())) {
-            json.put("realname", getUser().getRealname());
-        } else {
-            json.put("realname", "");
         }
         if (StringUtils.isNotBlank(getCheckOpinion())) {
             json.put("checkOpinion", getCheckOpinion());

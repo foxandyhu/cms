@@ -1,9 +1,9 @@
 package com.bfly.cms.webservice.service;
 
+import com.bfly.cms.user.entity.CmsUser;
 import com.bfly.cms.webservice.entity.ApiAccount;
 import com.bfly.cms.webservice.entity.ApiUserLogin;
 import com.bfly.common.page.Pagination;
-import com.bfly.cms.user.entity.CmsUser;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -116,8 +116,7 @@ public interface ApiUserLoginMng {
      * @author andy_hulibo@163.com
      * @date 2018/11/25 15:46
      */
-    ApiUserLogin userLogin(String username, String appId, String sessionKey,
-                           HttpServletRequest request, HttpServletResponse response);
+    ApiUserLogin userLogin(String username, String appId, String sessionKey, HttpServletRequest request, HttpServletResponse response);
 
     /**
      * 更新用户登出信息

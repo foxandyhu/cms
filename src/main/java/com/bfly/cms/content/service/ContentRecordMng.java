@@ -3,6 +3,7 @@ package com.bfly.cms.content.service;
 import com.bfly.cms.content.entity.Content;
 import com.bfly.cms.content.entity.ContentRecord;
 import com.bfly.cms.content.entity.ContentRecord.ContentOperateType;
+import com.bfly.cms.user.entity.CmsAdmin;
 import com.bfly.cms.user.entity.CmsUser;
 import com.bfly.common.page.Pagination;
 
@@ -13,7 +14,7 @@ public interface ContentRecordMng {
 
     List<ContentRecord> getListByContentId(Integer contentId);
 
-    ContentRecord record(Content content, CmsUser user, ContentOperateType operate);
+    ContentRecord record(Content content, CmsAdmin admin, ContentOperateType operate);
 
     ContentRecord findById(Long id);
 

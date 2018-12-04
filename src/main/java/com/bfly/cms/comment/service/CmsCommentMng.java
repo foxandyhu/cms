@@ -1,76 +1,65 @@
 package com.bfly.cms.comment.service;
 
-import java.util.List;
-
 import com.bfly.cms.comment.entity.CmsComment;
 import com.bfly.cms.comment.entity.CmsCommentExt;
-import com.bfly.common.page.Pagination;
 import com.bfly.cms.user.entity.CmsUser;
+import com.bfly.common.page.Pagination;
 
+import java.util.List;
+
+/**
+ * @author andy_hulibo@163.com
+ * @date 2018/12/4 14:08
+ */
 public interface CmsCommentMng {
-	 Pagination getPage(Integer siteId, Integer contentId,
-			Integer greaterThen, Short checked, Boolean recommend,
-			boolean desc, int pageNo, int pageSize);
 
-	 Pagination getNewPage(Integer siteId, Integer contentId,
-			Short checked, Boolean recommend,int pageNo, int pageSize);
-	
-	 Pagination getPageForTag(Integer siteId, Integer contentId,
-			Integer greaterThen, Short checked, Boolean recommend,
-			boolean desc, int pageNo, int pageSize);
-	
-	/**
-	 * 
-	 * @param siteId
-	 * @param contentId
-	 * @param toUserId 写评论的用户
-	 * @param fromUserId 投稿的信息接收到的相关评论
-	 * @param greaterThen
-	 * @param checked
-	 * @param recommend
-	 * @param desc
-	 * @param pageNo
-	 * @param pageSize
-	 * @return
-	 */
-	 Pagination getPageForMember(Integer siteId, Integer contentId,Integer toUserId,Integer fromUserId,
-			Integer greaterThen, Short checked, Boolean recommend,
-			boolean desc, int pageNo, int pageSize);
-	
-	 List<CmsComment> getListForMember(Integer siteId, Integer contentId,
-			Integer toUserId,Integer fromUserId,Integer greaterThen,
-			Short checked, Boolean recommend,
-			boolean desc, Integer first, Integer count);
-	/**
-	 * 
-	 * @param siteId
-	 * @param userId 发表信息用户id
-	 * @param commentUserId 评论用户id
-	 * @param ip  评论来访ip
-	 * @return
-	 */
-	 List<CmsComment> getListForDel(Integer siteId, Integer userId,Integer commentUserId,String ip);
+    Pagination getPage(Integer contentId, Integer greaterThen, Short checked, Boolean recommend, boolean desc, int pageNo, int pageSize);
 
-	 List<CmsComment> getListForTag(Integer siteId, Integer contentId,
-			Integer parentId,Integer greaterThen, Short checked, Boolean recommend,
-			boolean desc, Integer first,int count);
+    Pagination getNewPage(Integer contentId, Short checked, Boolean recommend, int pageNo, int pageSize);
 
-	 CmsComment findById(Integer id);
+    Pagination getPageForTag(Integer contentId, Integer greaterThen, Short checked, Boolean recommend, boolean desc, int pageNo, int pageSize);
 
-	 CmsComment comment(Integer score,String text, String ip, Integer contentId,
-			Integer siteId, Integer userId, short checked, boolean recommend,Integer parentId);
+    /**
+     * @param contentId
+     * @param toUserId    写评论的用户
+     * @param fromUserId  投稿的信息接收到的相关评论
+     * @param greaterThen
+     * @param checked
+     * @param recommend
+     * @param desc
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    Pagination getPageForMember(Integer contentId, Integer toUserId, Integer fromUserId, Integer greaterThen, Short checked, Boolean recommend, boolean desc, int pageNo, int pageSize);
 
-	 CmsComment update(CmsComment bean, CmsCommentExt ext);
+    List<CmsComment> getListForMember(Integer contentId, Integer toUserId, Integer fromUserId, Integer greaterThen, Short checked, Boolean recommend, boolean desc, Integer first, Integer count);
 
-	 int deleteByContentId(Integer contentId);
+    /**
+     * @param userId        发表信息用户id
+     * @param commentUserId 评论用户id
+     * @param ip            评论来访ip
+     * @return
+     */
+    List<CmsComment> getListForDel(Integer userId, Integer commentUserId, String ip);
 
-	 CmsComment deleteById(Integer id);
+    List<CmsComment> getListForTag(Integer contentId, Integer parentId, Integer greaterThen, Short checked, Boolean recommend, boolean desc, Integer first, int count);
 
-	 CmsComment[] deleteByIds(Integer[] ids);
+    CmsComment findById(Integer id);
 
-	 void ups(Integer id);
+    CmsComment comment(Integer score, String text, String ip, Integer contentId, Integer userId, short checked, boolean recommend, Integer parentId);
 
-	 void downs(Integer id);
+    CmsComment update(CmsComment bean, CmsCommentExt ext);
 
-	 CmsComment[] checkByIds(Integer[] ids, CmsUser user, short checked);
+    int deleteByContentId(Integer contentId);
+
+    CmsComment deleteById(Integer id);
+
+    CmsComment[] deleteByIds(Integer[] ids);
+
+    void ups(Integer id);
+
+    void downs(Integer id);
+
+    CmsComment[] checkByIds(Integer[] ids,short checked);
 }

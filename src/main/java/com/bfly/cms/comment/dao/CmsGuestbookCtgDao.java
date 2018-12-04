@@ -5,8 +5,13 @@ import com.bfly.common.hibernate4.Updater;
 
 import java.util.List;
 
+/**
+ * @author andy_hulibo@163.com
+ * @date 2018/12/4 14:48
+ */
 public interface CmsGuestbookCtgDao {
-    List<CmsGuestbookCtg> getList(Integer siteId);
+
+    List<CmsGuestbookCtg> getList();
 
     CmsGuestbookCtg findById(Integer id);
 

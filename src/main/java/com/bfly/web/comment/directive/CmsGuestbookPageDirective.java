@@ -48,7 +48,7 @@ public class CmsGuestbookPageDirective extends AbstractCmsGuestbookDirective {
 		if (getChecked(params)) {
 			check =1;
 		}
-		Pagination page = cmsGuestbookMng.getPage(getSiteId(params),
+		Pagination page = cmsGuestbookMng.getPage(
 				getCtgId(params),null,null, getRecommend(params), check,
 				getDesc(params), true, pageNo, count);
 

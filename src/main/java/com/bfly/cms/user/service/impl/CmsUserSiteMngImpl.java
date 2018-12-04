@@ -1,12 +1,12 @@
 package com.bfly.cms.user.service.impl;
 
-import com.bfly.common.hibernate4.Updater;
-import com.bfly.cms.user.dao.CmsUserSiteDao;
 import com.bfly.cms.siteconfig.entity.CmsSite;
+import com.bfly.cms.siteconfig.service.CmsSiteMng;
+import com.bfly.cms.user.dao.CmsUserSiteDao;
 import com.bfly.cms.user.entity.CmsUser;
 import com.bfly.cms.user.entity.CmsUserSite;
-import com.bfly.cms.siteconfig.service.CmsSiteMng;
 import com.bfly.cms.user.service.CmsUserSiteMng;
+import com.bfly.common.hibernate4.Updater;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,69 +47,26 @@ public class CmsUserSiteMngImpl implements CmsUserSiteMng {
     @Override
     public void updateByUser(CmsUser user, Integer siteId, Byte step,
                              Boolean allChannel) {
-        Set<CmsUserSite> uss = user.getUserSites();
         if (siteId == null || step == null || allChannel == null) {
             return;
-        }
-        // 只更新单站点信息
-        for (CmsUserSite us : uss) {
-            if (siteId.equals(us.getSite().getId())) {
-                us.setCheckStep(step);
-                us.setAllChannel(allChannel);
-            }
         }
     }
 
     @Override
     public void updateByUser(CmsUser user, Integer[] siteIds, Byte[] steps,
                              Boolean[] allChannels) {
-        Set<CmsUserSite> uss = user.getUserSites();
-        // 全删
-        if (siteIds == null) {
-            user.getUserSites().clear();
-            for (CmsUserSite us : uss) {
-                dao.delete(us);
-            }
-            return;
-        }
         // 先删除、更新
-        Set<CmsUserSite> toDel = new HashSet<CmsUserSite>();
-        boolean contains;
+        Set<CmsUserSite> toDel = new HashSet<>();
         int i;
-        for (CmsUserSite us : uss) {
-            contains = false;
-            for (i = 0; i < siteIds.length; i++) {
-                if (siteIds[i].equals(us.getSite().getId())) {
-                    contains = true;
-                    break;
-                }
-            }
-            if (contains) {
-                us.setCheckStep(steps[i]);
-                us.setAllChannel(allChannels[i]);
-            } else {
-                toDel.add(us);
-            }
-        }
-        delete(toDel, uss);
+        delete(toDel);
         // 再增加
         i = 0;
-        Set<CmsUserSite> toSave = new HashSet<CmsUserSite>();
+        Set<CmsUserSite> toSave = new HashSet<>();
         for (Integer sid : siteIds) {
-            contains = false;
-            for (CmsUserSite us : uss) {
-                if (us.getSite().getId().equals(sid)) {
-                    contains = true;
-                    break;
-                }
-            }
-            if (!contains) {
-                toSave.add(save(cmsSiteMng.findById(sid), user, steps[i],
-                        allChannels[i]));
-            }
+            toSave.add(save(cmsSiteMng.findById(sid), user, steps[i],
+                    allChannels[i]));
             i++;
         }
-        uss.addAll(toSave);
     }
 
     @Override
@@ -117,13 +74,9 @@ public class CmsUserSiteMngImpl implements CmsUserSiteMng {
         return dao.deleteBySiteId(siteId);
     }
 
-    private void delete(Collection<CmsUserSite> coll, Set<CmsUserSite> set) {
+    private void delete(Collection<CmsUserSite> coll) {
         if (coll == null) {
             return;
-        }
-        for (CmsUserSite us : coll) {
-            dao.delete(us);
-            set.remove(us);
         }
     }
 

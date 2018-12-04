@@ -51,7 +51,7 @@ public class ChannelApiAct {
 			if (siteId == null) {
 				siteId = 1;
 			}
-			list = channelMng.getTopListForTag(siteId, hasContentOnly);
+			list = channelMng.getTopListForTag(hasContentOnly);
 		}
 		if(https==null){
 			https=Constants.URL_HTTP;
@@ -75,11 +75,9 @@ public class ChannelApiAct {
 	 * path和siteId必须一起使用
 	 * @param id 栏目id
 	 * @param path  栏目路径
-	 * @param siteId  站点id
 	 */
 	@RequestMapping(value = "/channel/get")
-	public void channelGet(Integer https,
-			Integer id,String path,Integer siteId,Boolean showTxt,
+	public void channelGet(Integer https, Integer id,String path,Boolean showTxt,
 			HttpServletRequest request,
 			HttpServletResponse response) throws JSONException {
 		String body = "\"\"";
@@ -99,10 +97,7 @@ public class ChannelApiAct {
 				channel = channelMng.findById(id);
 			}
 		} else {
-			if(siteId==null){
-				siteId=1;
-			}
-			channel = channelMng.findByPathForTag(path, siteId);
+			channel = channelMng.findByPathForTag(path);
 		}
 		if (channel!=null) {
 			body = channel.convertToJson(https, false, showTxt, null).toString();

@@ -1,15 +1,23 @@
 package com.bfly.admin.member.action;
 
+import com.bfly.cms.channel.service.ChannelMng;
+import com.bfly.cms.logs.service.CmsLogMng;
 import com.bfly.cms.siteconfig.entity.CmsSite;
+import com.bfly.cms.siteconfig.service.CmsSiteMng;
 import com.bfly.cms.user.entity.CmsUser;
 import com.bfly.cms.user.entity.CmsUserExt;
 import com.bfly.cms.user.entity.CmsUserSite;
+import com.bfly.cms.user.service.CmsGroupMng;
+import com.bfly.cms.user.service.CmsRoleMng;
+import com.bfly.cms.user.service.CmsUserMng;
 import com.bfly.common.page.Pagination;
 import com.bfly.common.util.StrUtils;
 import com.bfly.common.web.RequestUtils;
 import com.bfly.common.web.ResponseUtils;
 import com.bfly.core.Constants;
 import com.bfly.core.annotation.SignValidate;
+import com.bfly.core.base.action.BaseAdminController;
+import com.bfly.core.security.CmsAuthorizingRealm;
 import com.bfly.core.web.ApiResponse;
 import com.bfly.core.web.ApiValidate;
 import com.bfly.core.web.ResponseCode;
@@ -21,6 +29,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -36,22 +45,17 @@ import java.util.*;
  */
 @Controller
 @RequestMapping(value = "/api/admin")
-public class CmsAdminGlobalApiAct extends CmsAdminAbstractApi {
-    private static final Logger log = LoggerFactory
-            .getLogger(CmsAdminGlobalApiAct.class);
+public class CmsAdminGlobalApiAct extends BaseAdminController {
+    private static final Logger log = LoggerFactory.getLogger(CmsAdminGlobalApiAct.class);
 
     @RequestMapping("/admin/getSteps")
     public void steps(HttpServletRequest request, HttpServletResponse response) {
-        CmsUser user = CmsUtils.getUser(request);
-        Integer currSiteId = CmsUtils.getSiteId(request);
-        Set<CmsUserSite> set = user.getUserSites();
+        Set<CmsUserSite> set = getAdmin().getUserSites();
         JSONArray jsonArray = new JSONArray();
         Byte maxStep = 0;
         if (set != null && set.size() > 0) {
             for (CmsUserSite userSite : set) {
-                if (userSite.getSite().getId().equals(currSiteId)) {
-                    maxStep = userSite.getCheckStep();
-                }
+                maxStep = userSite.getCheckStep();
             }
         }
         if (maxStep > 0) {
@@ -62,9 +66,7 @@ public class CmsAdminGlobalApiAct extends CmsAdminAbstractApi {
             jsonArray.put(0);
         }
         String body = jsonArray.toString();
-        String message = Constants.API_MESSAGE_SUCCESS;
-        String code = ResponseCode.API_CODE_CALL_SUCCESS;
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
@@ -486,4 +488,19 @@ public class CmsAdminGlobalApiAct extends CmsAdminAbstractApi {
         }
         return errors;
     }
+
+    @Autowired
+    protected CmsSiteMng cmsSiteMng;
+    @Autowired
+    protected ChannelMng channelMng;
+    @Autowired
+    protected CmsRoleMng cmsRoleMng;
+    @Autowired
+    protected CmsGroupMng cmsGroupMng;
+    @Autowired
+    protected CmsLogMng cmsLogMng;
+    @Autowired
+    protected CmsUserMng manager;
+    @Autowired
+    protected CmsAuthorizingRealm authorizingRealm;
 }

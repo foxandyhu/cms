@@ -53,11 +53,11 @@ public class CmsGuestbookListDirective extends AbstractCmsGuestbookDirective {
 		if (getChecked(params)) {
 			check =1;
 		}
-		List<CmsGuestbook> list = cmsGuestbookMng.getList(getSiteId(params),
+		List<CmsGuestbook> list = cmsGuestbookMng.getList(
 				getCtgId(params),null, getRecommend(params), check,
 				getDesc(params), true, first, max);
 
-		Map<String, TemplateModel> paramWrap = new HashMap<String, TemplateModel>(
+		Map<String, TemplateModel> paramWrap = new HashMap<>(
 				params);
 		paramWrap.put(OUT_LIST, DefaultObjectWrapperBuilderFactory.getDefaultObjectWrapper().wrap(list));
 		Map<String, TemplateModel> origMap = DirectiveUtils

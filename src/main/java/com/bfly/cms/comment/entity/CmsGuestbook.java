@@ -1,9 +1,9 @@
 package com.bfly.cms.comment.entity;
 
+import com.bfly.cms.user.entity.CmsAdmin;
+import com.bfly.cms.user.entity.CmsUser;
 import com.bfly.common.util.DateUtils;
 import com.bfly.common.util.StrUtils;
-import com.bfly.cms.siteconfig.entity.CmsSite;
-import com.bfly.cms.user.entity.CmsUser;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -71,11 +71,7 @@ public class CmsGuestbook implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "admin_id")
-    private CmsUser admin;
-
-    @ManyToOne
-    @JoinColumn(name = "site_id")
-    private CmsSite site;
+    private CmsAdmin admin;
 
     @ManyToOne
     @JoinColumn(name = "guestbookctg_id")
@@ -154,22 +150,12 @@ public class CmsGuestbook implements Serializable {
         this.member = member;
     }
 
-    public CmsUser getAdmin() {
+    public CmsAdmin getAdmin() {
         return admin;
     }
 
-
-    public void setAdmin(CmsUser admin) {
+    public void setAdmin(CmsAdmin admin) {
         this.admin = admin;
-    }
-
-
-    public CmsSite getSite() {
-        return site;
-    }
-
-    public void setSite(CmsSite site) {
-        this.site = site;
     }
 
     public CmsGuestbookCtg getCtg() {

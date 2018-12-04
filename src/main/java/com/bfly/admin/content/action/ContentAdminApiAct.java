@@ -1,30 +1,29 @@
 package com.bfly.admin.content.action;
 
-import com.bfly.core.web.ApiResponse;
-import com.bfly.core.web.ApiValidate;
-import com.bfly.core.Constants;
-import com.bfly.core.web.ResponseCode;
 import com.bfly.cms.channel.entity.Channel;
+import com.bfly.cms.channel.service.ChannelMng;
 import com.bfly.cms.content.entity.*;
-import com.bfly.cms.content.service.CmsModelMng;
-import com.bfly.cms.content.entity.CmsTopic;
-import com.bfly.cms.content.service.ContentTypeMng;
 import com.bfly.cms.content.entity.Content.CheckResultStatus;
 import com.bfly.cms.content.entity.Content.ContentStatus;
 import com.bfly.cms.content.entity.ContentRecord.ContentOperateType;
-import com.bfly.cms.logs.service.CmsLogMng;
-import com.bfly.cms.resource.service.CmsFileMng;
-import com.bfly.cms.channel.service.ChannelMng;
+import com.bfly.cms.content.service.CmsModelMng;
 import com.bfly.cms.content.service.CmsTopicMng;
 import com.bfly.cms.content.service.ContentMng;
+import com.bfly.cms.content.service.ContentTypeMng;
+import com.bfly.cms.logs.service.CmsLogMng;
+import com.bfly.cms.resource.service.CmsFileMng;
 import com.bfly.cms.resource.service.ImageSvc;
-import com.bfly.cms.weixin.service.WeiXinSvc;
 import com.bfly.cms.siteconfig.entity.CmsSite;
 import com.bfly.cms.siteconfig.entity.Ftp;
 import com.bfly.cms.siteconfig.service.CmsSiteMng;
 import com.bfly.cms.siteconfig.service.FtpMng;
 import com.bfly.cms.staticpage.ContentStatusChangeThread;
 import com.bfly.cms.staticpage.FtpDeleteThread;
+import com.bfly.cms.user.entity.CmsAdmin;
+import com.bfly.cms.user.entity.CmsUser;
+import com.bfly.cms.user.service.CmsUserMng;
+import com.bfly.cms.weixin.entity.Weixin;
+import com.bfly.cms.weixin.service.WeiXinSvc;
 import com.bfly.common.image.ImageUtils;
 import com.bfly.common.page.Pagination;
 import com.bfly.common.util.DateUtils;
@@ -33,13 +32,15 @@ import com.bfly.common.web.RequestUtils;
 import com.bfly.common.web.ResponseUtils;
 import com.bfly.common.web.springmvc.MessageResolver;
 import com.bfly.common.web.springmvc.RealPathResolver;
+import com.bfly.core.Constants;
 import com.bfly.core.annotation.SignValidate;
-import com.bfly.cms.user.entity.CmsUser;
-import com.bfly.cms.user.service.CmsUserMng;
+import com.bfly.core.base.action.BaseAdminController;
+import com.bfly.core.exception.ApiException;
+import com.bfly.core.web.ApiResponse;
+import com.bfly.core.web.ApiValidate;
+import com.bfly.core.web.ResponseCode;
 import com.bfly.core.web.WebErrors;
 import com.bfly.core.web.util.CmsUtils;
-import com.bfly.core.exception.*;
-import com.bfly.cms.weixin.entity.Weixin;
 import net.sf.json.JSONObject;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
@@ -65,7 +66,8 @@ import java.util.Map;
  */
 @Controller("adminContentApiAct")
 @RequestMapping(value = "/api/admin")
-public class ContentAdminApiAct {
+public class ContentAdminApiAct extends BaseAdminController {
+
     private static final Logger log = LoggerFactory.getLogger(ContentAdminApiAct.class);
 
     /**
@@ -75,38 +77,14 @@ public class ContentAdminApiAct {
      * @date 2018/11/26 14:05
      */
     @RequestMapping("/content/tree")
-    public void tree(Boolean hasContent, String root, Integer https, HttpServletRequest request,
-                     HttpServletResponse response) {
-        boolean isRoot;
-        if (StringUtils.isBlank(root) || "source".equals(root)) {
-            isRoot = true;
-        } else {
-            isRoot = false;
-        }
+    public void tree(Boolean hasContent, Integer https, HttpServletRequest request, HttpServletResponse response) {
         if (hasContent == null) {
             hasContent = true;
         }
         if (https == null) {
             https = Constants.URL_HTTP;
         }
-        List<Channel> list;
-        Integer siteId = CmsUtils.getSiteId(request);
-        Integer userId = CmsUtils.getUserId(request);
-        CmsUser user = CmsUtils.getUser(request);
-        if (user.getUserSite(siteId).getAllChannel()) {
-            if (isRoot) {
-                list = channelMng.getTopList(siteId, hasContent);
-            } else {
-                list = channelMng.getChildList(Integer.parseInt(root), hasContent);
-            }
-        } else {
-            if (isRoot) {
-                list = channelMng.getTopListByRigth(userId, siteId, hasContent);
-            } else {
-                list = channelMng.getChildListByRight(userId, siteId, Integer
-                        .parseInt(root), hasContent);
-            }
-        }
+        List<Channel> list = channelMng.getTopList(hasContent);
         JSONArray jsonArray = new JSONArray();
         if (list != null && list.size() > 0) {
             for (int i = 0; i < list.size(); i++) {
@@ -114,9 +92,7 @@ public class ContentAdminApiAct {
             }
         }
         String body = jsonArray.toString();
-        String message = Constants.API_MESSAGE_SUCCESS;
-        String code = ResponseCode.API_CODE_CALL_SUCCESS;
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
 
     }
@@ -145,14 +121,9 @@ public class ContentAdminApiAct {
      * 内容列表
      */
     @RequestMapping("/content/list")
-    public void list(String queryTitle, Integer queryShare, String queryStatus, Integer queryTypeId,
-                     Boolean queryTopLevel, Boolean queryRecommend,
-                     Integer queryOrderBy, Integer cid, Integer pageNo, Integer pageSize,
-                     Integer format, Integer https, Boolean hasCollect, Boolean txtImgWhole, Boolean trimHtml,
-                     HttpServletRequest request, HttpServletResponse response) {
+    public void list(String queryTitle, Integer queryShare, String queryStatus, Integer queryTypeId, Boolean queryTopLevel, Boolean queryRecommend, Integer queryOrderBy, Integer cid, Integer pageNo, Integer pageSize, Integer format, Integer https, Boolean hasCollect, Boolean txtImgWhole, Boolean trimHtml, HttpServletRequest request, HttpServletResponse response) {
         queryTitle = StringUtils.trim(queryTitle);
-        String queryInputUsername = RequestUtils.getQueryParam(request,
-                "queryInputUsername");
+        String queryInputUsername = RequestUtils.getQueryParam(request, "queryInputUsername");
         queryInputUsername = StringUtils.trim(queryInputUsername);
         if (format == null) {
             format = 0;
@@ -207,14 +178,7 @@ public class ContentAdminApiAct {
         } else {
             queryInputUserId = 0;
         }
-        CmsSite site = CmsUtils.getSite(request);
-        Integer siteId = site.getId();
-        CmsUser user = CmsUtils.getUser(request);
-        Integer userId = user.getId();
-        Pagination page = manager.getPageByRight(queryShare, queryTitle,
-                queryTypeId, user.getId(), queryInputUserId, queryTopLevel,
-                queryRecommend, contentStatus, user.getCheckStep(siteId), siteId, cid, userId,
-                queryOrderBy, pageNo, pageSize);
+        Pagination page = manager.getPageByRight(queryShare, queryTitle, queryTypeId, getAdmin().getId(), queryInputUserId, queryTopLevel, queryRecommend, contentStatus, getAdmin().getCheckStep(), cid, getAdmin().getId(), queryOrderBy, pageNo, pageSize);
         List<Content> list = (List<Content>) page.getList();
         JSONArray jsonArray = new JSONArray();
         if (list != null && list.size() > 0) {
@@ -222,10 +186,8 @@ public class ContentAdminApiAct {
                 jsonArray.put(i, list.get(i).convertToJson(format, https, hasCollect, true, txtImgWhole, trimHtml));
             }
         }
-        String message = Constants.API_MESSAGE_SUCCESS;
-        String code = ResponseCode.API_CODE_CALL_SUCCESS;
         String body = jsonArray.toString();
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
@@ -236,13 +198,9 @@ public class ContentAdminApiAct {
      * @date 2018/11/26 14:05
      */
     @RequestMapping("/content/page")
-    public void page(String queryTitle, Integer queryShare, String queryStatus, Integer queryTypeId,
-                     Boolean queryTopLevel, Boolean queryRecommend,
-                     Integer queryOrderBy, Integer cid, Integer pageNo, Integer pageSize,
-                     HttpServletRequest request, HttpServletResponse response) {
+    public void page(String queryTitle, Integer queryShare, String queryStatus, Integer queryTypeId, Boolean queryTopLevel, Boolean queryRecommend, Integer queryOrderBy, Integer cid, Integer pageNo, Integer pageSize, HttpServletRequest request, HttpServletResponse response) {
         queryTitle = StringUtils.trim(queryTitle);
-        String queryInputUsername = RequestUtils.getQueryParam(request,
-                "queryInputUsername");
+        String queryInputUsername = RequestUtils.getQueryParam(request, "queryInputUsername");
         queryInputUsername = StringUtils.trim(queryInputUsername);
         if (pageNo == null) {
             pageNo = 1;
@@ -279,14 +237,7 @@ public class ContentAdminApiAct {
         } else {
             queryInputUserId = 0;
         }
-        CmsSite site = CmsUtils.getSite(request);
-        Integer siteId = site.getId();
-        CmsUser user = CmsUtils.getUser(request);
-        Integer userId = user.getId();
-        Pagination p = manager.getPageCountByRight(queryShare, queryTitle,
-                queryTypeId, user.getId(), queryInputUserId, queryTopLevel,
-                queryRecommend, contentStatus, user.getCheckStep(siteId), siteId, cid, userId,
-                queryOrderBy, pageNo, pageSize);
+        Pagination p = manager.getPageCountByRight(queryShare, queryTitle, queryTypeId, getAdmin().getId(), queryInputUserId, queryTopLevel, queryRecommend, contentStatus, getAdmin().getCheckStep(), cid, getAdmin().getId(), queryOrderBy, pageNo, pageSize);
         JSONObject json = new JSONObject();
         json.put("pageNo", p.getPageNo());
         json.put("pageSize", p.getPageSize());
@@ -297,9 +248,7 @@ public class ContentAdminApiAct {
         json.put("prePage", p.getPrePage());
         json.put("nextPage", p.getNextPage());
         String body = json.toString();
-        String message = Constants.API_MESSAGE_SUCCESS;
-        String code = ResponseCode.API_CODE_CALL_SUCCESS;
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
@@ -310,12 +259,10 @@ public class ContentAdminApiAct {
      * @date 2018/11/26 14:06
      */
     @RequestMapping("/content/get")
-    public void get(Integer id, Integer format, Integer https, Boolean hasCollect, Boolean txtImgWhole, Boolean trimHtml,
-                    HttpServletRequest request, HttpServletResponse response) {
-        String body = "\"\"";
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
-        Content bean;
+    public void get(Integer id, Integer format, Integer https, Boolean hasCollect, Boolean txtImgWhole, Boolean trimHtml, HttpServletRequest request, HttpServletResponse response) {
+        if (id == null) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_PARAM_ERROR);
+        }
         if (format == null) {
             format = 0;
         }
@@ -331,26 +278,21 @@ public class ContentAdminApiAct {
         if (trimHtml == null) {
             trimHtml = false;
         }
-        if (id != null) {
-            if (id.equals(0)) {
-                bean = new Content();
-                if (bean.getSite() == null) {
-                    bean.setSite(CmsUtils.getSite(request));
-                }
-            } else {
-                bean = manager.findById(id);
+        Content bean;
+        if (id.equals(0)) {
+            bean = new Content();
+            if (bean.getSite() == null) {
+                bean.setSite(CmsUtils.getSite(request));
             }
-            if (bean != null) {
-                bean.init();
-                body = bean.convertToJson(format, https, hasCollect, false, txtImgWhole, trimHtml).toString();
-                message = Constants.API_MESSAGE_SUCCESS;
-                code = ResponseCode.API_CODE_CALL_SUCCESS;
-            } else {
-                message = Constants.API_MESSAGE_OBJECT_NOT_FOUND;
-                code = ResponseCode.API_CODE_NOT_FOUND;
-            }
+        } else {
+            bean = manager.findById(id);
         }
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        if (bean == null) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_PARAM_ERROR);
+        }
+        bean.init();
+        String body = bean.convertToJson(format, https, hasCollect, false, txtImgWhole, trimHtml).toString();
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
@@ -361,25 +303,18 @@ public class ContentAdminApiAct {
      * @date 2018/11/26 14:07
      */
     @RequestMapping("/content/view")
-    public void view(Integer id,
-                     HttpServletRequest request, HttpServletResponse response) {
-        String body = "\"\"";
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
+    public void view(Integer id, HttpServletRequest request, HttpServletResponse response) {
         WebErrors errors = WebErrors.create(request);
         errors = ApiValidate.validateRequiredParams(request, errors, id);
-        if (!errors.hasErrors()) {
-            Content bean = manager.findById(id);
-            if (bean != null) {
-                body = createViewJson(bean).toString();
-                message = Constants.API_MESSAGE_SUCCESS;
-                code = ResponseCode.API_CODE_CALL_SUCCESS;
-            } else {
-                message = Constants.API_MESSAGE_OBJECT_NOT_FOUND;
-                code = ResponseCode.API_CODE_NOT_FOUND;
-            }
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
         }
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        Content bean = manager.findById(id);
+        if (bean == null) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_NOT_FOUND);
+        }
+        String body = createViewJson(bean).toString();
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
@@ -391,74 +326,55 @@ public class ContentAdminApiAct {
      */
     @SignValidate
     @RequestMapping("/content/save")
-    public void save(Content bean, ContentExt ext, ContentTxt txt,
-                     Boolean copyimg, String channelIds, String topicIds, String viewGroupIds,
-                     String attachmentPaths, String attachmentNames,
-                     String picPaths, String picDescs, Integer channelId, Integer typeId,
-                     String tagStr, Boolean draft, Integer cid, Integer modelId, Short charge,
-                     Double chargeAmount, Boolean rewardPattern, Double rewardRandomMin, Double rewardRandomMax,
-                     String rewardFix, HttpServletRequest request, HttpServletResponse response) {
-        String body = "\"\"";
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
+    public void save(Content bean, ContentExt ext, ContentTxt txt, Boolean copyimg, String channelIds, String topicIds, String viewGroupIds, String attachmentPaths, String attachmentNames, String picPaths, String picDescs, Integer channelId, Integer typeId, String tagStr, Boolean draft, Integer cid, Integer modelId, Short charge, Double chargeAmount, Boolean rewardPattern, Double rewardRandomMin, Double rewardRandomMax, String rewardFix, HttpServletRequest request, HttpServletResponse response) {
         WebErrors errors = WebErrors.create(request);
         errors = ApiValidate.validateRequiredParams(request, errors, ext.getTitle(), typeId, modelId, channelId);
-        if (!errors.hasErrors()) {
-            errors = validateSave(channelId, modelId, typeId, request);
-            // 加上模板前缀
-            if (errors.hasErrors()) {
-                message = errors.getErrors().get(0);
-                code = ResponseCode.API_CODE_CALL_FAIL;
-            } else {
-                CmsSite site = CmsUtils.getSite(request);
-                bean.setSite(site);
-                CmsUser user = CmsUtils.getUser(request);
-                String tplPath = site.getTplPath();
-                if (!StringUtils.isBlank(ext.getTplContent())) {
-                    ext.setTplContent(tplPath + ext.getTplContent());
-                }
-                if (!StringUtils.isBlank(ext.getTplMobileContent())) {
-                    ext.setTplMobileContent(tplPath + ext.getTplMobileContent());
-                }
-                bean.setAttr(RequestUtils.getRequestMap(request, "attr_"));
-                String[] tagArr = StrUtils.splitAndTrim(tagStr, ",", MessageResolver
-                        .getMessage(request, "content.tagStr.split"));
-                if (txt != null && copyimg != null && copyimg) {
-                    txt = copyContentTxtImg(txt, site);
-                }
-                Integer[] channelArr = StrUtils.getInts(channelIds);
-                Integer[] topicArr = StrUtils.getInts(topicIds);
-                Integer[] viewGroupArr = StrUtils.getInts(viewGroupIds);
-                String[] pathArr = getStringArr(attachmentPaths);
-                String[] nameArr = getStringArr(attachmentNames);
-                String[] filenameArr = nameArr;
-                String[] picPathArr = getStringArr(picPaths);
-                int picLength = 0;
-                if (picPathArr != null) {
-                    picLength = picPathArr.length;
-                }
-                String[] picDesArr = getPicDescStringArr(picDescs, picLength);
-                Double[] rewardArr = getDoubleArr(rewardFix);
-                bean.init();
-                if (modelId != null) {
-                    bean.setModel(modelMng.findById(modelId));
-                }
-                bean = manager.save(bean, ext, txt, channelArr, topicArr, viewGroupArr, tagArr,
-                        pathArr, nameArr, filenameArr, picPathArr, picDesArr, channelId,
-                        typeId, draft, false, charge,
-                        chargeAmount, rewardPattern, rewardRandomMin, rewardRandomMax,
-                        rewardArr, user, false);
-                fileMng.updateFileByPaths(pathArr, picPathArr, ext.getMediaPath(), ext.getTitleImg(), ext.getTypeImg(), ext.getContentImg(), true, bean);
-                log.info("save Content id={}", bean.getId());
-                cmsLogMng.operating(request, "content.log.save", "id=" + bean.getId()
-                        + ";title=" + bean.getTitle());
-                afterContentStatusChange(bean, null, ContentStatusChangeThread.OPERATE_ADD);
-                body = easyJson(bean).toString();
-                message = Constants.API_MESSAGE_SUCCESS;
-                code = ResponseCode.API_CODE_CALL_SUCCESS;
-            }
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
         }
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        errors = validateSave(channelId, modelId, typeId, request);
+        // 加上模板前缀
+        if (errors.hasErrors()) {
+            throw new ApiException("错误", ResponseCode.API_CODE_CALL_FAIL);
+        }
+        CmsSite site = siteMng.getSite();
+        bean.setSite(site);
+        String tplPath = site.getTplPath();
+        if (!StringUtils.isBlank(ext.getTplContent())) {
+            ext.setTplContent(tplPath + ext.getTplContent());
+        }
+        if (!StringUtils.isBlank(ext.getTplMobileContent())) {
+            ext.setTplMobileContent(tplPath + ext.getTplMobileContent());
+        }
+        bean.setAttr(RequestUtils.getRequestMap(request, "attr_"));
+        String[] tagArr = StrUtils.splitAndTrim(tagStr, ",", MessageResolver.getMessage(request, "content.tagStr.split"));
+        if (txt != null && copyimg != null && copyimg) {
+            txt = copyContentTxtImg(txt, site);
+        }
+        Integer[] channelArr = StrUtils.getInts(channelIds);
+        Integer[] topicArr = StrUtils.getInts(topicIds);
+        Integer[] viewGroupArr = StrUtils.getInts(viewGroupIds);
+        String[] pathArr = getStringArr(attachmentPaths);
+        String[] nameArr = getStringArr(attachmentNames);
+        String[] filenameArr = nameArr;
+        String[] picPathArr = getStringArr(picPaths);
+        int picLength = 0;
+        if (picPathArr != null) {
+            picLength = picPathArr.length;
+        }
+        String[] picDesArr = getPicDescStringArr(picDescs, picLength);
+        Double[] rewardArr = getDoubleArr(rewardFix);
+        bean.init();
+        if (modelId != null) {
+            bean.setModel(modelMng.findById(modelId));
+        }
+        bean = manager.save(bean, ext, txt, channelArr, topicArr, viewGroupArr, tagArr, pathArr, nameArr, filenameArr, picPathArr, picDesArr, channelId, typeId, draft, false, charge, chargeAmount, rewardPattern, rewardRandomMin, rewardRandomMax, rewardArr, getAdmin(), false);
+        fileMng.updateFileByPaths(pathArr, picPathArr, ext.getMediaPath(), ext.getTitleImg(), ext.getTypeImg(), ext.getContentImg(), true, bean);
+        log.info("save Content id={}", bean.getId());
+        cmsLogMng.operating(request, "content.log.save", "id=" + bean.getId() + ";title=" + bean.getTitle());
+        afterContentStatusChange(bean, null, ContentStatusChangeThread.OPERATE_ADD);
+        String body = easyJson(bean).toString();
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
@@ -470,76 +386,55 @@ public class ContentAdminApiAct {
      */
     @SignValidate
     @RequestMapping("/content/update")
-    public void update(Content bean, ContentExt ext, String tagStr, ContentTxt txt, Integer modelId,
-                       Boolean copyimg, String channelIds, String topicIds, String viewGroupIds,
-                       String attachmentPaths, String attachmentNames, String picPaths, String picDescs,
-                       Integer channelId, Integer typeId, Boolean draft,
-                       String oldattachmentPaths, String oldpicPaths,
-                       String oldTitleImg, String oldContentImg, String oldTypeImg,
-                       Short charge, Double chargeAmount,
-                       Boolean rewardPattern, Double rewardRandomMin,
-                       Double rewardRandomMax, String rewardFix,
-                       HttpServletRequest request, HttpServletResponse response) {
-        String body = "\"\"";
-        String message;
-        String code = ResponseCode.API_CODE_CALL_FAIL;
+    public void update(Content bean, ContentExt ext, String tagStr, ContentTxt txt, Integer modelId, Boolean copyimg, String channelIds, String topicIds, String viewGroupIds, String attachmentPaths, String attachmentNames, String picPaths, String picDescs, Integer channelId, Integer typeId, Boolean draft, String oldattachmentPaths, String oldpicPaths, String oldTitleImg, String oldContentImg, String oldTypeImg, Short charge, Double chargeAmount, Boolean rewardPattern, Double rewardRandomMin, Double rewardRandomMax, String rewardFix, HttpServletRequest request, HttpServletResponse response) {
         WebErrors errors = validateUpdate(bean.getId(), request);
         if (errors.hasErrors()) {
-            message = errors.getErrors().get(0);
-        } else {
-            // 加上模板前缀
-            CmsSite site = CmsUtils.getSite(request);
-            CmsUser user = CmsUtils.getUser(request);
-            String tplPath = site.getTplPath();
-            if (!StringUtils.isBlank(ext.getTplContent())) {
-                ext.setTplContent(tplPath + ext.getTplContent());
-            }
-            if (!StringUtils.isBlank(ext.getTplMobileContent())) {
-                ext.setTplMobileContent(tplPath + ext.getTplMobileContent());
-            }
-            String[] tagArr = StrUtils.splitAndTrim(tagStr, ",", MessageResolver
-                    .getMessage(request, "content.tagStr.split"));
-            Map<String, String> attr = RequestUtils.getRequestMap(request, "attr_");
-            if (txt != null && copyimg != null && copyimg) {
-                txt = copyContentTxtImg(txt, site);
-            }
-            List<Map<String, Object>> list = manager.preChange(manager.findById(bean.getId()));
-            Integer[] channelArr = StrUtils.getInts(channelIds);
-            Integer[] topicArr = StrUtils.getInts(topicIds);
-            Integer[] viewGroupArr = StrUtils.getInts(viewGroupIds);
-            String[] pathArr = getStringArr(attachmentPaths);
-            String[] nameArr = getStringArr(attachmentNames);
-            String[] picPathArr = getStringArr(picPaths);
-            int picLength = 0;
-            if (picPathArr != null) {
-                picLength = picPathArr.length;
-            }
-            String[] picDesArr = getPicDescStringArr(picDescs, picLength);
-            String[] oldattachmentPathArr = getStringArr(oldattachmentPaths);
-            String[] oldpicPathArr = getStringArr(oldpicPaths);
-            Double[] rewardArr = getDoubleArr(rewardFix);
-            if (modelId != null) {
-                bean.setModel(modelMng.findById(modelId));
-            }
-            bean = manager.update(bean, ext, txt, tagArr, channelArr, topicArr, viewGroupArr,
-                    pathArr, nameArr, nameArr,
-                    picPathArr, picDesArr, attr, channelId, typeId,
-                    draft, charge, chargeAmount, rewardPattern,
-                    rewardRandomMin, rewardRandomMax,
-                    rewardArr, user, false);
-            afterContentStatusChange(bean, list, ContentStatusChangeThread.OPERATE_UPDATE);
-            //处理之前的附件有效性
-            fileMng.updateFileByPaths(oldattachmentPathArr, oldpicPathArr, null, oldTitleImg, oldTypeImg, oldContentImg, false, bean);
-            //处理更新后的附件有效性
-            fileMng.updateFileByPaths(pathArr, picPathArr, ext.getMediaPath(), ext.getTitleImg(), ext.getTypeImg(), ext.getContentImg(), true, bean);
-            log.info("update Content id={}.", bean.getId());
-            cmsLogMng.operating(request, "content.log.update", "id=" + bean.getId()
-                    + ";title=" + bean.getTitle());
-            body = easyJson(bean).toString();
-            message = Constants.API_MESSAGE_SUCCESS;
-            code = ResponseCode.API_CODE_CALL_SUCCESS;
+            throw new ApiException("参数错误", ResponseCode.API_CODE_PARAM_ERROR);
         }
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        // 加上模板前缀
+        CmsSite site = siteMng.getSite();
+        CmsAdmin admin = getAdmin();
+        String tplPath = site.getTplPath();
+        if (!StringUtils.isBlank(ext.getTplContent())) {
+            ext.setTplContent(tplPath + ext.getTplContent());
+        }
+        if (!StringUtils.isBlank(ext.getTplMobileContent())) {
+            ext.setTplMobileContent(tplPath + ext.getTplMobileContent());
+        }
+        String[] tagArr = StrUtils.splitAndTrim(tagStr, ",", MessageResolver.getMessage(request, "content.tagStr.split"));
+        Map<String, String> attr = RequestUtils.getRequestMap(request, "attr_");
+        if (txt != null && copyimg != null && copyimg) {
+            txt = copyContentTxtImg(txt, site);
+        }
+        List<Map<String, Object>> list = manager.preChange(manager.findById(bean.getId()));
+        Integer[] channelArr = StrUtils.getInts(channelIds);
+        Integer[] topicArr = StrUtils.getInts(topicIds);
+        Integer[] viewGroupArr = StrUtils.getInts(viewGroupIds);
+        String[] pathArr = getStringArr(attachmentPaths);
+        String[] nameArr = getStringArr(attachmentNames);
+        String[] picPathArr = getStringArr(picPaths);
+        int picLength = 0;
+        if (picPathArr != null) {
+            picLength = picPathArr.length;
+        }
+        String[] picDesArr = getPicDescStringArr(picDescs, picLength);
+        String[] oldattachmentPathArr = getStringArr(oldattachmentPaths);
+        String[] oldpicPathArr = getStringArr(oldpicPaths);
+        Double[] rewardArr = getDoubleArr(rewardFix);
+        if (modelId != null) {
+            bean.setModel(modelMng.findById(modelId));
+        }
+        bean = manager.update(bean, ext, txt, tagArr, channelArr, topicArr, viewGroupArr, pathArr, nameArr, nameArr, picPathArr, picDesArr, attr, channelId, typeId, draft, charge, chargeAmount, rewardPattern, rewardRandomMin, rewardRandomMax, rewardArr, admin, false);
+        afterContentStatusChange(bean, list, ContentStatusChangeThread.OPERATE_UPDATE);
+        //处理之前的附件有效性
+        fileMng.updateFileByPaths(oldattachmentPathArr, oldpicPathArr, null, oldTitleImg, oldTypeImg, oldContentImg, false, bean);
+        //处理更新后的附件有效性
+        fileMng.updateFileByPaths(pathArr, picPathArr, ext.getMediaPath(), ext.getTitleImg(), ext.getTypeImg(), ext.getContentImg(), true, bean);
+        log.info("update Content id={}.", bean.getId());
+        cmsLogMng.operating(request, "content.log.update", "id=" + bean.getId()
+                + ";title=" + bean.getTitle());
+        String body = easyJson(bean).toString();
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
@@ -552,79 +447,72 @@ public class ContentAdminApiAct {
     @SignValidate
     @RequestMapping("/content/delete")
     public void delete(String ids, HttpServletRequest request, HttpServletResponse response) {
-        String body = "\"\"";
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
         WebErrors errors = WebErrors.create(request);
-        CmsSite site = CmsUtils.getSite(request);
+        CmsSite site = siteMng.getSite();
         errors = ApiValidate.validateRequiredParams(request, errors, ids);
-        if (!errors.hasErrors()) {
-            Integer[] idArr = StrUtils.getInts(ids);
-            errors = validateDelete(idArr, request);
-            if (errors.hasErrors()) {
-                message = errors.getErrors().get(0);
-                code = ResponseCode.API_CODE_PARAM_ERROR;
-            } else {
-                Content[] beans;
-                // 是否开启回收站
-                if (site.getResycleOn()) {
-                    Map<Integer, List<Map<String, Object>>> map = new HashMap<Integer, List<Map<String, Object>>>();
-                    for (Integer id : idArr) {
-                        List<Map<String, Object>> list = manager.preChange(manager.findById(id));
-                        map.put(id, list);
-                    }
-                    beans = manager.cycle(CmsUtils.getUser(request), idArr);
-                    for (Content bean : beans) {
-                        afterContentStatusChange(bean, map.get(bean.getId()), ContentStatusChangeThread.OPERATE_UPDATE);
-                        log.info("delete to cycle, Content id={}", bean.getId());
-                    }
-                } else {
-                    Map<Integer, List<Map<String, Object>>> map = new HashMap<>(5);
-                    for (Integer id : idArr) {
-                        Content c = manager.findById(id);
-                        //处理附件
-                        manager.updateFileByContent(c, false);
-                        List<Map<String, Object>> list = manager.preChange(manager.findById(c.getId()));
-                        map.put(id, list);
-                    }
-                    beans = manager.deleteByIds(idArr);
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
+        }
+        Integer[] idArr = StrUtils.getInts(ids);
+        errors = validateDelete(idArr, request);
+        if (errors.hasErrors()) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_PARAM_ERROR);
+        }
+        Content[] beans;
+        // 是否开启回收站
+        if (site.getResycleOn()) {
+            Map<Integer, List<Map<String, Object>>> map = new HashMap<>(5);
+            for (Integer id : idArr) {
+                List<Map<String, Object>> list = manager.preChange(manager.findById(id));
+                map.put(id, list);
+            }
+            beans = manager.cycle(getAdmin(), idArr);
+            for (Content bean : beans) {
+                afterContentStatusChange(bean, map.get(bean.getId()), ContentStatusChangeThread.OPERATE_UPDATE);
+                log.info("delete to cycle, Content id={}", bean.getId());
+            }
+        } else {
+            Map<Integer, List<Map<String, Object>>> map = new HashMap<>(5);
+            for (Integer id : idArr) {
+                Content c = manager.findById(id);
+                //处理附件
+                manager.updateFileByContent(c, false);
+                List<Map<String, Object>> list = manager.preChange(manager.findById(c.getId()));
+                map.put(id, list);
+            }
+            beans = manager.deleteByIds(idArr);
 
-                    //静态页与ftp删除
-                    String real;
-                    String ftpPath = "";
-                    String pcFtpPath = "";
-                    Ftp syncPageFtp;
-                    syncPageFtp = site.getSyncPageFtp();
-                    if (syncPageFtp != null) {
-                        syncPageFtp = ftpMng.findById(syncPageFtp.getId());
+            //静态页与ftp删除
+            String real;
+            String ftpPath = "";
+            String pcFtpPath = "";
+            Ftp syncPageFtp;
+            syncPageFtp = site.getSyncPageFtp();
+            if (syncPageFtp != null) {
+                syncPageFtp = ftpMng.findById(syncPageFtp.getId());
+            }
+            for (Content bean : beans) {
+                //删除静态页
+                int totalPage = bean.getPageCount();
+                for (int pageNo = 1; pageNo <= totalPage; pageNo++) {
+                    //判断是否手机模板
+                    if (site.getMobileStaticSync()) {
+                        real = realPathResolver.get(bean.getMobileStaticFilename(pageNo));
+                    } else {
+                        real = realPathResolver.get(bean.getStaticFilename(pageNo));
                     }
-                    for (Content bean : beans) {
-                        //删除静态页
-                        int totalPage = bean.getPageCount();
-                        for (int pageNo = 1; pageNo <= totalPage; pageNo++) {
-                            //判断是否手机模板
-                            if (site.getMobileStaticSync()) {
-                                real = realPathResolver.get(bean.getMobileStaticFilename(pageNo));
-                            } else {
-                                real = realPathResolver.get(bean.getStaticFilename(pageNo));
-                            }
-                            File f = new File(real);
-                            if (f.exists()) {
-                                f.delete();
-                            }
-                            deleteStatic(site, bean, pageNo, ftpPath, pcFtpPath, syncPageFtp);
-                        }
-                        log.info("delete Content id={}", bean.getId());
-                        afterContentStatusChange(bean, map.get(bean.getId()), ContentStatusChangeThread.OPERATE_DEL);
-                        cmsLogMng.operating(request, "content.log.delete", "id="
-                                + bean.getId() + ";title=" + bean.getTitle());
+                    File f = new File(real);
+                    if (f.exists()) {
+                        f.delete();
                     }
+                    deleteStatic(site, bean, pageNo, ftpPath, pcFtpPath, syncPageFtp);
                 }
-                message = Constants.API_MESSAGE_SUCCESS;
-                code = ResponseCode.API_CODE_CALL_SUCCESS;
+                log.info("delete Content id={}", bean.getId());
+                afterContentStatusChange(bean, map.get(bean.getId()), ContentStatusChangeThread.OPERATE_DEL);
+                cmsLogMng.operating(request, "content.log.delete", "id=" + bean.getId() + ";title=" + bean.getTitle());
             }
         }
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        ApiResponse apiResponse = ApiResponse.getSuccess();
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
@@ -637,50 +525,39 @@ public class ContentAdminApiAct {
     @SignValidate
     @RequestMapping("/content/check")
     public void check(String ids, HttpServletRequest request, HttpServletResponse response) {
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
         WebErrors errors = WebErrors.create(request);
-        CmsUser user = CmsUtils.getUser(request);
-        boolean result = false;
         errors = ApiValidate.validateRequiredParams(request, errors, ids);
-        if (!errors.hasErrors()) {
-            Integer[] idArr = StrUtils.getInts(ids);
-            errors = validateContent(errors, idArr, request);
-            if (errors.hasErrors()) {
-                message = errors.getErrors().get(0);
-                code = ResponseCode.API_CODE_CALL_FAIL;
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
+        }
+        Integer[] idArr = StrUtils.getInts(ids);
+        errors = validateContent(errors, idArr, request);
+        if (errors.hasErrors()) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_PARAM_ERROR);
+        }
+        Map<Integer, List<Map<String, Object>>> map = new HashMap<>(5);
+        for (Integer id : idArr) {
+            List<Map<String, Object>> list = manager.preChange(manager.findById(id));
+            map.put(id, list);
+        }
+        Content[] beans = manager.check(idArr, getAdmin());
+        boolean ckFlag = true;
+        for (Content bean : beans) {
+            if (bean.getCheckResult() != CheckResultStatus.nopass) {
+                afterContentStatusChange(bean, map.get(bean.getId()),
+                        ContentStatusChangeThread.OPERATE_UPDATE);
+                log.info("check Content id={}", bean.getId());
             } else {
-                Map<Integer, List<Map<String, Object>>> map = new HashMap<>(5);
-                for (Integer id : idArr) {
-                    List<Map<String, Object>> list = manager.preChange(manager.findById(id));
-                    map.put(id, list);
-                }
-                Content[] beans = manager.check(idArr, user);
-                boolean ckFlag = true;
-                for (Content bean : beans) {
-                    if (bean.getCheckResult() != CheckResultStatus.nopass) {
-                        afterContentStatusChange(bean, map.get(bean.getId()),
-                                ContentStatusChangeThread.OPERATE_UPDATE);
-                        log.info("check Content id={}", bean.getId());
-                    } else {
-                        ckFlag = false;
-                        log.info("check Content id={} is nopass", bean.getId());
-                    }
-                }
-
-                if (ckFlag) {
-                    message = Constants.API_MESSAGE_SUCCESS;
-                    code = ResponseCode.API_CODE_CALL_SUCCESS;
-                } else {
-                    //未审核成功统一返回 审核失败
-                    message = Constants.API_MESSAGE_CONTENT_CHECK_ERROR;
-                    code = ResponseCode.API_CODE_CHECK_ERROR;
-                }
-                result = true;
+                ckFlag = false;
+                log.info("check Content id={} is nopass", bean.getId());
             }
         }
-        String body = "{\"result\":" + result + "}";
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        if (!ckFlag) {
+            //未审核成功统一返回 审核失败
+            throw new ApiException("审核失败", ResponseCode.API_CODE_CHECK_ERROR);
+        }
+        String body = "{\"result\":" + true + "}";
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
@@ -693,41 +570,26 @@ public class ContentAdminApiAct {
     @SignValidate
     @RequestMapping("/content/static")
     public void contentStatic(String ids, HttpServletRequest request, HttpServletResponse response) {
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
         WebErrors errors = WebErrors.create(request);
-        boolean result = false;
         errors = ApiValidate.validateRequiredParams(request, errors, ids);
-        if (!errors.hasErrors()) {
-            Integer[] idArr = StrUtils.getInts(ids);
-            errors = validateContent(errors, idArr, request);
-            code = ResponseCode.API_CODE_CALL_FAIL;
-            if (errors.hasErrors()) {
-                message = errors.getErrors().get(0);
-            } else {
-                try {
-                    Content[] beans = manager.contentStatic(CmsUtils.getUser(request), idArr);
-                    for (Content bean : beans) {
-                        log.info("static Content id={}", bean.getId());
-                    }
-                    result = true;
-                    message = Constants.API_MESSAGE_SUCCESS;
-                    code = ResponseCode.API_CODE_CALL_SUCCESS;
-                } catch (TemplateNotFoundException e) {
-                    message = Constants.API_MESSAGE_TEMPLATE_NOT_FOUNT;
-                } catch (TemplateParseException e) {
-                    message = Constants.API_MESSAGE_TEMPLATE_PARESE_ERROR;
-                } catch (GeneratedZeroStaticPageException e) {
-                    message = errors.getMessage(e.getMessage(), e.getGenerated());
-                } catch (StaticPageNotOpenException e) {
-                    message = Constants.API_MESSAGE_STATIC_PAGE_NOT_OPEN;
-                } catch (ContentNotCheckedException e) {
-                    message = Constants.API_MESSAGE_CONTENT_NOT_CHECKED;
-                }
-            }
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
         }
-        String body = "{\"result\":" + result + "}";
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        Integer[] idArr = StrUtils.getInts(ids);
+        errors = validateContent(errors, idArr, request);
+        if (errors.hasErrors()) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_CALL_FAIL);
+        }
+        try {
+            Content[] beans = manager.contentStatic(getAdmin(), idArr);
+            for (Content bean : beans) {
+                log.info("static Content id={}", bean.getId());
+            }
+        } catch (Exception e) {
+            throw new ApiException("系统异常", ResponseCode.API_CODE_CALL_FAIL);
+        }
+        String body = "{\"result\":" + true + "}";
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
@@ -739,43 +601,32 @@ public class ContentAdminApiAct {
      */
     @SignValidate
     @RequestMapping("/content/reject")
-    public void reject(String ids, String rejectOpinion,
-                       Byte rejectStep,
-                       HttpServletRequest request, HttpServletResponse response) {
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
-        CmsUser user = CmsUtils.getUser(request);
+    public void reject(String ids, String rejectOpinion, Byte rejectStep, HttpServletRequest request, HttpServletResponse response) {
         WebErrors errors = WebErrors.create(request);
-        boolean result = false;
         errors = ApiValidate.validateRequiredParams(request, errors, ids);
-        if (!errors.hasErrors()) {
-            Integer[] idArr = StrUtils.getInts(ids);
-            errors = validateContent(errors, idArr, request);
-            if (errors.hasErrors()) {
-                message = errors.getErrors().get(0);
-                code = ResponseCode.API_CODE_CALL_FAIL;
-            } else {
-                Map<Integer, List<Map<String, Object>>> map = new HashMap<>(5);
-                for (Integer id : idArr) {
-                    List<Map<String, Object>> list = manager.preChange(manager.findById(id));
-                    map.put(id, list);
-                }
-                if (rejectStep == null) {
-                    rejectStep = CmsUtils.getUser(request).getCheckStep(CmsUtils.getSiteId(request));
-                }
-                Content[] beans = manager.reject(idArr, user, rejectStep, rejectOpinion);
-                for (Content bean : beans) {
-                    afterContentStatusChange(bean, map.get(bean.getId()),
-                            ContentStatusChangeThread.OPERATE_UPDATE);
-                    log.info("reject Content id={}", bean.getId());
-                }
-                result = true;
-                message = Constants.API_MESSAGE_SUCCESS;
-                code = ResponseCode.API_CODE_CALL_SUCCESS;
-            }
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
         }
-        String body = "{\"result\":" + result + "}";
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        Integer[] idArr = StrUtils.getInts(ids);
+        errors = validateContent(errors, idArr, request);
+        if (errors.hasErrors()) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_CALL_FAIL);
+        }
+        Map<Integer, List<Map<String, Object>>> map = new HashMap<>(5);
+        for (Integer id : idArr) {
+            List<Map<String, Object>> list = manager.preChange(manager.findById(id));
+            map.put(id, list);
+        }
+        if (rejectStep == null) {
+            rejectStep = getAdmin().getCheckStep();
+        }
+        Content[] beans = manager.reject(idArr, getAdmin(), rejectStep, rejectOpinion);
+        for (Content bean : beans) {
+            afterContentStatusChange(bean, map.get(bean.getId()), ContentStatusChangeThread.OPERATE_UPDATE);
+            log.info("reject Content id={}", bean.getId());
+        }
+        String body = "{\"result\":" + true + "}";
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
@@ -788,34 +639,27 @@ public class ContentAdminApiAct {
     @SignValidate
     @RequestMapping("/content/submit")
     public void submit(String ids, HttpServletRequest request, HttpServletResponse response) {
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
-        CmsUser user = CmsUtils.getUser(request);
-        boolean result = false;
         WebErrors errors = WebErrors.create(request);
         errors = ApiValidate.validateRequiredParams(request, errors, ids);
-        if (!errors.hasErrors()) {
-            Integer[] idArr = StrUtils.getInts(ids);
-            errors = validateContent(errors, idArr, request);
-            if (errors.hasErrors()) {
-                message = errors.getErrors().get(0);
-                code = ResponseCode.API_CODE_CALL_FAIL;
-            } else {
-                try {
-                    Content[] beans = manager.submit(idArr, user);
-                    for (Content bean : beans) {
-                        log.info("submit Content id={}", bean.getId());
-                    }
-                    result = true;
-                    message = Constants.API_MESSAGE_SUCCESS;
-                    code = ResponseCode.API_CODE_CALL_SUCCESS;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
         }
-        String body = "{\"result\":" + result + "}";
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        Integer[] idArr = StrUtils.getInts(ids);
+        errors = validateContent(errors, idArr, request);
+        if (errors.hasErrors()) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_CALL_FAIL);
+        }
+        try {
+            Content[] beans = manager.submit(idArr, getAdmin());
+            for (Content bean : beans) {
+                log.info("submit Content id={}", bean.getId());
+            }
+        } catch (Exception e) {
+            log.error("提交出错", e);
+            throw new ApiException("提交出错", ResponseCode.API_CODE_CALL_FAIL);
+        }
+        String body = "{\"result\":" + true + "}";
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
@@ -828,39 +672,30 @@ public class ContentAdminApiAct {
     @SignValidate
     @RequestMapping("/content/move")
     public void move(String ids, Integer channelId, HttpServletResponse response, HttpServletRequest request) {
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
         WebErrors errors = WebErrors.create(request);
-        boolean result = false;
         errors = ApiValidate.validateRequiredParams(request, errors, ids, channelId);
-        if (!errors.hasErrors()) {
-            Integer[] idArr = StrUtils.getInts(ids);
-            errors = validateContent(errors, idArr, request);
-            if (errors.hasErrors()) {
-                message = errors.getErrors().get(0);
-                code = ResponseCode.API_CODE_CALL_FAIL;
-            } else {
-                Channel channel = channelMng.findById(channelId);
-                if (channel != null) {
-                    for (Integer contentId : idArr) {
-                        Content bean = manager.findById(contentId);
-                        if (bean != null) {
-                            bean.removeSelfAddToChannels(channelMng.findById(channelId));
-                            bean.setChannel(channel);
-                            manager.update(CmsUtils.getUser(request), bean, ContentOperateType.move);
-                        }
-                    }
-                    result = true;
-                    message = Constants.API_MESSAGE_SUCCESS;
-                    code = ResponseCode.API_CODE_CALL_SUCCESS;
-                } else {
-                    message = Constants.API_MESSAGE_OBJECT_NOT_FOUND;
-                    code = ResponseCode.API_CODE_NOT_FOUND;
-                }
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
+        }
+        Integer[] idArr = StrUtils.getInts(ids);
+        errors = validateContent(errors, idArr, request);
+        if (errors.hasErrors()) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_CALL_FAIL);
+        }
+        Channel channel = channelMng.findById(channelId);
+        if (channel == null) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_NOT_FOUND);
+        }
+        for (Integer contentId : idArr) {
+            Content bean = manager.findById(contentId);
+            if (bean != null) {
+                bean.removeSelfAddToChannels(channelMng.findById(channelId));
+                bean.setChannel(channel);
+                manager.update(getAdmin(), bean, ContentOperateType.move);
             }
         }
-        String body = "{\"result\":" + result + "}";
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        String body = "{\"result\":" + true + "}";
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
@@ -872,64 +707,40 @@ public class ContentAdminApiAct {
      */
     @SignValidate
     @RequestMapping("/content/copy")
-    public void copy(String ids, Integer channelId, Integer siteId,
-                     HttpServletRequest request, HttpServletResponse response) {
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
-        CmsUser user = CmsUtils.getUser(request);
-        boolean result = false;
+    public void copy(String ids, Integer channelId, HttpServletRequest request, HttpServletResponse response) {
         WebErrors errors = WebErrors.create(request);
         errors = ApiValidate.validateRequiredParams(request, errors, ids, channelId);
-        if (!errors.hasErrors()) {
-            Channel channel = channelMng.findById(channelId);
-            if (channel == null) {
-                message = Constants.API_MESSAGE_OBJECT_NOT_FOUND;
-                code = ResponseCode.API_CODE_NOT_FOUND;
-            } else {
-                Integer[] idArr = StrUtils.getInts(ids);
-                errors = validateContent(errors, idArr);
-                if (errors.hasErrors()) {
-                    message = errors.getErrors().get(0);
-                    code = ResponseCode.API_CODE_CALL_FAIL;
-                } else {
-                    for (Integer contentId : idArr) {
-                        Content bean = manager.findById(contentId);
-                        ContentExt extCopy = new ContentExt();
-                        ContentTxt txtCopy = new ContentTxt();
-                        Content beanCopy = bean.cloneWithoutSet();
-                        beanCopy.setChannel(channel);
-                        //复制到别站
-                        if (siteId != null) {
-                            beanCopy.setSite(siteMng.findById(siteId));
-                        }
-                        boolean draft = false;
-                        if (bean.getStatus().equals(ContentCheck.DRAFT)) {
-                            draft = true;
-                        }
-                        BeanUtils.copyProperties(bean.getContentExt(), extCopy);
-                        if (bean.getContentTxt() != null) {
-                            BeanUtils.copyProperties(bean.getContentTxt(), txtCopy);
-                        }
-                        manager.save(beanCopy, extCopy, txtCopy, null, bean.getTopicIds(),
-                                bean.getViewGroupIds(), bean.getTagArray(),
-                                bean.getAttachmentPaths(), bean.getAttachmentNames(),
-                                bean.getAttachmentFileNames(), bean.getPicPaths(),
-                                bean.getPicDescs(), channelId,
-                                bean.getType().getId(), draft, false, bean.getChargeModel(),
-                                bean.getChargeAmount(), bean.getRewardPattern(),
-                                bean.getRewardRandomMin(), bean.getRewardRandomMax(),
-                                bean.getRewardFixValues(), user,
-                                false);
-                        afterContentStatusChange(bean, null, ContentStatusChangeThread.OPERATE_ADD);
-                    }
-                    result = true;
-                    message = Constants.API_MESSAGE_SUCCESS;
-                    code = ResponseCode.API_CODE_CALL_SUCCESS;
-                }
-            }
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
         }
-        String body = "{\"result\":" + result + "}";
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        Channel channel = channelMng.findById(channelId);
+        if (channel == null) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_NOT_FOUND);
+        }
+        Integer[] idArr = StrUtils.getInts(ids);
+        errors = validateContent(errors, idArr);
+        if (errors.hasErrors()) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_NOT_FOUND);
+        }
+        for (Integer contentId : idArr) {
+            Content bean = manager.findById(contentId);
+            ContentExt extCopy = new ContentExt();
+            ContentTxt txtCopy = new ContentTxt();
+            Content beanCopy = bean.cloneWithoutSet();
+            beanCopy.setChannel(channel);
+            boolean draft = false;
+            if (bean.getStatus().equals(ContentCheck.DRAFT)) {
+                draft = true;
+            }
+            BeanUtils.copyProperties(bean.getContentExt(), extCopy);
+            if (bean.getContentTxt() != null) {
+                BeanUtils.copyProperties(bean.getContentTxt(), txtCopy);
+            }
+            manager.save(beanCopy, extCopy, txtCopy, null, bean.getTopicIds(), bean.getViewGroupIds(), bean.getTagArray(), bean.getAttachmentPaths(), bean.getAttachmentNames(), bean.getAttachmentFileNames(), bean.getPicPaths(), bean.getPicDescs(), channelId, bean.getType().getId(), draft, false, bean.getChargeModel(), bean.getChargeAmount(), bean.getRewardPattern(), bean.getRewardRandomMin(), bean.getRewardRandomMax(), bean.getRewardFixValues(), getAdmin(), false);
+            afterContentStatusChange(bean, null, ContentStatusChangeThread.OPERATE_ADD);
+        }
+        String body = "{\"result\":" + true + "}";
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
@@ -942,28 +753,21 @@ public class ContentAdminApiAct {
     @SignValidate
     @RequestMapping("/content/refer")
     public void refer(String ids, Integer channelId, HttpServletRequest request, HttpServletResponse response) {
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
-        boolean result = false;
         WebErrors errors = WebErrors.create(request);
         errors = ApiValidate.validateRequiredParams(request, errors, ids, channelId);
-        if (!errors.hasErrors()) {
-            Integer[] idArr = StrUtils.getInts(ids);
-            errors = validateContent(errors, idArr);
-            if (errors.hasErrors()) {
-                message = errors.getErrors().get(0);
-                code = ResponseCode.API_CODE_PARAM_ERROR;
-            } else {
-                for (Integer contentId : idArr) {
-                    manager.updateByChannelIds(contentId, new Integer[]{channelId}, Content.CONTENT_CHANNEL_ADD);
-                }
-                result = true;
-                message = Constants.API_MESSAGE_SUCCESS;
-                code = ResponseCode.API_CODE_CALL_SUCCESS;
-            }
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
         }
-        String body = "{\"result\":" + result + "}";
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        Integer[] idArr = StrUtils.getInts(ids);
+        errors = validateContent(errors, idArr);
+        if (errors.hasErrors()) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_PARAM_ERROR);
+        }
+        for (Integer contentId : idArr) {
+            manager.updateByChannelIds(contentId, new Integer[]{channelId}, Content.CONTENT_CHANNEL_ADD);
+        }
+        String body = "{\"result\":" + true + "}";
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
@@ -975,40 +779,30 @@ public class ContentAdminApiAct {
      */
     @SignValidate
     @RequestMapping("/content/priority")
-    public void priority(String ids, String topLevel,
-                         HttpServletRequest request, HttpServletResponse response) {
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
+    public void priority(String ids, String topLevel, HttpServletRequest request, HttpServletResponse response) {
         WebErrors errors = WebErrors.create(request);
-        boolean result = false;
         errors = ApiValidate.validateRequiredParams(request, errors, ids, topLevel);
-        if (!errors.hasErrors()) {
-            Integer[] idArr = StrUtils.getInts(ids);
-            errors = validateContent(errors, idArr, request);
-            if (errors.hasErrors()) {
-                message = errors.getErrors().get(0);
-                code = ResponseCode.API_CODE_PARAM_ERROR;
-            } else {
-                Byte[] bytes = splitToByte(topLevel);
-                errors = validatePriority(errors, idArr, bytes);
-                if (!errors.hasErrors()) {
-                    for (int i = 0; i < idArr.length; i++) {
-                        Content c = manager.findById(idArr[i]);
-                        c.setTopLevel(bytes[i]);
-                        manager.update(c);
-                    }
-                    log.info("update content priority.");
-                    result = true;
-                    message = Constants.API_MESSAGE_SUCCESS;
-                    code = ResponseCode.API_CODE_CALL_SUCCESS;
-                } else {
-                    message = errors.getErrors().get(0);
-                    code = ResponseCode.API_CODE_PARAM_ERROR;
-                }
-            }
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
         }
-        String body = "{\"result\":" + result + "}";
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        Integer[] idArr = StrUtils.getInts(ids);
+        errors = validateContent(errors, idArr, request);
+        if (errors.hasErrors()) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_PARAM_ERROR);
+        }
+        Byte[] bytes = splitToByte(topLevel);
+        errors = validatePriority(errors, idArr, bytes);
+        if (errors.hasErrors()) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_PARAM_ERROR);
+        }
+        for (int i = 0; i < idArr.length; i++) {
+            Content c = manager.findById(idArr[i]);
+            c.setTopLevel(bytes[i]);
+            manager.update(c);
+        }
+        log.info("update content priority.");
+        String body = "{\"result\":" + true + "}";
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
@@ -1021,33 +815,26 @@ public class ContentAdminApiAct {
     @SignValidate
     @RequestMapping("/content/pigeonhole")
     public void pigeonhole(String ids, HttpServletRequest request, HttpServletResponse response) {
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
         WebErrors errors = WebErrors.create(request);
-        boolean result = false;
         errors = ApiValidate.validateRequiredParams(request, errors, ids);
-        if (!errors.hasErrors()) {
-            Integer[] idArr = StrUtils.getInts(ids);
-            errors = validateContent(errors, idArr, request);
-            if (errors.hasErrors()) {
-                message = errors.getErrors().get(0);
-                code = ResponseCode.API_CODE_PARAM_ERROR;
-            } else {
-                for (Integer id : idArr) {
-                    Content c = manager.findById(id);
-                    List<Map<String, Object>> list = manager.preChange(c);
-                    c.setStatus(ContentCheck.PIGEONHOLE);
-                    afterContentStatusChange(c, list, ContentStatusChangeThread.OPERATE_UPDATE);
-                    manager.update(CmsUtils.getUser(request), c, ContentOperateType.pigeonhole);
-                }
-                log.info("update CmsFriendlink priority.");
-                result = true;
-                message = Constants.API_MESSAGE_SUCCESS;
-                code = ResponseCode.API_CODE_CALL_SUCCESS;
-            }
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
         }
-        String body = "{\"result\":" + result + "}";
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        Integer[] idArr = StrUtils.getInts(ids);
+        errors = validateContent(errors, idArr, request);
+        if (errors.hasErrors()) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_PARAM_ERROR);
+        }
+        for (Integer id : idArr) {
+            Content c = manager.findById(id);
+            List<Map<String, Object>> list = manager.preChange(c);
+            c.setStatus(ContentCheck.PIGEONHOLE);
+            afterContentStatusChange(c, list, ContentStatusChangeThread.OPERATE_UPDATE);
+            manager.update(getAdmin(), c, ContentOperateType.pigeonhole);
+        }
+        log.info("update CmsFriendlink priority.");
+        String body = "{\"result\":" + true + "}";
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
@@ -1060,33 +847,26 @@ public class ContentAdminApiAct {
     @SignValidate
     @RequestMapping("/content/unpigeonhole")
     public void unpigeonhole(String ids, HttpServletResponse response, HttpServletRequest request) {
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
-        boolean result = false;
         WebErrors errors = WebErrors.create(request);
         errors = ApiValidate.validateRequiredParams(request, errors, ids);
-        if (!errors.hasErrors()) {
-            Integer[] idArr = StrUtils.getInts(ids);
-            errors = validateContent(errors, idArr, request);
-            if (errors.hasErrors()) {
-                message = errors.getErrors().get(0);
-                code = ResponseCode.API_CODE_PARAM_ERROR;
-            } else {
-                for (Integer id : idArr) {
-                    Content c = manager.findById(id);
-                    List<Map<String, Object>> list = manager.preChange(c);
-                    c.setStatus(ContentCheck.CHECKED);
-                    manager.update(CmsUtils.getUser(request), c, ContentOperateType.reuse);
-                    afterContentStatusChange(c, list, ContentStatusChangeThread.OPERATE_UPDATE);
-                }
-                log.info("update CmsFriendlink priority.");
-                result = true;
-                message = Constants.API_MESSAGE_SUCCESS;
-                code = ResponseCode.API_CODE_CALL_SUCCESS;
-            }
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
         }
-        String body = "{\"result\":" + result + "}";
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        Integer[] idArr = StrUtils.getInts(ids);
+        errors = validateContent(errors, idArr, request);
+        if (errors.hasErrors()) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_PARAM_ERROR);
+        }
+        for (Integer id : idArr) {
+            Content c = manager.findById(id);
+            List<Map<String, Object>> list = manager.preChange(c);
+            c.setStatus(ContentCheck.CHECKED);
+            manager.update(getAdmin(), c, ContentOperateType.reuse);
+            afterContentStatusChange(c, list, ContentStatusChangeThread.OPERATE_UPDATE);
+        }
+        log.info("update CmsFriendlink priority.");
+        String body = "{\"result\":" + true + "}";
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
@@ -1098,43 +878,35 @@ public class ContentAdminApiAct {
      */
     @SignValidate
     @RequestMapping("/content/recommend")
-    public void recommend(String ids, Byte level,
-                          HttpServletRequest request, HttpServletResponse response) {
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
-        boolean result = false;
+    public void recommend(String ids, Byte level, HttpServletRequest request, HttpServletResponse response) {
         WebErrors errors = WebErrors.create(request);
         errors = ApiValidate.validateRequiredParams(request, errors, ids, level);
-        if (!errors.hasErrors()) {
-            Integer[] idArr = StrUtils.getInts(ids);
-            errors = validateContent(errors, idArr, request);
-            if (errors.hasErrors()) {
-                message = errors.getErrors().get(0);
-                code = ResponseCode.API_CODE_PARAM_ERROR;
-            } else {
-                for (Integer id : idArr) {
-                    Content content = manager.findById(id);
-                    // 设置推荐
-                    if (level == -1) {
-                        content.setRecommend(false);
-                    } else {
-                        content.setRecommend(true);
-                    }
-                    if (level <= 0) {
-                        content.setRecommendLevel(new Byte("0"));
-                    } else {
-                        content.setRecommendLevel(level);
-                    }
-                    manager.update(content);
-                }
-                log.info("update CmsFriendlink recommend.");
-                result = true;
-                message = Constants.API_MESSAGE_SUCCESS;
-                code = ResponseCode.API_CODE_CALL_SUCCESS;
-            }
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
         }
-        String body = "{\"result\":" + result + "}";
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        Integer[] idArr = StrUtils.getInts(ids);
+        errors = validateContent(errors, idArr, request);
+        if (errors.hasErrors()) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_PARAM_ERROR);
+        }
+        for (Integer id : idArr) {
+            Content content = manager.findById(id);
+            // 设置推荐
+            if (level == -1) {
+                content.setRecommend(false);
+            } else {
+                content.setRecommend(true);
+            }
+            if (level <= 0) {
+                content.setRecommendLevel(new Byte("0"));
+            } else {
+                content.setRecommendLevel(level);
+            }
+            manager.update(content);
+        }
+        log.info("update CmsFriendlink recommend.");
+        String body = "{\"result\":" + true + "}";
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
@@ -1147,29 +919,22 @@ public class ContentAdminApiAct {
     @SignValidate
     @RequestMapping("/content/send_to_topic")
     public void sendToTopic(String ids, String topicIds, HttpServletRequest request, HttpServletResponse response) {
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
         WebErrors errors = WebErrors.create(request);
-        boolean result = false;
         errors = ApiValidate.validateRequiredParams(request, errors, ids, topicIds);
-        if (!errors.hasErrors()) {
-            Integer[] idArr = StrUtils.getInts(ids);
-            Integer[] topicArr = StrUtils.getInts(topicIds);
-            errors = validateSendToTopic(errors, request, idArr, topicArr);
-            if (errors.hasErrors()) {
-                message = errors.getErrors().get(0);
-                code = ResponseCode.API_CODE_PARAM_ERROR;
-            } else {
-                for (Integer contentId : idArr) {
-                    manager.addContentToTopics(contentId, topicArr);
-                }
-                result = true;
-                message = Constants.API_MESSAGE_SUCCESS;
-                code = ResponseCode.API_CODE_CALL_SUCCESS;
-            }
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
         }
-        String body = "{\"result\":" + result + "}";
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        Integer[] idArr = StrUtils.getInts(ids);
+        Integer[] topicArr = StrUtils.getInts(topicIds);
+        errors = validateSendToTopic(errors, request, idArr, topicArr);
+        if (errors.hasErrors()) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_PARAM_ERROR);
+        }
+        for (Integer contentId : idArr) {
+            manager.addContentToTopics(contentId, topicArr);
+        }
+        String body = "{\"result\":" + true + "}";
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
@@ -1181,63 +946,49 @@ public class ContentAdminApiAct {
      */
     @SignValidate
     @RequestMapping("/content/send_to_weixin")
-    public void sendToWeixin(String ids, HttpServletRequest request,
-                             HttpServletResponse response) {
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
+    public void sendToWeixin(String ids, HttpServletRequest request, HttpServletResponse response) {
         WebErrors errors = WebErrors.create(request);
-        boolean result = false;
         Map<String, String> msg;
         JSONObject json = new JSONObject();
         errors = ApiValidate.validateRequiredParams(request, errors, ids);
-        Integer wxCode = null;
-        if (!errors.hasErrors()) {
-            Integer[] idArr = StrUtils.getInts(ids);
-            if (errors.hasErrors() || idArr == null || idArr.length <= 0) {
-                message = errors.getErrors().get(0);
-                code = ResponseCode.API_CODE_PARAM_ERROR;
-            } else {
-                Content[] beans = new Content[idArr.length];
-                for (int i = 0; i < idArr.length; i++) {
-                    Integer contentId = idArr[i];
-                    beans[i] = manager.findById(contentId);
-                }
-                // 判断正文是否存在
-                Boolean flag = true;
-                for (Content bean : beans) {
-                    if (StringUtils.isBlank(bean.getTxt())) {
-                        flag = false;
-                        break;
-                    }
-                }
-                if (flag) {
-                    msg = weiXinSvc.sendTextToAllUser(beans);
-                    wxCode = Integer.parseInt(msg.get("status"));
-                    if (wxCode.equals(Weixin.TENCENT_WX_SUCCESS)) {
-                        result = true;
-                        message = Constants.API_MESSAGE_SUCCESS;
-                        code = ResponseCode.API_CODE_CALL_SUCCESS;
-                        //成功发送状态码无价值
-                        wxCode = null;
-                    } else {
-                        code = "\"" + wxCode + "\"";
-                        message = Constants.API_MESSAGE_SEND_TO_WEXIN_ERROR;
-                    }
-                    if (StringUtils.isNotBlank(msg.get("errmsg"))) {
-                        message = msg.get("errmsg");
-                    }
-                    json.put("wxCode", wxCode);
-                } else {
-                    result = false;
-                    message = Constants.API_MESSAGE_NOT_CONTENT_ERROR;
-                    code = "202";
-                }
-
+        Integer wxCode;
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
+        }
+        Integer[] idArr = StrUtils.getInts(ids);
+        if (errors.hasErrors() || idArr == null || idArr.length <= 0) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_PARAM_ERROR);
+        }
+        Content[] beans = new Content[idArr.length];
+        for (int i = 0; i < idArr.length; i++) {
+            Integer contentId = idArr[i];
+            beans[i] = manager.findById(contentId);
+        }
+        // 判断正文是否存在
+        Boolean flag = true;
+        for (Content bean : beans) {
+            if (StringUtils.isBlank(bean.getTxt())) {
+                flag = false;
+                break;
             }
         }
-        json.put("result", result);
+        if (!flag) {
+            throw new ApiException("内容为空", "202");
+        }
+        msg = weiXinSvc.sendTextToAllUser(beans);
+        wxCode = Integer.parseInt(msg.get("status"));
+        if (!wxCode.equals(Weixin.TENCENT_WX_SUCCESS)) {
+            throw new ApiException("发送微信消息错误", "\"" + wxCode + "\"");
+        }
+        if (StringUtils.isNotBlank(msg.get("errmsg"))) {
+            throw new ApiException(msg.get("errmsg"), "202");
+        }
+        //成功发送状态码无价值
+        wxCode = null;
+        json.put("wxCode", wxCode);
+        json.put("result", true);
         String body = json.toString();
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code, wxCode);
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
@@ -1250,109 +1001,95 @@ public class ContentAdminApiAct {
     @SignValidate
     @RequestMapping("/content/cycle_recycle")
     public void cycleRecycle(String ids, HttpServletRequest request, HttpServletResponse response) {
-        String body = "\"\"";
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
         WebErrors errors = WebErrors.create(request);
         errors = ApiValidate.validateRequiredParams(request, errors, ids);
-        if (!errors.hasErrors()) {
-            Integer[] idArr = StrUtils.getInts(ids);
-            errors = validateContent(errors, idArr, request);
-            if (errors.hasErrors()) {
-                message = errors.getErrors().get(0);
-                code = ResponseCode.API_CODE_NOT_FOUND;
-            } else {
-                Map<Integer, List<Map<String, Object>>> map = new HashMap<Integer, List<Map<String, Object>>>();
-                for (Integer id : idArr) {
-                    List<Map<String, Object>> list = manager.preChange(manager.findById(id));
-                    map.put(id, list);
-                }
-                Content[] beans = manager.recycle(idArr);
-                for (Content bean : beans) {
-                    afterContentStatusChange(bean, map.get(bean.getId()),
-                            ContentStatusChangeThread.OPERATE_UPDATE);
-                    log.info("delete Content id={}", bean.getId());
-                }
-                message = Constants.API_MESSAGE_SUCCESS;
-                code = ResponseCode.API_CODE_CALL_SUCCESS;
-            }
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
         }
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        Integer[] idArr = StrUtils.getInts(ids);
+        errors = validateContent(errors, idArr, request);
+        if (errors.hasErrors()) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_NOT_FOUND);
+        }
+        Map<Integer, List<Map<String, Object>>> map = new HashMap<>(5);
+        for (Integer id : idArr) {
+            List<Map<String, Object>> list = manager.preChange(manager.findById(id));
+            map.put(id, list);
+        }
+        Content[] beans = manager.recycle(idArr);
+        for (Content bean : beans) {
+            afterContentStatusChange(bean, map.get(bean.getId()), ContentStatusChangeThread.OPERATE_UPDATE);
+            log.info("delete Content id={}", bean.getId());
+        }
+        ApiResponse apiResponse = ApiResponse.getSuccess();
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
     /**
      * 删除回收站内容
+     *
      * @author andy_hulibo@163.com
      * @date 2018/11/26 14:21
      */
     @SignValidate
     @RequestMapping("/content/cycle_delete")
     public void cycleDelete(String ids, HttpServletRequest request, HttpServletResponse response) {
-        String body = "\"\"";
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
         WebErrors errors = WebErrors.create(request);
-        CmsSite site = CmsUtils.getSite(request);
+        CmsSite site = siteMng.getSite();
         errors = ApiValidate.validateRequiredParams(request, errors, ids);
-        if (!errors.hasErrors()) {
-            Integer[] idArr = StrUtils.getInts(ids);
-            errors = validateContent(errors, idArr, request);
-            if (errors.hasErrors()) {
-                message = errors.getErrors().get(0);
-                code = ResponseCode.API_CODE_NOT_FOUND;
-            } else {
-                for (Integer id : idArr) {
-                    Content c = manager.findById(id);
-                    //处理附件
-                    manager.updateFileByContent(c, false);
-                }
-                Map<Integer, List<Map<String, Object>>> map = new HashMap<>(10);
-                for (Integer id : idArr) {
-                    List<Map<String, Object>> list = manager.preChange(manager.findById(id));
-                    map.put(id, list);
-                }
-                Content[] beans = manager.deleteByIds(idArr);
-                //静态页与ftp删除
-                String real;
-                String ftpPath = "";
-                String pcFtpPath = "";
-                Ftp syncPageFtp;
-                syncPageFtp = site.getSyncPageFtp();
-                if (syncPageFtp != null) {
-                    syncPageFtp = ftpMng.findById(syncPageFtp.getId());
-                }
-                //删除静态页
-                int count = 0;
-                for (Content bean : beans) {
-                    count += 1;
-                    //判断是否手机模板
-                    if (site.getMobileStaticSync()) {
-                        real = realPathResolver.get(bean.getMobileStaticFilename(count));
-                    } else {
-                        real = realPathResolver.get(bean.getStaticFilename(count));
-                    }
-                    File f = new File(real);
-                    if (f.exists()) {
-                        f.delete();
-                    }
-                    deleteStatic(site, bean, count, ftpPath, pcFtpPath, syncPageFtp);
-                    afterContentStatusChange(bean, map.get(bean.getId()),
-                            ContentStatusChangeThread.OPERATE_DEL);
-                    log.info("delete Content id={}", bean.getId());
-                }
-                message = Constants.API_MESSAGE_SUCCESS;
-                code = ResponseCode.API_CODE_CALL_SUCCESS;
-            }
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
         }
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        Integer[] idArr = StrUtils.getInts(ids);
+        errors = validateContent(errors, idArr, request);
+        if (errors.hasErrors()) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_NOT_FOUND);
+        }
+        for (Integer id : idArr) {
+            Content c = manager.findById(id);
+            //处理附件
+            manager.updateFileByContent(c, false);
+        }
+        Map<Integer, List<Map<String, Object>>> map = new HashMap<>(10);
+        for (Integer id : idArr) {
+            List<Map<String, Object>> list = manager.preChange(manager.findById(id));
+            map.put(id, list);
+        }
+        Content[] beans = manager.deleteByIds(idArr);
+        //静态页与ftp删除
+        String real;
+        String ftpPath = "";
+        String pcFtpPath = "";
+        Ftp syncPageFtp;
+        syncPageFtp = site.getSyncPageFtp();
+        if (syncPageFtp != null) {
+            syncPageFtp = ftpMng.findById(syncPageFtp.getId());
+        }
+        //删除静态页
+        int count = 0;
+        for (Content bean : beans) {
+            count += 1;
+            //判断是否手机模板
+            if (site.getMobileStaticSync()) {
+                real = realPathResolver.get(bean.getMobileStaticFilename(count));
+            } else {
+                real = realPathResolver.get(bean.getStaticFilename(count));
+            }
+            File f = new File(real);
+            if (f.exists()) {
+                f.delete();
+            }
+            deleteStatic(site, bean, count, ftpPath, pcFtpPath, syncPageFtp);
+            afterContentStatusChange(bean, map.get(bean.getId()), ContentStatusChangeThread.OPERATE_DEL);
+            log.info("delete Content id={}", bean.getId());
+        }
+        ApiResponse apiResponse = ApiResponse.getSuccess();
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
     private WebErrors validateContent(WebErrors errors, Integer[] arr, HttpServletRequest request) {
-        CmsSite site = CmsUtils.getSite(request);
         for (Integer id : arr) {
-            vldExist(id, site.getId(), errors);
+            vldExist(id, errors);
         }
         return errors;
     }
@@ -1371,10 +1108,9 @@ public class ContentAdminApiAct {
     }
 
     private WebErrors validateSendToTopic(WebErrors errors, HttpServletRequest request, Integer[] arr1, Integer[] arr2) {
-        CmsSite site = CmsUtils.getSite(request);
         if (arr1 != null) {
             for (Integer id : arr1) {
-                vldExist(id, site.getId(), errors);
+                vldExist(id, errors);
             }
         }
         if (arr2 != null) {
@@ -1433,8 +1169,7 @@ public class ContentAdminApiAct {
 
     private WebErrors validateUpdate(Integer id, HttpServletRequest request) {
         WebErrors errors = WebErrors.create(request);
-        CmsSite site = CmsUtils.getSite(request);
-        if (vldExist(id, site.getId(), errors)) {
+        if (vldExist(id, errors)) {
             return errors;
         }
         Content content = manager.findById(id);
@@ -1486,17 +1221,13 @@ public class ContentAdminApiAct {
 
     }
 
-    private boolean vldExist(Integer id, Integer siteId, WebErrors errors) {
+    private boolean vldExist(Integer id, WebErrors errors) {
         String idStr = "id";
         if (errors.ifNull(id, idStr, false)) {
             return true;
         }
         Content entity = manager.findById(id);
         if (errors.ifNotExist(entity, Content.class, id, false)) {
-            return true;
-        }
-        if (!entity.getSite().getId().equals(siteId)) {
-            errors.addErrorString("error.notInSite");
             return true;
         }
         return false;
@@ -1539,8 +1270,8 @@ public class ContentAdminApiAct {
         } else {
             json.put("origin", "");
         }
-        if (bean.getUser() != null && StringUtils.isNotBlank(bean.getUser().getUsername())) {
-            json.put("username", bean.getUser().getUsername());
+        if (bean.getAdmin() != null && StringUtils.isNotBlank(bean.getAdmin().getUsername())) {
+            json.put("username", bean.getAdmin().getUsername());
         } else {
             json.put("username", "");
         }

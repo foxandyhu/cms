@@ -104,7 +104,7 @@ public class ChannelMemberApiAct {
 			}
 			channel.setAttr(RequestUtils.getRequestMap(request, "attr_"));
 			channel=channelMng.save(channel, ext, channelTxt, null, null,
-					null, siteId, parentId, modelId,null,null,null,false);
+					null, parentId, modelId,null,null,null,false);
 			body="{\"id\":"+"\""+channel.getId()+"\"}";
 			message=Constants.API_MESSAGE_SUCCESS;
 			code = ResponseCode.API_CODE_CALL_SUCCESS;

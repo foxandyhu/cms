@@ -1,5 +1,14 @@
 package com.bfly.admin.member.action;
 
+import com.bfly.cms.channel.service.ChannelMng;
+import com.bfly.cms.logs.service.CmsLogMng;
+import com.bfly.cms.siteconfig.service.CmsSiteMng;
+import com.bfly.cms.user.entity.CmsAdmin;
+import com.bfly.cms.user.service.CmsGroupMng;
+import com.bfly.cms.user.service.CmsRoleMng;
+import com.bfly.cms.user.service.CmsUserMng;
+import com.bfly.core.base.action.BaseAdminController;
+import com.bfly.core.security.CmsAuthorizingRealm;
 import com.bfly.core.web.ApiResponse;
 import com.bfly.core.web.ApiValidate;
 import com.bfly.core.Constants;
@@ -22,6 +31,7 @@ import org.apache.shiro.subject.Subject;
 import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -39,9 +49,8 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping(value = "/api/admin")
-public class CmsAdminLocalApiAct extends CmsAdminAbstractApi {
-    private static final Logger log = LoggerFactory
-            .getLogger(CmsAdminLocalApiAct.class);
+public class CmsAdminLocalApiAct extends BaseAdminController {
+    private static final Logger log = LoggerFactory.getLogger(CmsAdminLocalApiAct.class);
 
     /**
      * 获取本站所有管理员id和username
@@ -51,17 +60,15 @@ public class CmsAdminLocalApiAct extends CmsAdminAbstractApi {
      */
     @RequestMapping("/admin/local_all")
     public void allUser(HttpServletRequest request, HttpServletResponse response) {
-        List<CmsUser> list = manager.getAdminList(CmsUtils.getSiteId(request), null, null, null);
+        List<CmsUser> list = manager.getAdminList(null, null, null);
         JSONArray jsonArray = new JSONArray();
         if (list != null && list.size() > 0) {
             for (int i = 0; i < list.size(); i++) {
                 jsonArray.put(i, createEasyJson(list.get(i)));
             }
         }
-        String message = Constants.API_MESSAGE_SUCCESS;
-        String code = ResponseCode.API_CODE_CALL_SUCCESS;
         String body = jsonArray.toString();
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        ApiResponse apiResponse =ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
@@ -167,7 +174,6 @@ public class CmsAdminLocalApiAct extends CmsAdminAbstractApi {
      * @param selfAdmin
      * @param rank
      * @param groupId
-     * @param departmentId
      * @param roleIds
      * @param channelIds
      * @param steps
@@ -329,10 +335,9 @@ public class CmsAdminLocalApiAct extends CmsAdminAbstractApi {
         String message = Constants.API_MESSAGE_PARAM_REQUIRED;
         String code = ResponseCode.API_CODE_PARAM_REQUIRED;
         if (id != null) {
-            Integer siteId = CmsUtils.getSiteId(request);
-            CmsUser user = manager.findById(id);
-            if (user != null) {
-                CmsUserSite userSite = user.getUserSite(siteId);
+            CmsAdmin admin = getAdmin();
+            if (admin != null) {
+                CmsUserSite userSite = admin.getUserSite();
                 if (userSite != null) {
                     body = userSite.convertToJson().toString();
                     message = Constants.API_MESSAGE_SUCCESS;
@@ -411,4 +416,18 @@ public class CmsAdminLocalApiAct extends CmsAdminAbstractApi {
             return null;
         }
     }
+    @Autowired
+    protected CmsSiteMng cmsSiteMng;
+    @Autowired
+    protected ChannelMng channelMng;
+    @Autowired
+    protected CmsRoleMng cmsRoleMng;
+    @Autowired
+    protected CmsGroupMng cmsGroupMng;
+    @Autowired
+    protected CmsLogMng cmsLogMng;
+    @Autowired
+    protected CmsUserMng manager;
+    @Autowired
+    protected CmsAuthorizingRealm authorizingRealm;
 }

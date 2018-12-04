@@ -35,7 +35,7 @@ public class GuestbookMemberAct extends RenderController {
         if (result != null) {
             return result;
         }
-        Pagination pagination = guestbookMng.getPage(getSite().getId(), ctgId, null, getUser().getId(), null, null, true, false, cpn(pageNo), CookieUtils.getPageSize(getRequest()));
+        Pagination pagination = guestbookMng.getPage(ctgId, null, getUser().getId(), null, null, true, false, cpn(pageNo), CookieUtils.getPageSize(getRequest()));
         model.addAttribute("pagination", pagination);
         return renderPage("guestbook/guestbook_list.html", model);
     }

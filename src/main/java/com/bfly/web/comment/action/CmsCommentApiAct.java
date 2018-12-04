@@ -55,7 +55,7 @@ public class CmsCommentApiAct {
 		if(orderBy!=null&&orderBy.equals(0)){
 			orderDesc=false;
 		}
-		List<CmsComment> list = cmsCommentMng.getListForTag(siteId,
+		List<CmsComment> list = cmsCommentMng.getListForTag(
 				contentId,parentId, greaterThen,
 				checked, recommend, orderDesc,first,count);
 		JSONArray jsonArray=new JSONArray();

@@ -105,8 +105,7 @@ public class ApiUserLoginMngImpl implements ApiUserLoginMng {
     }
 
     @Override
-    public ApiUserLogin userLogin(String username, String appId, String sessionKey,
-                                  HttpServletRequest request, HttpServletResponse response) {
+    public ApiUserLogin userLogin(String username, String appId, String sessionKey, HttpServletRequest request, HttpServletResponse response) {
         ApiAccount apiAccount;
         if (StringUtils.isNotBlank(appId)) {
             apiAccount = apiAccountMng.findByAppId(appId);
@@ -192,8 +191,7 @@ public class ApiUserLoginMngImpl implements ApiUserLoginMng {
 
     @Override
     @Transactional(readOnly = true, rollbackFor = Exception.class)
-    public Short getStatus(ApiAccount apiAccount,
-                           HttpServletRequest request, HttpServletResponse response) {
+    public Short getStatus(ApiAccount apiAccount, HttpServletRequest request, HttpServletResponse response) {
         String sessionKey = RequestUtils.getQueryParam(request, Constants.COMMON_PARAM_SESSIONKEY);
         Short loginStatus = ApiUserLogin.USER_STATUS_LOGOUT;
         if (apiAccount != null) {
@@ -264,8 +262,7 @@ public class ApiUserLoginMngImpl implements ApiUserLoginMng {
         return login;
     }
 
-    private void onLoginSuccess(String username,
-                                HttpServletRequest request, HttpServletResponse response) {
+    private void onLoginSuccess(String username, HttpServletRequest request, HttpServletResponse response) {
         CmsUser user = userMng.findByUsername(username);
         String ip = RequestUtils.getIpAddr(request);
         Date now = new Timestamp(System.currentTimeMillis());

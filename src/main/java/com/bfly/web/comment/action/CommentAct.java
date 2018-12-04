@@ -90,7 +90,7 @@ public class CommentAct extends RenderController {
         } else {
             rec = null;
         }
-        List<CmsComment> list = cmsCommentMng.getListForTag(siteId, contentId, parentId, greatTo, checked, rec, desc, 0, count);
+        List<CmsComment> list = cmsCommentMng.getListForTag(contentId, parentId, greatTo, checked, rec, desc, 0, count);
         model.putAll(RequestUtils.getQueryParams(getRequest()));
         model.addAttribute("list", list);
         model.addAttribute("contentId", contentId);
@@ -173,7 +173,7 @@ public class CommentAct extends RenderController {
                     ResponseUtils.renderJson(response, json.toString());
                     return;
                 }
-                cmsCommentMng.comment(score, text, RequestUtils.getIpAddr(getRequest()), contentId, getSite().getId(), userId, checked, false, parentId);
+                cmsCommentMng.comment(score, text, RequestUtils.getIpAddr(getRequest()), contentId,  userId, checked, false, parentId);
                 json.put("success", true);
                 json.put("status", 0);
             } else {

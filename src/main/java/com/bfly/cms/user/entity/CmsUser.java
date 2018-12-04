@@ -8,9 +8,9 @@ import com.bfly.cms.content.entity.ContentRecord;
 import com.bfly.cms.funds.entity.CmsUserAccount;
 import com.bfly.cms.job.entity.CmsJobApply;
 import com.bfly.cms.job.entity.CmsUserResume;
+import com.bfly.cms.logs.entity.CmsLog;
 import com.bfly.cms.message.entity.CmsMessage;
 import com.bfly.cms.message.entity.CmsReceiverMessage;
-import com.bfly.cms.logs.entity.CmsLog;
 import com.bfly.cms.siteconfig.entity.CmsSite;
 import com.bfly.cms.siteconfig.entity.Ftp;
 import com.bfly.cms.system.entity.CmsConfigItem;
@@ -162,14 +162,6 @@ public class CmsUser implements PriorityInterface, Serializable {
     @OneToOne(cascade = CascadeType.REMOVE, orphanRemoval = true, mappedBy = "user")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
     private CmsUserAccount userAccount;
-
-    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "user")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
-    private Set<CmsUserSite> userSites;
-
-    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
-    private Set<CmsRole> roles;
 
     @ManyToMany(mappedBy = "users")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
@@ -394,26 +386,6 @@ public class CmsUser implements PriorityInterface, Serializable {
         this.userExt = userExt;
     }
 
-
-    public Set<CmsUserSite> getUserSites() {
-        return userSites;
-    }
-
-
-    public void setUserSites(Set<CmsUserSite> userSites) {
-        this.userSites = userSites;
-    }
-
-
-    public Set<CmsRole> getRoles() {
-        return roles;
-    }
-
-
-    public void setRoles(Set<CmsRole> roles) {
-        this.roles = roles;
-    }
-
     public Set<Channel> getChannels() {
         return channels;
     }
@@ -518,15 +490,6 @@ public class CmsUser implements PriorityInterface, Serializable {
 
     public void setThirdAccounts(Set<CmsThirdAccount> thirdAccounts) {
         this.thirdAccounts = thirdAccounts;
-    }
-
-    public Byte getCheckStep(Integer siteId) {
-        CmsUserSite us = getUserSite(siteId);
-        if (us != null) {
-            return getUserSite(siteId).getCheckStep();
-        } else {
-            return null;
-        }
     }
 
     public String getRealname() {
@@ -663,16 +626,6 @@ public class CmsUser implements PriorityInterface, Serializable {
         this.userAccount = userAccount;
     }
 
-    public CmsUserSite getUserSite(Integer siteId) {
-        Set<CmsUserSite> set = getUserSites();
-        for (CmsUserSite us : set) {
-            if (us.getSite().getId().equals(siteId)) {
-                return us;
-            }
-        }
-        return null;
-    }
-
     public CmsUserResume getUserResume() {
         return userResume;
     }
@@ -709,58 +662,13 @@ public class CmsUser implements PriorityInterface, Serializable {
         return ids;
     }
 
-    public Integer[] getRoleIds() {
-        Set<CmsRole> roles = getRoles();
-        return CmsRole.fetchIds(roles);
-    }
-
-    public CmsRole getTopRole() {
-        Set<CmsRole> roles = getRoles();
-        CmsRole topRole = null;
-        for (CmsRole r : roles) {
-            topRole = r;
-            if (r.getLevel() > topRole.getLevel()) {
-                topRole = r;
-            }
-        }
-        return topRole;
-    }
-
-    public Integer getTopRoleLevel() {
-        CmsRole topRole = getTopRole();
-        if (topRole != null) {
-            return topRole.getLevel();
-        } else {
-            return 0;
-        }
-    }
-
-
-    public Integer[] getSiteIds() {
-        Set<CmsSite> sites = getSites();
-        return CmsSite.fetchIds(sites);
-    }
-
-    public void addToRoles(CmsRole role) {
-        if (role == null) {
-            return;
-        }
-        Set<CmsRole> set = getRoles();
-        if (set == null) {
-            set = new HashSet<CmsRole>();
-            setRoles(set);
-        }
-        set.add(role);
-    }
-
-
     public void addToChannels(Channel channel) {
         if (channel == null) {
             return;
         }
         Set<Channel> set = getChannels();
         if (set == null) {
-            set = new HashSet<Channel>();
+            set = new HashSet<>();
             setChannels(set);
         }
         set.add(channel);
@@ -772,7 +680,7 @@ public class CmsUser implements PriorityInterface, Serializable {
         }
         Set<Content> set = getCollectContents();
         if (set == null) {
-            set = new HashSet<Content>();
+            set = new HashSet<>();
             setCollectContents(set);
         }
         set.add(content);
@@ -792,18 +700,6 @@ public class CmsUser implements PriorityInterface, Serializable {
 
     public void clearCollection() {
         getCollectContents().clear();
-    }
-
-    public Set<CmsSite> getSites() {
-        if (getUserSites() != null) {
-            Set<CmsUserSite> userSites = getUserSites();
-            Set<CmsSite> sites = new HashSet<>(userSites.size());
-            for (CmsUserSite us : userSites) {
-                sites.add(us.getSite());
-            }
-            return sites;
-        }
-        return null;
     }
 
     public Set<Content> getApplyContent() {
@@ -826,106 +722,6 @@ public class CmsUser implements PriorityInterface, Serializable {
         return false;
     }
 
-    public boolean isSuper() {
-        Set<CmsRole> roles = getRoles();
-        if (roles == null) {
-            return false;
-        }
-        for (CmsRole role : getRoles()) {
-            if (role.getAll()) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public Set<String> getPerms() {
-        if (getDisabled()) {
-            return null;
-        }
-        Set<CmsRole> roles = getRoles();
-        if (roles == null) {
-            return null;
-        }
-        boolean isSuper = false;
-        Set<String> allPerms = new HashSet<String>();
-        for (CmsRole role : getRoles()) {
-            if (role.getAll()) {
-                isSuper = true;
-                break;
-            }
-            allPerms.addAll(role.getPerms());
-        }
-        if (isSuper) {
-            allPerms.clear();
-            allPerms.add("*");
-        }
-        return allPerms;
-    }
-
-    public String getPermStr() {
-        if (getDisabled()) {
-            return "";
-        }
-        Set<CmsRole> roles = getRoles();
-        if (roles == null) {
-            return "";
-        }
-        boolean isSuper = false;
-        StringBuffer permBuff = new StringBuffer();
-        for (CmsRole role : getRoles()) {
-            if (role.getAll()) {
-                isSuper = true;
-                break;
-            }
-            for (String s : role.getPerms()) {
-                permBuff.append(s + ",");
-            }
-        }
-        if (isSuper) {
-            int sb_length = permBuff.length();
-            permBuff.delete(0, sb_length);
-            permBuff.append("*");
-        }
-        return permBuff.toString();
-    }
-
-    public Set<String> getPerms(Integer siteId, Set<String> perms) {
-        if (getDisabled()) {
-            return null;
-        }
-        Set<CmsUserSite> userSits = getUserSites();
-        if (userSits == null) {
-            return null;
-        }
-        Set<CmsRole> roles = getRoles();
-        if (roles == null) {
-            return null;
-        }
-        boolean hasSitePermission = false;
-        for (CmsUserSite cus : userSits) {
-            if (cus.getSite().getId().equals(siteId)) {
-                hasSitePermission = true;
-            }
-        }
-        if (!hasSitePermission) {
-            return null;
-        }
-        boolean isSuper = false;
-        Set<String> allPerms = new HashSet<String>();
-        for (CmsRole role : getRoles()) {
-            if (role.getAll()) {
-                isSuper = true;
-                break;
-            }
-            allPerms.addAll(role.getPerms());
-        }
-        if (isSuper) {
-            allPerms.clear();
-            allPerms.add("*");
-        }
-        return allPerms;
-    }
 
     /**
      * 是否允许上传，根据每日限额
@@ -1249,53 +1045,8 @@ public class CmsUser implements PriorityInterface, Serializable {
         } else {
             json.put("selfAdmin", "");
         }
-        if (getRoles() != null) {
-            Set<CmsRole> set = getRoles();
-            JSONArray jsonArrayId = new JSONArray();
-            JSONArray jsonArrayName = new JSONArray();
-            int index = 0;
-            for (CmsRole role : set) {
-                jsonArrayId.put(index, role.getId());
-                jsonArrayName.put(index, role.getName());
-                index++;
-            }
-
-            json.put("roleIds", jsonArrayId);
-            json.put("roleNames", jsonArrayName);
-        } else {
-            json.put("roleIds", new JSONArray());
-            json.put("roleNames", new JSONArray());
-        }
-        Set<CmsUserSite> set = getUserSites();
         JSONArray allChannels = new JSONArray();
         JSONArray steps = new JSONArray();
-        JSONArray siteArray = new JSONArray();
-        int index = 0;
-        if (set != null && set.size() > 0) {
-            List<CmsUserSite> siteList = new ArrayList<CmsUserSite>(set);
-            Collections.sort(siteList, new Comparator<CmsUserSite>() {
-                @Override
-                public int compare(CmsUserSite o1, CmsUserSite o2) {
-                    return o1.getSite().getId() < o2.getSite().getId() ? -1 : 1;
-                }
-            });
-            for (CmsUserSite cmsUserSite : siteList) {
-                if (isLocal != null && isLocal) {
-                    if (site.getId().equals(cmsUserSite.getSite().getId())) {
-                        siteArray.put(index, createEasyJson(cmsUserSite.getSite()));
-                        allChannels.put(index, cmsUserSite.getAllChannel());
-                        steps.put(index, cmsUserSite.getCheckStep());
-                        break;
-                    }
-                } else {
-                    siteArray.put(index, createEasyJson(cmsUserSite.getSite()));
-                    allChannels.put(index, cmsUserSite.getAllChannel());
-                    steps.put(index, cmsUserSite.getCheckStep());
-                    index++;
-                }
-            }
-        }
-        json.put("sites", siteArray);
         json.put("allChannels", allChannels);
         json.put("steps", steps);
         json.put("channelIds", getChannelIds());

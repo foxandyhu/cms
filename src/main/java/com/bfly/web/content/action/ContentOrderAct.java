@@ -518,7 +518,7 @@ public class ContentOrderAct extends RenderController {
                 ContentBuy contentBuy = new ContentBuy();
                 if (contentId != null) {
                     content = contentMng.findById(contentId);
-                    contentBuy.setAuthorUser(content.getUser());
+                    contentBuy.setAuthorUser(content.getAdmin());
                     //打赏可以匿名
                     if (buyUserId != null) {
                         contentBuy.setBuyUser(userMng.findById(buyUserId));

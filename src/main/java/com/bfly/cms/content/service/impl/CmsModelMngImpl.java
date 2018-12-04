@@ -20,8 +20,8 @@ public class CmsModelMngImpl implements CmsModelMng {
 
     @Override
     @Transactional(readOnly = true, rollbackFor = Exception.class)
-    public List<CmsModel> getList(boolean containDisabled, Boolean hasContent, Integer siteId) {
-        return dao.getList(containDisabled, hasContent, siteId);
+    public List<CmsModel> getList(boolean containDisabled, Boolean hasContent) {
+        return dao.getList(containDisabled, hasContent);
     }
 
     @Override

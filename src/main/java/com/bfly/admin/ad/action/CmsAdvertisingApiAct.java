@@ -1,21 +1,20 @@
 package com.bfly.admin.ad.action;
 
-import com.bfly.core.web.ApiResponse;
-import com.bfly.core.web.ApiValidate;
-import com.bfly.core.Constants;
-import com.bfly.core.web.ResponseCode;
 import com.bfly.cms.ad.entity.CmsAdvertising;
-import com.bfly.cms.logs.service.CmsLogMng;
 import com.bfly.cms.ad.service.CmsAdvertisingMng;
 import com.bfly.cms.ad.service.CmsAdvertisingSpaceMng;
-import com.bfly.cms.siteconfig.entity.CmsSite;
+import com.bfly.cms.logs.service.CmsLogMng;
 import com.bfly.common.page.Pagination;
 import com.bfly.common.util.StrUtils;
 import com.bfly.common.web.RequestUtils;
 import com.bfly.common.web.ResponseUtils;
 import com.bfly.core.annotation.SignValidate;
+import com.bfly.core.base.action.BaseAdminController;
+import com.bfly.core.exception.ApiException;
+import com.bfly.core.web.ApiResponse;
+import com.bfly.core.web.ApiValidate;
+import com.bfly.core.web.ResponseCode;
 import com.bfly.core.web.WebErrors;
-import com.bfly.core.web.util.CmsUtils;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.slf4j.Logger;
@@ -40,223 +39,176 @@ import java.util.Set;
  */
 @Controller
 @RequestMapping(value = "/api/admin")
-public class CmsAdvertisingApiAct {
+public class CmsAdvertisingApiAct extends BaseAdminController {
 
     private static final Logger log = LoggerFactory.getLogger(CmsAdvertisingApiAct.class);
 
     @RequestMapping("/advertising/list")
-    public void list(Integer queryAdspaceId, Boolean queryEnabled,
-                     Integer pageNo, Integer pageSize,
-                     HttpServletRequest request, HttpServletResponse response) {
+    public void list(Integer queryAdspaceId, Boolean queryEnabled, Integer pageNo, Integer pageSize, HttpServletRequest request, HttpServletResponse response) {
         if (pageNo == null) {
             pageNo = 1;
         }
         if (pageSize == null) {
             pageSize = 10;
         }
-        CmsSite site = CmsUtils.getSite(request);
-        Pagination page = manager.getPage(site.getId(), queryAdspaceId, queryEnabled, pageNo, pageSize);
+        Pagination page = manager.getPage(queryAdspaceId, queryEnabled, pageNo, pageSize);
         List<CmsAdvertising> list = (List<CmsAdvertising>) page.getList();
         int totalCount = page.getTotalCount();
         JSONArray jsonArray = new JSONArray();
-        if (list != null && list.size() > 0) {
-            for (int i = 0; i < list.size(); i++) {
-                jsonArray.put(i, list.get(i).convertToJson());
+        if (list != null) {
+            for (CmsAdvertising ad : list) {
+                jsonArray.put(ad.convertToJson());
             }
         }
-        String message = Constants.API_MESSAGE_SUCCESS;
-        String code = ResponseCode.API_CODE_CALL_SUCCESS;
         String body = jsonArray.toString() + ",\"totalCount\":" + totalCount;
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
     @RequestMapping("/advertising/get")
     public void get(Integer id, HttpServletRequest request, HttpServletResponse response) {
-        String body = "\"\"";
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
-        CmsAdvertising bean = null;
-        if (id != null) {
-            if (id.equals(0)) {
-                bean = new CmsAdvertising();
-            } else {
-                bean = manager.findById(id);
-            }
-            if (bean != null) {
-                bean.init();
-                body = bean.convertToJson().toString();
-                message = Constants.API_MESSAGE_SUCCESS;
-                code = ResponseCode.API_CODE_CALL_SUCCESS;
-            } else {
-                message = Constants.API_MESSAGE_OBJECT_NOT_FOUND;
-                code = ResponseCode.API_CODE_NOT_FOUND;
-            }
+        CmsAdvertising bean;
+        if (id == null) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_NOT_FOUND);
         }
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        if (id.equals(0)) {
+            bean = new CmsAdvertising();
+        } else {
+            bean = manager.findById(id);
+        }
+        if (bean == null) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_NOT_FOUND);
+        }
+        bean.init();
+        String body = bean.convertToJson().toString();
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
     @SignValidate
     @RequestMapping("/advertising/save")
     public void save(CmsAdvertising bean, Integer adspaceId, HttpServletRequest request, HttpServletResponse response) {
-        String body = "\"\"";
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
         WebErrors errors = WebErrors.create(request);
         errors = ApiValidate.validateRequiredParams(request, errors, bean.getName(), bean.getCategory(), adspaceId);
         Map<String, String> attr = RequestUtils.getRequestMap(request, "attr_");
-        if (!errors.hasErrors()) {
-            if ("image".equals(bean.getCategory())) {
-                errors = ApiValidate.validateRequiredParams(request, errors, attr.get("image_link"),
-                        attr.get("image_url"));
-            } else if ("flash".equals(bean.getCategory())) {
-                errors = ApiValidate.validateRequiredParams(request, errors, attr.get("flash_url"));
-            } else if ("text".equals(bean.getCategory())) {
-                errors = ApiValidate.validateRequiredParams(request, errors, attr.get("text_link"),
-                        attr.get("text_title"));
-            } else if ("code".equals(bean.getCategory())) {
-                errors = ApiValidate.validateRequiredParams(request, errors, bean.getCode());
-            } else {
-                errors.addErrorString(Constants.API_MESSAGE_PARAM_ERROR);
-                code = ResponseCode.API_CODE_PARAM_ERROR;
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
+        }
+        validAd(bean, attr);
+        if (cmsAdvertisingSpaceMng.findById(adspaceId) == null) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_PARAM_ERROR);
+        }
+        bean.init();
+        // 去除为空串的属性
+        Set<String> toRemove = new HashSet<>();
+        for (Entry<String, String> entry : attr.entrySet()) {
+            if (StringUtils.isBlank(entry.getValue())) {
+                toRemove.add(entry.getKey());
             }
         }
-        if (!errors.hasErrors()) {
-            if (cmsAdvertisingSpaceMng.findById(adspaceId) != null) {
-                bean.init();
-                if (bean.getSite() == null) {
-                    bean.setSite(CmsUtils.getSite(request));
-                }
-                // 去除为空串的属性
-                Set<String> toRemove = new HashSet<String>();
-                for (Entry<String, String> entry : attr.entrySet()) {
-                    if (StringUtils.isBlank(entry.getValue())) {
-                        toRemove.add(entry.getKey());
-                    }
-                }
-                for (String key : toRemove) {
-                    attr.remove(key);
-                }
-                bean = manager.save(bean, adspaceId, attr);
-                log.info("save CmsAdvertising id={}", bean.getId());
-                cmsLogMng.operating(request, "cmsAdvertising.log.save", "id="
-                        + bean.getId() + ";name=" + bean.getName());
-                body = "{\"id\":" + bean.getId() + "}";
-                message = Constants.API_MESSAGE_SUCCESS;
-                code = ResponseCode.API_CODE_CALL_SUCCESS;
-            } else {
-                message = Constants.API_MESSAGE_OBJECT_NOT_FOUND;
-                code = ResponseCode.API_CODE_NOT_FOUND;
-            }
+        for (String key : toRemove) {
+            attr.remove(key);
         }
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        bean = manager.save(bean, adspaceId, attr);
+        log.info("save CmsAdvertising id={}", bean.getId());
+        cmsLogMng.operating(request, "cmsAdvertising.log.save", "id=" + bean.getId() + ";name=" + bean.getName());
+        String body = "{\"id\":" + bean.getId() + "}";
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
     @SignValidate
     @RequestMapping("/advertising/update")
     public void update(CmsAdvertising bean, Integer adspaceId, HttpServletRequest request, HttpServletResponse response) {
-        String body = "\"\"";
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
         WebErrors errors = WebErrors.create(request);
         errors = ApiValidate.validateRequiredParams(request, errors, bean.getId(), bean.getName(), bean.getCategory());
         Map<String, String> attr = RequestUtils.getRequestMap(request, "attr_");
-        if (!errors.hasErrors()) {
-            if ("image".equals(bean.getCategory())) {
-                errors = ApiValidate.validateRequiredParams(request, errors, attr.get("image_link"),
-                        attr.get("image_url"));
-            } else if ("flash".equals(bean.getCategory())) {
-                errors = ApiValidate.validateRequiredParams(request, errors, attr.get("flash_url"));
-            } else if ("text".equals(bean.getCategory())) {
-                errors = ApiValidate.validateRequiredParams(request, errors, attr.get("text_link"),
-                        attr.get("text_title"));
-            } else if ("code".equals(bean.getCategory())) {
-                errors = ApiValidate.validateRequiredParams(request, errors, bean.getCode());
-            } else {
-                errors.addErrorString(Constants.API_MESSAGE_PARAM_ERROR);
-                code = ResponseCode.API_CODE_PARAM_ERROR;
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
+        }
+        validAd(bean, attr);
+        CmsAdvertising advertising = manager.findById(bean.getId());
+        if (advertising == null && cmsAdvertisingSpaceMng.findById(adspaceId) == null) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_PARAM_ERROR);
+        }
+        // 去除为空串的属性
+        Set<String> toRemove = new HashSet<>();
+        for (Entry<String, String> entry : attr.entrySet()) {
+            if (StringUtils.isBlank(entry.getValue())) {
+                toRemove.add(entry.getKey());
             }
         }
-        if (!errors.hasErrors()) {
-            CmsAdvertising advertising = manager.findById(bean.getId());
-            if (advertising == null && cmsAdvertisingSpaceMng.findById(adspaceId) != null) {
-                message = Constants.API_MESSAGE_OBJECT_NOT_FOUND;
-                code = ResponseCode.API_CODE_NOT_FOUND;
-            } else {
-                // 去除为空串的属性
-                Set<String> toRemove = new HashSet<String>();
-                for (Entry<String, String> entry : attr.entrySet()) {
-                    if (StringUtils.isBlank(entry.getValue())) {
-                        toRemove.add(entry.getKey());
-                    }
-                }
-                for (String key : toRemove) {
-                    attr.remove(key);
-                }
-                bean = manager.update(bean, adspaceId, attr);
-                log.info("update CmsAdvertising id={}.", bean.getId());
-                cmsLogMng.operating(request, "cmsAdvertising.log.update", "id="
-                        + bean.getId() + ";name=" + bean.getName());
-                body = "{\"id\":" + bean.getId() + "}";
-                message = Constants.API_MESSAGE_SUCCESS;
-                code = ResponseCode.API_CODE_CALL_SUCCESS;
-            }
+        for (String key : toRemove) {
+            attr.remove(key);
         }
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        bean = manager.update(bean, adspaceId, attr);
+        log.info("update CmsAdvertising id={}.", bean.getId());
+        cmsLogMng.operating(request, "cmsAdvertising.log.update", "id=" + bean.getId() + ";name=" + bean.getName());
+        String body = "{\"id\":" + bean.getId() + "}";
+        ApiResponse apiResponse = ApiResponse.getSuccess(body);
         ResponseUtils.renderApiJson(response, request, apiResponse);
+    }
+
+    private void validAd(CmsAdvertising ad, Map<String, String> attr) {
+        WebErrors errors = WebErrors.create(getRequest());
+        switch (ad.getCategory()) {
+            case "image":
+                errors = ApiValidate.validateRequiredParams(getRequest(), errors, attr.get("image_link"), attr.get("image_url"));
+                break;
+            case "flash":
+                errors = ApiValidate.validateRequiredParams(getRequest(), errors, attr.get("flash_url"));
+                break;
+            case "text":
+                errors = ApiValidate.validateRequiredParams(getRequest(), errors, attr.get("text_link"), attr.get("text_title"));
+                break;
+            case "code":
+                errors = ApiValidate.validateRequiredParams(getRequest(), errors, ad.getCode());
+                break;
+            default:
+                throw new ApiException("参数错误", ResponseCode.API_CODE_PARAM_ERROR);
+        }
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
+        }
     }
 
     @SignValidate
     @RequestMapping("/advertising/delete")
     public void delete(String ids, HttpServletRequest request, HttpServletResponse response) {
-        String body = "\"\"";
-        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
-        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
         WebErrors errors = WebErrors.create(request);
         errors = ApiValidate.validateRequiredParams(request, errors, ids);
-        if (!errors.hasErrors()) {
-            Integer[] idArr = StrUtils.getInts(ids);
-            errors = validateDelete(errors, idArr, request);
-            if (errors.hasErrors()) {
-                message = errors.getErrors().get(0);
-                code = ResponseCode.API_CODE_NOT_FOUND;
-            } else {
-                CmsAdvertising[] beans = manager.deleteByIds(idArr);
-                for (CmsAdvertising bean : beans) {
-                    log.info("delete CmsAdvertising id={}", bean.getId());
-                    cmsLogMng.operating(request, "cmsAdvertising.log.delete", "id="
-                            + bean.getId() + ";name=" + bean.getName());
-                }
-                message = Constants.API_MESSAGE_SUCCESS;
-                code = ResponseCode.API_CODE_CALL_SUCCESS;
-            }
+        if (errors.hasErrors()) {
+            throw new ApiException("缺少参数", ResponseCode.API_CODE_PARAM_REQUIRED);
         }
-        ApiResponse apiResponse = new ApiResponse(request, body, message, code);
+        Integer[] idArr = StrUtils.getInts(ids);
+        errors = validateDelete(errors, idArr, request);
+        if (errors.hasErrors()) {
+            throw new ApiException("参数错误", ResponseCode.API_CODE_PARAM_ERROR);
+        }
+        CmsAdvertising[] beans = manager.deleteByIds(idArr);
+        for (CmsAdvertising bean : beans) {
+            log.info("delete CmsAdvertising id={}", bean.getId());
+            cmsLogMng.operating(request, "cmsAdvertising.log.delete", "id=" + bean.getId() + ";name=" + bean.getName());
+        }
+        ApiResponse apiResponse = ApiResponse.getSuccess();
         ResponseUtils.renderApiJson(response, request, apiResponse);
     }
 
     private WebErrors validateDelete(WebErrors errors, Integer[] idArr, HttpServletRequest request) {
-        CmsSite site = CmsUtils.getSite(request);
         if (idArr != null) {
             for (int i = 0; i < idArr.length; i++) {
-                vldExist(idArr[i], site.getId(), errors);
+                vldExist(idArr[i], errors);
             }
         }
         return errors;
     }
 
-    private boolean vldExist(Integer id, Integer siteId, WebErrors errors) {
+    private boolean vldExist(Integer id, WebErrors errors) {
         if (errors.ifNull(id, "id", false)) {
             return true;
         }
         CmsAdvertising entity = manager.findById(id);
         if (errors.ifNotExist(entity, CmsAdvertising.class, id, false)) {
-            return true;
-        }
-        if (!entity.getSite().getId().equals(siteId)) {
-            errors.addErrorString("error.notInSite");
             return true;
         }
         return false;

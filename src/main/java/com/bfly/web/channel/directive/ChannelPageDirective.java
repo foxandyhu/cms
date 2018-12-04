@@ -42,7 +42,6 @@ public class ChannelPageDirective extends AbstractChannelDirective {
 			TemplateDirectiveBody body) throws TemplateException, IOException {
 		CmsSite site = FrontUtils.getSite(env);
 		Integer parentId = DirectiveUtils.getInt(PARAM_PARENT_ID, params);
-		Integer siteId = DirectiveUtils.getInt(PARAM_SITE_ID, params);
 		boolean hasContentOnly = getHasContentOnly(params);
 
 		Pagination page;
@@ -50,10 +49,7 @@ public class ChannelPageDirective extends AbstractChannelDirective {
 			page = channelMng.getChildPageForTag(parentId, hasContentOnly,
 					FrontUtils.getPageNo(env), FrontUtils.getCount(params));
 		} else {
-			if (siteId == null) {
-				siteId = site.getId();
-			}
-			page = channelMng.getTopPageForTag(siteId, hasContentOnly,
+			page = channelMng.getTopPageForTag( hasContentOnly,
 					FrontUtils.getPageNo(env), FrontUtils.getCount(params));
 		}
 

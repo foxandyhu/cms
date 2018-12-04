@@ -59,7 +59,7 @@ public class CollectionMemberAct extends RenderController {
         if (result != null) {
             return result;
         }
-        Pagination p = contentMng.getPageForCollection(getSite().getId(), getUser().getId(), cpn(pageNo), CookieUtils.getPageSize(getRequest()));
+        Pagination p = contentMng.getPageForCollection( getUser().getId(), cpn(pageNo), CookieUtils.getPageSize(getRequest()));
         model.addAttribute("pagination", p);
         if (!StringUtils.isBlank(queryTitle)) {
             model.addAttribute("queryTitle", queryTitle);
