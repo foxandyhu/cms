@@ -30,14 +30,14 @@
     <div class="searchList">
       [#list tag_list as s]
       <div class="item">
-        <div class="search-title"><a href="${s.url}" title="${s.title}" target="_blank">${s.title?replace('${q!}', "<span>${q!}</span>")}</a></div>
+        <div class="word-title"><a href="${s.url}" title="${s.title}" target="_blank">${s.title?replace('${q!}', "<span>${q!}</span>")}</a></div>
         [#if s.txt??]
-        <div class="search-txt">
+        <div class="word-txt">
           [#assign bb=s.txt?replace("<(S*?)[^>]*>.*?|<.*? />","","ri")?replace("&nbsp;","","ri")/]
           [@text_cut s=bb?replace('${q!}', "<span style='color: red;'>${q!}</span>") len=descLen append=append/]
         </div>
         [/#if]
-        <div class="search-date"><a href="${s.ctgUrl}" target="_blank">${s.ctgName}</a><em>${s.releaseDate}</em>浏览 <span>${s.views}</span></div>
+        <div class="word-date"><a href="${s.ctgUrl}" target="_blank">${s.ctgName}</a><em>${s.releaseDate}</em>浏览 <span>${s.views}</span></div>
       </div>
       [/#list]
        [#include "../include/page.html"/]

@@ -2,7 +2,7 @@
 //delay延迟时间（毫秒）
 $(function() {
 	$("input[name=q]").autocomplete({
-		 source: "${base}/search/v_ajax_list.html",
+		 source: "${base}/word/v_ajax_list.html",
 		 minLength: 2,
 		 max:5,
 		 delay:400,
@@ -30,7 +30,7 @@ function qkeypress(){
     <!-- LOGO_end -->
     <!-- 搜索_begin -->
     <div class="searchCon">
-        <form action="${base}/search.html" target="_blank" id="searchForm">
+        <form action="${base}/word.html" target="_blank" id="searchForm">
         <div class="ui-widget">
             <div class="searchBg">
             	<input name="q" value="${oldq!'请输入关键词'}" type="text" onfocus="if(this.value=='请输入关键词')this.value=''"  onkeypress="qkeypress()" onblur="if(this.value=='')this.value='请输入关键词'"  maxlength="50" autocomplete="off" / style="border:0;width:98%;">

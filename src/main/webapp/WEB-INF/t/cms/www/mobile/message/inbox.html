@@ -24,7 +24,7 @@ $(function() {
 		<input type="checkbox" name="ids" value="${c.id!}"/>
 	</td>
 	<td bgcolor="#FFFFFF">
-		[#if c.msgStatus]
+		[#if c.read]
 			<a href="${base}/member/message_read.html?id=${c.id!}&&box=0">[@text_cut s=c.titleHtml len='15' append='...'/]</a>
 		[#else]
 			<a href="${base}/member/message_read.html?id=${c.id!}&&box=0"><strong>[@text_cut s=c.titleHtml len='15' append='...'/]</strong></a>

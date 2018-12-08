@@ -40,7 +40,7 @@
             alert(lang.cityMsg);
             return;
         }
-        var search = new BMap.LocalSearch(document.getElementById('city').value, {
+        var word = new BMap.LocalSearch(document.getElementById('city').value, {
             onSearchComplete: function (results){
                 if (results && results.getNumPois()) {
                     var points = [];
@@ -59,7 +59,7 @@
                 }
             }
         });
-        search.search(document.getElementById('address').value || document.getElementById('city').value);
+        word.word(document.getElementById('address').value || document.getElementById('city').value);
     }
     //获得参数
     function getPars(str,par){

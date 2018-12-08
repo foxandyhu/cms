@@ -48,19 +48,19 @@ $(function() {
           <table cellpadding="0" cellspacing="0">
             <tbody>
               <tr>
-                <td class="r-n">简历名称</td><td colspan="3"><input type="text" name="resumeName" [#if user.userResume??]value="${user.userResume.resumeName!}"[/#if] maxlength="100" class="member-change" style="width:529px;" /></td>
+                <td class="r-n">简历名称</td><td colspan="3"><input type="text" name="resumeName" [#if member.userResume??]value="${member.userResume.resumeName!}"[/#if] maxlength="100" class="member-change" style="width:529px;" /></td>
               </tr>
               <tr>
                 <td class="tggl-top" colspan="4">基本信息<img src="/${res}/images/member-job.png"></td>
               </tr>
               <tr>
-                <td class="rb-n">真实姓名</td><td class="rb-n"><input type="text" name="realname" value="${user.realname!?html}" maxlength="100" class="member-change" /></td><td class="rb-n">性别</td><td class="b-n">[@p.radio name="gender" value=user.gender list={"true":"男","false":"女","":"保密"}/]</td>
+                <td class="rb-n">真实姓名</td><td class="rb-n"><input type="text" name="realname" value="${member.realname!?html}" maxlength="100" class="member-change" /></td><td class="rb-n">性别</td><td class="b-n">[@p.radio name="gender" value=member.gender list={"true":"男","false":"女","":"保密"}/]</td>
               </tr>
               <tr>
-                <td class="rb-n">出生日期</td><td class="rb-n"><input type="text" name="birthday" value="${(user.birthday?string('yyyy-MM-dd'))!}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'%y-%M-%d'})" class="member-change date" /></td><td class="rb-n">来自</td><td class="b-n"><input type="text" name="comefrom" value="${user.comefrom!?html}" maxlength="150" class="member-change" /></td>
+                <td class="rb-n">出生日期</td><td class="rb-n"><input type="text" name="birthday" value="${(member.birthday?string('yyyy-MM-dd'))!}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'%y-%M-%d'})" class="member-change date" /></td><td class="rb-n">来自</td><td class="b-n"><input type="text" name="comefrom" value="${member.comefrom!?html}" maxlength="150" class="member-change" /></td>
               </tr>
               <tr>
-                <td class="rb-n">固定电话</td><td class="rb-n"><input type="text" name="phone" value="${user.phone!?html}" maxlength="50" class="member-change" /></td><td class="rb-n">手机</td><td class="b-n"><input type="text" name="mobile" value="${user.mobile!?html}" maxlength="50" class="member-change" /></td>
+                <td class="rb-n">固定电话</td><td class="rb-n"><input type="text" name="phone" value="${member.phone!?html}" maxlength="50" class="member-change" /></td><td class="rb-n">手机</td><td class="b-n"><input type="text" name="mobile" value="${member.mobile!?html}" maxlength="50" class="member-change" /></td>
               </tr>
               [@cms_model id="8"]
               [#list tag_bean.items as item]
@@ -77,17 +77,17 @@ $(function() {
 		        [/#if]
 		        [/#list] 
               <tr>
-                <td class="rb-n">毕业学校</td><td class="rb-n"><input type="text" name="eduSchool" [#if user.userResume??]value="${user.userResume.eduSchool!?html}"[/#if] maxlength="255" class="member-change" /></td><td class="rb-n">学历</td>
+                <td class="rb-n">毕业学校</td><td class="rb-n"><input type="text" name="eduSchool" [#if member.userResume??]value="${member.userResume.eduSchool!?html}"[/#if] maxlength="255" class="member-change" /></td><td class="rb-n">学历</td>
                                <td class="b-n">
                       <select name="eduBack" class="member-change">
 		        [#list education!?split(",") as opt]
-			 <option value="${opt!}" [#if user.userResume??][#if user.userResume.eduBack??][#if user.userResume.eduBack=="${opt}"]selected="selected"[/#if][/#if][/#if]>${opt!}</option>
+			 <option value="${opt!}" [#if member.userResume??][#if member.userResume.eduBack??][#if member.userResume.eduBack=="${opt}"]selected="selected"[/#if][/#if][/#if]>${opt!}</option>
 			[/#list]
 		      </select>
                     </td>
               </tr>
               <tr>
-                <td class="r-n">毕业时间</td><td class="r-n"><input type="text" name="eduGraduation" [#if user.userResume??][#if user.userResume.eduGraduation??]value="${(user.userResume.eduGraduation?string('yyyy-MM'))!}"[/#if][/#if] onclick="WdatePicker({dateFmt:'yyyy-MM'})" class="member-change date" /></td><td class="r-n">专业</td><td><input type="text" name="eduDiscipline" [#if user.userResume??]value="${user.userResume.eduDiscipline!?html}"[/#if] maxlength="255" class="member-change" /></td>
+                <td class="r-n">毕业时间</td><td class="r-n"><input type="text" name="eduGraduation" [#if member.userResume??][#if member.userResume.eduGraduation??]value="${(member.userResume.eduGraduation?string('yyyy-MM'))!}"[/#if][/#if] onclick="WdatePicker({dateFmt:'yyyy-MM'})" class="member-change date" /></td><td class="r-n">专业</td><td><input type="text" name="eduDiscipline" [#if member.userResume??]value="${member.userResume.eduDiscipline!?html}"[/#if] maxlength="255" class="member-change" /></td>
               </tr>
               <tr>
                 <td class="tggl-top" colspan="4">求职意向<img src="/${res}/images/member-job.png"></td>
@@ -98,7 +98,7 @@ $(function() {
                   <select name="targetWorknature" class="member-change">
                     <option value="">任意</option>
                     [#list nature!?split(",") as opt]
-                    <option value="${opt!}" [#if user.userResume??][#if user.userResume.targetWorknature??][#if user.userResume.targetWorknature=="${opt}"]selected="selected"[/#if][/#if][/#if]>${opt!}</option>
+                    <option value="${opt!}" [#if member.userResume??][#if member.userResume.targetWorknature??][#if member.userResume.targetWorknature=="${opt}"]selected="selected"[/#if][/#if][/#if]>${opt!}</option>
 		    [/#list]
                   </select>
                 </td>
@@ -107,7 +107,7 @@ $(function() {
                   <select name="targetWorkplace" class="member-change">
                     <option value="">任意</option>
                     [#list workplace!?split(",") as opt]
-		    <option value="${opt!}"[#if user.userResume??][#if user.userResume.targetWorkplace??][#if user.userResume.targetWorkplace=="${opt}"]selected="selected"[/#if][/#if][/#if]>${opt!}</option>
+		    <option value="${opt!}"[#if member.userResume??][#if member.userResume.targetWorkplace??][#if member.userResume.targetWorkplace=="${opt}"]selected="selected"[/#if][/#if][/#if]>${opt!}</option>
 		    [/#list]
                   </select>
                 </td>
@@ -118,7 +118,7 @@ $(function() {
                   <select name="targetCategory" class="member-change">
                     <option value="">任意</option>
                     [#list category!?split(",") as opt]
-		    <option value="${opt!}"[#if user.userResume??][#if user.userResume.targetCategory??][#if user.userResume.targetCategory=="${opt}"]selected="selected"[/#if][/#if][/#if]>${opt!}</option>
+		    <option value="${opt!}"[#if member.userResume??][#if member.userResume.targetCategory??][#if member.userResume.targetCategory=="${opt}"]selected="selected"[/#if][/#if][/#if]>${opt!}</option>
 		    [/#list]
                   </select>
                 </td>
@@ -126,7 +126,7 @@ $(function() {
                 <td>
                   <select name="targetSalary" class="member-change">
                     [#list salary!?split(",") as opt]
-		    <option value="${opt!}"[#if user.userResume??][#if user.userResume.targetSalary??][#if user.userResume.targetSalary=="${opt}"]selected="selected"[/#if][/#if][/#if]>${opt!}</option>
+		    <option value="${opt!}"[#if member.userResume??][#if member.userResume.targetSalary??][#if member.userResume.targetSalary=="${opt}"]selected="selected"[/#if][/#if][/#if]>${opt!}</option>
 		    [/#list]
                   </select>
                 </td>
@@ -136,16 +136,16 @@ $(function() {
                 <td class="tggl-top" colspan="4">工作经验<img src="/${res}/images/member-job.png"></td>
               </tr>
               <tr>
-                <td class="rb-n">公司名称</td><td class="rb-n"><input type="text" name="recentCompany" [#if user.userResume??]value="${user.userResume.recentCompany!?html}"[/#if] maxlength="255" class="member-change" /></td><td class="rb-n">职位名称</td><td class="b-n"><input type="text" name="jobName" [#if user.userResume??]value="${user.userResume.jobName!?html}"[/#if] maxlength="255" class="member-change" /></td>
+                <td class="rb-n">公司名称</td><td class="rb-n"><input type="text" name="recentCompany" [#if member.userResume??]value="${member.userResume.recentCompany!?html}"[/#if] maxlength="255" class="member-change" /></td><td class="rb-n">职位名称</td><td class="b-n"><input type="text" name="jobName" [#if member.userResume??]value="${member.userResume.jobName!?html}"[/#if] maxlength="255" class="member-change" /></td>
               </tr>
               <tr>
-                <td class="rb-n">工作开始时间</td><td colspan="3" class="b-n"><input type="text" class="member-change date" name="jobStart" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate" [#if user.userResume??][#if user.userResume.jobStart??]value=${user.userResume.jobStart?string("yyyy-MM-dd")}[/#if][/#if]> </td>
+                <td class="rb-n">工作开始时间</td><td colspan="3" class="b-n"><input type="text" class="member-change date" name="jobStart" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate" [#if member.userResume??][#if member.userResume.jobStart??]value=${member.userResume.jobStart?string("yyyy-MM-dd")}[/#if][/#if]> </td>
               </tr>
               <tr>
-                <td class="rb-n">工作描述</td><td colspan="3" class="b-n"><textarea rows="10" cols="50" name="jobDescription">[#if user.userResume??]${user.userResume.jobDescription!?html}[/#if]</textarea></td>
+                <td class="rb-n">工作描述</td><td colspan="3" class="b-n"><textarea rows="10" cols="50" name="jobDescription">[#if member.userResume??]${member.userResume.jobDescription!?html}[/#if]</textarea></td>
               </tr>
               <tr>
-                <td class="rb-n">自我评价</td><td colspan="3" class="b-n"><textarea rows="10" cols="50" name="selfEvaluation">[#if user.userResume??]${user.userResume.selfEvaluation!?html}[/#if]</textarea></td>
+                <td class="rb-n">自我评价</td><td colspan="3" class="b-n"><textarea rows="10" cols="50" name="selfEvaluation">[#if member.userResume??]${member.userResume.selfEvaluation!?html}[/#if]</textarea></td>
               </tr>
               <tr>
                 <td colspan="4" style="text-align:center; padding:20px 0;"><input type="hidden" name="nextUrl" value="resume.html"/><input type="submit" class="member-submit" value="提交" /><input type="reset" class="member-reset" value="重置" /></td>

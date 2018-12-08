@@ -43,8 +43,8 @@ $(function() {
   });
 });
 </script>
-[#if user??]
-&nbsp;欢迎您：${user.username} &nbsp; ${user.group.name} &nbsp; <a href="${base}/member/index.html">会员中心</a> &nbsp; <a id="logout" >退出登录</a>
+[#if member??]
+&nbsp;欢迎您：${member.username} &nbsp; ${member.group.name} &nbsp; <a href="${base}/member/index.html">会员中心</a> &nbsp; <a id="logout" >退出登录</a>
 [#else]
 &nbsp;您好，您还没有登录哦！ <a href="${base}/register.html">免费注册</a>&nbsp;|&nbsp;<a href="${base}/login.html?returnUrl=/">会员登录</a>&nbsp;|&nbsp;<a href="${base}/member/forgot_password.html">忘记密码</a>
 [/#if]

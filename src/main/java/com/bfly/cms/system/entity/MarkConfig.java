@@ -1,8 +1,5 @@
 package com.bfly.cms.system.entity;
 
-import org.apache.commons.lang.StringUtils;
-import org.json.JSONObject;
-
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
@@ -177,68 +174,5 @@ public class MarkConfig implements Serializable {
 
     public void setOffsetY(Integer offsetY) {
         this.offsetY = offsetY;
-    }
-
-
-    public JSONObject convertToJson() {
-
-        JSONObject json = new JSONObject();
-        if (getOn() != null) {
-            json.put("on", getOn());
-        } else {
-            json.put("on", "");
-        }
-        if (getMinWidth() != null) {
-            json.put("minWidth", getMinWidth());
-        } else {
-            json.put("minWidth", "");
-        }
-        if (getMinHeight() != null) {
-            json.put("minHeight", getMinHeight());
-        } else {
-            json.put("minHeight", "");
-        }
-        if (StringUtils.isNotBlank(getImagePath())) {
-            json.put("imagePath", getImagePath());
-        } else {
-            json.put("imagePath", "");
-        }
-        if (StringUtils.isNotBlank(getContent())) {
-            json.put("content", getContent());
-        } else {
-            json.put("content", "");
-        }
-        if (getSize() != null) {
-            json.put("size", getSize());
-        } else {
-            json.put("size", "");
-        }
-        if (StringUtils.isNotBlank(getColor())) {
-            json.put("color", getColor());
-        } else {
-            json.put("color", "");
-        }
-        if (getAlpha() != null) {
-            json.put("alpha", getAlpha());
-        } else {
-            json.put("alpha", "");
-        }
-        if (getPos() != null) {
-            json.put("pos", getPos());
-        } else {
-            json.put("pos", "");
-        }
-        if (getOffsetX() != null) {
-            json.put("offsetX", getOffsetX());
-        } else {
-            json.put("offsetX", "");
-        }
-        if (getOffsetY() != null) {
-            json.put("offsetY", getOffsetY());
-        } else {
-            json.put("offsetY", "");
-        }
-        return json;
-
     }
 }

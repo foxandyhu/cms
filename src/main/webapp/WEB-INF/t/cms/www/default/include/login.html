@@ -39,8 +39,8 @@
 					           figureurl : reqData.figureurl
 					       }));
 					       var userId=null;
-                           [#if user??]
-                           userId="${user.id}";
+                           [#if member??]
+                           userId="${member.id}";
                            [/#if]
                            if(QC.Login.check()&&userId==null){
                                      QC.Login.signOut();          

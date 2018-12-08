@@ -68,14 +68,14 @@ $(function() {
       <div class="member-main">
         <div class="member-child"><a href="${base}/member/index.html">用户信息</a>|<a href="${base}/member/profile.html">修改个人资料</a>|<a href="${base}/member/portrait.html" data-toggle="modal" data-target="#avatar-modal" class="on">更换头像</a>|<a href="${base}/member/pwd.html">修改密码</a></div>
         <div class="member-text">
-			<img id="preImg1" src="${user.userImg!}"><button type="button" class="btn btn-danger"  data-toggle="modal" data-target="#avatar-modal" style="margin: 10px;">修改头像</button>
+			<img id="preImg1" src="${member.userImg!}"><button type="button" class="btn btn-danger"  data-toggle="modal" data-target="#avatar-modal" style="margin: 10px;">修改头像</button>
             <!-- 上传头像 -->
             <div class="modal fade" id="avatar-modal" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1">
 		<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<!--<form class="avatar-form" action="upload-logo.php" enctype="multipart/form-data" method="post">-->
 			<form class="avatar-form" id="form1" action="profile.html" method="post">
-				<input id="uploadImgPath1" name="userImg" style="width:220px" value="${user.userImg!}" type="hidden"/>
+				<input id="uploadImgPath1" name="userImg" style="width:220px" value="${member.userImg!}" type="hidden"/>
 				<input type="hidden" id="nextUrl" name="nextUrl" value="index.html" />
 				<div class="modal-header">
 					<button class="close" data-dismiss="modal" type="button">&times;</button>
@@ -114,14 +114,14 @@ $(function() {
 								<span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="$().cropper(&quot;setDragMode&quot;, &quot;move&quot;)">
 								</span>
 							  </button>
-							  <button type="button" class="btn btn-danger fa fa-search-plus" data-method="zoom" data-option="0.1" title="放大图片">
+							  <button type="button" class="btn btn-danger fa fa-word-plus" data-method="zoom" data-option="0.1" title="放大图片">
 								<span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="$().cropper(&quot;zoom&quot;, 0.1)">
-								  <!--<span class="fa fa-search-plus"></span>-->
+								  <!--<span class="fa fa-word-plus"></span>-->
 								</span>
 							  </button>
-							  <button type="button" class="btn btn-danger fa fa-search-minus" data-method="zoom" data-option="-0.1" title="缩小图片">
+							  <button type="button" class="btn btn-danger fa fa-word-minus" data-method="zoom" data-option="-0.1" title="缩小图片">
 								<span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="$().cropper(&quot;zoom&quot;, -0.1)">
-								  <!--<span class="fa fa-search-minus"></span>-->
+								  <!--<span class="fa fa-word-minus"></span>-->
 								</span>
 							  </button>
 							  <button type="button" class="btn btn-danger fa fa-refresh" data-method="reset" title="重置图片">

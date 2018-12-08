@@ -23,55 +23,55 @@
              <table width="100%" cellspacing="1" cellpadding="5" border="0" bgcolor="#C8DCF0" align="center">
                <tbody><tr>
                  <td width="150" height="25" bgcolor="#f6fbff" align="right">用户名： </td>
-                 <td bgcolor="#FFFFFF">${user.username}</td>
+                 <td bgcolor="#FFFFFF">${member.username}</td>
                </tr>
                <tr>
                  <td height="25" bgcolor="#f6fbff" align="right">会员组：</td>
-                 <td bgcolor="#FFFFFF">${user.group.name}</td>
+                 <td bgcolor="#FFFFFF">${member.group.name}</td>
                </tr>
                <tr>
                  <td height="25" bgcolor="#f6fbff" align="right">邮箱：</td>
-                 <td bgcolor="#FFFFFF">${user.email!}</td>
+                 <td bgcolor="#FFFFFF">${member.email!}</td>
                </tr>
                <tr>
                  <td height="25" bgcolor="#f6fbff" align="right">真实姓名：</td>
-                 <td bgcolor="#FFFFFF">${user.realname!}</td>
+                 <td bgcolor="#FFFFFF">${member.realname!}</td>
                </tr>
                <tr>
                  <td height="25" bgcolor="#f6fbff" align="right">性别：</td>
-                 <td bgcolor="#FFFFFF">[#if user.gender??]${user.gender?string('男','女')}[#else]保密[/#if]</td>
+                 <td bgcolor="#FFFFFF">[#if member.gender??]${member.gender?string('男','女')}[#else]保密[/#if]</td>
                </tr>
                <tr>
                  <td height="25" bgcolor="#f6fbff" align="right">出生日期：</td>
-                 <td bgcolor="#FFFFFF">${(user.birthday?string('yyyy-MM-dd'))!}</td>
+                 <td bgcolor="#FFFFFF">${(member.birthday?string('yyyy-MM-dd'))!}</td>
                </tr>
                <tr>
                  <td height="25" bgcolor="#f6fbff" align="right">自我介绍：</td>
-                 <td bgcolor="#FFFFFF">${user.intro!}</td>
+                 <td bgcolor="#FFFFFF">${member.intro!}</td>
                </tr>
                <tr>
                  <td height="25" bgcolor="#f6fbff" align="right">来自：</td>
-                 <td bgcolor="#FFFFFF">${user.comefrom!}</td>
+                 <td bgcolor="#FFFFFF">${member.comefrom!}</td>
                </tr>
                <tr>
                  <td height="25" bgcolor="#f6fbff" align="right">QQ：</td>
-                 <td bgcolor="#FFFFFF">${user.qq!}</td>
+                 <td bgcolor="#FFFFFF">${member.qq!}</td>
                </tr>
                <tr>
                  <td height="25" bgcolor="#f6fbff" align="right">MSN：</td>
-                 <td bgcolor="#FFFFFF">${user.msn!}</td>
+                 <td bgcolor="#FFFFFF">${member.msn!}</td>
                </tr>
                <tr>
                  <td height="25" bgcolor="#f6fbff" align="right">电话：</td>
-                 <td bgcolor="#FFFFFF">${user.phone!}</td>
+                 <td bgcolor="#FFFFFF">${member.phone!}</td>
                </tr>
                <tr>
                  <td height="25" bgcolor="#f6fbff" align="right">手机：</td>
-                 <td bgcolor="#FFFFFF">${user.mobile!?html}</td>
+                 <td bgcolor="#FFFFFF">${member.mobile!?html}</td>
                </tr>
                <tr>
                  <td height="25" bgcolor="#f6fbff" align="right">财富收益：</td>
-                 <td bgcolor="#FFFFFF">${user.grain!}</td>
+                 <td bgcolor="#FFFFFF">${member.grain!}</td>
                </tr>
                <tr>
                  <td height="25" bgcolor="#FFFFFF" align="center" colspan="2">

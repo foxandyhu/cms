@@ -1,9 +1,7 @@
 package com.bfly.cms.content.entity;
 
-import org.apache.commons.lang.StringUtils;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.json.JSONObject;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,64 +16,15 @@ import java.io.Serializable;
  * @date 2018/11/26 10:23
  */
 @Entity
-@Table(name = "jc_content_type")
+@Table(name = "content_type")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class ContentType implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
-    public JSONObject convertToJson() {
-        JSONObject json = new JSONObject();
-        if (getId() != null) {
-            json.put("id", getId());
-        } else {
-            json.put("id", "");
-        }
-        if (StringUtils.isNotBlank(getName())) {
-            json.put("name", getName());
-        } else {
-            json.put("name", "");
-        }
-        if (getImgWidth() != null) {
-            json.put("imgWidth", getImgWidth());
-        } else {
-            json.put("imgWidth", "");
-        }
-        if (getImgHeight() != null) {
-            json.put("imgHeight", getImgHeight());
-        } else {
-            json.put("imgHeight", "");
-        }
-        if (getHasImage() != null) {
-            json.put("hasImage", getHasImage());
-        } else {
-            json.put("hasImage", "");
-        }
-        if (getDisabled() != null) {
-            json.put("disabled", getDisabled());
-        } else {
-            json.put("disabled", "");
-        }
-        return json;
-    }
-
-    public void init() {
-        if (getHasImage() == null) {
-            setHasImage(false);
-        }
-        if (getDisabled() == null) {
-            setDisabled(false);
-        }
-        if (getImgHeight() == null) {
-            setImgHeight(139);
-        }
-        if (getImgWidth() == null) {
-            setImgWidth(139);
-        }
-    }
-
     @Id
-    @Column(name = "type_id")
-    private Integer id;
+    @Column(name = "id")
+    private int id;
 
     /**
      * 名称
@@ -105,13 +54,13 @@ public class ContentType implements Serializable {
      * 是否禁用
      */
     @Column(name = "is_disabled")
-    private Boolean disabled;
+    private boolean disabled;
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -147,11 +96,11 @@ public class ContentType implements Serializable {
         this.hasImage = hasImage;
     }
 
-    public Boolean getDisabled() {
+    public boolean isDisabled() {
         return disabled;
     }
 
-    public void setDisabled(Boolean disabled) {
+    public void setDisabled(boolean disabled) {
         this.disabled = disabled;
     }
 }

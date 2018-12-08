@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="viewport" content="initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,minimal-ui">
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,minimum-scale=1,member-scalable=no,minimal-ui">
 <meta http-equiv="keywords" content="${channel.keywords!}"/>
 <meta http-equiv="description" content="${channel.description!}"/>
 <title>${site.name} - ${company_name}</title>
@@ -26,7 +26,7 @@ $(function() {
   
   <div class="job-top">
     <div class="job-top-con clearfix">
-    <div class="job-search">输入关键字/职位/公司<span>搜 索</span></div>
+    <div class="job-word">输入关键字/职位/公司<span>搜 索</span></div>
     <div class="job-select"></div>
     </div>
   </div>
@@ -44,21 +44,21 @@ $(function() {
 			}
 		})
   </script>
-  <div class="job-search-content">
-    <div class="job-search-content-top clearfix">
+  <div class="job-word-content">
+    <div class="job-word-content-top clearfix">
       <span class="close"></span>
       <form action="${base}/searchJob.html" target="_self">
-      <div class="main-search"><input  name="q" type="text" id="txtKey" placeholder="输入关键字/职位/公司" autocomplete="off" class="main-searchCon"><input type="submit" value="" class="main-searchBtn"></div>
+      <div class="main-word"><input  name="q" type="text" id="txtKey" placeholder="输入关键字/职位/公司" autocomplete="off" class="main-searchCon"><input type="submit" value="" class="main-searchBtn"></div>
       </form>
     </div>
   </div>
   <script type="text/javascript">
     $(document).ready(function(){
-		$(".job-search").click(function(){
-			$(".job-search-content").addClass("undis");
+		$(".job-word").click(function(){
+			$(".job-word-content").addClass("undis");
 			})
 	    $(".close").click(function(){
-			$(".job-search-content").removeClass("undis");
+			$(".job-word-content").removeClass("undis");
 			})
 		})
   </script>

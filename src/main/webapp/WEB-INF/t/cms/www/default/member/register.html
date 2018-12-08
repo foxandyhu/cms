@@ -45,7 +45,7 @@
     	   }
        });
        /* $("#jvForm").bind("submit",function(){
-    	   if($("#ck-agree").is(':checked') == false){
+    	   if($("#ck-agree").is(':CHECKED') == false){
     		   window.wxc.xcConfirm("请选择我已阅读并接受!", window.wxc.xcConfirm.typeEnum.warning);
     		   return false;
            }
@@ -72,7 +72,7 @@
 	           }else{
 	        	   $.ajax({
 	        	        type:"POST",
-	        	        url:"${base}/sms/send_register_msg.html",
+	        	        url:"${base}/smsConfig/send_register_msg.html",
 	        	         data:{
 	        	        	mobilePhone:$("#mobile").val(),
 	        	        	smsSendType:1,

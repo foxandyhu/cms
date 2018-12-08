@@ -29,7 +29,7 @@ QC.Login.getMe(function(openId, accessToken){
 <script type="text/javascript">
 if(WB2.checkLogin()){
 	/*weibo 登录*/
-	//var uid;
+	//var memberId;
 	WB2.anyWhere(function (W) {
 	/***获取授权用户id***/
 		W.parseCMD("/account/get_uid.json", function (sResult, bStatus) 
@@ -38,7 +38,7 @@ if(WB2.checkLogin()){
 			/**请求uid成功后调用以获取用户数据**/
 				getData(W, sResult);
 				$.post("${base}/public_auth_login.html", {
-					 key:sResult.uid,
+					 key:sResult.memberId,
 					 source:"SINA"
 				}, function(data) {
 					//绑定用户
@@ -61,13 +61,13 @@ if(WB2.checkLogin()){
 		W.parseCMD("/users/show.json", function(sResult, bStatus){
 			   // alert(sResult.name);
 			    
-			    var uid = User.uid;
+			    var memberId = User.memberId;
 			  //  alert(nickname);
-			  //   xmlhttp.open("GET","http://localhost/CI/index.php/SaveInfo/save_wb_nickname?uid="+uid,true);
+			  //   xmlhttp.open("GET","http://localhost/CI/index.php/SaveInfo/save_wb_nickname?memberId="+memberId,true);
 			  //	xmlhttp.send();
 			},{
 					/* 传递参数 */
-				uid : User.uid
+				memberId : User.memberId
 				},{method: 'GET'});
 	};
 }

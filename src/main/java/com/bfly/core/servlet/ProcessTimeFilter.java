@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
  * @author andy_hulibo@163.com
  * @date 2018/11/29 10:28
  */
-@WebFilter(filterName = "processTime", urlPatterns = {"*.htm"})
+@WebFilter(filterName = "processTime", urlPatterns = {"*.html"})
 public class ProcessTimeFilter implements Filter {
     protected final Logger log = LoggerFactory
             .getLogger(ProcessTimeFilter.class);

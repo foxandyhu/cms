@@ -10,28 +10,29 @@ import java.io.Serializable;
  * @date 2018/11/15 22:49
  */
 @Entity
-@Table(name = "jo_upload")
+@Table(name = "d_upload")
 public class DbFile implements Serializable {
-    private static final long serialVersionUID = 1L;
+
+    private static final long serialVersionUID = 5788503427134579932L;
 
     /**
      * 文件名
      */
     @Id
     @Column(name = "filename")
-    private String id;
+    private String filename;
 
     /**
      * 文件大小(字节)
      */
     @Column(name = "length")
-    private Integer length;
+    private int length;
 
     /**
      * 最后修改时间
      */
     @Column(name = "last_modified")
-    private Long lastModified;
+    private long lastModified;
 
     /**
      * 内容
@@ -39,33 +40,27 @@ public class DbFile implements Serializable {
     @Column(name = "content")
     private byte[] content;
 
-
-    public String getId() {
-        return id;
+    public String getFilename() {
+        return filename;
     }
 
-
-    public void setId(String id) {
-        this.id = id;
+    public void setFilename(String filename) {
+        this.filename = filename;
     }
 
-
-    public Integer getLength() {
+    public int getLength() {
         return length;
     }
 
-
-    public void setLength(Integer length) {
+    public void setLength(int length) {
         this.length = length;
     }
 
-
-    public Long getLastModified() {
+    public long getLastModified() {
         return lastModified;
     }
 
-
-    public void setLastModified(Long lastModified) {
+    public void setLastModified(long lastModified) {
         this.lastModified = lastModified;
     }
 
@@ -73,10 +68,7 @@ public class DbFile implements Serializable {
         return content;
     }
 
-
     public void setContent(byte[] content) {
         this.content = content;
     }
-
-
 }

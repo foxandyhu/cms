@@ -37,7 +37,7 @@ Cms.siteFlow("${base}", location.href, document.referrer,"${site.config.flowSwit
     <div class="newsTex">
         <h1>[#if content.bold]<b>${content.title}</b>[#else]${content.title}[/#if]</h1>
         <div class="msgbar">发布时间： ${content.releaseDate} &nbsp; 作者：${content.author!'本站编辑'} &nbsp; 来源： ${content.origin!'本站原创'} &nbsp; 浏览次数：<span id="views"></span>
-        [#if user??]
+        [#if member??]
         <script type="text/javascript">
         $(function() {
         Cms.collectexist("${base}","${content.id}","cancelSpan","comfirmSpan");

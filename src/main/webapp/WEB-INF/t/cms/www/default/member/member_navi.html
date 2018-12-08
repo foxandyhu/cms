@@ -1,9 +1,9 @@
 <div class="mc_left">
      	  <div class="mc_left_top">
           	   <div class="mc-photo">
-          	   [#if user.userImg??]
-	          	   	[#if user.userImg!=""]
-	               		<img src="${user.userImg!}" />
+          	   [#if member.userImg??]
+	          	   	[#if member.userImg!=""]
+	               		<img src="${member.userImg!}" />
 	               [#else]
 	               		<img src="/${res}/img/member/member-phtot.gif"/>
 	               	 [/#if]
@@ -11,7 +11,7 @@
                <img src="/${res}/img/member/member-phtot.gif"/>
                [/#if]
                </div> 
-               <p>${user.username!}</p> 
+               <p>${member.username!}</p>
           </div>
           <div class="mc-left-zl">个人资料</div>
           <ul class="nan_mu_bottom">
@@ -38,7 +38,7 @@
                <li><h3 class="fwzx">服务中心</h3></li>
                 <li><a href="${base}/member/account.html">完善账户资料</a></li>
                 <li><a href="${base}/member/buy_list.html">消费记录</a></li>
-                [#if user.userAccount??]
+                [#if member.userAccount??]
                 <li><a href="${base}/member/order_list.html">我的订单</a></li>
                 <li><a href="${base}/member/charge_list.html">收益统计</a></li>
                 <li><a href="${base}/member/draw_list.html">提现申请</a></li>

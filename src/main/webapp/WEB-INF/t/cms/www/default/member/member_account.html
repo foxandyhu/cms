@@ -58,15 +58,15 @@ function selectPlat(){
           <table cellpadding="0" cellspacing="0">
             <tbody>
               <tr>
-                <td class="tggl-top" width="100">提现方式</td><td style="padding-left:30px;">[@p.radio name="drawAccount" onclick="selectPlat()" value=user.drawAccount list={"0":"微信","1":"支付宝"}/]</td>
+                <td class="tggl-top" width="100">提现方式</td><td style="padding-left:30px;">[@p.radio name="drawAccount" onclick="selectPlat()" value=member.drawAccount list={"0":"微信","1":"支付宝"}/]</td>
               </tr>
               <tr>
                 <td class="tggl-top">微信账户</td>
-                <td style="padding:10px 0 10px 30px; text-align:left;"><input type="text" name="accountWeiXin" value="${user.accountWeixin!?html}" maxlength="100" class="member-change" style="height:28px;" /></td>
+                <td style="padding:10px 0 10px 30px; text-align:left;"><input type="text" name="accountWeiXin" value="${member.accountWeixin!?html}" maxlength="100" class="member-change" style="height:28px;" /></td>
               </tr>
               <tr>
                 <td class="tggl-top">支付宝账户</td>
-                <td style="padding:10px 0 10px 30px; text-align:left;"><input type="text" name="accountAlipy" value="${user.accountAlipy!?html}" maxlength="50" class="member-change" style="height:28px;" /></td>
+                <td style="padding:10px 0 10px 30px; text-align:left;"><input type="text" name="accountAlipy" value="${member.accountAlipy!?html}" maxlength="50" class="member-change" style="height:28px;" /></td>
               </tr>
               <tr>
                 <td colspan="2" style="text-align:center; padding:20px 0;"><input type="hidden" name="nextUrl" value="account.html"/><input type="submit" class="member-submit" value="提交"><input type="reset" class="member-reset" value="重置"></td>

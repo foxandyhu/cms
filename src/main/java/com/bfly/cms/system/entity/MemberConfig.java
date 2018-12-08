@@ -1,8 +1,6 @@
 package com.bfly.cms.system.entity;
 
-import com.bfly.common.util.StrUtils;
-import org.apache.commons.lang.StringUtils;
-import org.json.JSONObject;
+import org.springframework.util.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,33 +12,14 @@ import java.util.Map;
  * @date 2018/11/24 16:43
  */
 public class MemberConfig {
-    public MemberConfig() {
-    }
-
-    public MemberConfig(Map<String, String> attr) {
-        this.attr = attr;
-    }
 
     private Map<String, String> attr;
 
     public Map<String, String> getAttr() {
         if (attr == null) {
-            attr = new HashMap<>();
+            attr = new HashMap<>(5);
         }
         return attr;
-    }
-
-    public JSONObject convertToJson() {
-        JSONObject json = new JSONObject();
-        json.put("memberOn", isMemberOn());
-        json.put("registerOn", isRegisterOn());
-        json.put("checkOn", isCheckOn());
-        json.put("usernameMinLen", getUsernameMinLen());
-        json.put("passwordMinLen", getPasswordMinLen());
-        json.put("userImgWidth", getUserImgWidth());
-        json.put("userImgHeight", getUserImgHeight());
-        json.put("usernameReserved", getUsernameReserved());
-        return json;
     }
 
     public void setAttr(Map<String, String> attr) {
@@ -112,7 +91,7 @@ public class MemberConfig {
     /**
      * 设置是否开启会员功能
      *
-     * @param checkOn
+     * @param memberOn
      */
     public void setMemberOn(boolean memberOn) {
         getAttr().put(MEMBER_ON, String.valueOf(memberOn));
@@ -126,7 +105,7 @@ public class MemberConfig {
     /**
      * 设置是否会员审核功能
      *
-     * @param checkOn
+     * @param checkon
      */
     public void setCheckOn(boolean checkon) {
         getAttr().put(CHECK_ON, String.valueOf(checkon));
@@ -151,26 +130,6 @@ public class MemberConfig {
         getAttr().put(USERNAME_RESERVED, usernameReserved);
     }
 
-    /**
-     * 检查用户名是否为保留字
-     *
-     * @return 如果通过返回true，否则返回false。
-     */
-    public boolean checkUsernameReserved(String name) {
-        if (StringUtils.isBlank(name)) {
-            return false;
-        }
-        String reserved = getUsernameReserved();
-        if (StringUtils.isBlank(reserved)) {
-            return true;
-        }
-        for (String search : StringUtils.split(reserved)) {
-            if (StrUtils.contains(name, search)) {
-                return false;
-            }
-        }
-        return true;
-    }
 
     /**
      * 获取用户名最小长度
@@ -179,13 +138,12 @@ public class MemberConfig {
      */
     public int getUsernameMinLen() {
         String len = getAttr().get(USERNAME_MIN_LEN);
-        if (!StringUtils.isBlank(len)) {
+        if (!StringUtils.hasText(len)) {
             try {
                 return Integer.valueOf(len);
             } catch (NumberFormatException e) {
             }
         }
-        // 默认最小长度为3
         return 3;
     }
 
@@ -205,7 +163,7 @@ public class MemberConfig {
      */
     public int getPasswordMinLen() {
         String len = getAttr().get(PASSWORD_MIN_LEN);
-        if (!StringUtils.isBlank(len)) {
+        if (!StringUtils.hasText(len)) {
             try {
                 return Integer.valueOf(len);
             } catch (NumberFormatException e) {
@@ -230,7 +188,7 @@ public class MemberConfig {
      */
     public int getUserImgWidth() {
         String len = getAttr().get(USERIMG_WIDTH);
-        if (!StringUtils.isBlank(len)) {
+        if (!StringUtils.hasText(len)) {
             try {
                 return Integer.valueOf(len);
             } catch (NumberFormatException e) {
@@ -256,7 +214,7 @@ public class MemberConfig {
      */
     public int getUserImgHeight() {
         String len = getAttr().get(USERIMG_HEIGHT);
-        if (!StringUtils.isBlank(len)) {
+        if (!StringUtils.hasText(len)) {
             try {
                 return Integer.valueOf(len);
             } catch (NumberFormatException e) {

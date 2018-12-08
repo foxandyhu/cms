@@ -21,7 +21,7 @@
             var searchConfig = {
                 container:'appShow', //容器ID
                 tips:"", //该值用于自动清空
-                search:1, //是否显示搜索框
+                word:1, //是否显示搜索框
                 ps:12, //每页显示的条数
                 suggest:1, //是否开启搜索自动完成
                 limit:0, //搜索结果显示条数，0表示无限制
@@ -42,7 +42,7 @@
 
             var script = document.createElement( "script" );
             script.type = "text/javascript";
-            script.src = "http://app.baidu.com/appweb/api/search?auto=yes&container=container&apikey=" + apikey + "&instanceName=baiduApp&callback=clickCallback&config=searchConfig";
+            script.src = "http://app.baidu.com/appweb/api/word?auto=yes&container=container&apikey=" + apikey + "&instanceName=baiduApp&callback=clickCallback&config=searchConfig";
             document.body.appendChild( script );
         } else {
             $G( "appShow" ).innerHTML = "<p class='errorMsg'>"+lang.tip1+"<a title='"+lang.anthorApi+"' href='http://app.baidu.com/static/cms/getapikey.html' target='_blank'>"+lang.applyFor+"</a></p><p class='errorMsg'>"+lang.tip2+"</p>" ;

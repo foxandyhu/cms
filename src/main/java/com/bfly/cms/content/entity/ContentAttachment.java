@@ -5,7 +5,7 @@ import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 /**
- * 内容附件
+ * 文章内容附件
  *
  * @author andy_hulibo@163.com
  * @date 2018/11/27 11:28
@@ -14,24 +14,27 @@ import java.io.Serializable;
 public class ContentAttachment implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    public ContentAttachment() {
-    }
-
-    public ContentAttachment(String path, String name, Integer count) {
-        this.path = path;
-        this.name = name;
-        this.count = count;
-    }
-
+    /**
+     * 附件路径
+     */
     @Column(name = "attachment_path")
     private String path;
 
+    /**
+     * 附件名称
+     */
     @Column(name = "attachment_name")
     private String name;
 
+    /**
+     * 文件名
+     */
     @Column(name = "filename")
     private String filename;
 
+    /**
+     * 下载次数
+     */
     @Column(name = "download_count")
     private Integer count;
 

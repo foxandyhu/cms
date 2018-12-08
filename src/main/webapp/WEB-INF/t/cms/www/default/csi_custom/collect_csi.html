@@ -1,6 +1,6 @@
 <span id="cancelSpan" style="display:none; cursor: pointer;">取消收藏</span>
 <span id="comfirmSpan" style="display:none;cursor: pointer;">收藏</span>
-[#if user??]
+[#if member??]
 <script type="text/javascript">
 $(function() {
        Cms.collectexist("${base}","${cId!}","cancelSpan","comfirmSpan");

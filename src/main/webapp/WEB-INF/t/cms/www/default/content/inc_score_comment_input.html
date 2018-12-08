@@ -2,7 +2,7 @@
       <h1>评论<span>已有<a class="count" href="${base}/comment.html?contentId=${content.id}">
       ${content.commentsCheckedNum!} </a>条</span>
       </h1>
-      [#if content.channel.commentControl==0 || ((content.channel.commentControl==1||content.channel.commentControl==3) && user??)]
+      [#if content.channel.commentControl==0 || ((content.channel.commentControl==1||content.channel.commentControl==3) && member??)]
       <form id="commentForm" action="${base}/comment.html" method="post">
       <div style="margin-top:20px;">评分：
         <input name="score" type="radio" value="1"/>1分
@@ -12,7 +12,7 @@
       	<input name="score" type="radio" value="5" checked="checked"/>5分
       </div>
       <textarea name="text" placeholder="发表你此时的观点和想法 ……" class="comments-text" id="comments-text" style="margin-top:10px;"></textarea>
-       [#if user??&&user.group.needCaptcha||!user??]
+       [#if member??&&member.group.needCaptcha||!member??]
 	    <div class="plfr1 clearfix">
 	    <div style="float:left;">
 	    <input name="captcha" type="text" placeholder="验证码" id="captcha" vld="{required:true}" class="plcode"/>
@@ -80,7 +80,7 @@ $(function() {
 	});
 });
 </script>
-    [#elseif content.channel.commentControl==1 && !user??]
+    [#elseif content.channel.commentControl==1 && !member??]
     [#--登录评论，且未登录--]
     <div class="down clearfix">
     <img src="/${res}/images/userImg.png" class="userImg"><span>

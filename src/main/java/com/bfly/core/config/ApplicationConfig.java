@@ -1,8 +1,7 @@
 package com.bfly.core.config;
 
-import com.bfly.common.image.ImageScaleImpl;
+import com.alibaba.druid.support.http.StatViewServlet;
 import com.bfly.common.ipseek.IpSeekerImpl;
-import com.bfly.common.web.springmvc.SimpleFreeMarkerView;
 import com.octo.captcha.component.image.backgroundgenerator.UniColorBackgroundGenerator;
 import com.octo.captcha.component.image.color.SingleColorGenerator;
 import com.octo.captcha.component.image.fontgenerator.RandomFontGenerator;
@@ -14,17 +13,16 @@ import com.octo.captcha.component.word.wordgenerator.RandomWordGenerator;
 import com.octo.captcha.engine.GenericCaptchaEngine;
 import com.octo.captcha.image.gimpy.GimpyFactory;
 import com.octo.captcha.service.multitype.GenericManageableCaptchaService;
-import org.hibernate.SessionFactory;
-import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
+import org.springframework.web.util.IntrospectorCleanupListener;
 
-import javax.persistence.EntityManagerFactory;
 import java.awt.*;
+import java.util.EventListener;
 
 /**
  * 系统总体配置
@@ -38,31 +36,20 @@ import java.awt.*;
 public class ApplicationConfig {
 
     @Bean
-    public SessionFactory sessionFactory(EntityManagerFactory entityManagerFactory) {
-        if (entityManagerFactory.unwrap(SessionFactory.class) == null) {
-            throw new NullPointerException("factory is not a hibernate factory.");
-        }
-        return entityManagerFactory.unwrap(SessionFactory.class);
+    public ServletListenerRegistrationBean<EventListener> introSpecTorCleanupListener() {
+        return new ServletListenerRegistrationBean<>(new IntrospectorCleanupListener());
     }
 
     @Bean
-    public HibernateTransactionManager txManager(SessionFactory sessionFactory) {
-        HibernateTransactionManager hibernateTransactionManager = new HibernateTransactionManager();
-        hibernateTransactionManager.setSessionFactory(sessionFactory);
-        return hibernateTransactionManager;
-    }
-
-    /**
-     * 图片处理
-     *
-     * @author andy_hulibo@163.com
-     * @date 2018/11/14 14:22
-     */
-    @Bean(initMethod = "init")
-    public ImageScaleImpl imageScale() {
-        ImageScaleImpl image = new ImageScaleImpl();
-        image.setTryMagick(true);
-        return image;
+    public ServletRegistrationBean druidStatViewServlet() {
+        ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean(new StatViewServlet(), "/druid/*");
+        servletRegistrationBean.addInitParameter("allow", "127.0.0.1");
+        servletRegistrationBean.addInitParameter("deny", "192.168.1.73");
+        servletRegistrationBean.addInitParameter("loginUsername", "admin");
+        servletRegistrationBean.addInitParameter("loginPassword", "123456");
+        servletRegistrationBean.addInitParameter("resetEnable", "false");
+        servletRegistrationBean.setLoadOnStartup(4);
+        return servletRegistrationBean;
     }
 
     /**
@@ -106,9 +93,4 @@ public class ApplicationConfig {
         return new GenericManageableCaptchaService(captchaEngine, 180, 100000, 75000);
     }
 
-    @Bean
-    public CommandLineRunner customFreemarkerView(FreeMarkerViewResolver resolver) {
-        //设置Freemarker解析视图;
-        return (String... args) -> resolver.setViewClass(SimpleFreeMarkerView.class);
-    }
 }

@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="viewport" content="initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,minimal-ui">
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,minimum-scale=1,member-scalable=no,minimal-ui">
 <title>${site.name} - ${company_name}</title>
 <link rel="stylesheet" type="text/css" href="/${mobileRes!}/css/index.css"> 
 <link rel="stylesheet" type="text/css" href="/${mobileRes!}/css/news.css">
@@ -28,11 +28,11 @@ window.location.href=window.document.referrer;
 
 <body>
 <div class="viewport">
-  <div class="job-search-content" style="display:block;">
-    <div class="job-search-content-top clearfix">
+  <div class="job-word-content" style="display:block;">
+    <div class="job-word-content-top clearfix">
       <a class="close" href="javascript:return_prepage();"></a>
       <form action="${base}/searchJob.html" target="_self">
-      <div class="main-search"><input  name="q" type="text" id="txtKey" placeholder="输入关键字/职位/公司" autocomplete="off" class="main-searchCon"><input type="submit" value="" class="main-searchBtn"></div>
+      <div class="main-word"><input  name="q" type="text" id="txtKey" placeholder="输入关键字/职位/公司" autocomplete="off" class="main-searchCon"><input type="submit" value="" class="main-searchBtn"></div>
       </form>
     </div>
 [#if q??]

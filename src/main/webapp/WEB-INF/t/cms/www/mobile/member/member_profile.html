@@ -31,50 +31,50 @@ $(function() {
      <table width="98%" border="0" align="center" cellpadding="5" cellspacing="1" bgcolor="#C8DCF0" style="margin:5px;">
        <tr>
          <td width="150" height="25" align="right" bgcolor="#f6fbff">真实姓名：</td>
-         <td bgcolor="#FFFFFF"><input type="text" name="realname" value="${user.realname!?html}" maxlength="100"/> </td>
+         <td bgcolor="#FFFFFF"><input type="text" name="realname" value="${member.realname!?html}" maxlength="100"/> </td>
        </tr>
        <tr>
          <td height="25" align="right" bgcolor="#f6fbff">性别：</td>
 		 <td bgcolor="#FFFFFF">
-         [@p.radio name="gender" value=user.gender list={"true":"男","false":"女","":"保密"}/]
+         [@p.radio name="gender" value=member.gender list={"true":"男","false":"女","":"保密"}/]
 		 </td>
        </tr>
        <tr>
          <td height="25" align="right" bgcolor="#f6fbff">出生日期：</td>
-         <td bgcolor="#FFFFFF"><input type="text" name="birthday" value="${(user.birthday?string('yyyy-MM-dd'))!}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'%y-%M-%d'})" class="Wdate"/></td>
+         <td bgcolor="#FFFFFF"><input type="text" name="birthday" value="${(member.birthday?string('yyyy-MM-dd'))!}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'%y-%M-%d'})" class="Wdate"/></td>
        </tr>
        <tr>
          <td height="25" align="right" bgcolor="#f6fbff">自我介绍：</td>
-         <td bgcolor="#FFFFFF"><input type="text" name="intro" value="${user.intro!?html}" maxlength="255"/></td>
+         <td bgcolor="#FFFFFF"><input type="text" name="intro" value="${member.intro!?html}" maxlength="255"/></td>
        </tr>  
        <tr>
          <td height="25" align="right" bgcolor="#f6fbff">来自：</td>
-         <td bgcolor="#FFFFFF"><input type="text" name="comefrom" value="${user.comefrom!?html}" maxlength="150"/></td>
+         <td bgcolor="#FFFFFF"><input type="text" name="comefrom" value="${member.comefrom!?html}" maxlength="150"/></td>
        </tr>
        <tr>
          <td height="25" align="right" bgcolor="#f6fbff">QQ：</td>
-         <td bgcolor="#FFFFFF"><input type="text" name="qq" value="${user.qq!?html}" maxlength="100"/></td>
+         <td bgcolor="#FFFFFF"><input type="text" name="qq" value="${member.qq!?html}" maxlength="100"/></td>
        </tr>
        <tr>
          <td height="25" align="right" bgcolor="#f6fbff">MSN：</td>
-         <td bgcolor="#FFFFFF"><input type="text" name="msn" value="${user.msn!?html}" maxlength="100"/></td>
+         <td bgcolor="#FFFFFF"><input type="text" name="msn" value="${member.msn!?html}" maxlength="100"/></td>
        </tr> 
        <tr>
          <td height="25" align="right" bgcolor="#f6fbff">电话：</td>
-         <td bgcolor="#FFFFFF"><input type="text" name="phone" value="${user.phone!?html}" maxlength="50"/></td>
+         <td bgcolor="#FFFFFF"><input type="text" name="phone" value="${member.phone!?html}" maxlength="50"/></td>
        </tr>
        <tr>
          <td height="25" align="right" bgcolor="#f6fbff">手机：</td>
-         <td bgcolor="#FFFFFF"><input type="text" name="mobile" value="${user.mobile!?html}" maxlength="50"/></td>
+         <td bgcolor="#FFFFFF"><input type="text" name="mobile" value="${member.mobile!?html}" maxlength="50"/></td>
        </tr> 
 		<tr>
          <td height="25" align="right" bgcolor="#f6fbff">个性签名：</td>
-         <td bgcolor="#FFFFFF"><input type="text" name="userSignature" value="${user.userSignature!?html}" maxlength="100"/></td>
+         <td bgcolor="#FFFFFF"><input type="text" name="userSignature" value="${member.userSignature!?html}" maxlength="100"/></td>
        </tr>
        <tr>
          <td height="25" align="right" bgcolor="#f6fbff">头像：</td>
          <td bgcolor="#FFFFFF">
-         	 <img id="preImg1" alt="预览" style="width:100px;height:70px;background-color:#ccc;border:1px solid #333" src="${user.userImg!}"/>
+         	 <img id="preImg1" alt="预览" style="width:100px;height:70px;background-color:#ccc;border:1px solid #333" src="${member.userImg!}"/>
          
         <span id="ufc1" style="position:relative">
 	        <input type='text' id='uploadFileText1' size="14"/>  
@@ -89,7 +89,7 @@ $(function() {
 		<input type="button" value="剪裁" onclick="imgCut(1);" class="member_button"/> 
 		 <input type="button" value="预览" onclick="previewImg(1);" class="member_button"/><br/>
 		
-		<input id="uploadImgPath1" name="userImg" style="width:220px" value="${user.userImg!}" type="hidden"/>
+		<input id="uploadImgPath1" name="userImg" style="width:220px" value="${member.userImg!}" type="hidden"/>
          </td>
        </tr>
        

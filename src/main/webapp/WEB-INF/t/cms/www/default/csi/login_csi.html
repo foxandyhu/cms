@@ -38,6 +38,6 @@ $(function() {
   });
 });
 </script>
-[#if user??]<div class="login-user"><a>[#if user.userImg??]<img src="${user.userImg}">[#else]<img src="/${res}/images/userImg.png">[/#if]${user.username}</a><div class="user-child"><a href="${base}/member/index.html">会员中心</a><a id="logout" >退出账号</a></div></div>[#else]
+[#if member??]<div class="login-member"><a>[#if member.userImg??]<img src="${member.userImg}">[#else]<img src="/${res}/images/userImg.png">[/#if]${member.username}</a><div class="member-child"><a href="${base}/member/index.html">会员中心</a><a id="logout" >退出账号</a></div></div>[#else]
       <div class="login"><a class="tc" href="${base}/login.html">登录</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="${base}/register.html">注册</a></div>
 [/#if]

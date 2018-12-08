@@ -1,7 +1,6 @@
 package com.bfly.cms.channel.entity;
 
 
-import org.apache.commons.lang.StringUtils;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -15,18 +14,15 @@ import java.io.Serializable;
  * @date 2018/11/16 11:22
  */
 @Entity
-@Table(name = "jc_channel_txt")
+@Table(name = "channel_txt")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
-public class ChannelTxt implements Cloneable, Serializable {
+public class ChannelTxt implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
-    public void init() {
-        blankToNull();
-    }
-
     @Id
-    @Column(name = "channel_id",unique = true,nullable = false)
-    private Integer id;
+    @Column(name = "channel_id", unique = true, nullable = false)
+    private int id;
 
     /**
      * txt
@@ -52,25 +48,26 @@ public class ChannelTxt implements Cloneable, Serializable {
     @Column(name = "txt3")
     private String txt3;
 
+    /**
+     * 所属栏目
+     */
     @OneToOne
     @MapsId
     @JoinColumn(name = "channel_id")
     private Channel channel;
 
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
-
 
     public String getTxt() {
         return txt;
     }
-
 
     public void setTxt(String txt) {
         this.txt = txt;
@@ -80,16 +77,13 @@ public class ChannelTxt implements Cloneable, Serializable {
         return txt1;
     }
 
-
     public void setTxt1(String txt1) {
         this.txt1 = txt1;
     }
 
-
     public String getTxt2() {
         return txt2;
     }
-
 
     public void setTxt2(String txt2) {
         this.txt2 = txt2;
@@ -99,56 +93,15 @@ public class ChannelTxt implements Cloneable, Serializable {
         return txt3;
     }
 
-
     public void setTxt3(String txt3) {
         this.txt3 = txt3;
     }
-
 
     public Channel getChannel() {
         return channel;
     }
 
-
     public void setChannel(Channel channel) {
         this.channel = channel;
-    }
-
-    public void blankToNull() {
-        if (StringUtils.isBlank(getTxt())) {
-            setTxt(null);
-        }
-        if (StringUtils.isBlank(getTxt1())) {
-            setTxt1(null);
-        }
-        if (StringUtils.isBlank(getTxt2())) {
-            setTxt2(null);
-        }
-        if (StringUtils.isBlank(getTxt3())) {
-            setTxt3(null);
-        }
-    }
-
-
-    @Override
-    public Object clone() {
-        ChannelTxt c = null;
-        try {
-            c = (ChannelTxt) super.clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
-        return c;
-    }
-
-    /**
-     * 是否所有属性都为空
-     *
-     * @return
-     */
-    public boolean isAllBlank() {
-        return StringUtils.isBlank(getTxt()) && StringUtils.isBlank(getTxt1())
-                && StringUtils.isBlank(getTxt2())
-                && StringUtils.isBlank(getTxt3());
     }
 }

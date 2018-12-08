@@ -33,8 +33,8 @@ $(function() {
     <a class="logo" href="${base}/"></a>
     [#include "../include/nav.html"]
     <div class="header-r">     
-      <div class="search">
-        <form action="${base}/search.html" target="_blank" name="searchForm" id="searchForm">
+      <div class="word">
+        <form action="${base}/word.html" target="_blank" name="searchForm" id="searchForm">
         <input type="text" name="q" value="${oldq!}"   maxlength="50" autocomplete="off" class="searchCon" style="width:202px;">
         <input type="hidden" name="token" id="token" value="${token!}" />
         <input type="button" value="" class="searchMenu" onclick="query()" >

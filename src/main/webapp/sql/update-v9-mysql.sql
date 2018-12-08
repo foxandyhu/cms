@@ -1,5 +1,5 @@
 alter table jc_api_user_login add column active_time timestamp   COMMENT '最后活跃时间';
-alter table jc_user CHANGE is_disabled  statu tinyint(1) NOT NULL DEFAULT 0 COMMENT '状态 0审核通过  1禁用  2待审核';
+alter table jc_user CHANGE is_disabled  status tinyint(1) NOT NULL DEFAULT 0 COMMENT '状态 0审核通过  1禁用  2待审核';
 Insert into jc_site_attr  select site_id,"wxToken","myjcywangluoweixin" from jc_site;
 update jo_config set cfg_value=465 where cfg_key="email_port";
 CREATE TABLE jc_site_access_count_hour (

@@ -29,11 +29,11 @@
     <div class="searchList">
       [#list tag_pagination.list as s]
       <div class="item">
-        <div class="search-title"><a href="${s.url}" target="_blank">${s.title}</a></div>
-        <div class="search-txt">
+        <div class="word-title"><a href="${s.url}" target="_blank">${s.title}</a></div>
+        <div class="word-txt">
           [@text_cut s=s.description len=descLen append=append/]
         </div>
-        <div class="search-date"><a href="${s.ctgUrl}" target="_blank">${s.ctgName}</a><em>${s.releaseDate}</em>浏览 <span>${s.views}</span></div>
+        <div class="word-date"><a href="${s.ctgUrl}" target="_blank">${s.ctgName}</a><em>${s.releaseDate}</em>浏览 <span>${s.views}</span></div>
       </div>
       [/#list]
     </div>

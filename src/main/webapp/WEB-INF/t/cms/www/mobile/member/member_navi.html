@@ -1,9 +1,9 @@
 <div class="mc_left">
      	  <div class="mc_left_top">
           	   <div class="mc-photo">
-          	   [#if user.userImg??]
-	          	   	[#if user.userImg!=""]
-	               		<img src="${user.userImg!}" />
+          	   [#if member.userImg??]
+	          	   	[#if member.userImg!=""]
+	               		<img src="${member.userImg!}" />
 	               [#else]
 	               		<img src="/${res}/img/member/member-phtot.gif"/>
 	               	 [/#if]
@@ -11,7 +11,7 @@
                <img src="/${res}/img/member/member-phtot.gif"/>
                [/#if]
                </div> 
-               <p>${user.username!}</p> 
+               <p>${member.username!}</p>
           </div>
           <div class="mc-left-zl">个人资料</div>
           <ul class="nan_mu_bottom">
