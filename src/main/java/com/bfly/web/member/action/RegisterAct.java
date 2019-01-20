@@ -4,7 +4,7 @@
 //import com.bfly.cms.system.entity.SysConfig;
 //import com.bfly.cms.system.entity.CmsConfigItem;
 //import com.bfly.cms.system.entity.EmailSender;
-//import com.bfly.cms.system.entity.MemberConfig;
+//import com.bfly.cms.member.entity.MemberConfig;
 //import com.bfly.cms.system.service.CmsConfigItemMng;
 //import com.bfly.cms.system.service.ConfigMng;
 //import com.bfly.cms.system.service.MessageTemplate;

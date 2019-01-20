@@ -5,75 +5,23 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Map;
 
+/**
+ * 系统任务
+ *
+ * @author andy_hulibo@163.com
+ * @date 2018/12/14 11:59
+ */
 @Entity
 @Table(name = "sys_task")
 public class SysTask implements Serializable {
 
     private static final long serialVersionUID = 7129971735226965086L;
-    /**
-     * 任务执行周期cron表达式
-     */
-    public static int EXECYCLE_CRON = 2;
-    /**
-     * 任务执行周期自定义
-     */
-    public static int EXECYCLE_DEFINE = 1;
-    /**
-     * 执行周期-分钟
-     */
-    public static int EXECYCLE_MINUTE = 1;
-    /**
-     * 执行周期-小时
-     */
-    public static int EXECYCLE_HOUR = 2;
-    /**
-     * 执行周期-日
-     */
-    public static int EXECYCLE_DAY = 3;
-    /**
-     * 执行周期-月
-     */
-    public static int EXECYCLE_WEEK = 4;
-    /**
-     * 执行周期-月
-     */
-    public static int EXECYCLE_MONTH = 5;
-    /**
-     * 首页静态任务
-     */
-    public static int TASK_STATIC_INDEX = 1;
-    /**
-     * 栏目页静态化任务
-     */
-    public static int TASK_STATIC_CHANNEL = 2;
-    /**
-     * 内容页静态化任务
-     */
-    public static int TASK_STATIC_CONTENT = 3;
-    /**
-     * 采集源ID
-     */
-    public static String TASK_PARAM_ACQU_ID = "acqu_id";
-    /**
-     * 分发FTP ID
-     */
-    public static String TASK_PARAM_FTP_ID = "ftp_id";
-    /**
-     * 站点 ID
-     */
-    public static String TASK_PARAM_SITE_ID = "site_id";
-    /**
-     * 栏目 ID
-     */
-    public static String TASK_PARAM_CHANNEL_ID = "channel_id";
-    /**
-     * 分发到FTP 的文件夹参数前缀
-     */
-    public static String TASK_PARAM_FOLDER_PREFIX = "floder_";
 
     @Id
     @Column(name = "id")
@@ -90,12 +38,14 @@ public class SysTask implements Serializable {
      * 任务类型(1首页静态化、2栏目页静态化、3内容页静态化、4采集、5分发)
      */
     @Column(name = "task_type")
+    @Min(value = 1, message = "任务类型不能为空!")
     private int type;
 
     /**
      * 任务名称
      */
     @Column(name = "task_name")
+    @NotBlank(message = "任务名称不能为空!")
     private String name;
 
     /**

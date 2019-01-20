@@ -1,6 +1,7 @@
 package com.bfly.cms.dictionary.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**
@@ -20,12 +21,14 @@ public class Dictionary implements Serializable {
     private int id;
 
     @Column(name = "name")
+    @NotBlank(message = "数据名称不能为空!")
     private String name;
 
     @Column(name = "value")
     private String value;
 
     @Column(name = "type")
+    @NotBlank(message = "数据分类不能为空!")
     private String type;
 
 

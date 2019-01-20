@@ -8,7 +8,9 @@ package com.bfly.core.enums;
  */
 public enum SysError {
 
-    ERROR("500", "系统异常");
+    ERROR("500", "系统异常"),
+    PARAM_ERROR("101", "参数错误!"),
+    DATA_REPEAT("102","数据重复!");
     private String code;
     private String message;
 

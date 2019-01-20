@@ -4,6 +4,8 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Set;
 
@@ -29,18 +31,21 @@ public class UserRole implements Serializable {
      * 角色名称
      */
     @Column(name = "role_name")
+    @NotBlank(message = "角色名称不能为空!")
     private String name;
 
     /**
      * 排列顺序
      */
     @Column(name = "priority")
+    @Min(value = 1, message = "顺序必须大于0!")
     private int priority;
 
     /**
      * 角色等级
      */
     @Column(name = "role_level")
+    @Min(value = 1, message = "角色等级必须大于0!")
     private int level;
 
     /**
@@ -52,7 +57,7 @@ public class UserRole implements Serializable {
     /**
      * 用户角色关系维护
      */
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.REMOVE)
     @JoinTable(name = "user_role_ship", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
     private Set<User> users;

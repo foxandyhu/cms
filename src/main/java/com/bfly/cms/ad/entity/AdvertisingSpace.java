@@ -1,6 +1,7 @@
 package com.bfly.cms.ad.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**
@@ -24,6 +25,7 @@ public class AdvertisingSpace implements Serializable {
      * 名称
      */
     @Column(name = "ad_name")
+    @NotBlank(message = "广告位名称不能为空!")
     private String name;
 
     /**

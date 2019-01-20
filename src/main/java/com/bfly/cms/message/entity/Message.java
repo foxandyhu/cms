@@ -30,19 +30,29 @@ public class Message implements Serializable {
      * 标题
      */
     @Column(name = "title")
-    private String msgTitle;
+    private String title;
 
     /**
      * 站内信息内容
      */
     @Column(name = "content")
-    private String msgContent;
+    private String content;
 
     /**
      * 发送时间
      */
     @Column(name = "send_time")
     private Date sendTime;
+
+    /**
+     * 阅读时间
+     *
+     * @author andy_hulibo@163.com
+     * @date 2018/12/11 15:52
+     */
+    @Column(name = "read_time")
+    private Date readTime;
+
 
     /**
      * 消息状态0未读，1已读
@@ -54,21 +64,29 @@ public class Message implements Serializable {
      * 消息信箱 0收件箱 1发件箱 2草稿箱 3垃圾箱
      */
     @Column(name = "msg_box")
-    private int msgBox;
+    private int box;
 
     /**
      * 接收人
      */
     @ManyToOne
     @JoinColumn(name = "receiver_user")
-    private Member msgReceiverUser;
+    private Member receiver;
 
     /**
      * 发送人
      */
     @ManyToOne
     @JoinColumn(name = "send_user")
-    private Member msgSendUser;
+    private Member sender;
+
+    public Date getReadTime() {
+        return readTime;
+    }
+
+    public void setReadTime(Date readTime) {
+        this.readTime = readTime;
+    }
 
     public int getId() {
         return id;
@@ -78,20 +96,20 @@ public class Message implements Serializable {
         this.id = id;
     }
 
-    public String getMsgTitle() {
-        return msgTitle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setMsgTitle(String msgTitle) {
-        this.msgTitle = msgTitle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getMsgContent() {
-        return msgContent;
+    public String getContent() {
+        return content;
     }
 
-    public void setMsgContent(String msgContent) {
-        this.msgContent = msgContent;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public Date getSendTime() {
@@ -110,27 +128,27 @@ public class Message implements Serializable {
         this.read = read;
     }
 
-    public int getMsgBox() {
-        return msgBox;
+    public int getBox() {
+        return box;
     }
 
-    public void setMsgBox(int msgBox) {
-        this.msgBox = msgBox;
+    public void setBox(int box) {
+        this.box = box;
     }
 
-    public Member getMsgReceiverUser() {
-        return msgReceiverUser;
+    public Member getReceiver() {
+        return receiver;
     }
 
-    public void setMsgReceiverUser(Member msgReceiverUser) {
-        this.msgReceiverUser = msgReceiverUser;
+    public void setReceiver(Member receiver) {
+        this.receiver = receiver;
     }
 
-    public Member getMsgSendUser() {
-        return msgSendUser;
+    public Member getSender() {
+        return sender;
     }
 
-    public void setMsgSendUser(Member msgSendUser) {
-        this.msgSendUser = msgSendUser;
+    public void setSender(Member sender) {
+        this.sender = sender;
     }
 }

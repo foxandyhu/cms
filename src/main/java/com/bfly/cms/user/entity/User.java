@@ -4,6 +4,8 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -36,6 +38,10 @@ public class User implements Serializable {
      */
     public static final int AVAILABLE_STATUS = 1;
 
+    /**
+     * 为了区分Member表和User表的ID Member表的ID从1000开始递增
+     * User表的ID从1开始递增
+     */
     @Id
     @Column(name = "id")
     private int id;
@@ -44,6 +50,7 @@ public class User implements Serializable {
      * 用户名
      */
     @Column(name = "username")
+    @NotBlank(message = "用户名不能为空!")
     private String username;
 
     /**
@@ -52,6 +59,7 @@ public class User implements Serializable {
      * @author andy_hulibo@163.com
      * @date 2018/12/3 15:43
      */
+    @NotBlank(message = "密码不能为空!")
     @Column(name = "password")
     private String password;
 
@@ -107,8 +115,9 @@ public class User implements Serializable {
     /**
      * 拥有的角色
      */
-    @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
+    @NotEmpty(message = "角色不能为空!")
     private Set<UserRole> roles;
 
     public int getId() {

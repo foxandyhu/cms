@@ -50,7 +50,7 @@
                 <td title="${c.content.title!}"><a href="${c.content.url!}" target="_blank">[@text_cut s=c.content.title len='15' append='...'/]</a></td>
                 <td>${c.createTime}</td>
                 <td title="${c.textHtml!}">[@text_cut s=c.textHtml len='25' append='...'/]</td>
-                <td>[#if c.replayTime??]<a href="comment_replay.html?id=${c.id}">查看回复</a>[/#if]</td>
+                <td>[#if c.replyTime??]<a href="comment_replay.html?id=${c.id}">查看回复</a>[/#if]</td>
               </tr>
               [/#list]
               <tr>

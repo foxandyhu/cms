@@ -6,6 +6,8 @@ import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -22,6 +24,33 @@ public class Member implements Serializable {
 
     private static final long serialVersionUID = 1827879748275829762L;
 
+    /**
+     * 账号禁用
+     */
+    public static final int DISABLE_STATUS = 2;
+
+    /**
+     * 账号待审核
+     */
+    public static final int UNCHECK_STATUS = 0;
+
+    /**
+     * 账号可用
+     */
+    public static final int AVAILABLE_STATUS = 1;
+
+    /**
+     * 会员ID自增标识开始
+     *
+     * @author andy_hulibo@163.com
+     * @date 2018/12/12 13:44
+     */
+    public static final int MEMBER_ID_BEGIN = 1000;
+
+    /**
+     * 为了区分Member表和User表的ID Member表的ID从1000开始递增
+     * User表的ID从1开始递增
+     */
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,6 +60,7 @@ public class Member implements Serializable {
      * 用户名
      */
     @Column(name = "username")
+    @NotBlank(message = "用户名不能为空!")
     private String username;
 
     /**
@@ -43,6 +73,7 @@ public class Member implements Serializable {
      * 密码
      */
     @Column(name = "password")
+    @NotBlank(message = "密码不能为空!")
     private String password;
 
     /**
@@ -135,6 +166,7 @@ public class Member implements Serializable {
     @ManyToOne
     @JoinColumn(name = "group_id")
     @NotFound(action = NotFoundAction.IGNORE)
+    @NotNull(message = "会员未设置分组!")
     private MemberGroup group;
 
     /**

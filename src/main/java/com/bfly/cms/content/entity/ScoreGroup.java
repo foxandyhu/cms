@@ -4,6 +4,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Set;
 
@@ -27,6 +28,7 @@ public class ScoreGroup implements Serializable {
      * 分组名
      */
     @Column(name = "name")
+    @NotBlank(message = "分组名称不能为空!")
     private String name;
 
     /**
@@ -50,7 +52,7 @@ public class ScoreGroup implements Serializable {
     /**
      * 评分项
      */
-    @OneToMany(mappedBy = "group", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "group", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Set<ScoreItem> items;
 
     public Integer getId() {

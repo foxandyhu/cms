@@ -5,8 +5,8 @@
 //import javax.servlet.http.HttpServletRequest;
 //import javax.servlet.http.HttpServletResponse;
 //
-//import com.bfly.cms.comment.entity.Guestbook;
-//import com.bfly.cms.comment.entity.GuestbookType;
+//import com.bfly.cms.comment.entity.GuestBook;
+//import com.bfly.cms.comment.entity.GuestBookType;
 //import org.json.JSONArray;
 //import org.json.JSONException;
 //import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +54,7 @@
 //		if(orderBy!=null&&orderBy.equals(0)){
 //			orderDesc=false;
 //		}
-//		List<Guestbook> list = cmsGuestbookMng.getList(
+//		List<GuestBook> list = cmsGuestbookMng.getList(
 //				ctgId, null,recommend, checked,
 //				orderDesc, orderDesc, first, count);
 //		JSONArray jsonArray=new JSONArray();
@@ -81,7 +81,7 @@
 //		if (siteId == null) {
 //			siteId = CmsUtils.getSiteId(request);
 //		}
-//		List<GuestbookType> list = cmsGuestbookCtgMng.getList();
+//		List<GuestBookType> list = cmsGuestbookCtgMng.getList();
 //		JSONArray jsonArray=new JSONArray();
 //		if(list!=null&&list.size()>0){
 //			for(int i=0;i<list.size();i++){
@@ -107,7 +107,7 @@
 //		String message = Constants.API_MESSAGE_PARAM_REQUIRED;
 //		String code = ResponseCode.API_CODE_PARAM_REQUIRED;
 //		if (id!=null) {
-//			Guestbook guestbook = cmsGuestbookMng.findById(id);
+//			GuestBook guestbook = cmsGuestbookMng.findById(id);
 //			if (guestbook!=null) {
 //				body = guestbook.convertToJson().toString();
 //				message = Constants.API_MESSAGE_SUCCESS;

@@ -15,7 +15,7 @@ public interface Paginable {
      * @author 胡礼波
      * 2012-4-26 下午09:22:00
      */
-    int getTotalCount();
+    long getTotalCount();
 
     /**
      * 总页数
@@ -43,24 +43,6 @@ public interface Paginable {
      * 2012-4-26 下午09:22:18
      */
     int getPageNo();
-
-    /**
-     * 是否第一页
-     *
-     * @return
-     * @author 胡礼波
-     * 2012-4-26 下午09:22:24
-     */
-    boolean isFirstPage();
-
-    /**
-     * 是否最后一页
-     *
-     * @return
-     * @author 胡礼波
-     * 2012-4-26 下午09:22:30
-     */
-    boolean isLastPage();
 
     /**
      * 返回下页的页号

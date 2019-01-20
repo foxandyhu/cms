@@ -4,6 +4,8 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -30,6 +32,7 @@ public class VoteTopic implements Serializable {
      * 标题
      */
     @Column(name = "title")
+    @NotBlank(message = "问卷标题不能为空!")
     private String title;
 
     /**
@@ -114,6 +117,7 @@ public class VoteTopic implements Serializable {
      * 投票项
      */
     @OneToMany(mappedBy = "topic", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @NotEmpty(message = "投票项不能为空!")
     private Set<VoteItem> items;
 
     /**
@@ -121,6 +125,7 @@ public class VoteTopic implements Serializable {
      */
     @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true, mappedBy = "voteTopic")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
+    @NotEmpty(message = "子主题项不能为空!")
     private Set<VoteSubTopic> subtopics;
 
     /**

@@ -1,5 +1,7 @@
 package com.bfly.core.exception;
 
+import com.bfly.core.enums.SysError;
+
 /**
  * 接口响应统一抛出异常
  *
@@ -10,9 +12,10 @@ public class WsResponseException extends RuntimeException {
 
     private String code;
 
-    public WsResponseException(String code, String message) {
+    public WsResponseException(SysError error, String message) {
         super(message);
-        this.code = code;
+        error = error == null ? SysError.ERROR : error;
+        this.code = error.getCode();
     }
 
     public String getCode() {

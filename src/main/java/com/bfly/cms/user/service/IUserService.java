@@ -21,4 +21,14 @@ public interface IUserService extends IBaseService<User, Integer> {
      * @date 2018/12/8 9:05
      */
     User login(String userName, String password);
+
+    /**
+     * 管理员角色回收即解除某个角色权限
+     *
+     * @param roleId 角色Id
+     * @param userId 用户ID
+     * @author andy_hulibo@163.com
+     * @date 2018/12/10 16:02
+     */
+    void recyclingRole(int userId, int roleId);
 }

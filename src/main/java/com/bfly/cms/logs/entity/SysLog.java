@@ -1,13 +1,14 @@
 package com.bfly.cms.logs.entity;
 
 import com.bfly.cms.member.entity.Member;
+import com.bfly.cms.user.entity.User;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
 /**
- * CMS日志操作
+ * 系统日志操作
  *
  * @author andy_hulibo@163.com
  * @date 2018/11/15 16:40
@@ -64,7 +65,7 @@ public class SysLog implements Serializable {
      */
     @ManyToOne
     @JoinColumn(name = "member_id")
-    private Member user;
+    private User user;
 
 
     public int getId() {
@@ -123,11 +124,11 @@ public class SysLog implements Serializable {
         this.content = content;
     }
 
-    public Member getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(Member user) {
+    public void setUser(User user) {
         this.user = user;
     }
 }

@@ -132,7 +132,7 @@
 //                // 写cookie
 //                CookieUtils.addCookie(getRequest(), response, cookieName, cookieValue, Integer.MAX_VALUE, null);
 //            }
-//            vote = cmsVoteTopicMng.vote(voteId, subTxtIds, itemIds, reply, getUser(), ip, cookieValue);
+//            vote = cmsVoteTopicMng.vote(voteId, subTxtIds, itemIds, reply, getMember(), ip, cookieValue);
 //            model.addAttribute("status", 0);
 //            model.addAttribute("vote", vote);
 //        }
@@ -215,7 +215,7 @@
 //        }
 //
 //        // 需要登录才能投票
-//        if (topic.getRestrictMember() && getUser() == null) {
+//        if (topic.getRestrictMember() && getMember() == null) {
 //            model.addAttribute("status", VoteTopic.VOTE_STATUS_NEED_LOGIN);
 //            return true;
 //        }
@@ -245,7 +245,7 @@
 //            Date vtime;
 //            // 规定时间内，同一会员不能重复投票
 //            if (topic.getRestrictMember()) {
-//                vtime = cmsVoteRecordMng.lastVoteTimeByUserId(getUser().getId(), topicId);
+//                vtime = cmsVoteRecordMng.lastVoteTimeByUserId(getMember().getId(), topicId);
 //                boolean flag = (hour == null && vtime != null) || (hour != null && vtime.getTime() + hour * 60 * 60 * 1000 > now);
 //                if (flag) {
 //                    model.addAttribute("status", VoteTopic.VOTE_STATUS_LIMIT_USER_REPEAT);

@@ -13,54 +13,6 @@ public class Pager implements Paginable, Serializable {
     private static final long serialVersionUID = 9084846050836791950L;
 
     public static final int DEF_COUNT = 10;
-    private static ThreadLocal<Pager> pagerContext = new ThreadLocal<>();
-
-    /**
-     * 把分页对象放到threadLocal中
-     *
-     * @param pager
-     * @author 胡礼波-Andy
-     * @2014年11月10日上午9:28:20
-     */
-    public static void setPager(Pager pager) {
-        pagerContext.set(pager);
-    }
-
-    /**
-     * 得到分页对象
-     *
-     * @return
-     * @author 胡礼波-Andy
-     * @ 2014年11月10日上午9:28:25
-     */
-    public static Pager getPager() {
-        return pagerContext.get();
-    }
-
-    /**
-     * 移除threadLocal中的分页对象
-     *
-     * @author 胡礼波-Andy
-     * @ 2014年11月10日上午9:28:31
-     */
-    public static void remove() {
-        pagerContext.remove();
-    }
-
-    /**
-     * 检查页码 checkPageNo
-     *
-     * @param pageNo
-     * @return if pageNo==null or pageNo<1 then return 1 else return pageNo
-     * @author 胡礼波
-     * @ 2014年11月10日上午9:28:31
-     */
-    public static int cpn(Integer pageNo) {
-        return (pageNo == null || pageNo < 1) ? 1 : pageNo;
-    }
-
-    public Pager() {
-    }
 
     /**
      * 构造器
@@ -71,10 +23,11 @@ public class Pager implements Paginable, Serializable {
      * @author 胡礼波
      * @2014年11月10日上午9:28:31
      */
-    public Pager(int pageNo, int pageSize, int totalCount) {
+    public Pager(int pageNo, int pageSize, long totalCount) {
         setTotalCount(totalCount);
         setPageSize(pageSize);
         setPageNo(pageNo);
+        getTotalPage();
     }
 
     @Override
@@ -88,23 +41,22 @@ public class Pager implements Paginable, Serializable {
     }
 
     @Override
-    public int getTotalCount() {
+    public long getTotalCount() {
         return totalCount;
     }
 
     @Override
     public int getTotalPage() {
-        int totalPage = (totalCount + pageSize - 1) / pageSize;
-        return totalPage;
+        Long totalPage = (totalCount + pageSize - 1) / pageSize;
+        this.totalPage = totalPage.intValue();
+        return this.totalPage;
     }
 
-    @Override
-    public boolean isFirstPage() {
+    private boolean isFirstPage() {
         return pageNo <= 1;
     }
 
-    @Override
-    public boolean isLastPage() {
+    private boolean isLastPage() {
         return pageNo >= getTotalPage();
     }
 
@@ -126,18 +78,20 @@ public class Pager implements Paginable, Serializable {
         }
     }
 
-    protected int totalCount = 0;
+    private long totalCount = 0;
+    private int pageNo = 1;
+    private int totalPage = 0;
     protected int pageSize = DEF_COUNT;
-    protected int pageNo = 1;
-    protected Object datas;
+
+    protected Object data;
 
 
-    public Object getDatas() {
-        return datas;
+    public Object getData() {
+        return data;
     }
 
-    public void setDatas(Object datas) {
-        this.datas = datas;
+    public void setData(Object data) {
+        this.data = data;
     }
 
     /**
@@ -147,7 +101,7 @@ public class Pager implements Paginable, Serializable {
      * @author 胡礼波
      * @2014年11月10日上午9:28:31
      */
-    public void setTotalCount(int totalCount) {
+    public void setTotalCount(long totalCount) {
         if (totalCount < 0) {
             this.totalCount = 0;
         } else {

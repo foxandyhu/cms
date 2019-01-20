@@ -1,7 +1,7 @@
 //package com.bfly.web.comment.action;
 //
-//import com.bfly.cms.comment.entity.Guestbook;
-//import com.bfly.cms.comment.entity.GuestbookType;
+//import com.bfly.cms.comment.entity.GuestBook;
+//import com.bfly.cms.comment.entity.GuestBookType;
 //import com.bfly.cms.comment.service.CmsGuestbookCtgMng;
 //import com.bfly.cms.comment.service.CmsGuestbookMng;
 //import com.bfly.cms.siteconfig.entity.Site;
@@ -48,7 +48,7 @@
 //    @Token(save = true)
 //    @GetMapping(value = "/guestbook*.html")
 //    public String index(Integer ctgId, ModelMap model) {
-//        GuestbookType ctg = null;
+//        GuestBookType ctg = null;
 //        if (ctgId != null) {
 //            ctg = cmsGuestbookCtgMng.findById(ctgId);
 //        }
@@ -64,7 +64,7 @@
 //    @Token(save = true)
 //    @GetMapping(value = "/guestbook/{id}.html")
 //    public String detail(@PathVariable Integer id, ModelMap model) {
-//        Guestbook guestbook = null;
+//        GuestBook guestbook = null;
 //        if (id != null) {
 //            guestbook = cmsGuestbookMng.findById(id);
 //        }
@@ -109,7 +109,7 @@
 //            ResponseUtils.renderJson(response, json.toString());
 //            return;
 //        }
-//        Member user = getUser();
+//        Member user = getMember();
 //        //需要用户登陆
 //        if (user == null && config.getGuestbookNeedLogin()) {
 //            json.put("success", false);

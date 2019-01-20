@@ -4,6 +4,7 @@ import com.bfly.cms.member.service.IMemberService;
 import com.bfly.cms.user.entity.User;
 import com.bfly.cms.user.entity.UserRole;
 import com.bfly.cms.user.service.IUserService;
+import com.bfly.common.page.Pager;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,6 +77,6 @@ public class TT {
     @Test
     @Transactional
     public void test3() {
-        User user = userService.login("admin", "password");
+        List<User> pager = userService.getList(null);
     }
 }

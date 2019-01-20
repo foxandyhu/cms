@@ -122,7 +122,7 @@
 //        String message = Constants.API_MESSAGE_PARAM_REQUIRED;
 //        String code = ResponseCode.API_CODE_PARAM_REQUIRED;
 //        WebErrors errors = WebErrors.create(request);
-//        Member user = CmsUtils.getUser(request);
+//        Member user = CmsUtils.getMember(request);
 //        //验证公共非空参数
 //        errors = ApiValidate.validateRequiredParams(request, errors, appId,
 //                nonce_str, sign, voteId, subIds, itemIds);

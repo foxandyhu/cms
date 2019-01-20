@@ -1,5 +1,8 @@
 package com.bfly.common;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.bfly.common.json.JsonUtil;
 import com.bfly.core.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -69,12 +72,20 @@ public class ResponseUtil {
      * 输出Json
      *
      * @param response
-     * @param json
+     * @param data
      * @author 胡礼波-andy
      * @2013-6-22下午8:35:08
      */
-    public static void writeJson(HttpServletResponse response, String json) {
-        writeData(response, json, "application/json");
+    public static void writeJson(HttpServletResponse response, Object data) {
+        String dataStr;
+        if (data instanceof JSONObject || data instanceof JSONArray) {
+            dataStr = ((JSONObject) data).toJSONString();
+        } else if (data instanceof String) {
+            dataStr = (String) data;
+        } else {
+            dataStr = JsonUtil.toJsonStringFilterPropter(data).toJSONString();
+        }
+        writeData(response, dataStr, "application/json");
     }
 
     /**
@@ -87,8 +98,7 @@ public class ResponseUtil {
         response.setCharacterEncoding(Constants.ENCODEING_UTF8);
         response.setContentType(contentType);
         try (PrintWriter out = response.getWriter()) {
-            String dataStr = String.valueOf(data);
-            out.write(dataStr);
+            out.write(data);
             out.flush();
         } catch (Exception e) {
             logger.warn("数据流输入有错:" + e);

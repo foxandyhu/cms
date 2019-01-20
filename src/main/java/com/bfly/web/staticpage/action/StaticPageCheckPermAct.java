@@ -42,7 +42,7 @@
 //            log.debug("Content id not found: {}", contentId);
 //            result = "2";
 //        }
-//        Member user = CmsUtils.getUser(request);
+//        Member user = CmsUtils.getMember(request);
 //        Set<MemberGroup> groups = content.getViewGroupsExt();
 //        int len = groups.size();
 //        // 需要浏览权限
@@ -87,8 +87,8 @@
 //
 //    @RequestMapping(value = "/group_forbidden.html")
 //    public String groupForbidden(ModelMap model) {
-//        Member user = getUser();
-//        if (getUser() != null) {
+//        Member user = getMember();
+//        if (getMember() != null) {
 //            return renderMessagePage(model, GROUP_FORBIDDEN, user.getGroup().getName());
 //        }
 //        return userNoLogin(model);

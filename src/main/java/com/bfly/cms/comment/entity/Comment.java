@@ -2,10 +2,12 @@ package com.bfly.cms.comment.entity;
 
 import com.bfly.cms.content.entity.Content;
 import com.bfly.cms.member.entity.Member;
+import com.bfly.cms.user.entity.User;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -23,6 +25,19 @@ public class Comment implements Serializable {
 
     private static final long serialVersionUID = 1036844320957193420L;
 
+    /**
+     * 等待审核
+     */
+    public static final int WAIT_CHECK = 0;
+    /**
+     * 审核不通过
+     */
+    public static final int UNPASSED = 1;
+    /**
+     * 审核通过
+     */
+    public static final int PASSED = 2;
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,12 +48,6 @@ public class Comment implements Serializable {
      */
     @Column(name = "create_time")
     private Date createTime;
-
-    /**
-     * 回复时间
-     */
-    @Column(name = "reply_time")
-    private Date replayTime;
 
     /**
      * 支持数
@@ -59,12 +68,6 @@ public class Comment implements Serializable {
     private boolean recommend;
 
     /**
-     * 是否审核
-     */
-    @Column(name = "is_checked")
-    private boolean checked;
-
-    /**
      * 评分
      */
     @Column(name = "score")
@@ -75,6 +78,15 @@ public class Comment implements Serializable {
      */
     @Column(name = "reply_count")
     private int replyCount;
+
+    /**
+     * 状态 1审核不通过 2审核通过
+     *
+     * @author andy_hulibo@163.com
+     * @date 2018/12/12 11:41
+     */
+    @Column(name = "status")
+    private int status;
 
     /**
      * 主评论
@@ -92,18 +104,19 @@ public class Comment implements Serializable {
     /**
      * 评论扩展信息
      */
-    @OneToOne(cascade = CascadeType.REMOVE, mappedBy = "comment")
+    @OneToOne(cascade = {CascadeType.ALL}, mappedBy = "comment")
+    @NotNull(message = "回复信息不能为空!")
     private CommentExt commentExt;
 
     /**
-     * 评论回复者
+     * 评论发布/回复者
      */
     @ManyToOne
-    @JoinColumn(name = "reply_member_id")
-    private Member replayMember;
+    @JoinColumn(name = "post_user_id")
+    private User postUser;
 
     /**
-     * 评论发布者
+     * 评论发布/回复者
      */
     @ManyToOne
     @JoinColumn(name = "post_member_id")
@@ -115,6 +128,14 @@ public class Comment implements Serializable {
     @ManyToOne
     @JoinColumn(name = "content_id")
     private Content content;
+
+    public User getPostUser() {
+        return postUser;
+    }
+
+    public void setPostUser(User postUser) {
+        this.postUser = postUser;
+    }
 
     public int getId() {
         return id;
@@ -132,12 +153,12 @@ public class Comment implements Serializable {
         this.createTime = createTime;
     }
 
-    public Date getReplayTime() {
-        return replayTime;
+    public int getStatus() {
+        return status;
     }
 
-    public void setReplayTime(Date replayTime) {
-        this.replayTime = replayTime;
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public int getUps() {
@@ -162,14 +183,6 @@ public class Comment implements Serializable {
 
     public void setRecommend(boolean recommend) {
         this.recommend = recommend;
-    }
-
-    public boolean isChecked() {
-        return checked;
-    }
-
-    public void setChecked(boolean checked) {
-        this.checked = checked;
     }
 
     public int getScore() {
@@ -210,14 +223,6 @@ public class Comment implements Serializable {
 
     public void setCommentExt(CommentExt commentExt) {
         this.commentExt = commentExt;
-    }
-
-    public Member getReplayMember() {
-        return replayMember;
-    }
-
-    public void setReplayMember(Member replayMember) {
-        this.replayMember = replayMember;
     }
 
     public Member getPostMember() {

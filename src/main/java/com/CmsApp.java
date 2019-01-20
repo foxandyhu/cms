@@ -17,6 +17,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 @ServletComponentScan
 public class CmsApp extends SpringBootServletInitializer {
 
+
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
         return builder.sources(CmsApp.class);

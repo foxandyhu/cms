@@ -4,7 +4,7 @@
 //import com.bfly.cms.funds.service.CmsUserAccountMng;
 //import com.bfly.cms.siteconfig.entity.Site;
 //import com.bfly.cms.system.entity.CmsConfigContentCharge;
-//import com.bfly.cms.system.entity.MemberConfig;
+//import com.bfly.cms.member.entity.MemberConfig;
 //import com.bfly.cms.system.service.CmsConfigContentChargeMng;
 //import com.bfly.cms.member.entity.Member;
 //import com.bfly.common.web.HttpClientUtil;
@@ -71,7 +71,7 @@
 //        if (!mcfg.isMemberOn()) {
 //            return renderMessagePage(model, "member.memberClose");
 //        }
-//        if (getUser() == null) {
+//        if (getMember() == null) {
 //            return renderLoginPage(model);
 //        }
 //        String codeUrl;
@@ -98,7 +98,7 @@
 //    @GetMapping(value = "/member/weixin_auth_call.html")
 //    public String weixinAuthCall(String code, ModelMap model) {
 //        Site site = getSite();
-//        Member user = getUser();
+//        Member user = getMember();
 //        MemberConfig mcfg = site.getConfig().getMemberConfig();
 //        if (!mcfg.isMemberOn()) {
 //            return renderMessagePage(model, "member.memberClose");

@@ -52,10 +52,10 @@
                 <td title="${c.titleHtml!}"><a href="guestbook_detail.html?id=${c.id}">[@text_cut s=c.titleHtml len='10' append='...'/]</a></td>
                 <td title="${c.contentHtml!}">[@text_cut s=c.contentHtml len='10' append='...'/]</td>
                 <td>${c.createTime}</td>
-                <td>[#if c.replayTime??]<span style="color: red;">是</span>[#else]否[/#if]</td>
+                <td>[#if c.replyTime??]<span style="color: red;">是</span>[#else]否[/#if]</td>
                 <td>[#if c.checked==0]待审核[#elseif c.checked==1]<span style="color: green;">通过</span>[#else]<span style="color: red;">未通过</span>[/#if]</td>
                 <td>[#if c.recommend]<span style="color: red;">推荐</span>[#else]未推荐[/#if]</td>
-                <td><a href="guestbook_detail.html?id=${c.id}">详细</a> [#if c.replayTime??]<a href="guestbook_replay.html?id=${c.id}">查看回复</a>[/#if]</td>
+                <td><a href="guestbook_detail.html?id=${c.id}">详细</a> [#if c.replyTime??]<a href="guestbook_replay.html?id=${c.id}">查看回复</a>[/#if]</td>
               </tr>
               [/#list]
               <input type="hidden" name="pageNo"/>

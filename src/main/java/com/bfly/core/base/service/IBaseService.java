@@ -1,5 +1,8 @@
 package com.bfly.core.base.service;
 
+import com.bfly.common.page.Pager;
+import org.springframework.data.domain.PageRequest;
+
 import java.util.List;
 import java.util.Map;
 
@@ -26,6 +29,8 @@ public interface IBaseService<T, ID> {
      * 根据多条件查询对象
      * map中key是实体类的属性名称 value是属性值
      *
+     * @param property 多条件精确查询
+     * @return 对象
      * @author andy_hulibo@163.com
      * @date 2018/12/7 22:55
      */
@@ -39,7 +44,7 @@ public interface IBaseService<T, ID> {
      * @author andy_hulibo@163.com
      * @date 2018/12/7 13:27
      */
-    int del(ID... ids);
+    int remove(ID... ids);
 
     /**
      * 以主键为条件修改对象
@@ -70,6 +75,27 @@ public interface IBaseService<T, ID> {
      */
     List<T> getList();
 
+    /**
+     * 获得所有的对象
+     * map中key是实体类的属性名称 value是属性值
+     *
+     * @param property 多条件模糊查询
+     * @return 对象集合
+     * @author andy_hulibo@163.com
+     * @date 2018/12/7 13:28
+     */
+    List<T> getList(Map<String, Object> property);
+
+    /**
+     * 获得对象分页数据
+     * map中key是实体类的属性名称 value是属性值
+     *
+     * @param property 多条件模糊查询 可以为null
+     * @return 分页对象
+     * @author andy_hulibo@163.com
+     * @date 2018/12/8 20:38
+     */
+    Pager getPage(Map<String, Object> property);
 
     /**
      * 获得所有的总数
@@ -84,8 +110,21 @@ public interface IBaseService<T, ID> {
      * 根据多条件查询对象
      * map中key是实体类的属性名称 value是属性值
      *
+     * @param property 多条件模糊查询
+     * @return 数量
      * @author andy_hulibo@163.com
      * @date 2018/12/7 22:55
      */
     long getCount(Map<String, Object> property);
+
+    /**
+     * 默认的分页器
+     *
+     * @author andy_hulibo@163.com
+     * @date 2018/12/19 13:59
+     */
+    default PageRequest getPageRequest(Pager pager) {
+        PageRequest pageRequest = PageRequest.of(pager.getPageNo() == 0 ? 0 : pager.getPageNo() - 1, pager.getPageSize());
+        return pageRequest;
+    }
 }

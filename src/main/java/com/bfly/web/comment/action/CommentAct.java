@@ -114,7 +114,7 @@
 //            ResponseUtils.renderJson(response, json.toString());
 //            return;
 //        }
-//        Member user = getUser();
+//        Member user = getMember();
 //        if (user == null || user.getGroup().getNeedCaptcha()) {
 //            // 验证码错误
 //            try {

@@ -129,7 +129,7 @@
 //            return renderMessagePage(model, "未终审的文章");
 //        }
 //
-//        Member user = getUser();
+//        Member user = getMember();
 //        Site site = content.getSite();
 //        Set<MemberGroup> groups = content.getViewGroupsExt();
 //        int len = groups.size();

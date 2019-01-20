@@ -5,6 +5,9 @@ import com.bfly.cms.content.entity.ContentType;
 import com.bfly.cms.user.entity.User;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -29,6 +32,7 @@ public class Acquisition implements Serializable {
      * 采集名称
      */
     @Column(name = "acq_name")
+    @NotBlank(message = "采集器名称不能为空!")
     private String name;
 
     /**
@@ -71,6 +75,7 @@ public class Acquisition implements Serializable {
      * 暂停时间(毫秒)
      */
     @Column(name = "pause_time")
+    @Min(value = 500, message = "暂停时间不能小于500毫秒!")
     private int pauseTime;
 
     /**
@@ -83,6 +88,7 @@ public class Acquisition implements Serializable {
      * 页面编码
      */
     @Column(name = "page_encoding")
+    @NotBlank(message = "页面编码不能为空!")
     private String pageEncoding;
 
     /**
@@ -349,6 +355,7 @@ public class Acquisition implements Serializable {
      */
     @ManyToOne
     @JoinColumn(name = "type_id")
+    @NotNull(message = "入库类型不能为空!")
     private ContentType type;
 
     /**
@@ -356,6 +363,7 @@ public class Acquisition implements Serializable {
      */
     @ManyToOne
     @JoinColumn(name = "channel_id")
+    @NotNull(message = "入库栏目不能为空!")
     private Channel channel;
 
     /**

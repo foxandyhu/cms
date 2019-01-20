@@ -36,12 +36,6 @@ public class CommentExt implements Serializable {
     private String text;
 
     /**
-     * 回复内容
-     */
-    @Column(name = "reply")
-    private String reply;
-
-    /**
      * 所属评论
      */
     @OneToOne
@@ -76,20 +70,9 @@ public class CommentExt implements Serializable {
         this.text = text;
     }
 
-    public String getReply() {
-        return reply;
-    }
-
-
-    public void setReply(String reply) {
-        this.reply = reply;
-    }
-
-
     public Comment getComment() {
         return comment;
     }
-
 
     public void setComment(Comment comment) {
         this.comment = comment;

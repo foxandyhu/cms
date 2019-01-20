@@ -17,27 +17,6 @@ import java.io.Serializable;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class SearchWords implements Serializable {
 
-    /**
-     * 搜索次数降序
-     */
-    public static final int HIT_DESC = 1;
-
-    /**
-     * 优先级降序
-     */
-    public static final int PRIORITY_DESC = 3;
-
-    /**
-     *
-     */
-    public static final int HIT_ASC = 2;
-
-    /**
-     * 优先级升序
-     */
-    public static final int PRIORITY_ASC = 4;
-
-    public static final int DEFAULT_PRIORITY = 10;
     private static final long serialVersionUID = 4755704910893942895L;
 
     @Id
@@ -75,7 +54,7 @@ public class SearchWords implements Serializable {
     @Column(name = "is_recommend")
     private boolean recommend;
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 

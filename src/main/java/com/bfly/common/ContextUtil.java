@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 系统上下文工具类
@@ -23,9 +21,51 @@ public class ContextUtil {
     private static Logger logger = LoggerFactory.getLogger(ContextUtil.class);
 
     private static ThreadLocal<String> threadLocalIp = new ThreadLocal<>();
+    private static ThreadLocal<Pager> threadLocalPager = new ThreadLocal<>();
 
     /**
-     * 设置IP到当前线程变量这种
+     * 初始化分页器
+     *
+     * @author andy_hulibo@163.com
+     * @date 2018/12/8 20:22
+     */
+    public static void initPager(HttpServletRequest request) {
+        initPager(request, Pager.DEF_COUNT);
+    }
+
+    /**
+     * 实例化Pager对象
+     *
+     * @author andy_hulibo@163.com
+     * @date 2018/12/8 20:28
+     */
+    public static void initPager(HttpServletRequest request, int rows) {
+        int page = DataConvertUtils.convertToInteger(request.getParameter("pageNo"));
+        setPager(new Pager(page, rows, Integer.MAX_VALUE));
+    }
+
+    /**
+     * 把分页对象放到当前线程中
+     *
+     * @author andy_hulibo@163.com
+     * @date 2018/12/8 20:09
+     */
+    public static void setPager(Pager pager) {
+        threadLocalPager.set(pager);
+    }
+
+    /**
+     * 得到当前线程变量中的分页对象
+     *
+     * @author andy_hulibo@163.com
+     * @date 2018/12/8 20:10
+     */
+    public static Pager getPager() {
+        return getDataFromThreadLocal(threadLocalPager);
+    }
+
+    /**
+     * 设置IP到当前线程变量中
      *
      * @author andy_hulibo@163.com
      * @date 2018/12/8 9:45
@@ -41,15 +81,19 @@ public class ContextUtil {
      * @date 2018/12/8 9:46
      */
     public static String getIpFromThreadLocal() {
-        String ip = null;
+        return getDataFromThreadLocal(threadLocalIp);
+    }
+
+    private static <T> T getDataFromThreadLocal(ThreadLocal<T> threadLocal) {
+        T data = null;
         try {
-            ip = threadLocalIp.get();
+            data = threadLocal.get();
         } catch (Exception ex) {
-            logger.error("从线程变量获取IP地址出错", ex);
+            logger.error("从线程变量获取对象出错", ex);
         } finally {
-            threadLocalIp.remove();
+            threadLocal.remove();
         }
-        return ip;
+        return data;
     }
 
     /**
@@ -151,29 +195,4 @@ public class ContextUtil {
         return true;
     }
 
-    /**
-     * 获得Pager 翻页参数 形成Map对象返回
-     * Map中包含firstResult 开始记录 endResult结束记录
-     *
-     * @return
-     * @author 胡礼波
-     * 2014-6-12 下午3:33:30
-     */
-    public static Map<String, Object> getThreadLocalPagerMap() {
-        Map<String, Object> map = new HashMap<>(2);
-        int pageNo, pageSize = 0;
-        try {
-            Pager pager = Pager.getPager();
-            if (pager != null) {
-                pageNo = pager.getPageNo();
-                pageSize = pager.getPageSize();
-                int firstResult = (pageNo - 1) * pageSize + 1;
-                map.put(Constants.FIRSTRESULT, firstResult - 1);
-                map.put(Constants.MAXRESULT, pageSize);
-            }
-            return map;
-        } finally {
-            Pager.remove();
-        }
-    }
 }

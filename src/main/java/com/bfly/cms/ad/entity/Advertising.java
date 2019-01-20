@@ -4,6 +4,8 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Map;
@@ -29,12 +31,14 @@ public class Advertising implements Serializable {
      * 广告名称
      */
     @Column(name = "ad_name")
+    @NotBlank(message = "广告名称不能为空!")
     private String name;
 
     /**
      * 广告类型
      */
     @Column(name = "category")
+    @NotBlank(message = "广告类型不能为空!")
     private String category;
 
     /**
@@ -53,12 +57,14 @@ public class Advertising implements Serializable {
      * 展现次数
      */
     @Column(name = "display_count")
+    @Min(value = 0, message = "展现次数必须是正整数0!")
     private int displayCount;
 
     /**
      * 点击次数
      */
     @Column(name = "click_count")
+    @Min(value = 0, message = "点击次数必须是正整数0!")
     private int clickCount;
 
     /**

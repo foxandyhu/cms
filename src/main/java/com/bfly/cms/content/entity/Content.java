@@ -4,7 +4,7 @@ import com.bfly.cms.channel.entity.Channel;
 import com.bfly.cms.comment.entity.Comment;
 import com.bfly.cms.user.entity.User;
 import com.bfly.cms.member.entity.MemberGroup;
-import com.bfly.cms.words.entity.ContentTag;
+import com.bfly.cms.words.entity.Tags;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -148,7 +148,7 @@ public class Content implements Serializable {
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
     @JoinTable(name = "content_tag_ship", joinColumns = @JoinColumn(name = "content_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
-    private List<ContentTag> tags;
+    private List<Tags> tags;
 
 
     /**
@@ -350,11 +350,11 @@ public class Content implements Serializable {
         this.viewGroups = viewGroups;
     }
 
-    public List<ContentTag> getTags() {
+    public List<Tags> getTags() {
         return tags;
     }
 
-    public void setTags(List<ContentTag> tags) {
+    public void setTags(List<Tags> tags) {
         this.tags = tags;
     }
 

@@ -1,6 +1,7 @@
 package com.bfly.cms.channel.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**
@@ -23,13 +24,15 @@ public class ModelItem implements Serializable {
      * 字段
      */
     @Column(name = "field")
+    @NotBlank(message = "字段不能为空!")
     private String field;
 
     /**
      * 名称
      */
-    @Column(name = "item_label")
-    private String label;
+    @Column(name = "name")
+    @NotBlank(message = "名称不能为空!")
+    private String name;
 
     /**
      * 排列顺序
@@ -44,28 +47,10 @@ public class ModelItem implements Serializable {
     private String defValue;
 
     /**
-     * 可选项
+     * 可选项 通常是复选框 单选框 下拉框的值
      */
     @Column(name = "opt_value")
     private String optValue;
-
-    /**
-     * 长度
-     */
-    @Column(name = "text_size")
-    private String size;
-
-    /**
-     * 文本行数
-     */
-    @Column(name = "area_rows")
-    private String rows;
-
-    /**
-     * 文本列数
-     */
-    @Column(name = "area_cols")
-    private String cols;
 
     /**
      * 帮助信息
@@ -74,13 +59,9 @@ public class ModelItem implements Serializable {
     private String help;
 
     /**
-     * 帮助位置
-     */
-    @Column(name = "help_position")
-    private String helpPosition;
-
-    /**
      * 数据类型
+     *
+     * @see com.bfly.core.enums.DataType
      */
     @Column(name = "data_type")
     private int dataType;
@@ -104,28 +85,16 @@ public class ModelItem implements Serializable {
     private Boolean custom;
 
     /**
-     * 是否显示
+     * 是否启用
      */
-    @Column(name = "is_display")
-    private boolean display;
+    @Column(name = "is_enabled")
+    private boolean enabled;
 
     /**
      * 是否必填项
      */
     @Column(name = "is_required")
     private boolean required;
-
-    /**
-     * 图片宽度
-     */
-    @Column(name = "image_width")
-    private int imageWidth;
-
-    /**
-     * 图片宽度
-     */
-    @Column(name = "image_height")
-    private int imageHeight;
 
     @ManyToOne
     @JoinColumn(name = "model_id")
@@ -147,12 +116,12 @@ public class ModelItem implements Serializable {
         this.field = field;
     }
 
-    public String getLabel() {
-        return label;
+    public String getName() {
+        return name;
     }
 
-    public void setLabel(String label) {
-        this.label = label;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getPriority() {
@@ -179,44 +148,12 @@ public class ModelItem implements Serializable {
         this.optValue = optValue;
     }
 
-    public String getSize() {
-        return size;
-    }
-
-    public void setSize(String size) {
-        this.size = size;
-    }
-
-    public String getRows() {
-        return rows;
-    }
-
-    public void setRows(String rows) {
-        this.rows = rows;
-    }
-
-    public String getCols() {
-        return cols;
-    }
-
-    public void setCols(String cols) {
-        this.cols = cols;
-    }
-
     public String getHelp() {
         return help;
     }
 
     public void setHelp(String help) {
         this.help = help;
-    }
-
-    public String getHelpPosition() {
-        return helpPosition;
-    }
-
-    public void setHelpPosition(String helpPosition) {
-        this.helpPosition = helpPosition;
     }
 
     public int getDataType() {
@@ -251,12 +188,12 @@ public class ModelItem implements Serializable {
         this.custom = custom;
     }
 
-    public boolean isDisplay() {
-        return display;
+    public boolean isEnabled() {
+        return enabled;
     }
 
-    public void setDisplay(boolean display) {
-        this.display = display;
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     public boolean isRequired() {
@@ -265,22 +202,6 @@ public class ModelItem implements Serializable {
 
     public void setRequired(boolean required) {
         this.required = required;
-    }
-
-    public int getImageWidth() {
-        return imageWidth;
-    }
-
-    public void setImageWidth(int imageWidth) {
-        this.imageWidth = imageWidth;
-    }
-
-    public int getImageHeight() {
-        return imageHeight;
-    }
-
-    public void setImageHeight(int imageHeight) {
-        this.imageHeight = imageHeight;
     }
 
     public Model getModel() {

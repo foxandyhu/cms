@@ -9,16 +9,6 @@ package com.bfly.core;
 public class Constants {
 
     /**
-     * 从第几条记录开始
-     */
-    public final static String FIRSTRESULT = "firstResult";
-
-    /**
-     * 到第几条记录结束
-     */
-    public final static String MAXRESULT = "maxResult";
-
-    /**
      * 用户IP
      */
     public final static String IP = "ip";

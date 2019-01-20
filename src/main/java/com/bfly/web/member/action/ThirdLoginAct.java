@@ -3,7 +3,7 @@
 //
 //import com.bfly.cms.resource.service.ImageSvc;
 //import com.bfly.cms.siteconfig.entity.Site;
-//import com.bfly.cms.siteconfig.entity.Ftp;
+//import com.bfly.cms.system.entity.Ftp;
 //import com.bfly.cms.system.entity.SysConfig;
 //import com.bfly.cms.system.service.CmsConfigMng;
 //import com.bfly.cms.member.entity.MemberThirdAccount;
@@ -310,7 +310,7 @@
 //
 //    @RequestMapping(value = "/sso/login.html")
 //    public void loginSso(String username, String sessionId, String ssoLogout, HttpServletResponse response) {
-//        Member user = getUser();
+//        Member user = getMember();
 //        if (StringUtils.isNotBlank(username)) {
 //            JSONObject object = new JSONObject();
 //            try {
@@ -428,7 +428,7 @@
 //            openId = pwdEncoder.encodePassword(openId);
 //            account.setAccountKey(openId);
 //            account.setSource(source);
-//            account.setUser(cmsUserMng.findByUsername(username));
+//            account.setMember(cmsUserMng.findByUsername(username));
 //            accountMng.save(account);
 //        }
 //    }

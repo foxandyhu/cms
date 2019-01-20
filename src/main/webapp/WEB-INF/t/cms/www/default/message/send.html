@@ -48,11 +48,11 @@ $(function() {
 	                </td>
 	              </tr>
 	              <tr>
-	                <td class="tggl-top">主题</td><td><input type="text" name="msgTitle" placeholder="主题" maxlength="150" [#if message??]value="${message.msgTitle!}"[/#if] class="member-change required" style="width:300px;" /><span style="color:#f00; margin-left:10px;">*</span></td>
+	                <td class="tggl-top">主题</td><td><input type="text" name="title" placeholder="主题" maxlength="150" [#if message??]value="${message.title!}"[/#if] class="member-change required" style="width:300px;" /><span style="color:#f00; margin-left:10px;">*</span></td>
 	              </tr>
 	              <tr>
 	                <td class="tggl-top">内容</td>
-	                <td><textarea name="msgContent" style="width:550px;height:350px"></textarea></td>
+	                <td><textarea name="content" style="width:550px;height:350px"></textarea></td>
 	              </tr>
 	              <tr>
 	                <td class="tggl-top">验证码</td><td><input type="text" name="captcha" maxlength="20" class="member-change" style="float:left; margin-left:15px;" /><img id="messageCaptcha" src="${base}/captcha.svl" onclick="this.src='${base}/captcha.svl?d='+new Date()"/></td>

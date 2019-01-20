@@ -19,17 +19,17 @@ function toSend(){
      	<tr>
          <td  width="86" class="tggl-top">发件人</td>
          <td>
-         <input type="text" id="username" name="username" maxlength="150" class="member-change" onchange="find_user()" value="${message.msgReceiverUser.username!}"/>
+         <input type="text" id="username" name="username" maxlength="150" class="member-change" onchange="find_user()" value="${message.receiver.username!}"/>
           <span class="STYLE1">*</span><span style="color: red;" id="usernameMsg"></span></td>
        </tr>
        <tr>
          <td class="tggl-top">主题</td>
-         <td><input type="text" name="msgTitle" maxlength="150" class="member-change" [#if message??]value="${message.msgTitle!}"[/#if]/> <span class="STYLE1">*</span></td>
+         <td><input type="text" name="title" maxlength="150" class="member-change" [#if message??]value="${message.title!}"[/#if]/> <span class="STYLE1">*</span></td>
        </tr> 
        <tr>
          <td class="tggl-top">内容</td>
          <td>
-			<textarea style="width:90%;height:100px" name="msgContent" class="member-change">${message.msgContent?html}</textarea>
+			<textarea style="width:90%;height:100px" name="content" class="member-change">${message.content?html}</textarea>
 		 </td>
        </tr> 
        <tr>

@@ -11,7 +11,7 @@
 //import java.util.List;
 //import java.util.Map;
 //
-//import com.bfly.cms.comment.entity.GuestbookType;
+//import com.bfly.cms.comment.entity.GuestBookType;
 //import com.bfly.cms.siteconfig.entity.Site;
 //import org.apache.commons.lang.StringUtils;
 //import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +51,7 @@
 //			TemplateDirectiveBody body) throws TemplateException, IOException {
 //		Site site = FrontUtils.getSite(env);
 //
-//		List<GuestbookType> list = cmsGuestbookCtgMng
+//		List<GuestBookType> list = cmsGuestbookCtgMng
 //				.getList();
 //
 //		Map<String, TemplateModel> paramWrap = new HashMap<>(

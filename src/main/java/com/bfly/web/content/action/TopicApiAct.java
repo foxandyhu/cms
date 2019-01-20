@@ -20,7 +20,7 @@
 //import com.bfly.core.web.ResponseCode;
 //import com.bfly.cms.content.service.CmsTopicMng;
 //import com.bfly.common.web.ResponseUtils;
-//import com.bfly.cms.siteconfig.entity.Ftp;
+//import com.bfly.cms.system.entity.Ftp;
 //import com.bfly.core.web.util.CmsUtils;
 //
 //@Controller("frontTopicApiAct")

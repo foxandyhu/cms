@@ -20,17 +20,17 @@ function toSend(){
      	<tr>
          <td width="86" height="25" align="right" bgcolor="#FAF9FE">发件人</td>
          <td width="626" bgcolor="#FFFFFF">
-         <input type="text" id="username" name="username" maxlength="150" class="required" onchange="find_user()" value="${message.msgReceiverUser.username!}"/>
+         <input type="text" id="username" name="username" maxlength="150" class="required" onchange="find_user()" value="${message.receiver.username!}"/>
           <span class="STYLE1">*</span><span style="color: red;" id="usernameMsg"></span></td>
        </tr>
        <tr>
          <td width="86" height="25" align="right" bgcolor="#FAF9FE">主题</td>
-         <td width="626" bgcolor="#FFFFFF"><input type="text" name="msgTitle" maxlength="150" class="required" [#if message??]value="${message.msgTitle!}"[/#if]/> <span class="STYLE1">*</span></td>
+         <td width="626" bgcolor="#FFFFFF"><input type="text" name="title" maxlength="150" class="required" [#if message??]value="${message.title!}"[/#if]/> <span class="STYLE1">*</span></td>
        </tr> 
        <tr>
          <td height="25" align="right" bgcolor="#FAF9FE">内容</td>
          <td bgcolor="#FFFFFF">
-			<textarea style="width:100%;height:350px" name="msgContent">${message.msgContent?html}</textarea>
+			<textarea style="width:100%;height:350px" name="content">${message.content?html}</textarea>
 		 </td>
        </tr> 
        <tr>

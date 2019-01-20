@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 /**
- * CMS投票项
+ * 投票项
  *
  * @author andy_hulibo@163.com
  * @date 2018/11/17 10:25

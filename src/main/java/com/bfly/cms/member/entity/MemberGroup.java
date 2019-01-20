@@ -5,6 +5,8 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Set;
 
@@ -30,24 +32,28 @@ public class MemberGroup implements Serializable {
      * 名称
      */
     @Column(name = "group_name")
+    @NotBlank(message = "组名称不能为空!")
     private String name;
 
     /**
      * 排列顺序
      */
     @Column(name = "priority")
+    @Min(value = 1, message = "排序序号必须大于0!")
     private int priority;
 
     /**
      * 每日允许上传KB
      */
     @Column(name = "allow_per_day")
+    @Min(value = 0, message = "每日允许上传量必须大于0KB!")
     private int allowPerDay;
 
     /**
      * 每个文件最大KB
      */
     @Column(name = "allow_max_file")
+    @Min(value = 0, message = "每个文件最大值为0KB!")
     private int allowMaxFile;
 
     /**
@@ -77,7 +83,7 @@ public class MemberGroup implements Serializable {
     /**
      * 浏览权限组
      */
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
     @JoinTable(name = "member_chnl_group_view", joinColumns = @JoinColumn(name = "group_id"), inverseJoinColumns = @JoinColumn(name = "channel_id"))
     private Set<Channel> viewChannels;
@@ -85,7 +91,7 @@ public class MemberGroup implements Serializable {
     /**
      * 投稿权限组
      */
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
     @JoinTable(name = "member_chnl_group_contri", joinColumns = @JoinColumn(name = "group_id"), inverseJoinColumns = @JoinColumn(name = "channel_id"))
     private Set<Channel> contriChannels;

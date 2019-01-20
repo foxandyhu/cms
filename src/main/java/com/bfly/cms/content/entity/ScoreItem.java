@@ -4,6 +4,8 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Set;
 
@@ -27,12 +29,14 @@ public class ScoreItem implements Serializable, Comparable<ScoreItem> {
      * 评分名
      */
     @Column(name = "name")
+    @NotBlank(message = "评分名称不能为空!")
     private String name;
 
     /**
      * 分值
      */
     @Column(name = "score")
+    @Min(value = 0, message = "评分值必须大于0!")
     private int score;
 
     /**
@@ -45,6 +49,7 @@ public class ScoreItem implements Serializable, Comparable<ScoreItem> {
      * 排序
      */
     @Column(name = "priority")
+    @Min(value = 0, message = "评分顺序必须大于0!")
     private int priority;
 
     /**

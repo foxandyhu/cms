@@ -4,6 +4,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Set;
 
@@ -21,31 +22,15 @@ public class Model implements Serializable {
 
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     /**
      * 名称
      */
     @Column(name = "model_name")
+    @NotBlank(message = "模型名称不能为空!")
     private String name;
-
-    /**
-     * 路径
-     */
-    @Column(name = "model_path")
-    private String path;
-
-    /**
-     * 栏目模板前缀
-     */
-    @Column(name = "tpl_channel_prefix")
-    private String tplChannelPrefix;
-
-    /**
-     * 内容模板前缀
-     */
-    @Column(name = "tpl_content_prefix")
-    private String tplContentPrefix;
 
     /**
      * 栏目标题图宽度
@@ -79,6 +64,7 @@ public class Model implements Serializable {
 
     /**
      * 是否有内容
+     * false 标识没有内容模型 true表示有内容模型
      */
     @Column(name = "has_content")
     private boolean hasContent;
@@ -86,20 +72,8 @@ public class Model implements Serializable {
     /**
      * 是否禁用
      */
-    @Column(name = "is_disabled")
-    private boolean disabled;
-
-    /**
-     * 是否默认模型
-     */
-    @Column(name = "is_def")
-    private boolean def;
-
-    /**
-     * 是否全站模型
-     */
-    @Column(name = "is_global")
-    private boolean global;
+    @Column(name = "is_enabled")
+    private boolean enabled;
 
     /**
      * 模型项
@@ -121,30 +95,6 @@ public class Model implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-    public String getTplChannelPrefix() {
-        return tplChannelPrefix;
-    }
-
-    public void setTplChannelPrefix(String tplChannelPrefix) {
-        this.tplChannelPrefix = tplChannelPrefix;
-    }
-
-    public String getTplContentPrefix() {
-        return tplContentPrefix;
-    }
-
-    public void setTplContentPrefix(String tplContentPrefix) {
-        this.tplContentPrefix = tplContentPrefix;
     }
 
     public int getTitleImgWidth() {
@@ -195,28 +145,12 @@ public class Model implements Serializable {
         this.hasContent = hasContent;
     }
 
-    public boolean isDisabled() {
-        return disabled;
+    public boolean isEnabled() {
+        return enabled;
     }
 
-    public void setDisabled(boolean disabled) {
-        this.disabled = disabled;
-    }
-
-    public boolean isDef() {
-        return def;
-    }
-
-    public void setDef(boolean def) {
-        this.def = def;
-    }
-
-    public boolean isGlobal() {
-        return global;
-    }
-
-    public void setGlobal(boolean global) {
-        this.global = global;
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     public Set<ModelItem> getItems() {

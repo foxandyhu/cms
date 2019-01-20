@@ -3,10 +3,9 @@ package com.bfly.cms.content.entity;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**
@@ -24,24 +23,28 @@ public class ContentType implements Serializable {
 
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     /**
      * 名称
      */
-    @Column(name = "type_name")
+    @Column(name = "name")
+    @NotBlank(message = "名称不能为空!")
     private String name;
 
     /**
      * 图片宽
      */
     @Column(name = "img_width")
+    @Min(value = 1, message = "图片宽度不正确!")
     private Integer imgWidth;
 
     /**
      * 图片高
      */
     @Column(name = "img_height")
+    @Min(value = 1, message = "图片高度不正确!")
     private Integer imgHeight;
 
     /**
@@ -53,8 +56,8 @@ public class ContentType implements Serializable {
     /**
      * 是否禁用
      */
-    @Column(name = "is_disabled")
-    private boolean disabled;
+    @Column(name = "is_enabled")
+    private boolean enabled;
 
     public int getId() {
         return id;
@@ -96,11 +99,11 @@ public class ContentType implements Serializable {
         this.hasImage = hasImage;
     }
 
-    public boolean isDisabled() {
-        return disabled;
+    public boolean isEnabled() {
+        return enabled;
     }
 
-    public void setDisabled(boolean disabled) {
-        this.disabled = disabled;
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }

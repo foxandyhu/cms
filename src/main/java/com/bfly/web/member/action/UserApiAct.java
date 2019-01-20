@@ -2,7 +2,7 @@
 //
 //import com.bfly.cms.resource.service.ImageSvc;
 //import com.bfly.cms.siteconfig.entity.Site;
-//import com.bfly.cms.siteconfig.entity.Ftp;
+//import com.bfly.cms.system.entity.Ftp;
 //import com.bfly.cms.system.entity.SysConfig;
 //import com.bfly.cms.system.service.CmsConfigMng;
 //import com.bfly.cms.member.entity.MemberExt;
@@ -182,7 +182,7 @@
 //                                code = ResponseCode.API_CODE_USER_STATUS_LOGIN;
 //                                LoginUtils.loginShiro(request, response, username);
 //                            } else {
-//                                Member currUser = CmsUtils.getUser(request);
+//                                Member currUser = CmsUtils.getMember(request);
 //                                if (currUser != null) {
 //                                    apiUserLoginMng.userActive(request, response);
 //                                } else {
@@ -437,10 +437,10 @@
 //                thirdAccount.setUsername(username);
 //                thirdAccount.setAccountKey(thirdKey);
 //                thirdAccount.setSource(source);
-//                thirdAccount.setUser(user);
+//                thirdAccount.setMember(user);
 //                thirdAccountMng.save(thirdAccount);
 //                LoginUtils.loginShiro(request, response, username);
-//                CmsUtils.setUser(request, user);
+//                CmsUtils.setMember(request, user);
 //            }
 //
 //        }

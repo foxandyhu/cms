@@ -14,7 +14,7 @@
 //import com.bfly.cms.siteconfig.entity.Site;
 //import org.apache.commons.lang.StringUtils;
 //
-//import com.bfly.cms.comment.entity.Guestbook;
+//import com.bfly.cms.comment.entity.GuestBook;
 //import com.bfly.common.web.freemarker.DefaultObjectWrapperBuilderFactory;
 //import com.bfly.common.web.freemarker.DirectiveUtils;
 //import com.bfly.core.exception.ParamsRequiredException;
@@ -53,7 +53,7 @@
 //		if (getChecked(params)) {
 //			check =1;
 //		}
-//		List<Guestbook> list = cmsGuestbookMng.getList(
+//		List<GuestBook> list = cmsGuestbookMng.getList(
 //				getCtgId(params),null, getRecommend(params), check,
 //				getDesc(params), true, first, max);
 //

@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * CMS投票记录
+ * 投票记录
  *
  * @author andy_hulibo@163.com
  * @date 2018/11/17 10:31

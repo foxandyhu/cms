@@ -9,11 +9,11 @@
 //import com.bfly.cms.content.service.ContentTypeMng;
 //import com.bfly.cms.resource.service.CmsFileMng;
 //import com.bfly.cms.resource.service.DbFileMng;
-//import com.bfly.cms.siteconfig.entity.Oss;
+//import com.bfly.cms.system.entity.Oss;
 //import com.bfly.cms.siteconfig.entity.Site;
-//import com.bfly.cms.siteconfig.entity.Ftp;
+//import com.bfly.cms.system.entity.Ftp;
 //import com.bfly.cms.staticpage.ContentStatusChangeThread;
-//import com.bfly.cms.system.entity.MemberConfig;
+//import com.bfly.cms.member.entity.MemberConfig;
 //import com.bfly.cms.system.service.CmsConfigContentChargeMng;
 //import com.bfly.cms.system.service.CmsConfigMng;
 //import com.bfly.cms.member.entity.Member;
@@ -61,7 +61,7 @@
 //        if (!mcfg.isMemberOn()) {
 //            return renderMessagePage(model, "member.memberClose");
 //        }
-//        if (getUser() == null) {
+//        if (getMember() == null) {
 //            return renderLoginPage(model);
 //        }
 //        return null;
@@ -79,7 +79,7 @@
 //        if (result != null) {
 //            return result;
 //        }
-//        Pagination p = contentMng.getPageForMember(queryTitle, queryChannelId, getSite().getId(), modelId, getUser().getId(), cpn(pageNo), CookieUtils.getPageSize(getRequest()));
+//        Pagination p = contentMng.getPageForMember(queryTitle, queryChannelId, getSite().getId(), modelId, getMember().getId(), cpn(pageNo), CookieUtils.getPageSize(getRequest()));
 //        model.addAttribute("pagination", p);
 //        if (!StringUtils.isBlank(queryTitle)) {
 //            model.addAttribute("q", queryTitle);
@@ -104,7 +104,7 @@
 //        }
 //        // 获得本站栏目列表
 //        Site site = getSite();
-//        Member user = getUser();
+//        Member user = getMember();
 //        Set<Channel> rights = user.getGroup().getContriChannels();
 //        List<Channel> topList = channelMng.getTopList(true);
 //        List<Channel> channelList = Channel.getListForSelect(topList, rights, true);
@@ -165,7 +165,7 @@
 //        if (c.getRecommendLevel() == null) {
 //            c.setRecommendLevel((byte) 0);
 //        }
-//        c = contentMng.save(c, ext, t, null, null, null, tagArr, attachmentPaths, attachmentNames, attachmentFilenames, picPaths, picDescs, channelId, typeId, null, true, charge, chargeAmount, rewardPattern, rewardRandomMin, rewardRandomMax, rewardFix, getUser(), true);
+//        c = contentMng.save(c, ext, t, null, null, null, tagArr, attachmentPaths, attachmentNames, attachmentFilenames, picPaths, picDescs, channelId, typeId, null, true, charge, chargeAmount, rewardPattern, rewardRandomMin, rewardRandomMax, rewardFix, getMember(), true);
 //        afterContentStatusChange(c, null, ContentStatusChangeThread.OPERATE_ADD);
 //        return renderSuccessPage(model, nextUrl);
 //    }
@@ -189,7 +189,7 @@
 //        }
 //        Content content = contentMng.findById(id);
 //        // 获得本站栏目列表
-//        Set<Channel> rights = getUser().getGroup().getContriChannels();
+//        Set<Channel> rights = getMember().getGroup().getContriChannels();
 //        List<Channel> topList = channelMng.getTopList(true);
 //        List<Channel> channelList = Channel.getListForSelect(topList, rights, true);
 //        model.addAttribute("content", content);
@@ -232,7 +232,7 @@
 //        t.setTxt(txt);
 //        String[] tagArr = StrUtils.splitAndTrim(tagStr, ",", null);
 //        List<Map<String, Object>> list = contentMng.preChange(contentMng.findById(id));
-//        c = contentMng.update(c, ext, t, tagArr, null, null, null, attachmentPaths, attachmentNames, attachmentFilenames, picPaths, picDescs, null, channelId, null, null, charge, chargeAmount, rewardPattern, rewardRandomMin, rewardRandomMax, rewardFix, getUser(), true);
+//        c = contentMng.update(c, ext, t, tagArr, null, null, null, attachmentPaths, attachmentNames, attachmentFilenames, picPaths, picDescs, null, channelId, null, null, charge, chargeAmount, rewardPattern, rewardRandomMin, rewardRandomMax, rewardFix, getMember(), true);
 //        afterContentStatusChange(c, list, ContentStatusChangeThread.OPERATE_UPDATE);
 //        return renderSuccessPage(model, nextUrl);
 //    }
@@ -337,7 +337,7 @@
 //                return true;
 //            }
 //            // 非本用户数据
-//            if (!c.getAdmin().getId().equals(getUser().getId())) {
+//            if (!c.getAdmin().getId().equals(getMember().getId())) {
 //                errors.noPermission(Content.class, id, true);
 //                return true;
 //            }
@@ -364,7 +364,7 @@
 //            errors.notInSite(Channel.class, channelId);
 //            return true;
 //        }
-//        if (!channel.getContriGroups().contains(getUser().getGroup())) {
+//        if (!channel.getContriGroups().contains(getMember().getGroup())) {
 //            errors.noPermission(Channel.class, channelId, true);
 //            return true;
 //        }
@@ -425,7 +425,7 @@
 //                    fileUrl = ctx + fileUrl;
 //                }
 //            }
-//            cmsUserMng.updateUploadSize(getUser().getId(), Integer.parseInt(String.valueOf(file.getSize() / 1024)));
+//            cmsUserMng.updateUploadSize(getMember().getId(), Integer.parseInt(String.valueOf(file.getSize() / 1024)));
 //            fileMng.saveFileByPath(fileUrl, fileUrl, false);
 //            model.addAttribute("mediaPath", fileUrl);
 //            model.addAttribute("mediaExt", ext);
@@ -445,7 +445,7 @@
 //            return renderPage("member/attachment_iframe.html", model);
 //        }
 //        Site site = getSite();
-//        Member user = getUser();
+//        Member user = getMember();
 //        try {
 //            String fileUrl;
 //            if (site.getConfig().getUploadToDb()) {
@@ -481,7 +481,7 @@
 //
 //    private WebErrors validateUpload(MultipartFile file, HttpServletRequest request) {
 //        String origName = file.getOriginalFilename();
-//        Member user = CmsUtils.getUser(request);
+//        Member user = CmsUtils.getMember(request);
 //        String ext = FilenameUtils.getExtension(origName).toLowerCase(Locale.ENGLISH);
 //        int fileSize = (int) (file.getSize() / 1024);
 //        WebErrors errors = WebErrors.create(request);

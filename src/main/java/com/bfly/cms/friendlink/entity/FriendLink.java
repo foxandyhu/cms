@@ -4,6 +4,9 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -28,12 +31,14 @@ public class FriendLink implements Serializable {
      * 网站名称
      */
     @Column(name = "site_name")
+    @NotBlank(message = "网站名称不能为空!")
     private String name;
 
     /**
      * 网站地址
      */
     @Column(name = "domain")
+    @NotBlank(message = "网站地址不能为空!")
     private String domain;
 
     /**
@@ -41,12 +46,6 @@ public class FriendLink implements Serializable {
      */
     @Column(name = "logo")
     private String logo;
-
-    /**
-     * 站长邮箱
-     */
-    @Column(name = "email")
-    private String email;
 
     /**
      * 描述
@@ -58,12 +57,14 @@ public class FriendLink implements Serializable {
      * 点击次数
      */
     @Column(name = "views")
+    @Min(value = 0, message = "点击次数必须大于0!")
     private int views;
 
     /**
      * 排列顺序
      */
     @Column(name = "priority")
+    @Min(value = 0, message = "排序顺序必须大于0!")
     private int priority;
 
     /**
@@ -77,6 +78,7 @@ public class FriendLink implements Serializable {
      */
     @ManyToOne
     @JoinColumn(name = "type_id")
+    @NotNull(message = "类型不能为空!")
     private FriendLinkType category;
 
     public int getId() {
@@ -109,14 +111,6 @@ public class FriendLink implements Serializable {
 
     public void setLogo(String logo) {
         this.logo = logo;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getDescription() {

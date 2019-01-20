@@ -9,7 +9,7 @@
 //import javax.servlet.http.HttpServletRequest;
 //import javax.servlet.http.HttpServletResponse;
 //
-//import com.bfly.cms.siteconfig.entity.Oss;
+//import com.bfly.cms.system.entity.Oss;
 //import com.bfly.cms.member.entity.Member;
 //import com.bfly.core.web.WebCoreErrors;
 //import com.bfly.core.web.WebErrors;
@@ -29,7 +29,7 @@
 //import com.bfly.common.web.ResponseUtils;
 //import com.bfly.common.web.springmvc.RealPathResolver;
 //import com.bfly.cms.siteconfig.entity.Site;
-//import com.bfly.cms.siteconfig.entity.Ftp;
+//import com.bfly.cms.system.entity.Ftp;
 //import com.bfly.cms.system.entity.MarkConfig;
 //import com.bfly.cms.user.service.CmsUserMng;
 //import com.bfly.cms.resource.service.DbFileMng;
@@ -168,7 +168,7 @@
 //	 */
 //	protected WebCoreErrors validateImage(MultipartFile file,
 //										  HttpServletRequest request) {
-//		Member user=CmsUtils.getUser(request);
+//		Member user=CmsUtils.getMember(request);
 //		WebCoreErrors errors = WebCoreErrors.create(request);
 //		if (file == null) {
 //			errors.addErrorCode("imageupload.error.noFileToUpload");
@@ -209,7 +209,7 @@
 //	protected WebErrors validateUpload(MultipartFile file,
 //									   HttpServletRequest request) {
 //		String origName = file.getOriginalFilename();
-//		Member user=CmsUtils.getUser(request);
+//		Member user=CmsUtils.getMember(request);
 //		String ext = FilenameUtils.getExtension(origName).toLowerCase(
 //				Locale.ENGLISH);
 //		WebErrors errors = WebErrors.create(request);
