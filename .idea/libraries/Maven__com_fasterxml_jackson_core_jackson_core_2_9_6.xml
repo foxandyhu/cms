@@ -3,11 +3,7 @@
     <CLASSES>
       <root url="jar://E:/Program Files/apache-maven-3.5.2/repository/com/fasterxml/jackson/core/jackson-core/2.9.6/jackson-core-2.9.6.jar!/" />
     </CLASSES>
-    <JAVADOC>
-      <root url="jar://E:/Program Files/apache-maven-3.5.2/repository/com/fasterxml/jackson/core/jackson-core/2.9.6/jackson-core-2.9.6-javadoc.jar!/" />
-    </JAVADOC>
-    <SOURCES>
-      <root url="jar://E:/Program Files/apache-maven-3.5.2/repository/com/fasterxml/jackson/core/jackson-core/2.9.6/jackson-core-2.9.6-sources.jar!/" />
-    </SOURCES>
+    <JAVADOC />
+    <SOURCES />
   </library>
 </component>

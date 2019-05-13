@@ -1,0 +1,22 @@
+<header class="header">
+  网络调查
+  <div class="header-icon-left"><a class="header-nav"></a><a href="/${base}" class="header-home"></a></div>
+  <div class="header-icon-right">[#if member??]<a class="header-member login-out" href="${base}/logout.html"></a>[#else]<a class="header-member" href="${base}/login.html"></a>[/#if]<a class="header-word"></a></div>
+  <link rel="stylesheet" type="text/css" href="/${mobileRes!}/css/style.css">
+  <script src="/${mobileRes!}/js/main.js" ></script>
+  <div class="cd-bouncy-nav-modal">
+		<nav>
+			<ul class="cd-bouncy-nav">
+				<li><a href="${base}/news/index.html">新闻</a></li>
+				<li><a href="${base}/pic/index.html">图库</a></li>
+				<li><a href="${base}/video/index.html">视频</a></li>
+				<li><a href="${base}/download/index.html">下载</a></li>
+                                <li><a href="${base}/job/index.html">招聘</a></li>
+                                <li><a href="${base}/doc/index.html">文库</a></li>
+                                <li><a href="${base}/survey.html">网络调查</a></li>
+                                <li>[<a href="${base}/guestbook.html">留言板</a></li>
+			</ul>
+		</nav>
+		<a href="#0" class="cd-close">Close modal</a>
+  </div>
+  </header>
