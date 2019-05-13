@@ -1,7 +1,5 @@
 package com.bfly.core.base.action;
 
-import com.bfly.cms.siteconfig.entity.CmsSite;
-import com.bfly.cms.user.entity.CmsUser;
 import com.bfly.core.Constants;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -17,6 +15,7 @@ import javax.servlet.http.HttpSession;
  * @date 2018/11/29 11:46
  */
 public abstract class AbstractController {
+
     /**
      * 返回 HttpServletRequest
      *
@@ -37,6 +36,10 @@ public abstract class AbstractController {
         return getRequest().getSession();
     }
 
+    private RequestAttributes getRequestAttribute() {
+        return RequestContextHolder.currentRequestAttributes();
+    }
+
     /**
      * 判断请求是否来自移动端
      *
@@ -47,31 +50,4 @@ public abstract class AbstractController {
         String equipment = (String) getRequest().getAttribute(Constants.USER_AGENT_KEY);
         return "mobile".equalsIgnoreCase(equipment);
     }
-
-    private RequestAttributes getRequestAttribute() {
-        return RequestContextHolder.currentRequestAttributes();
-    }
-
-    /**
-     * 获得用户
-     *
-     * @return 用户
-     * @author andy_hulibo@163.com
-     * @date 2018/11/29 14:53
-     */
-    public CmsUser getUser() {
-        return (CmsUser) getRequest().getAttribute(Constants.USER_KEY);
-    }
-
-    /**
-     * 获得站点
-     *
-     * @return 站点
-     * @author andy_hulibo@163.com
-     * @date 2018/11/29 13:43
-     */
-    public CmsSite getSite() {
-        return (CmsSite) getRequest().getAttribute(Constants.SITE_KEY);
-    }
-
 }

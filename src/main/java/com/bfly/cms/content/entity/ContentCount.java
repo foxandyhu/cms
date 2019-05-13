@@ -1,20 +1,20 @@
 package com.bfly.cms.content.entity;
 
-import javax.persistence.*;
-import java.io.Serializable;
-
-import com.bfly.cms.content.entity.Content;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+import javax.persistence.*;
+import java.io.Serializable;
+
 /**
  * CMS内容计数
+ *
  * @author andy_hulibo@163.com
  * @date 2018/11/16 13:13
  */
 @Entity
-@Table(name = "jc_content_count")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE,region = "beanCache")
+@Table(name = "content_count")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class ContentCount implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -22,336 +22,261 @@ public class ContentCount implements Serializable {
         viewTotal, viewMonth, viewWeek, viewDay
     }
 
-    public void init() {
-        short zero = 0;
-        if (getDowns() == null) {
-            setDowns(0);
-        }
-        if (getViews() == null) {
-            setViews(0);
-        }
-        if (getViewsMonth() == null) {
-            setViewsMonth(0);
-        }
-        if (getViewsWeek() == null) {
-            setViewsWeek(0);
-        }
-        if (getViewsDay() == null) {
-            setViewsDay(0);
-        }
-        if (getComments() == null) {
-            setComments(0);
-        }
-        if (getCommentsMonth() == null) {
-            setCommentsMonth(0);
-        }
-        if (getCommentsWeek() == null) {
-            setCommentsWeek(zero);
-        }
-        if (getCommentsDay() == null) {
-            setCommentsDay(zero);
-        }
-        if (getDownloads() == null) {
-            setDownloads(0);
-        }
-        if (getDownloadsMonth() == null) {
-            setDownloadsMonth(0);
-        }
-        if (getDownloadsWeek() == null) {
-            setDownloadsWeek(zero);
-        }
-        if (getDownloadsDay() == null) {
-            setDownloadsDay(zero);
-        }
-        if (getUps() == null) {
-            setUps(0);
-        }
-        if (getUpsMonth() == null) {
-            setUpsMonth(0);
-        }
-        if (getUpsWeek() == null) {
-            setUpsWeek(zero);
-        }
-        if (getUpsDay() == null) {
-            setUpsDay(zero);
-        }
-    }
-
     @Id
-    @Column(name = "content_id",unique = true,nullable = false)
-    private Integer id;
+    @Column(name = "content_id", unique = true, nullable = false)
+    private int id;
 
     /**
-     *总访问数
+     * 总访问数
      */
     @Column(name = "views")
-    private Integer views;
+    private int views;
 
     /**
-     *月访问数
+     * 月访问数
      */
     @Column(name = "views_month")
-    private Integer viewsMonth;
+    private int viewsMonth;
 
     /**
-     *周访问数
+     * 周访问数
      */
     @Column(name = "views_week")
-    private Integer viewsWeek;
+    private int viewsWeek;
 
     /**
-     *日访问数
+     * 日访问数
      */
     @Column(name = "views_day")
-    private Integer viewsDay;
+    private int viewsDay;
 
     /**
-     *总评论数
+     * 总评论数
      */
     @Column(name = "comments")
-    private Integer comments;
+    private int comments;
 
     /**
-     *月评论数
+     * 月评论数
      */
     @Column(name = "comments_month")
-    private Integer commentsMonth;
+    private int commentsMonth;
 
     /**
-     *周评论数
+     * 周评论数
      */
     @Column(name = "comments_week")
-    private Short commentsWeek;
+    private int commentsWeek;
 
     /**
-     *日评论数
+     * 日评论数
      */
     @Column(name = "comments_day")
-    private Short commentsDay;
+    private int commentsDay;
 
     /**
-     *总下载数
+     * 总下载数
      */
     @Column(name = "downloads")
-    private Integer downloads;
+    private int downloads;
 
     /**
-     *月下载数
+     * 月下载数
      */
     @Column(name = "downloads_month")
-    private Integer downloadsMonth;
+    private int downloadsMonth;
 
     /**
-     *周下载数
+     * 周下载数
      */
     @Column(name = "downloads_week")
-    private Short downloadsWeek;
+    private int downloadsWeek;
 
     /**
-     *日下载数
+     * 日下载数
      */
     @Column(name = "downloads_day")
-    private Short downloadsDay;
+    private int downloadsDay;
 
     /**
-     *总顶数
+     * 总顶数
      */
     @Column(name = "ups")
-    private Integer ups;
+    private int ups;
 
     /**
-     *月顶数
+     * 月顶数
      */
     @Column(name = "ups_month")
-    private Integer upsMonth;
+    private int upsMonth;
 
     /**
-     *周顶数
+     * 周顶数
      */
     @Column(name = "ups_week")
-    private Short upsWeek;
+    private int upsWeek;
 
     /**
-     *日顶数
+     * 日顶数
      */
     @Column(name = "ups_day")
-    private Short upsDay;
+    private int upsDay;
 
     /**
-     *总踩数
+     * 总踩数
      */
     @Column(name = "downs")
-    private Integer downs;
+    private int downs;
 
+    /**
+     * 所属文章
+     */
     @OneToOne
     @MapsId
     @JoinColumn(name = "content_id")
     private Content content;
 
-
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-
-    public Integer getViews() {
+    public int getViews() {
         return views;
     }
 
-
-    public void setViews(Integer views) {
+    public void setViews(int views) {
         this.views = views;
     }
 
-
-    public Integer getViewsMonth() {
+    public int getViewsMonth() {
         return viewsMonth;
     }
 
-    public void setViewsMonth(Integer viewsMonth) {
+    public void setViewsMonth(int viewsMonth) {
         this.viewsMonth = viewsMonth;
     }
 
-    public Integer getViewsWeek() {
+    public int getViewsWeek() {
         return viewsWeek;
     }
 
-    public void setViewsWeek(Integer viewsWeek) {
+    public void setViewsWeek(int viewsWeek) {
         this.viewsWeek = viewsWeek;
     }
 
-
-    public Integer getViewsDay() {
+    public int getViewsDay() {
         return viewsDay;
     }
 
-    public void setViewsDay(Integer viewsDay) {
+    public void setViewsDay(int viewsDay) {
         this.viewsDay = viewsDay;
     }
 
-
-    public Integer getComments() {
+    public int getComments() {
         return comments;
     }
 
-    public void setComments(Integer comments) {
+    public void setComments(int comments) {
         this.comments = comments;
     }
 
-    public Integer getCommentsMonth() {
+    public int getCommentsMonth() {
         return commentsMonth;
     }
 
-
-    public void setCommentsMonth(Integer commentsMonth) {
+    public void setCommentsMonth(int commentsMonth) {
         this.commentsMonth = commentsMonth;
     }
 
-
-    public Short getCommentsWeek() {
+    public int getCommentsWeek() {
         return commentsWeek;
     }
 
-    public void setCommentsWeek(Short commentsWeek) {
+    public void setCommentsWeek(int commentsWeek) {
         this.commentsWeek = commentsWeek;
     }
 
-
-    public Short getCommentsDay() {
+    public int getCommentsDay() {
         return commentsDay;
     }
 
-
-    public void setCommentsDay(Short commentsDay) {
+    public void setCommentsDay(int commentsDay) {
         this.commentsDay = commentsDay;
     }
 
-
-    public Integer getDownloads() {
+    public int getDownloads() {
         return downloads;
     }
 
-
-    public void setDownloads(Integer downloads) {
+    public void setDownloads(int downloads) {
         this.downloads = downloads;
     }
 
-
-    public Integer getDownloadsMonth() {
+    public int getDownloadsMonth() {
         return downloadsMonth;
     }
 
-    public void setDownloadsMonth(Integer downloadsMonth) {
+    public void setDownloadsMonth(int downloadsMonth) {
         this.downloadsMonth = downloadsMonth;
     }
 
-
-    public Short getDownloadsWeek() {
+    public int getDownloadsWeek() {
         return downloadsWeek;
     }
 
-    public void setDownloadsWeek(Short downloadsWeek) {
+    public void setDownloadsWeek(int downloadsWeek) {
         this.downloadsWeek = downloadsWeek;
     }
 
-
-    public Short getDownloadsDay() {
+    public int getDownloadsDay() {
         return downloadsDay;
     }
 
-
-    public void setDownloadsDay(Short downloadsDay) {
+    public void setDownloadsDay(int downloadsDay) {
         this.downloadsDay = downloadsDay;
     }
 
-    public Integer getUps() {
+    public int getUps() {
         return ups;
     }
 
-    public void setUps(Integer ups) {
+    public void setUps(int ups) {
         this.ups = ups;
     }
 
-
-    public Integer getUpsMonth() {
+    public int getUpsMonth() {
         return upsMonth;
     }
 
-
-    public void setUpsMonth(Integer upsMonth) {
+    public void setUpsMonth(int upsMonth) {
         this.upsMonth = upsMonth;
     }
 
-
-    public Short getUpsWeek() {
+    public int getUpsWeek() {
         return upsWeek;
     }
 
-    public void setUpsWeek(Short upsWeek) {
+    public void setUpsWeek(int upsWeek) {
         this.upsWeek = upsWeek;
     }
 
-
-    public Short getUpsDay() {
+    public int getUpsDay() {
         return upsDay;
     }
 
-    public void setUpsDay(Short upsDay) {
+    public void setUpsDay(int upsDay) {
         this.upsDay = upsDay;
     }
 
-
-    public Integer getDowns() {
+    public int getDowns() {
         return downs;
     }
 
-
-    public void setDowns(Integer downs) {
+    public void setDowns(int downs) {
         this.downs = downs;
     }
 
@@ -359,10 +284,7 @@ public class ContentCount implements Serializable {
         return content;
     }
 
-
     public void setContent(Content content) {
         this.content = content;
     }
-
-
 }

@@ -1,97 +1,28 @@
 package com.bfly.cms.content.entity;
 
-import org.apache.commons.lang.StringUtils;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.Date;
 
 /**
- * CMS内容扩展
+ * CMS 文章内容扩展
  *
  * @author andy_hulibo@163.com
  * @date 2018/11/16 13:23
  */
 @Entity
-@Table(name = "jc_content_ext")
+@Table(name = "content_ext")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class ContentExt implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 如果简短标题为空，则返回标题
-     *
-     * @return
-     */
-    public String getStitle() {
-        if (!StringUtils.isBlank(getShortTitle())) {
-            return getShortTitle();
-        } else {
-            return getTitle();
-        }
-    }
-
-    public void init() {
-        if (getReleaseDate() == null) {
-            setReleaseDate(new Timestamp(System.currentTimeMillis()));
-        }
-        if (getBold() == null) {
-            setBold(false);
-        }
-        if (getNeedRegenerate() == null) {
-            setNeedRegenerate(true);
-        }
-        blankToNull();
-    }
-
-    public void blankToNull() {
-        if (StringUtils.isBlank(getShortTitle())) {
-            setShortTitle(null);
-        }
-        if (StringUtils.isBlank(getAuthor())) {
-            setAuthor(null);
-        }
-        if (StringUtils.isBlank(getOrigin())) {
-            setOrigin(null);
-        }
-        if (StringUtils.isBlank(getOriginUrl())) {
-            setOriginUrl(null);
-        }
-        if (StringUtils.isBlank(getDescription())) {
-            setDescription(null);
-        }
-        if (StringUtils.isBlank(getTitleColor())) {
-            setTitleColor(null);
-        }
-        if (StringUtils.isBlank(getTitleImg())) {
-            setTitleImg(null);
-        }
-        if (StringUtils.isBlank(getContentImg())) {
-            setContentImg(null);
-        }
-        if (StringUtils.isBlank(getTypeImg())) {
-            setTypeImg(null);
-        }
-        if (StringUtils.isBlank(getLink())) {
-            setLink(null);
-        }
-        if (StringUtils.isBlank(getTplContent())) {
-            setTplContent(null);
-        }
-        if (StringUtils.isBlank(getMediaPath())) {
-            setMediaPath(null);
-        }
-        if (StringUtils.isBlank(getMediaType())) {
-            setMediaType(null);
-        }
-    }
-
     @Id
-    @Column(name = "content_id",unique = true,nullable = false)
-    private Integer id;
+    @Column(name = "content_id", unique = true, nullable = false)
+    private int id;
 
     /**
      * 标题
@@ -157,7 +88,7 @@ public class ContentExt implements Serializable {
      * 是否加粗
      */
     @Column(name = "is_bold")
-    private Boolean bold;
+    private boolean bold;
 
     /**
      * 标题图片
@@ -199,7 +130,7 @@ public class ContentExt implements Serializable {
      * 需要重新生成静态页
      */
     @Column(name = "need_regenerate")
-    private Boolean needRegenerate;
+    private boolean needRegenerate;
 
     /**
      * 固顶到期日期
@@ -219,12 +150,11 @@ public class ContentExt implements Serializable {
     private Content content;
 
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -232,11 +162,9 @@ public class ContentExt implements Serializable {
         return title;
     }
 
-
     public void setTitle(String title) {
         this.title = title;
     }
-
 
     public String getShortTitle() {
         return shortTitle;
@@ -258,7 +186,6 @@ public class ContentExt implements Serializable {
         return author;
     }
 
-
     public void setAuthor(String author) {
         this.author = author;
     }
@@ -267,11 +194,9 @@ public class ContentExt implements Serializable {
         return origin;
     }
 
-
     public void setOrigin(String origin) {
         this.origin = origin;
     }
-
 
     public String getOriginUrl() {
         return originUrl;
@@ -293,11 +218,9 @@ public class ContentExt implements Serializable {
         return mediaPath;
     }
 
-
     public void setMediaPath(String mediaPath) {
         this.mediaPath = mediaPath;
     }
-
 
     public String getMediaType() {
         return mediaType;
@@ -315,26 +238,21 @@ public class ContentExt implements Serializable {
         this.titleColor = titleColor;
     }
 
-
-    public Boolean getBold() {
+    public boolean isBold() {
         return bold;
     }
 
-
-    public void setBold(Boolean bold) {
+    public void setBold(boolean bold) {
         this.bold = bold;
     }
-
 
     public String getTitleImg() {
         return titleImg;
     }
 
-
     public void setTitleImg(String titleImg) {
         this.titleImg = titleImg;
     }
-
 
     public String getContentImg() {
         return contentImg;
@@ -344,16 +262,13 @@ public class ContentExt implements Serializable {
         this.contentImg = contentImg;
     }
 
-
     public String getTypeImg() {
         return typeImg;
     }
 
-
     public void setTypeImg(String typeImg) {
         this.typeImg = typeImg;
     }
-
 
     public String getLink() {
         return link;
@@ -363,11 +278,9 @@ public class ContentExt implements Serializable {
         this.link = link;
     }
 
-
     public String getTplContent() {
         return tplContent;
     }
-
 
     public void setTplContent(String tplContent) {
         this.tplContent = tplContent;
@@ -381,12 +294,11 @@ public class ContentExt implements Serializable {
         this.tplMobileContent = tplMobileContent;
     }
 
-    public Boolean getNeedRegenerate() {
+    public boolean isNeedRegenerate() {
         return needRegenerate;
     }
 
-
-    public void setNeedRegenerate(Boolean needRegenerate) {
+    public void setNeedRegenerate(boolean needRegenerate) {
         this.needRegenerate = needRegenerate;
     }
 
@@ -394,8 +306,8 @@ public class ContentExt implements Serializable {
         return topLevelDate;
     }
 
-    public void setTopLevelDate(Date toplevelDate) {
-        this.topLevelDate = toplevelDate;
+    public void setTopLevelDate(Date topLevelDate) {
+        this.topLevelDate = topLevelDate;
     }
 
     public Date getPigeonholeDate() {
@@ -410,9 +322,7 @@ public class ContentExt implements Serializable {
         return content;
     }
 
-
     public void setContent(Content content) {
         this.content = content;
     }
-
 }

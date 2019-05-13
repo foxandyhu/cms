@@ -1,0 +1,1 @@
+<script src="${base}/ad.html?id=#{id}"></script>

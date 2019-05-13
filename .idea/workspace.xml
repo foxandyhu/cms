@@ -4,383 +4,126 @@
     <option name="GROUP_BY_SEVERITY" value="true" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f3edc67-cc8f-4618-a901-7cdf459bae87" name="Default Changelist" comment="代码优化">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/AdminController.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/manage/member/action/PersonalApiAct.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/manage/member/action/UserMemberApiAct.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/channel/action/ChannelCountAct.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/channel/directive/AbstractChannelDirective.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/content/action/ContentCountAct.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/content/action/ContentScoreAct.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/content/directive/AbstractContentDirective.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/friendlink/action/FriendlinkAct.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/member/action/LoginAct.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/AdminController.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/channel/action/ChannelCountAct.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/ContentCountAct.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/ContentScoreAct.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/TopicMemberApiAct.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/directive/abs/AbstractChannelDirective.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/directive/abs/AbstractContentDirective.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/friendlink/action/FriendlinkAct.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/member/action/CasLoginAct.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/member/action/PersonalApiAct.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/user/action/UserMemberApiAct.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/core/security/CmsAdminUrl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/core/security/CmsUserFilter.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/dao/impl/ContentDaoImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/dao/impl/ContentDaoImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/service/impl/ContentBuyMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/service/impl/ContentBuyMngImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/service/impl/ContentPushListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/service/impl/ContentPushListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/siteconfig/service/CmsSiteMng.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/siteconfig/service/CmsSiteMng.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/siteconfig/service/impl/CmsSiteMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/siteconfig/service/impl/CmsSiteMngImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/statistic/service/impl/CmsSiteFlowCacheImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/statistic/service/impl/CmsSiteFlowCacheImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/user/dao/UnifiedUserDao.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/user/dao/UnifiedUserDao.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/user/dao/impl/UnifiedUserDaoImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/user/dao/impl/UnifiedUserDaoImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/user/service/UnifiedUserMng.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/user/service/UnifiedUserMng.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/user/service/impl/UnifiedUserMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/user/service/impl/UnifiedUserMngImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/weixin/service/impl/WeiXinSvcImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/weixin/service/impl/WeiXinSvcImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/common/util/CheckMobile.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/common/util/CheckMobile.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/common/web/CookieUtils.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/common/web/CookieUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/common/web/cos/CosMultipartRequest.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/common/web/cos/CosMultipartRequest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/common/web/cos/FileRenamePolicy.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/common/web/cos/FileRenamePolicy.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/core/Constants.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/core/Constants.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/core/base/action/AbstractController.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/core/base/action/AbstractController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/core/base/dao/impl/AbstractHibernateBaseDao.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/core/base/dao/impl/AbstractHibernateBaseDao.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/core/interceptor/AbstractApiInterceptor.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/core/interceptor/AbstractApiInterceptor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/core/interceptor/FireWallInterceptor.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/core/interceptor/FireWallInterceptor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/core/interceptor/WebContextInterceptor.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/core/interceptor/WebContextInterceptor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/core/security/CmsAuthenticationFilter.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/core/security/CmsAuthenticationFilter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/core/security/CmsAuthorizingRealm.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/core/security/CmsAuthorizingRealm.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/core/security/CmsLogoutFilter.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/core/security/CmsLogoutFilter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/core/web/CmsThreadVariable.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/core/web/CmsThreadVariable.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/context/WebContextConfig.java" afterPath="$PROJECT_DIR$/src/main/java/com/context/WebContextConfig.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/application.properties" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/admin/static/js/app.2a7e9e806ef62046f574.js" afterPath="$PROJECT_DIR$/src/main/webapp/admin/static/js/app.2a7e9e806ef62046f574.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/admin/static/js/app.8dab3669d7ad1ae0197b.js" afterPath="$PROJECT_DIR$/src/main/webapp/admin/static/js/app.8dab3669d7ad1ae0197b.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/IndexController.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/IndexController.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/acquisition/action/CmsAcquisitionApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/acquisition/action/CmsAcquisitionApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/ad/action/AdvertisingAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/ad/action/AdvertisingAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/ad/action/CmsAdApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/ad/action/CmsAdApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/ad/action/CmsAdvertisingApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/ad/action/CmsAdvertisingApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/ad/action/CmsAdvertisingSpaceApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/ad/action/CmsAdvertisingSpaceApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/channel/action/ChannelAdminApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/channel/action/ChannelAdminApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/channel/action/ChannelApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/channel/action/ChannelApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/channel/action/ChannelMemberApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/manage/channel/action/ChannelMemberApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/comment/action/CmsCommentAdminApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/comment/action/CmsCommentAdminApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/comment/action/CmsCommentApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/comment/action/CmsCommentApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/comment/action/CmsCommentMemberApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/manage/comment/action/CmsCommentMemberApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/comment/action/CmsGuestbookAdminApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/comment/action/CmsGuestbookAdminApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/comment/action/CmsGuestbookApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/comment/action/CmsGuestbookApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/comment/action/CmsGuestbookCtgApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/comment/action/CmsGuestbookCtgApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/comment/action/CmsGuestbookMemberApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/manage/comment/action/CmsGuestbookMemberApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/comment/action/CommentAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/comment/action/CommentAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/comment/action/CommentMemberAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/manage/comment/action/CommentMemberAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/comment/action/GuestbookAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/comment/action/GuestbookAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/comment/action/GuestbookMemberAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/manage/comment/action/GuestbookMemberAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/AttachmentAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/content/action/AttachmentAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/CmsContentChargeApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/content/action/CmsContentChargeApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/CmsModelApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/content/action/CmsModelApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/CmsModelItemApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/content/action/CmsModelItemApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/CmsScoreGroupApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/content/action/CmsScoreGroupApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/CmsScoreItemApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/content/action/CmsScoreItemApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/CmsTopicApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/content/action/CmsTopicApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/CollectionMemberAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/manage/content/action/CollectionMemberAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/ContentAdminApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/content/action/ContentAdminApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/ContentApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/content/action/ContentApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/ContentCollectionApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/manage/content/action/ContentCollectionApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/ContentMemberApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/manage/content/action/ContentMemberApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/ContentOrderAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/content/action/ContentOrderAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/ContentOrderApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/content/action/ContentOrderApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/ContentOrderMemberApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/manage/content/action/ContentOrderMemberApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/ContentRecordApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/content/action/ContentRecordApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/ContentReuseApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/content/action/ContentReuseApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/ContentTypeApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/content/action/ContentTypeApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/ContributeAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/content/action/ContributeAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/TopicAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/content/action/TopicAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/content/action/TopicApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/content/action/TopicApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/dictionary/action/CmsDictionaryApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/dictionary/action/CmsDictionaryApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/dictionary/action/DictionaryApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/dictionary/action/DictionaryApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/directive/ChannelDirective.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/channel/directive/ChannelDirective.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/directive/ChannelListDirective.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/channel/directive/ChannelListDirective.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/directive/ChannelPageDirective.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/channel/directive/ChannelPageDirective.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/directive/CmsAdvertisingDirective.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/ad/directive/CmsAdvertisingDirective.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/directive/CmsCommentListDirective.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/comment/directive/CmsCommentListDirective.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/directive/CmsCommentPageDirective.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/comment/directive/CmsCommentPageDirective.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/directive/CmsFriendlinkCtgListDirective.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/friendlink/directive/CmsFriendlinkCtgListDirective.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/directive/CmsFriendlinkListDirective.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/friendlink/directive/CmsFriendlinkListDirective.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/directive/CmsGuestbookCtgListDirective.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/comment/directive/CmsGuestbookCtgListDirective.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/directive/CmsGuestbookListDirective.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/comment/directive/CmsGuestbookListDirective.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/directive/CmsGuestbookPageDirective.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/comment/directive/CmsGuestbookPageDirective.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/directive/CmsModelDirective.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/content/directive/CmsModelDirective.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/directive/CmsSearchWordListDirective.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/words/directive/CmsSearchWordListDirective.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/directive/CmsTopicListDirective.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/content/directive/CmsTopicListDirective.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/directive/CmsTopicPageDirective.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/content/directive/CmsTopicPageDirective.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/directive/CmsVoteDirective.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/vote/directive/CmsVoteDirective.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/directive/CmsVoteListDirective.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/vote/directive/CmsVoteListDirective.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/directive/ContentDirective.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/content/directive/ContentDirective.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/directive/ContentListDirective.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/content/directive/ContentListDirective.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/directive/ContentPageDirective.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/content/directive/ContentPageDirective.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/directive/ContentTagListDirective.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/words/directive/ContentTagListDirective.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/directive/ContentTagPageDirective.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/words/directive/ContentTagPageDirective.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/directive/HtmlCutDirective.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/system/directive/HtmlCutDirective.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/directive/PaginationDirective.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/system/directive/PaginationDirective.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/directive/PermistionDirective.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/member/directive/PermistionDirective.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/directive/ProcessTimeDirective.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/system/directive/ProcessTimeDirective.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/directive/ScoreGroupDirective.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/member/directive/ScoreGroupDirective.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/directive/TextCutDirective.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/system/directive/TextCutDirective.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/directive/UUIDDirective.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/system/directive/UUIDDirective.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/directive/WeixinDirective.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/weixin/directive/WeixinDirective.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/directive/abs/AbstractCmsCommentDirective.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/comment/directive/AbstractCmsCommentDirective.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/directive/abs/AbstractCmsGuestbookDirective.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/comment/directive/AbstractCmsGuestbookDirective.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/friendlink/action/CmsFriendlinkAdminApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/friendlink/action/CmsFriendlinkAdminApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/friendlink/action/CmsFriendlinkApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/friendlink/action/CmsFriendlinkApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/friendlink/action/CmsFriendlinkCtgApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/friendlink/action/CmsFriendlinkCtgApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/funds/action/AccountApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/manage/funds/action/AccountApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/funds/action/AccountDrawAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/manage/funds/action/AccountDrawAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/funds/action/CmsAccountDrawApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/funds/action/CmsAccountDrawApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/funds/action/CmsAccountPayApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/funds/action/CmsAccountPayApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/job/action/CmsJobApplyApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/job/action/CmsJobApplyApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/job/action/ResumeActController.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/manage/job/action/ResumeActController.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/job/action/ResumeApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/manage/job/action/ResumeApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/logs/action/CmsLogApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/logs/action/CmsLogApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/lucene/action/LuceneContentAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/lucene/action/LuceneContentAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/lucene/action/SearchApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/lucene/action/SearchApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/lucene/dao/impl/LuceneDirectiveList.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/lucene/directive/LuceneDirectiveList.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/lucene/dao/impl/LuceneDirectivePage.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/lucene/directive/LuceneDirectivePage.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/lucene/entity/AbstractLuceneDirective.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/lucene/directive/AbstractLuceneDirective.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/member/action/CmsMemberApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/member/action/CmsMemberApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/member/action/CommonUpload.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/member/action/CommonUpload.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/member/action/ForgotPasswordAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/manage/member/action/ForgotPasswordAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/member/action/ImageCutAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/manage/member/action/ImageCutAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/member/action/ImageUploadAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/manage/member/action/ImageUploadAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/member/action/MemberAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/manage/member/action/MemberAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/member/action/ProcessAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/member/action/ProcessAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/member/action/RegisterAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/member/action/RegisterAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/member/action/SwfUploadAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/manage/member/action/SwfUploadAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/member/action/UserContentBuyAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/manage/content/action/UserContentBuyAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/message/action/CmsMessageApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/message/action/CmsMessageApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/message/action/MessageAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/manage/message/action/MessageAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/message/action/MessageApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/manage/message/action/MessageApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/resource/action/CmsFileApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/resource/action/CmsFileApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/resource/action/CmsResourceApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/resource/action/CmsResourceApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/resource/action/CmsTemplateApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/resource/action/CmsTemplateApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/resource/action/CsiCustomAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/resource/action/CsiCustomAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/resource/action/FckAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/manage/resource/action/FckAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/resource/action/UeditorAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/manage/resource/action/UeditorAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/resource/action/UeditorApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/manage/resource/action/UeditorApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/resource/action/UploadMemberApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/manage/message/action/UploadMemberApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/siteconfig/action/CmsOssApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/siteconfig/action/CmsOssApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/siteconfig/action/CmsSiteApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/siteconfig/action/CmsSiteApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/siteconfig/action/CmsSiteConfigApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/siteconfig/action/CmsSiteConfigApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/siteconfig/action/FtpApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/siteconfig/action/FtpApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/sms/action/CmsSmsAdminApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/sms/action/CmsSmsAdminApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/sms/action/CmsSmsApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/sms/action/CmsSmsApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/sms/action/CmsSmsRecordApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/sms/action/CmsSmsRecordApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/staticpage/action/StaticApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/staticpage/action/StaticApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/staticpage/action/StaticPageCheckPermAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/staticpage/action/StaticPageCheckPermAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/statistic/action/CmsGolbalStatisticApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/statistic/action/CmsGolbalStatisticApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/statistic/action/CmsSiteFlowAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/statistic/action/CmsSiteFlowAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/statistic/action/CmsStatisticApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/statistic/action/CmsStatisticApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/system/action/CmsConfigApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/system/action/CmsConfigApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/system/action/CmsConfigContentChargeApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/system/action/CmsConfigContentChargeApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/system/action/CmsFireWallConfigApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/system/action/CmsFireWallConfigApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/system/action/DimensionCodeAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/system/action/DimensionCodeAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/system/action/DimensionCodeApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/system/action/DimensionCodeApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/system/action/MysqlDataApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/system/action/MysqlDataApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/system/action/RssAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/system/action/RssAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/task/action/CmsTaskApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/system/action/CmsTaskApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/task/dao/CmsTaskDao.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/system/dao/CmsTaskDao.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/task/dao/impl/CmsTaskDaoImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/system/dao/impl/CmsTaskDaoImpl.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/task/entity/CmsTask.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/system/entity/CmsTask.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/task/service/CmsTaskMng.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/system/service/CmsTaskMng.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/task/service/impl/AcquisiteJob.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/system/service/impl/AcquisiteJob.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/task/service/impl/ChannelStaticJob.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/system/service/impl/ChannelStaticJob.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/task/service/impl/CmsTaskMngImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/system/service/impl/CmsTaskMngImpl.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/task/service/impl/ContentDayJob.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/system/service/impl/ContentDayJob.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/task/service/impl/ContentStaticJob.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/system/service/impl/ContentStaticJob.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/task/service/impl/DistributeJob.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/system/service/impl/DistributeJob.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/task/service/impl/IndexStaticJob.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/system/service/impl/IndexStaticJob.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/task/service/impl/LoadTask.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/system/service/impl/LoadTask.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/task/service/impl/SiteDayJob.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/cms/system/service/impl/SiteDayJob.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/user/action/CmsAdminAbstractApi.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/member/action/CmsAdminAbstractApi.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/user/action/CmsAdminGlobalApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/member/action/CmsAdminGlobalApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/user/action/CmsAdminLocalApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/member/action/CmsAdminLocalApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/user/action/CmsGroupApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/member/action/CmsGroupApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/user/action/CmsRoleApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/member/action/CmsRoleApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/user/action/CmsThirdAccountApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/member/action/CmsThirdAccountApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/user/action/ThirdLoginAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/member/action/ThirdLoginAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/user/action/UserApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/member/action/UserApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/vote/action/AbstractVote.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/vote/action/AbstractVote.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/vote/action/CmsVoteApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/vote/action/CmsVoteApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/vote/action/CmsVoteTopicApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/vote/action/CmsVoteTopicApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/vote/action/VoteAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/vote/action/VoteAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/webservice/action/ApiAccountApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/webservice/action/ApiAccountApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/webservice/action/ApiInfoApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/webservice/action/ApiInfoApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/webservice/action/ApiRecordApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/webservice/action/ApiRecordApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/weixin/action/WeiXinAuthAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/weixin/action/WeiXinAuthAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/weixin/action/WeixinAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/weixin/action/WeixinAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/weixin/action/WeixinApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/weixin/action/WeixinApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/weixin/action/WeixinMenuAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/weixin/action/WeixinMenuAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/weixin/action/WeixinMenuApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/weixin/action/WeixinMenuApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/weixin/action/WeixinMessageAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/weixin/action/WeixinMessageAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/weixin/action/WeixinMessageApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/weixin/action/WeixinMessageApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/words/action/CmsKeywordApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/words/action/CmsKeywordApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/words/action/CmsOriginApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/words/action/CmsOriginApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/words/action/CmsSearchWordApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/words/action/CmsSearchWordApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/words/action/CmsSearchWordsApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/words/action/CmsSearchWordsApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/words/action/CmsSensitivityApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/words/action/CmsSensitivityApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/words/action/ContentTagAdminApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/admin/words/action/ContentTagAdminApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/words/action/ContentTagApiAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/words/action/ContentTagApiAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/words/action/SearchAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/words/action/SearchAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/cms/words/action/TagAct.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/web/words/action/TagAct.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/config/ApplicationConfig.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/core/config/ApplicationConfig.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/config/ContextConfig.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/core/config/ContextConfig.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/config/FireWallProperty.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/core/config/FireWallProperty.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/config/GlobalExeptionHandler.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/core/config/GlobalExeptionHandler.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/config/SchedulConfig.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/core/config/SchedulConfig.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/config/ServletContextRealPathResolver.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/core/config/ServletContextRealPathResolver.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/config/ShiroConfig.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/core/config/ShiroConfig.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/bfly/config/SocialInfoConfig.java" afterPath="$PROJECT_DIR$/src/main/java/com/bfly/core/config/SocialInfoConfig.java" />
+    <list default="true" id="2f3edc67-cc8f-4618-a901-7cdf459bae87" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/cms.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/bfly/cms/acquisition/dao/IAcquisitionDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/bfly/cms/acquisition/dao/IAcquisitionHistoryDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/bfly/cms/acquisition/dao/IAcquisitionTempDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/bfly/cms/acquisition/entity/Acquisition.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/bfly/cms/acquisition/entity/AcquisitionHistory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/bfly/cms/acquisition/entity/AcquisitionReplace.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/bfly/cms/acquisition/entity/AcquisitionShield.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/bfly/cms/acquisition/entity/AcquisitionTemp.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/bfly/cms/acquisition/service/IAcquisitionHistoryService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/bfly/cms/acquisition/service/IAcquisitionService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/bfly/cms/acquisition/service/IAcquisitionTempService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/bfly/cms/acquisition/service/impl/AcquisitionHistoryServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/bfly/cms/acquisition/service/impl/AcquisitionServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/bfly/cms/acquisition/service/impl/AcquisitionTempServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/bfly/cms/user/service/impl/UserServiceImpl$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bfly/cms/user/service/impl/UserServiceImpl$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/bfly/cms/user/service/impl/UserServiceImpl$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bfly/cms/user/service/impl/UserServiceImpl$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/bfly/cms/words/service/impl/SearchWordsServiceImpl$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bfly/cms/words/service/impl/SearchWordsServiceImpl$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/bfly/cms/words/service/impl/SearchWordsServiceImpl$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bfly/cms/words/service/impl/SearchWordsServiceImpl$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/bfly/cms/words/service/impl/SensitiveWordsServiceImpl$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bfly/cms/words/service/impl/SensitiveWordsServiceImpl$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/bfly/cms/words/service/impl/SensitiveWordsServiceImpl$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bfly/cms/words/service/impl/SensitiveWordsServiceImpl$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/bfly/manage/acquisition/AcquisitionController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/bfly/manage/acquisition/AcquisitionHistoryController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/bfly/manage/acquisition/AcquisitionTempController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/bfly/manage/comment/CommentController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bfly/manage/comment/CommentController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/bfly/manage/comment/GuestBookController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bfly/manage/comment/GuestBookController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/bfly/manage/dictionary/DictionaryController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bfly/manage/dictionary/DictionaryController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/bfly/manage/friendlink/FriendLinkController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bfly/manage/friendlink/FriendLinkController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/bfly/manage/member/MemberController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bfly/manage/member/MemberController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/bfly/manage/member/MemberController$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bfly/manage/member/MemberController$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/bfly/manage/member/MemberThirdAccountController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bfly/manage/member/MemberThirdAccountController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/bfly/manage/message/MessageController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bfly/manage/message/MessageController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/bfly/manage/system/SmsRecordController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bfly/manage/system/SmsRecordController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/bfly/manage/vote/VoteTopicController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bfly/manage/vote/VoteTopicController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/bfly/manage/words/TagsController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bfly/manage/words/TagsController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/logback.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/logback.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
-    <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/cms$CmsApp.ic" NAME="CmsApp Coverage Results" MODIFIED="1544412903003" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.*</FILTER>
+    </SUITE>
+  </component>
+  <component name="CoverageViewManager">
+    <option name="myElementSize" value="190" />
+  </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
     <option name="GROUP_SCHEMA" value="true" />
     <option name="GROUP_CONTENTS" value="false" />
     <option name="SORT_POSITIONED" value="false" />
-    <option name="SHOW_TABLE_DETAILS" value="true" />
     <option name="SHOW_EMPTY_GROUPS" value="false" />
     <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
     <expand />
     <select />
   </component>
-  <component name="FUSProjectUsageTrigger">
-    <session id="1511774588">
-      <usages-collector id="statistics.lifecycle.project">
-        <counts>
-          <entry key="project.closed" value="1" />
-          <entry key="project.open.time.11" value="1" />
-          <entry key="project.open.time.60" value="1" />
-          <entry key="project.opened" value="2" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.open">
-        <counts>
-          <entry key="class" value="21" />
-          <entry key="do" value="1" />
-          <entry key="ftl" value="5" />
-          <entry key="html" value="2" />
-          <entry key="ini" value="1" />
-          <entry key="java" value="208" />
-          <entry key="properties" value="27" />
-          <entry key="txt" value="5" />
-          <entry key="wsdd" value="1" />
-          <entry key="xml" value="138" />
-          <entry key="xsd" value="2" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.open">
-        <counts>
-          <entry key="CLASS" value="21" />
-          <entry key="HTML" value="2" />
-          <entry key="JAVA" value="208" />
-          <entry key="PLAIN_TEXT" value="12" />
-          <entry key="Properties" value="27" />
-          <entry key="XML" value="141" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.edit">
-        <counts>
-          <entry key="java" value="450" />
-          <entry key="properties" value="9" />
-          <entry key="xml" value="296" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.edit">
-        <counts>
-          <entry key="JAVA" value="450" />
-          <entry key="Properties" value="9" />
-          <entry key="XML" value="296" />
-        </counts>
-      </usages-collector>
-    </session>
-  </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="UnifiedUser.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/user/entity/UnifiedUser.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1188">
-              <caret line="11" column="25" lean-forward="true" selection-start-line="11" selection-start-column="25" selection-end-line="11" selection-end-column="25" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CmsUser.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/user/entity/CmsUser.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3300">
-              <caret line="40" column="0" lean-forward="true" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Enum" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>sso_logout</find>
-      <find>updateLoginInfo</find>
-      <find>saveRequestAndRedirectToLogin</find>
-      <find>doGetAuthorizationInfo</find>
-      <find>isLoginRequest</find>
-      <find>getAdminLogin</find>
-      <find>onAccessDenied</find>
-      <find>executeLogin</find>
-      <find>apiAccountMng</find>
-      <find>UserApiAct</find>
-      <find>/adminLogout</find>
-      <find>/login_csi</find>
-      <find>/user/logout</find>
-      <find>adminlo</find>
-      <find>redirectToLogin</find>
-      <find>sso/login</find>
-      <find>onPreHandle</find>
-      <find>login.html</find>
-      <find>member/index</find>
-      <find>on</find>
-      <find>isAccessAllowed</find>
-      <find>authcFilter</find>
-      <find>USER_KEY</find>
-      <find>syn</find>
-      <find>safy</find>
-      <find>sa</find>
-      <find>SITE_COOKIE</find>
-      <find>getChannelIdsOrPaths</find>
-      <find>getByDefault</find>
-      <find>getByEmail</find>
+      <find>totalCount</find>
+      <find>getSpecification</find>
+      <find>firstPage</find>
+      <find>isFirstPage</find>
+      <find>mem</find>
+      <find>@ManyToOne</find>
+      <find>comment</find>
+      <find>friend</find>
+      <find>his</find>
+      <find>暂停</find>
+      <find>栏目</find>
+      <find>group</find>
+      <find>siteinfo</find>
+      <find>time</find>
+      <find>task</find>
+      <find>@Valid</find>
+      <find>firewa</find>
+      <find>Valid</find>
+      <find>acquisitionController</find>
+      <find>removeAcquisition</find>
+      <find>editAcquisition</find>
+      <find>reply</find>
+      <find>Command</find>
+      <find>Configuration</find>
+      <find>suffix</find>
+      <find>EnableTransacationM</find>
+      <find>EnableTransactionManagement</find>
+      <find>Sche</find>
+      <find>Scheduled</find>
+      <find>index</find>
     </findStrings>
     <replaceStrings>
       <replace />
       <replace>.html</replace>
       <replace>${company_name}</replace>
+      <replace>(</replace>
+      <replace>),</replace>
+      <replace>int</replace>
     </replaceStrings>
     <dirStrings>
       <dir>G:\Develop\JEE\cms\src\main\java\com\jeecms\plug</dir>
@@ -405,73 +148,73 @@
       <dir>G:\创业\cms</dir>
       <dir>G:\创业\cms\src\main\java\com\bfly\cms</dir>
       <dir>G:\创业\cms\src\main\java\com\bfly</dir>
+      <dir>G:\创业\cms\src\main\java\com\bfly\cms\acquisition</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/web/content/directive/CmsModelDirective.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/web/words/directive/CmsSearchWordListDirective.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/directive/HtmlCutDirective.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/web/system/directive/HtmlCutDirective.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/web/system/directive/PaginationDirective.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/web/member/directive/PermistionDirective.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/web/system/directive/ProcessTimeDirective.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/web/member/directive/ScoreGroupDirective.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/web/system/directive/UUIDDirective.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/web/lucene/directive/LuceneDirectiveList.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/web/weixin/directive/WeixinDirective.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/web/lucene/directive/AbstractLuceneDirective.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/web/content/directive/AbstractContentDirective.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/web/staticpage/StaticPageCheckPermAct.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/web/sms/CmsSmsApiAct.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/web/resource/CsiCustomAct.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/web/statistic/CmsSiteFlowAct.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/web/dictionary/DictionaryApiAct.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/web/dictionary/action/DictionaryApiAct.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/web/resource/action/CsiCustomAct.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/web/sms/action/CmsSmsApiAct.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/web/staticpage/action/StaticPageCheckPermAct.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/web/statistic/action/CmsSiteFlowAct.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/core/security/CmsAuthorizingRealm.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/web/member/action/UserApiAct.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/manage/member/action/UserMemberApiAct.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/web/member/action/CasLoginAct.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/admin/AdminController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/web/member/action/RegisterAct.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/core/security/CmsUserFilter.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/core/config/ShiroConfig.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/common/web/CookieUtils.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/core/security/CmsAuthenticationFilter.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/core/security/CmsLogoutFilter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/system/entity/SysWaterMark.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/comment/dao/ICommentConfigDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/comment/service/ICommentConfigService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/comment/service/IGuestBookConfigService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/comment/service/impl/CommentConfigServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/comment/service/impl/GuestBookConfigServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/system/service/impl/SiteInfoServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/system/service/impl/SysWaterMarkServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/web/content/action/ContributeAct.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/member/service/IMemberConfigService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/member/service/impl/MemberConfigServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/member/dao/IMemberConfigDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/comment/entity/CommentConfig.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/comment/entity/GuestBookConfig.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/system/service/ISysConfigService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/system/service/impl/SysConfigServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/system/dao/ISysConfigDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/manage/system/SysConfigController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/manage/dictionary/DictionaryController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/manage/system/SiteInfoController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/manage/system/SysWaterMarkController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/manage/content/ContentTypeController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/manage/member/MemberController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/manage/words/KeyWordsController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/manage/words/SensitiveWordsController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/manage/words/SearchWordsController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/manage/system/FtpInfoController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/manage/system/OssInfoController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/manage/channel/ModelController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/manage/channel/ModelItemController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/manage/system/SmsController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/manage/system/SysEmailController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/manage/system/SysTaskController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/manage/content/ScoreGroupController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/manage/content/ScoreItemController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/manage/words/TagsController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/system/entity/SysConfig.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/system/entity/Company.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/system/service/ICompanyService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/system/service/impl/CompanyServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/member/entity/MemberConfig.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/manage/system/SmsRecordController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/core/servlet/ProcessTimeFilter.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bfly/core/Constants.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/common/util/CheckMobile.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/core/base/action/AbstractController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/siteconfig/service/CmsSiteMng.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/siteconfig/service/impl/CmsSiteMngImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/core/interceptor/WebContextInterceptor.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/web/content/directive/AbstractContentDirective.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/core/interceptor/AbstractApiInterceptor.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/statistic/service/impl/CmsSiteFlowCacheImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/core/web/CmsThreadVariable.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/web/IndexController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/user/service/UnifiedUserMng.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/user/service/impl/UnifiedUserMngImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/user/dao/UnifiedUserDao.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/core/base/dao/impl/AbstractHibernateBaseDao.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/user/dao/impl/UnifiedUserDaoImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/cms/comment/dao/IGuestBookConfigDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/manage/acquisition/AcquisitionController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/manage/comment/CommentController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/manage/comment/GuestBookController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfly/manage/system/SysController.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/logback.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/CmsApp.java" />
       </list>
     </option>
-  </component>
-  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsGulpfileManager">
-    <detection-done>true</detection-done>
-    <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
@@ -493,11 +236,6 @@
           <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
           <item name="cms" type="9519ce18:MavenProjectsStructure$ProjectNode" />
         </path>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="cms" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-          <item name="Plugins" type="7aea1407:MavenProjectsStructure$PluginsNode" />
-        </path>
       </expand>
       <select />
     </treeState>
@@ -511,115 +249,11 @@
     <option name="width" value="1400" />
     <option name="height" value="820" />
   </component>
-  <component name="ProjectInspectionProfilesVisibleTreeState">
-    <entry key="Project Default">
-      <profile-state>
-        <expanded-state>
-          <State>
-            <id />
-          </State>
-          <State>
-            <id>Ali-Check</id>
-          </State>
-          <State>
-            <id>AngularJS</id>
-          </State>
-          <State>
-            <id>Class structureJava</id>
-          </State>
-          <State>
-            <id>Code maturity issuesJava</id>
-          </State>
-          <State>
-            <id>Code style issuesJava</id>
-          </State>
-          <State>
-            <id>CodeSpring CoreSpring</id>
-          </State>
-          <State>
-            <id>Declaration redundancyJava</id>
-          </State>
-          <State>
-            <id>Error handlingJava</id>
-          </State>
-          <State>
-            <id>Google Web Toolkit issues</id>
-          </State>
-          <State>
-            <id>JSP Inspections</id>
-          </State>
-          <State>
-            <id>JUnit issuesJava</id>
-          </State>
-          <State>
-            <id>Java</id>
-          </State>
-          <State>
-            <id>Java 5Java language level migration aidsJava</id>
-          </State>
-          <State>
-            <id>Java 7Java language level migration aidsJava</id>
-          </State>
-          <State>
-            <id>Java 8Java language level migration aidsJava</id>
-          </State>
-          <State>
-            <id>Java language level migration aidsJava</id>
-          </State>
-          <State>
-            <id>JavaScript</id>
-          </State>
-          <State>
-            <id>Javadoc issuesJava</id>
-          </State>
-          <State>
-            <id>Logging issuesJava</id>
-          </State>
-          <State>
-            <id>Performance issuesJava</id>
-          </State>
-          <State>
-            <id>Potentially confusing code constructsJavaScript</id>
-          </State>
-          <State>
-            <id>Spring</id>
-          </State>
-          <State>
-            <id>Spring AOPSpring</id>
-          </State>
-          <State>
-            <id>Spring CoreSpring</id>
-          </State>
-          <State>
-            <id>TestNGJava</id>
-          </State>
-          <State>
-            <id>Threading issuesJava</id>
-          </State>
-        </expanded-state>
-        <selected-state>
-          <State>
-            <id>Ali-Check</id>
-          </State>
-        </selected-state>
-      </profile-state>
-    </entry>
-  </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
-      <flattenPackages />
-      <showMembers />
-      <showModules />
-      <showLibraryContents />
-      <hideEmptyPackages />
-      <abbreviatePackageNames />
-      <autoscrollToSource />
-      <autoscrollFromSource />
-      <sortByType />
-      <manualOrder />
+    <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
@@ -627,8 +261,71 @@
         <subPane>
           <expand>
             <path>
-              <item name="jeecmsv9f" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cms" type="b2602c69:ProjectViewProjectNode" />
               <item name="cms" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="cms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cms" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="cms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cms" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="cms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cms" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="cms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cms" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="cms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cms" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="bfly" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="cms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cms" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="bfly" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="cms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cms" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="bfly" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+              <item name="ipseek" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="cms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cms" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -640,22 +337,6 @@
             <path>
               <item name="jeecmsv9f" type="58d84e3e:PackageViewProjectNode" />
               <item name="cms" type="616d4139:PackageViewModuleNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scratches">
-        <subPane>
-          <expand>
-            <path>
-              <item name="" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
-              <item name="Extensions" type="d62648e6:ScratchProjectViewPane$MyRootNode" />
-            </path>
-            <path>
-              <item name="" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
-              <item name="Extensions" type="d62648e6:ScratchProjectViewPane$MyRootNode" />
-              <item name="com.intellij.database" type="61db50fb:ScratchProjectViewPane$MyPsiNode" />
             </path>
           </expand>
           <select />
@@ -685,51 +366,53 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelOrder2" value="2" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RequestMappingsPanelWidth2" value="75" />
+    <property name="SearchEverywhereHistoryKey" value="cmsu&#9;FILE&#9;file://G:/创业/cms/src/main/java/com/bfly/core/web/util/CmsUtils.java&#10;front&#9;FILE&#9;file://G:/创业/cms/src/main/java/com/bfly/core/web/util/FrontUtils.java&#10;sqlexceptionhelper&#9;PSI&#9;JAVA://org.hibernate.engine.jdbc.spi.SqlExceptionHelper&#10;DaoSupport&#9;PSI&#9;JAVA://org.springframework.dao.support.DaoSupport&#10;ContentCount&#9;PSI&#9;JAVA://com.jeecms.cms.entity.main.ContentCount&#10;ContentCheck&#9;PSI&#9;JAVA://com.jeecms.cms.entity.main.ContentCheck&#10;CmsCommentEx&#9;PSI&#9;JAVA://com.jeecms.cms.entity.assist.CmsCommentExt&#10;ChannelExt&#9;PSI&#9;JAVA://com.jeecms.cms.entity.main.ChannelExt&#10;CmsUserAccount&#9;PSI&#9;JAVA://com.jeecms.core.entity.CmsUserAccount&#10;ContentExt&#9;PSI&#9;JAVA://com.jeecms.cms.entity.main.ContentExt&#10;ContentCharge&#9;FILE&#9;file://G:/创业/cms/src/main/java/com/jeecms/cms/entity/main/ContentCharge.java&#10;ChannelTxt&#9;FILE&#9;file://G:/创业/cms/src/main/java/com/jeecms/cms/entity/main/ChannelTxt.java&#10;CmsUserExt&#9;FILE&#9;file://G:/创业/cms/src/main/java/com/jeecms/core/entity/CmsUserExt.java&#10;ChannelCount&#9;FILE&#9;file://G:/创业/cms/src/main/java/com/jeecms/cms/entity/main/ChannelCount.java&#10;CmsSiteCompany&#9;PSI&#9;JAVA://com.jeecms.core.entity.CmsSiteCompany&#10;Weixin&#9;FILE&#9;file://G:/创业/cms/src/main/java/com/jeecms/plug/weixin/entity/Weixin.java&#10;CmsUserResume&#9;PSI&#9;JAVA://com.jeecms.core.entity.CmsUserResume&#10;ContentTxt&#9;PSI&#9;JAVA://com.jeecms.cms.entity.main.ContentTxt" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/com/bfly/cms/web/content/directive" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="preferences.applicationServers" />
-    <property name="project.structure.last.edited" value="Facets" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="SearchEverywhereHistoryKey" value="cmsu&#9;FILE&#9;file://G:/创业/cms/src/main/java/com/bfly/core/web/util/CmsUtils.java&#10;front&#9;FILE&#9;file://G:/创业/cms/src/main/java/com/bfly/core/web/util/FrontUtils.java&#10;sqlexceptionhelper&#9;PSI&#9;JAVA://org.hibernate.engine.jdbc.spi.SqlExceptionHelper&#10;DaoSupport&#9;PSI&#9;JAVA://org.springframework.dao.support.DaoSupport&#10;ContentCount&#9;PSI&#9;JAVA://com.jeecms.cms.entity.main.ContentCount&#10;ContentCheck&#9;PSI&#9;JAVA://com.jeecms.cms.entity.main.ContentCheck&#10;CmsCommentEx&#9;PSI&#9;JAVA://com.jeecms.cms.entity.assist.CmsCommentExt&#10;ChannelExt&#9;PSI&#9;JAVA://com.jeecms.cms.entity.main.ChannelExt&#10;CmsUserAccount&#9;PSI&#9;JAVA://com.jeecms.core.entity.CmsUserAccount&#10;ContentExt&#9;PSI&#9;JAVA://com.jeecms.cms.entity.main.ContentExt&#10;ContentCharge&#9;FILE&#9;file://G:/创业/cms/src/main/java/com/jeecms/cms/entity/main/ContentCharge.java&#10;ChannelTxt&#9;FILE&#9;file://G:/创业/cms/src/main/java/com/jeecms/cms/entity/main/ChannelTxt.java&#10;CmsUserExt&#9;FILE&#9;file://G:/创业/cms/src/main/java/com/jeecms/core/entity/CmsUserExt.java&#10;ChannelCount&#9;FILE&#9;file://G:/创业/cms/src/main/java/com/jeecms/cms/entity/main/ChannelCount.java&#10;CmsSiteCompany&#9;PSI&#9;JAVA://com.jeecms.core.entity.CmsSiteCompany&#10;Weixin&#9;FILE&#9;file://G:/创业/cms/src/main/java/com/jeecms/plug/weixin/entity/Weixin.java&#10;CmsUserResume&#9;PSI&#9;JAVA://com.jeecms.core.entity.CmsUserResume&#10;ContentTxt&#9;PSI&#9;JAVA://com.jeecms.cms.entity.main.ContentTxt" />
-    <property name="RequestMappingsPanelWidth0" value="75" />
-    <property name="RequestMappingsPanelOrder0" value="0" />
-    <property name="RequestMappingsPanelWidth1" value="75" />
-    <property name="RequestMappingsPanelOrder1" value="1" />
-    <property name="RequestMappingsPanelWidth2" value="75" />
-    <property name="RequestMappingsPanelOrder2" value="2" />
+    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+    <property name="vcs.patch.to.clipboard" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="G:\创业\cms\src\main\java\com\bfly\cms\web\content\directive" />
-      <recent name="G:\创业\cms\src\main\java\com\bfly\cms\web\member\directive" />
-      <recent name="G:\创业\cms\src\main\java\com\bfly\cms\web\system\directive" />
-      <recent name="G:\创业\cms\src\main\java\com\bfly\cms\web\words\directive" />
-      <recent name="G:\创业\cms\src\main\java\com\bfly\cms\directive" />
-    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
-      <recent name="com.bfly.core" />
-      <recent name="com.bfly.web" />
-      <recent name="com.bfly" />
-      <recent name="com.bfly.cms.web.comment.directive" />
-      <recent name="com.bfly.cms.web.channel.directive" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.bfly.core.base.action" />
-      <recent name="com.context" />
-      <recent name="com.bfly.cms.webservice.action" />
-      <recent name="com.bfly.common.hibernate4" />
-      <recent name="com.bfly.cms.service" />
+      <recent name="com.bfly.cms.channel.service" />
+      <recent name="com.bfly.cms.system.entity" />
+      <recent name="com.bfly.cms.siteconfig.service" />
+      <recent name="com.bfly.cms.content.service" />
+      <recent name="com.bfly.cms.system.service" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="G:\创业\cms\src\main\java\com\bfly\common\ipseek" />
+      <recent name="G:\创业\cms\src\main\java\com\bfly\core\security" />
+      <recent name="G:\创业\cms\src\main\java\com\bfly\common" />
       <recent name="G:\创业\cms\src\main\webapp\jeeadmin\jeecms" />
       <recent name="G:\创业\cms\src\main\resources" />
-      <recent name="G:\创业\cms\src\main\java\com\context\member" />
-      <recent name="G:\创业\cms\src\main\java\com\context\admin" />
-      <recent name="G:\创业\cms\src\main\java\com\context\front" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.bfly.cms.comment.dao" />
+      <recent name="com.bfly.cms.comment.service.impl" />
+      <recent name="com.bfly.cms.comment.service" />
+      <recent name="com.bfly.cms.comment.entity" />
+      <recent name="com.bfly.manage.system" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="G:\创业\cms\src\main\java\com\bfly\cms\words\service\" />
+      <recent name="G:\创业\cms\src\main\java\com\bfly\cms\resource\service\" />
+      <recent name="G:\创业\cms\src\main\java\com\bfly\cms\dictionary\service\" />
+      <recent name="G:\创业\cms\src\main\java\com\bfly\cms\comment\service\" />
+      <recent name="G:\创业\cms\src\main\java\com\bfly\cms\message\service\" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -744,52 +427,36 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.CmsApp">
-    <configuration name="CmsApp" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+  <component name="RunManager" selected="Application.CmsApp">
+    <configuration name="CmsApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.CmsApp" />
+      <module name="cms" />
+      <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.CmsApp" />
-      <module name="cms" />
-      <envs />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
-    <configuration name="TT.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="cms" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="" />
+    <configuration name="TT" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="TT" />
-      <option name="METHOD_NAME" value="test" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
+      <module name="cms" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
-    <configuration default="true" type="PyBehaveRunConfigurationType" factoryName="Behave">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
+    <configuration name="TT2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="TT2" />
+      <module name="cms" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="DjangoTestsConfigurationType">
       <module name="jeecmsv9f" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="ADDITIONAL_ARGS" value="" />
-    </configuration>
-    <configuration default="true" type="DjangoTestsConfigurationType" factoryName="Django tests">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -800,25 +467,119 @@
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="jeecmsv9f" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="TARGET" value="" />
       <option name="SETTINGS_FILE" value="" />
       <option name="CUSTOM_SETTINGS" value="false" />
       <option name="USE_OPTIONS" value="false" />
       <option name="OPTIONS" value="" />
+      <method v="2" />
     </configuration>
-    <configuration default="true" type="tests" factoryName="Doctests">
+    <configuration name="TT.main" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="cms" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TT" />
+      <option name="METHOD_NAME" value="main" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TT.test3" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="cms" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TT" />
+      <option name="METHOD_NAME" value="test3" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType" factoryName="Kotlin">
+      <module name="jeecmsv9f" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="WORKING_DIRECTORY" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="PyBehaveRunConfigurationType" factoryName="Behave">
+      <module name="jeecmsv9f" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs />
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="ADDITIONAL_ARGS" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="PyLettuceRunConfigurationType" factoryName="Lettuce">
       <module name="jeecmsv9f" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="ADDITIONAL_ARGS" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <module name="jeecmsv9f" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="Tox" factoryName="Tox">
+      <module name="jeecmsv9f" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Doctests">
+      <module name="jeecmsv9f" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="" />
       <option name="CLASS_NAME" value="" />
       <option name="METHOD_NAME" value="" />
@@ -826,122 +587,71 @@
       <option name="TEST_TYPE" value="TEST_SCRIPT" />
       <option name="PATTERN" value="" />
       <option name="USE_PATTERN" value="false" />
-    </configuration>
-    <configuration default="true" type="JetRunConfigurationType" factoryName="Kotlin">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="jeecmsv9f" />
-      <envs />
-    </configuration>
-    <configuration default="true" type="PyLettuceRunConfigurationType" factoryName="Lettuce">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="jeecmsv9f" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="ADDITIONAL_ARGS" value="" />
-    </configuration>
-    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="jeecmsv9f" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-    </configuration>
-    <configuration default="true" type="Tox" factoryName="Tox">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <module name="jeecmsv9f" />
+      <method v="2" />
     </configuration>
     <configuration default="true" type="tests" factoryName="Nosetests">
+      <module name="jeecmsv9f" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs />
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="jeecmsv9f" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="_new_regexPattern" value="&quot;&quot;" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
       <option name="_new_target" value="&quot;&quot;" />
       <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
     </configuration>
     <configuration default="true" type="tests" factoryName="Unittests">
+      <module name="jeecmsv9f" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs />
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="jeecmsv9f" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
       <option name="_new_target" value="&quot;&quot;" />
       <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
     </configuration>
     <configuration default="true" type="tests" factoryName="py.test">
+      <module name="jeecmsv9f" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs />
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="jeecmsv9f" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="_new_keywords" value="&quot;&quot;" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
       <option name="_new_target" value="&quot;&quot;" />
       <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
     </configuration>
-    <list size="2">
-      <item index="0" class="java.lang.String" itemvalue="Spring Boot.CmsApp" />
-      <item index="1" class="java.lang.String" itemvalue="JUnit.TT.test" />
+    <list>
+      <item itemvalue="Application.TT" />
+      <item itemvalue="Application.TT2" />
+      <item itemvalue="Application.CmsApp" />
+      <item itemvalue="JUnit.TT.test3" />
+      <item itemvalue="JUnit.TT.main" />
     </list>
     <recent_temporary>
-      <list size="2">
-        <item index="0" class="java.lang.String" itemvalue="Spring Boot.CmsApp" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.TT.test" />
+      <list>
+        <item itemvalue="Application.CmsApp" />
+        <item itemvalue="Application.TT2" />
+        <item itemvalue="JUnit.TT.main" />
+        <item itemvalue="Application.TT" />
+        <item itemvalue="JUnit.TT.test3" />
       </list>
     </recent_temporary>
-  </component>
-  <component name="ShelveChangesManager" show_recycled="false">
-    <option name="remove_strategy" value="false" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -996,7 +706,39 @@
       <workItem from="1543540626102" duration="25701000" />
       <workItem from="1543586391822" duration="5703000" />
       <workItem from="1543630569747" duration="13130000" />
-      <workItem from="1543713669838" duration="11581000" />
+      <workItem from="1543713669838" duration="11919000" />
+      <workItem from="1543800840153" duration="26003000" />
+      <workItem from="1543840315112" duration="3912000" />
+      <workItem from="1543844345910" duration="2988000" />
+      <workItem from="1543886677691" duration="26128000" />
+      <workItem from="1543927166891" duration="240000" />
+      <workItem from="1543974268608" duration="22313000" />
+      <workItem from="1544004993341" duration="186000" />
+      <workItem from="1544058171770" duration="29054000" />
+      <workItem from="1544147975281" duration="28409000" />
+      <workItem from="1544193783912" duration="5259000" />
+      <workItem from="1544230200554" duration="5508000" />
+      <workItem from="1544265596981" duration="121000" />
+      <workItem from="1544266820339" duration="6191000" />
+      <workItem from="1544403625417" duration="22177000" />
+      <workItem from="1544513574570" duration="37000" />
+      <workItem from="1544513661212" duration="7000000" />
+      <workItem from="1544584785465" duration="17017000" />
+      <workItem from="1544666944168" duration="3140000" />
+      <workItem from="1544755288158" duration="7162000" />
+      <workItem from="1545011138054" duration="15035000" />
+      <workItem from="1545096933897" duration="13508000" />
+      <workItem from="1545182607465" duration="17810000" />
+      <workItem from="1545268598457" duration="14479000" />
+      <workItem from="1545354731749" duration="1488000" />
+      <workItem from="1545370930843" duration="2490000" />
+      <workItem from="1545615235448" duration="1471000" />
+      <workItem from="1547953057978" duration="1065000" />
+      <workItem from="1549166794281" duration="23000" />
+      <workItem from="1549166839755" duration="556000" />
+      <workItem from="1554297048650" duration="1938000" />
+      <workItem from="1554343000135" duration="4313000" />
+      <workItem from="1557757561104" duration="1767000" />
     </task>
     <task id="LOCAL-00001" summary="代码优化">
       <created>1542355815388</created>
@@ -1131,43 +873,113 @@
       <option name="project" value="LOCAL" />
       <updated>1543572670540</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="代码优化">
+      <created>1543748478394</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1543748478394</updated>
+    </task>
+    <task id="LOCAL-00021" summary="代码优化">
+      <created>1543917576525</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1543917576526</updated>
+    </task>
+    <task id="LOCAL-00022" summary="代码优化">
+      <created>1544235736266</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1544235736266</updated>
+    </task>
+    <task id="LOCAL-00023" summary="代码优化">
+      <created>1547953401088</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1547953401088</updated>
+    </task>
+    <task id="LOCAL-00024" summary="代码优化">
+      <created>1557757801015</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1557757801015</updated>
+    </task>
+    <task id="LOCAL-00025" summary="代码优化">
+      <created>1557757888374</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1557757888374</updated>
+    </task>
+    <task id="LOCAL-00026" summary="代码优化">
+      <created>1557757910831</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1557757910831</updated>
+    </task>
+    <task id="LOCAL-00027" summary="代码优化">
+      <created>1557759136294</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1557759136294</updated>
+    </task>
+    <task id="LOCAL-00028" summary="IP MESSAGE">
+      <created>1557759251780</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1557759251780</updated>
+    </task>
+    <task id="LOCAL-00029" summary="IP MESSAGE">
+      <created>1557759325560</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1557759325560</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="TT_test - 2018.11.22 at 15h 35m 19s.xml">
-      <configuration name="TT.test" configurationId="JUnit" />
+    <history-entry file="TT_test3 - 2018.12.08 at 10h 12m 07s.xml">
+      <configuration name="TT.test3" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TT_test - 2018.11.22 at 15h 37m 26s.xml">
-      <configuration name="TT.test" configurationId="JUnit" />
+    <history-entry file="TT_test3 - 2018.12.08 at 10h 13m 11s.xml">
+      <configuration name="TT.test3" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TT_test - 2018.11.22 at 15h 39m 38s.xml">
-      <configuration name="TT.test" configurationId="JUnit" />
+    <history-entry file="TT_test3 - 2018.12.08 at 19h 09m 58s.xml">
+      <configuration name="TT.test3" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TT_test - 2018.11.22 at 15h 50m 47s.xml">
-      <configuration name="TT.test" configurationId="JUnit" />
+    <history-entry file="TT_test3 - 2018.12.10 at 10h 53m 05s.xml">
+      <configuration name="TT.test3" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TT_test - 2018.11.22 at 15h 59m 10s.xml">
-      <configuration name="TT.test" configurationId="JUnit" />
+    <history-entry file="TT_test3 - 2018.12.10 at 10h 54m 13s.xml">
+      <configuration name="TT.test3" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TT_test - 2018.11.22 at 16h 08m 08s.xml">
-      <configuration name="TT.test" configurationId="JUnit" />
+    <history-entry file="TT_test3 - 2018.12.11 at 16h 40m 36s.xml">
+      <configuration name="TT.test3" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TT_test - 2018.11.22 at 16h 21m 43s.xml">
-      <configuration name="TT.test" configurationId="JUnit" />
+    <history-entry file="TT_test3 - 2018.12.11 at 16h 42m 52s.xml">
+      <configuration name="TT.test3" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TT_test - 2018.11.22 at 16h 55m 37s.xml">
-      <configuration name="TT.test" configurationId="JUnit" />
+    <history-entry file="TT_main - 2018.12.11 at 16h 47m 21s.xml">
+      <configuration name="TT.main" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TT_test - 2018.11.22 at 17h 00m 34s.xml">
-      <configuration name="TT.test" configurationId="JUnit" />
+    <history-entry file="TT_main - 2018.12.11 at 16h 47m 47s.xml">
+      <configuration name="TT.main" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TT_test - 2018.11.22 at 17h 02m 22s.xml">
-      <configuration name="TT.test" configurationId="JUnit" />
+    <history-entry file="TT_main - 2018.12.11 at 16h 48m 16s.xml">
+      <configuration name="TT.main" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="514144000" />
+    <option name="totallyTimeSpent" value="803270000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1181,71 +993,79 @@
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <layout>
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41021416" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32894737" sideWeight="0.4969743" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.7265239" sideWeight="0.5030257" order="6" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32784185" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.66886324" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32784185" sideWeight="0.4969743" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20574887" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32980332" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32980332" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6046128" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.24962178" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4184514" sideWeight="0.4969743" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32980332" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5271829" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23676248" />
+      <window_info id="Structure" order="1" weight="0.25" />
+      <window_info id="Designer" order="2" />
+      <window_info id="Favorites" order="3" side_tool="true" />
+      <window_info id="Web" order="4" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.6032787" />
+      <window_info anchor="bottom" id="Cvs" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="4" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Java Enterprise" order="5" show_stripe_button="false" sideWeight="0.4969743" weight="0.32894737" />
+      <window_info anchor="bottom" id="Event Log" order="6" sideWeight="0.5030257" side_tool="true" weight="0.7265239" />
+      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" weight="0.32784185" />
+      <window_info anchor="bottom" id="Terminal" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Spring" order="9" show_stripe_button="false" sideWeight="0.4969743" weight="0.32784185" />
+      <window_info anchor="bottom" id="Run" order="10" weight="0.43442622" />
+      <window_info anchor="bottom" id="Inspection Results" order="11" weight="0.5271829" />
+      <window_info anchor="bottom" id="Messages" order="12" weight="0.40983605" />
+      <window_info anchor="bottom" id="Debug" order="13" sideWeight="0.4969743" weight="0.43606558" />
+      <window_info anchor="bottom" id="Docker" order="14" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="15" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" show_stripe_button="false" weight="0.24962178" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.24962178" />
+      <window_info anchor="right" id="Maven Projects" order="3" weight="0.32980332" />
+      <window_info anchor="right" id="Database" order="4" show_stripe_button="false" weight="0.32980332" />
+      <window_info anchor="right" id="Data View" order="5" show_stripe_button="false" weight="0.32980332" />
+      <window_info anchor="right" id="Bean Validation" order="6" show_stripe_button="false" weight="0.32980332" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+      <window_info anchor="right" id="Maven" order="8" sideWeight="0.49836066" weight="0.32980332" />
+      <window_info anchor="right" id="Coverage" order="9" sideWeight="0.50163937" side_tool="true" weight="0.32980332" />
+      <window_info anchor="right" id="SciView" order="10" weight="0.32980332" />
     </layout>
     <layout-to-restore>
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.7265239" sideWeight="0.5030257" order="6" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5271829" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32980332" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.24962178" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25700164" sideWeight="0.4969743" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32980332" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.41021416" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32894737" sideWeight="0.4969743" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32784185" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.66886324" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32784185" sideWeight="0.4969743" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25340393" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32980332" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6046128" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24962178" />
+      <window_info id="Structure" order="1" weight="0.25" />
+      <window_info id="Designer" order="2" />
+      <window_info id="Favorites" order="3" side_tool="true" />
+      <window_info id="Web" order="4" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.6032787" />
+      <window_info anchor="bottom" id="Cvs" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="4" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Java Enterprise" order="5" show_stripe_button="false" sideWeight="0.4969743" weight="0.32894737" />
+      <window_info anchor="bottom" id="Event Log" order="6" sideWeight="0.5030257" side_tool="true" weight="0.7265239" />
+      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" weight="0.32784185" />
+      <window_info anchor="bottom" id="Terminal" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Spring" order="9" show_stripe_button="false" sideWeight="0.4969743" weight="0.32784185" />
+      <window_info anchor="bottom" id="Run" order="10" show_stripe_button="false" weight="0.43442622" />
+      <window_info anchor="bottom" id="Inspection Results" order="11" weight="0.5271829" />
+      <window_info anchor="bottom" id="Messages" order="12" show_stripe_button="false" weight="0.40983605" />
+      <window_info anchor="bottom" id="Debug" order="13" sideWeight="0.4969743" weight="0.43606558" />
+      <window_info anchor="bottom" id="Docker" order="14" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="15" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" show_stripe_button="false" weight="0.24962178" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.24962178" />
+      <window_info anchor="right" id="Maven Projects" order="3" weight="0.32980332" />
+      <window_info anchor="right" id="Database" order="4" show_stripe_button="false" weight="0.32980332" />
+      <window_info anchor="right" id="Data View" order="5" show_stripe_button="false" weight="0.32980332" />
+      <window_info anchor="right" id="Bean Validation" order="6" show_stripe_button="false" weight="0.32980332" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+      <window_info anchor="right" id="Maven" order="8" sideWeight="0.49836066" weight="0.32980332" />
+      <window_info anchor="right" id="Coverage" order="9" sideWeight="0.50163937" side_tool="true" weight="0.32980332" />
+      <window_info anchor="right" id="SciView" order="10" weight="0.32980332" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
-  </component>
   <component name="VcsManagerConfiguration">
+    <option name="SHOW_PATCH_IN_EXPLORER" value="true" />
     <option name="SHOW_DIRTY_RECURSIVELY" value="true" />
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
@@ -1254,60 +1074,30 @@
     <MESSAGE value="优化结构" />
     <MESSAGE value="代码优化,优化结构,spring boot整合" />
     <MESSAGE value="代码优化" />
-    <option name="LAST_COMMIT_MESSAGE" value="代码优化" />
+    <MESSAGE value="IP MESSAGE" />
+    <option name="LAST_COMMIT_MESSAGE" value="IP MESSAGE" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>jar://E:/Program Files/apache-maven-3.5.2/repository/org/springframework/spring-jdbc/4.3.9.RELEASE/spring-jdbc-4.3.9.RELEASE-sources.jar!/org/springframework/jdbc/core/support/JdbcDaoSupport.java</url>
+          <url>jar://$MAVEN_REPOSITORY$/org/springframework/spring-jdbc/4.3.9.RELEASE/spring-jdbc-4.3.9.RELEASE-sources.jar!/org/springframework/jdbc/core/support/JdbcDaoSupport.java</url>
           <line>109</line>
           <properties />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>jar://E:/Program Files/apache-maven-3.5.2/repository/org/springframework/spring-webmvc/4.3.9.RELEASE/spring-webmvc-4.3.9.RELEASE-sources.jar!/org/springframework/web/servlet/handler/SimpleServletPostProcessor.java</url>
+          <url>jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/4.3.9.RELEASE/spring-webmvc-4.3.9.RELEASE-sources.jar!/org/springframework/web/servlet/handler/SimpleServletPostProcessor.java</url>
           <line>89</line>
           <properties />
           <option name="timeStamp" value="81" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/bfly/cms/system/service/impl/ContentStaticJob.java</url>
-          <line>32</line>
+          <url>file://$PROJECT_DIR$/src/main/java/com/bfly/cms/user/dao/impl/UserDaoImpl.java</url>
+          <line>19</line>
           <properties />
-          <option name="timeStamp" value="84" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/test/TT.java</url>
-          <line>24</line>
-          <properties />
-          <option name="timeStamp" value="145" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/bfly/cms/content/dao/impl/ContentDaoImpl.java</url>
-          <line>846</line>
-          <properties />
-          <option name="timeStamp" value="161" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/bfly/core/security/CmsAuthorizingRealm.java</url>
-          <line>57</line>
-          <properties />
-          <option name="timeStamp" value="212" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/bfly/core/security/CmsAuthorizingRealm.java</url>
-          <line>73</line>
-          <properties />
-          <option name="timeStamp" value="242" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/bfly/core/interceptor/MemberApiInterceptor.java</url>
-          <line>40</line>
-          <properties />
-          <option name="timeStamp" value="245" />
+          <option name="timeStamp" value="277" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="250" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="SpringBootApplicationConfigurationType">
@@ -1370,457 +1160,419 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/apache/shiro/shiro-core/1.4.0/shiro-core-1.4.0-sources.jar!/org/apache/shiro/subject/support/DelegatingSubject.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/system/service/ISysConfigService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="295" column="24" lean-forward="true" selection-start-line="295" selection-start-column="24" selection-end-line="295" selection-end-column="24" />
+        <state relative-caret-position="287">
+          <caret line="19" column="29" lean-forward="true" selection-start-line="19" selection-start-column="29" selection-end-line="19" selection-end-column="29" />
           <folding>
-            <element signature="e#12127#12128#0" expanded="false" />
-            <element signature="e#12163#12164#0" expanded="false" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/apache/shiro/shiro-web/1.4.0/shiro-web-1.4.0-sources.jar!/org/apache/shiro/web/filter/authc/AuthenticatingFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2122">
-          <caret line="123" column="0" lean-forward="false" selection-start-line="123" selection-start-column="0" selection-end-line="123" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/apache/shiro/shiro-web/1.4.0/shiro-web-1.4.0-sources.jar!/org/apache/shiro/web/filter/authc/AuthenticationFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="237">
-          <caret line="93" column="28" lean-forward="true" selection-start-line="93" selection-start-column="28" selection-end-line="93" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/apache/shiro/shiro-web/1.4.0/shiro-web-1.4.0-sources.jar!/org/apache/shiro/web/filter/authc/FormAuthenticationFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
-          <caret line="197" column="27" lean-forward="true" selection-start-line="197" selection-start-column="27" selection-end-line="197" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/manage/member/action/MemberAct.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/system/dao/ISysConfigDao.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="297">
-          <caret line="30" column="3" lean-forward="true" selection-start-line="30" selection-start-column="3" selection-end-line="30" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/apache/shiro/shiro-web/1.4.0/shiro-web-1.4.0-sources.jar!/org/apache/shiro/web/servlet/AdviceFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="146" column="19" lean-forward="true" selection-start-line="146" selection-start-column="19" selection-end-line="146" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/apache/shiro/shiro-web/1.4.0/shiro-web-1.4.0-sources.jar!/org/apache/shiro/web/filter/PathMatchingFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="134">
-          <caret line="178" column="13" lean-forward="true" selection-start-line="178" selection-start-column="13" selection-end-line="178" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://E:/Program Files/Java/jdk1.8.0_111/jre/lib/rt.jar!/sun/reflect/NativeMethodAccessorImpl.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="109">
-          <caret line="33" column="33" lean-forward="false" selection-start-line="33" selection-start-column="33" selection-end-line="33" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/apache/shiro/shiro-web/1.4.0/shiro-web-1.4.0-sources.jar!/org/apache/shiro/web/filter/AccessControlFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1081">
-          <caret line="117" column="30" lean-forward="false" selection-start-line="117" selection-start-column="15" selection-end-line="117" selection-end-column="30" />
+          <caret line="9" column="25" lean-forward="true" selection-start-line="9" selection-start-column="25" selection-end-line="9" selection-end-column="25" />
           <folding>
-            <element signature="e#0#11218#0" expanded="false" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/apache/shiro/shiro-web/1.4.0/shiro-web-1.4.0-sources.jar!/org/apache/shiro/web/filter/authc/UserFilter.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/system/service/impl/SysConfigServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="840">
-          <caret line="51" column="16" lean-forward="true" selection-start-line="51" selection-start-column="16" selection-end-line="51" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/apache/shiro/shiro-core/1.4.0/shiro-core-1.4.0-sources.jar!/org/apache/shiro/authc/AuthenticationInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
-          <caret line="77" column="36" lean-forward="true" selection-start-line="77" selection-start-column="36" selection-end-line="77" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/apache/shiro/shiro-core/1.4.0/shiro-core-1.4.0-sources.jar!/org/apache/shiro/authc/SimpleAuthenticationInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="292">
-          <caret line="231" column="29" lean-forward="false" selection-start-line="231" selection-start-column="29" selection-end-line="231" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/admin/AdminController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
-          <caret line="113" column="21" lean-forward="true" selection-start-line="113" selection-start-column="21" selection-end-line="113" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/web/member/action/UserApiAct.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="292">
-          <caret line="312" column="25" lean-forward="false" selection-start-line="312" selection-start-column="25" selection-end-line="312" selection-end-column="25" />
+        <state relative-caret-position="348">
+          <caret line="42" lean-forward="true" selection-start-line="42" selection-end-line="42" />
           <folding>
-            <element signature="method#userAdd#0;class#UserApiAct#0" expanded="false" />
-            <element signature="method#getUserStatus#0;class#UserApiAct#0" expanded="false" />
-            <element signature="method#weixinAppLogin#0;class#UserApiAct#0" expanded="false" />
-            <element signature="method#thirdLoginApi#0;class#UserApiAct#0" expanded="false" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#1186#1187#0" expanded="true" />
+            <element signature="e#1224#1225#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/core/interceptor/MemberApiInterceptor.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/core/base/action/BaseManageController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="134">
-          <caret line="39" column="15" lean-forward="true" selection-start-line="39" selection-start-column="15" selection-end-line="39" selection-end-column="15" />
-          <folding />
+        <state relative-caret-position="326">
+          <caret line="63" column="5" lean-forward="true" selection-start-line="63" selection-start-column="5" selection-end-line="63" selection-end-column="5" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/apache/shiro/shiro-core/1.4.0/shiro-core-1.4.0-sources.jar!/org/apache/shiro/SecurityUtils.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/system/service/ICompanyService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="419">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/springframework/spring-webmvc/4.3.9.RELEASE/spring-webmvc-4.3.9.RELEASE-sources.jar!/org/springframework/web/servlet/HandlerInterceptor.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/system/service/impl/CompanyServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="305">
-          <caret line="81" column="34" lean-forward="false" selection-start-line="81" selection-start-column="34" selection-end-line="81" selection-end-column="34" />
-          <folding />
+        <state relative-caret-position="329">
+          <caret line="38" column="19" selection-start-line="38" selection-start-column="19" selection-end-line="38" selection-end-column="19" />
+          <folding>
+            <element signature="e#1086#1087#0" expanded="true" />
+            <element signature="e#1128#1129#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/springframework/spring-webmvc/4.3.9.RELEASE/spring-webmvc-4.3.9.RELEASE-sources.jar!/org/springframework/web/servlet/AsyncHandlerInterceptor.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/system/entity/Company.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="305">
-          <caret line="65" column="35" lean-forward="false" selection-start-line="65" selection-start-column="35" selection-end-line="65" selection-end-column="35" />
-          <folding />
+        <state relative-caret-position="227">
+          <caret line="70" lean-forward="true" selection-start-line="70" selection-end-line="70" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://E:/Program Files/apache-maven-3.5.2/repository/org/springframework/spring-webmvc/4.3.9.RELEASE/spring-webmvc-4.3.9.RELEASE-sources.jar!/org/springframework/web/servlet/handler/HandlerInterceptorAdapter.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/system/entity/SysConfig.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="292">
-          <caret line="28" column="26" lean-forward="true" selection-start-line="28" selection-start-column="26" selection-end-line="28" selection-end-column="26" />
-          <folding />
+        <state relative-caret-position="1536">
+          <caret line="75" lean-forward="true" selection-start-line="75" selection-end-line="75" />
+          <folding>
+            <element signature="e#1640#1641#0" expanded="true" />
+            <element signature="e#1671#1672#0" expanded="true" />
+            <element signature="e#1720#1721#0" expanded="true" />
+            <element signature="e#1760#1761#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/content/entity/Content.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/member/entity/MemberConfig.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="1129" column="7" lean-forward="true" selection-start-line="1129" selection-start-column="7" selection-end-line="1129" selection-end-column="7" />
-          <folding />
+        <state relative-caret-position="297">
+          <caret line="131" column="5" lean-forward="true" selection-start-line="131" selection-start-column="5" selection-end-line="131" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2607#2608#0" expanded="true" />
+            <element signature="e#2636#2637#0" expanded="true" />
+            <element signature="e#2681#2682#0" expanded="true" />
+            <element signature="e#2717#2718#0" expanded="true" />
+            <element signature="e#2751#2752#0" expanded="true" />
+            <element signature="e#2781#2782#0" expanded="true" />
+            <element signature="e#2827#2828#0" expanded="true" />
+            <element signature="e#2865#2866#0" expanded="true" />
+            <element signature="e#2900#2901#0" expanded="true" />
+            <element signature="e#2931#2932#0" expanded="true" />
+            <element signature="e#2979#2980#0" expanded="true" />
+            <element signature="e#3019#3020#0" expanded="true" />
+            <element signature="e#3056#3057#0" expanded="true" />
+            <element signature="e#3089#3090#0" expanded="true" />
+            <element signature="e#3142#3143#0" expanded="true" />
+            <element signature="e#3186#3187#0" expanded="true" />
+            <element signature="e#3224#3225#0" expanded="true" />
+            <element signature="e#3258#3259#0" expanded="true" />
+            <element signature="e#3312#3313#0" expanded="true" />
+            <element signature="e#3358#3359#0" expanded="true" />
+            <element signature="e#3397#3398#0" expanded="true" />
+            <element signature="e#3432#3433#0" expanded="true" />
+            <element signature="e#3488#3489#0" expanded="true" />
+            <element signature="e#3536#3537#0" expanded="true" />
+            <element signature="e#3571#3572#0" expanded="true" />
+            <element signature="e#3602#3603#0" expanded="true" />
+            <element signature="e#3651#3652#0" expanded="true" />
+            <element signature="e#3691#3692#0" expanded="true" />
+            <element signature="e#3727#3728#0" expanded="true" />
+            <element signature="e#3759#3760#0" expanded="true" />
+            <element signature="e#3809#3810#0" expanded="true" />
+            <element signature="e#3851#3852#0" expanded="true" />
+            <element signature="e#3888#3889#0" expanded="true" />
+            <element signature="e#3921#3922#0" expanded="true" />
+            <element signature="e#3973#3974#0" expanded="true" />
+            <element signature="e#4017#4018#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/core/base/action/RenderController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/message/entity/Message.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="21" column="44" lean-forward="false" selection-start-line="21" selection-start-column="44" selection-end-line="21" selection-end-column="44" />
-          <folding />
+        <state relative-caret-position="429">
+          <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/system/entity/Sms.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/manage/system/SmsRecordController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1089">
+          <caret line="47" column="36" selection-start-line="47" selection-start-column="36" selection-end-line="47" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/manage/system/SiteInfoController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="282">
+          <caret line="52" column="5" lean-forward="true" selection-start-line="52" selection-start-column="5" selection-end-line="52" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/manage/system/SmsController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="282">
+          <caret line="92" column="5" lean-forward="true" selection-start-line="92" selection-start-column="5" selection-end-line="92" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/webservice/entity/WsAccount.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/webservice/entity/WsRecord.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/core/annotation/SignValidate.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/core/servlet/ProcessTimeFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="40" column="13" lean-forward="true" selection-start-line="40" selection-start-column="13" selection-end-line="40" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/core/Constants.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="441" column="45" lean-forward="false" selection-start-line="441" selection-start-column="31" selection-end-line="441" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/common/util/CheckMobile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="39" column="26" lean-forward="false" selection-start-line="39" selection-start-column="26" selection-end-line="39" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/core/web/util/CmsUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="76" column="32" lean-forward="true" selection-start-line="76" selection-start-column="32" selection-end-line="76" selection-end-column="32" />
-          <folding>
-            <element signature="e#1476#1477#0" expanded="false" />
-            <element signature="e#1528#1529#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/siteconfig/dao/CmsSiteDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="326">
-          <caret line="85" column="0" lean-forward="true" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/siteconfig/dao/impl/CmsSiteDaoImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="21" column="60" lean-forward="true" selection-start-line="21" selection-start-column="60" selection-end-line="21" selection-end-column="60" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/siteconfig/service/impl/CmsSiteMngImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
-          <caret line="45" column="62" lean-forward="false" selection-start-line="45" selection-start-column="62" selection-end-line="45" selection-end-column="62" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/siteconfig/service/CmsSiteMng.java">
-      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
-          <caret line="33" column="15" lean-forward="true" selection-start-line="33" selection-start-column="15" selection-end-line="33" selection-end-column="15" />
-          <folding />
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/core/interceptor/AdminApiInterceptor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="156" column="27" lean-forward="true" selection-start-line="156" selection-start-column="27" selection-end-line="156" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/web/content/directive/AbstractContentDirective.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="397" column="21" lean-forward="true" selection-start-line="397" selection-start-column="21" selection-end-line="397" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/statistic/service/impl/CmsSiteFlowCacheImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
-          <caret line="620" column="31" lean-forward="false" selection-start-line="620" selection-start-column="31" selection-end-line="620" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/core/interceptor/AbstractApiInterceptor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="101" column="20" lean-forward="true" selection-start-line="101" selection-start-column="20" selection-end-line="101" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/core/interceptor/WebContextInterceptor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="36" column="30" lean-forward="true" selection-start-line="36" selection-start-column="30" selection-end-line="36" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/core/base/action/AbstractController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="69" column="28" lean-forward="true" selection-start-line="69" selection-start-column="28" selection-end-line="69" selection-end-column="28" />
-          <folding>
-            <element signature="e#1606#1607#0" expanded="false" />
-            <element signature="e#1684#1685#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/common/web/CookieUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="292">
-          <caret line="50" column="25" lean-forward="true" selection-start-line="50" selection-start-column="25" selection-end-line="50" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/core/config/ShiroConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="32" column="10" lean-forward="true" selection-start-line="32" selection-start-column="10" selection-end-line="32" selection-end-column="10" />
-          <folding>
-            <element signature="method#lifecycleBeanPostProcessor#0;class#ShiroConfig#0" expanded="false" />
-            <element signature="method#delegatingFilterProxy#0;class#ShiroConfig#0" expanded="false" />
-            <element signature="method#authcFilterRegistration#0;class#ShiroConfig#0" expanded="false" />
-            <element signature="method#logoutFilterRegistration#0;class#ShiroConfig#0" expanded="false" />
-            <element signature="e#2998#2999#0" expanded="true" />
-            <element signature="e#3042#3043#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/web/ad/action/AdvertisingAct.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="69" column="0" lean-forward="true" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/core/security/CmsLogoutFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/core/security/CmsAuthenticationFilter.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/comment/dao/IGuestBookConfigDao.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="132">
-          <caret line="179" column="14" lean-forward="true" selection-start-line="179" selection-start-column="14" selection-end-line="179" selection-end-column="14" />
+          <caret line="5" column="3" lean-forward="true" selection-start-line="5" selection-start-column="3" selection-end-line="5" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/manage/acquisition/AcquisitionTempController.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/manage/acquisition/AcquisitionHistoryController.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/manage/acquisition/AcquisitionController.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/manage/comment/CommentController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="82">
+          <caret line="156" lean-forward="true" selection-start-line="156" selection-end-line="156" />
           <folding>
-            <element signature="e#7001#7002#0" expanded="false" />
-            <element signature="e#7074#7075#0" expanded="false" />
+            <element signature="method#listComment#0;class#CommentController#0" />
+            <element signature="method#editComment#0;class#CommentController#0" />
+            <element signature="method#verifyComment#0;class#CommentController#0" />
+            <element signature="method#replyComment#0;class#CommentController#0" />
+            <element signature="method#viewComment#0;class#CommentController#0" />
+            <element signature="method#removeComment#0;class#CommentController#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/core/web/CmsThreadVariable.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/manage/comment/GuestBookController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="58" column="10" lean-forward="false" selection-start-line="58" selection-start-column="10" selection-end-line="58" selection-end-column="10" />
+        <state relative-caret-position="33">
+          <caret line="78" column="33" selection-start-line="78" selection-start-column="33" selection-end-line="78" selection-end-column="33" />
           <folding>
-            <element signature="e#687#688#0" expanded="false" />
-            <element signature="e#728#729#0" expanded="false" />
+            <element signature="method#listGuestBook#0;class#GuestBookController#0" />
+            <element signature="method#editGuestBook#0;class#GuestBookController#0" />
+            <element signature="method#verifyGuestBook#0;class#GuestBookController#0" />
+            <element signature="method#replyGuestBook#0;class#GuestBookController#0" />
+            <element signature="method#viewGuestBook#0;class#GuestBookController#0" />
+            <element signature="method#removeGuestBook#0;class#GuestBookController#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/web/IndexController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/manage/system/SysController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4917">
-          <caret line="219" column="4" lean-forward="false" selection-start-line="219" selection-start-column="4" selection-end-line="219" selection-end-column="4" />
+        <state relative-caret-position="33">
+          <caret line="76" column="35" selection-start-line="76" selection-start-column="35" selection-end-line="76" selection-end-column="35" />
           <folding>
-            <element signature="method#dynamic#0;class#IndexController#0" expanded="false" />
-            <element signature="method#channel#0;class#IndexController#0" expanded="false" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/core/security/CmsAuthorizingRealm.java">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/logback.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="42" column="27" lean-forward="true" selection-start-line="42" selection-start-column="27" selection-end-line="42" selection-end-column="27" />
-          <folding />
+        <state relative-caret-position="183">
+          <caret line="16" column="26" selection-start-line="16" selection-start-column="22" selection-end-line="16" selection-end-column="26" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/user/service/UnifiedUserMng.java">
+    <entry file="file://$PROJECT_DIR$/src/main/test/TT.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="16" column="22" lean-forward="false" selection-start-line="16" selection-start-column="22" selection-end-line="16" selection-end-column="22" />
-          <folding />
+        <state relative-caret-position="264">
+          <caret line="29" column="9" lean-forward="true" selection-start-line="29" selection-start-column="9" selection-end-line="29" selection-end-column="9" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/user/service/impl/UnifiedUserMngImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/main/test/TT2.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="265" column="17" lean-forward="false" selection-start-line="265" selection-start-column="17" selection-end-line="265" selection-end-column="17" />
+        <state relative-caret-position="396">
+          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/thirdparty/pdfjs/build/pdf.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="278">
+          <caret line="3241" column="45" selection-start-line="3241" selection-start-column="45" selection-end-line="3241" selection-end-column="45" />
           <folding>
-            <element signature="e#6502#6503#0" expanded="true" />
-            <element signature="e#6554#6555#0" expanded="true" />
-            <element signature="e#6682#6683#0" expanded="true" />
-            <element signature="e#6721#6722#0" expanded="true" />
-            <element signature="e#9016#9017#0" expanded="true" />
-            <element signature="e#9057#9058#0" expanded="true" />
+            <element signature="n#!!doc" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/user/dao/UnifiedUserDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="11" column="28" lean-forward="true" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/core/base/dao/impl/AbstractHibernateBaseDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/user/dao/impl/UnifiedUserDaoImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="317">
-          <caret line="37" column="17" lean-forward="true" selection-start-line="37" selection-start-column="17" selection-end-line="37" selection-end-column="17" />
-          <folding>
-            <element signature="e#598#599#0" expanded="false" />
-            <element signature="e#663#664#0" expanded="false" />
-            <element signature="e#1209#1210#0" expanded="false" />
-            <element signature="e#1239#1240#0" expanded="false" />
-            <element signature="e#1646#1647#0" expanded="false" />
-            <element signature="e#1686#1687#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/web/member/action/LoginAct.java">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/thirdparty/pdfjs/build/pdf.worker.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="326">
-          <caret line="75" column="1" lean-forward="true" selection-start-line="75" selection-start-column="1" selection-end-line="75" selection-end-column="1" />
-          <folding />
+          <caret line="13442" column="19" selection-start-line="13442" selection-start-column="19" selection-end-line="13442" selection-end-column="19" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/user/entity/CmsUserSite.java">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/thirdparty/pdfjs/web/chrome-i18n-allow-access-to-file-urls.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-726">
-          <caret line="14" column="3" lean-forward="true" selection-start-line="14" selection-start-column="3" selection-end-line="14" selection-end-column="3" />
-          <folding />
+        <state relative-caret-position="-1434" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/thirdparty/pdfjs/web/locale/zh-CN/viewer.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="339">
+          <caret line="136" lean-forward="true" selection-start-line="136" selection-end-line="136" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/user/entity/CmsUser.java">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/META-INF/MANIFEST.MF">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3300">
-          <caret line="40" column="0" lean-forward="true" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="99">
+          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/cms/user/entity/UnifiedUser.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot/2.0.5.RELEASE/spring-boot-2.0.5.RELEASE-sources.jar!/org/springframework/boot/SpringBootConfiguration.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1188">
-          <caret line="11" column="25" lean-forward="true" selection-start-line="11" selection-start-column="25" selection-end-line="11" selection-end-column="25" />
-          <folding />
+        <state relative-caret-position="273">
+          <caret line="43" column="21" lean-forward="true" selection-start-line="43" selection-start-column="21" selection-end-line="43" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/core/config/DateTypeEditor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="359">
+          <caret line="19" column="15" selection-start-line="19" selection-start-column="15" selection-end-line="19" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/core/config/GlobalExeptionHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="348">
+          <caret line="25" column="1" lean-forward="true" selection-start-line="25" selection-start-column="1" selection-end-line="25" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot/2.0.5.RELEASE/spring-boot-2.0.5.RELEASE-sources.jar!/org/springframework/boot/SpringApplicationRunListeners.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="227">
+          <caret line="46" column="41" selection-start-line="46" selection-start-column="41" selection-end-line="46" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot/2.0.5.RELEASE/spring-boot-2.0.5.RELEASE-sources.jar!/org/springframework/boot/SpringApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="219">
+          <caret line="330" column="21" lean-forward="true" selection-start-line="330" selection-start-column="21" selection-end-line="330" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/5.0.9.RELEASE/spring-web-5.0.9.RELEASE-sources.jar!/org/springframework/web/bind/annotation/RestController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="30" column="6" lean-forward="true" selection-start-line="30" selection-start-column="6" selection-end-line="30" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-autoconfigure/2.0.5.RELEASE/spring-boot-autoconfigure-2.0.5.RELEASE-sources.jar!/org/springframework/boot/autoconfigure/EnableAutoConfiguration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="329">
+          <caret line="75" column="35" lean-forward="true" selection-start-line="75" selection-start-column="35" selection-end-line="75" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-autoconfigure/2.0.5.RELEASE/spring-boot-autoconfigure-2.0.5.RELEASE-sources.jar!/org/springframework/boot/autoconfigure/SpringBootApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="326">
+          <caret line="56" column="7" lean-forward="true" selection-start-line="56" selection-start-column="7" selection-end-line="56" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="4" column="22" lean-forward="true" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot/2.0.5.RELEASE/spring-boot-2.0.5.RELEASE-sources.jar!/org/springframework/boot/web/servlet/ServletComponentScan.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="56" column="34" selection-start-line="56" selection-start-column="34" selection-end-line="56" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/manage/ManageController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="362">
+          <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot/2.0.5.RELEASE/spring-boot-2.0.5.RELEASE-sources.jar!/org/springframework/boot/web/servlet/support/SpringBootServletInitializer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="47" column="3" lean-forward="true" selection-start-line="47" selection-start-column="3" selection-end-line="47" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/core/config/ApplicationConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="348">
+          <caret line="96" lean-forward="true" selection-start-line="96" selection-end-line="96" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="372">
+          <caret line="59" column="22" selection-start-line="59" selection-start-column="16" selection-end-line="59" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/core/config/WebMvcConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="744">
+          <caret line="112" lean-forward="true" selection-start-line="112" selection-end-line="112" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfly/common/ipseek/IpSeekerImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="88" column="9" selection-start-line="88" selection-start-column="9" selection-end-line="88" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/CmsApp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1830,7 +1582,7 @@
       <state key="ArtifactsStructureConfigurable.UI">
         <settings>
           <artifact-editor />
-          <last-edited>jeecmsv9f:war exploded</last-edited>
+          <last-edited>cms:war exploded</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -1914,7 +1666,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>Maven: antlr:antlr:2.7.7</last-edited>
+          <last-edited>Maven: com.fasterxml.jackson.core:jackson-core:2.9.6</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
