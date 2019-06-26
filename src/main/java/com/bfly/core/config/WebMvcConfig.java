@@ -1,5 +1,6 @@
 package com.bfly.core.config;
 
+import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.bfly.core.interceptor.ManageInterceptor;
 import com.bfly.core.interceptor.MemberApiInterceptor;
 import com.bfly.core.interceptor.WebContextInterceptor;
@@ -12,23 +13,23 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.HttpRequestHandler;
-import org.springframework.web.bind.support.WebBindingInitializer;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.handler.SimpleUrlHandlerMapping;
-import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import org.springframework.web.servlet.resource.DefaultServletHttpRequestHandler;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
 import javax.servlet.ServletContext;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Servlet系统上下文配置
@@ -44,6 +45,18 @@ public class WebMvcConfig implements WebMvcConfigurer {
     private ManageInterceptor manageInterceptor;
     private MemberApiInterceptor memberInterceptor;
 
+    @Value("#{'${spring.resource.suffix}'.split(',')}")
+    private List<String> suffixs;
+
+    @Value("${spring.cors.origins}")
+    private List<String> origins;
+
+    @Value("${spring.cors.headers}")
+    private List<String> headers;
+
+    @Value("${spring.cors.maxage}")
+    private long maxAge;
+
     @Autowired
     public WebMvcConfig(WebContextInterceptor frontContextInterceptor, ManageInterceptor manageInterceptor, MemberApiInterceptor memberInterceptor) {
         this.frontContextInterceptor = frontContextInterceptor;
@@ -58,8 +71,32 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addInterceptor(frontContextInterceptor).addPathPatterns("/**");
     }
 
-    @Value("#{'${spring.resource.suffix}'.split(',')}")
-    private List<String> suffixs;
+    @Override
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        FastJsonHttpMessageConverter fastJsonHttpMessageConverter = new FastJsonHttpMessageConverter();
+        fastJsonHttpMessageConverter.setSupportedMediaTypes(new ArrayList<MediaType>() {{
+            add(MediaType.APPLICATION_JSON_UTF8);
+        }});
+        converters.add(fastJsonHttpMessageConverter);
+    }
+
+    @Bean
+    public CorsConfiguration corsConfig() {
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowedHeaders(this.headers);
+        config.addAllowedMethod("*");
+        config.setAllowCredentials(true);
+        config.setAllowedOrigins(this.origins);
+        config.setMaxAge(this.maxAge);
+        return config;
+    }
+
+    @Bean
+    public CorsFilter corsFilter(CorsConfiguration corsConfig) {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", corsConfig);
+        return new CorsFilter(source);
+    }
 
     /**
      * @author andy_hulibo@163.com
@@ -78,25 +115,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
         handlerMapping.setOrder(Integer.MIN_VALUE);
         handlerMapping.setUrlMap(urlMap);
         return handlerMapping;
-    }
-
-    /**
-     * 初始化数据绑定
-     * 可能request提交过来的date为空字符会自动转换或去掉
-     *
-     * @author andy_hulibo@163.com
-     * @date 2018/12/6 15:36
-     */
-    @Bean
-    public WebBindingInitializer bindingInitializer() {
-        return (binder) -> binder.registerCustomEditor(Date.class, new DateTypeEditor());
-    }
-
-    @Bean
-    public RequestMappingHandlerAdapter requestMappingHandlerAdapter(WebBindingInitializer bindingInitializer) {
-        RequestMappingHandlerAdapter adapter = new RequestMappingHandlerAdapter();
-        adapter.setWebBindingInitializer(bindingInitializer);
-        return adapter;
     }
 
     /**

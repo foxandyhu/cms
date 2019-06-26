@@ -14,7 +14,7 @@ import java.io.Serializable;
 public class ResponseData implements Serializable {
 
     private static final long serialVersionUID = -6507444341663513311L;
-
+    private static final int SUCCESS = 1, FAIL = -1;
     /**
      * 错误码
      */
@@ -37,17 +37,9 @@ public class ResponseData implements Serializable {
      * @date 2018/12/6 16:52
      */
     public static String getSuccess(Object msg) {
-        return JsonUtil.toJsonStringFilterPropter(new ResponseData(null, msg), "").toJSONString();
-    }
-
-    /**
-     * 请求失败，返回未加密的JSON数据
-     *
-     * @author andy_hulibo@163.com
-     * @date 2018/12/6 16:50
-     */
-    public static String getFail(Object msg) {
-        return getFail(msg);
+        ResponseData data = new ResponseData(null, msg);
+        data.setStatus(SUCCESS);
+        return JsonUtil.toJsonStringFilterPropter(data, "").toJSONString();
     }
 
     /**
@@ -59,20 +51,14 @@ public class ResponseData implements Serializable {
     public static String getFail(SysError error, Object msg) {
         error = error == null ? SysError.ERROR : error;
         msg = msg == null ? error.getMessage() : msg;
-        return JsonUtil.toJsonStringFilterPropter(new ResponseData(error.getCode(), msg), "").toJSONString();
+        ResponseData data = new ResponseData(error.getCode(), msg);
+        data.setStatus(FAIL);
+        return JsonUtil.toJsonStringFilterPropter(data, "").toJSONString();
     }
 
     public ResponseData(String code, Object msg) {
         this.errorCode = code;
         this.message = msg;
-    }
-
-    public String getErrorCode() {
-        return errorCode;
-    }
-
-    public void setErrorCode(String errorCode) {
-        this.errorCode = errorCode;
     }
 
     public Object getMessage() {

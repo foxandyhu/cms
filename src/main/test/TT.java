@@ -4,7 +4,6 @@ import com.bfly.cms.member.service.IMemberService;
 import com.bfly.cms.user.entity.User;
 import com.bfly.cms.user.entity.UserRole;
 import com.bfly.cms.user.service.IUserService;
-import com.bfly.common.page.Pager;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +31,7 @@ public class TT {
     public void list() {
         List<User> list = userService.getList();
         for (User user : list) {
-            System.out.println(user.getUsername());
+            System.out.println(user.getUserName());
             for (UserRole role : user.getRoles()) {
                 System.out.println(role.getName());
             }
@@ -48,9 +47,8 @@ public class TT {
     @Transactional
     public void add() {
         User user = new User();
-        user.setUsername("hulibo");
+        user.setUserName("hulibo");
         user.setPassword("hulibo");
-        user.setSessionId("ssssssssssssss");
         userService.save(user);
     }
 
@@ -61,7 +59,7 @@ public class TT {
         property.put("username", "admin");
         property.put("id", 1);
         User user = userService.get(property);
-        System.out.println(user.getUsername());
+        System.out.println(user.getUserName());
     }
 
     @Test

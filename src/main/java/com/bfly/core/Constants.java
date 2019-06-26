@@ -33,4 +33,12 @@ public class Constants {
      */
     public static final String MEMBER_LOGIN_KEY = "_member_key_";
 
+    /**
+     * 后台登录返回给客户端的标识
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/6/24 11:35
+     */
+    public static final String APP_AUTH = "_app_auth_";
+
 }

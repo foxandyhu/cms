@@ -46,7 +46,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, Integer> implements I
         Assert.notNull(user, "用户信息为空!");
 
         User orUser = get(new HashMap<String, Object>(1) {{
-            put("username", user.getUsername());
+            put("username", user.getUserName());
         }});
         Assert.notNull(orUser, "不能存在该用户!");
 
@@ -60,7 +60,6 @@ public class UserServiceImpl extends BaseServiceImpl<User, Integer> implements I
         user.setRegisterTime(orUser.getRegisterTime());
         user.setLastLoginIp(orUser.getLastLoginIp());
         user.setLastLoginTime(orUser.getLastLoginTime());
-        user.setSessionId(orUser.getSessionId());
         return super.edit(user);
     }
 
@@ -70,7 +69,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, Integer> implements I
         Assert.hasText(userName, "用户名不能为空!");
         Assert.hasText(password, "密码不能为空!");
         User user = get(new HashMap<String, Object>(1) {{
-            put("username", userName);
+            put("userName", userName);
         }});
         Assert.notNull(user, "用户名或密码不正确!");
 

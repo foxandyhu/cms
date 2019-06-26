@@ -1,12 +1,13 @@
 package com.bfly.manage.user;
 
+import com.alibaba.fastjson.JSONObject;
 import com.bfly.cms.user.entity.User;
 import com.bfly.cms.user.service.IUserService;
-import com.bfly.common.ContextUtil;
-import com.bfly.common.DataConvertUtils;
-import com.bfly.common.ResponseUtil;
+import com.bfly.common.*;
 import com.bfly.common.page.Pager;
+import com.bfly.core.Constants;
 import com.bfly.core.base.action.BaseManageController;
+import com.bfly.core.security.Login;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +30,40 @@ public class UserController extends BaseManageController {
 
     @Autowired
     private IUserService userService;
+
+    /**
+     * 用户登录
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/6/24 12:46
+     */
+    @PostMapping(value = "/login")
+    @Login(required = false)
+    public void login(HttpServletResponse response, @RequestBody User user) {
+        user = userService.login(user.getUserName(), user.getPassword());
+        String appAuth = StringUtil.getRandomString(32);
+        getSession().setAttribute(Constants.USER_LOGIN_KEY, user);
+        getSession().setAttribute(Constants.APP_AUTH, appAuth);
+
+        JSONObject json = new JSONObject();
+        json.put("userName", user.getUserName());
+        json.put(Constants.APP_AUTH, appAuth);
+
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(json));
+    }
+
+    /**
+     * 用户退出
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/6/25 16:34
+     */
+    @GetMapping(value = "/logout")
+    public void logout(HttpServletResponse response) {
+        getSession().invalidate();
+        System.out.println(getSession().getId());
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
+    }
 
     /**
      * 管理员列表
@@ -111,9 +146,9 @@ public class UserController extends BaseManageController {
      * @date 2018/12/10 16:00
      */
     @PostMapping(value = "/removerole")
-    public void removeRole(HttpServletRequest request, HttpServletResponse response) {
-        int userId=DataConvertUtils.convertToInteger(request.getParameter("userId"));
-        int roleId=DataConvertUtils.convertToInteger(request.getParameter("roleId"));
-        userService.recyclingRole(userId,roleId);
+    public void removeRole(HttpServletRequest request) {
+        int userId = DataConvertUtils.convertToInteger(request.getParameter("userId"));
+        int roleId = DataConvertUtils.convertToInteger(request.getParameter("roleId"));
+        userService.recyclingRole(userId, roleId);
     }
 }

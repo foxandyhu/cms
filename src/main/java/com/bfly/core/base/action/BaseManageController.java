@@ -5,9 +5,11 @@ import com.bfly.common.ResponseData;
 import com.bfly.common.ResponseUtil;
 import com.bfly.core.Constants;
 import com.bfly.core.enums.SysError;
+import com.bfly.core.exception.UnAuthException;
 import com.bfly.core.exception.WsResponseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -43,9 +45,12 @@ public class BaseManageController extends AbstractController {
     public void exceptionHandler(HttpServletResponse response, Exception e) {
         logger.error("", e);
         SysError error = SysError.ERROR;
+        response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
         if (e instanceof WsResponseException) {
             WsResponseException exception = (WsResponseException) e;
             error = SysError.get(exception.getCode());
+        }else if(e instanceof UnAuthException){
+            response.setStatus(HttpStatus.UNAUTHORIZED.value());
         }
         String data = ResponseData.getFail(error, e.getMessage());
         ResponseUtil.writeJson(response, data);

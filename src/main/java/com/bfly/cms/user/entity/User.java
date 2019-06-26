@@ -51,7 +51,7 @@ public class User implements Serializable {
      */
     @Column(name = "username")
     @NotBlank(message = "用户名不能为空!")
-    private String username;
+    private String userName;
 
     /**
      * 密码
@@ -107,12 +107,6 @@ public class User implements Serializable {
     private int status;
 
     /**
-     * session_id
-     */
-    @Column(name = "session_id")
-    private String sessionId;
-
-    /**
      * 拥有的角色
      */
     @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
@@ -128,12 +122,12 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {
@@ -198,14 +192,6 @@ public class User implements Serializable {
 
     public void setStatus(int status) {
         this.status = status;
-    }
-
-    public String getSessionId() {
-        return sessionId;
-    }
-
-    public void setSessionId(String sessionId) {
-        this.sessionId = sessionId;
     }
 
     public Set<UserRole> getRoles() {
