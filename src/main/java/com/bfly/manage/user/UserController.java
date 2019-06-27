@@ -9,6 +9,7 @@ import com.bfly.core.Constants;
 import com.bfly.core.base.action.BaseManageController;
 import com.bfly.core.context.ContextUtil;
 import com.bfly.core.context.PagerThreadLocal;
+import com.bfly.core.security.ActionModel;
 import com.bfly.core.security.Login;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -41,6 +42,7 @@ public class UserController extends BaseManageController {
      */
     @PostMapping(value = "/login")
     @Login(required = false)
+    @ActionModel("用户登录")
     public void login(HttpServletResponse response, @RequestBody User user) {
         user = userService.login(user.getUserName(), user.getPassword());
         String appAuth = StringUtil.getRandomString(32);
@@ -61,6 +63,7 @@ public class UserController extends BaseManageController {
      * @date 2019/6/25 16:34
      */
     @GetMapping(value = "/logout")
+    @ActionModel("用户登出")
     public void logout(HttpServletResponse response) {
         getSession().invalidate();
         ResponseUtil.writeJson(response, ResponseData.getSuccess(""));

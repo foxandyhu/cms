@@ -1,5 +1,4 @@
 import com.bfly.core.context.IpThreadLocal;
-import com.bfly.core.context.TestThreadLocal;
 
 public class TT2 {
 

@@ -38,6 +38,30 @@ public class IpThreadLocal implements IThreadLocalContext {
      * @date 2018/12/8 9:46
      */
     public static String get() {
-        return getInstance().getData(getInstance().threadLocalIp);
+        return get(false);
+    }
+
+    /**
+     * 从当前线程变量中获取IP,并标识是否移除数据 false表示保留
+     *
+     * @author andy_hulibo@163.com
+     * @date 2018/12/8 9:46
+     */
+    public static String get(boolean isRemove) {
+        String ip = getInstance().getData(getInstance().threadLocalIp);
+        if (!isRemove) {
+            set(ip);
+        }
+        return ip;
+    }
+
+    /**
+     * 清除数据
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/6/27 16:16
+     */
+    public static void clear() {
+        getInstance().threadLocalIp.remove();
     }
 }

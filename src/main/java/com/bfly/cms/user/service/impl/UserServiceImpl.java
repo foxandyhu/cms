@@ -6,12 +6,12 @@ import com.bfly.cms.user.dao.IUserDao;
 import com.bfly.cms.user.entity.User;
 import com.bfly.cms.user.entity.UserRole;
 import com.bfly.cms.user.service.IUserService;
-import com.bfly.common.json.JsonUtil;
-import com.bfly.core.context.ContextUtil;
+import com.bfly.core.Constants;
 import com.bfly.core.base.service.impl.BaseServiceImpl;
 import com.bfly.core.context.IpThreadLocal;
 import com.bfly.core.context.ServletRequestThreadLocal;
 import com.bfly.core.security.Md5PwdEncoder;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -79,14 +79,14 @@ public class UserServiceImpl extends BaseServiceImpl<User, Integer> implements I
         User user = get(new HashMap<String, Object>(1) {{
             put("userName", userName);
         }});
-        Assert.notNull(user, "用户名或密码不正确!");
+        Assert.notNull(user, "用户名或密码错误!");
 
         boolean flag = new Md5PwdEncoder().isPasswordValid(user.getPassword(), password);
         Assert.isTrue(flag, "用户名或密码错误!");
         Assert.isTrue(User.UNCHECK_STATUS != user.getStatus(), "此账号正在审核中!");
         Assert.isTrue(User.DISABLE_STATUS != user.getStatus(), "此账号已被禁用!");
         updateLoginInfo(user);
-        saveLoginLogs();
+        saveLoginLogs(userName);
         return user;
     }
 
@@ -96,13 +96,16 @@ public class UserServiceImpl extends BaseServiceImpl<User, Integer> implements I
      * @author andy_hulibo@163.com
      * @date 2019/6/26 18:33
      */
-    private void saveLoginLogs() {
+    private void saveLoginLogs(String userName) {
         HttpServletRequest request = ServletRequestThreadLocal.get();
         SysLog log = new SysLog();
         log.setTime(new Date());
         log.setTitle("用户登录");
-        log.setUrl(request.getRequestURI());
-        log.setContent(JsonUtil.toJsonFilterPropter(request.getParameterMap()).toJSONString());
+        log.setUserName(userName);
+        log.setIp(IpThreadLocal.get());
+        log.setUrl(request.getRequestURL().toString());
+        log.setSuccess(true);
+        log.setContent(null);
         sysLogService.save(log);
     }
 

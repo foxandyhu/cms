@@ -64,6 +64,30 @@ public class PagerThreadLocal implements IThreadLocalContext {
      * @date 2018/12/8 20:10
      */
     public static Pager get() {
-        return getInstance().getData(getInstance().threadLocalPager);
+        return get(false);
+    }
+
+    /**
+     * 从当前线程变量中获取分页对象,并标识是否移除数据 false表示保留 默认true
+     *
+     * @author andy_hulibo@163.com
+     * @date 2018/12/8 9:46
+     */
+    public static Pager get(boolean isRemove) {
+        Pager pager = getInstance().getData(getInstance().threadLocalPager);
+        if (!isRemove) {
+            set(pager);
+        }
+        return pager;
+    }
+
+    /**
+     * 清除数据
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/6/27 16:16
+     */
+    public static void clear() {
+        getInstance().threadLocalPager.remove();
     }
 }

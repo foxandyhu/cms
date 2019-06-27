@@ -40,6 +40,30 @@ public class ServletRequestThreadLocal implements IThreadLocalContext {
      * @date 2018/12/8 9:46
      */
     public static HttpServletRequest get() {
-        return getInstance().getData(getInstance().threadLocalServletRequest);
+        return get(false);
+    }
+
+    /**
+     * 从当前线程变量中获取HttpServletRequest,并标识是否移除数据 false表示保留 默认true
+     *
+     * @author andy_hulibo@163.com
+     * @date 2018/12/8 9:46
+     */
+    public static HttpServletRequest get(boolean isRemove) {
+        HttpServletRequest request = getInstance().getData(getInstance().threadLocalServletRequest);
+        if (!isRemove) {
+            set(request);
+        }
+        return request;
+    }
+
+    /**
+     * 清除数据
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/6/27 16:16
+     */
+    public static void clear() {
+        getInstance().threadLocalServletRequest.remove();
     }
 }

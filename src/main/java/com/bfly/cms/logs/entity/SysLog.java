@@ -60,6 +60,9 @@ public class SysLog implements Serializable {
     @Column(name = "username")
     private String userName;
 
+    @Column(name = "is_success")
+    private boolean success;
+
 
     public int getId() {
         return id;
@@ -115,5 +118,13 @@ public class SysLog implements Serializable {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
     }
 }

@@ -3,6 +3,7 @@ package com.bfly.core.interceptor;
 import com.bfly.cms.user.entity.User;
 import com.bfly.common.reflect.ReflectUtils;
 import com.bfly.core.Constants;
+import com.bfly.core.context.*;
 import com.bfly.core.exception.UnAuthException;
 import com.bfly.core.security.Login;
 import org.springframework.stereotype.Component;
@@ -35,6 +36,10 @@ public class ManageInterceptor extends HandlerInterceptorAdapter {
         if (handler instanceof HandlerMethod) {
             HandlerMethod handlerMethod = (HandlerMethod) handler;
             Method method = handlerMethod.getMethod();
+
+            IpThreadLocal.set(ContextUtil.getClientIp(request));
+            ServletRequestThreadLocal.set(request);
+
             if (needLogin(method)) {
                 String appAuth = request.getHeader(Constants.APP_AUTH);
                 if (appAuth == null) {
@@ -45,6 +50,7 @@ public class ManageInterceptor extends HandlerInterceptorAdapter {
                     throw new UnAuthException("未授权!");
                 }
                 User admin = (User) request.getSession().getAttribute(Constants.USER_LOGIN_KEY);
+                UserThreadLocal.set(admin);
                 if (admin == null) {
                     throw new UnAuthException("未授权!");
                 }
@@ -54,6 +60,14 @@ public class ManageInterceptor extends HandlerInterceptorAdapter {
             }
         }
         return true;
+    }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+        IpThreadLocal.clear();
+        ServletRequestThreadLocal.clear();
+        UserThreadLocal.clear();
+        PagerThreadLocal.clear();
     }
 
     /**
