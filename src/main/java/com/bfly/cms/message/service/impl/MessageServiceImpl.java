@@ -3,9 +3,10 @@ package com.bfly.cms.message.service.impl;
 import com.bfly.cms.message.dao.IMessageDao;
 import com.bfly.cms.message.entity.Message;
 import com.bfly.cms.message.service.IMessageService;
-import com.bfly.common.ContextUtil;
+import com.bfly.core.context.ContextUtil;
 import com.bfly.common.page.Pager;
 import com.bfly.core.base.service.impl.BaseServiceImpl;
+import com.bfly.core.context.PagerThreadLocal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
@@ -30,7 +31,7 @@ public class MessageServiceImpl extends BaseServiceImpl<Message, Integer> implem
 
     @Override
     public Pager getPage(Map<String, Object> property) {
-        Pager pager = ContextUtil.getPager();
+        Pager pager = PagerThreadLocal.get();
         String beginSendTime = "beginSendTime", endSendTime = "endSendTime";
         Object beginTime = property == null ? null : property.get(beginSendTime), endTime = property == null ? null : property.get(endSendTime);
         if (property != null) {

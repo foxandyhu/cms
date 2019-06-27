@@ -1,20 +1,31 @@
-import com.bfly.common.DataConvertUtils;
-
-import java.util.HashMap;
-import java.util.Map;
+import com.bfly.core.context.IpThreadLocal;
+import com.bfly.core.context.TestThreadLocal;
 
 public class TT2 {
 
     public static void main(String[] args) {
-        Map<String, Object> map1 = new HashMap<>();
-        map1.put("a", 1);
-        map1.put("b", 2);
 
-        Map<String, Object> map2 = new HashMap<>();
-        map2.putAll(map1);
-        map2.remove("sa");
+        for (int i = 0; i < 2; i++) {
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    for(int j=0;j<10;j++){
+                        IpThreadLocal.set(IpThreadLocal.get() + 1);
+                        System.out.println(Thread.currentThread().getId()+" >> "+ IpThreadLocal.get());
+                    }
+                }
+            });
+            thread.start();
+        }
 
-        System.out.println(map1.get("dd"));
-
+//        Bank bank=new Bank();
+//        Transfer transfer=new Transfer(bank);
+//        Thread t1=new Thread(transfer);
+//        t1.start();
+//
+//        Thread t2=new Thread(transfer);
+//        t2.start();
+//
+//        System.out.println(bank.get()+">>>>>>>>>");
     }
 }

@@ -1,11 +1,16 @@
 package com.bfly.cms.user.service.impl;
 
+import com.bfly.cms.logs.entity.SysLog;
+import com.bfly.cms.logs.service.ISysLogService;
 import com.bfly.cms.user.dao.IUserDao;
 import com.bfly.cms.user.entity.User;
 import com.bfly.cms.user.entity.UserRole;
 import com.bfly.cms.user.service.IUserService;
-import com.bfly.common.ContextUtil;
+import com.bfly.common.json.JsonUtil;
+import com.bfly.core.context.ContextUtil;
 import com.bfly.core.base.service.impl.BaseServiceImpl;
+import com.bfly.core.context.IpThreadLocal;
+import com.bfly.core.context.ServletRequestThreadLocal;
 import com.bfly.core.security.Md5PwdEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Set;
@@ -27,13 +33,15 @@ public class UserServiceImpl extends BaseServiceImpl<User, Integer> implements I
 
     @Autowired
     private IUserDao userDao;
+    @Autowired
+    private ISysLogService sysLogService;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean save(User user) {
         Assert.notNull(user, "用户信息为空!");
         user.setRegisterTime(new Date());
-        user.setRegisterIp(ContextUtil.getIpFromThreadLocal());
+        user.setRegisterIp(IpThreadLocal.get());
         //默认账号可用
         user.setStatus(User.AVAILABLE_STATUS);
         user.setPassword(new Md5PwdEncoder().encodePassword(user.getPassword()));
@@ -78,7 +86,24 @@ public class UserServiceImpl extends BaseServiceImpl<User, Integer> implements I
         Assert.isTrue(User.UNCHECK_STATUS != user.getStatus(), "此账号正在审核中!");
         Assert.isTrue(User.DISABLE_STATUS != user.getStatus(), "此账号已被禁用!");
         updateLoginInfo(user);
+        saveLoginLogs();
         return user;
+    }
+
+    /**
+     * 保存登录信息
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/6/26 18:33
+     */
+    private void saveLoginLogs() {
+        HttpServletRequest request = ServletRequestThreadLocal.get();
+        SysLog log = new SysLog();
+        log.setTime(new Date());
+        log.setTitle("用户登录");
+        log.setUrl(request.getRequestURI());
+        log.setContent(JsonUtil.toJsonFilterPropter(request.getParameterMap()).toJSONString());
+        sysLogService.save(log);
     }
 
     /**
@@ -89,7 +114,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, Integer> implements I
      */
     protected void updateLoginInfo(User user) {
         user.setLastLoginTime(new Date());
-        user.setLastLoginIp(ContextUtil.getIpFromThreadLocal());
+        user.setLastLoginIp(IpThreadLocal.get());
         super.edit(user);
     }
 

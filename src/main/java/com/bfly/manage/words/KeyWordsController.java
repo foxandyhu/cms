@@ -2,11 +2,12 @@ package com.bfly.manage.words;
 
 import com.bfly.cms.words.entity.Keywords;
 import com.bfly.cms.words.service.IKeyWordsService;
-import com.bfly.common.ContextUtil;
+import com.bfly.core.context.ContextUtil;
 import com.bfly.common.DataConvertUtils;
 import com.bfly.common.ResponseUtil;
 import com.bfly.common.page.Pager;
 import com.bfly.core.base.action.BaseManageController;
+import com.bfly.core.context.PagerThreadLocal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,7 +39,7 @@ public class KeyWordsController extends BaseManageController {
      */
     @GetMapping(value = "/list")
     public void listKeyWords(HttpServletResponse response) {
-        ContextUtil.initPager(getRequest());
+        PagerThreadLocal.set(getRequest());
         Pager pager = keyWordsService.getPage(null);
         ResponseUtil.writeJson(response, pager);
     }

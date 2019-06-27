@@ -7,8 +7,9 @@ import com.bfly.cms.comment.service.ICommentService;
 import com.bfly.cms.member.entity.Member;
 import com.bfly.cms.member.service.IMemberService;
 import com.bfly.cms.user.service.IUserService;
-import com.bfly.common.ContextUtil;
+import com.bfly.core.context.ContextUtil;
 import com.bfly.core.base.service.impl.BaseServiceImpl;
+import com.bfly.core.context.IpThreadLocal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -69,7 +70,7 @@ public class CommentServiceImpl extends BaseServiceImpl<Comment, Integer> implem
 
         CommentExt replyExt = new CommentExt();
         replyExt.setText(content);
-        replyExt.setIp(ContextUtil.getIpFromThreadLocal());
+        replyExt.setIp(IpThreadLocal.get());
         replyComment.setCommentExt(replyExt);
         //会员回复的评论需要审核 管理员回复的评论不需要审核
         if (replyerId >= Member.MEMBER_ID_BEGIN) {

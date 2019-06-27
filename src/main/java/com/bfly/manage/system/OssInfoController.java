@@ -2,11 +2,12 @@ package com.bfly.manage.system;
 
 import com.bfly.cms.system.entity.OssInfo;
 import com.bfly.cms.system.service.IOssInfoService;
-import com.bfly.common.ContextUtil;
+import com.bfly.core.context.ContextUtil;
 import com.bfly.common.DataConvertUtils;
 import com.bfly.common.ResponseUtil;
 import com.bfly.common.page.Pager;
 import com.bfly.core.base.action.BaseManageController;
+import com.bfly.core.context.PagerThreadLocal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +36,7 @@ public class OssInfoController extends BaseManageController {
      */
     @GetMapping(value = "/list")
     public void listOssInfo(HttpServletResponse response) {
-        ContextUtil.initPager(getRequest());
+        PagerThreadLocal.set(getRequest());
         Pager pager = ossInfoService.getPage(null);
         ResponseUtil.writeJson(response, pager);
     }

@@ -1,12 +1,13 @@
 package com.bfly.manage.message;
 
 import com.bfly.cms.message.service.IMessageService;
-import com.bfly.common.ContextUtil;
+import com.bfly.core.context.ContextUtil;
 import com.bfly.common.DataConvertUtils;
 import com.bfly.common.DateUtil;
 import com.bfly.common.ResponseUtil;
 import com.bfly.common.page.Pager;
 import com.bfly.core.base.action.BaseManageController;
+import com.bfly.core.context.PagerThreadLocal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,7 +39,7 @@ public class MessageController extends BaseManageController {
      */
     @GetMapping("/list")
     public void listMessage(HttpServletRequest request, HttpServletResponse response) {
-        ContextUtil.initPager(request);
+        PagerThreadLocal.set(request);
         Map<String, Object> property = new HashMap<String, Object>(3) {
             private static final long serialVersionUID = -9126101626116724049L;
 

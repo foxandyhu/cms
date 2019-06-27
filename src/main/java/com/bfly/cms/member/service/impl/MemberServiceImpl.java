@@ -2,8 +2,9 @@ package com.bfly.cms.member.service.impl;
 
 import com.bfly.cms.member.entity.Member;
 import com.bfly.cms.member.service.IMemberService;
-import com.bfly.common.ContextUtil;
+import com.bfly.core.context.ContextUtil;
 import com.bfly.core.base.service.impl.BaseServiceImpl;
+import com.bfly.core.context.IpThreadLocal;
 import com.bfly.core.security.Md5PwdEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -54,7 +55,7 @@ public class MemberServiceImpl extends BaseServiceImpl<Member, Integer> implemen
         if (loginSuccess) {
             member.setLoginCount(member.getLoginCount() + 1);
             member.setLastLoginTime(new Date());
-            member.setLastLoginIp(ContextUtil.getIpFromThreadLocal());
+            member.setLastLoginIp(IpThreadLocal.get());
             member.setErrorTime(null);
             member.setErrorIp(null);
             member.setErrorCount(0);
@@ -62,7 +63,7 @@ public class MemberServiceImpl extends BaseServiceImpl<Member, Integer> implemen
             member.setLastLoginTime(null);
             member.setLastLoginIp(null);
             member.setErrorTime(new Date());
-            member.setErrorIp(ContextUtil.getIpFromThreadLocal());
+            member.setErrorIp(IpThreadLocal.get());
             member.setErrorCount(member.getErrorCount() + 1);
         }
         super.edit(member);

@@ -2,11 +2,12 @@ package com.bfly.manage.content;
 
 import com.bfly.cms.content.entity.ContentType;
 import com.bfly.cms.content.service.IContentTypeService;
-import com.bfly.common.ContextUtil;
+import com.bfly.core.context.ContextUtil;
 import com.bfly.common.DataConvertUtils;
 import com.bfly.common.ResponseUtil;
 import com.bfly.common.page.Pager;
 import com.bfly.core.base.action.BaseManageController;
+import com.bfly.core.context.PagerThreadLocal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -36,7 +37,7 @@ public class ContentTypeController extends BaseManageController {
      */
     @GetMapping(value = "/list")
     public void listContentType(HttpServletResponse response) {
-        ContextUtil.initPager(getRequest());
+        PagerThreadLocal.set(getRequest());
         Pager pager = contentTypeService.getPage(new HashMap<String, Object>(1) {
             private static final long serialVersionUID = 8771067789868205257L;
 

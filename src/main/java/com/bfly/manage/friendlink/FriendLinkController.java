@@ -2,11 +2,12 @@ package com.bfly.manage.friendlink;
 
 import com.bfly.cms.friendlink.entity.FriendLink;
 import com.bfly.cms.friendlink.service.IFriendLinkService;
-import com.bfly.common.ContextUtil;
+import com.bfly.core.context.ContextUtil;
 import com.bfly.common.DataConvertUtils;
 import com.bfly.common.ResponseUtil;
 import com.bfly.common.page.Pager;
 import com.bfly.core.base.action.BaseManageController;
+import com.bfly.core.context.PagerThreadLocal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -38,7 +39,7 @@ public class FriendLinkController extends BaseManageController {
      */
     @GetMapping("/list")
     public void listFriendLink(HttpServletRequest request, HttpServletResponse response) {
-        ContextUtil.initPager(request);
+        PagerThreadLocal.set(request);
         Map<String, Object> property = new HashMap<String, Object>(3) {
             private static final long serialVersionUID = -9126101626116724049L;
 

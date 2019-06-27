@@ -2,11 +2,11 @@ package com.bfly.manage.ad;
 
 import com.bfly.cms.ad.entity.AdvertisingSpace;
 import com.bfly.cms.ad.service.IAdvertisingSpaceService;
-import com.bfly.common.ContextUtil;
 import com.bfly.common.DataConvertUtils;
 import com.bfly.common.ResponseUtil;
 import com.bfly.common.page.Pager;
 import com.bfly.core.base.action.BaseManageController;
+import com.bfly.core.context.PagerThreadLocal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -36,7 +36,7 @@ public class AdvertisingSpaceController extends BaseManageController {
      */
     @GetMapping("/list")
     public void listAdvertisingSpace(HttpServletRequest request, HttpServletResponse response) {
-        ContextUtil.initPager(request);
+        PagerThreadLocal.set(request);
         Pager pager = advertisingSpaceService.getPage(null);
         ResponseUtil.writeJson(response, pager);
     }

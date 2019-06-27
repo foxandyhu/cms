@@ -1,9 +1,10 @@
 package com.bfly.core.base.service.impl;
 
-import com.bfly.common.ContextUtil;
+import com.bfly.core.context.ContextUtil;
 import com.bfly.common.page.Pager;
 import com.bfly.core.base.dao.IBaseDao;
 import com.bfly.core.base.service.IBaseService;
+import com.bfly.core.context.PagerThreadLocal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
@@ -84,7 +85,7 @@ public abstract class BaseServiceImpl<T, ID> implements IBaseService<T, ID> {
 
     @Override
     public Pager getPage(Map<String, Object> property) {
-        Pager pager = ContextUtil.getPager();
+        Pager pager = PagerThreadLocal.get();
         Assert.notNull(pager, "分页器没有实例化");
 
         Page<T> page = baseDao.findAll(getSpecification(property, false), getPageRequest(pager));

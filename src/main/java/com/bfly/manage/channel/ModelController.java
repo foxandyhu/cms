@@ -2,11 +2,11 @@ package com.bfly.manage.channel;
 
 import com.bfly.cms.channel.entity.Model;
 import com.bfly.cms.channel.service.IModelService;
-import com.bfly.common.ContextUtil;
 import com.bfly.common.DataConvertUtils;
 import com.bfly.common.ResponseUtil;
 import com.bfly.common.page.Pager;
 import com.bfly.core.base.action.BaseManageController;
+import com.bfly.core.context.PagerThreadLocal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +35,7 @@ public class ModelController extends BaseManageController {
      */
     @GetMapping(value = "/list")
     public void listModel(HttpServletResponse response) {
-        ContextUtil.initPager(getRequest());
+        PagerThreadLocal.set(getRequest());
         Pager pager = modelService.getPage(null);
         ResponseUtil.writeJson(response, pager);
     }

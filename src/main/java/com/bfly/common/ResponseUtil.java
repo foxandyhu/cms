@@ -83,7 +83,7 @@ public class ResponseUtil {
         } else if (data instanceof String) {
             dataStr = (String) data;
         } else {
-            dataStr = JsonUtil.toJsonStringFilterPropter(data).toJSONString();
+            dataStr = JsonUtil.toJsonFilterPropter(data).toJSONString();
         }
         writeData(response, dataStr, "application/json");
     }

@@ -7,8 +7,9 @@ import com.bfly.cms.comment.service.IGuestBookService;
 import com.bfly.cms.member.entity.Member;
 import com.bfly.cms.member.service.IMemberService;
 import com.bfly.cms.user.service.IUserService;
-import com.bfly.common.ContextUtil;
+import com.bfly.core.context.ContextUtil;
 import com.bfly.core.base.service.impl.BaseServiceImpl;
+import com.bfly.core.context.IpThreadLocal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -64,7 +65,7 @@ public class GuestBookServiceImpl extends BaseServiceImpl<GuestBook, Integer> im
 
         GuestBook replyGuestBook = new GuestBook();
         replyGuestBook.setCreateTime(new Date());
-        replyGuestBook.setIp(ContextUtil.getIpFromThreadLocal());
+        replyGuestBook.setIp(IpThreadLocal.get());
         replyGuestBook.setParent(guestBook);
         replyGuestBook.setType(guestBook.getType());
 

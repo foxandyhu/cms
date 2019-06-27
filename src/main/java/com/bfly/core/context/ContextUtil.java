@@ -1,6 +1,6 @@
-package com.bfly.common;
+package com.bfly.core.context;
 
-import com.bfly.common.page.Pager;
+import com.bfly.common.StringUtil;
 import com.bfly.core.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,82 +19,6 @@ import java.net.URLDecoder;
 public class ContextUtil {
 
     private static Logger logger = LoggerFactory.getLogger(ContextUtil.class);
-
-    private static ThreadLocal<String> threadLocalIp = new ThreadLocal<>();
-    private static ThreadLocal<Pager> threadLocalPager = new ThreadLocal<>();
-
-    /**
-     * 初始化分页器
-     *
-     * @author andy_hulibo@163.com
-     * @date 2018/12/8 20:22
-     */
-    public static void initPager(HttpServletRequest request) {
-        initPager(request, Pager.DEF_COUNT);
-    }
-
-    /**
-     * 实例化Pager对象
-     *
-     * @author andy_hulibo@163.com
-     * @date 2018/12/8 20:28
-     */
-    public static void initPager(HttpServletRequest request, int rows) {
-        int page = DataConvertUtils.convertToInteger(request.getParameter("pageNo"));
-        setPager(new Pager(page, rows, Integer.MAX_VALUE));
-    }
-
-    /**
-     * 把分页对象放到当前线程中
-     *
-     * @author andy_hulibo@163.com
-     * @date 2018/12/8 20:09
-     */
-    public static void setPager(Pager pager) {
-        threadLocalPager.set(pager);
-    }
-
-    /**
-     * 得到当前线程变量中的分页对象
-     *
-     * @author andy_hulibo@163.com
-     * @date 2018/12/8 20:10
-     */
-    public static Pager getPager() {
-        return getDataFromThreadLocal(threadLocalPager);
-    }
-
-    /**
-     * 设置IP到当前线程变量中
-     *
-     * @author andy_hulibo@163.com
-     * @date 2018/12/8 9:45
-     */
-    public static void putIpToThreadLocal(String ip) {
-        threadLocalIp.set(ip);
-    }
-
-    /**
-     * 从当前线程变量中获取IP
-     *
-     * @author andy_hulibo@163.com
-     * @date 2018/12/8 9:46
-     */
-    public static String getIpFromThreadLocal() {
-        return getDataFromThreadLocal(threadLocalIp);
-    }
-
-    private static <T> T getDataFromThreadLocal(ThreadLocal<T> threadLocal) {
-        T data = null;
-        try {
-            data = threadLocal.get();
-        } catch (Exception ex) {
-            logger.error("从线程变量获取对象出错", ex);
-        } finally {
-            threadLocal.remove();
-        }
-        return data;
-    }
 
     /**
      * 获得应用程序的根目录

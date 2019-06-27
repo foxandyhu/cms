@@ -1,11 +1,12 @@
 package com.bfly.manage.logs;
 
 import com.bfly.cms.logs.service.IMemberLogService;
-import com.bfly.common.ContextUtil;
+import com.bfly.core.context.ContextUtil;
 import com.bfly.common.DataConvertUtils;
 import com.bfly.common.ResponseUtil;
 import com.bfly.common.page.Pager;
 import com.bfly.core.base.action.BaseManageController;
+import com.bfly.core.context.PagerThreadLocal;
 import com.bfly.core.enums.LogsType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,7 +38,7 @@ public class MemberLogController extends BaseManageController {
      */
     @PostMapping(value = "/list")
     public void listMemberLog(HttpServletRequest request, HttpServletResponse response) {
-        ContextUtil.initPager(request);
+        PagerThreadLocal.set(request);
         Pager pager = memberLogService.getPage(new HashMap<String, Object>() {
             private static final long serialVersionUID = 7479394923131466430L;
 

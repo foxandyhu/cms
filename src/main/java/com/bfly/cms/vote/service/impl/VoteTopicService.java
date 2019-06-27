@@ -4,13 +4,13 @@ import com.bfly.cms.message.entity.Message;
 import com.bfly.cms.vote.dao.IVoteTopicDao;
 import com.bfly.cms.vote.entity.VoteTopic;
 import com.bfly.cms.vote.service.IVoteTopicService;
-import com.bfly.common.ContextUtil;
+import com.bfly.core.context.ContextUtil;
 import com.bfly.common.DateUtil;
 import com.bfly.common.page.Pager;
 import com.bfly.core.base.service.impl.BaseServiceImpl;
+import com.bfly.core.context.PagerThreadLocal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,7 +34,7 @@ public class VoteTopicService extends BaseServiceImpl<VoteTopic, Integer> implem
 
     @Override
     public Pager getPage(Map<String, Object> property) {
-        Pager pager = ContextUtil.getPager();
+        Pager pager = PagerThreadLocal.get();
         String statusStr = "status";
         Specification specification = getSpecification(property, false);
         if (specification != null) {

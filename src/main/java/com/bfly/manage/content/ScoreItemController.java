@@ -2,11 +2,12 @@ package com.bfly.manage.content;
 
 import com.bfly.cms.content.entity.ScoreItem;
 import com.bfly.cms.content.service.IScoreItemService;
-import com.bfly.common.ContextUtil;
+import com.bfly.core.context.ContextUtil;
 import com.bfly.common.DataConvertUtils;
 import com.bfly.common.ResponseUtil;
 import com.bfly.common.page.Pager;
 import com.bfly.core.base.action.BaseManageController;
+import com.bfly.core.context.PagerThreadLocal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -36,7 +37,7 @@ public class ScoreItemController extends BaseManageController {
      */
     @GetMapping(value = "/list-{scoreGroupId}")
     public void listScoreItem(@PathVariable("scoreGroupId") int scoreGroupId, HttpServletResponse response) {
-        ContextUtil.initPager(getRequest());
+        PagerThreadLocal.set(getRequest());
         Pager pager = scoreItemService.getPage(new HashMap<String, Object>() {
             private static final long serialVersionUID = -3370682715204052757L;
 

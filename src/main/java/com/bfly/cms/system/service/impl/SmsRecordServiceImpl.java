@@ -4,9 +4,10 @@ import com.bfly.cms.message.entity.Message;
 import com.bfly.cms.system.dao.ISmsRecordDao;
 import com.bfly.cms.system.entity.SmsRecord;
 import com.bfly.cms.system.service.ISmsRecordService;
-import com.bfly.common.ContextUtil;
+import com.bfly.core.context.ContextUtil;
 import com.bfly.common.page.Pager;
 import com.bfly.core.base.service.impl.BaseServiceImpl;
+import com.bfly.core.context.PagerThreadLocal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
@@ -31,7 +32,7 @@ public class SmsRecordServiceImpl extends BaseServiceImpl<SmsRecord, Integer> im
 
     @Override
     public Pager getPage(Map<String, Object> property) {
-        Pager pager = ContextUtil.getPager();
+        Pager pager = PagerThreadLocal.get();
         String beginSendTime = "beginTime", endSendTime = "endTime";
         Object beginTime = property == null ? null : property.get(beginSendTime), endTime = property == null ? null : property.get(endSendTime);
         if (property != null) {

@@ -1,12 +1,13 @@
 package com.bfly.manage.system;
 
 import com.bfly.cms.system.service.ISmsRecordService;
-import com.bfly.common.ContextUtil;
+import com.bfly.core.context.ContextUtil;
 import com.bfly.common.DataConvertUtils;
 import com.bfly.common.DateUtil;
 import com.bfly.common.ResponseUtil;
 import com.bfly.common.page.Pager;
 import com.bfly.core.base.action.BaseManageController;
+import com.bfly.core.context.PagerThreadLocal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,7 +38,7 @@ public class SmsRecordController extends BaseManageController {
      */
     @GetMapping(value = "/list")
     public void listSmsRecord(HttpServletResponse response) {
-        ContextUtil.initPager(getRequest());
+        PagerThreadLocal.set(getRequest());
         Pager pager = smsRecordService.getPage(new HashMap<String, Object>(6) {
             private static final long serialVersionUID = -6334001390722788667L;
 

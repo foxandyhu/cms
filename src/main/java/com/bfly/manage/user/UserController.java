@@ -7,6 +7,8 @@ import com.bfly.common.*;
 import com.bfly.common.page.Pager;
 import com.bfly.core.Constants;
 import com.bfly.core.base.action.BaseManageController;
+import com.bfly.core.context.ContextUtil;
+import com.bfly.core.context.PagerThreadLocal;
 import com.bfly.core.security.Login;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -61,7 +63,6 @@ public class UserController extends BaseManageController {
     @GetMapping(value = "/logout")
     public void logout(HttpServletResponse response) {
         getSession().invalidate();
-        System.out.println(getSession().getId());
         ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
     }
 
@@ -73,7 +74,7 @@ public class UserController extends BaseManageController {
      */
     @GetMapping("/list")
     public void listUser(HttpServletRequest request, HttpServletResponse response) {
-        ContextUtil.initPager(request);
+        PagerThreadLocal.set(request);
         Map<String, Object> property = new HashMap<String, Object>(4) {
             private static final long serialVersionUID = 7166011434886278754L;
 

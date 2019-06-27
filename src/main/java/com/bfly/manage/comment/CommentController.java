@@ -3,11 +3,12 @@ package com.bfly.manage.comment;
 import com.bfly.cms.comment.entity.CommentConfig;
 import com.bfly.cms.comment.service.ICommentConfigService;
 import com.bfly.cms.comment.service.ICommentService;
-import com.bfly.common.ContextUtil;
+import com.bfly.core.context.ContextUtil;
 import com.bfly.common.DataConvertUtils;
 import com.bfly.common.ResponseUtil;
 import com.bfly.common.page.Pager;
 import com.bfly.core.base.action.BaseManageController;
+import com.bfly.core.context.PagerThreadLocal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
@@ -43,7 +44,7 @@ public class CommentController extends BaseManageController {
      */
     @GetMapping("/list")
     public void listComment(HttpServletRequest request, HttpServletResponse response) {
-        ContextUtil.initPager(request);
+        PagerThreadLocal.set(request);
         Map<String, Object> property = new HashMap<String, Object>(3) {
             private static final long serialVersionUID = -9126101626116724049L;
 

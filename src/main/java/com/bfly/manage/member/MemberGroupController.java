@@ -2,11 +2,12 @@ package com.bfly.manage.member;
 
 import com.bfly.cms.member.entity.MemberGroup;
 import com.bfly.cms.member.service.IMemberGroupService;
-import com.bfly.common.ContextUtil;
+import com.bfly.core.context.ContextUtil;
 import com.bfly.common.DataConvertUtils;
 import com.bfly.common.ResponseUtil;
 import com.bfly.common.page.Pager;
 import com.bfly.core.base.action.BaseManageController;
+import com.bfly.core.context.PagerThreadLocal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -36,7 +37,7 @@ public class MemberGroupController extends BaseManageController {
      */
     @GetMapping("/list")
     public void listMemberGroup(HttpServletRequest request, HttpServletResponse response) {
-        ContextUtil.initPager(request);
+        PagerThreadLocal.set(request);
         Pager pager = groupService.getPage(null);
         ResponseUtil.writeJson(response, pager);
     }

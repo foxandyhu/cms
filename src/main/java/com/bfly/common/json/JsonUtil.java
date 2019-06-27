@@ -54,7 +54,7 @@ public class JsonUtil {
      * @author andy_hulibo@163.com
      * @date 2018/12/6 16:13
      */
-    public static JSONObject toJsonStringFilterPropter(Object object, String... properties) {
+    public static JSONObject toJsonFilterPropter(Object object, String... properties) {
         String jsonStr = filter(object, properties);
         return JSON.parseObject(jsonStr);
     }
@@ -66,7 +66,7 @@ public class JsonUtil {
      * @author andy_hulibo@163.com
      * @date 2018/12/6 16:13
      */
-    public static JSONArray toJsonStringFilterPropterForArray(Object object, String... properties) {
+    public static JSONArray toJsonFilterPropterForArray(Object object, String... properties) {
         String jsonStr = filter(object, properties);
         return JSON.parseArray(jsonStr);
     }

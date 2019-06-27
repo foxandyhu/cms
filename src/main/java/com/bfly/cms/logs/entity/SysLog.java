@@ -25,12 +25,6 @@ public class SysLog implements Serializable {
     private int id;
 
     /**
-     * 日志类型
-     */
-    @Column(name = "category")
-    private int category;
-
-    /**
      * 日志时间
      */
     @Column(name = "log_time")
@@ -63,9 +57,8 @@ public class SysLog implements Serializable {
     /**
      * 操作者
      */
-    @ManyToOne
-    @JoinColumn(name = "member_id")
-    private User user;
+    @Column(name = "username")
+    private String userName;
 
 
     public int getId() {
@@ -74,14 +67,6 @@ public class SysLog implements Serializable {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getCategory() {
-        return category;
-    }
-
-    public void setCategory(int category) {
-        this.category = category;
     }
 
     public Date getTime() {
@@ -124,11 +109,11 @@ public class SysLog implements Serializable {
         this.content = content;
     }
 
-    public User getUser() {
-        return user;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }
