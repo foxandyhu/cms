@@ -23,6 +23,14 @@ public interface IUserService extends IBaseService<User, Integer> {
     User login(String userName, String password);
 
     /**
+     * 用户退出
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/6/27 17:36
+     */
+    void logout(String userName);
+
+    /**
      * 管理员角色回收即解除某个角色权限
      *
      * @param roleId 角色Id

@@ -1,22 +1,20 @@
 package com.bfly.core.base.service.impl;
 
-import com.bfly.core.context.ContextUtil;
 import com.bfly.common.page.Pager;
 import com.bfly.core.base.dao.IBaseDao;
 import com.bfly.core.base.service.IBaseService;
 import com.bfly.core.context.PagerThreadLocal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * @author andy_hulibo@163.com
@@ -40,7 +38,7 @@ public abstract class BaseServiceImpl<T, ID> implements IBaseService<T, ID> {
 
     @Override
     public T get(Map<String, Object> property) {
-        Optional<T> optional = baseDao.findOne(getSpecification(property, true));
+        Optional<T> optional = baseDao.findOne(getExactQuery(property));
         return optional.isPresent() ? optional.get() : null;
     }
 
@@ -79,7 +77,25 @@ public abstract class BaseServiceImpl<T, ID> implements IBaseService<T, ID> {
         if (property == null || property.isEmpty()) {
             return getList();
         }
-        List<T> list = baseDao.findAll(getSpecification(property, false));
+        Specification specification = getExactQuery(property);
+        specification = specification.and(getDefaultSpec());
+        List<T> list = baseDao.findAll(specification);
+        return list;
+    }
+
+    @Override
+    public List<T> getList(Map<String, Object> exactQueryProperty, Map<String, String> unExactQueryProperty, Map<String, Sort.Direction> sortQueryProperty) {
+        Specification specification = getExactQuery(exactQueryProperty);
+        Specification unExactSpec = getUnExactQuery(unExactQueryProperty);
+        Specification sortSpec;
+        if (sortQueryProperty != null) {
+            sortSpec = getSortQuery(sortQueryProperty);
+        } else {
+            sortSpec = getDefaultSpec();
+        }
+        specification = specification.and(unExactSpec).and(sortSpec);
+
+        List<T> list = baseDao.findAll(specification);
         return list;
     }
 
@@ -88,7 +104,30 @@ public abstract class BaseServiceImpl<T, ID> implements IBaseService<T, ID> {
         Pager pager = PagerThreadLocal.get();
         Assert.notNull(pager, "分页器没有实例化");
 
-        Page<T> page = baseDao.findAll(getSpecification(property, false), getPageRequest(pager));
+        Specification specification = getExactQuery(property);
+        specification = specification.and(getDefaultSpec());
+        Page<T> page = baseDao.findAll(specification, getPageRequest(pager));
+        pager = new Pager(page.getNumber(), page.getSize(), page.getTotalElements());
+        pager.setData(page.getContent());
+        return pager;
+    }
+
+    @Override
+    public Pager getPage(Map<String, Object> exactQueryProperty, Map<String, String> unExactQueryProperty, Map<String, Sort.Direction> sortQueryProperty) {
+        Pager pager = PagerThreadLocal.get();
+        Assert.notNull(pager, "分页器没有实例化");
+
+        Specification specification = getExactQuery(exactQueryProperty);
+        Specification unExactSpec = getUnExactQuery(unExactQueryProperty);
+        Specification sortSpec;
+        if (sortQueryProperty != null) {
+            sortSpec = getSortQuery(sortQueryProperty);
+        } else {
+            sortSpec = getDefaultSpec();
+        }
+        specification = specification.and(unExactSpec).and(sortSpec);
+
+        Page<T> page = baseDao.findAll(specification, getPageRequest(pager));
         pager = new Pager(page.getNumber(), page.getSize(), page.getTotalElements());
         pager.setData(page.getContent());
         return pager;
@@ -101,36 +140,105 @@ public abstract class BaseServiceImpl<T, ID> implements IBaseService<T, ID> {
 
     @Override
     public long getCount(Map<String, Object> property) {
-        return baseDao.count(getSpecification(property, false));
+        return baseDao.count(getExactQuery(property));
+    }
+
+    @Override
+    public long getCount(Map<String, Object> exactQueryProperty, Map<String, String> unExactQueryProperty) {
+        Specification specification = getExactQuery(exactQueryProperty);
+        Specification unExactSpec = getUnExactQuery(unExactQueryProperty);
+        specification = specification.and(unExactSpec);
+
+        return baseDao.count(specification);
     }
 
     /**
-     * 条件组合
-     * 如果是模糊匹配Map的Value值必须不能为空否则将会被忽略
-     * 当property参数为空或null时Specification返回null
+     * 多条件精确查询
      *
-     * @param property   多条件
-     * @param exactMatch 是否精确匹配
      * @author andy_hulibo@163.com
-     * @date 2018/12/10 10:18
+     * @date 2019/6/28 20:13
      */
-    protected Specification getSpecification(Map<String, Object> property, boolean exactMatch) {
+    protected Specification getExactQuery(Map<String, Object> queryProperty) {
         return (root, criteriaQuery, criteriaBuilder) -> {
-            if (property == null || property.isEmpty()) {
-                return null;
-            }
             List<Predicate> predicates = new ArrayList<>();
-            for (String key : property.keySet()) {
-                if (exactMatch) {
-                    predicates.add(criteriaBuilder.equal(root.get(key), property.get(key)));
-                } else {
-                    if (property.get(key) == null) {
+            if (queryProperty != null) {
+                for (String key : queryProperty.keySet()) {
+                    if (queryProperty.get(key) == null) {
                         continue;
                     }
-                    predicates.add(criteriaBuilder.like(root.get(key), "%" + property.get(key) + "%"));
+                    if (queryProperty.get(key) instanceof String) {
+                        if (queryProperty.get(key).toString().length() == 0) {
+                            continue;
+                        }
+                    }
+                    predicates.add(criteriaBuilder.equal(root.get(key), queryProperty.get(key)));
                 }
             }
             return criteriaBuilder.and(predicates.stream().toArray(Predicate[]::new));
         };
+    }
+
+    /**
+     * 多条件模糊查询
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/6/28 20:09
+     */
+    protected Specification getUnExactQuery(Map<String, String> queryProperty) {
+        return (root, criteriaQuery, criteriaBuilder) -> {
+            List<Predicate> predicates = new ArrayList<>();
+            if (queryProperty != null) {
+                for (String key : queryProperty.keySet()) {
+                    if (queryProperty.get(key) == null || queryProperty.get(key).length() == 0) {
+                        continue;
+                    }
+                    predicates.add(criteriaBuilder.like(root.get(key), "%" + queryProperty.get(key) + "%"));
+                }
+            }
+            return criteriaBuilder.and(predicates.stream().toArray(Predicate[]::new));
+        };
+    }
+
+    /**
+     * 多条件排序查询
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/6/28 20:14
+     */
+    protected Specification getSortQuery(Map<String, Sort.Direction> sortProperty) {
+        return (root, criteriaQuery, criteriaBuilder) -> {
+            if (sortProperty != null) {
+                for (String key : sortProperty.keySet()) {
+                    if (sortProperty.get(key) == null) {
+                        continue;
+                    }
+                    if (sortProperty.get(key).isAscending()) {
+                        Order order = criteriaBuilder.asc(root.get(key));
+                        criteriaQuery.orderBy(order);
+                    } else {
+                        Order order = criteriaBuilder.desc(root.get(key));
+                        criteriaQuery.orderBy(order);
+                    }
+                }
+            }
+            return (Predicate) criteriaQuery.getSelection();
+        };
+    }
+
+    /**
+     * 默认Id降序
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/6/28 21:04
+     */
+    private Specification getDefaultSpec() {
+        Specification specification = getSortQuery(new HashMap<String, Sort.Direction>(1) {
+            private static final long serialVersionUID = -3371120713938289395L;
+
+            {
+                put("id", Sort.Direction.DESC);
+            }
+        });
+        return specification;
     }
 }

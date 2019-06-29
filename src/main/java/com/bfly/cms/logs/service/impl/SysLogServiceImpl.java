@@ -4,6 +4,7 @@ import com.bfly.cms.logs.dao.ISysLogDao;
 import com.bfly.cms.logs.entity.SysLog;
 import com.bfly.cms.logs.service.ISysLogService;
 import com.bfly.core.base.service.impl.BaseServiceImpl;
+import com.bfly.core.enums.LogsType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,7 @@ public class SysLogServiceImpl extends BaseServiceImpl<SysLog, Integer> implemen
     @Override
     @Async
     @Transactional(rollbackFor = Exception.class)
-    public void save(String userName, String ip, String url, String title, String content, boolean success) {
+    public void save(LogsType category, String userName, String ip, String url, String title, String content, boolean success) {
         SysLog sysLog = new SysLog();
         sysLog.setTime(new Date());
         sysLog.setIp(ip);
@@ -40,6 +41,7 @@ public class SysLogServiceImpl extends BaseServiceImpl<SysLog, Integer> implemen
         sysLog.setUrl(url);
         sysLog.setContent(content);
         sysLog.setUserName(userName);
+        sysLog.setCategory(category.getId());
         sysLogDao.save(sysLog);
     }
 }

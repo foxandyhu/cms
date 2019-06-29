@@ -6,6 +6,8 @@ import com.bfly.common.reflect.ReflectUtils;
 import com.bfly.core.context.IpThreadLocal;
 import com.bfly.core.context.ServletRequestThreadLocal;
 import com.bfly.core.context.UserThreadLocal;
+import com.bfly.core.enums.LogsType;
+import org.aopalliance.intercept.Joinpoint;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
@@ -16,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.Method;
 
 /**
  * 系统日志AOP配置
@@ -32,6 +35,7 @@ public class SysLogsAop {
 
     /**
      * 定义日志切入点方法
+     *
      * @author andy_hulibo@163.com
      * @date 2019/6/27 17:22
      */
@@ -41,24 +45,26 @@ public class SysLogsAop {
 
     /**
      * 目标对象方法调用之前执行
+     *
      * @author andy_hulibo@163.com
      * @date 2019/6/27 17:22
      */
     @Before("pointcut()")
     public void beforeRequest(JoinPoint joinPoint) {
-        String title = getTitle(joinPoint);
-        if (title == null || title.length() == 0) {
+        if (!getNeedLog(joinPoint)) {
             return;
         }
+        String title = getTitle(joinPoint);
         final HttpServletRequest request = ServletRequestThreadLocal.get();
         final String ip = IpThreadLocal.get();
         final User user = UserThreadLocal.get();
         final String url = request.getRequestURL().toString();
-        sysLogService.save(user == null ? null : user.getUserName(), ip, url, title, null, true);
+        sysLogService.save(LogsType.OP_LOG, user == null ? null : user.getUserName(), ip, url, title, null, true);
     }
 
     /**
      * 目标对象方法抛出异常后执行
+     *
      * @author andy_hulibo@163.com
      * @date 2019/6/27 17:23
      */
@@ -69,7 +75,7 @@ public class SysLogsAop {
         final User user = UserThreadLocal.get();
         final String url = request.getRequestURL().toString();
         final String title = getTitle(joinPoint);
-        sysLogService.save(user == null ? null : user.getUserName(), ip, url, title, throwable.getMessage(), false);
+        sysLogService.save(LogsType.OP_LOG, user == null ? null : user.getUserName(), ip, url, title, throwable.getMessage(), false);
     }
 
     /**
@@ -79,14 +85,41 @@ public class SysLogsAop {
      * @date 2019/6/27 14:20
      */
     private String getTitle(JoinPoint joinPoint) {
-        final Class<?> c = joinPoint.getTarget().getClass();
         String title = null;
         try {
-            String methodName = joinPoint.getSignature().getName();
-            Class<?>[] types = ((CodeSignature) joinPoint.getStaticPart().getSignature()).getParameterTypes();
-            title = ReflectUtils.getModelDescription(c.getMethod(methodName, types));
+            final Method method = getActionMethod(joinPoint);
+            title = ReflectUtils.getModelDescription(method);
         } catch (Exception e) {
         }
         return title;
+    }
+
+    /**
+     * 判断是否需要记录日志
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/6/27 17:52
+     */
+    private boolean getNeedLog(JoinPoint joinPoint) {
+        boolean flag = false;
+        try {
+            final Method method = getActionMethod(joinPoint);
+            flag = ReflectUtils.getModelNeedLog(method);
+        } catch (Exception e) {
+        }
+        return flag;
+    }
+
+    /**
+     * 返回调用的方法
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/6/27 17:52
+     */
+    private Method getActionMethod(JoinPoint joinPoint) throws Exception {
+        final Class<?> c = joinPoint.getTarget().getClass();
+        String methodName = joinPoint.getSignature().getName();
+        Class<?>[] types = ((CodeSignature) joinPoint.getStaticPart().getSignature()).getParameterTypes();
+        return c.getMethod(methodName, types);
     }
 }

@@ -39,7 +39,7 @@ public class ResponseData implements Serializable {
     public static String getSuccess(Object msg) {
         ResponseData data = new ResponseData(null, msg);
         data.setStatus(SUCCESS);
-        return JsonUtil.toJsonFilterPropter(data, "").toJSONString();
+        return JsonUtil.toJsonFilter(data, "").toJSONString();
     }
 
     /**
@@ -53,7 +53,7 @@ public class ResponseData implements Serializable {
         msg = msg == null ? error.getMessage() : msg;
         ResponseData data = new ResponseData(error.getCode(), msg);
         data.setStatus(FAIL);
-        return JsonUtil.toJsonFilterPropter(data, "").toJSONString();
+        return JsonUtil.toJsonFilter(data, "").toJSONString();
     }
 
     public ResponseData(String code, Object msg) {

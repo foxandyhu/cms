@@ -5,10 +5,10 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.*;
 
+import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -23,6 +23,7 @@ public class JsonUtil {
 
     static {
         config.put(Date.class, new SimpleDateFormatSerializer("yyyy-MM-dd HH:mm:ss"));
+        config.put(Timestamp.class, new SimpleDateFormatSerializer("yyyy-MM-dd HH:mm:ss"));
     }
 
     private static PropertyFilter filterProperty(final String... properties) {
@@ -36,25 +37,13 @@ public class JsonUtil {
         };
     }
 
-    public static String toJsonPageFilterPropter(Object object, int total, final String... properties) {
-        PropertyFilter filter = filterProperty(properties);
-        SerializeWriter writer = new SerializeWriter();
-        JSONSerializer serializer = new JSONSerializer(writer);
-        serializer.getPropertyFilters().add(filter);
-        Map<String, Object> jsonMap = new HashMap<>(2);
-        jsonMap.put("rows", object);
-        jsonMap.put("total", total);
-        serializer.write(jsonMap);
-        return writer.toString();
-    }
-
     /**
      * 返回Json对象
      *
      * @author andy_hulibo@163.com
      * @date 2018/12/6 16:13
      */
-    public static JSONObject toJsonFilterPropter(Object object, String... properties) {
+    public static JSONObject toJsonFilter(Object object, String... properties) {
         String jsonStr = filter(object, properties);
         return JSON.parseObject(jsonStr);
     }
@@ -66,8 +55,8 @@ public class JsonUtil {
      * @author andy_hulibo@163.com
      * @date 2018/12/6 16:13
      */
-    public static JSONArray toJsonFilterPropterForArray(Object object, String... properties) {
-        String jsonStr = filter(object, properties);
+    public static JSONArray toJsonFilterForArray(Collection c, String... properties) {
+        String jsonStr = filter(c, properties);
         return JSON.parseArray(jsonStr);
     }
 

@@ -2,6 +2,7 @@ package com.bfly.core.base.service;
 
 import com.bfly.common.page.Pager;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 import java.util.Map;
@@ -87,15 +88,41 @@ public interface IBaseService<T, ID> {
     List<T> getList(Map<String, Object> property);
 
     /**
+     * 获得所有的对象
+     * map中key是实体类的属性名称 value是属性值
+     *
+     * @param exactQueryProperty   多条件精确询 可以为null
+     * @param unExactQueryProperty 多条件模糊查询 null值会被忽略
+     * @param sortQueryProperty    多条件排序对象 为null时采用默认排序
+     * @return 对象集合
+     * @author andy_hulibo@163.com
+     * @date 2018/12/7 13:28
+     */
+    List<T> getList(Map<String, Object> exactQueryProperty, Map<String, String> unExactQueryProperty, Map<String, Sort.Direction> sortQueryProperty);
+
+    /**
      * 获得对象分页数据
      * map中key是实体类的属性名称 value是属性值
      *
-     * @param property 多条件模糊查询 可以为null
+     * @param property 多条件精确查询 可以为null
      * @return 分页对象
      * @author andy_hulibo@163.com
      * @date 2018/12/8 20:38
      */
     Pager getPage(Map<String, Object> property);
+
+    /**
+     * 获得对象分页数据
+     * map中key是实体类的属性名称 value是属性值
+     *
+     * @param exactQueryProperty   多条件精确询 可以为null
+     * @param unExactQueryProperty 多条件模糊查询 null值会被忽略
+     * @param sortQueryProperty    多条件排序对象 为null时采用默认排序
+     * @return 分页对象
+     * @author andy_hulibo@163.com
+     * @date 2019/6/28 20:50
+     */
+    Pager getPage(Map<String, Object> exactQueryProperty, Map<String, String> unExactQueryProperty, Map<String, Sort.Direction> sortQueryProperty);
 
     /**
      * 获得所有的总数
@@ -110,12 +137,22 @@ public interface IBaseService<T, ID> {
      * 根据多条件查询对象
      * map中key是实体类的属性名称 value是属性值
      *
-     * @param property 多条件模糊查询
+     * @param property 多条件精确查询
      * @return 数量
      * @author andy_hulibo@163.com
      * @date 2018/12/7 22:55
      */
     long getCount(Map<String, Object> property);
+
+    /**
+     * 根据多条件查询对象
+     * map中key是实体类的属性名称 value是属性值
+     * @param exactQueryProperty 多条件精确查询
+     * @param unExactQueryProperty 多条件模糊查询
+     * @author andy_hulibo@163.com
+     * @date 2019/6/28 20:52
+     */
+    long getCount(Map<String, Object> exactQueryProperty, Map<String, String> unExactQueryProperty);
 
     /**
      * 默认的分页器

@@ -19,9 +19,9 @@ public class DataConvertUtils {
      * @author 胡礼波
      * 2013-3-31 下午1:21:06
      */
-    public static Integer convertToInteger(String data) {
+    public static int convertToInteger(String data) {
         if (data == null || data.length() == 0) {
-            return null;
+            return 0;
         }
         return (Integer) ConvertUtils.convert(data, Integer.class);
     }
@@ -48,11 +48,11 @@ public class DataConvertUtils {
      * @author 胡礼波
      * 2013-4-18 下午3:52:03
      */
-    public static Boolean convertToBoolean(String data) {
+    public static boolean convertToBoolean(String data) {
         if (data == null || data.length() == 0) {
-            return null;
+            return false;
         }
-        return (Boolean) ConvertUtils.convert(data, Boolean.class);
+        return (boolean) ConvertUtils.convert(data, Boolean.class);
     }
 
     /**
@@ -63,9 +63,9 @@ public class DataConvertUtils {
      * @author 胡礼波
      * 2013-5-20 下午3:57:17
      */
-    public static Long convertToLong(String data) {
+    public static long convertToLong(String data) {
         if (data == null || data.length() == 0) {
-            return null;
+            return 0;
         }
         return (Long) ConvertUtils.convert(data, Long.class);
     }

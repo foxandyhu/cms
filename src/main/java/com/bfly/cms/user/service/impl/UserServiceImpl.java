@@ -10,6 +10,7 @@ import com.bfly.core.Constants;
 import com.bfly.core.base.service.impl.BaseServiceImpl;
 import com.bfly.core.context.IpThreadLocal;
 import com.bfly.core.context.ServletRequestThreadLocal;
+import com.bfly.core.enums.LogsType;
 import com.bfly.core.security.Md5PwdEncoder;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,26 +87,33 @@ public class UserServiceImpl extends BaseServiceImpl<User, Integer> implements I
         Assert.isTrue(User.UNCHECK_STATUS != user.getStatus(), "此账号正在审核中!");
         Assert.isTrue(User.DISABLE_STATUS != user.getStatus(), "此账号已被禁用!");
         updateLoginInfo(user);
-        saveLoginLogs(userName);
+        saveLoginLogs(userName, "用户登录", LogsType.LOGIN_LOG);
         return user;
     }
 
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void logout(String userName) {
+        saveLoginLogs(userName, "用户登出", LogsType.LOGOUT_LOG);
+    }
+
     /**
-     * 保存登录信息
+     * 保存登录/登出信息
      *
      * @author andy_hulibo@163.com
      * @date 2019/6/26 18:33
      */
-    private void saveLoginLogs(String userName) {
+    private void saveLoginLogs(String userName, String title, LogsType type) {
         HttpServletRequest request = ServletRequestThreadLocal.get();
         SysLog log = new SysLog();
         log.setTime(new Date());
-        log.setTitle("用户登录");
+        log.setTitle(title);
         log.setUserName(userName);
         log.setIp(IpThreadLocal.get());
         log.setUrl(request.getRequestURL().toString());
         log.setSuccess(true);
         log.setContent(null);
+        log.setCategory(type.getId());
         sysLogService.save(log);
     }
 

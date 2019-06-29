@@ -42,10 +42,11 @@ public class ManageInterceptor extends HandlerInterceptorAdapter {
 
             if (needLogin(method)) {
                 String appAuth = request.getHeader(Constants.APP_AUTH);
-                if (appAuth == null) {
-                    Object appAuthObj = request.getSession().getAttribute(Constants.APP_AUTH);
-                    appAuth = appAuthObj == null ? null : appAuthObj.toString();
+                if (appAuth == null || appAuth.length() < APP_AUTH_LENGTH) {
+                    throw new UnAuthException("未授权!");
                 }
+                Object appAuthObj = request.getSession().getAttribute(Constants.APP_AUTH);
+                appAuth = appAuthObj == null ? null : appAuthObj.toString();
                 if (appAuth == null || appAuth.length() < APP_AUTH_LENGTH) {
                     throw new UnAuthException("未授权!");
                 }

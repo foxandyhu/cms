@@ -42,7 +42,7 @@ public class UserController extends BaseManageController {
      */
     @PostMapping(value = "/login")
     @Login(required = false)
-    @ActionModel("用户登录")
+    @ActionModel(value = "用户登录", need = false)
     public void login(HttpServletResponse response, @RequestBody User user) {
         user = userService.login(user.getUserName(), user.getPassword());
         String appAuth = StringUtil.getRandomString(32);
@@ -63,9 +63,11 @@ public class UserController extends BaseManageController {
      * @date 2019/6/25 16:34
      */
     @GetMapping(value = "/logout")
-    @ActionModel("用户登出")
+    @ActionModel(value = "用户登出", need = false)
     public void logout(HttpServletResponse response) {
+        String userName = getUser().getUserName();
         getSession().invalidate();
+        userService.logout(userName);
         ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
     }
 

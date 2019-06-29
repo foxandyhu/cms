@@ -3,7 +3,6 @@ package com.bfly.cms.message.service.impl;
 import com.bfly.cms.message.dao.IMessageDao;
 import com.bfly.cms.message.entity.Message;
 import com.bfly.cms.message.service.IMessageService;
-import com.bfly.core.context.ContextUtil;
 import com.bfly.common.page.Pager;
 import com.bfly.core.base.service.impl.BaseServiceImpl;
 import com.bfly.core.context.PagerThreadLocal;
@@ -38,7 +37,7 @@ public class MessageServiceImpl extends BaseServiceImpl<Message, Integer> implem
             property.remove(beginSendTime);
             property.remove(endSendTime);
         }
-        Specification specification = getSpecification(property, false);
+        Specification specification = getExactQuery(property);
         if (specification != null) {
             specification.and((root, criteriaQuery, criteriaBuilder) -> {
                 List<Predicate> predicates = new ArrayList<>();

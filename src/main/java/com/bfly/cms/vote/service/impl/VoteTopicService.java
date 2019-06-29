@@ -4,7 +4,6 @@ import com.bfly.cms.message.entity.Message;
 import com.bfly.cms.vote.dao.IVoteTopicDao;
 import com.bfly.cms.vote.entity.VoteTopic;
 import com.bfly.cms.vote.service.IVoteTopicService;
-import com.bfly.core.context.ContextUtil;
 import com.bfly.common.DateUtil;
 import com.bfly.common.page.Pager;
 import com.bfly.core.base.service.impl.BaseServiceImpl;
@@ -36,7 +35,7 @@ public class VoteTopicService extends BaseServiceImpl<VoteTopic, Integer> implem
     public Pager getPage(Map<String, Object> property) {
         Pager pager = PagerThreadLocal.get();
         String statusStr = "status";
-        Specification specification = getSpecification(property, false);
+        Specification specification = getExactQuery(property);
         if (specification != null) {
             specification.and((root, criteriaQuery, criteriaBuilder) -> {
                 List<Predicate> predicates = new ArrayList<>();

@@ -1,7 +1,6 @@
 package com.bfly.cms.logs.entity;
 
-import com.bfly.cms.member.entity.Member;
-import com.bfly.cms.user.entity.User;
+import com.bfly.core.enums.LogsType;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -63,6 +62,20 @@ public class SysLog implements Serializable {
     @Column(name = "is_success")
     private boolean success;
 
+    /**
+     * 日志类型
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/6/27 17:33
+     * @see com.bfly.core.enums.LogsType
+     */
+    @Column(name = "category")
+    private int category;
+
+    public String getCategoryName() {
+        LogsType type = LogsType.get(getCategory());
+        return type == null ? "" : type.getType();
+    }
 
     public int getId() {
         return id;
@@ -126,5 +139,13 @@ public class SysLog implements Serializable {
 
     public void setSuccess(boolean success) {
         this.success = success;
+    }
+
+    public int getCategory() {
+        return category;
+    }
+
+    public void setCategory(int category) {
+        this.category = category;
     }
 }

@@ -4,7 +4,6 @@ import com.bfly.cms.message.entity.Message;
 import com.bfly.cms.system.dao.ISmsRecordDao;
 import com.bfly.cms.system.entity.SmsRecord;
 import com.bfly.cms.system.service.ISmsRecordService;
-import com.bfly.core.context.ContextUtil;
 import com.bfly.common.page.Pager;
 import com.bfly.core.base.service.impl.BaseServiceImpl;
 import com.bfly.core.context.PagerThreadLocal;
@@ -39,7 +38,7 @@ public class SmsRecordServiceImpl extends BaseServiceImpl<SmsRecord, Integer> im
             property.remove(beginSendTime);
             property.remove(endSendTime);
         }
-        Specification specification = getSpecification(property, false);
+        Specification specification = getExactQuery(property);
         if (specification != null) {
             specification.and((root, criteriaQuery, criteriaBuilder) -> {
                 List<Predicate> predicates = new ArrayList<>();
