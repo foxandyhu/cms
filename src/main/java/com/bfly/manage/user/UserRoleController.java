@@ -1,10 +1,12 @@
 package com.bfly.manage.user;
 
+import com.alibaba.fastjson.JSONArray;
 import com.bfly.cms.user.entity.UserRole;
 import com.bfly.cms.user.service.IUserRoleService;
-import com.bfly.core.context.ContextUtil;
 import com.bfly.common.DataConvertUtils;
+import com.bfly.common.ResponseData;
 import com.bfly.common.ResponseUtil;
+import com.bfly.common.json.JsonUtil;
 import com.bfly.common.page.Pager;
 import com.bfly.core.base.action.BaseManageController;
 import com.bfly.core.context.PagerThreadLocal;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * 用户角色Controller
@@ -40,6 +43,19 @@ public class UserRoleController extends BaseManageController {
         PagerThreadLocal.set(request);
         Pager pager = userRoleService.getPage(null);
         ResponseUtil.writeJson(response, pager);
+    }
+
+    /**
+     * 所有角色集合
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/7/4 15:08
+     */
+    @GetMapping(value = "/all")
+    public void listUserRole(HttpServletResponse response) {
+        List<UserRole> roles = userRoleService.getList();
+        JSONArray json = JsonUtil.toJsonFilterForArray(roles, "users");
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(json));
     }
 
     /**

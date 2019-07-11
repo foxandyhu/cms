@@ -48,10 +48,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Value("#{'${spring.resource.suffix}'.split(',')}")
     private List<String> suffixs;
 
-    @Value("${spring.cors.origins}")
+    @Value("#{'${spring.cors.origins}'.split(',')}")
     private List<String> origins;
 
-    @Value("${spring.cors.headers}")
+    @Value("#{'${spring.cors.headers}'.split(',')}")
     private List<String> headers;
 
     @Value("${spring.cors.maxage}")

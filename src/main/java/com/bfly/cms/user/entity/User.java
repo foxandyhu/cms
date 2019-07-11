@@ -4,8 +4,10 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -44,6 +46,7 @@ public class User implements Serializable {
      */
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     /**
@@ -51,6 +54,7 @@ public class User implements Serializable {
      */
     @Column(name = "username")
     @NotBlank(message = "用户名不能为空!")
+    @Size(min = 5, max = 15, message = "用户名长度必须在5到15之间!")
     private String userName;
 
     /**
@@ -61,13 +65,23 @@ public class User implements Serializable {
      */
     @NotBlank(message = "密码不能为空!")
     @Column(name = "password")
+    @Size(min = 6, max = 50, message = "密码长度必须在6到50之间!")
     private String password;
 
     /**
      * 邮箱
      */
     @Column(name = "email")
+    @NotBlank(message = "邮箱不能为空")
+    @Email(message = "邮箱格式不正确!")
+    @Size(min = 5, max = 30, message = "邮箱长度必须在5到30之间!")
     private String email;
+
+    /**
+     * 头像
+     */
+    @Column(name = "face")
+    private String face;
 
     /**
      * 注册时间
@@ -95,24 +109,56 @@ public class User implements Serializable {
 
 
     /**
-     * 管理员级别
-     */
-    @Column(name = "rank")
-    private int rank;
-
-    /**
      * 状态 1审核通过  2禁用  0待审核
      */
     @Column(name = "status")
     private int status;
 
     /**
+     * 登录次数
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/7/1 14:51
+     */
+    @Column(name = "login_count")
+    private long loginCount;
+
+    /**
      * 拥有的角色
      */
-    @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JoinTable(name = "user_role_ship", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
     @NotEmpty(message = "角色不能为空!")
     private Set<UserRole> roles;
+
+
+    /**
+     * 状态名称
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/6/30 20:01
+     */
+    public String getStatusName() {
+        switch (getStatus()) {
+            case AVAILABLE_STATUS:
+                return "正常";
+            case UNCHECK_STATUS:
+                return "待审核";
+            case DISABLE_STATUS:
+                return "已禁用";
+            default:
+                return "";
+        }
+    }
+
+    public String getFace() {
+        return face;
+    }
+
+    public void setFace(String face) {
+        this.face = face;
+    }
 
     public int getId() {
         return id;
@@ -178,14 +224,6 @@ public class User implements Serializable {
         this.lastLoginIp = lastLoginIp;
     }
 
-    public int getRank() {
-        return rank;
-    }
-
-    public void setRank(int rank) {
-        this.rank = rank;
-    }
-
     public int getStatus() {
         return status;
     }
@@ -200,5 +238,13 @@ public class User implements Serializable {
 
     public void setRoles(Set<UserRole> roles) {
         this.roles = roles;
+    }
+
+    public long getLoginCount() {
+        return loginCount;
+    }
+
+    public void setLoginCount(long loginCount) {
+        this.loginCount = loginCount;
     }
 }

@@ -44,6 +44,7 @@ public class BaseManageController extends AbstractController {
     @ExceptionHandler
     public void exceptionHandler(HttpServletResponse response, Exception e) {
         logger.error("", e);
+        String message=e.getMessage();
         SysError error = SysError.ERROR;
         response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
         if (e instanceof WsResponseException) {
@@ -51,8 +52,10 @@ public class BaseManageController extends AbstractController {
             error = SysError.get(exception.getCode());
         }else if(e instanceof UnAuthException){
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
+        }else if(e instanceof NullPointerException){
+            message="不存在的数据对象!";
         }
-        String data = ResponseData.getFail(error, e.getMessage());
+        String data = ResponseData.getFail(error,message);
         ResponseUtil.writeJson(response, data);
     }
 

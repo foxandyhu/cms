@@ -33,7 +33,8 @@ public abstract class BaseServiceImpl<T, ID> implements IBaseService<T, ID> {
 
     @Override
     public T get(ID id) {
-        return baseDao.getOne(id);
+        Optional<T> optional = baseDao.findById(id);
+        return optional.isPresent() ? optional.get() : null;
     }
 
     @Override

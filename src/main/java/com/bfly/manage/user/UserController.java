@@ -4,14 +4,17 @@ import com.alibaba.fastjson.JSONObject;
 import com.bfly.cms.user.entity.User;
 import com.bfly.cms.user.service.IUserService;
 import com.bfly.common.*;
+import com.bfly.common.json.JsonUtil;
 import com.bfly.common.page.Pager;
 import com.bfly.core.Constants;
 import com.bfly.core.base.action.BaseManageController;
+import com.bfly.core.config.ResourceConfig;
 import com.bfly.core.context.ContextUtil;
 import com.bfly.core.context.PagerThreadLocal;
 import com.bfly.core.security.ActionModel;
 import com.bfly.core.security.Login;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,6 +36,8 @@ public class UserController extends BaseManageController {
 
     @Autowired
     private IUserService userService;
+    @Autowired
+    private ResourceConfig resourceConfig;
 
     /**
      * 用户登录
@@ -78,20 +83,19 @@ public class UserController extends BaseManageController {
      * @date 2018/12/8 21:13
      */
     @GetMapping("/list")
+    @ActionModel(value = "系统用户列表", need = false)
     public void listUser(HttpServletRequest request, HttpServletResponse response) {
         PagerThreadLocal.set(request);
-        Map<String, Object> property = new HashMap<String, Object>(4) {
+        Map<String, Object> property = new HashMap<String, Object>(1) {
             private static final long serialVersionUID = 7166011434886278754L;
 
             {
-                put("username", request.getParameter("username"));
-                put("email", request.getParameter("email"));
                 put("status", request.getParameter("status"));
-                put("roles.id", request.getParameter("roleId"));
             }
         };
         Pager pager = userService.getPage(property);
-        ResponseUtil.writeJson(response, pager);
+        JSONObject json = JsonUtil.toJsonFilter(pager, "password", "roles");
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(json));
     }
 
     /**
@@ -101,10 +105,11 @@ public class UserController extends BaseManageController {
      * @date 2018/12/10 11:53
      */
     @PostMapping(value = "/add")
-    public void addUser(@Valid User user, BindingResult result, HttpServletResponse response) {
+    @ActionModel(value = "新增系统用户")
+    public void addUser(@RequestBody @Valid User user, BindingResult result, HttpServletResponse response) {
         validData(result);
         userService.save(user);
-        ResponseUtil.writeJson(response, "");
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
     }
 
     /**
@@ -114,9 +119,11 @@ public class UserController extends BaseManageController {
      * @date 2018/12/10 13:45
      */
     @PostMapping(value = "/edit")
-    public void editUser(User user, HttpServletResponse response) {
+    @ActionModel(value = "编辑系统用户")
+    public void editUser(@RequestBody @Valid User user, BindingResult result, HttpServletResponse response) {
+        validData(result);
         userService.edit(user);
-        ResponseUtil.writeJson(response, "");
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
     }
 
     /**
@@ -126,9 +133,14 @@ public class UserController extends BaseManageController {
      * @date 2018/12/10 13:50
      */
     @GetMapping(value = "/{userId}")
+    @ActionModel(value = "查看系统用户详情", need = false)
     public void viewUser(@PathVariable("userId") int userId, HttpServletResponse response) {
         User user = userService.get(userId);
-        ResponseUtil.writeJson(response, user);
+        if (StringUtils.hasLength(user.getFace())) {
+            user.setFace(resourceConfig.getServer() + user.getFace());
+        }
+        JSONObject json = JsonUtil.toJsonFilter(user, "password", "users");
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(json));
     }
 
     /**
@@ -138,11 +150,10 @@ public class UserController extends BaseManageController {
      * @date 2018/12/10 13:53
      */
     @PostMapping(value = "/del")
-    public void removeUser(HttpServletRequest request, HttpServletResponse response) {
-        String userIdStr = request.getParameter("ids");
-        Integer[] userIds = DataConvertUtils.convertToIntegerArray(userIdStr.split(","));
-        userService.remove(userIds);
-        ResponseUtil.writeJson(response, "");
+    @ActionModel(value = "删除系统用户")
+    public void delUser(HttpServletResponse response, @RequestBody Integer... userId) {
+        userService.remove(userId);
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
     }
 
     /**

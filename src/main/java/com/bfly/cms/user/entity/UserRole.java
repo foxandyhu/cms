@@ -35,30 +35,9 @@ public class UserRole implements Serializable {
     private String name;
 
     /**
-     * 排列顺序
-     */
-    @Column(name = "priority")
-    @Min(value = 1, message = "顺序必须大于0!")
-    private int priority;
-
-    /**
-     * 角色等级
-     */
-    @Column(name = "role_level")
-    @Min(value = 1, message = "角色等级必须大于0!")
-    private int level;
-
-    /**
-     * 拥有所有权限
-     */
-    @Column(name = "is_super")
-    private boolean all;
-
-    /**
      * 用户角色关系维护
      */
-    @ManyToMany(cascade = CascadeType.REMOVE)
-    @JoinTable(name = "user_role_ship", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+    @ManyToMany(mappedBy = "roles")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
     private Set<User> users;
 
@@ -76,30 +55,6 @@ public class UserRole implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getPriority() {
-        return priority;
-    }
-
-    public void setPriority(int priority) {
-        this.priority = priority;
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
-    }
-
-    public boolean isAll() {
-        return all;
-    }
-
-    public void setAll(boolean all) {
-        this.all = all;
     }
 
     public Set<User> getUsers() {

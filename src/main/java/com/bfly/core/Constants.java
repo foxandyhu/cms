@@ -41,4 +41,10 @@ public class Constants {
      */
     public static final String APP_AUTH = "_app_auth_";
 
+    /**
+     * 临时资源后缀名
+     * @author andy_hulibo@163.com
+     * @date 2019/7/4 11:55
+     */
+    public static final String TEMP_RESOURCE_SUFFIX=".tmp";
 }
