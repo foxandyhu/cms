@@ -1,15 +1,18 @@
 package com.bfly.manage.user;
 
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.bfly.cms.system.entity.SysMenu;
+import com.bfly.cms.system.service.ISysMenuService;
 import com.bfly.cms.user.entity.UserRole;
 import com.bfly.cms.user.service.IUserRoleService;
-import com.bfly.common.DataConvertUtils;
 import com.bfly.common.ResponseData;
 import com.bfly.common.ResponseUtil;
 import com.bfly.common.json.JsonUtil;
 import com.bfly.common.page.Pager;
 import com.bfly.core.base.action.BaseManageController;
 import com.bfly.core.context.PagerThreadLocal;
+import com.bfly.core.security.ActionModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +34,8 @@ public class UserRoleController extends BaseManageController {
 
     @Autowired
     private IUserRoleService userRoleService;
+    @Autowired
+    private ISysMenuService menuService;
 
     /**
      * 角色列表
@@ -39,10 +44,12 @@ public class UserRoleController extends BaseManageController {
      * @date 2018/12/10 15:52
      */
     @GetMapping("/list")
+    @ActionModel(value = "系统角色列表", need = false)
     public void listUserRole(HttpServletRequest request, HttpServletResponse response) {
         PagerThreadLocal.set(request);
         Pager pager = userRoleService.getPage(null);
-        ResponseUtil.writeJson(response, pager);
+        JSONObject json = JsonUtil.toJsonFilter(pager, "users","menus");
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(json));
     }
 
     /**
@@ -52,6 +59,7 @@ public class UserRoleController extends BaseManageController {
      * @date 2019/7/4 15:08
      */
     @GetMapping(value = "/all")
+    @ActionModel(value = "系统所有角色列表", need = false)
     public void listUserRole(HttpServletResponse response) {
         List<UserRole> roles = userRoleService.getList();
         JSONArray json = JsonUtil.toJsonFilterForArray(roles, "users");
@@ -65,10 +73,11 @@ public class UserRoleController extends BaseManageController {
      * @date 2018/12/10 15:54
      */
     @PostMapping(value = "/add")
-    public void addUserRole(@Valid UserRole role, BindingResult result, HttpServletResponse response) {
+    @ActionModel(value = "新增系统角色")
+    public void addUserRole(@RequestBody @Valid UserRole role, BindingResult result, HttpServletResponse response) {
         validData(result);
         userRoleService.save(role);
-        ResponseUtil.writeJson(response, "");
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
     }
 
     /**
@@ -78,7 +87,9 @@ public class UserRoleController extends BaseManageController {
      * @date 2018/12/10 15:55
      */
     @PostMapping(value = "/edit")
-    public void editUserRole(UserRole role, HttpServletResponse response) {
+    @ActionModel(value = "修改系统角色")
+    public void editUserRole(@RequestBody @Valid UserRole role, BindingResult result, HttpServletResponse response) {
+        validData(result);
         userRoleService.edit(role);
         ResponseUtil.writeJson(response, "");
     }
@@ -90,9 +101,11 @@ public class UserRoleController extends BaseManageController {
      * @date 2018/12/10 13:50
      */
     @GetMapping(value = "/{roleId}")
+    @ActionModel(value = "查看系统角色详情", need = false)
     public void viewUserRole(@PathVariable("roleId") int roleId, HttpServletResponse response) {
         UserRole role = userRoleService.get(roleId);
-        ResponseUtil.writeJson(response, role);
+        JSONObject json = JsonUtil.toJsonFilter(role, "users");
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(json));
     }
 
     /**
@@ -102,10 +115,57 @@ public class UserRoleController extends BaseManageController {
      * @date 2018/12/10 13:53
      */
     @PostMapping(value = "/del")
-    public void removeUserRole(HttpServletRequest request, HttpServletResponse response) {
-        String userIdStr = request.getParameter("ids");
-        Integer[] roleIds = DataConvertUtils.convertToIntegerArray(userIdStr.split(","));
-        userRoleService.remove(roleIds);
+    @ActionModel(value = "删除系统角色")
+    public void removeUserRole(HttpServletResponse response, @RequestBody Integer... roleId) {
+        userRoleService.remove(roleId);
         ResponseUtil.writeJson(response, "");
+    }
+
+    /**
+     * 获得角色菜单权限
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/7/13 12:24
+     */
+    @GetMapping(value = "/menu/{roleId}")
+    public void getUserRoleMenu(@PathVariable("roleId") int roleId, HttpServletResponse response) {
+        UserRole role = userRoleService.get(roleId);
+        List<SysMenu> menus = role.getMenus();
+        List<SysMenu> allMenus = menuService.getList();
+        JSONArray array = new JSONArray();
+        if (allMenus != null) {
+            JSONObject json;
+            for (SysMenu menu : allMenus) {
+                json = new JSONObject();
+                json.put("id", menu.getId());
+                json.put("pId", menu.getParent() == null ? 0 : menu.getParent().getId());
+                json.put("name", menu.getName());
+                json.put("open", true);
+                if (menus != null) {
+                    for (SysMenu roleMenu : menus) {
+                        // 选中的菜单
+                        if (roleMenu.getId() == menu.getId()) {
+                            json.put("checked", true);
+                            break;
+                        }
+                    }
+                }
+                array.add(json);
+            }
+        }
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(array));
+    }
+
+
+    /**
+     * 修改角色菜单权限
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/7/13 16:13
+     */
+    @PostMapping(value = "/menu/grant")
+    public void grantRoleMenu(@RequestBody UserRole role, HttpServletResponse response) {
+        userRoleService.grantRoleMenu(role);
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
     }
 }

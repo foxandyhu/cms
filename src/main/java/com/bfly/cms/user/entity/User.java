@@ -128,7 +128,6 @@ public class User implements Serializable {
      */
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinTable(name = "user_role_ship", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
     @NotEmpty(message = "角色不能为空!")
     private Set<UserRole> roles;
 

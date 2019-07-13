@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
 import java.util.*;
@@ -165,12 +167,19 @@ public abstract class BaseServiceImpl<T, ID> implements IBaseService<T, ID> {
             if (queryProperty != null) {
                 for (String key : queryProperty.keySet()) {
                     if (queryProperty.get(key) == null) {
+                        predicates.add(criteriaBuilder.isNull(root.get(key)));
                         continue;
                     }
                     if (queryProperty.get(key) instanceof String) {
                         if (queryProperty.get(key).toString().length() == 0) {
                             continue;
                         }
+                    }
+                    if (queryProperty.get(key) instanceof Collection) {
+                        Expression<Collection> expression=root.join(key);
+                        Predicate in= expression.in(queryProperty.get(key));
+                        predicates.add(in);
+                        continue;
                     }
                     predicates.add(criteriaBuilder.equal(root.get(key), queryProperty.get(key)));
                 }

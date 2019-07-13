@@ -2,6 +2,7 @@ package com.bfly.manage.user;
 
 import com.alibaba.fastjson.JSONObject;
 import com.bfly.cms.user.entity.User;
+import com.bfly.cms.user.entity.UserRole;
 import com.bfly.cms.user.service.IUserService;
 import com.bfly.common.*;
 import com.bfly.common.json.JsonUtil;
@@ -22,7 +23,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * 系统管理员用户Controller
@@ -90,7 +93,18 @@ public class UserController extends BaseManageController {
             private static final long serialVersionUID = 7166011434886278754L;
 
             {
-                put("status", request.getParameter("status"));
+                String roleId = request.getParameter("roleId");
+                if (roleId != null) {
+                    Set<UserRole> userRoleSet = new HashSet<>();
+                    UserRole role = new UserRole();
+                    role.setId(Integer.valueOf(roleId));
+                    userRoleSet.add(role);
+                    put("roles", userRoleSet);
+                }
+                String status = request.getParameter("status");
+                if (status != null) {
+                    put("status", status);
+                }
             }
         };
         Pager pager = userService.getPage(property);
@@ -157,15 +171,15 @@ public class UserController extends BaseManageController {
     }
 
     /**
-     * 解除管理员角色
+     * 回收用户角色
      *
      * @author andy_hulibo@163.com
-     * @date 2018/12/10 16:00
+     * @date 2019/7/12 13:51
      */
-    @PostMapping(value = "/removerole")
-    public void removeRole(HttpServletRequest request) {
-        int userId = DataConvertUtils.convertToInteger(request.getParameter("userId"));
-        int roleId = DataConvertUtils.convertToInteger(request.getParameter("roleId"));
+    @GetMapping(value = "/recycle/{userId}-{roleId}")
+    @ActionModel(value = "回收用户角色")
+    public void recycleUserRole(@PathVariable("userId") int userId, @PathVariable("roleId") int roleId, HttpServletResponse response) {
         userService.recyclingRole(userId, roleId);
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
     }
 }

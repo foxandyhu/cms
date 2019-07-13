@@ -24,10 +24,7 @@ import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author andy_hulibo@163.com
@@ -201,10 +198,12 @@ public class UserServiceImpl extends BaseServiceImpl<User, Integer> implements I
         if (roles == null) {
             return;
         }
-        for (UserRole role : roles) {
+        Iterator<UserRole> it = roles.iterator();
+        while (it.hasNext()) {
             //回收指定的角色
+            UserRole role = it.next();
             if (roleId == role.getId()) {
-                roles.remove(role);
+                it.remove();
             }
         }
         user.setRoles(roles);

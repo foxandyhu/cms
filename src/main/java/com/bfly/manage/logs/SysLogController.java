@@ -46,10 +46,21 @@ public class SysLogController extends BaseManageController {
             private static final long serialVersionUID = 7479394923131466430L;
 
             {
-                put("userName", request.getParameter("userName"));
-                put("title", request.getParameter("title"));
-                put("ip", request.getParameter("ip"));
-                put("category", type == null ? null : type.getId());
+                String userName = request.getParameter("userName");
+                if (userName != null) {
+                    put("userName", userName);
+                }
+                String title = request.getParameter("title");
+                if (title != null) {
+                    put("title", title);
+                }
+                String ip = request.getParameter("ip");
+                if (ip != null) {
+                    put("ip", ip);
+                }
+                if (type != null) {
+                    put("category", type.getId());
+                }
             }
         });
         ResponseUtil.writeJson(response, ResponseData.getSuccess(pager));

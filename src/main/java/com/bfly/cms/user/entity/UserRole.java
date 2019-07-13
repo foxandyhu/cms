@@ -1,12 +1,13 @@
 package com.bfly.cms.user.entity;
 
+import com.bfly.cms.system.entity.SysMenu;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -40,6 +41,21 @@ public class UserRole implements Serializable {
     @ManyToMany(mappedBy = "roles")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
     private Set<User> users;
+
+    /**
+     * 拥有的菜单权限
+     */
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JoinTable(name = "user_role_menu_ship", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "menu_id"))
+    private List<SysMenu> menus;
+
+    public List<SysMenu> getMenus() {
+        return menus;
+    }
+
+    public void setMenus(List<SysMenu> menus) {
+        this.menus = menus;
+    }
 
     public int getId() {
         return id;
