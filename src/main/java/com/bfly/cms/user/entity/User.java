@@ -10,6 +10,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -129,7 +130,7 @@ public class User implements Serializable {
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinTable(name = "user_role_ship", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     @NotEmpty(message = "角色不能为空!")
-    private Set<UserRole> roles;
+    private List<UserRole> roles;
 
 
     /**
@@ -231,11 +232,11 @@ public class User implements Serializable {
         this.status = status;
     }
 
-    public Set<UserRole> getRoles() {
+    public List<UserRole> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<UserRole> roles) {
+    public void setRoles(List<UserRole> roles) {
         this.roles = roles;
     }
 

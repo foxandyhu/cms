@@ -9,6 +9,7 @@ import com.bfly.common.json.JsonUtil;
 import com.bfly.common.page.Pager;
 import com.bfly.core.Constants;
 import com.bfly.core.base.action.BaseManageController;
+import com.bfly.core.cache.UserRightContainer;
 import com.bfly.core.config.ResourceConfig;
 import com.bfly.core.context.ContextUtil;
 import com.bfly.core.context.PagerThreadLocal;
@@ -61,6 +62,7 @@ public class UserController extends BaseManageController {
         json.put("userName", user.getUserName());
         json.put(Constants.APP_AUTH, appAuth);
 
+        UserRightContainer.loadUserRight(user);
         ResponseUtil.writeJson(response, ResponseData.getSuccess(json));
     }
 
@@ -71,11 +73,17 @@ public class UserController extends BaseManageController {
      * @date 2019/6/25 16:34
      */
     @GetMapping(value = "/logout")
+    @Login(required = false)
     @ActionModel(value = "用户登出", need = false)
     public void logout(HttpServletResponse response) {
-        String userName = getUser().getUserName();
+        User user = getUser();
         getSession().invalidate();
-        userService.logout(userName);
+        if (user != null) {
+            String userName = user.getUserName();
+            userService.logout(userName);
+
+            UserRightContainer.clear(user);
+        }
         ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
     }
 

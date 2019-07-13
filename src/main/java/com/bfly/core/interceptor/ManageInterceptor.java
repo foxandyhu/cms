@@ -3,8 +3,10 @@ package com.bfly.core.interceptor;
 import com.bfly.cms.user.entity.User;
 import com.bfly.common.reflect.ReflectUtils;
 import com.bfly.core.Constants;
+import com.bfly.core.cache.UserRightContainer;
 import com.bfly.core.context.*;
 import com.bfly.core.exception.UnAuthException;
+import com.bfly.core.exception.UnRightException;
 import com.bfly.core.security.Login;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
@@ -58,6 +60,9 @@ public class ManageInterceptor extends HandlerInterceptorAdapter {
                 if (admin.getStatus() != User.AVAILABLE_STATUS) {
                     throw new UnAuthException("未授权!");
                 }
+                if (!hasRight(admin, request)) {
+                    throw new UnRightException("没有权限访问!");
+                }
             }
         }
         return true;
@@ -82,5 +87,22 @@ public class ManageInterceptor extends HandlerInterceptorAdapter {
     private boolean needLogin(Method mth) {
         Login login = ReflectUtils.getActionAnnotationValue(mth, Login.class);
         return login == null ? true : login.required();
+    }
+
+    /**
+     * 盘但是否具有访问权限
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/7/13 18:18
+     */
+    private boolean hasRight(User admin, HttpServletRequest request) {
+        String url = String.valueOf(request.getAttribute("org.springframework.web.servlet.HandlerMapping.pathWithinHandlerMapping"));
+        //先判断真实请求的URL地址
+        if (UserRightContainer.exist(admin, url)) {
+            return true;
+        }
+        //再判断模糊匹配URL
+        url = String.valueOf(request.getAttribute("org.springframework.web.servlet.HandlerMapping.bestMatchingPattern"));
+        return UserRightContainer.exist(admin, url);
     }
 }

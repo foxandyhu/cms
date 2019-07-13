@@ -6,6 +6,7 @@ import com.bfly.common.ResponseUtil;
 import com.bfly.core.Constants;
 import com.bfly.core.enums.SysError;
 import com.bfly.core.exception.UnAuthException;
+import com.bfly.core.exception.UnRightException;
 import com.bfly.core.exception.WsResponseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,7 +53,10 @@ public class BaseManageController extends AbstractController {
             error = SysError.get(exception.getCode());
         }else if(e instanceof UnAuthException){
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
-        }else if(e instanceof NullPointerException){
+        }else if(e instanceof UnRightException){
+            response.setStatus(HttpStatus.FORBIDDEN.value());
+        }
+        else if(e instanceof NullPointerException){
             message="不存在的数据对象!";
         }
         String data = ResponseData.getFail(error,message);

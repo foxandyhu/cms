@@ -49,5 +49,7 @@
 
 	<!--临时文章订单缓存-->
     <cache name="contentOrderTemp" maxElementsInMemory="500" eternal="false" timeToIdleSeconds="7200" overflowToDisk="true" diskPersistent="true"/>
-    
+
+	<cache name="userRightCache" maxElementsInMemory="5000" eternal="false" timeToIdleSeconds="7200" overflowToDisk="true" diskPersistent="true"/>
+
 </ehcache>

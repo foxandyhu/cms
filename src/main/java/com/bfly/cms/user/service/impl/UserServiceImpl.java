@@ -84,7 +84,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, Integer> implements I
         String face = getFaceRelativePath(user.getFace());
         user.setFace(face);
 
-        Set<UserRole> userRoles = checkRoles(user);
+        List<UserRole> userRoles = checkRoles(user);
         user.setRoles(userRoles);
 
         userDao.save(user);
@@ -109,7 +109,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, Integer> implements I
             orUser.setFace(face);
         }
 
-        Set<UserRole> userRoles = checkRoles(user);
+        List<UserRole> userRoles = checkRoles(user);
         orUser.setRoles(userRoles);
         return super.edit(orUser);
     }
@@ -120,9 +120,9 @@ public class UserServiceImpl extends BaseServiceImpl<User, Integer> implements I
      * @author andy_hulibo@163.com
      * @date 2019/7/11 12:13
      */
-    private Set<UserRole> checkRoles(User user) {
-        Set<UserRole> roles = user.getRoles();
-        Set<UserRole> userRoles = new HashSet<>();
+    private List<UserRole> checkRoles(User user) {
+        List<UserRole> roles = user.getRoles();
+        List<UserRole> userRoles = new ArrayList<>();
         for (UserRole role : roles) {
             role = roleService.get(role.getId());
             Assert.notNull(role, "不存在该角色!");
@@ -194,7 +194,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, Integer> implements I
     public void recyclingRole(int userId, int roleId) {
         User user = get(userId);
         Assert.notNull(user, "用户信息不存在!");
-        Set<UserRole> roles = user.getRoles();
+        List<UserRole> roles = user.getRoles();
         if (roles == null) {
             return;
         }
