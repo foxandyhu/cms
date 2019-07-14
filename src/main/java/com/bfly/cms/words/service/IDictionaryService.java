@@ -1,6 +1,6 @@
-package com.bfly.cms.dictionary.service;
+package com.bfly.cms.words.service;
 
-import com.bfly.cms.dictionary.entity.Dictionary;
+import com.bfly.cms.words.entity.Dictionary;
 import com.bfly.core.base.service.IBaseService;
 
 import java.util.List;

@@ -1,6 +1,6 @@
-package com.bfly.cms.dictionary.dao;
+package com.bfly.cms.words.dao;
 
-import com.bfly.cms.dictionary.entity.Dictionary;
+import com.bfly.cms.words.entity.Dictionary;
 import com.bfly.core.base.dao.IBaseDao;
 import org.springframework.data.jpa.repository.Query;
 

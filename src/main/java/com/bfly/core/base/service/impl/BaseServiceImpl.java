@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
@@ -81,7 +80,11 @@ public abstract class BaseServiceImpl<T, ID> implements IBaseService<T, ID> {
             return getList();
         }
         Specification specification = getExactQuery(property);
-        specification = specification.and(getDefaultSpec());
+        if (specification != null) {
+            specification = specification.and(getDefaultSpec());
+        } else {
+            specification = getDefaultSpec();
+        }
         List<T> list = baseDao.findAll(specification);
         return list;
     }
@@ -96,8 +99,31 @@ public abstract class BaseServiceImpl<T, ID> implements IBaseService<T, ID> {
         } else {
             sortSpec = getDefaultSpec();
         }
-        specification = specification.and(unExactSpec).and(sortSpec);
+        if (specification != null) {
+            specification = specification.and(unExactSpec).and(sortSpec);
+        } else {
+            specification = sortSpec.and(unExactSpec);
+        }
+        List<T> list = baseDao.findAll(specification);
+        return list;
+    }
 
+    @Override
+    public List<T> getList(Map<String, Object> exactQueryProperty, Map<String, String> unExactQueryProperty, Map<String, Sort.Direction> sortQueryProperty, Map<String, String> groupProperty) {
+        Specification specification = getExactQuery(exactQueryProperty);
+        Specification unExactSpec = getUnExactQuery(unExactQueryProperty);
+        Specification groupSpec = getGroupQuery(groupProperty);
+        Specification sortSpec;
+        if (sortQueryProperty != null) {
+            sortSpec = getSortQuery(sortQueryProperty);
+        } else {
+            sortSpec = getDefaultSpec();
+        }
+        if (specification != null) {
+            specification = specification.and(unExactSpec).and(sortSpec).and(groupSpec);
+        } else {
+            specification = sortSpec.and(unExactSpec).and(groupSpec);
+        }
         List<T> list = baseDao.findAll(specification);
         return list;
     }
@@ -108,7 +134,11 @@ public abstract class BaseServiceImpl<T, ID> implements IBaseService<T, ID> {
         Assert.notNull(pager, "分页器没有实例化");
 
         Specification specification = getExactQuery(property);
-        specification = specification.and(getDefaultSpec());
+        if (specification != null) {
+            specification = specification.and(getDefaultSpec());
+        } else {
+            specification = getDefaultSpec();
+        }
         Page<T> page = baseDao.findAll(specification, getPageRequest(pager));
         pager = new Pager(page.getNumber(), page.getSize(), page.getTotalElements());
         pager.setData(page.getContent());
@@ -128,8 +158,36 @@ public abstract class BaseServiceImpl<T, ID> implements IBaseService<T, ID> {
         } else {
             sortSpec = getDefaultSpec();
         }
-        specification = specification.and(unExactSpec).and(sortSpec);
+        if (specification != null) {
+            specification = specification.and(unExactSpec).and(sortSpec);
+        } else {
+            specification = sortSpec.and(unExactSpec);
+        }
+        Page<T> page = baseDao.findAll(specification, getPageRequest(pager));
+        pager = new Pager(page.getNumber(), page.getSize(), page.getTotalElements());
+        pager.setData(page.getContent());
+        return pager;
+    }
 
+    @Override
+    public Pager getPage(Map<String, Object> exactQueryProperty, Map<String, String> unExactQueryProperty, Map<String, Sort.Direction> sortQueryProperty, Map<String, String> groupProperty) {
+        Pager pager = PagerThreadLocal.get();
+        Assert.notNull(pager, "分页器没有实例化");
+
+        Specification specification = getExactQuery(exactQueryProperty);
+        Specification unExactSpec = getUnExactQuery(unExactQueryProperty);
+        Specification groupSpec = getGroupQuery(groupProperty);
+        Specification sortSpec;
+        if (sortQueryProperty != null) {
+            sortSpec = getSortQuery(sortQueryProperty);
+        } else {
+            sortSpec = getDefaultSpec();
+        }
+        if (specification != null) {
+            specification = specification.and(unExactSpec).and(sortSpec).and(groupSpec);
+        } else {
+            specification = sortSpec.and(unExactSpec).and(groupSpec);
+        }
         Page<T> page = baseDao.findAll(specification, getPageRequest(pager));
         pager = new Pager(page.getNumber(), page.getSize(), page.getTotalElements());
         pager.setData(page.getContent());
@@ -150,8 +208,24 @@ public abstract class BaseServiceImpl<T, ID> implements IBaseService<T, ID> {
     public long getCount(Map<String, Object> exactQueryProperty, Map<String, String> unExactQueryProperty) {
         Specification specification = getExactQuery(exactQueryProperty);
         Specification unExactSpec = getUnExactQuery(unExactQueryProperty);
-        specification = specification.and(unExactSpec);
+        if (specification != null) {
+            specification = specification.and(unExactSpec);
+        } else {
+            specification = unExactSpec;
+        }
+        return baseDao.count(specification);
+    }
 
+    @Override
+    public long getCount(Map<String, Object> exactQueryProperty, Map<String, String> unExactQueryProperty, Map<String, String> groupProperty) {
+        Specification specification = getExactQuery(exactQueryProperty);
+        Specification unExactSpec = getUnExactQuery(unExactQueryProperty);
+        Specification groupSpec = getGroupQuery(groupProperty);
+        if (specification != null) {
+            specification = specification.and(unExactSpec).and(groupSpec);
+        } else {
+            specification = unExactSpec.and(groupSpec);
+        }
         return baseDao.count(specification);
     }
 
@@ -162,6 +236,9 @@ public abstract class BaseServiceImpl<T, ID> implements IBaseService<T, ID> {
      * @date 2019/6/28 20:13
      */
     protected Specification getExactQuery(Map<String, Object> queryProperty) {
+        if (queryProperty == null) {
+            return null;
+        }
         return (root, criteriaQuery, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
             if (queryProperty != null) {
@@ -176,8 +253,8 @@ public abstract class BaseServiceImpl<T, ID> implements IBaseService<T, ID> {
                         }
                     }
                     if (queryProperty.get(key) instanceof Collection) {
-                        Expression<Collection> expression=root.join(key);
-                        Predicate in= expression.in(queryProperty.get(key));
+                        Expression<Collection> expression = root.join(key);
+                        Predicate in = expression.in(queryProperty.get(key));
                         predicates.add(in);
                         continue;
                     }
@@ -195,6 +272,9 @@ public abstract class BaseServiceImpl<T, ID> implements IBaseService<T, ID> {
      * @date 2019/6/28 20:09
      */
     protected Specification getUnExactQuery(Map<String, String> queryProperty) {
+        if (queryProperty == null) {
+            return null;
+        }
         return (root, criteriaQuery, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
             if (queryProperty != null) {
@@ -216,6 +296,9 @@ public abstract class BaseServiceImpl<T, ID> implements IBaseService<T, ID> {
      * @date 2019/6/28 20:14
      */
     protected Specification getSortQuery(Map<String, Sort.Direction> sortProperty) {
+        if (sortProperty == null) {
+            return null;
+        }
         return (root, criteriaQuery, criteriaBuilder) -> {
             if (sortProperty != null) {
                 for (String key : sortProperty.keySet()) {
@@ -229,6 +312,29 @@ public abstract class BaseServiceImpl<T, ID> implements IBaseService<T, ID> {
                         Order order = criteriaBuilder.desc(root.get(key));
                         criteriaQuery.orderBy(order);
                     }
+                }
+            }
+            return (Predicate) criteriaQuery.getSelection();
+        };
+    }
+
+    /**
+     * 多条件分组查询
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/6/28 20:14
+     */
+    protected Specification getGroupQuery(Map<String, String> groupProperty) {
+        if (groupProperty == null) {
+            return null;
+        }
+        return (root, criteriaQuery, criteriaBuilder) -> {
+            if (groupProperty != null) {
+                for (String key : groupProperty.keySet()) {
+                    if (groupProperty.get(key) == null) {
+                        continue;
+                    }
+                    criteriaQuery.groupBy(root.get(key));
                 }
             }
             return (Predicate) criteriaQuery.getSelection();

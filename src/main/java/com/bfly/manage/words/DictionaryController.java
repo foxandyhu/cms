@@ -1,14 +1,15 @@
-package com.bfly.manage.dictionary;
+package com.bfly.manage.words;
 
-import com.bfly.cms.dictionary.entity.Dictionary;
-import com.bfly.cms.dictionary.service.IDictionaryService;
-import com.bfly.core.context.ContextUtil;
-import com.bfly.common.DataConvertUtils;
+import com.bfly.cms.words.entity.Dictionary;
+import com.bfly.cms.words.service.IDictionaryService;
+import com.bfly.common.ResponseData;
 import com.bfly.common.ResponseUtil;
 import com.bfly.common.page.Pager;
 import com.bfly.core.base.action.BaseManageController;
 import com.bfly.core.context.PagerThreadLocal;
+import com.bfly.core.security.ActionModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,17 +40,26 @@ public class DictionaryController extends BaseManageController {
      * @date 2018/12/14 11:22
      */
     @GetMapping(value = "/list")
+    @ActionModel(value = "获取数据字典集合",need = false)
     public void listDictionary(HttpServletRequest request, HttpServletResponse response) {
         PagerThreadLocal.set(request);
         Map<String, Object> property = new HashMap<String, Object>(3) {
             private static final long serialVersionUID = -9126101626116724049L;
-
             {
-                put("type", request.getParameter("type"));
+                String type = request.getParameter("type");
+                if (type != null) {
+                    put("type", request.getParameter("type"));
+                }
             }
         };
-        Pager pager = dictionaryService.getPage(property);
-        ResponseUtil.writeJson(response, pager);
+        Map<String, Sort.Direction> sort = new HashMap<String, Sort.Direction>(1) {
+            private static final long serialVersionUID = -9126101626116724049L;
+            {
+                put("type", Sort.Direction.ASC);
+            }
+        };
+        Pager pager = dictionaryService.getPage(property,null,sort,null);
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(pager));
     }
 
     /**
@@ -59,10 +69,11 @@ public class DictionaryController extends BaseManageController {
      * @date 2018/12/14 11:32
      */
     @PostMapping(value = "/add")
-    public void addDictionary(@Valid Dictionary dictionary, BindingResult result, HttpServletRequest request, HttpServletResponse response) {
+    @ActionModel(value = "新增数据字典")
+    public void addDictionary(@RequestBody @Valid Dictionary dictionary, BindingResult result, HttpServletResponse response) {
         validData(result);
         dictionaryService.save(dictionary);
-        ResponseUtil.writeJson(response, "");
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
     }
 
     /**
@@ -72,10 +83,11 @@ public class DictionaryController extends BaseManageController {
      * @date 2018/12/14 11:33
      */
     @PostMapping(value = "/edit")
-    public void editDictionary(@Valid Dictionary dictionary,BindingResult result, HttpServletResponse response) {
+    @ActionModel(value = "编辑数据字典")
+    public void editDictionary(@RequestBody @Valid Dictionary dictionary, BindingResult result, HttpServletResponse response) {
         validData(result);
         dictionaryService.edit(dictionary);
-        ResponseUtil.writeJson(response, "");
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
     }
 
     /**
@@ -85,11 +97,10 @@ public class DictionaryController extends BaseManageController {
      * @date 2018/12/14 11:37
      */
     @PostMapping(value = "/del")
-    public void removeDictionary(HttpServletRequest request, HttpServletResponse response) {
-        String dictionaryIdStr = request.getParameter("ids");
-        Integer[] dictionaryIds = DataConvertUtils.convertToIntegerArray(dictionaryIdStr.split(","));
-        dictionaryService.remove(dictionaryIds);
-        ResponseUtil.writeJson(response, "");
+    @ActionModel(value = "删除数据字典")
+    public void removeDictionary(HttpServletResponse response, @RequestBody Integer... dirId) {
+        dictionaryService.remove(dirId);
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
     }
 
     /**
@@ -99,9 +110,10 @@ public class DictionaryController extends BaseManageController {
      * @date 2018/12/14 11:38
      */
     @GetMapping(value = "/{dictionaryId}")
+    @ActionModel(value = "获取数据字典详情",need = false)
     public void viewDictionary(@PathVariable("dictionaryId") int dictionaryId, HttpServletResponse response) {
         Dictionary dictionary = dictionaryService.get(dictionaryId);
-        ResponseUtil.writeJson(response, dictionary);
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(dictionary));
     }
 
     /**
@@ -111,8 +123,9 @@ public class DictionaryController extends BaseManageController {
      * @date 2018/12/14 11:39
      */
     @RequestMapping(value = "/types")
+    @ActionModel(value = "获取数据字典类型集合",need = false)
     public void listDictionayType(HttpServletResponse response) {
         List<String> types = dictionaryService.getTypes();
-        ResponseUtil.writeJson(response, types);
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(types));
     }
 }

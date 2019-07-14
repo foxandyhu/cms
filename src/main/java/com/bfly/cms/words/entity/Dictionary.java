@@ -1,4 +1,4 @@
-package com.bfly.cms.dictionary.entity;
+package com.bfly.cms.words.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
