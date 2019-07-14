@@ -103,6 +103,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, Integer> implements I
 
         orUser.setEmail(user.getEmail());
         orUser.setStatus(user.getStatus());
+        orUser.setSuperAdmin(user.isSuperAdmin());
 
         String face = getFaceRelativePath(user.getFace());
         if (face != null) {

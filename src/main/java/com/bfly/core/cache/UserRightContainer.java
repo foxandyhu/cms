@@ -1,6 +1,7 @@
 package com.bfly.core.cache;
 
 import com.bfly.cms.system.entity.SysMenu;
+import com.bfly.cms.system.service.ISysMenuService;
 import com.bfly.cms.user.entity.User;
 import com.bfly.cms.user.entity.UserRole;
 import org.slf4j.Logger;
@@ -48,6 +49,12 @@ public class UserRightContainer implements Serializable {
     private static final String USER_RIGHT_CACHE = "userRightCache";
 
     private static Cache userRightsCache;
+    private static ISysMenuService menuService;
+
+    @Autowired
+    public void setMenuService(ISysMenuService menuService) {
+        UserRightContainer.menuService = menuService;
+    }
 
     @Autowired
     public void setCacheManager(CacheManager cacheManager) {
@@ -62,11 +69,16 @@ public class UserRightContainer implements Serializable {
      */
     public static void loadUserRight(User user) {
         try {
-            List<UserRole> roles = user.getRoles();
-            List<SysMenu> menus = new ArrayList<>();
-            if (roles != null) {
-                for (UserRole role : roles) {
-                    menus.addAll(role.getMenus());
+            List<SysMenu> menus;
+            if (user.isSuperAdmin()) {
+                menus = menuService.getList();
+            } else {
+                List<UserRole> roles = user.getRoles();
+                menus = new ArrayList<>();
+                if (roles != null) {
+                    for (UserRole role : roles) {
+                        menus.addAll(role.getMenus());
+                    }
                 }
             }
             userRightsCache.put(SYS_ROLE_RIGHT_KEY + user.getId(), menus);
@@ -103,7 +115,7 @@ public class UserRightContainer implements Serializable {
             return false;
         }
         //得到缓存的资源权限
-        List<SysMenu> menus = userRightsCache.get(SYS_ROLE_RIGHT_KEY + user.getId(),List.class);
+        List<SysMenu> menus = userRightsCache.get(SYS_ROLE_RIGHT_KEY + user.getId(), List.class);
         if (menus == null) {
             return false;
         }

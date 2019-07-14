@@ -132,6 +132,14 @@ public class User implements Serializable {
     @NotEmpty(message = "角色不能为空!")
     private List<UserRole> roles;
 
+    /**
+     * 是否是超级管理员
+     * @author andy_hulibo@163.com
+     * @date 2019/7/14 11:56
+     */
+    @Column(name = "is_super_admin")
+    private boolean superAdmin;
+
 
     /**
      * 状态名称
@@ -150,6 +158,14 @@ public class User implements Serializable {
             default:
                 return "";
         }
+    }
+
+    public boolean isSuperAdmin() {
+        return superAdmin;
+    }
+
+    public void setSuperAdmin(boolean superAdmin) {
+        this.superAdmin = superAdmin;
     }
 
     public String getFace() {

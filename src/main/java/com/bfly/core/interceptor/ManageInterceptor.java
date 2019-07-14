@@ -96,6 +96,9 @@ public class ManageInterceptor extends HandlerInterceptorAdapter {
      * @date 2019/7/13 18:18
      */
     private boolean hasRight(User admin, HttpServletRequest request) {
+        if(admin.isSuperAdmin()){
+            return true;
+        }
         String url = String.valueOf(request.getAttribute("org.springframework.web.servlet.HandlerMapping.pathWithinHandlerMapping"));
         //先判断真实请求的URL地址
         if (UserRightContainer.exist(admin, url)) {
