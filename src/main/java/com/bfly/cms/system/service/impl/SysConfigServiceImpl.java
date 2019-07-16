@@ -4,6 +4,7 @@ import com.bfly.cms.system.entity.SysConfig;
 import com.bfly.cms.system.service.ISysConfigService;
 import com.bfly.core.base.service.impl.BaseServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
  * @date 2018/12/20 10:49
  */
 @Service
-@Transactional(readOnly = true, rollbackFor = Exception.class)
+@Transactional(propagation= Propagation.SUPPORTS, rollbackFor = Exception.class)
 public class SysConfigServiceImpl extends BaseServiceImpl<SysConfig, Integer> implements ISysConfigService {
 
 

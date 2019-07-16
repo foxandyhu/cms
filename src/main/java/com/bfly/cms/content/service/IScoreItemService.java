@@ -10,4 +10,11 @@ import com.bfly.core.base.service.IBaseService;
  * @date 2018/12/17 11:53
  */
 public interface IScoreItemService extends IBaseService<ScoreItem, Integer> {
+
+    /**
+     * 根据评分组删除评分项
+     * @author andy_hulibo@163.com
+     * @date 2019/7/15 21:01
+     */
+    int removeScoreItem(int groupId);
 }

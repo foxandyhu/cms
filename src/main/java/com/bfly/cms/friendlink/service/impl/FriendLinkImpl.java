@@ -4,6 +4,7 @@ import com.bfly.cms.friendlink.entity.FriendLink;
 import com.bfly.cms.friendlink.service.IFriendLinkService;
 import com.bfly.core.base.service.impl.BaseServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -11,6 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
  * @date 2018/12/11 16:56
  */
 @Service
-@Transactional(readOnly = true, rollbackFor = Exception.class)
+@Transactional(propagation= Propagation.SUPPORTS, rollbackFor = Exception.class)
 public class FriendLinkImpl extends BaseServiceImpl<FriendLink, Integer> implements IFriendLinkService {
 }

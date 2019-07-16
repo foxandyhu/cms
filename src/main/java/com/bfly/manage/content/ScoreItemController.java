@@ -1,20 +1,28 @@
 package com.bfly.manage.content;
 
+import com.alibaba.fastjson.JSONObject;
+import com.bfly.cms.content.entity.ScoreGroup;
 import com.bfly.cms.content.entity.ScoreItem;
 import com.bfly.cms.content.service.IScoreItemService;
+import com.bfly.common.ResponseData;
+import com.bfly.common.json.JsonUtil;
+import com.bfly.core.config.ResourceConfig;
 import com.bfly.core.context.ContextUtil;
 import com.bfly.common.DataConvertUtils;
 import com.bfly.common.ResponseUtil;
 import com.bfly.common.page.Pager;
 import com.bfly.core.base.action.BaseManageController;
 import com.bfly.core.context.PagerThreadLocal;
+import com.bfly.core.security.ActionModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 评分组Controller
@@ -35,17 +43,21 @@ public class ScoreItemController extends BaseManageController {
      * @author andy_hulibo@163.com
      * @date 2018/12/17 12:00
      */
-    @GetMapping(value = "/list-{scoreGroupId}")
-    public void listScoreItem(@PathVariable("scoreGroupId") int scoreGroupId, HttpServletResponse response) {
+    @GetMapping(value = "/list")
+    @ActionModel(value = "评分项列表",need = false)
+    public void listScoreItem(HttpServletResponse response) {
         PagerThreadLocal.set(getRequest());
-        Pager pager = scoreItemService.getPage(new HashMap<String, Object>() {
-            private static final long serialVersionUID = -3370682715204052757L;
-
-            {
-                put("group.id", scoreGroupId);
-            }
-        });
-        ResponseUtil.writeJson(response, pager);
+        String groupIdStr = getRequest().getParameter("groupId");
+        Map<String, Object> params = null;
+        if (groupIdStr != null) {
+            params = new HashMap<>(1);
+            ScoreGroup group = new ScoreGroup();
+            group.setId(Integer.valueOf(groupIdStr));
+            params.put("group", group);
+        }
+        Pager pager = scoreItemService.getPage(params);
+        JSONObject json = JsonUtil.toJsonFilter(pager, "items");
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(json));
     }
 
     /**
@@ -55,10 +67,11 @@ public class ScoreItemController extends BaseManageController {
      * @date 2018/12/17 13:47
      */
     @PostMapping(value = "/add")
-    public void addScoreItem(@Valid ScoreItem scoreItem, BindingResult result, HttpServletResponse response) {
+    @ActionModel("新增评分项")
+    public void addScoreItem(@RequestBody @Valid ScoreItem scoreItem, BindingResult result, HttpServletResponse response) {
         validData(result);
         scoreItemService.save(scoreItem);
-        ResponseUtil.writeJson(response, "");
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
     }
 
     /**
@@ -68,10 +81,11 @@ public class ScoreItemController extends BaseManageController {
      * @date 2018/12/17 13:48
      */
     @PostMapping(value = "/edit")
-    public void editScoreItem(@Valid ScoreItem scoreItem,BindingResult result, HttpServletResponse response) {
+    @ActionModel("编辑评分项")
+    public void editScoreItem(@RequestBody @Valid ScoreItem scoreItem, BindingResult result, HttpServletResponse response) {
         validData(result);
         scoreItemService.edit(scoreItem);
-        ResponseUtil.writeJson(response, "");
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
     }
 
     /**
@@ -81,9 +95,14 @@ public class ScoreItemController extends BaseManageController {
      * @date 2018/12/17 13:50
      */
     @GetMapping(value = "/{scoreItemId}")
+    @ActionModel(value = "查看评分项详情", need = false)
     public void viewScoreItem(@PathVariable("scoreItemId") int scoreItemId, HttpServletResponse response) {
         ScoreItem scoreItem = scoreItemService.get(scoreItemId);
-        ResponseUtil.writeJson(response, scoreItem);
+        if(StringUtils.hasLength(scoreItem.getUrl())){
+            scoreItem.setUrl(ResourceConfig.getServer()+scoreItem.getUrl());
+        }
+        JSONObject json = JsonUtil.toJsonFilter(scoreItem, "items");
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(json));
     }
 
     /**
@@ -93,10 +112,9 @@ public class ScoreItemController extends BaseManageController {
      * @date 2018/12/17 13:51
      */
     @PostMapping(value = "/del")
-    public void delScoreItem(HttpServletResponse response) {
-        String scoreItemIdStr = getRequest().getParameter("ids");
-        Integer[] scoreItemIds = DataConvertUtils.convertToIntegerArray(scoreItemIdStr.split(","));
-        scoreItemService.remove(scoreItemIds);
-        ResponseUtil.writeJson(response, "");
+    @ActionModel(value = "删除评分项")
+    public void delScoreItem(HttpServletResponse response, @RequestBody Integer... ids) {
+        scoreItemService.remove(ids);
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
     }
 }

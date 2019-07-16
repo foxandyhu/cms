@@ -4,9 +4,12 @@ import com.bfly.cms.words.entity.SensitiveWords;
 import com.bfly.cms.words.service.ISensitiveWordsService;
 import com.bfly.core.base.service.impl.BaseServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 
+import java.util.Collections;
 import java.util.HashMap;
 
 /**
@@ -14,8 +17,10 @@ import java.util.HashMap;
  * @date 2018/12/17 14:46
  */
 @Service
-@Transactional(readOnly = true, rollbackFor = Exception.class)
+@Transactional(propagation = Propagation.SUPPORTS, rollbackFor = Exception.class)
 public class SensitiveWordsServiceImpl extends BaseServiceImpl<SensitiveWords, Integer> implements ISensitiveWordsService {
+
+    private final String REPLACE_CHAR = "*";
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -28,6 +33,9 @@ public class SensitiveWordsServiceImpl extends BaseServiceImpl<SensitiveWords, I
             }
         });
         Assert.isTrue(count == 0, sensitiveWords.getWord() + " 敏感词已存在!");
+        if (!StringUtils.hasLength(sensitiveWords.getReplace())) {
+            sensitiveWords.setReplace(String.join("", Collections.nCopies(sensitiveWords.getWord().length(), REPLACE_CHAR)));
+        }
         return super.save(sensitiveWords);
     }
 
@@ -43,6 +51,9 @@ public class SensitiveWordsServiceImpl extends BaseServiceImpl<SensitiveWords, I
         });
         boolean flag = ssw != null && ssw.getWord().equalsIgnoreCase(sensitiveWords.getWord()) && ssw.getId() != sensitiveWords.getId();
         Assert.isTrue(!flag, sensitiveWords.getWord() + " 敏感词已存在!");
+        if (!StringUtils.hasLength(sensitiveWords.getReplace())) {
+            sensitiveWords.setReplace(String.join("", Collections.nCopies(sensitiveWords.getWord().length(), REPLACE_CHAR)));
+        }
         return super.edit(sensitiveWords);
     }
 }

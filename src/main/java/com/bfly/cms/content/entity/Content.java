@@ -4,7 +4,6 @@ import com.bfly.cms.channel.entity.Channel;
 import com.bfly.cms.comment.entity.Comment;
 import com.bfly.cms.user.entity.User;
 import com.bfly.cms.member.entity.MemberGroup;
-import com.bfly.cms.words.entity.Tags;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -141,15 +140,6 @@ public class Content implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
     @JoinTable(name = "content_group_view", joinColumns = @JoinColumn(name = "content_id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
     private Set<MemberGroup> viewGroups;
-
-    /**
-     * 文章内容关联的TAG标签
-     */
-    @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
-    @JoinTable(name = "content_tag_ship", joinColumns = @JoinColumn(name = "content_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
-    private List<Tags> tags;
-
 
     /**
      * 文章内容图片集
@@ -348,14 +338,6 @@ public class Content implements Serializable {
 
     public void setViewGroups(Set<MemberGroup> viewGroups) {
         this.viewGroups = viewGroups;
-    }
-
-    public List<Tags> getTags() {
-        return tags;
-    }
-
-    public void setTags(List<Tags> tags) {
-        this.tags = tags;
     }
 
     public List<ContentPicture> getPictures() {

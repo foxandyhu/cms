@@ -4,14 +4,15 @@ import com.alibaba.fastjson.JSONObject;
 import com.bfly.cms.user.entity.User;
 import com.bfly.cms.user.entity.UserRole;
 import com.bfly.cms.user.service.IUserService;
-import com.bfly.common.*;
+import com.bfly.common.ResponseData;
+import com.bfly.common.ResponseUtil;
+import com.bfly.common.StringUtil;
 import com.bfly.common.json.JsonUtil;
 import com.bfly.common.page.Pager;
 import com.bfly.core.Constants;
 import com.bfly.core.base.action.BaseManageController;
 import com.bfly.core.cache.UserRightContainer;
 import com.bfly.core.config.ResourceConfig;
-import com.bfly.core.context.ContextUtil;
 import com.bfly.core.context.PagerThreadLocal;
 import com.bfly.core.security.ActionModel;
 import com.bfly.core.security.Login;
@@ -40,8 +41,6 @@ public class UserController extends BaseManageController {
 
     @Autowired
     private IUserService userService;
-    @Autowired
-    private ResourceConfig resourceConfig;
 
     /**
      * 用户登录
@@ -61,6 +60,9 @@ public class UserController extends BaseManageController {
         JSONObject json = new JSONObject();
         json.put("userName", user.getUserName());
         json.put(Constants.APP_AUTH, appAuth);
+        if (StringUtils.hasLength(user.getFace())) {
+            json.put("face", ResourceConfig.getServer() + user.getFace());
+        }
 
         UserRightContainer.loadUserRight(user);
         ResponseUtil.writeJson(response, ResponseData.getSuccess(json));
@@ -159,7 +161,7 @@ public class UserController extends BaseManageController {
     public void viewUser(@PathVariable("userId") int userId, HttpServletResponse response) {
         User user = userService.get(userId);
         if (StringUtils.hasLength(user.getFace())) {
-            user.setFace(resourceConfig.getServer() + user.getFace());
+            user.setFace(ResourceConfig.getServer() + user.getFace());
         }
         JSONObject json = JsonUtil.toJsonFilter(user, "password", "users");
         ResponseUtil.writeJson(response, ResponseData.getSuccess(json));

@@ -9,6 +9,7 @@ import com.bfly.cms.user.service.IUserService;
 import com.bfly.core.base.service.impl.BaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
@@ -19,7 +20,7 @@ import java.util.*;
  * @date 2018/12/10 15:48
  */
 @Service
-@Transactional(readOnly = true, rollbackFor = Exception.class)
+@Transactional(propagation= Propagation.SUPPORTS, rollbackFor = Exception.class)
 public class UserRoleServiceImpl extends BaseServiceImpl<UserRole, Integer> implements IUserRoleService {
 
     @Autowired

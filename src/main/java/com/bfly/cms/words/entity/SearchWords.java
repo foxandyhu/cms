@@ -4,6 +4,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**
@@ -28,6 +29,7 @@ public class SearchWords implements Serializable {
      * 搜索词汇
      */
     @Column(name = "name")
+    @NotBlank(message = "搜索词不能为空!")
     private String name;
 
     /**
@@ -35,18 +37,6 @@ public class SearchWords implements Serializable {
      */
     @Column(name = "hit_count")
     private int hitCount;
-
-    /**
-     * 优先级
-     */
-    @Column(name = "priority")
-    private int priority;
-
-    /**
-     * 拼音首字母
-     */
-    @Column(name = "name_initial")
-    private String nameInitial;
 
     /**
      * 推荐
@@ -76,22 +66,6 @@ public class SearchWords implements Serializable {
 
     public void setHitCount(Integer hitCount) {
         this.hitCount = hitCount;
-    }
-
-    public Integer getPriority() {
-        return priority;
-    }
-
-    public void setPriority(Integer priority) {
-        this.priority = priority;
-    }
-
-    public String getNameInitial() {
-        return nameInitial;
-    }
-
-    public void setNameInitial(String nameInitial) {
-        this.nameInitial = nameInitial;
     }
 
     public Boolean getRecommend() {

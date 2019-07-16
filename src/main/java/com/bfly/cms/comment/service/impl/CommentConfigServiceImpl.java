@@ -4,6 +4,7 @@ import com.bfly.cms.comment.entity.CommentConfig;
 import com.bfly.cms.comment.service.ICommentConfigService;
 import com.bfly.core.base.service.impl.BaseServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
  * @date 2018/12/20 10:04
  */
 @Service
-@Transactional(readOnly = true, rollbackFor = Exception.class)
+@Transactional(propagation= Propagation.SUPPORTS, rollbackFor = Exception.class)
 public class CommentConfigServiceImpl extends BaseServiceImpl<CommentConfig, Integer> implements ICommentConfigService {
 
 

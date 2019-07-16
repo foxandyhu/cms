@@ -42,33 +42,26 @@ public class ScoreItem implements Serializable, Comparable<ScoreItem> {
     /**
      * 评分图标路径
      */
-    @Column(name = "image_path")
-    private String imagePath;
+    @Column(name = "url")
+    private String url;
 
     /**
      * 排序
      */
-    @Column(name = "priority")
+    @Column(name = "seq")
     @Min(value = 0, message = "评分顺序必须大于0!")
-    private int priority;
+    private int seq;
 
     /**
      * 评分组
      */
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "group_id")
     private ScoreGroup group;
 
-    /**
-     * 评分记录
-     */
-    @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
-    private Set<ScoreRecord> records;
-
-
     @Override
     public int compareTo(ScoreItem o) {
-        return this.getPriority() - o.getPriority();
+        return this.getSeq() - o.getSeq();
     }
 
     public int getId() {
@@ -95,20 +88,20 @@ public class ScoreItem implements Serializable, Comparable<ScoreItem> {
         this.score = score;
     }
 
-    public String getImagePath() {
-        return imagePath;
+    public String getUrl() {
+        return url;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
-    public int getPriority() {
-        return priority;
+    public int getSeq() {
+        return seq;
     }
 
-    public void setPriority(int priority) {
-        this.priority = priority;
+    public void setSeq(int seq) {
+        this.seq = seq;
     }
 
     public ScoreGroup getGroup() {
@@ -117,13 +110,5 @@ public class ScoreItem implements Serializable, Comparable<ScoreItem> {
 
     public void setGroup(ScoreGroup group) {
         this.group = group;
-    }
-
-    public Set<ScoreRecord> getRecords() {
-        return records;
-    }
-
-    public void setRecords(Set<ScoreRecord> records) {
-        this.records = records;
     }
 }

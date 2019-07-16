@@ -6,6 +6,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -34,26 +35,14 @@ public class ScoreGroup implements Serializable {
     /**
      * 描述
      */
-    @Column(name = "description")
-    private String description;
-
-    /**
-     * 是否启用
-     */
-    @Column(name = "enable")
-    private boolean enable;
-
-    /**
-     * 是否默认
-     */
-    @Column(name = "def")
-    private boolean def;
+    @Column(name = "remark")
+    private String remark;
 
     /**
      * 评分项
      */
-    @OneToMany(mappedBy = "group", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    private Set<ScoreItem> items;
+    @OneToMany(mappedBy = "group", fetch = FetchType.LAZY)
+    private List<ScoreItem> items;
 
     public Integer getId() {
         return id;
@@ -71,35 +60,23 @@ public class ScoreGroup implements Serializable {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public String getRemark() {
+        return remark;
     }
 
-    public boolean isEnable() {
-        return enable;
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 
-    public void setEnable(boolean enable) {
-        this.enable = enable;
-    }
-
-    public boolean isDef() {
-        return def;
-    }
-
-    public void setDef(boolean def) {
-        this.def = def;
-    }
-
-    public Set<ScoreItem> getItems() {
+    public List<ScoreItem> getItems() {
         return items;
     }
 
-    public void setItems(Set<ScoreItem> items) {
+    public void setItems(List<ScoreItem> items) {
         this.items = items;
     }
 }

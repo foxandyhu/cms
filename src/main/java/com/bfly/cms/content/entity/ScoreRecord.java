@@ -29,19 +29,11 @@ public class ScoreRecord implements Serializable {
     private int count;
 
     /**
-     * 所属评分项
-     */
-    @ManyToOne
-    @JoinColumn(name = "item_id")
-    private ScoreItem item;
-
-    /**
      * 所属文章内容
      */
     @ManyToOne
     @JoinColumn(name = "content_id")
     private Content content;
-
 
     public int getId() {
         return id;
@@ -57,14 +49,6 @@ public class ScoreRecord implements Serializable {
 
     public void setCount(int count) {
         this.count = count;
-    }
-
-    public ScoreItem getItem() {
-        return item;
-    }
-
-    public void setItem(ScoreItem item) {
-        this.item = item;
     }
 
     public Content getContent() {

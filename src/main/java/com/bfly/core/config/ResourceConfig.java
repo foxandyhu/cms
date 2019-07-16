@@ -1,11 +1,12 @@
 package com.bfly.core.config;
 
+import com.bfly.common.FileUtil;
+import com.bfly.core.Constants;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.util.StringUtils;
 
+import javax.annotation.PostConstruct;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -18,6 +19,13 @@ import java.nio.file.Paths;
  */
 @Configuration
 public class ResourceConfig {
+
+    private static ResourceConfig config;
+
+    @PostConstruct
+    public void init() {
+        config = this;
+    }
 
     /**
      * 上传的资源临时存放路径
@@ -39,6 +47,7 @@ public class ResourceConfig {
 
     /**
      * 静态资源服务器地址
+     *
      * @author andy_hulibo@163.com
      * @date 2019/7/4 16:30
      */
@@ -46,36 +55,67 @@ public class ResourceConfig {
     private String server;
 
     /**
-     * 用户头像图片存放路径
+     * 用户头像图片存放路径文件夹
      *
      * @author andy_hulibo@163.com
      * @date 2019/7/4 10:53
      */
-    public String getFace() {
-        return getRoot() + File.separator + "face";
+    public static String getFaceDir() {
+        return getRootDir() + File.separator + "face";
     }
 
     /**
-     * 获得相对root路劲的绝对路劲,必须是root的子目录或文件
+     * 评分项图片存放路径文件夹
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/7/16 10:41
+     */
+    public static String getScoreDir() {
+        return getRootDir() + File.separator + "score";
+    }
+
+    /**
+     * 获得相对root路径的绝对路径,必须是root的子目录或文件
      *
      * @author andy_hulibo@163.com
      * @date 2019/7/4 11:11
      */
-    public String getRelativePathForRoot(String path) {
-        Path p = Paths.get(getRoot()).relativize(Paths.get(path));
-        return p.toString();
+    public static String getRelativePathForRoot(String path) {
+        Path p = Paths.get(getRootDir()).relativize(Paths.get(path));
+        return p.toString().replaceAll("\\\\","/");
     }
 
-    public String getServer() {
-        return server;
+    public static String getServer() {
+        return config.server;
     }
 
-    public String getTemp() {
-        return temp;
+    public static String getTempDir() {
+        return config.temp;
     }
 
-    public String getRoot() {
-        return root;
+    public static String getRootDir() {
+        return config.root;
     }
 
+
+    /**
+     * 把上传的临时文件复制到目标文件并返回基于目标文件的相对路径
+     *
+     * @param destDir  上传文件的目标目录
+     * @param filePath 文件的路径 临时文件--相对路径
+     * @author andy_hulibo@163.com
+     * @date 2019/7/16 10:30
+     */
+    public static String getUploadTempFileToDestDirForRelativePath(String filePath, String destDir) {
+        //把临时文件夹中的图片复制到face目录中
+        if (StringUtils.hasLength(filePath) && filePath.endsWith(Constants.TEMP_RESOURCE_SUFFIX)) {
+            String source = getTempDir() + File.separator + filePath;
+            boolean result = FileUtil.copyFileToDirectory(source, destDir);
+            if (result) {
+                filePath = filePath.substring(0, filePath.lastIndexOf(Constants.TEMP_RESOURCE_SUFFIX));
+                return getRelativePathForRoot(destDir + File.separator + filePath);
+            }
+        }
+        return null;
+    }
 }

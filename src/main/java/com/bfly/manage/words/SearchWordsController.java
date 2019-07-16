@@ -1,19 +1,18 @@
 package com.bfly.manage.words;
 
-import com.bfly.cms.words.entity.SearchWords;
 import com.bfly.cms.words.service.ISearchWordsService;
-import com.bfly.core.context.ContextUtil;
-import com.bfly.common.DataConvertUtils;
+import com.bfly.common.ResponseData;
 import com.bfly.common.ResponseUtil;
 import com.bfly.common.page.Pager;
 import com.bfly.core.base.action.BaseManageController;
 import com.bfly.core.context.PagerThreadLocal;
+import com.bfly.core.security.ActionModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 热词管理Controller
@@ -22,7 +21,7 @@ import javax.validation.Valid;
  * @date 2018/12/17 14:49
  */
 @RestController
-@RequestMapping(value = "/manage/searchwords")
+@RequestMapping(value = "/manage/searchword")
 public class SearchWordsController extends BaseManageController {
 
     @Autowired
@@ -37,46 +36,20 @@ public class SearchWordsController extends BaseManageController {
     @GetMapping(value = "/list")
     public void listSearchWords(HttpServletResponse response) {
         PagerThreadLocal.set(getRequest());
-        Pager pager = searchWordsService.getPage(null);
-        ResponseUtil.writeJson(response, pager);
-    }
-
-    /**
-     * 新增热词
-     *
-     * @author andy_hulibo@163.com
-     * @date 2018/12/18 10:37
-     */
-    @PostMapping(value = "/add")
-    public void addSearchWords(@Valid SearchWords searchWords, BindingResult result, HttpServletResponse response) {
-        validData(result);
-        searchWordsService.save(searchWords);
-        ResponseUtil.writeJson(response, "");
-    }
-
-    /**
-     * 编辑热词
-     *
-     * @author andy_hulibo@163.com
-     * @date 2018/12/18 10:38
-     */
-    @PostMapping(value = "/edit")
-    public void editSearchWords(@Valid SearchWords searchWords,BindingResult result, HttpServletResponse response) {
-        validData(result);
-        searchWordsService.edit(searchWords);
-        ResponseUtil.writeJson(response, "");
-    }
-
-    /**
-     * 热词详情
-     *
-     * @author andy_hulibo@163.com
-     * @date 2018/12/18 10:39
-     */
-    @GetMapping(value = "/{searchWordsId}")
-    public void viewSearchWords(@PathVariable("searchWordsId") int searchWordsId, HttpServletResponse response) {
-        SearchWords searchWords = searchWordsService.get(searchWordsId);
-        ResponseUtil.writeJson(response, searchWords);
+        Map<String, String> unexact = null;
+        String searchWord = getRequest().getParameter("search");
+        if (searchWord != null) {
+            unexact = new HashMap<>(1);
+            unexact.put("name", searchWord);
+        }
+        Map<String, Object> exact = null;
+        String recommend = getRequest().getParameter("recommend");
+        if (recommend != null) {
+            exact = new HashMap<>(1);
+            exact.put("recommend", Boolean.valueOf(recommend));
+        }
+        Pager pager = searchWordsService.getPage(exact, unexact, null);
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(pager));
     }
 
     /**
@@ -86,10 +59,21 @@ public class SearchWordsController extends BaseManageController {
      * @date 2018/12/17 14:52
      */
     @PostMapping(value = "/del")
-    public void delSearchWords(HttpServletResponse response) {
-        String idStr = getRequest().getParameter("ids");
-        Integer[] ids = DataConvertUtils.convertToIntegerArray(idStr.split(","));
+    public void delSearchWords(HttpServletResponse response, @RequestBody Integer... ids) {
         searchWordsService.remove(ids);
-        ResponseUtil.writeJson(response, "");
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
+    }
+
+    /**
+     * 更新热词推荐状态
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/7/15 15:22
+     */
+    @GetMapping(value = "/recommend-{searchId}-{status}")
+    @ActionModel(value = "更新搜索词推荐状态")
+    public void recommendSearchWords(HttpServletResponse response, @PathVariable("searchId") int searchId, @PathVariable("status") boolean status) {
+        searchWordsService.editRecommend(searchId, status);
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
     }
 }

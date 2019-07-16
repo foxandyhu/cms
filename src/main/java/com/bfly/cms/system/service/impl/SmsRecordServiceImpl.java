@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.Predicate;
@@ -23,7 +24,7 @@ import java.util.Map;
  * @date 2018/12/18 11:31
  */
 @Service
-@Transactional(readOnly = true, rollbackFor = Exception.class)
+@Transactional(propagation= Propagation.SUPPORTS, rollbackFor = Exception.class)
 public class SmsRecordServiceImpl extends BaseServiceImpl<SmsRecord, Integer> implements ISmsRecordService {
 
     @Autowired

@@ -21,7 +21,7 @@ public class SensitiveWords implements Serializable {
     private static final long serialVersionUID = 5007411776086094322L;
 
     @Id
-    @Column(name = "sensitivity_id")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
@@ -36,8 +36,7 @@ public class SensitiveWords implements Serializable {
      * 替换词
      */
     @Column(name = "replace_word")
-    @NotBlank(message = "替换词不能为空!")
-    private String replaceWord;
+    private String replace;
 
     public int getId() {
         return id;
@@ -55,11 +54,11 @@ public class SensitiveWords implements Serializable {
         this.word = word;
     }
 
-    public String getReplaceWord() {
-        return replaceWord;
+    public String getReplace() {
+        return replace;
     }
 
-    public void setReplaceWord(String replaceWord) {
-        this.replaceWord = replaceWord;
+    public void setReplace(String replace) {
+        this.replace = replace;
     }
 }

@@ -4,6 +4,7 @@ import com.bfly.cms.member.entity.MemberGroup;
 import com.bfly.cms.member.service.IMemberGroupService;
 import com.bfly.core.base.service.impl.BaseServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -11,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @date 2018/12/10 16:20
  */
 @Service
-@Transactional(readOnly = true, rollbackFor = Exception.class)
+@Transactional(propagation= Propagation.SUPPORTS, rollbackFor = Exception.class)
 public class MemberGroupServiceImpl extends BaseServiceImpl<MemberGroup, Integer> implements IMemberGroupService {
 
 

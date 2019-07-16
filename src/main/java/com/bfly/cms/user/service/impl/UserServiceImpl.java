@@ -18,6 +18,7 @@ import com.bfly.core.enums.LogsType;
 import com.bfly.core.security.Md5PwdEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
@@ -31,7 +32,7 @@ import java.util.*;
  * @date 2018/12/7 10:33
  */
 @Service
-@Transactional(readOnly = true, rollbackFor = Exception.class)
+@Transactional(propagation= Propagation.SUPPORTS, rollbackFor = Exception.class)
 public class UserServiceImpl extends BaseServiceImpl<User, Integer> implements IUserService {
 
     @Autowired
@@ -39,31 +40,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, Integer> implements I
     @Autowired
     private ISysLogService sysLogService;
     @Autowired
-    private ResourceConfig resourceConfig;
-    @Autowired
     private IUserRoleService roleService;
-
-    /**
-     * 得到用户头像相对路劲
-     *
-     * @author andy_hulibo@163.com
-     * @date 2019/7/4 12:18
-     */
-    private String getFaceRelativePath(String faceName) {
-        //把临时文件夹中的图片复制到face目录中
-        if (StringUtils.hasLength(faceName) && faceName.endsWith(Constants.TEMP_RESOURCE_SUFFIX)) {
-            String source = resourceConfig.getTemp() + File.separator + faceName;
-            String destination = resourceConfig.getFace();
-            boolean result = FileUtil.copyFileToDirectory(source, destination);
-            if (result) {
-                faceName = faceName.substring(0, faceName.lastIndexOf(Constants.TEMP_RESOURCE_SUFFIX));
-                return resourceConfig.getRelativePathForRoot(destination + File.separator + faceName);
-            }
-            return null;
-        }
-        return null;
-    }
-
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -81,7 +58,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, Integer> implements I
         user.setStatus(User.AVAILABLE_STATUS);
         user.setPassword(new Md5PwdEncoder().encodePassword(user.getPassword()));
 
-        String face = getFaceRelativePath(user.getFace());
+        String face = ResourceConfig.getUploadTempFileToDestDirForRelativePath(user.getFace(),ResourceConfig.getFaceDir());
         user.setFace(face);
 
         List<UserRole> userRoles = checkRoles(user);
@@ -105,7 +82,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, Integer> implements I
         orUser.setStatus(user.getStatus());
         orUser.setSuperAdmin(user.isSuperAdmin());
 
-        String face = getFaceRelativePath(user.getFace());
+        String face = ResourceConfig.getUploadTempFileToDestDirForRelativePath(user.getFace(),ResourceConfig.getFaceDir());
         if (face != null) {
             orUser.setFace(face);
         }

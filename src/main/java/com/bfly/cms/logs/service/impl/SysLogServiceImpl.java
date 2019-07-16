@@ -8,6 +8,7 @@ import com.bfly.core.enums.LogsType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
@@ -17,7 +18,7 @@ import java.util.Date;
  * @date 2018/12/10 16:34
  */
 @Service
-@Transactional(readOnly = true, rollbackFor = Exception.class)
+@Transactional(propagation= Propagation.SUPPORTS, rollbackFor = Exception.class)
 public class SysLogServiceImpl extends BaseServiceImpl<SysLog, Integer> implements ISysLogService {
 
     @Autowired

@@ -4,9 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.RandomAccessFile;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,20 +40,27 @@ public class IpSeekerImpl implements IPSeeker {
     private String filename;
 
     public void init() {
-        String file = null;
         try {
-            file = new ClassPathResource(filename).getFile().getPath();
-        } catch (IOException e) {
-            logger.error("初始化IP库出错",e);
-        }
-        ipCache = new HashMap<>(5);
-        loc = new IPLocation();
-        b4 = new byte[4];
-        b3 = new byte[3];
-        try {
+            InputStream inputStream = new ClassPathResource(filename).getInputStream();
+            ipCache = new HashMap<>(5);
+            loc = new IPLocation();
+            b4 = new byte[4];
+            b3 = new byte[3];
+
+            File file = File.createTempFile(filename, ".temp");
+            FileOutputStream fos = new FileOutputStream(file);
+            int count;
+            byte[] bytes = new byte[1024];
+            while ((count = inputStream.read(bytes)) != -1) {
+                fos.write(bytes, 0, count);
+            }
+            fos.flush();
+            fos.close();
+            file.deleteOnExit();
             ipFile = new RandomAccessFile(file, "r");
-        } catch (FileNotFoundException e) {
-            throw new IPParseException("ip data file not found!", e);
+        } catch (Exception e) {
+            logger.error("ip data file not found!", e);
+            return;
         }
         // 如果打开文件成功，读取文件头信息
         try {

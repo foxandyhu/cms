@@ -40,7 +40,7 @@ public class FileUploadController extends BaseManageController {
     @PostMapping(value = "/upload")
     @ActionModel(value = "文件上传")
     public void uploadImage(@RequestPart MultipartFile file, HttpServletResponse response) throws Exception {
-        String targetPath = resourceConfig.getTemp();
+        String targetPath = resourceConfig.getTempDir();
         String fileName = FileUtil.getRandomName() + FileUtil.getFileSuffix(file.getOriginalFilename())+Constants.TEMP_RESOURCE_SUFFIX;
         targetPath = targetPath + File.separator + fileName;
         boolean result = FileUtil.writeFile(file.getInputStream(), targetPath);

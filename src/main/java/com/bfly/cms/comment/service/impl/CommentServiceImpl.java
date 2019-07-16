@@ -12,6 +12,7 @@ import com.bfly.core.base.service.impl.BaseServiceImpl;
 import com.bfly.core.context.IpThreadLocal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
@@ -22,7 +23,7 @@ import java.util.Date;
  * @date 2018/12/12 11:37
  */
 @Service
-@Transactional(readOnly = true, rollbackFor = Exception.class)
+@Transactional(propagation= Propagation.SUPPORTS, rollbackFor = Exception.class)
 public class CommentServiceImpl extends BaseServiceImpl<Comment, Integer> implements ICommentService {
 
     @Autowired

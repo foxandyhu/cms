@@ -7,6 +7,7 @@ import com.bfly.core.base.service.impl.BaseServiceImpl;
 import com.bfly.core.context.IpThreadLocal;
 import com.bfly.core.security.Md5PwdEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
@@ -19,7 +20,7 @@ import java.util.HashMap;
  * @date 2018/12/7 17:39
  */
 @Service
-@Transactional(readOnly = true, rollbackFor = Exception.class)
+@Transactional(propagation= Propagation.SUPPORTS, rollbackFor = Exception.class)
 public class MemberServiceImpl extends BaseServiceImpl<Member, Integer> implements IMemberService {
 
     @Override

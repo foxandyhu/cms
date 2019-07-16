@@ -7,6 +7,7 @@ import com.bfly.cms.user.service.IUserRoleService;
 import com.bfly.core.base.service.impl.BaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
@@ -17,7 +18,7 @@ import java.util.List;
  * @date 2019/7/12 18:38
  */
 @Service
-@Transactional(readOnly = true, rollbackFor = Exception.class)
+@Transactional(propagation= Propagation.SUPPORTS, rollbackFor = Exception.class)
 public class SysMenuServiceImpl extends BaseServiceImpl<SysMenu, Integer> implements ISysMenuService {
 
     @Autowired
