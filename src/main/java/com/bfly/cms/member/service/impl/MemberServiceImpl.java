@@ -2,7 +2,6 @@ package com.bfly.cms.member.service.impl;
 
 import com.bfly.cms.member.entity.Member;
 import com.bfly.cms.member.service.IMemberService;
-import com.bfly.core.context.ContextUtil;
 import com.bfly.core.base.service.impl.BaseServiceImpl;
 import com.bfly.core.context.IpThreadLocal;
 import com.bfly.core.security.Md5PwdEncoder;
@@ -88,7 +87,7 @@ public class MemberServiceImpl extends BaseServiceImpl<Member, Integer> implemen
             private static final long serialVersionUID = -6960710939610470029L;
 
             {
-                put("username", member.getUsername());
+                put("username", member.getUserName());
             }
         });
         Assert.notNull(orMember, "不能存在该会员!");

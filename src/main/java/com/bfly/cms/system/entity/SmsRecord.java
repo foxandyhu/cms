@@ -1,8 +1,11 @@
 package com.bfly.cms.system.entity;
 
-import com.bfly.cms.member.entity.Member;
+import com.bfly.core.enums.SmsStatus;
+import com.bfly.core.enums.SmsType;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -16,7 +19,7 @@ import java.util.Date;
  * @date 2018/11/15 20:43
  */
 @Entity
-@Table(name = "sys_sms_record")
+@Table(name = "sms_record")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class SmsRecord implements Serializable {
 
@@ -42,17 +45,17 @@ public class SmsRecord implements Serializable {
     /**
      * 发送内容
      */
-    @Column(name = "send_content")
-    private String sendContent;
+    @Column(name = "content")
+    private String content;
 
     /**
      * 发送次数
      */
-    @Column(name = "send_count")
-    private int sendCount;
+    @Column(name = "count")
+    private int count;
 
     /**
-     * 短信状态 0 草稿 1 待发送 2 发送成功 3 发送失败
+     * 短信状态 1 待发送 2 发送成功 3 发送失败
      *
      * @see com.bfly.core.enums.SmsStatus
      */
@@ -71,15 +74,37 @@ public class SmsRecord implements Serializable {
      * 所属短信商
      */
     @ManyToOne
-    @JoinColumn(name = "sms_id")
-    private Sms sms;
+    @JoinColumn(name = "provider_id")
+    @NotFound(action = NotFoundAction.IGNORE)
+    private SmsProvider provider;
 
     /**
      * 短信接收者
      */
-    @ManyToOne
-    @JoinColumn(name = "member_id")
-    private Member member;
+    @Column(name = "user_name")
+    private String userName;
+
+    /**
+     * 状态名称
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/7/17 12:48
+     */
+    public String getStatusName() {
+        SmsStatus status = SmsStatus.getStatus(getStatus());
+        return status == null ? "" : status.getName();
+    }
+
+    /**
+     * 类型名称
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/7/17 12:48
+     */
+    public String getTypeName() {
+        SmsType type = SmsType.getType(getType());
+        return type == null ? "" : type.getName();
+    }
 
     public int getId() {
         return id;
@@ -105,20 +130,20 @@ public class SmsRecord implements Serializable {
         this.sendTime = sendTime;
     }
 
-    public String getSendContent() {
-        return sendContent;
+    public String getContent() {
+        return content;
     }
 
-    public void setSendContent(String sendContent) {
-        this.sendContent = sendContent;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public int getSendCount() {
-        return sendCount;
+    public int getCount() {
+        return count;
     }
 
-    public void setSendCount(int sendCount) {
-        this.sendCount = sendCount;
+    public void setCount(int count) {
+        this.count = count;
     }
 
     public int getStatus() {
@@ -137,19 +162,19 @@ public class SmsRecord implements Serializable {
         this.type = type;
     }
 
-    public Sms getSms() {
-        return sms;
+    public SmsProvider getProvider() {
+        return provider;
     }
 
-    public void setSms(Sms sms) {
-        this.sms = sms;
+    public void setProvider(SmsProvider provider) {
+        this.provider = provider;
     }
 
-    public Member getMember() {
-        return member;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setMember(Member member) {
-        this.member = member;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

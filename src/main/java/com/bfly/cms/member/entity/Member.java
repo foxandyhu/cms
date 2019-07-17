@@ -59,9 +59,9 @@ public class Member implements Serializable {
     /**
      * 用户名
      */
-    @Column(name = "username")
+    @Column(name = "user_name")
     @NotBlank(message = "用户名不能为空!")
-    private String username;
+    private String userName;
 
     /**
      * 电子邮箱
@@ -190,12 +190,12 @@ public class Member implements Serializable {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getEmail() {

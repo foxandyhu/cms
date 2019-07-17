@@ -18,6 +18,21 @@ public enum SmsType {
         this.name = name;
     }
 
+    /**
+     * 获得短信类型
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/7/17 12:49
+     */
+    public static SmsType getType(int id) {
+        for (SmsType type : SmsType.values()) {
+            if (type.getId() == id) {
+                return type;
+            }
+        }
+        return null;
+    }
+
     public int getId() {
         return id;
     }

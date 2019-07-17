@@ -365,7 +365,7 @@
 //        thirdKey = pwdEncoder.encodePassword(thirdKey);
 //        MemberThirdAccount thirdAccount = thirdAccountMng.findByKey(thirdKey);
 //        if (thirdAccount != null) {
-//            username = thirdAccount.getUsername();
+//            username = thirdAccount.getUserName();
 //        } else {
 //            //用户不存在,则新建用户
 //            //若是没有传递用户名则随机用户
@@ -434,7 +434,7 @@
 //                LoginUtils.logout();
 //                //绑定新建的用户
 //                thirdAccount = new MemberThirdAccount();
-//                thirdAccount.setUsername(username);
+//                thirdAccount.setUserName(username);
 //                thirdAccount.setAccountKey(thirdKey);
 //                thirdAccount.setSource(source);
 //                thirdAccount.setMember(user);

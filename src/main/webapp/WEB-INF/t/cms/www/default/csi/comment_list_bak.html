@@ -1,10 +1,10 @@
 <dl class="rmpl">
 [#list list as c]
-  <dt><span>${(c.commentUser.username)!"匿名网友"}</span> 于 ${c.createTime} 评论道:</dt>
+  <dt><span>${(c.commentUser.userName)!"匿名网友"}</span> 于 ${c.createTime} 评论道:</dt>
   <dd>${c.textHtml!}</dd>
   [#if c.replayHtml??]
   [#if c.replyTime??]
-  <dt><span>${(c.replyMember.username)!"管理员"}</span> 于 ${c.replyTime?string("yyyy-MM-dd HH:mm:ss")} 回复:${(c.commentUser.username)!"匿名网友"}</dt>
+  <dt><span>${(c.replyMember.userName)!"管理员"}</span> 于 ${c.replyTime?string("yyyy-MM-dd HH:mm:ss")} 回复:${(c.commentUser.userName)!"匿名网友"}</dt>
   <dd>${c.replayHtml!}</dd>
   [/#if]
   [/#if]

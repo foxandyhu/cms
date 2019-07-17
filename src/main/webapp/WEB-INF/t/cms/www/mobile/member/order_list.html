@@ -53,7 +53,7 @@ $(function() {
               [#list pagination.list as c]
               <tr>	
                 <td>${c.orderNumber!}</td>
-                <td>[#if c.buyUser??]${c.buyUser.realname!c.authorUser.username}[#else]匿名[/#if]</td>
+                <td>[#if c.buyUser??]${c.buyUser.realname!c.authorUser.userName}[#else]匿名[/#if]</td>
                 <td><a href="${c.content.url!}" target="_blank">${c.content.title}</a></td>
                 <td>${c.authorAmount!}</td>
                 <td>${c.buyTime?string("yyyy-MM-dd HH:mm:ss")}</td>
@@ -99,7 +99,7 @@ $(function() {
     </div>
     <div class="memberRight">
       <div class="memberImg">[#if member.userImg??]<img src="${member.userImg}">[#else]<img src="/${res}/images/userImg.jpg">[/#if]</div>
-      <div class="memberName">您好，<span>${member.username}</span></div>
+      <div class="memberName">您好，<span>${member.userName}</span></div>
       <div class="memberOut"><a href="logout.html?returnUrl=/">退出</a></div>
     </div>
     <div class="m-sj"></div>

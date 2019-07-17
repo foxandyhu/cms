@@ -35,7 +35,7 @@ $(function() {
       <tbody>
         <tr class="r-o-top"><td>用户</td><td>金额</td><td>时间</td></tr>
         [#list pagination.list as c]
-        <tr><td>[#if c.buyUser??]${c.buyUser.username!}[#else]匿名[/#if]</td><td>${c.chargeAmount!}</td><td>${c.buyTime?string("yyyy-MM-dd HH:mm")}</td></tr>
+        <tr><td>[#if c.buyUser??]${c.buyUser.userName!}[#else]匿名[/#if]</td><td>${c.chargeAmount!}</td><td>${c.buyTime?string("yyyy-MM-dd HH:mm")}</td></tr>
         [/#list]        
       </tbody>
     </table>

@@ -39,7 +39,7 @@
 //        System.out.println("*****************************************");
 //        List<Member> members = memberService.getList();
 //        for (Member member : members) {
-//            System.out.println(member.getUsername());
+//            System.out.println(member.getUserName());
 //        }
 //    }
 //

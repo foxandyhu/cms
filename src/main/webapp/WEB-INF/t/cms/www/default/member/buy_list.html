@@ -53,7 +53,7 @@ $(function() {
               [#list pagination.list as c]
               <tr>
                 <td>${c.orderNumber!}</td>
-                <td>${c.authorUser.realname!c.authorUser.username}</td>
+                <td>${c.authorUser.realname!c.authorUser.userName}</td>
                 <td><a href="${c.content.url!}" target="_blank">${c.content.title}</a></td>
                 <td>${c.chargeAmount!}</td>
                 <td>${c.buyTime?string("yyyy-MM-dd HH:mm:ss")}</td>

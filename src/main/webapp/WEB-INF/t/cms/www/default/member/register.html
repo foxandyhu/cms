@@ -67,7 +67,7 @@
 	        	   alert("请输入验证码！");
 	           }else if($.trim($('#vCode').val()).length != 4){
 	        	   alert("请输入正确的验证码！");
-	           }else if($.trim($('#username').val()).length == 0){
+	           }else if($.trim($('#userName').val()).length == 0){
 	        	   alert("请输入用户名！");
 	           }else{
 	        	   $.ajax({
@@ -120,7 +120,7 @@
   <form id="jvForm" action="${base}/register.html" method="post">
   <div class="register-list">
     <ul>
-      <li><span>用户名</span><input type="text" id="username"  vld="{required:true,rangelength:[${site.usernameMinLen},20],username:true,remote:'username_unique.html',messages:{remote:'用户名已存在'}}" name="username" placeholder="${site.usernameMinLen}~20字符，中文字符/英文字母/数字" class="register-input" /></li>
+      <li><span>用户名</span><input type="text" id="userName"  vld="{required:true,rangelength:[${site.usernameMinLen},20],userName:true,remote:'username_unique.html',messages:{remote:'用户名已存在'}}" name="userName" placeholder="${site.usernameMinLen}~20字符，中文字符/英文字母/数字" class="register-input" /></li>
       [#if validateType == 0]
       <li><span>电子邮箱</span><input type="text" id="email" maxlength="30" vld="{remote:'email_unique.html',messages:{remote:'email已被使用！'}}" name="email" placeholder="用于找回密码" class="register-input" /></li>
       [/#if]

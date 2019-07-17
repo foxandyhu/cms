@@ -32,10 +32,10 @@
 //    @Override
 //    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
 //        UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
-//        Member user = cmsUserMng.findByUsername(token.getUsername());
+//        Member user = cmsUserMng.findByUsername(token.getUserName());
 //        if (user != null) {
 //            Member unifiedUser = unifiedUserMng.findById(user.getId());
-//            return new SimpleAuthenticationInfo(user.getUsername(), unifiedUser.getPassword(), getName());
+//            return new SimpleAuthenticationInfo(user.getUserName(), unifiedUser.getPassword(), getName());
 //        }
 //        return null;
 //    }

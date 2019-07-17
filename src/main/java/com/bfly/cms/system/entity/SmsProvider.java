@@ -8,15 +8,15 @@ import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**
- * SMS短信服务配置类
+ * SMS短信服务供应商类
  *
  * @author andy_hulibo@163.com
  * @date 2018/11/15 17:56
  */
 @Entity
-@Table(name = "sys_sms")
+@Table(name = "sms_provider")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
-public class Sms implements Serializable {
+public class SmsProvider implements Serializable {
 
     private static final long serialVersionUID = 900667721702404931L;
 
@@ -25,10 +25,10 @@ public class Sms implements Serializable {
     private int id;
 
     /**
-     * 消息服务名称
+     * 服务商名称
      */
     @Column(name = "name")
-    @NotBlank(message = "短信服务名称不能为空!")
+    @NotBlank(message = "短信服务商名称不能为空!")
     private String name;
 
     /**
@@ -48,6 +48,30 @@ public class Sms implements Serializable {
      */
     @Column(name = "url")
     private String url;
+
+    /**
+     * 是否启用
+     * @author andy_hulibo@163.com
+     * @date 2019/7/16 15:22
+     */
+    @Column(name = "is_enable")
+    private boolean enable;
+
+    /**
+     * 备注
+     * @author andy_hulibo@163.com
+     * @date 2019/7/16 15:24
+     */
+    @Column(name = "remark")
+    private String remark;
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
 
     public int getId() {
         return id;
@@ -87,5 +111,13 @@ public class Sms implements Serializable {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public boolean isEnable() {
+        return enable;
+    }
+
+    public void setEnable(boolean enable) {
+        this.enable = enable;
     }
 }

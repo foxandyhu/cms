@@ -4,7 +4,7 @@
             <dt><span>暂无相关评论！</span></dt>
 	    [#else]
 		    [#list tag_pagination.list as c]
-			  <dt><span>${(c.commentUser.username)!"匿名网友"}</span> 于 ${c.createTime} 评论道:</dt>
+			  <dt><span>${(c.commentUser.userName)!"匿名网友"}</span> 于 ${c.createTime} 评论道:</dt>
 			  <dd>${c.textHtml!}</dd>
 		    [/#list]
 		    <div class="pagebar">[@cms_pagination sysPage='1'/]</div>

@@ -41,7 +41,7 @@
           <table cellpadding="0" cellspacing="0">
             <tbody>
               <tr>
-                <td class="s-p">用户昵称：</td><td width="40%">${member.username}</td><td class="s-p">会员组别：</td><td width="40%" class="hyzb">${member.group.name}</td>
+                <td class="s-p">用户昵称：</td><td width="40%">${member.userName}</td><td class="s-p">会员组别：</td><td width="40%" class="hyzb">${member.group.name}</td>
               </tr>
               <tr>
                 <td class="s-p">性别：</td><td>[#if member.gender??]${member.gender?string('男','女')}[#else]保密[/#if]</td><td class="s-p">出生日期：</td><td>${(member.birthday?string('yyyy-MM-dd'))!}</td>

@@ -336,7 +336,7 @@ dl.zt dt,dl.zt dd.text{width:160px;}
                                 [@cms_comment_list count='8' checked='1' textLen='50' append='...']
                                 [#list tag_list as c]
                                 <li>
-                                    <span style="color:#E66100;">${(c.commentUser.username)!"匿名网友"}</span>
+                                    <span style="color:#E66100;">${(c.commentUser.userName)!"匿名网友"}</span>
                                     <span style="color:#aaaaaa;">&nbsp;对&nbsp;</span>
                                     <a href="${c.content.url}" target="_blank"><span style="color:#1C77BA;">${c.content.title}</span></a>
                                     <span style="color:#aaaaaa;">评论道：</span>

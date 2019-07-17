@@ -46,7 +46,7 @@
                 <td class="tggl-top" width="100">回复时间</td><td style="text-align:left; text-indent:20px;">[#if guestbook.replyTime??]${guestbook.replyTime?string('yyyy-MM-dd')}[/#if]</td>
               </tr>
               <tr>
-                <td class="tggl-top" width="100">回复人</td><td style="text-align:left; text-indent:20px;">[#if guestbook.admin??]${guestbook.admin.username!}[/#if]</td>
+                <td class="tggl-top" width="100">回复人</td><td style="text-align:left; text-indent:20px;">[#if guestbook.admin??]${guestbook.admin.userName!}[/#if]</td>
               </tr>
               <tr>
                 <td class="tggl-top" width="100">回复内容</td><td style="text-align:left; text-indent:20px;">${guestbook.replyHtml!}</td>

@@ -5,19 +5,28 @@ import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**
- * 邮件配置
+ * 邮件服务商
  *
  * @author andy_hulibo@163.com
  * @date 2018/11/15 15:49
  */
 @Entity
-@Table(name = "sys_email")
-public class SysEmail implements Serializable {
+@Table(name = "email_provider")
+public class EmailProvider implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    /**
+     * 邮件服务商名称
+     * @author andy_hulibo@163.com
+     * @date 2019/7/16 17:45
+     */
+    @Column(name = "name")
+    @NotBlank(message = "邮件服务商名称不能为空!")
+    private String name;
 
     /**
      * 邮件发送服务器
@@ -38,7 +47,7 @@ public class SysEmail implements Serializable {
      */
     @Column(name = "username")
     @NotBlank(message = "邮件用户名不能为空!")
-    private String username;
+    private String userName;
 
     /**
      * 邮箱密码
@@ -52,6 +61,46 @@ public class SysEmail implements Serializable {
      */
     @Column(name = "personal")
     private String personal;
+
+    /**
+     * 是否启用
+     * @author andy_hulibo@163.com
+     * @date 2019/7/16 17:46
+     */
+    @Column(name = "is_enable")
+    private boolean enable;
+
+    /**
+     * 备注
+     * @author andy_hulibo@163.com
+     * @date 2019/7/16 17:47
+     */
+    @Column(name = "remark")
+    private String remark;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public boolean isEnable() {
+        return enable;
+    }
+
+    public void setEnable(boolean enable) {
+        this.enable = enable;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
 
     public int getId() {
         return id;
@@ -77,12 +126,12 @@ public class SysEmail implements Serializable {
         this.encoding = encoding;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {

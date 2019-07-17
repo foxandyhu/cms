@@ -94,7 +94,7 @@ function del_c_by_ip(ip) {
                 <td bgcolor="#FFFFFF" title="${c.content.title!}"><a href="${c.content.url!}" target="_blank">[@text_cut s=c.content.title len='15' append='...'/]</a></td>
                 <td bgcolor="#FFFFFF">
                     [#if c.commentUser??]
-                        <span style="cursor: pointer;" onclick="del_c_by_user('${c.commentUser.id!}')">${(c.commentUser.username)!"匿名网友"}</span>
+                        <span style="cursor: pointer;" onclick="del_c_by_user('${c.commentUser.id!}')">${(c.commentUser.userName)!"匿名网友"}</span>
                     [#else]
                         匿名网友
                     [/#if]

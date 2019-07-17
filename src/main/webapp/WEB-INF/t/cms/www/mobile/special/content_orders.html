@@ -38,7 +38,7 @@ $(function() {
             <div class="tplistCon">
             <ul>
             [#list pagination.list as c]
-            <li>用户:${c.buyUser.username!}&nbsp;金额:${c.chargeAmount!}&nbsp;时间:${c.buyTime?string("yyyy-MM-dd HH:mm")}</li>
+            <li>用户:${c.buyUser.userName!}&nbsp;金额:${c.chargeAmount!}&nbsp;时间:${c.buyTime?string("yyyy-MM-dd HH:mm")}</li>
             [/#list]
             </ul>
             </div>

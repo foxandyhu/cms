@@ -10,4 +10,11 @@ import com.bfly.core.base.service.IBaseService;
  * @date 2018/12/18 11:29
  */
 public interface ISmsRecordService extends IBaseService<SmsRecord, Integer> {
+
+    /**
+     * 短信重发
+     * @author andy_hulibo@163.com
+     * @date 2019/7/17 13:02
+     */
+    boolean resend(int recordId);
 }

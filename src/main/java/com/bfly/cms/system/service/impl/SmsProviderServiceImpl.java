@@ -1,7 +1,7 @@
 package com.bfly.cms.system.service.impl;
 
-import com.bfly.cms.system.entity.Sms;
-import com.bfly.cms.system.service.ISmsService;
+import com.bfly.cms.system.entity.SmsProvider;
+import com.bfly.cms.system.service.ISmsProviderService;
 import com.bfly.core.base.service.impl.BaseServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -13,5 +13,5 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional(propagation= Propagation.SUPPORTS, rollbackFor = Exception.class)
-public class SmsServiceImpl extends BaseServiceImpl<Sms, Integer> implements ISmsService {
+public class SmsProviderServiceImpl extends BaseServiceImpl<SmsProvider, Integer> implements ISmsProviderService {
 }

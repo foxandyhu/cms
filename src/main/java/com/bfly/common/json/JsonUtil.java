@@ -71,7 +71,7 @@ public class JsonUtil {
         String jsonStr;
         try {
             PropertyFilter filter = filterProperty(properties);
-            SerializeWriter writer = new SerializeWriter();
+            SerializeWriter writer = new SerializeWriter(SerializerFeature.DisableCircularReferenceDetect);
             JSONSerializer serializer = new JSONSerializer(writer, config);
             serializer.getPropertyFilters().add(filter);
             serializer.write(object);

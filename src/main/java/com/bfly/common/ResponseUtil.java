@@ -1,6 +1,6 @@
 package com.bfly.common;
 
-import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.bfly.common.json.JsonUtil;
 import com.bfly.core.Constants;
@@ -78,8 +78,8 @@ public class ResponseUtil {
      */
     public static void writeJson(HttpServletResponse response, Object data) {
         String dataStr;
-        if (data instanceof JSONObject || data instanceof JSONArray) {
-            dataStr = ((JSONObject) data).toJSONString();
+        if (data instanceof JSON) {
+            dataStr = ((JSON) data).toJSONString();
         } else if (data instanceof String) {
             dataStr = (String) data;
         } else {

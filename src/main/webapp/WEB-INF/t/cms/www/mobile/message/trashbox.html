@@ -27,8 +27,8 @@ $(function() {
 	<td bgcolor="#FFFFFF">
 	<a href="${base}/member/message_read.html?id=${c.id!}&&box=3">[@text_cut s=c.titleHtml len='15' append='...'/]</a>
 	</td>
-	<td bgcolor="#FFFFFF">${c.sender.username!}</td>
-	<td bgcolor="#FFFFFF">${c.receiver.username!}</td>
+	<td bgcolor="#FFFFFF">${c.sender.userName!}</td>
+	<td bgcolor="#FFFFFF">${c.receiver.userName!}</td>
 	<td bgcolor="#FFFFFF">[#if c.sendTime??]${c.sendTime?string('yyyy-MM-dd HH:mm:ss')}[/#if]</td>
 </tr>
 [/#list]

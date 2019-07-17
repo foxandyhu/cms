@@ -65,14 +65,14 @@ public class SysConfig implements Serializable {
      */
     @JoinColumn(name = "sms_config_id")
     @ManyToOne
-    private Sms sms;
+    private SmsProvider sms;
 
     /**
      * 邮件服务商
      */
     @JoinColumn(name = "email_config_id")
     @ManyToOne
-    private SysEmail sysEmail;
+    private EmailProvider sysEmail;
 
 
     public int getId() {
@@ -131,20 +131,20 @@ public class SysConfig implements Serializable {
         this.msgVerifyDayCount = msgVerifyDayCount;
     }
 
-    public Sms getSms() {
+    public SmsProvider getSms() {
         return sms;
     }
 
-    public void setSms(Sms sms) {
+    public void setSms(SmsProvider sms) {
         this.sms = sms;
     }
 
-    public SysEmail getSysEmail() {
+    public EmailProvider getSysEmail() {
         return sysEmail;
     }
 
-    public void setSysEmail(SysEmail sysEmail) {
-        this.sysEmail = sysEmail;
+    public void setSysEmail(EmailProvider emailProvider) {
+        this.sysEmail = emailProvider;
     }
 
 }

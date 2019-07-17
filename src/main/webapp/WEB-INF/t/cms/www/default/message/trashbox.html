@@ -22,8 +22,8 @@ $(function() {
                 <td>
                 <a href="${base}/member/message_read.html?id=${c.id!}&&box=3">[@text_cut s=c.titleHtml len='15' append='...'/]</a>
                 </td>
-                <td>${c.sender.username!}</td>
-                <td>${c.receiver.username!}</td>
+                <td>${c.sender.userName!}</td>
+                <td>${c.receiver.userName!}</td>
                 <td>[#if c.sendTime??]${c.sendTime?string('yyyy-MM-dd HH:mm:ss')}[/#if]</td>
               </tr>
               [/#list]

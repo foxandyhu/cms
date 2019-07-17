@@ -8,7 +8,8 @@ package com.bfly.core.enums;
  */
 public enum SmsStatus {
 
-    DRAFT(0, "草稿"), PENDING(1, "待发送"), SUCCESS(2, "发送成功"), FAIL(4, "发送失败");
+    UNKNOW(0, "未知"),
+    PENDING(1, "待发送"), SUCCESS(2, "发送成功"), FAIL(3, "发送失败");
 
     private int id;
     private String name;
@@ -16,6 +17,21 @@ public enum SmsStatus {
     SmsStatus(int id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    /**
+     * 获得状态
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/7/17 12:47
+     */
+    public static SmsStatus getStatus(int id) {
+        for (SmsStatus status : SmsStatus.values()) {
+            if (status.getId() == id) {
+                return status;
+            }
+        }
+        return null;
     }
 
     public int getId() {

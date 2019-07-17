@@ -81,7 +81,7 @@ window.location.href=window.document.referrer;
 				[/#if]
     
       [/#if]
-    <div class="login-input"><input type="text" id="username" name="username" class="username" placeholder="用户名"></div>
+    <div class="login-input"><input type="text" id="userName" name="userName" class="userName" placeholder="用户名"></div>
     <div class="login-input"><input type="password" id="password" name="password" class="password" placeholder="密码"></div>
     [#if (errorTimes??&&errorTimes<=0)||(errorRemaining?? && errorRemaining<=0)]
     <div class="login-input"><input type="text" id="captcha" name="captcha" class="captcha" placeholder="验证码"><img id="guestbookCaptcha" onclick="this.src='${base}/captcha.svl?d='+new Date()" alt="" src="${base}/captcha.svl"></div>

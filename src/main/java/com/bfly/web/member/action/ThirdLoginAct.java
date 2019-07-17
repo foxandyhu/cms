@@ -404,7 +404,7 @@
 //    private void loginByKey(String key, HttpServletResponse response) {
 //        MemberThirdAccount account = accountMng.findByKey(key);
 //        if (StringUtils.isNotBlank(key) && account != null) {
-//            String username = account.getUsername();
+//            String username = account.getUserName();
 //            loginShiro(response, username);
 //        }
 //    }
@@ -423,7 +423,7 @@
 //        MemberThirdAccount account = accountMng.findByKey(openId);
 //        if (account == null) {
 //            account = new MemberThirdAccount();
-//            account.setUsername(username);
+//            account.setUserName(username);
 //            //第三方账号唯一码加密存储 防冒名登录
 //            openId = pwdEncoder.encodePassword(openId);
 //            account.setAccountKey(openId);
