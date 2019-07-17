@@ -163,7 +163,7 @@ public class UserController extends BaseManageController {
         if (StringUtils.hasLength(user.getFace())) {
             user.setFace(ResourceConfig.getServer() + user.getFace());
         }
-        JSONObject json = JsonUtil.toJsonFilter(user, "password", "users");
+        JSONObject json = JsonUtil.toJsonFilter(user, "password", "users","menus");
         ResponseUtil.writeJson(response, ResponseData.getSuccess(json));
     }
 

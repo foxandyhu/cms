@@ -62,7 +62,7 @@ public class UserRoleController extends BaseManageController {
     @ActionModel(value = "系统所有角色列表", need = false)
     public void listUserRole(HttpServletResponse response) {
         List<UserRole> roles = userRoleService.getList();
-        JSONArray json = JsonUtil.toJsonFilterForArray(roles, "users");
+        JSONArray json = JsonUtil.toJsonFilterForArray(roles, "users","menus");
         ResponseUtil.writeJson(response, ResponseData.getSuccess(json));
     }
 

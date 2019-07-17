@@ -18,7 +18,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "friendlink")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
-public class FriendLink implements Serializable {
+public class FriendLink implements Serializable, Comparable<FriendLink> {
 
     private static final long serialVersionUID = -2546503159131831426L;
 
@@ -30,16 +30,16 @@ public class FriendLink implements Serializable {
     /**
      * 网站名称
      */
-    @Column(name = "site_name")
+    @Column(name = "name")
     @NotBlank(message = "网站名称不能为空!")
     private String name;
 
     /**
      * 网站地址
      */
-    @Column(name = "domain")
+    @Column(name = "url")
     @NotBlank(message = "网站地址不能为空!")
-    private String domain;
+    private String url;
 
     /**
      * 图标
@@ -50,22 +50,15 @@ public class FriendLink implements Serializable {
     /**
      * 描述
      */
-    @Column(name = "description")
-    private String description;
-
-    /**
-     * 点击次数
-     */
-    @Column(name = "views")
-    @Min(value = 0, message = "点击次数必须大于0!")
-    private int views;
+    @Column(name = "remark")
+    private String remark;
 
     /**
      * 排列顺序
      */
-    @Column(name = "priority")
+    @Column(name = "seq")
     @Min(value = 0, message = "排序顺序必须大于0!")
-    private int priority;
+    private int seq;
 
     /**
      * 是否显示
@@ -79,7 +72,12 @@ public class FriendLink implements Serializable {
     @ManyToOne
     @JoinColumn(name = "type_id")
     @NotNull(message = "类型不能为空!")
-    private FriendLinkType category;
+    private FriendLinkType type;
+
+    @Override
+    public int compareTo(FriendLink link) {
+        return this.getSeq() - link.getSeq();
+    }
 
     public int getId() {
         return id;
@@ -97,12 +95,12 @@ public class FriendLink implements Serializable {
         this.name = name;
     }
 
-    public String getDomain() {
-        return domain;
+    public String getUrl() {
+        return url;
     }
 
-    public void setDomain(String domain) {
-        this.domain = domain;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public String getLogo() {
@@ -113,28 +111,20 @@ public class FriendLink implements Serializable {
         this.logo = logo;
     }
 
-    public String getDescription() {
-        return description;
+    public String getRemark() {
+        return remark;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 
-    public int getViews() {
-        return views;
+    public int getSeq() {
+        return seq;
     }
 
-    public void setViews(int views) {
-        this.views = views;
-    }
-
-    public int getPriority() {
-        return priority;
-    }
-
-    public void setPriority(int priority) {
-        this.priority = priority;
+    public void setSeq(int seq) {
+        this.seq = seq;
     }
 
     public boolean isEnabled() {
@@ -145,11 +135,11 @@ public class FriendLink implements Serializable {
         this.enabled = enabled;
     }
 
-    public FriendLinkType getCategory() {
-        return category;
+    public FriendLinkType getType() {
+        return type;
     }
 
-    public void setCategory(FriendLinkType category) {
-        this.category = category;
+    public void setType(FriendLinkType type) {
+        this.type = type;
     }
 }

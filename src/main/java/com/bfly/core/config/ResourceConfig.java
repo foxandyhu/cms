@@ -75,6 +75,16 @@ public class ResourceConfig {
     }
 
     /**
+     * 友情链接图片存放路径
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/7/17 22:01
+     */
+    public static String getFriendLinkDir() {
+        return getRootDir() + File.separator + "friendlink";
+    }
+
+    /**
      * 获得相对root路径的绝对路径,必须是root的子目录或文件
      *
      * @author andy_hulibo@163.com
@@ -82,7 +92,7 @@ public class ResourceConfig {
      */
     public static String getRelativePathForRoot(String path) {
         Path p = Paths.get(getRootDir()).relativize(Paths.get(path));
-        return p.toString().replaceAll("\\\\","/");
+        return p.toString().replaceAll("\\\\", "/");
     }
 
     public static String getServer() {

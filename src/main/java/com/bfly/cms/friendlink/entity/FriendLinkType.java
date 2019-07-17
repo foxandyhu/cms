@@ -1,6 +1,10 @@
 package com.bfly.cms.friendlink.entity;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**
@@ -11,7 +15,8 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "friendlink_type")
-public class FriendLinkType implements Serializable {
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
+public class FriendLinkType implements Serializable, Comparable<FriendLinkType> {
 
     private static final long serialVersionUID = 7919307427987468685L;
 
@@ -24,13 +29,19 @@ public class FriendLinkType implements Serializable {
      * 名称
      */
     @Column(name = "name")
+    @NotBlank(message = "类型名称不能为空!")
     private String name;
 
     /**
      * 排列顺序
      */
-    @Column(name = "priority")
-    private int priority;
+    @Column(name = "seq")
+    private int seq;
+
+    @Override
+    public int compareTo(FriendLinkType type) {
+        return this.getSeq() - type.getSeq();
+    }
 
     public int getId() {
         return id;
@@ -48,11 +59,11 @@ public class FriendLinkType implements Serializable {
         this.name = name;
     }
 
-    public int getPriority() {
-        return priority;
+    public int getSeq() {
+        return seq;
     }
 
-    public void setPriority(int priority) {
-        this.priority = priority;
+    public void setSeq(int seq) {
+        this.seq = seq;
     }
 }

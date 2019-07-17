@@ -1,21 +1,27 @@
 package com.bfly.manage.friendlink;
 
 import com.bfly.cms.friendlink.entity.FriendLink;
+import com.bfly.cms.friendlink.entity.FriendLinkType;
 import com.bfly.cms.friendlink.service.IFriendLinkService;
-import com.bfly.core.context.ContextUtil;
 import com.bfly.common.DataConvertUtils;
+import com.bfly.common.ResponseData;
 import com.bfly.common.ResponseUtil;
 import com.bfly.common.page.Pager;
 import com.bfly.core.base.action.BaseManageController;
+import com.bfly.core.config.ResourceConfig;
 import com.bfly.core.context.PagerThreadLocal;
+import com.bfly.core.security.ActionModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -38,17 +44,32 @@ public class FriendLinkController extends BaseManageController {
      * @date 2018/12/11 16:53
      */
     @GetMapping("/list")
-    public void listFriendLink(HttpServletRequest request, HttpServletResponse response) {
-        PagerThreadLocal.set(request);
-        Map<String, Object> property = new HashMap<String, Object>(3) {
-            private static final long serialVersionUID = -9126101626116724049L;
+    @ActionModel(value = "友情链接列表")
+    public void listFriendLink(HttpServletResponse response) {
+        PagerThreadLocal.set(getRequest());
 
-            {
-                put("category", request.getParameter("category"));
+        Map<String, Object> params = null;
+        String type = getRequest().getParameter("type");
+        if (type != null) {
+            params = new HashMap<>(1);
+            FriendLinkType linkType = new FriendLinkType();
+            linkType.setId(DataConvertUtils.convertToInteger(type));
+            params.put("type", linkType);
+        }
+        Map<String, Sort.Direction> sortMap = new HashMap<>(1);
+        sortMap.put("seq", Sort.Direction.ASC);
+        Pager pager = friendLinkService.getPage(params, null, sortMap);
+        if(pager.getData()!=null){
+            List<FriendLink> links=(List<FriendLink>) pager.getData();
+            Iterator<FriendLink> it=links.iterator();
+            while(it.hasNext()){
+                FriendLink link=it.next();
+                if(StringUtils.hasLength(link.getLogo())){
+                    link.setLogo(ResourceConfig.getServer()+link.getLogo());
+                }
             }
-        };
-        Pager pager = friendLinkService.getPage(property);
-        ResponseUtil.writeJson(response, pager);
+        }
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(pager));
     }
 
     /**
@@ -58,10 +79,11 @@ public class FriendLinkController extends BaseManageController {
      * @date 2018/12/11 16:57
      */
     @PostMapping(value = "/add")
-    public void addFriendLink(@Valid FriendLink friendLink, BindingResult result, HttpServletResponse response) {
+    @ActionModel(value = "新增友情链接")
+    public void addFriendLink(@RequestBody @Valid FriendLink friendLink, BindingResult result, HttpServletResponse response) {
         validData(result);
         friendLinkService.save(friendLink);
-        ResponseUtil.writeJson(response, "");
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
     }
 
     /**
@@ -71,9 +93,11 @@ public class FriendLinkController extends BaseManageController {
      * @date 2018/12/11 17:01
      */
     @PostMapping(value = "/edit")
-    public void editFriendLink(FriendLink friendLink, HttpServletResponse response) {
+    @ActionModel(value = "编辑友情链接")
+    public void editFriendLink(@RequestBody @Valid FriendLink friendLink, BindingResult result, HttpServletResponse response) {
+        validData(result);
         friendLinkService.edit(friendLink);
-        ResponseUtil.writeJson(response, "");
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
     }
 
     /**
@@ -83,9 +107,13 @@ public class FriendLinkController extends BaseManageController {
      * @date 2018/12/11 17:02
      */
     @GetMapping(value = "/{linkId}")
+    @ActionModel(value = "友情链接详情", need = false)
     public void viewFriendLink(@PathVariable("linkId") int linkId, HttpServletResponse response) {
         FriendLink friendLink = friendLinkService.get(linkId);
-        ResponseUtil.writeJson(response, friendLink);
+        if(friendLink!=null && StringUtils.hasLength(friendLink.getLogo())){
+            friendLink.setLogo(ResourceConfig.getServer()+friendLink.getLogo());
+        }
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(friendLink));
     }
 
     /**
@@ -95,10 +123,9 @@ public class FriendLinkController extends BaseManageController {
      * @date 2018/12/11 17:02
      */
     @PostMapping(value = "/del")
-    public void removeFriendLink(HttpServletRequest request, HttpServletResponse response) {
-        String friendLinkIdStr = request.getParameter("ids");
-        Integer[] friendLinkIds = DataConvertUtils.convertToIntegerArray(friendLinkIdStr.split(","));
-        friendLinkService.remove(friendLinkIds);
-        ResponseUtil.writeJson(response, "");
+    @ActionModel(value = "删除友情链接")
+    public void removeFriendLink(HttpServletResponse response, @RequestBody Integer... ids) {
+        friendLinkService.remove(ids);
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
     }
 }

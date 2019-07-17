@@ -15,6 +15,7 @@ import com.bfly.core.base.action.BaseManageController;
 import com.bfly.core.context.PagerThreadLocal;
 import com.bfly.core.security.ActionModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -44,7 +47,7 @@ public class ScoreItemController extends BaseManageController {
      * @date 2018/12/17 12:00
      */
     @GetMapping(value = "/list")
-    @ActionModel(value = "评分项列表",need = false)
+    @ActionModel(value = "评分项列表", need = false)
     public void listScoreItem(HttpServletResponse response) {
         PagerThreadLocal.set(getRequest());
         String groupIdStr = getRequest().getParameter("groupId");
@@ -55,7 +58,20 @@ public class ScoreItemController extends BaseManageController {
             group.setId(Integer.valueOf(groupIdStr));
             params.put("group", group);
         }
-        Pager pager = scoreItemService.getPage(params);
+
+        Map<String, Sort.Direction> sortParam = new HashMap<>(1);
+        sortParam.put("seq", Sort.Direction.ASC);
+        Pager pager = scoreItemService.getPage(params, null, sortParam);
+        if (pager.getData() != null) {
+            List<ScoreItem> list = (List<ScoreItem>) pager.getData();
+            Iterator<ScoreItem> it = list.iterator();
+            while (it.hasNext()) {
+                ScoreItem item = it.next();
+                if (StringUtils.hasLength(item.getUrl())) {
+                    item.setUrl(ResourceConfig.getServer() + item.getUrl());
+                }
+            }
+        }
         JSONObject json = JsonUtil.toJsonFilter(pager, "items");
         ResponseUtil.writeJson(response, ResponseData.getSuccess(json));
     }
@@ -98,8 +114,8 @@ public class ScoreItemController extends BaseManageController {
     @ActionModel(value = "查看评分项详情", need = false)
     public void viewScoreItem(@PathVariable("scoreItemId") int scoreItemId, HttpServletResponse response) {
         ScoreItem scoreItem = scoreItemService.get(scoreItemId);
-        if(StringUtils.hasLength(scoreItem.getUrl())){
-            scoreItem.setUrl(ResourceConfig.getServer()+scoreItem.getUrl());
+        if (StringUtils.hasLength(scoreItem.getUrl())) {
+            scoreItem.setUrl(ResourceConfig.getServer() + scoreItem.getUrl());
         }
         JSONObject json = JsonUtil.toJsonFilter(scoreItem, "items");
         ResponseUtil.writeJson(response, ResponseData.getSuccess(json));
