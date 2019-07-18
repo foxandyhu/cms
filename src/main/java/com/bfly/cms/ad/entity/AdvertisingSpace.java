@@ -1,5 +1,7 @@
 package com.bfly.cms.ad.entity;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
@@ -12,6 +14,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "ad_space")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class AdvertisingSpace implements Serializable {
 
     private static final long serialVersionUID = 2304185058497496977L;
@@ -24,15 +27,15 @@ public class AdvertisingSpace implements Serializable {
     /**
      * 名称
      */
-    @Column(name = "ad_name")
+    @Column(name = "name")
     @NotBlank(message = "广告位名称不能为空!")
     private String name;
 
     /**
      * 描述
      */
-    @Column(name = "description")
-    private String description;
+    @Column(name = "remark")
+    private String remark;
 
     /**
      * 是否启用
@@ -56,12 +59,12 @@ public class AdvertisingSpace implements Serializable {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getRemark() {
+        return remark;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 
     public boolean isEnabled() {

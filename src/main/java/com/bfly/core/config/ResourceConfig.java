@@ -85,6 +85,16 @@ public class ResourceConfig {
     }
 
     /**
+     * 广告图片存放路径
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/7/18 14:54
+     */
+    public static String getAdvertisingDir() {
+        return getRootDir() + File.separator + "ad";
+    }
+
+    /**
      * 获得相对root路径的绝对路径,必须是root的子目录或文件
      *
      * @author andy_hulibo@163.com

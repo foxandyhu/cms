@@ -1,7 +1,10 @@
 package com.bfly.cms.ad.entity;
 
+import com.bfly.core.enums.AdvertisingType;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -30,28 +33,17 @@ public class Advertising implements Serializable {
     /**
      * 广告名称
      */
-    @Column(name = "ad_name")
+    @Column(name = "name")
     @NotBlank(message = "广告名称不能为空!")
     private String name;
 
     /**
      * 广告类型
+     *
+     * @see com.bfly.core.enums.AdvertisingType
      */
-    @Column(name = "category")
-    @NotBlank(message = "广告类型不能为空!")
-    private String category;
-
-    /**
-     * 广告代码
-     */
-    @Column(name = "ad_code")
-    private String code;
-
-    /**
-     * 广告权重
-     */
-    @Column(name = "ad_weight")
-    private int weight;
+    @Column(name = "type")
+    private int type;
 
     /**
      * 展现次数
@@ -89,8 +81,9 @@ public class Advertising implements Serializable {
      * 所属广告位
      */
     @ManyToOne
-    @JoinColumn(name = "adspace_id")
-    private AdvertisingSpace adspace;
+    @JoinColumn(name = "space_id")
+    @NotFound(action = NotFoundAction.IGNORE)
+    private AdvertisingSpace space;
 
     /**
      * 广告其他属性
@@ -102,6 +95,35 @@ public class Advertising implements Serializable {
     @Column(name = "attr_value")
     private Map<String, String> attr;
 
+
+    /**
+     * 获得类型名称
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/7/18 10:40
+     */
+    public String getTypeName() {
+        AdvertisingType type = AdvertisingType.getType(getType());
+        return type == null ? "" : type.getName();
+    }
+
+    /**
+     * 点击率
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/7/18 11:25
+     */
+    public String getClickRate() {
+        return (getDisplayCount() == 0 ? 0 : (getClickCount() / getDisplayCount())) + "%";
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
 
     public int getId() {
         return id;
@@ -117,30 +139,6 @@ public class Advertising implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public int getWeight() {
-        return weight;
-    }
-
-    public void setWeight(int weight) {
-        this.weight = weight;
     }
 
     public int getDisplayCount() {
@@ -183,12 +181,12 @@ public class Advertising implements Serializable {
         this.enabled = enabled;
     }
 
-    public AdvertisingSpace getAdspace() {
-        return adspace;
+    public AdvertisingSpace getSpace() {
+        return space;
     }
 
-    public void setAdspace(AdvertisingSpace adspace) {
-        this.adspace = adspace;
+    public void setSpace(AdvertisingSpace space) {
+        this.space = space;
     }
 
     public Map<String, String> getAttr() {

@@ -2,16 +2,18 @@ package com.bfly.manage.ad;
 
 import com.bfly.cms.ad.entity.Advertising;
 import com.bfly.cms.ad.service.IAdvertisingService;
-import com.bfly.common.DataConvertUtils;
+import com.bfly.common.ResponseData;
 import com.bfly.common.ResponseUtil;
 import com.bfly.common.page.Pager;
 import com.bfly.core.base.action.BaseManageController;
+import com.bfly.core.config.ResourceConfig;
 import com.bfly.core.context.PagerThreadLocal;
+import com.bfly.core.security.ActionModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -35,10 +37,11 @@ public class AdvertisingController extends BaseManageController {
      * @date 2018/12/11 16:53
      */
     @GetMapping("/list")
-    public void listAdvertising(HttpServletRequest request, HttpServletResponse response) {
-        PagerThreadLocal.set(request);
+    @ActionModel(value = "广告列表", need = false)
+    public void listAdvertising(HttpServletResponse response) {
+        PagerThreadLocal.set(getRequest());
         Pager pager = advertisingService.getPage(null);
-        ResponseUtil.writeJson(response, pager);
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(pager));
     }
 
     /**
@@ -48,10 +51,11 @@ public class AdvertisingController extends BaseManageController {
      * @date 2018/12/11 16:57
      */
     @PostMapping(value = "/add")
-    public void addAdvertising(@Valid Advertising advertising, BindingResult result, HttpServletResponse response) {
+    @ActionModel("新增广告")
+    public void addAdvertising(@RequestBody @Valid Advertising advertising, BindingResult result, HttpServletResponse response) {
         validData(result);
         advertisingService.save(advertising);
-        ResponseUtil.writeJson(response, "");
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
     }
 
     /**
@@ -61,9 +65,11 @@ public class AdvertisingController extends BaseManageController {
      * @date 2018/12/11 17:01
      */
     @PostMapping(value = "/edit")
-    public void editAdvertising(Advertising advertising, HttpServletResponse response) {
+    @ActionModel("修改广告")
+    public void editAdvertising(@RequestBody @Valid Advertising advertising, BindingResult result, HttpServletResponse response) {
+        validData(result);
         advertisingService.edit(advertising);
-        ResponseUtil.writeJson(response, "");
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
     }
 
     /**
@@ -73,9 +79,16 @@ public class AdvertisingController extends BaseManageController {
      * @date 2018/12/11 17:02
      */
     @GetMapping(value = "/{adId}")
+    @ActionModel(value = "广告详情", need = false)
     public void viewAdvertising(@PathVariable("adId") int adId, HttpServletResponse response) {
         Advertising advertising = advertisingService.get(adId);
-        ResponseUtil.writeJson(response, advertising);
+        if (advertising != null && advertising.getAttr() != null) {
+            String adImg = advertising.getAttr().get("pic_url");
+            if (StringUtils.hasLength(adImg)) {
+                advertising.getAttr().put("pic_url", ResourceConfig.getServer() + adImg);
+            }
+        }
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(advertising));
     }
 
     /**
@@ -85,10 +98,9 @@ public class AdvertisingController extends BaseManageController {
      * @date 2018/12/11 17:02
      */
     @PostMapping(value = "/del")
-    public void removeFriendLink(HttpServletRequest request, HttpServletResponse response) {
-        String adIdStr = request.getParameter("ids");
-        Integer[] adIds = DataConvertUtils.convertToIntegerArray(adIdStr.split(","));
-        advertisingService.remove(adIds);
-        ResponseUtil.writeJson(response, "");
+    @ActionModel("删除广告")
+    public void removeFriendLink(HttpServletResponse response, @RequestBody Integer... ids) {
+        advertisingService.remove(ids);
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
     }
 }
