@@ -98,12 +98,12 @@
 //                if (StringUtils.isNotBlank(birthdayStr)) {
 //                    userExt.setBirthday(DateUtils.parseDayStrToDate(birthdayStr));
 //                }
-//                userExt.setGender(gender);
+//                userExt.setGirl(gender);
 //                userExt.setMobile(mobile);
 //                userExt.setPhone(phone);
 //                userExt.setQq(qq);
-//                userExt.setRealname(realname);
-//                userExt.setUserImg(userImg);
+//                userExt.setRealName(realname);
+//                userExt.setFace(userImg);
 //                user = cmsUserMng.registerMember(username, email, loginPassword, ip, null, null, disabled, userExt, attrs);
 //                body = "{\"id\":" + "\"" + user.getId() + "\"}";
 //                message = Constants.API_MESSAGE_SUCCESS;
@@ -388,15 +388,15 @@
 //                String country = request.getParameter("country");
 //                if (StringUtils.isNotBlank(gender)) {
 //                    if (gender.equals(2)) {
-//                        userExt.setGender(false);
+//                        userExt.setGirl(false);
 //                    } else if (gender.equals(1)) {
-//                        userExt.setGender(true);
+//                        userExt.setGirl(true);
 //                    } else {
-//                        userExt.setGender(null);
+//                        userExt.setGirl(null);
 //                    }
 //                }
 //                if (StringUtils.isNotBlank(nickName)) {
-//                    userExt.setRealname(nickName);
+//                    userExt.setRealName(nickName);
 //                }
 //                String comefrom = "";
 //                if (StringUtils.isNotBlank(country)) {
@@ -408,7 +408,7 @@
 //                if (StringUtils.isNotBlank(city)) {
 //                    comefrom += city;
 //                }
-//                userExt.setComefrom(comefrom);
+//                userExt.setComeFrom(comefrom);
 //                String imageUrl = "";
 //                if (StringUtils.isNotBlank(avatarUrl)) {
 //                    SysConfig config = configMng.get();
@@ -418,7 +418,7 @@
 //                            config.getUploadToDb(), config.getDbFileUri(),
 //                            ftp, site.getUploadOss(), site.getUploadPath());
 //                }
-//                userExt.setUserImg(imageUrl);
+//                userExt.setFace(imageUrl);
 //            }
 //            String ip = RequestUtils.getIpAddr(request);
 //            boolean disabled = false;

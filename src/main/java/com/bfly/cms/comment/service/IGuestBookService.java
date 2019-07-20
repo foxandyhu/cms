@@ -1,6 +1,8 @@
 package com.bfly.cms.comment.service;
 
 import com.bfly.cms.comment.entity.GuestBook;
+import com.bfly.cms.member.entity.Member;
+import com.bfly.cms.user.entity.User;
 import com.bfly.core.base.service.IBaseService;
 
 /**
@@ -36,11 +38,22 @@ public interface IGuestBookService extends IBaseService<GuestBook, Integer> {
      *
      * @param guestBookId 留言ID
      * @param content     评论内容
-     * @param replyerId   回复者ID
+     * @param member   回复者ID
      * @author andy_hulibo@163.com
      * @date 2018/12/12 13:40
      */
-    void replyGuestBook(int guestBookId, String content, int replyerId);
+    void replyGuestBook(int guestBookId, String content, Member member);
+
+    /**
+     * 评论留言
+     *
+     * @param guestBookId 留言ID
+     * @param content     评论内容
+     * @param user   回复者ID
+     * @author andy_hulibo@163.com
+     * @date 2018/12/12 13:40
+     */
+    void replyGuestBook(int guestBookId, String content, User user);
 
     /**
      * 修改留言

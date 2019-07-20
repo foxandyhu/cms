@@ -53,8 +53,8 @@
 			<coordinate>182,85</coordinate>
 		</share>
 		<share>
-			<id>msn</id>
-			<img>msn.png</img>
+			<id>weiXin</id>
+			<img>weiXin.png</img>
 			<coordinate>263,85</coordinate>
 		</share>
 	</share_button>

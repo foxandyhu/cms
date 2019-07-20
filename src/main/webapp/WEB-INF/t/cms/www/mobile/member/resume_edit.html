@@ -35,12 +35,12 @@ $(function() {
 		      </tr>
                <tr>
 		         <td width="150" height="25" align="right" bgcolor="#f6fbff">真实姓名：</td>
-		         <td bgcolor="#FFFFFF"><input type="text" name="realname" value="${member.realname!?html}" maxlength="100"/> </td>
+		         <td bgcolor="#FFFFFF"><input type="text" name="realName" value="${member.realName!?html}" maxlength="100"/> </td>
 		       </tr>
 		       <tr>
 		         <td height="25" align="right" bgcolor="#f6fbff">性别：</td>
 				 <td bgcolor="#FFFFFF">
-		         [@p.radio name="gender" value=member.gender list={"true":"男","false":"女","":"保密"}/]
+		         [@p.radio name="girl" value=member.girl list={"true":"男","false":"女","":"保密"}/]
 				 </td>
 		       </tr>
 		       <tr>
@@ -49,7 +49,7 @@ $(function() {
 		       </tr>
 		       <tr>
 		         <td height="25" align="right" bgcolor="#f6fbff">来自：</td>
-		         <td bgcolor="#FFFFFF"><input type="text" name="comefrom" value="${member.comefrom!?html}" maxlength="150"/></td>
+		         <td bgcolor="#FFFFFF"><input type="text" name="comeFrom" value="${member.comeFrom!?html}" maxlength="150"/></td>
 		       </tr>
 		       <tr>
 		         <td height="25" align="right" bgcolor="#f6fbff">电话：</td>

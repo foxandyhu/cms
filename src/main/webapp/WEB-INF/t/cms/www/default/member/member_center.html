@@ -44,19 +44,19 @@
                 <td class="s-p">用户昵称：</td><td width="40%">${member.userName}</td><td class="s-p">会员组别：</td><td width="40%" class="hyzb">${member.group.name}</td>
               </tr>
               <tr>
-                <td class="s-p">性别：</td><td>[#if member.gender??]${member.gender?string('男','女')}[#else]保密[/#if]</td><td class="s-p">出生日期：</td><td>${(member.birthday?string('yyyy-MM-dd'))!}</td>
+                <td class="s-p">性别：</td><td>[#if member.girl??]${member.girl?string('男','女')}[#else]保密[/#if]</td><td class="s-p">出生日期：</td><td>${(member.birthday?string('yyyy-MM-dd'))!}</td>
               </tr>
               <tr>
-                <td class="s-p">真实姓名：</td><td>${member.realname!}</td><td class="s-p">邮箱：</td><td>${member.email!}</td>
+                <td class="s-p">真实姓名：</td><td>${member.realName!}</td><td class="s-p">邮箱：</td><td>${member.email!}</td>
               </tr>
               <tr>
                 <td class="s-p">手机：</td><td>${member.mobile!?html}</td><td class="s-p">固定电话：</td><td>${member.phone!}</td>
               </tr>
               <tr>
-                <td class="s-p">QQ：</td><td>${member.qq!}</td><td class="s-p">MSN：</td><td>${member.msn!}</td>
+                <td class="s-p">QQ：</td><td>${member.qq!}</td><td class="s-p">MSN：</td><td>${member.weiXin!}</td>
               </tr>
               <tr>
-                <td class="s-p">来自：</td><td>${member.comefrom!}</td><td class="s-p">财富收益：</td><td>${member.grain!}</td>
+                <td class="s-p">来自：</td><td>${member.comeFrom!}</td><td class="s-p">财富收益：</td><td>${member.grain!}</td>
               </tr>
               <tr>
                 <td class="s-p">自我介绍：</td><td>${member.intro!}</td>

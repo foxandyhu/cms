@@ -99,7 +99,7 @@ public class GuestBookController extends BaseManageController {
     public void replyGuestBook(HttpServletRequest request, HttpServletResponse response) {
         int guestBookId = DataConvertUtils.convertToInteger(request.getParameter("guestBookId"));
         String content = request.getParameter("content");
-        guestBookService.replyGuestBook(guestBookId, content, getUser().getId());
+        guestBookService.replyGuestBook(guestBookId, content, getUser());
         ResponseUtil.writeJson(response, "");
     }
 

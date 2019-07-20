@@ -163,15 +163,15 @@
 //                    if (StringUtils.isNotBlank(city)) {
 //                        comefrom += city;
 //                    }
-//                    ext.setComefrom(comefrom);
+//                    ext.setComeFrom(comefrom);
 //                    if (StringUtils.isNotBlank(nickname)) {
-//                        ext.setRealname(nickname);
+//                        ext.setRealName(nickname);
 //                    }
 //                    if (sex != null) {
 //                        if (sex.equals(1)) {
-//                            ext.setGender(true);
+//                            ext.setGirl(true);
 //                        } else if (sex.equals(2)) {
-//                            ext.setGender(false);
+//                            ext.setGirl(false);
 //                        }
 //                    }
 //                    if (StringUtils.isNotBlank(headimgurl)) {
@@ -179,7 +179,7 @@
 //                        Site site = getSite();
 //                        Ftp ftp = site.getUploadFtp();
 //                        String imageUrl = imgSvc.crawlImg(headimgurl, config.getContextPath(), config.getUploadToDb(), config.getDbFileUri(), ftp, site.getUploadOss(), site.getUploadPath());
-//                        ext.setUserImg(imageUrl);
+//                        ext.setFace(imageUrl);
 //                    }
 //                }
 //                if (StringUtils.isNotBlank(openId) || StringUtils.isNotBlank(uid) || StringUtils.isNotBlank(weboOpenId) || StringUtils.isNotBlank(weixinOpenId)) {

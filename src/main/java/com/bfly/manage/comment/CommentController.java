@@ -99,7 +99,7 @@ public class CommentController extends BaseManageController {
     public void replyComment(HttpServletRequest request, HttpServletResponse response) {
         int commentId = DataConvertUtils.convertToInteger(request.getParameter("commentId"));
         String content = request.getParameter("content");
-        commentService.replyComment(commentId, content, getUser().getId());
+        commentService.replyComment(commentId, content, getUser());
         ResponseUtil.writeJson(response, "");
     }
 

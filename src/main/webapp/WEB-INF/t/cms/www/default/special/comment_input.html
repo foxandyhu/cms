@@ -2,7 +2,7 @@
   <form id="commentFormCsi" action="${base}/comment.html" method="post">
 <textarea name="text" class="reply-text" cols="60" rows="5"></textarea>
 <div class="plfr1 clearfix">
-[#if member??&&member.group.needCaptcha||!member??]
+[#if member??&&member.group.commentNeedCaptcha||!member??]
 <div style="float:left;">
   <input name="captcha" type="text" placeholder="验证码" id="captcha" vld="{required:true}" class="plcode"/>
 </div>

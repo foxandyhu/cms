@@ -1,7 +1,7 @@
 package com.bfly.cms.member.entity;
 
 
-import org.hibernate.annotations.CacheConcurrencyStrategy;
+import com.bfly.core.enums.MemberStatus;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
@@ -10,7 +10,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 /**
  * 用户类
@@ -24,33 +24,6 @@ public class Member implements Serializable {
 
     private static final long serialVersionUID = 1827879748275829762L;
 
-    /**
-     * 账号禁用
-     */
-    public static final int DISABLE_STATUS = 2;
-
-    /**
-     * 账号待审核
-     */
-    public static final int UNCHECK_STATUS = 0;
-
-    /**
-     * 账号可用
-     */
-    public static final int AVAILABLE_STATUS = 1;
-
-    /**
-     * 会员ID自增标识开始
-     *
-     * @author andy_hulibo@163.com
-     * @date 2018/12/12 13:44
-     */
-    public static final int MEMBER_ID_BEGIN = 1000;
-
-    /**
-     * 为了区分Member表和User表的ID Member表的ID从1000开始递增
-     * User表的ID从1开始递增
-     */
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -107,16 +80,10 @@ public class Member implements Serializable {
     private int loginCount;
 
     /**
-     * 重置密码KEY
+     * 加密盐KEY
      */
-    @Column(name = "reset_key")
-    private String resetKey;
-
-    /**
-     * 重置密码VALUE
-     */
-    @Column(name = "reset_pwd")
-    private String resetPwd;
+    @Column(name = "salt")
+    private String salt;
 
     /**
      * 登录错误时间
@@ -137,33 +104,17 @@ public class Member implements Serializable {
     private String errorIp;
 
     /**
-     * 激活状态
-     */
-    @Column(name = "is_activity")
-    private boolean activity;
-
-    /**
-     * 激活码
-     */
-    @Column(name = "activationCode")
-    private String activationCode;
-
-    /**
-     * 状态 0审核通过  1禁用  2待审核
+     * 状态
+     *
+     * @see com.bfly.core.enums.MemberStatus
      */
     @Column(name = "status")
     private int status;
 
     /**
-     * session_id
-     */
-    @Column(name = "session_id")
-    private String sessionId;
-
-    /**
      * 所在组
      */
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE,fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id")
     @NotFound(action = NotFoundAction.IGNORE)
     @NotNull(message = "会员未设置分组!")
@@ -172,15 +123,26 @@ public class Member implements Serializable {
     /**
      * 用户扩展信息
      */
-    @OneToOne(cascade = CascadeType.REMOVE, orphanRemoval = true, mappedBy = "user")
-    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
-    private MemberExt userExt;
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @PrimaryKeyJoinColumn
+    private MemberExt memberExt;
 
     /**
      * 用户绑定的第三方账号
      */
-    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true, mappedBy = "user")
-    private Set<MemberThirdAccount> thirdAccounts;
+    @OneToMany(cascade = CascadeType.MERGE, orphanRemoval = true, mappedBy = "user",fetch = FetchType.LAZY)
+    private List<MemberThirdAccount> thirdAccounts;
+
+    /**
+     * 状态名称
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/7/19 16:59
+     */
+    public String getStatusName() {
+        MemberStatus status = MemberStatus.getStatus(getStatus());
+        return status == null ? "" : status.getName();
+    }
 
     public int getId() {
         return id;
@@ -254,20 +216,12 @@ public class Member implements Serializable {
         this.loginCount = loginCount;
     }
 
-    public String getResetKey() {
-        return resetKey;
+    public String getSalt() {
+        return salt;
     }
 
-    public void setResetKey(String resetKey) {
-        this.resetKey = resetKey;
-    }
-
-    public String getResetPwd() {
-        return resetPwd;
-    }
-
-    public void setResetPwd(String resetPwd) {
-        this.resetPwd = resetPwd;
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 
     public Date getErrorTime() {
@@ -294,36 +248,12 @@ public class Member implements Serializable {
         this.errorIp = errorIp;
     }
 
-    public boolean isActivity() {
-        return activity;
-    }
-
-    public void setActivity(boolean activity) {
-        this.activity = activity;
-    }
-
-    public String getActivationCode() {
-        return activationCode;
-    }
-
-    public void setActivationCode(String activationCode) {
-        this.activationCode = activationCode;
-    }
-
     public int getStatus() {
         return status;
     }
 
     public void setStatus(int status) {
         this.status = status;
-    }
-
-    public String getSessionId() {
-        return sessionId;
-    }
-
-    public void setSessionId(String sessionId) {
-        this.sessionId = sessionId;
     }
 
     public MemberGroup getGroup() {
@@ -334,19 +264,19 @@ public class Member implements Serializable {
         this.group = group;
     }
 
-    public MemberExt getUserExt() {
-        return userExt;
+    public MemberExt getMemberExt() {
+        return memberExt;
     }
 
-    public void setUserExt(MemberExt userExt) {
-        this.userExt = userExt;
+    public void setMemberExt(MemberExt memberExt) {
+        this.memberExt = memberExt;
     }
 
-    public Set<MemberThirdAccount> getThirdAccounts() {
+    public List<MemberThirdAccount> getThirdAccounts() {
         return thirdAccounts;
     }
 
-    public void setThirdAccounts(Set<MemberThirdAccount> thirdAccounts) {
+    public void setThirdAccounts(List<MemberThirdAccount> thirdAccounts) {
         this.thirdAccounts = thirdAccounts;
     }
 }

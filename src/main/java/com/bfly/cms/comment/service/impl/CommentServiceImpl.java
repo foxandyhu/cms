@@ -6,6 +6,7 @@ import com.bfly.cms.comment.entity.CommentExt;
 import com.bfly.cms.comment.service.ICommentService;
 import com.bfly.cms.member.entity.Member;
 import com.bfly.cms.member.service.IMemberService;
+import com.bfly.cms.user.entity.User;
 import com.bfly.cms.user.service.IUserService;
 import com.bfly.core.context.ContextUtil;
 import com.bfly.core.base.service.impl.BaseServiceImpl;
@@ -23,7 +24,7 @@ import java.util.Date;
  * @date 2018/12/12 11:37
  */
 @Service
-@Transactional(propagation= Propagation.SUPPORTS, rollbackFor = Exception.class)
+@Transactional(propagation = Propagation.SUPPORTS, rollbackFor = Exception.class)
 public class CommentServiceImpl extends BaseServiceImpl<Comment, Integer> implements ICommentService {
 
     @Autowired
@@ -58,7 +59,7 @@ public class CommentServiceImpl extends BaseServiceImpl<Comment, Integer> implem
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void replyComment(int commentId, String content, int replyerId) {
+    public void replyComment(int commentId, String content, Member member) {
         Comment comment = get(commentId);
         Assert.notNull(comment, "评论信息不存在!");
         Assert.isTrue(comment.getStatus() != Comment.WAIT_CHECK, "该评论尚未审核不能回复!");
@@ -73,14 +74,31 @@ public class CommentServiceImpl extends BaseServiceImpl<Comment, Integer> implem
         replyExt.setText(content);
         replyExt.setIp(IpThreadLocal.get());
         replyComment.setCommentExt(replyExt);
-        //会员回复的评论需要审核 管理员回复的评论不需要审核
-        if (replyerId >= Member.MEMBER_ID_BEGIN) {
-            replyComment.setStatus(Comment.WAIT_CHECK);
-            comment.setPostMember(memberService.get(replyerId));
-        } else {
-            replyComment.setStatus(Comment.PASSED);
-            comment.setPostUser(userService.get(replyerId));
-        }
+        replyComment.setStatus(Comment.WAIT_CHECK);
+        comment.setPostMember(memberService.get(member.getId()));
+        commentDao.save(comment);
+        commentDao.save(replyComment);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void replyComment(int commentId, String content, User user) {
+        Comment comment = get(commentId);
+        Assert.notNull(comment, "评论信息不存在!");
+        Assert.isTrue(comment.getStatus() != Comment.WAIT_CHECK, "该评论尚未审核不能回复!");
+        Assert.isTrue(comment.getStatus() != Comment.UNPASSED, "审核不通过的评论不能回复!");
+        comment.setReplyCount(comment.getReplyCount() + 1);
+
+        Comment replyComment = new Comment();
+        replyComment.setParent(comment);
+        replyComment.setCreateTime(new Date());
+
+        CommentExt replyExt = new CommentExt();
+        replyExt.setText(content);
+        replyExt.setIp(IpThreadLocal.get());
+        replyComment.setCommentExt(replyExt);
+        replyComment.setStatus(Comment.PASSED);
+        comment.setPostUser(userService.get(user.getId()));
         commentDao.save(comment);
         commentDao.save(replyComment);
     }

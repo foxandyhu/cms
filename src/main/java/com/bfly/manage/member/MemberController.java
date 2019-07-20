@@ -1,18 +1,24 @@
 package com.bfly.manage.member;
 
+import com.alibaba.fastjson.JSONObject;
 import com.bfly.cms.member.entity.Member;
 import com.bfly.cms.member.entity.MemberConfig;
 import com.bfly.cms.member.service.IMemberConfigService;
 import com.bfly.cms.member.service.IMemberService;
-import com.bfly.core.context.ContextUtil;
 import com.bfly.common.DataConvertUtils;
+import com.bfly.common.ResponseData;
 import com.bfly.common.ResponseUtil;
+import com.bfly.common.json.JsonUtil;
 import com.bfly.common.page.Pager;
 import com.bfly.core.base.action.BaseManageController;
+import com.bfly.core.config.ResourceConfig;
 import com.bfly.core.context.PagerThreadLocal;
+import com.bfly.core.enums.MemberStatus;
 import com.bfly.core.enums.SysError;
 import com.bfly.core.exception.WsResponseException;
+import com.bfly.core.security.ActionModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,19 +50,27 @@ public class MemberController extends BaseManageController {
      * @date 2018/12/10 14:59
      */
     @GetMapping("/list")
+    @ActionModel(value = "会员列表", need = false)
     public void listMember(HttpServletRequest request, HttpServletResponse response) {
         PagerThreadLocal.set(request);
-        Map<String, Object> property = new HashMap<String, Object>(3) {
-            private static final long serialVersionUID = -9126101626116724049L;
+        Map<String, Object> exactMap = new HashMap<>(1);
+        String statusStr = request.getParameter("status");
+        if (statusStr != null) {
+            exactMap.put("status", DataConvertUtils.convertToInteger(statusStr));
+        }
 
-            {
-                put("username", request.getParameter("username"));
-                put("email", request.getParameter("email"));
-                put("status", request.getParameter("status"));
-            }
-        };
-        Pager pager = memberService.getPage(property);
-        ResponseUtil.writeJson(response, pager);
+        Map<String, String> unExactMap = new HashMap<>(3);
+        String userName = request.getParameter("userName");
+        if (userName != null) {
+            unExactMap.put("userName", userName);
+        }
+        String email = request.getParameter("email");
+        if (email != null) {
+            unExactMap.put("email", email);
+        }
+        Pager pager = memberService.getPage(exactMap, unExactMap, null);
+        JSONObject json = JsonUtil.toJsonFilter(pager, "thirdAccounts", "memberExt");
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(json));
     }
 
     /**
@@ -66,10 +80,11 @@ public class MemberController extends BaseManageController {
      * @date 2018/12/10 15:00
      */
     @PostMapping(value = "/add")
-    public void addMember(@Valid Member member, BindingResult result, HttpServletResponse response) {
+    @ActionModel("新增会员")
+    public void addMember(@RequestBody @Valid Member member, BindingResult result, HttpServletResponse response) {
         validData(result);
         memberService.save(member);
-        ResponseUtil.writeJson(response, "");
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
     }
 
     /**
@@ -79,9 +94,11 @@ public class MemberController extends BaseManageController {
      * @date 2018/12/10 13:45
      */
     @PostMapping(value = "/edit")
-    public void editMember(Member member, HttpServletResponse response) {
+    @ActionModel("编辑会员信息")
+    public void editMember(@RequestBody @Valid Member member, BindingResult result, HttpServletResponse response) {
+        validData(result);
         memberService.edit(member);
-        ResponseUtil.writeJson(response, "");
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
     }
 
     /**
@@ -91,9 +108,14 @@ public class MemberController extends BaseManageController {
      * @date 2018/12/10 13:50
      */
     @GetMapping(value = "/{memberId}")
+    @ActionModel(value = "会员详情", need = false)
     public void viewMember(@PathVariable("memberId") int memberId, HttpServletResponse response) {
         Member member = memberService.get(memberId);
-        ResponseUtil.writeJson(response, member);
+        if (StringUtils.hasLength(member.getMemberExt().getFace())) {
+            member.getMemberExt().setFace(ResourceConfig.getServer() + member.getMemberExt().getFace());
+        }
+        JSONObject json = JsonUtil.toJsonFilter(member, "thirdAccounts", "member");
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(json));
     }
 
     /**
@@ -103,11 +125,10 @@ public class MemberController extends BaseManageController {
      * @date 2018/12/10 13:53
      */
     @PostMapping(value = "/del")
-    public void removeMember(HttpServletRequest request, HttpServletResponse response) {
-        String memberIdStr = request.getParameter("ids");
-        Integer[] memberIds = DataConvertUtils.convertToIntegerArray(memberIdStr.split(","));
-        memberService.remove(memberIds);
-        ResponseUtil.writeJson(response, "");
+    @ActionModel("删除会员")
+    public void removeMember(HttpServletResponse response, @RequestBody Integer... ids) {
+        memberService.remove(ids);
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
     }
 
     /**
@@ -117,19 +138,48 @@ public class MemberController extends BaseManageController {
      * @date 2018/12/10 15:40
      */
     @PostMapping(value = "/check")
+    @ActionModel(value = "用户名重复检查", need = false)
     public void checkUserName(HttpServletRequest request, HttpServletResponse response) {
         String username = request.getParameter("username");
         long count = memberService.getCount(new HashMap<String, Object>(1) {
             private static final long serialVersionUID = 4990379673489715199L;
 
             {
-                put("username", username);
+                put("userName", username);
             }
         });
         if (count > 0) {
             throw new WsResponseException(SysError.DATA_REPEAT, "用户名已存在!");
         }
-        ResponseUtil.writeJson(response, "");
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
+    }
+
+    /**
+     * 修改状态
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/7/20 9:37
+     */
+    @GetMapping(value = "/edit/{memberId}-{status}")
+    @ActionModel("修改会员账户状态")
+    public void editMemberStatus(HttpServletResponse response, @PathVariable("memberId") int memberId, @PathVariable("status") int status) {
+        memberService.editMemberStatus(memberId, MemberStatus.getStatus(status));
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
+    }
+
+    /**
+     * 修改会员账户密码
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/7/20 10:21
+     */
+    @PostMapping(value = "/editpwd")
+    @ActionModel("修改会员账户密码")
+    public void editMemberPasswor(HttpServletResponse response, @RequestBody Map<String, String> params) {
+        int memberId = DataConvertUtils.convertToInteger(params.get("memberId"));
+        String password = params.get("password");
+        memberService.editMemberPassword(memberId, password);
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
     }
 
     /**
@@ -139,9 +189,10 @@ public class MemberController extends BaseManageController {
      * @date 2018/12/20 10:44
      */
     @GetMapping(value = "/config/info")
+    @ActionModel(value = "会员配置详情", need = false)
     public void getMemberConfig(HttpServletResponse response) {
         MemberConfig config = configService.getMemberConfig();
-        ResponseUtil.writeJson(response, config);
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(config));
     }
 
     /**
@@ -151,9 +202,10 @@ public class MemberController extends BaseManageController {
      * @date 2018/12/20 10:46
      */
     @PostMapping(value = "/config/edit")
-    public void editMemberConfig(@Valid MemberConfig config,BindingResult result, HttpServletResponse response) {
+    @ActionModel("修改会员配置信息")
+    public void editMemberConfig(@RequestBody @Valid MemberConfig config, BindingResult result, HttpServletResponse response) {
         validData(result);
         configService.edit(config);
-        ResponseUtil.writeJson(response, "");
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
     }
 }

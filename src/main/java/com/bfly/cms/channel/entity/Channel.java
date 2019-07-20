@@ -76,15 +76,17 @@ public class Channel implements Serializable {
     /**
      * 浏览权限组
      */
-    @ManyToMany(mappedBy = "viewChannels")
+    @ManyToMany(cascade = CascadeType.MERGE)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
+    @JoinTable(name = "channel_member_group_view_ship", joinColumns = @JoinColumn(name = "channel_id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
     private Set<MemberGroup> viewGroups;
 
     /**
      * 投稿权限组
      */
-    @ManyToMany(mappedBy = "contriChannels")
+    @ManyToMany(cascade = CascadeType.MERGE)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
+    @JoinTable(name = "channel_member_group_contri_ship", joinColumns = @JoinColumn(name = "channel_id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
     private Set<MemberGroup> contriGroups;
 
     /**

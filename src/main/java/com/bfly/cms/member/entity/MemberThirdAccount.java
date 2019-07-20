@@ -23,7 +23,7 @@ public class MemberThirdAccount implements Serializable {
     private static final long serialVersionUID = 5727805921543675051L;
 
     @Id
-    @Column(name = "int")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 

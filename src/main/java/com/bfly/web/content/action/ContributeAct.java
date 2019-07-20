@@ -498,12 +498,12 @@
 //        }
 //        //超过附件大小限制
 //        if (!user.isAllowMaxFile((int) (file.getSize() / 1024))) {
-//            errors.addErrorCode("upload.error.toolarge", origName, user.getGroup().getAllowMaxFile());
+//            errors.addErrorCode("upload.error.toolarge", origName, user.getGroup().getAllowUploadMaxFile());
 //            return errors;
 //        }
 //        //超过每日上传限制
 //        if (!user.isAllowPerDay(fileSize)) {
-//            long laveSize = user.getGroup().getAllowPerDay() - user.getUploadSize();
+//            long laveSize = user.getGroup().getAllowUploadPerDay() - user.getUploadSize();
 //            if (laveSize < 0) {
 //                laveSize = 0;
 //            }

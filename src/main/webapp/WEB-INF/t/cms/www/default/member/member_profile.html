@@ -48,19 +48,19 @@ $(function() {
           <table cellpadding="0" cellspacing="0">
             <tbody>
               <tr>
-                <td class="s-p">性别：</td><td>[@p.radio name="gender" value=member.gender list={"true":"男","false":"女","":"保密"}/]</td><td class="s-p">出生日期：</td><td><input type="text" name="birthday" value="${(member.birthday?string('yyyy-MM-dd'))!}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'%y-%M-%d'})" class="member-change date" /></td>
+                <td class="s-p">性别：</td><td>[@p.radio name="girl" value=member.girl list={"true":"男","false":"女","":"保密"}/]</td><td class="s-p">出生日期：</td><td><input type="text" name="birthday" value="${(member.birthday?string('yyyy-MM-dd'))!}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'%y-%M-%d'})" class="member-change date" /></td>
               </tr>
               <tr>
-                <td class="s-p">真实姓名：</td><td><input type="text" name="realname" value="${member.realname!?html}" maxlength="100" class="member-change" /></td>
+                <td class="s-p">真实姓名：</td><td><input type="text" name="realName" value="${member.realName!?html}" maxlength="100" class="member-change" /></td>
               </tr>
               <tr>
                 <td class="s-p">手机：</td><td><input type="text" name="mobile" value="${member.mobile!?html}" maxlength="50" class="member-change" /></td><td class="s-p">固定电话：</td><td><input type="text" name="phone" value="${member.phone!?html}" maxlength="50" class="member-change" /></td>
               </tr>
               <tr>
-                <td class="s-p">QQ：</td><td><input type="text" name="qq" value="${member.qq!?html}" maxlength="100" class="member-change" /></td><td class="s-p">MSN：</td><td><input type="text" name="msn" value="${member.msn!?html}" maxlength="100" class="member-change" /></td>
+                <td class="s-p">QQ：</td><td><input type="text" name="qq" value="${member.qq!?html}" maxlength="100" class="member-change" /></td><td class="s-p">MSN：</td><td><input type="text" name="weiXin" value="${member.weiXin!?html}" maxlength="100" class="member-change" /></td>
               </tr>
               <tr>
-                <td class="s-p">来自：</td><td><input type="text" name="comefrom" value="${member.comefrom!?html}" maxlength="150" class="member-change" /></td>
+                <td class="s-p">来自：</td><td><input type="text" name="comeFrom" value="${member.comeFrom!?html}" maxlength="150" class="member-change" /></td>
               </tr>
               <tr>
                 <td class="s-p">自我介绍：</td><td colspan="3"><textarea name="intro" vld="{maxlength:255}"  maxlength="255">${member.intro!?html}</textarea></td>

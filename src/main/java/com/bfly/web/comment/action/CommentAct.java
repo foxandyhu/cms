@@ -160,7 +160,7 @@
 //                }
 //                userId = user.getId();
 //                //评论次数限制:获取站点配置信息
-//                if (config.getCommentDayLimit() != 0 && user.getUserExt().getTodayCommentTotal() >= config.getCommentDayLimit()) {
+//                if (config.getCommentDayLimit() != 0 && user.getMemberExt().getTodayCommentTotal() >= config.getCommentDayLimit()) {
 //                    limit = true;
 //                }
 //            }

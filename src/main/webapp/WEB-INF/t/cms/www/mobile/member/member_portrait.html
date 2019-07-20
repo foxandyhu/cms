@@ -49,7 +49,7 @@ $(function() {
             <table cellpadding="0" cellspacing="0">
             <tbody>
               <tr>
-                <td width="180" style="padding-top:30px;"><div class="ghtx">[#if member.userImg??]<img src="${member.userImg}">[#else]<img src="/${res}/images/userImg.jpg">[/#if]<div></td>
+                <td width="180" style="padding-top:30px;"><div class="ghtx">[#if member.face??]<img src="${member.face}">[#else]<img src="/${res}/images/face.jpg">[/#if]<div></td>
                 <td>
                   <input type="text" name="name" class="member-change" style="width:320px;">
                   <p style="font-size:12px; color:#b4b4b4; line-height:36px;">上传图片格式： jpg、png、gif</p>
@@ -67,7 +67,7 @@ $(function() {
       </div>
     </div>
     <div class="memberRight">
-      <div class="memberImg">[#if member.userImg??]<img src="${member.userImg}">[#else]<img src="/${res}/images/userImg.jpg">[/#if]</div>
+      <div class="memberImg">[#if member.face??]<img src="${member.face}">[#else]<img src="/${res}/images/face.jpg">[/#if]</div>
       <div class="memberName">您好，<span>${member.userName}</span></div>
       <div class="memberOut"><a href="logout.html?returnUrl=/">退出</a></div>
     </div>

@@ -20,20 +20,24 @@ public class MemberExt implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "id", unique = true, nullable = false)
+    @Column(name = "member_id")
     private int id;
+
+    @MapsId
+    @OneToOne(mappedBy = "memberExt")
+    private Member member;
 
     /**
      * 真实姓名
      */
-    @Column(name = "realname")
-    private String realname;
+    @Column(name = "real_name")
+    private String realName;
 
     /**
      * 性别
      */
-    @Column(name = "gender")
-    private boolean gender;
+    @Column(name = "is_girl")
+    private boolean girl;
 
     /**
      * 出生日期
@@ -50,8 +54,8 @@ public class MemberExt implements Serializable {
     /**
      * 来自
      */
-    @Column(name = "comefrom")
-    private String comefrom;
+    @Column(name = "come_from")
+    private String comeFrom;
 
     /**
      * QQ
@@ -60,10 +64,10 @@ public class MemberExt implements Serializable {
     private String qq;
 
     /**
-     * MSN
+     * 微信号
      */
-    @Column(name = "msn")
-    private String msn;
+    @Column(name = "wei_xin")
+    private String weiXin;
 
     /**
      * 电话
@@ -80,32 +84,14 @@ public class MemberExt implements Serializable {
     /**
      * 用户头像
      */
-    @Column(name = "user_img")
-    private String userImg;
+    @Column(name = "face")
+    private String face;
 
     /**
      * 用户个性签名
      */
-    @Column(name = "user_signature")
-    private String userSignature;
-
-    /**
-     * 今日留言数
-     */
-    @Column(name = "today_guestbook_total")
-    private int todayGuestbookTotal;
-
-    /**
-     * 今日评论数
-     */
-    @Column(name = "today_comment_total")
-    private int todayCommentTotal;
-
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "member_id")
-    private Member user;
-
+    @Column(name = "signature")
+    private String signature;
 
     public int getId() {
         return id;
@@ -115,20 +101,38 @@ public class MemberExt implements Serializable {
         this.id = id;
     }
 
-    public String getRealname() {
-        return realname;
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 
-    public void setRealname(String realname) {
-        this.realname = realname;
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
     }
 
-    public boolean isGender() {
-        return gender;
+    public Member getMember() {
+        return member;
     }
 
-    public void setGender(boolean gender) {
-        this.gender = gender;
+    public void setMember(Member member) {
+        this.member = member;
+    }
+
+    public String getRealName() {
+        return realName;
+    }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
+    }
+
+    public boolean isGirl() {
+        return girl;
+    }
+
+    public void setGirl(boolean girl) {
+        this.girl = girl;
     }
 
     public Date getBirthday() {
@@ -147,12 +151,12 @@ public class MemberExt implements Serializable {
         this.intro = intro;
     }
 
-    public String getComefrom() {
-        return comefrom;
+    public String getComeFrom() {
+        return comeFrom;
     }
 
-    public void setComefrom(String comefrom) {
-        this.comefrom = comefrom;
+    public void setComeFrom(String comeFrom) {
+        this.comeFrom = comeFrom;
     }
 
     public String getQq() {
@@ -163,12 +167,12 @@ public class MemberExt implements Serializable {
         this.qq = qq;
     }
 
-    public String getMsn() {
-        return msn;
+    public String getWeiXin() {
+        return weiXin;
     }
 
-    public void setMsn(String msn) {
-        this.msn = msn;
+    public void setWeiXin(String weiXin) {
+        this.weiXin = weiXin;
     }
 
     public String getPhone() {
@@ -187,43 +191,19 @@ public class MemberExt implements Serializable {
         this.mobile = mobile;
     }
 
-    public String getUserImg() {
-        return userImg;
+    public String getFace() {
+        return face;
     }
 
-    public void setUserImg(String userImg) {
-        this.userImg = userImg;
+    public void setFace(String face) {
+        this.face = face;
     }
 
-    public String getUserSignature() {
-        return userSignature;
+    public String getSignature() {
+        return signature;
     }
 
-    public void setUserSignature(String userSignature) {
-        this.userSignature = userSignature;
-    }
-
-    public int getTodayGuestbookTotal() {
-        return todayGuestbookTotal;
-    }
-
-    public void setTodayGuestbookTotal(int todayGuestbookTotal) {
-        this.todayGuestbookTotal = todayGuestbookTotal;
-    }
-
-    public int getTodayCommentTotal() {
-        return todayCommentTotal;
-    }
-
-    public void setTodayCommentTotal(int todayCommentTotal) {
-        this.todayCommentTotal = todayCommentTotal;
-    }
-
-    public Member getUser() {
-        return user;
-    }
-
-    public void setUser(Member user) {
-        this.user = user;
+    public void setSignature(String signature) {
+        this.signature = signature;
     }
 }

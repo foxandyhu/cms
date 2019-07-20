@@ -1,6 +1,5 @@
 package com.bfly.cms.member.entity;
 
-import com.bfly.cms.channel.entity.Channel;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -8,7 +7,6 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
-import java.util.Set;
 
 /**
  * 会员组类
@@ -19,7 +17,7 @@ import java.util.Set;
 @Entity
 @Table(name = "member_group")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
-public class MemberGroup implements Serializable {
+public class MemberGroup implements Serializable, Comparable<MemberGroup> {
 
     private static final long serialVersionUID = 6614006354622383908L;
 
@@ -31,70 +29,59 @@ public class MemberGroup implements Serializable {
     /**
      * 名称
      */
-    @Column(name = "group_name")
+    @Column(name = "name")
     @NotBlank(message = "组名称不能为空!")
     private String name;
 
     /**
      * 排列顺序
      */
-    @Column(name = "priority")
-    @Min(value = 1, message = "排序序号必须大于0!")
-    private int priority;
+    @Column(name = "seq")
+    @Min(value = 0, message = "排列顺序最小为0!")
+    private int seq;
 
     /**
-     * 每日允许上传KB
+     * 每日允许上传总量KB
      */
-    @Column(name = "allow_per_day")
+    @Column(name = "allow_upload_per_day")
     @Min(value = 0, message = "每日允许上传量必须大于0KB!")
-    private int allowPerDay;
+    private int allowUploadPerDay;
 
     /**
-     * 每个文件最大KB
+     * 每个文件最大总量KB
      */
-    @Column(name = "allow_max_file")
+    @Column(name = "allow_upload_max_file")
     @Min(value = 0, message = "每个文件最大值为0KB!")
-    private int allowMaxFile;
+    private int allowUploadMaxFile;
 
     /**
-     * 允许上传的后缀
+     * 允许上传的文件后缀
      */
-    @Column(name = "allow_suffix")
-    private String allowSuffix;
+    @Column(name = "allow_upload_suffix")
+    private String allowUploadSuffix;
 
     /**
-     * 是否需要验证码
+     * 评论是否需要验证码
      */
-    @Column(name = "need_captcha")
-    private boolean needCaptcha;
+    @Column(name = "comment_need_captcha")
+    private boolean commentNeedCaptcha;
     /**
-     * 是否需要审核
+     * 评论是否需要审核
      */
-    @Column(name = "need_check")
+    @Column(name = "comment_need_check")
 
-    private boolean needCheck;
+    private boolean commentNeedCheck;
 
     /**
      * 是否默认会员组
      */
-    @Column(name = "is_reg_def")
-    private boolean regDef;
+    @Column(name = "is_default")
+    private boolean defaults;
 
-    /**
-     * 浏览权限组
-     */
-    @ManyToMany(cascade = CascadeType.REMOVE)
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
-    @JoinTable(name = "member_chnl_group_view", joinColumns = @JoinColumn(name = "group_id"), inverseJoinColumns = @JoinColumn(name = "channel_id"))
-    private Set<Channel> viewChannels;
-
-    /**
-     * 投稿权限组
-     */
-    @ManyToMany(cascade = CascadeType.REMOVE)
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
-    @JoinTable(name = "member_chnl_group_contri", joinColumns = @JoinColumn(name = "group_id"), inverseJoinColumns = @JoinColumn(name = "channel_id"))
-    private Set<Channel> contriChannels;
+    @Override
+    public int compareTo(MemberGroup o) {
+        return this.getSeq() - o.getSeq();
+    }
 
     public int getId() {
         return id;
@@ -112,75 +99,59 @@ public class MemberGroup implements Serializable {
         this.name = name;
     }
 
-    public int getPriority() {
-        return priority;
+    public int getSeq() {
+        return seq;
     }
 
-    public void setPriority(int priority) {
-        this.priority = priority;
+    public void setSeq(int seq) {
+        this.seq = seq;
     }
 
-    public int getAllowPerDay() {
-        return allowPerDay;
+    public int getAllowUploadPerDay() {
+        return allowUploadPerDay;
     }
 
-    public void setAllowPerDay(int allowPerDay) {
-        this.allowPerDay = allowPerDay;
+    public void setAllowUploadPerDay(int allowUploadPerDay) {
+        this.allowUploadPerDay = allowUploadPerDay;
     }
 
-    public int getAllowMaxFile() {
-        return allowMaxFile;
+    public int getAllowUploadMaxFile() {
+        return allowUploadMaxFile;
     }
 
-    public void setAllowMaxFile(int allowMaxFile) {
-        this.allowMaxFile = allowMaxFile;
+    public void setAllowUploadMaxFile(int allowUploadMaxFile) {
+        this.allowUploadMaxFile = allowUploadMaxFile;
     }
 
-    public String getAllowSuffix() {
-        return allowSuffix;
+    public String getAllowUploadSuffix() {
+        return allowUploadSuffix;
     }
 
-    public void setAllowSuffix(String allowSuffix) {
-        this.allowSuffix = allowSuffix;
+    public void setAllowUploadSuffix(String allowUploadSuffix) {
+        this.allowUploadSuffix = allowUploadSuffix;
     }
 
-    public boolean isNeedCaptcha() {
-        return needCaptcha;
+    public boolean isCommentNeedCaptcha() {
+        return commentNeedCaptcha;
     }
 
-    public void setNeedCaptcha(boolean needCaptcha) {
-        this.needCaptcha = needCaptcha;
+    public void setCommentNeedCaptcha(boolean commentNeedCaptcha) {
+        this.commentNeedCaptcha = commentNeedCaptcha;
     }
 
-    public boolean isNeedCheck() {
-        return needCheck;
+    public boolean isCommentNeedCheck() {
+        return commentNeedCheck;
     }
 
-    public void setNeedCheck(boolean needCheck) {
-        this.needCheck = needCheck;
+    public void setCommentNeedCheck(boolean commentNeedCheck) {
+        this.commentNeedCheck = commentNeedCheck;
     }
 
-    public boolean isRegDef() {
-        return regDef;
+    public boolean isDefaults() {
+        return defaults;
     }
 
-    public void setRegDef(boolean regDef) {
-        this.regDef = regDef;
-    }
-
-    public Set<Channel> getViewChannels() {
-        return viewChannels;
-    }
-
-    public void setViewChannels(Set<Channel> viewChannels) {
-        this.viewChannels = viewChannels;
-    }
-
-    public Set<Channel> getContriChannels() {
-        return contriChannels;
-    }
-
-    public void setContriChannels(Set<Channel> contriChannels) {
-        this.contriChannels = contriChannels;
+    public void setDefaults(boolean defaults) {
+        this.defaults = defaults;
     }
 }

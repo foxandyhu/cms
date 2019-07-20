@@ -6,6 +6,7 @@ import com.bfly.cms.comment.entity.GuestBookExt;
 import com.bfly.cms.comment.service.IGuestBookService;
 import com.bfly.cms.member.entity.Member;
 import com.bfly.cms.member.service.IMemberService;
+import com.bfly.cms.user.entity.User;
 import com.bfly.cms.user.service.IUserService;
 import com.bfly.core.context.ContextUtil;
 import com.bfly.core.base.service.impl.BaseServiceImpl;
@@ -23,7 +24,7 @@ import java.util.Date;
  * @date 2018/12/12 11:37
  */
 @Service
-@Transactional(propagation= Propagation.SUPPORTS, rollbackFor = Exception.class)
+@Transactional(propagation = Propagation.SUPPORTS, rollbackFor = Exception.class)
 public class GuestBookServiceImpl extends BaseServiceImpl<GuestBook, Integer> implements IGuestBookService {
 
     @Autowired
@@ -58,7 +59,7 @@ public class GuestBookServiceImpl extends BaseServiceImpl<GuestBook, Integer> im
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void replyGuestBook(int guestBookId, String content, int replyerId) {
+    public void replyGuestBook(int guestBookId, String content, Member member) {
         GuestBook guestBook = get(guestBookId);
         Assert.notNull(guestBook, "留言信息不存在!");
         Assert.isTrue(guestBook.getStatus() != Comment.WAIT_CHECK, "该留言尚未审核不能回复!");
@@ -73,14 +74,30 @@ public class GuestBookServiceImpl extends BaseServiceImpl<GuestBook, Integer> im
         GuestBookExt replyExt = new GuestBookExt();
         replyExt.setContent(content);
         replyGuestBook.setExt(replyExt);
-        //会员回复的评论需要审核 管理员回复的评论不需要审核
-        if (replyerId >= Member.MEMBER_ID_BEGIN) {
-            replyGuestBook.setStatus(Comment.WAIT_CHECK);
-            replyGuestBook.setMember(memberService.get(replyerId));
-        } else {
-            replyGuestBook.setStatus(Comment.PASSED);
-            replyGuestBook.setUser(userService.get(replyerId));
-        }
+        replyGuestBook.setStatus(Comment.WAIT_CHECK);
+        replyGuestBook.setMember(memberService.get(member.getId()));
+        guestBookService.save(replyGuestBook);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void replyGuestBook(int guestBookId, String content, User user) {
+        GuestBook guestBook = get(guestBookId);
+        Assert.notNull(guestBook, "留言信息不存在!");
+        Assert.isTrue(guestBook.getStatus() != Comment.WAIT_CHECK, "该留言尚未审核不能回复!");
+        Assert.isTrue(guestBook.getStatus() != Comment.UNPASSED, "审核不通过的留言不能回复!");
+
+        GuestBook replyGuestBook = new GuestBook();
+        replyGuestBook.setCreateTime(new Date());
+        replyGuestBook.setIp(IpThreadLocal.get());
+        replyGuestBook.setParent(guestBook);
+        replyGuestBook.setType(guestBook.getType());
+
+        GuestBookExt replyExt = new GuestBookExt();
+        replyExt.setContent(content);
+        replyGuestBook.setExt(replyExt);
+        replyGuestBook.setStatus(Comment.PASSED);
+        replyGuestBook.setUser(userService.get(user.getId()));
         guestBookService.save(replyGuestBook);
     }
 

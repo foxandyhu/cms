@@ -120,7 +120,7 @@
 //        if (user != null) {
 //            Integer dayLimit = config.getGuestbookDayLimit();
 //            //0 不限制留言数   大于限制数则不允许发
-//            if (dayLimit != 0 && dayLimit <= user.getUserExt().getTodayGuestbookTotal()) {
+//            if (dayLimit != 0 && dayLimit <= user.getMemberExt().getTodayGuestbookTotal()) {
 //                json.put("success", false);
 //                json.put("status", 4);
 //                ResponseUtils.renderJson(response, json.toString());

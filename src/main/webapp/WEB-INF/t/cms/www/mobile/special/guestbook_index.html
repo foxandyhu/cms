@@ -18,14 +18,14 @@
     <div style="display:inline-block; height:100%;">
       [#if member??]
       <div class="message-top-member">
-        <div class="message-top-userImg">[#if member.userImg??]<img src="${member.userImg}">[#else]<img src="/${res}/images/userImg.png">[/#if]</div>
+        <div class="message-top-face">[#if member.face??]<img src="${member.face}">[#else]<img src="/${res}/images/face.png">[/#if]</div>
       </div>
       <div class="message-top-right">
         <div class="message-top-userName">${member.userName}</div>
       </div>
       [#else]
       <div class="message-top-member">
-        <div class="message-top-userImg"><img src="/${res}/images/userImg.png"></div>
+        <div class="message-top-face"><img src="/${res}/images/face.png"></div>
       </div>
       <div class="message-top-right" style="margin-left:40px;">
         <div class="message-top-userName"><a href="${base}/login.html">登录</a>|<a href="${base}/register.html">注册</a></div>
