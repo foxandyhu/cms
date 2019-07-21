@@ -5,6 +5,7 @@ import com.bfly.cms.member.entity.Member;
 import com.bfly.cms.member.entity.MemberConfig;
 import com.bfly.cms.member.service.IMemberConfigService;
 import com.bfly.cms.member.service.IMemberService;
+import com.bfly.cms.system.entity.EmailProvider;
 import com.bfly.common.DataConvertUtils;
 import com.bfly.common.ResponseData;
 import com.bfly.common.ResponseUtil;
@@ -192,20 +193,51 @@ public class MemberController extends BaseManageController {
     @ActionModel(value = "会员配置详情", need = false)
     public void getMemberConfig(HttpServletResponse response) {
         MemberConfig config = configService.getMemberConfig();
+        if(config!=null){
+            if(config.getRegistConfig()!=null && config.getRegistConfig().getEmailProvider()!=null)
+            {
+                EmailProvider provider=new EmailProvider();
+                provider.setId(config.getRegistConfig().getEmailProvider().getId());
+                provider.setName(config.getRegistConfig().getEmailProvider().getName());
+                config.getRegistConfig().setEmailProvider(provider);
+            }
+            if(config.getLoginConfig()!=null && config.getLoginConfig().getEmailProvider()!=null)
+            {
+                EmailProvider provider=new EmailProvider();
+                provider.setId(config.getLoginConfig().getEmailProvider().getId());
+                provider.setName(config.getLoginConfig().getEmailProvider().getName());
+                config.getLoginConfig().setEmailProvider(provider);
+            }
+        }
         ResponseUtil.writeJson(response, ResponseData.getSuccess(config));
     }
 
     /**
-     * 修改会员配置信息
+     * 修改会员登录配置信息
      *
      * @author andy_hulibo@163.com
      * @date 2018/12/20 10:46
      */
-    @PostMapping(value = "/config/edit")
-    @ActionModel("修改会员配置信息")
-    public void editMemberConfig(@RequestBody @Valid MemberConfig config, BindingResult result, HttpServletResponse response) {
+    @PostMapping(value = "/config/login/edit")
+    @ActionModel("修改会员登录配置信息")
+    public void editMemberLoginConfig(@RequestBody MemberConfig config, BindingResult result, HttpServletResponse response) {
         validData(result);
-        configService.edit(config);
+        configService.editMemberLoginConfig(config);
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
+    }
+
+
+    /**
+     * 修改会员注册配置信息
+     *
+     * @author andy_hulibo@163.com
+     * @date 2018/12/20 10:46
+     */
+    @PostMapping(value = "/config/regist/edit")
+    @ActionModel("修改会员登录配置信息")
+    public void editMemberRegistConfig(@RequestBody MemberConfig config, BindingResult result, HttpServletResponse response) {
+        validData(result);
+        configService.editMemberRegistConfig(config);
         ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
     }
 }

@@ -114,7 +114,7 @@ public class Member implements Serializable {
     /**
      * 所在组
      */
-    @ManyToOne(cascade = CascadeType.MERGE,fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id")
     @NotFound(action = NotFoundAction.IGNORE)
     @NotNull(message = "会员未设置分组!")

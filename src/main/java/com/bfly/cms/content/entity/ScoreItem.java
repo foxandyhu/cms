@@ -55,7 +55,7 @@ public class ScoreItem implements Serializable, Comparable<ScoreItem> {
     /**
      * 评分组
      */
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
     @JoinColumn(name = "group_id")
     private ScoreGroup group;
 

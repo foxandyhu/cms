@@ -1,5 +1,7 @@
 package com.bfly.manage.system;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.bfly.cms.system.entity.EmailProvider;
 import com.bfly.cms.system.service.IEmailProviderService;
 import com.bfly.common.ResponseData;
@@ -14,6 +16,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 系统邮件Controller
@@ -40,6 +45,31 @@ public class EmailProviderController extends BaseManageController {
         PagerThreadLocal.set(getRequest());
         Pager pager = emailService.getPage(null);
         ResponseUtil.writeJson(response, ResponseData.getSuccess(pager));
+    }
+
+    /**
+     * 获得所有的邮件服务商集合
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/7/21 13:28
+     */
+    @GetMapping("/all")
+    @ActionModel(value = "所有的邮件服务商集合", need = false)
+    public void getAllEmailProvier(HttpServletResponse response) {
+        Map<String, Object> exactMap = new HashMap<>(1);
+        exactMap.put("enable", true);
+        List<EmailProvider> list = emailService.getList(exactMap);
+        JSONArray array = new JSONArray();
+        if (list != null) {
+            JSONObject json;
+            for (EmailProvider provider : list) {
+                json = new JSONObject();
+                json.put("id", provider.getId());
+                json.put("name", provider.getName());
+                array.add(json);
+            }
+        }
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(array));
     }
 
     /**

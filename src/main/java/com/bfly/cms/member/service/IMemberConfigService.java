@@ -18,4 +18,18 @@ public interface IMemberConfigService extends IBaseService<MemberConfig, Integer
      * @date 2018/12/20 10:41
      */
     MemberConfig getMemberConfig();
+
+    /**
+     * 修改登录配置
+     * @author andy_hulibo@163.com
+     * @date 2019/7/21 12:41
+     */
+    boolean editMemberLoginConfig(MemberConfig config);
+
+    /**
+     * 修改注册配置
+     * @author andy_hulibo@163.com
+     * @date 2019/7/21 12:42
+     */
+    boolean editMemberRegistConfig(MemberConfig config);
 }
