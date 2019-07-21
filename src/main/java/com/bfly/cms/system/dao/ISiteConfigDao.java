@@ -7,5 +7,5 @@ import com.bfly.core.base.dao.IBaseDao;
  * @author andy_hulibo@163.com
  * @date 2018/12/18 11:04
  */
-public interface ISiteInfoDao extends IBaseDao<SiteInfo, Integer> {
+public interface ISiteConfigDao extends IBaseDao<SiteInfo, Integer> {
 }

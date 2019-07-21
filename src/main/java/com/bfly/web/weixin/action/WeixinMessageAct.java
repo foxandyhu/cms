@@ -287,7 +287,7 @@
 //
 //    private String contentWithImgUseMessage(WeixinMessage entity, String fromUsername, String toUsername, String time, HttpServletRequest request) {
 //        Site site = CmsUtils.getSite(request);
-//        String path = site.getDomain();
+//        String path = site.getWebSite();
 //        return text(fromUsername, toUsername, time, entity.getTitle(), entity.getContent(), "http://" + path + entity.getPath(), entity.getUrl());
 //    }
 //

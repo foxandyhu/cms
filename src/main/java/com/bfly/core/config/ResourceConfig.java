@@ -95,6 +95,16 @@ public class ResourceConfig {
     }
 
     /**
+     * 系统图片存放路径
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/7/21 21:21
+     */
+    public static String getSysImgDir() {
+        return getRootDir() + File.separator + "system" + File.separator + "images";
+    }
+
+    /**
      * 获得相对root路径的绝对路径,必须是root的子目录或文件
      *
      * @author andy_hulibo@163.com

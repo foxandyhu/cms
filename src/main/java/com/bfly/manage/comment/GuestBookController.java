@@ -1,9 +1,6 @@
 package com.bfly.manage.comment;
 
-import com.bfly.cms.comment.entity.GuestBookConfig;
-import com.bfly.cms.comment.service.IGuestBookConfigService;
 import com.bfly.cms.comment.service.IGuestBookService;
-import com.bfly.core.context.ContextUtil;
 import com.bfly.common.DataConvertUtils;
 import com.bfly.common.ResponseUtil;
 import com.bfly.common.page.Pager;
@@ -11,12 +8,10 @@ import com.bfly.core.base.action.BaseManageController;
 import com.bfly.core.context.PagerThreadLocal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,8 +27,6 @@ public class GuestBookController extends BaseManageController {
 
     @Autowired
     private IGuestBookService guestBookService;
-    @Autowired
-    private IGuestBookConfigService configService;
 
     /**
      * 留言列表
@@ -126,31 +119,6 @@ public class GuestBookController extends BaseManageController {
         String guestBookStr = request.getParameter("ids");
         Integer[] guestBookIds = DataConvertUtils.convertToIntegerArray(guestBookStr.split(","));
         guestBookService.remove(guestBookIds);
-        ResponseUtil.writeJson(response, "");
-    }
-
-    /**
-     * 获得留言配置信息
-     *
-     * @author andy_hulibo@163.com
-     * @date 2018/12/20 10:18
-     */
-    @GetMapping(value = "/config/info")
-    public void getGuestBookConfig(HttpServletResponse response) {
-        GuestBookConfig config = configService.getGuestBookConfig();
-        ResponseUtil.writeJson(response, config);
-    }
-
-    /**
-     * 编辑留言配置信息
-     *
-     * @author andy_hulibo@163.com
-     * @date 2018/12/20 10:19
-     */
-    @PostMapping(value = "/config/edit")
-    public void editGuestBookConfig(@Valid GuestBookConfig config, BindingResult result, HttpServletResponse response) {
-        validData(result);
-        configService.edit(config);
         ResponseUtil.writeJson(response, "");
     }
 }

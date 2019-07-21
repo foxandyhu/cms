@@ -1,9 +1,7 @@
 package com.bfly.manage.system;
 
 import com.bfly.cms.system.entity.Company;
-import com.bfly.cms.system.entity.SysConfig;
 import com.bfly.cms.system.service.ICompanyService;
-import com.bfly.cms.system.service.ISysConfigService;
 import com.bfly.common.ResponseUtil;
 import com.bfly.core.base.action.BaseManageController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,34 +25,8 @@ import javax.validation.Valid;
 public class SysController extends BaseManageController {
 
     @Autowired
-    private ISysConfigService configService;
-    @Autowired
     private ICompanyService companyService;
 
-    /**
-     * 获得系统配置信息
-     *
-     * @author andy_hulibo@163.com
-     * @date 2018/12/20 11:24
-     */
-    @GetMapping(value = "/config/info")
-    public void getSysConfig(HttpServletResponse response) {
-        SysConfig config = configService.getSysConfig();
-        ResponseUtil.writeJson(response, config);
-    }
-
-    /**
-     * 编辑系统配置信息
-     *
-     * @author andy_hulibo@163.com
-     * @date 2018/12/20 11:25
-     */
-    @PostMapping(value = "/edit")
-    public void editSysConfig(@Valid SysConfig config, BindingResult result, HttpServletResponse response) {
-        validData(result);
-        configService.edit(config);
-        ResponseUtil.writeJson(response, "");
-    }
 
     /**
      * 获得企业信息

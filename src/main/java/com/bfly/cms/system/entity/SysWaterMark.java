@@ -31,32 +31,32 @@ public class SysWaterMark implements Serializable {
     /**
      * 图片最小宽度
      */
-    @Column(name = "mark_width")
-    private Integer minWidth;
+    @Column(name = "img_width")
+    private int imgWidth;
 
     /**
      * 图片最小高度
      */
-    @Column(name = "mark_height")
-    private Integer minHeight;
+    @Column(name = "img_height")
+    private int imgHeight;
 
     /**
      * 图片水印
      */
-    @Column(name = "mark_image")
-    private String imagePath;
+    @Column(name = "mark_img")
+    private String img;
 
     /**
      * 文字水印内容
      */
-    @Column(name = "mark_content")
-    private String content;
+    @Column(name = "mark_text")
+    private String text;
 
     /**
      * 文字水印大小
      */
     @Column(name = "mark_size")
-    private Integer size;
+    private int size;
 
     /**
      * 文字水印颜色
@@ -68,7 +68,7 @@ public class SysWaterMark implements Serializable {
      * 水印透明度（0-100）
      */
     @Column(name = "mark_alpha")
-    private Integer alpha;
+    private int alpha;
 
     /**
      * 水印位置(0-5)
@@ -76,19 +76,19 @@ public class SysWaterMark implements Serializable {
      * @see com.bfly.core.enums.WaterMarkPos
      */
     @Column(name = "mark_position")
-    private Integer pos;
+    private int pos;
 
     /**
      * x坐标偏移量
      */
-    @Column(name = "mark_offset_x")
-    private Integer offsetX;
+    @Column(name = "offset_x")
+    private int offsetX;
 
     /**
      * y坐标偏移量
      */
-    @Column(name = "mark_offset_y")
-    private Integer offsetY;
+    @Column(name = "offset_y")
+    private int offsetY;
 
     public int getId() {
         return id;
@@ -106,44 +106,43 @@ public class SysWaterMark implements Serializable {
         this.openWaterMark = openWaterMark;
     }
 
-    public Integer getMinWidth() {
-        return minWidth;
+    public int getImgWidth() {
+        return imgWidth;
     }
 
-    public void setMinWidth(Integer minWidth) {
-        this.minWidth = minWidth;
+    public void setImgWidth(int imgWidth) {
+        this.imgWidth = imgWidth;
     }
 
-    public Integer getMinHeight() {
-        return minHeight;
+    public int getImgHeight() {
+        return imgHeight;
     }
 
-
-    public void setMinHeight(Integer minHeight) {
-        this.minHeight = minHeight;
+    public void setImgHeight(int imgHeight) {
+        this.imgHeight = imgHeight;
     }
 
-    public String getImagePath() {
-        return imagePath;
+    public String getImg() {
+        return img;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public void setImg(String img) {
+        this.img = img;
     }
 
-    public String getContent() {
-        return content;
+    public String getText() {
+        return text;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setText(String text) {
+        this.text = text;
     }
 
-    public Integer getSize() {
+    public int getSize() {
         return size;
     }
 
-    public void setSize(Integer size) {
+    public void setSize(int size) {
         this.size = size;
     }
 
@@ -155,35 +154,35 @@ public class SysWaterMark implements Serializable {
         this.color = color;
     }
 
-    public Integer getAlpha() {
+    public int getAlpha() {
         return alpha;
     }
 
-    public void setAlpha(Integer alpha) {
+    public void setAlpha(int alpha) {
         this.alpha = alpha;
     }
 
-    public Integer getPos() {
+    public int getPos() {
         return pos;
     }
 
-    public void setPos(Integer pos) {
+    public void setPos(int pos) {
         this.pos = pos;
     }
 
-    public Integer getOffsetX() {
+    public int getOffsetX() {
         return offsetX;
     }
 
-    public void setOffsetX(Integer offsetX) {
+    public void setOffsetX(int offsetX) {
         this.offsetX = offsetX;
     }
 
-    public Integer getOffsetY() {
+    public int getOffsetY() {
         return offsetY;
     }
 
-    public void setOffsetY(Integer offsetY) {
+    public void setOffsetY(int offsetY) {
         this.offsetY = offsetY;
     }
 }

@@ -1,7 +1,7 @@
 package com.bfly.cms.system.service.impl;
 
 import com.bfly.cms.system.entity.SiteInfo;
-import com.bfly.cms.system.service.ISiteInfoService;
+import com.bfly.cms.system.service.ISiteConfigService;
 import com.bfly.core.base.service.impl.BaseServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -14,8 +14,8 @@ import java.util.List;
  * @date 2018/12/18 11:03
  */
 @Service
-@Transactional(propagation= Propagation.SUPPORTS, rollbackFor = Exception.class)
-public class SiteInfoServiceImpl extends BaseServiceImpl<SiteInfo, Integer> implements ISiteInfoService {
+@Transactional(propagation = Propagation.SUPPORTS, rollbackFor = Exception.class)
+public class SiteConfigServiceImpl extends BaseServiceImpl<SiteInfo, Integer> implements ISiteConfigService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -38,6 +38,6 @@ public class SiteInfoServiceImpl extends BaseServiceImpl<SiteInfo, Integer> impl
     @Override
     public SiteInfo getSite() {
         List<SiteInfo> sites = getList();
-        return sites != null ? sites.get(0) : null;
+        return sites != null && !sites.isEmpty() ? sites.get(0) : null;
     }
 }

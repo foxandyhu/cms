@@ -4,18 +4,18 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
-import java.util.Map;
 
 /**
- * CMS站点基本信息
+ * CMS站点基本配置信息
  *
  * @author andy_hulibo@163.com
  * @date 2018/11/15 17:13
  */
 @Entity
-@Table(name = "site_info")
+@Table(name = "site_config")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class SiteInfo implements Serializable {
 
@@ -29,9 +29,9 @@ public class SiteInfo implements Serializable {
     /**
      * 域名
      */
-    @Column(name = "domain")
+    @Column(name = "web_site")
     @NotBlank(message = "域名不能为空!")
-    private String domain;
+    private String webSite;
 
     /**
      * 网站名称
@@ -47,43 +47,6 @@ public class SiteInfo implements Serializable {
     private String shortName;
 
     /**
-     * 是否静态化首页
-     */
-    @Column(name = "is_static_index")
-    private boolean staticIndex;
-
-
-    /**
-     * 模板方案
-     */
-    @Column(name = "tpl_solution")
-    private String tplSolution;
-
-    /**
-     * 手机站模板方案
-     */
-    @Column(name = "tpl_mobile_solution")
-    private String tplMobileSolution;
-
-    /**
-     * 终审级别
-     */
-    @Column(name = "final_step")
-    private int finalStep;
-
-    /**
-     * 审核后(1:不能修改删除;2:修改后退回;3:修改后不变)
-     */
-    @Column(name = "after_check")
-    private int afterCheck;
-
-    /**
-     * 域名重定向
-     */
-    @Column(name = "domain_redirect")
-    private String domainRedirect;
-
-    /**
      * 站点关键字
      */
     @Column(name = "keywords")
@@ -92,18 +55,79 @@ public class SiteInfo implements Serializable {
     /**
      * 站点描述
      */
-    @Column(name = "description")
-    private String description;
+    @Column(name = "remark")
+    private String remark;
 
     /**
-     * 站点其他属性
+     * 是否开启站点
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/7/21 18:12
      */
-    @ElementCollection
-    @CollectionTable(name = "site_attr", joinColumns = @JoinColumn(name = "site_id"))
-    @MapKeyColumn(name = "attr_name")
-    @Column(name = "attr_value")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
-    private Map<String, String> attr;
+    @Column(name = "is_open_site")
+    private boolean openSite;
+
+    /**
+     * 是否打开流量统计开关
+     */
+    @Column(name = "is_open_flow")
+    private boolean openFlow;
+
+    /**
+     * 是否开启评论
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/7/21 18:13
+     */
+    @Column(name = "is_open_comment")
+    private boolean openComment;
+
+    /**
+     * 评论是否登录
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/7/21 18:15
+     */
+    @Column(name = "is_need_login_comment")
+    private boolean needLoginComment;
+
+    /**
+     * 是否开启留言
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/7/21 18:14
+     */
+    @Column(name = "is_open_guest_book")
+    private boolean openGuestBook;
+
+    /**
+     * 留言是否登录
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/7/21 18:14
+     */
+    @Column(name = "is_need_login_guest_book")
+    private boolean needLoginGuestBook;
+
+    /**
+     * 评论日最高限制数
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/7/21 18:16
+     */
+    @Column(name = "max_comment_limit")
+    @Min(value = 0, message = "日评论数最小为0!")
+    private int maxCommentLimit;
+
+    /**
+     * 留言日最高限制数
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/7/21 18:17
+     */
+    @Column(name = "max_guest_book_limit")
+    @Min(value = 0, message = "日留言数最小为0!")
+    private int maxGuestBookLimit;
 
     public int getId() {
         return id;
@@ -113,12 +137,12 @@ public class SiteInfo implements Serializable {
         this.id = id;
     }
 
-    public String getDomain() {
-        return domain;
+    public String getWebSite() {
+        return webSite;
     }
 
-    public void setDomain(String domain) {
-        this.domain = domain;
+    public void setWebSite(String webSite) {
+        this.webSite = webSite;
     }
 
     public String getName() {
@@ -137,54 +161,6 @@ public class SiteInfo implements Serializable {
         this.shortName = shortName;
     }
 
-    public boolean isStaticIndex() {
-        return staticIndex;
-    }
-
-    public void setStaticIndex(boolean staticIndex) {
-        this.staticIndex = staticIndex;
-    }
-
-    public String getTplSolution() {
-        return tplSolution;
-    }
-
-    public void setTplSolution(String tplSolution) {
-        this.tplSolution = tplSolution;
-    }
-
-    public String getTplMobileSolution() {
-        return tplMobileSolution;
-    }
-
-    public void setTplMobileSolution(String tplMobileSolution) {
-        this.tplMobileSolution = tplMobileSolution;
-    }
-
-    public int getFinalStep() {
-        return finalStep;
-    }
-
-    public void setFinalStep(int finalStep) {
-        this.finalStep = finalStep;
-    }
-
-    public int getAfterCheck() {
-        return afterCheck;
-    }
-
-    public void setAfterCheck(int afterCheck) {
-        this.afterCheck = afterCheck;
-    }
-
-    public String getDomainRedirect() {
-        return domainRedirect;
-    }
-
-    public void setDomainRedirect(String domainRedirect) {
-        this.domainRedirect = domainRedirect;
-    }
-
     public String getKeywords() {
         return keywords;
     }
@@ -193,19 +169,75 @@ public class SiteInfo implements Serializable {
         this.keywords = keywords;
     }
 
-    public String getDescription() {
-        return description;
+    public String getRemark() {
+        return remark;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 
-    public Map<String, String> getAttr() {
-        return attr;
+    public boolean isOpenSite() {
+        return openSite;
     }
 
-    public void setAttr(Map<String, String> attr) {
-        this.attr = attr;
+    public void setOpenSite(boolean openSite) {
+        this.openSite = openSite;
+    }
+
+    public boolean isOpenFlow() {
+        return openFlow;
+    }
+
+    public void setOpenFlow(boolean openFlow) {
+        this.openFlow = openFlow;
+    }
+
+    public boolean isOpenComment() {
+        return openComment;
+    }
+
+    public void setOpenComment(boolean openComment) {
+        this.openComment = openComment;
+    }
+
+    public boolean isNeedLoginComment() {
+        return needLoginComment;
+    }
+
+    public void setNeedLoginComment(boolean needLoginComment) {
+        this.needLoginComment = needLoginComment;
+    }
+
+    public boolean isOpenGuestBook() {
+        return openGuestBook;
+    }
+
+    public void setOpenGuestBook(boolean openGuestBook) {
+        this.openGuestBook = openGuestBook;
+    }
+
+    public boolean isNeedLoginGuestBook() {
+        return needLoginGuestBook;
+    }
+
+    public void setNeedLoginGuestBook(boolean needLoginGuestBook) {
+        this.needLoginGuestBook = needLoginGuestBook;
+    }
+
+    public int getMaxCommentLimit() {
+        return maxCommentLimit;
+    }
+
+    public void setMaxCommentLimit(int maxCommentLimit) {
+        this.maxCommentLimit = maxCommentLimit;
+    }
+
+    public int getMaxGuestBookLimit() {
+        return maxGuestBookLimit;
+    }
+
+    public void setMaxGuestBookLimit(int maxGuestBookLimit) {
+        this.maxGuestBookLimit = maxGuestBookLimit;
     }
 }

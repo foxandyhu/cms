@@ -2,14 +2,14 @@ package com.bfly.manage.system;
 
 import com.bfly.cms.system.entity.SysWaterMark;
 import com.bfly.cms.system.service.ISysWaterMarkService;
+import com.bfly.common.ResponseData;
 import com.bfly.common.ResponseUtil;
 import com.bfly.core.base.action.BaseManageController;
+import com.bfly.core.config.ResourceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -36,7 +36,10 @@ public class SysWaterMarkController extends BaseManageController {
     @GetMapping(value = "/info")
     public void getWaterMark(HttpServletResponse response) {
         SysWaterMark waterMark = waterMarkService.getWaterMark();
-        ResponseUtil.writeJson(response, waterMark);
+        if(StringUtils.hasLength(waterMark.getImg())){
+            waterMark.setImg(ResourceConfig.getServer()+waterMark.getImg());
+        }
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(waterMark));
     }
 
     /**
@@ -46,9 +49,9 @@ public class SysWaterMarkController extends BaseManageController {
      * @date 2018/12/20 9:44
      */
     @PostMapping(value = "/edit")
-    public void editWaterMark(@Valid SysWaterMark waterMark, BindingResult result, HttpServletResponse response) {
+    public void editWaterMark(@RequestBody @Valid SysWaterMark waterMark, BindingResult result, HttpServletResponse response) {
         validData(result);
         waterMarkService.edit(waterMark);
-        ResponseUtil.writeJson(response, "");
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
     }
 }

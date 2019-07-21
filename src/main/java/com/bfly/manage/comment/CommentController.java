@@ -1,9 +1,6 @@
 package com.bfly.manage.comment;
 
-import com.bfly.cms.comment.entity.CommentConfig;
-import com.bfly.cms.comment.service.ICommentConfigService;
 import com.bfly.cms.comment.service.ICommentService;
-import com.bfly.core.context.ContextUtil;
 import com.bfly.common.DataConvertUtils;
 import com.bfly.common.ResponseUtil;
 import com.bfly.common.page.Pager;
@@ -11,12 +8,10 @@ import com.bfly.core.base.action.BaseManageController;
 import com.bfly.core.context.PagerThreadLocal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,9 +27,6 @@ public class CommentController extends BaseManageController {
 
     @Autowired
     private ICommentService commentService;
-
-    @Autowired
-    private ICommentConfigService configService;
 
     /**
      * 评论列表
@@ -126,32 +118,6 @@ public class CommentController extends BaseManageController {
         String commentIdStr = request.getParameter("ids");
         Integer[] commentIds = DataConvertUtils.convertToIntegerArray(commentIdStr.split(","));
         commentService.remove(commentIds);
-        ResponseUtil.writeJson(response, "");
-    }
-
-
-    /**
-     * 获得评论配置信息
-     *
-     * @author andy_hulibo@163.com
-     * @date 2018/12/20 10:14
-     */
-    @GetMapping(value = "/config/info")
-    public void getCommentConfig(HttpServletResponse response) {
-        CommentConfig config = configService.getCommentConfig();
-        ResponseUtil.writeJson(response, config);
-    }
-
-    /**
-     * 修改评论配置
-     *
-     * @author andy_hulibo@163.com
-     * @date 2018/12/20 10:16
-     */
-    @PostMapping(value = "/config/edit")
-    public void editCommentConfig(@Valid CommentConfig config, BindingResult result, HttpServletResponse response) {
-        validData(result);
-        configService.edit(config);
         ResponseUtil.writeJson(response, "");
     }
 }

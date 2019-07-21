@@ -9,7 +9,7 @@ import com.bfly.core.base.service.IBaseService;
  * @author andy_hulibo@163.com
  * @date 2018/12/18 11:03
  */
-public interface ISiteInfoService extends IBaseService<SiteInfo, Integer> {
+public interface ISiteConfigService extends IBaseService<SiteInfo, Integer> {
 
     /**
      * 得到系统站点信息

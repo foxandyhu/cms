@@ -1,15 +1,13 @@
 package com.bfly.manage.system;
 
 import com.bfly.cms.system.entity.SiteInfo;
-import com.bfly.cms.system.service.ISiteInfoService;
+import com.bfly.cms.system.service.ISiteConfigService;
+import com.bfly.common.ResponseData;
 import com.bfly.common.ResponseUtil;
 import com.bfly.core.base.action.BaseManageController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -22,10 +20,10 @@ import javax.validation.Valid;
  */
 @RestController
 @RequestMapping(value = "/manage/site")
-public class SiteInfoController extends BaseManageController {
+public class SiteConfigController extends BaseManageController {
 
     @Autowired
-    private ISiteInfoService siteInfoService;
+    private ISiteConfigService siteInfoService;
 
     /**
      * 查看站点信息
@@ -36,7 +34,7 @@ public class SiteInfoController extends BaseManageController {
     @GetMapping(value = "/info")
     public void viewSiteInfo(HttpServletResponse response) {
         SiteInfo siteInfo = siteInfoService.getSite();
-        ResponseUtil.writeJson(response, siteInfo);
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(siteInfo));
     }
 
     /**
@@ -46,9 +44,9 @@ public class SiteInfoController extends BaseManageController {
      * @date 2018/12/18 11:14
      */
     @PostMapping(value = "/edit")
-    public void editSiteInfo(@Valid SiteInfo siteInfo, BindingResult result, HttpServletResponse response) {
+    public void editSiteInfo(@RequestBody @Valid SiteInfo siteInfo, BindingResult result, HttpServletResponse response) {
         validData(result);
         siteInfoService.edit(siteInfo);
-        ResponseUtil.writeJson(response, "");
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
     }
 }
