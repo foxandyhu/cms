@@ -94,7 +94,7 @@ window.location.href=window.document.referrer;
       <div class="quick-list clearfix">
       [#if site.config.qqEnable]
       <a class="quick-qq" id="qqLoginBtn" title="用QQ账号登录"></a>
-      <script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="${site.config.qqID!}" data-redirecturi="http://${site.domain}/public_auth.html" charset="utf-8"></script>
+      <script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="${site.config.qqID!}" data-redirecturi="http://${site.webSite}/public_auth.html" charset="utf-8"></script>
 					<script type="text/javascript">
 						//插入按钮的节点qqLoginBtn id
 					    QC.Login({btnId:"qqLoginBtn",size: "A_M"}, function(reqData, opts){//登录成功
@@ -129,7 +129,7 @@ window.location.href=window.document.referrer;
                     		T.init({
                     		    appkey: ${site.config.qqWeboID!}, 
                     		    autoclose:false,
-                    		    callbackurl:"http://${site.domain}/public_auth.html"
+                    		    callbackurl:"http://${site.webSite}/public_auth.html"
                     		});
                     		 function logout(){
                                  T.logout(function (loginStatus) { // 登出用户
