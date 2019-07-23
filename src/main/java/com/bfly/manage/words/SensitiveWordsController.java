@@ -67,13 +67,13 @@ public class SensitiveWordsController extends BaseManageController {
     }
 
     /**
-     * 编辑敏感词
+     * 修改敏感词
      *
      * @author andy_hulibo@163.com
      * @date 2018/12/18 10:21
      */
     @PostMapping(value = "/edit")
-    @ActionModel(value = "编辑敏感词")
+    @ActionModel(value = "修改敏感词")
     public void editSensitiveWords(@RequestBody @Valid SensitiveWords sensitiveWords, BindingResult result, HttpServletResponse response) {
         validData(result);
         sensitiveWordsService.edit(sensitiveWords);

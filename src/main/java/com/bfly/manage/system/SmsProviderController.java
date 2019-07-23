@@ -60,13 +60,13 @@ public class SmsProviderController extends BaseManageController {
     }
 
     /**
-     * 编辑短信服务商
+     * 修改短信服务商
      *
      * @author andy_hulibo@163.com
      * @date 2018/12/19 12:04
      */
     @PostMapping(value = "/edit")
-    @ActionModel("编辑短信服务商")
+    @ActionModel("修改短信服务商")
     public void editSms(@RequestBody @Valid SmsProvider sms, BindingResult result, HttpServletResponse response) {
         validData(result);
         smsService.edit(sms);

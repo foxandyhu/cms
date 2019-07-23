@@ -3,6 +3,7 @@ package com.bfly.cms.system.service.impl;
 import com.bfly.cms.system.entity.Company;
 import com.bfly.cms.system.service.ICompanyService;
 import com.bfly.core.base.service.impl.BaseServiceImpl;
+import com.bfly.core.config.ResourceConfig;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +15,7 @@ import java.util.List;
  * @date 2018/12/18 11:03
  */
 @Service
-@Transactional(propagation= Propagation.SUPPORTS, rollbackFor = Exception.class)
+@Transactional(propagation = Propagation.SUPPORTS, rollbackFor = Exception.class)
 public class CompanyServiceImpl extends BaseServiceImpl<Company, Integer> implements ICompanyService {
 
     @Override
@@ -27,8 +28,13 @@ public class CompanyServiceImpl extends BaseServiceImpl<Company, Integer> implem
     @Transactional(rollbackFor = Exception.class)
     public boolean edit(Company company) {
         Company c = getCompany();
+        String img = ResourceConfig.getUploadTempFileToDestDirForRelativePath(company.getWeixin(), ResourceConfig.getSysImgDir());
+        company.setWeixin(img);
         if (c == null) {
             return super.save(company);
+        }
+        if (img == null) {
+            company.setWeixin(c.getWeixin());
         }
         company.setId(c.getId());
         return super.edit(company);

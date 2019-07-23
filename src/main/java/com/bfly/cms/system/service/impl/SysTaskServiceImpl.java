@@ -12,7 +12,18 @@ import org.springframework.transaction.annotation.Transactional;
  * @date 2018/12/14 11:57
  */
 @Service
-@Transactional(propagation= Propagation.SUPPORTS, rollbackFor = Exception.class)
+@Transactional(propagation = Propagation.SUPPORTS, rollbackFor = Exception.class)
 public class SysTaskServiceImpl extends BaseServiceImpl<SysTask, Integer> implements ISysTaskService {
 
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean startTask(String name) {
+        return false;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean stopTask(String name) {
+        return false;
+    }
 }

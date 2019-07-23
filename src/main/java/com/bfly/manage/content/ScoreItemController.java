@@ -91,13 +91,13 @@ public class ScoreItemController extends BaseManageController {
     }
 
     /**
-     * 编辑评分项
+     * 修改评分项
      *
      * @author andy_hulibo@163.com
      * @date 2018/12/17 13:48
      */
     @PostMapping(value = "/edit")
-    @ActionModel("编辑评分项")
+    @ActionModel("修改评分项")
     public void editScoreItem(@RequestBody @Valid ScoreItem scoreItem, BindingResult result, HttpServletResponse response) {
         validData(result);
         scoreItemService.edit(scoreItem);

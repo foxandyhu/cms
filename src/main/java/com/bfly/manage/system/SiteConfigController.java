@@ -1,10 +1,11 @@
 package com.bfly.manage.system;
 
-import com.bfly.cms.system.entity.SiteInfo;
+import com.bfly.cms.system.entity.SiteConfig;
 import com.bfly.cms.system.service.ISiteConfigService;
 import com.bfly.common.ResponseData;
 import com.bfly.common.ResponseUtil;
 import com.bfly.core.base.action.BaseManageController;
+import com.bfly.core.security.ActionModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,7 @@ import javax.validation.Valid;
 public class SiteConfigController extends BaseManageController {
 
     @Autowired
-    private ISiteConfigService siteInfoService;
+    private ISiteConfigService siteConfigService;
 
     /**
      * 查看站点信息
@@ -32,21 +33,23 @@ public class SiteConfigController extends BaseManageController {
      * @date 2018/12/18 11:10
      */
     @GetMapping(value = "/info")
-    public void viewSiteInfo(HttpServletResponse response) {
-        SiteInfo siteInfo = siteInfoService.getSite();
-        ResponseUtil.writeJson(response, ResponseData.getSuccess(siteInfo));
+    @ActionModel(value = "查看站点配置信息",need = false)
+    public void viewSiteConfig(HttpServletResponse response) {
+        SiteConfig siteConfig = siteConfigService.getSite();
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(siteConfig));
     }
 
     /**
-     * 编辑站点信息
+     * 修改站点信息
      *
      * @author andy_hulibo@163.com
      * @date 2018/12/18 11:14
      */
     @PostMapping(value = "/edit")
-    public void editSiteInfo(@RequestBody @Valid SiteInfo siteInfo, BindingResult result, HttpServletResponse response) {
+    @ActionModel(value = "修改站点配置信息")
+    public void editSiteConfig(@RequestBody @Valid SiteConfig siteConfig, BindingResult result, HttpServletResponse response) {
         validData(result);
-        siteInfoService.edit(siteInfo);
+        siteConfigService.edit(siteConfig);
         ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
     }
 }

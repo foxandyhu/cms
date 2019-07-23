@@ -56,7 +56,7 @@ public class ModelItemController extends BaseManageController {
 
 
     /**
-     * 编辑模型项
+     * 修改模型项
      *
      * @author andy_hulibo@163.com
      * @date 2018/12/19 10:36

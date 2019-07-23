@@ -84,7 +84,7 @@ public class AdvertisingSpaceController extends BaseManageController {
      * @date 2018/12/11 17:01
      */
     @PostMapping(value = "/edit")
-    @ActionModel("编辑广告位")
+    @ActionModel("修改广告位")
     public void editAdvertisingSpace(@RequestBody @Valid AdvertisingSpace advertisingSpace, BindingResult result, HttpServletResponse response) {
         validData(result);
         advertisingSpaceService.edit(advertisingSpace);

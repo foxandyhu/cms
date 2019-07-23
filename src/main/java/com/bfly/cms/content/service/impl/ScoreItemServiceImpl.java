@@ -54,6 +54,8 @@ public class ScoreItemServiceImpl extends BaseServiceImpl<ScoreItem, Integer> im
         String img = ResourceConfig.getUploadTempFileToDestDirForRelativePath(scoreItem.getUrl(), ResourceConfig.getScoreDir());
         if (img != null) {
             scoreItem.setUrl(img);
+        }else{
+            scoreItem.setUrl(item.getUrl());
         }
         return super.edit(scoreItem);
     }

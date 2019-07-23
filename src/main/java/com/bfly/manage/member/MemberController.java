@@ -95,7 +95,7 @@ public class MemberController extends BaseManageController {
      * @date 2018/12/10 13:45
      */
     @PostMapping(value = "/edit")
-    @ActionModel("编辑会员信息")
+    @ActionModel("修改会员信息")
     public void editMember(@RequestBody @Valid Member member, BindingResult result, HttpServletResponse response) {
         validData(result);
         memberService.edit(member);

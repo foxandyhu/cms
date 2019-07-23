@@ -112,7 +112,7 @@ public class ResourceConfig {
      */
     public static String getRelativePathForRoot(String path) {
         Path p = Paths.get(getRootDir()).relativize(Paths.get(path));
-        return p.toString().replaceAll("\\\\", "/");
+        return "/" + p.toString().replaceAll("\\\\", "/");
     }
 
     public static String getServer() {

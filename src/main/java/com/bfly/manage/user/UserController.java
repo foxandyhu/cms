@@ -143,7 +143,7 @@ public class UserController extends BaseManageController {
      * @date 2018/12/10 13:45
      */
     @PostMapping(value = "/edit")
-    @ActionModel(value = "编辑系统用户")
+    @ActionModel(value = "修改系统用户")
     public void editUser(@RequestBody @Valid User user, BindingResult result, HttpServletResponse response) {
         validData(result);
         userService.edit(user);

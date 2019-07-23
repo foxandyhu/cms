@@ -62,7 +62,7 @@ public class ContentTypeController extends BaseManageController {
     }
 
     /**
-     * 编辑内容类型
+     * 修改内容类型
      *
      * @author andy_hulibo@163.com
      * @date 2018/12/19 10:02

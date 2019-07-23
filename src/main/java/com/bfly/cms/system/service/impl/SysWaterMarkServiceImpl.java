@@ -31,14 +31,13 @@ public class SysWaterMarkServiceImpl extends BaseServiceImpl<SysWaterMark, Integ
         SysWaterMark waterMark = getWaterMark();
 
         String img = ResourceConfig.getUploadTempFileToDestDirForRelativePath(sysWaterMark.getImg(), ResourceConfig.getSysImgDir());
-        if (img != null) {
-            sysWaterMark.setImg(img);
-        } else {
-            sysWaterMark.setImg(waterMark.getImg());
-        }
+        sysWaterMark.setImg(img);
         //不存在则新增 存在则修改
         if (waterMark == null) {
             return super.save(sysWaterMark);
+        }
+        if (img == null) {
+            sysWaterMark.setImg(waterMark.getImg());
         }
         sysWaterMark.setId(waterMark.getId());
         return super.edit(sysWaterMark);

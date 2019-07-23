@@ -62,13 +62,13 @@ public class ScoreGroupController extends BaseManageController {
     }
 
     /**
-     * 编辑评分组
+     * 修改评分组
      *
      * @author andy_hulibo@163.com
      * @date 2018/12/17 13:48
      */
     @PostMapping(value = "/edit")
-    @ActionModel(value = "编辑评分组")
+    @ActionModel(value = "修改评分组")
     public void editScoreGroup(@RequestBody @Valid ScoreGroup scoreGroup, BindingResult result, HttpServletResponse response) {
         validData(result);
         scoreGroupService.edit(scoreGroup);

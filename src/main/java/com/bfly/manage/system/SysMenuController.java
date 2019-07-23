@@ -63,7 +63,7 @@ public class SysMenuController extends BaseManageController {
     }
 
     /**
-     * 编辑系统菜单
+     * 修改系统菜单
      *
      * @author andy_hulibo@163.com
      * @date 2019/7/12 18:41

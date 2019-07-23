@@ -87,13 +87,13 @@ public class EmailProviderController extends BaseManageController {
     }
 
     /**
-     * 编辑系统邮件
+     * 修改系统邮件
      *
      * @author andy_hulibo@163.com
      * @date 2018/12/14 12:05
      */
     @PostMapping(value = "/edit")
-    @ActionModel("编辑邮件服务商")
+    @ActionModel("修改邮件服务商")
     public void editEmailProvider(@RequestBody @Valid EmailProvider email, BindingResult result, HttpServletResponse response) {
         validData(result);
         emailService.edit(email);

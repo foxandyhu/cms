@@ -17,7 +17,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "site_config")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
-public class SiteInfo implements Serializable {
+public class SiteConfig implements Serializable {
 
     private static final long serialVersionUID = 277028697339118850L;
 

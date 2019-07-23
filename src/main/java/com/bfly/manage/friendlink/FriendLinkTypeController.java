@@ -96,7 +96,7 @@ public class FriendLinkTypeController extends BaseManageController {
      * @date 2018/12/11 17:01
      */
     @PostMapping(value = "/edit")
-    @ActionModel(value = "编辑友情链接类型")
+    @ActionModel(value = "修改友情链接类型")
     public void editFriendLink(@RequestBody @Valid FriendLinkType friendLinkType, BindingResult result, HttpServletResponse response) {
         validData(result);
         friendLinkTypeService.edit(friendLinkType);

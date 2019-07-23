@@ -41,7 +41,7 @@ public class SysController extends BaseManageController {
     }
 
     /**
-     * 编辑企业信息
+     * 修改企业信息
      *
      * @author andy_hulibo@163.com
      * @date 2018/12/20 11:47

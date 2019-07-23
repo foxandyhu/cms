@@ -6,6 +6,7 @@ import com.bfly.common.ResponseData;
 import com.bfly.common.ResponseUtil;
 import com.bfly.core.base.action.BaseManageController;
 import com.bfly.core.config.ResourceConfig;
+import com.bfly.core.security.ActionModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
@@ -34,6 +35,7 @@ public class SysWaterMarkController extends BaseManageController {
      * @date 2018/12/20 9:35
      */
     @GetMapping(value = "/info")
+    @ActionModel(value = "查看谁赢设置",need = false)
     public void getWaterMark(HttpServletResponse response) {
         SysWaterMark waterMark = waterMarkService.getWaterMark();
         if(StringUtils.hasLength(waterMark.getImg())){
@@ -43,12 +45,13 @@ public class SysWaterMarkController extends BaseManageController {
     }
 
     /**
-     * 编辑水印配置
+     * 修改水印配置
      *
      * @author andy_hulibo@163.com
      * @date 2018/12/20 9:44
      */
     @PostMapping(value = "/edit")
+    @ActionModel("修改水印设置")
     public void editWaterMark(@RequestBody @Valid SysWaterMark waterMark, BindingResult result, HttpServletResponse response) {
         validData(result);
         waterMarkService.edit(waterMark);

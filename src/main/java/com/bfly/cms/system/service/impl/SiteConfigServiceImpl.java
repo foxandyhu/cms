@@ -1,6 +1,6 @@
 package com.bfly.cms.system.service.impl;
 
-import com.bfly.cms.system.entity.SiteInfo;
+import com.bfly.cms.system.entity.SiteConfig;
 import com.bfly.cms.system.service.ISiteConfigService;
 import com.bfly.core.base.service.impl.BaseServiceImpl;
 import org.springframework.stereotype.Service;
@@ -15,29 +15,29 @@ import java.util.List;
  */
 @Service
 @Transactional(propagation = Propagation.SUPPORTS, rollbackFor = Exception.class)
-public class SiteConfigServiceImpl extends BaseServiceImpl<SiteInfo, Integer> implements ISiteConfigService {
+public class SiteConfigServiceImpl extends BaseServiceImpl<SiteConfig, Integer> implements ISiteConfigService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean edit(SiteInfo siteInfo) {
-        SiteInfo site = getSite();
+    public boolean edit(SiteConfig siteConfig) {
+        SiteConfig site = getSite();
         //不存在则新增 存在则修改
         if (site == null) {
-            return super.save(siteInfo);
+            return super.save(siteConfig);
         }
-        siteInfo.setId(site.getId());
-        return super.edit(siteInfo);
+        siteConfig.setId(site.getId());
+        return super.edit(siteConfig);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean save(SiteInfo siteInfo) {
-        return edit(siteInfo);
+    public boolean save(SiteConfig siteConfig) {
+        return edit(siteConfig);
     }
 
     @Override
-    public SiteInfo getSite() {
-        List<SiteInfo> sites = getList();
+    public SiteConfig getSite() {
+        List<SiteConfig> sites = getList();
         return sites != null && !sites.isEmpty() ? sites.get(0) : null;
     }
 }

@@ -28,21 +28,18 @@ public class Company implements Serializable {
      * 公司名称
      */
     @Column(name = "name")
-    @NotBlank(message = "公司名称不能为空!")
     private String name;
 
     /**
      * 公司规模
      */
     @Column(name = "scale")
-    @NotBlank(message = "公司规模不能为空!")
     private String scale;
 
     /**
      * 公司性质
      */
     @Column(name = "nature")
-    @NotBlank(message = "公司性质不能为空!")
     private String nature;
 
     /**
@@ -52,16 +49,24 @@ public class Company implements Serializable {
     private String industry;
 
     /**
-     * 联系方式
+     * 联系电话
      */
-    @Column(name = "contact")
-    private String contact;
+    @Column(name = "phone")
+    private String phone;
+
+    /**
+     * 企业邮箱
+     * @author andy_hulibo@163.com
+     * @date 2019/7/22 10:57
+     */
+    @Column(name = "email")
+    private String email;
 
     /**
      * 公司简介
      */
-    @Column(name = "description")
-    private String description;
+    @Column(name = "remark")
+    private String remark;
 
     /**
      * 公司地址
@@ -70,16 +75,12 @@ public class Company implements Serializable {
     private String address;
 
     /**
-     * 经度
+     * 微信
+     * @author andy_hulibo@163.com
+     * @date 2019/7/22 11:05
      */
-    @Column(name = "longitude")
-    private float longitude;
-
-    /**
-     * 纬度
-     */
-    @Column(name = "latitude")
-    private float latitude;
+    @Column(name = "weixin")
+    private String weixin;
 
     public int getId() {
         return id;
@@ -121,20 +122,28 @@ public class Company implements Serializable {
         this.industry = industry;
     }
 
-    public String getContact() {
-        return contact;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setContact(String contact) {
-        this.contact = contact;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public String getDescription() {
-        return description;
+    public String getEmail() {
+        return email;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 
     public String getAddress() {
@@ -145,19 +154,11 @@ public class Company implements Serializable {
         this.address = address;
     }
 
-    public float getLongitude() {
-        return longitude;
+    public String getWeixin() {
+        return weixin;
     }
 
-    public void setLongitude(float longitude) {
-        this.longitude = longitude;
-    }
-
-    public float getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(float latitude) {
-        this.latitude = latitude;
+    public void setWeixin(String weixin) {
+        this.weixin = weixin;
     }
 }

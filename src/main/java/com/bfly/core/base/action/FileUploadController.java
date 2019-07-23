@@ -6,7 +6,6 @@ import com.bfly.common.ResponseUtil;
 import com.bfly.core.Constants;
 import com.bfly.core.config.ResourceConfig;
 import com.bfly.core.security.ActionModel;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -27,9 +26,6 @@ import java.io.File;
 @RequestMapping(value = "/manage/file")
 public class FileUploadController extends BaseManageController {
 
-    @Autowired
-    private ResourceConfig resourceConfig;
-
     /**
      * 公共的文件上传
      *
@@ -40,8 +36,8 @@ public class FileUploadController extends BaseManageController {
     @PostMapping(value = "/upload")
     @ActionModel(value = "文件上传")
     public void uploadImage(@RequestPart MultipartFile file, HttpServletResponse response) throws Exception {
-        String targetPath = resourceConfig.getTempDir();
-        String fileName = FileUtil.getRandomName() + FileUtil.getFileSuffix(file.getOriginalFilename())+Constants.TEMP_RESOURCE_SUFFIX;
+        String targetPath = ResourceConfig.getTempDir();
+        String fileName = FileUtil.getRandomName() + FileUtil.getFileSuffix(file.getOriginalFilename()) + Constants.TEMP_RESOURCE_SUFFIX;
         targetPath = targetPath + File.separator + fileName;
         boolean result = FileUtil.writeFile(file.getInputStream(), targetPath);
         if (!result) {
