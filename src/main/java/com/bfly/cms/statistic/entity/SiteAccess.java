@@ -8,7 +8,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 站点访问
+ * 站点访问Session 记录
+ * 每个客户访问站点时记录该次会话的基本情况,每一次新的session会话
+ * 系统会自动记录一条记录
  *
  * @author andy_hulibo@163.com
  * @date 2018/11/17 9:56
@@ -19,19 +21,17 @@ import java.util.Date;
 public class SiteAccess implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    public static final String ENGINE_BAIDU = ".baidu.";
-    public static final String ENGINE_GOOGLE = ".google.";
-    public static final String ENGINE_YAHOO = ".yahoo.";
-    public static final String ENGINE_BING = ".bing.";
-    public static final String ENGINE_SOGOU = ".sogou.";
-    public static final String ENGINE_SOSO = ".soso.";
-    public static final String ENGINE_SO = ".so.";
-
     @Id
-    @Column(name = "int")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    /**
+     * 会话ID
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/7/23 17:04
+     */
     @Column(name = "session_id")
     private String sessionId;
 
@@ -47,32 +47,35 @@ public class SiteAccess implements Serializable {
     @Column(name = "access_date")
     private Date accessDate;
 
-    @Column(name = "ip")
-    private String ip;
+    /**
+     * 访问IP
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/7/23 17:05
+     */
+    @Column(name = "access_ip")
+    private String accessIp;
+
+    /**
+     * 访问国家
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/7/23 18:23
+     */
+    @Column(name = "access_country")
+    private String accessCountry;
 
     /**
      * 访问地区
      */
-    @Column(name = "area")
-    private String area;
+    @Column(name = "access_area")
+    private String accessArea;
 
     /**
      * 访问来源
      */
     @Column(name = "access_source")
     private String accessSource;
-
-    /**
-     * 外部链接网址
-     */
-    @Column(name = "external_link")
-    private String externalLink;
-
-    /**
-     * 搜索引擎
-     */
-    @Column(name = "engine")
-    private String engine;
 
     /**
      * 入口页面
@@ -83,14 +86,14 @@ public class SiteAccess implements Serializable {
     /**
      * 最后停留页面
      */
-    @Column(name = "last_stop_page")
-    private String lastStopPage;
+    @Column(name = "stop_page")
+    private String stopPage;
 
     /**
      * 访问时长(秒)
      */
     @Column(name = "visit_second")
-    private int visitSecond;
+    private long visitSecond;
 
     /**
      * 访问页面数
@@ -101,21 +104,78 @@ public class SiteAccess implements Serializable {
     /**
      * 操作系统
      */
-    @Column(name = "operating_system")
-    private String operatingSystem;
+    @Column(name = "os_name")
+    private String osName;
+
+    /**
+     * 设备类型,手机,PC等
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/7/23 21:10
+     */
+    @Column(name = "os_type")
+    private String osType;
 
     /**
      * 浏览器
      */
-    @Column(name = "browser")
-    private String browser;
+    @Column(name = "browser_name")
+    private String browserName;
 
     /**
-     * 来访关键字
+     * 浏览器版本
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/7/23 21:09
      */
-    @Column(name = "keyword")
-    private String keyword;
+    @Column(name = "browser_version")
+    private String browserVersion;
 
+    /**
+     * 来源来访值,当来源是搜索引擎时 value值为搜索引擎名称,外部链接时为链接地址
+     */
+    @Column(name = "access_value")
+    private String accessValue;
+
+    public String getOsName() {
+        return osName;
+    }
+
+    public void setOsName(String osName) {
+        this.osName = osName;
+    }
+
+    public String getOsType() {
+        return osType;
+    }
+
+    public void setOsType(String osType) {
+        this.osType = osType;
+    }
+
+    public String getBrowserVersion() {
+        return browserVersion;
+    }
+
+    public void setBrowserVersion(String browserVersion) {
+        this.browserVersion = browserVersion;
+    }
+
+    public String getAccessValue() {
+        return accessValue;
+    }
+
+    public void setAccessValue(String accessValue) {
+        this.accessValue = accessValue;
+    }
+
+    public String getAccessCountry() {
+        return accessCountry;
+    }
+
+    public void setAccessCountry(String accessCountry) {
+        this.accessCountry = accessCountry;
+    }
 
     public int getId() {
         return id;
@@ -149,20 +209,20 @@ public class SiteAccess implements Serializable {
         this.accessDate = accessDate;
     }
 
-    public String getIp() {
-        return ip;
+    public String getAccessIp() {
+        return accessIp;
     }
 
-    public void setIp(String ip) {
-        this.ip = ip;
+    public void setAccessIp(String accessIp) {
+        this.accessIp = accessIp;
     }
 
-    public String getArea() {
-        return area;
+    public String getAccessArea() {
+        return accessArea;
     }
 
-    public void setArea(String area) {
-        this.area = area;
+    public void setAccessArea(String accessArea) {
+        this.accessArea = accessArea;
     }
 
     public String getAccessSource() {
@@ -173,22 +233,6 @@ public class SiteAccess implements Serializable {
         this.accessSource = accessSource;
     }
 
-    public String getExternalLink() {
-        return externalLink;
-    }
-
-    public void setExternalLink(String externalLink) {
-        this.externalLink = externalLink;
-    }
-
-    public String getEngine() {
-        return engine;
-    }
-
-    public void setEngine(String engine) {
-        this.engine = engine;
-    }
-
     public String getEntryPage() {
         return entryPage;
     }
@@ -197,19 +241,19 @@ public class SiteAccess implements Serializable {
         this.entryPage = entryPage;
     }
 
-    public String getLastStopPage() {
-        return lastStopPage;
+    public String getStopPage() {
+        return stopPage;
     }
 
-    public void setLastStopPage(String lastStopPage) {
-        this.lastStopPage = lastStopPage;
+    public void setStopPage(String stopPage) {
+        this.stopPage = stopPage;
     }
 
-    public int getVisitSecond() {
+    public long getVisitSecond() {
         return visitSecond;
     }
 
-    public void setVisitSecond(int visitSecond) {
+    public void setVisitSecond(long visitSecond) {
         this.visitSecond = visitSecond;
     }
 
@@ -221,27 +265,11 @@ public class SiteAccess implements Serializable {
         this.visitPageCount = visitPageCount;
     }
 
-    public String getOperatingSystem() {
-        return operatingSystem;
+    public String getBrowserName() {
+        return browserName;
     }
 
-    public void setOperatingSystem(String operatingSystem) {
-        this.operatingSystem = operatingSystem;
-    }
-
-    public String getBrowser() {
-        return browser;
-    }
-
-    public void setBrowser(String browser) {
-        this.browser = browser;
-    }
-
-    public String getKeyword() {
-        return keyword;
-    }
-
-    public void setKeyword(String keyword) {
-        this.keyword = keyword;
+    public void setBrowserName(String browserName) {
+        this.browserName = browserName;
     }
 }

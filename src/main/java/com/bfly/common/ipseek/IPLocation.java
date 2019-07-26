@@ -38,11 +38,6 @@ public class IPLocation {
     }
 
     public void setArea(String area) {
-        // 如果为局域网，纯真IP地址库的地区会显示CZ88.NET,这里把它去掉
-        if ("CZ88.NET".equals(area.trim())) {
-            this.area = "局域网";
-            return;
-        }
         this.area = area;
     }
 }

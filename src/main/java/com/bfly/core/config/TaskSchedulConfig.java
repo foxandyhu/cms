@@ -20,7 +20,7 @@ import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 public class TaskSchedulConfig implements SchedulingConfigurer {
 
     /**
-     * 任务执行器比如日志记录
+     * 任务执行器比如日志记录 在目标方法上加上注释@Async 自动使用
      *
      * @author andy_hulibo@163.com
      * @date 2019/6/27 14:10

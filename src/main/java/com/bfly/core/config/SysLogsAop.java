@@ -7,7 +7,6 @@ import com.bfly.core.context.IpThreadLocal;
 import com.bfly.core.context.ServletRequestThreadLocal;
 import com.bfly.core.context.UserThreadLocal;
 import com.bfly.core.enums.LogsType;
-import org.aopalliance.intercept.Joinpoint;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
@@ -59,7 +58,7 @@ public class SysLogsAop {
         final String ip = IpThreadLocal.get();
         final User user = UserThreadLocal.get();
         final String url = request.getRequestURL().toString();
-        sysLogService.save(LogsType.OP_LOG, user == null ? null : user.getUserName(), ip, url, title, null, true);
+        savelogTask(LogsType.OP_LOG, user == null ? null : user.getUserName(), ip, url, title, null, true);
     }
 
     /**
@@ -75,7 +74,7 @@ public class SysLogsAop {
         final User user = UserThreadLocal.get();
         final String url = request.getRequestURL().toString();
         final String title = getTitle(joinPoint);
-        sysLogService.save(LogsType.OP_LOG, user == null ? null : user.getUserName(), ip, url, title, throwable.getMessage(), false);
+        savelogTask(LogsType.OP_LOG, user == null ? null : user.getUserName(), ip, url, title, throwable.getMessage(), false);
     }
 
     /**
@@ -121,5 +120,15 @@ public class SysLogsAop {
         String methodName = joinPoint.getSignature().getName();
         Class<?>[] types = ((CodeSignature) joinPoint.getStaticPart().getSignature()).getParameterTypes();
         return c.getMethod(methodName, types);
+    }
+
+    /**
+     * 保存日志
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/7/26 17:05
+     */
+    private void savelogTask(LogsType category, String userName, String ip, String url, String title, String content, boolean success) {
+        sysLogService.save(category, userName, ip, url, title, content, success);
     }
 }

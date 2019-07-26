@@ -1,55 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ehcache updateCheck="false">
-	 <diskStore path="java.io.tmpdir"/>
-	
-	<defaultCache maxElementsInMemory="10000" eternal="false" timeToIdleSeconds="120" timeToLiveSeconds="120"
-		overflowToDisk="true" diskSpoolBufferSizeMB="300" maxElementsOnDisk="10000000" 
-		diskPersistent="false" diskExpiryThreadIntervalSeconds="120"/>
+    <diskStore path="java.io.tmpdir"/>
 
-	<cache name="beanCache" maxElementsInMemory="50000" eternal="false" timeToIdleSeconds="120" overflowToDisk="true" diskPersistent="true"/>
+    <defaultCache maxElementsInMemory="10000" eternal="false" timeToIdleSeconds="120" timeToLiveSeconds="120"
+                  overflowToDisk="true" diskSpoolBufferSizeMB="300" maxElementsOnDisk="10000000"
+                  diskPersistent="false" diskExpiryThreadIntervalSeconds="120"/>
 
-	<cache name="org.hibernate.cache.internal.StandardQueryCache" maxElementsInMemory="10000" eternal="false" timeToIdleSeconds="3600" timeToLiveSeconds="7200" overflowToDisk="true"/>
-	<cache name="org.hibernate.cache.spi.UpdateTimestampsCache" maxElementsInMemory="10000" eternal="true"  overflowToDisk="true"/>
+    <cache name="beanCache" maxElementsInMemory="50000" eternal="false" timeToIdleSeconds="120" overflowToDisk="true"
+           diskPersistent="true"/>
 
-	<!--内容计数缓存-->
-	<cache name="contentCount" maxElementsInMemory="500" eternal="true" overflowToDisk="true" diskPersistent="false"/>
+    <cache name="org.hibernate.cache.internal.StandardQueryCache" maxElementsInMemory="10000" eternal="false"
+           timeToIdleSeconds="3600" timeToLiveSeconds="7200" overflowToDisk="true"/>
+    <cache name="org.hibernate.cache.spi.UpdateTimestampsCache" maxElementsInMemory="10000" eternal="true"
+           overflowToDisk="true"/>
 
-	<!--栏目计数缓存-->
-	<cache name="channelCount" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600" timeToLiveSeconds="7200" overflowToDisk="true"/>
+    <!--内容计数缓存-->
+    <cache name="contentCount" maxElementsInMemory="500" eternal="true" overflowToDisk="true" diskPersistent="false"/>
 
-	<!--微信token缓存-->
-	<cache name="tokenCache" maxElementsInMemory="50" eternal="true" overflowToDisk="true" diskPersistent="false"/>
+    <!--栏目计数缓存-->
+    <cache name="channelCount" maxElementsInMemory="100" eternal="false" timeToIdleSeconds="600"
+           timeToLiveSeconds="7200" overflowToDisk="true"/>
 
-	<!--一次会话访问缓存-->
-	<cache name="cmsAccessCache" maxElementsInMemory="500" eternal="false" timeToIdleSeconds="7200" overflowToDisk="true" diskPersistent="true"/>
+    <!--微信token缓存-->
+    <cache name="tokenCache" maxElementsInMemory="50" eternal="true" overflowToDisk="true" diskPersistent="false"/>
 
-	<!--最新会话访问缓存-->
-	<cache name="cmsLastAccessCache" maxElementsInMemory="500" eternal="false" timeToIdleSeconds="7200" overflowToDisk="true" diskPersistent="true"/>
+    <!--最新会话访问缓存-->
+    <cache name="cmsLastAccessCache" maxElementsInMemory="500" eternal="false" timeToIdleSeconds="7200"
+           overflowToDisk="true" diskPersistent="true"/>
 
-	<!--每次访问页面缓存-->
-	<cache name="cmsAccessPageCache" maxElementsInMemory="500" eternal="false" timeToIdleSeconds="7200" overflowToDisk="true" diskPersistent="true"/>
+    <!--pv总量计数缓存-->
+    <cache name="cmsPvTotalCache" maxElementsInMemory="500" eternal="false" timeToIdleSeconds="7200"
+           overflowToDisk="true" diskPersistent="true"/>
 
-	<!--pv总量计数缓存-->
-	<cache name="cmsPvTotalCache" maxElementsInMemory="500" eternal="false" timeToIdleSeconds="7200" overflowToDisk="true" diskPersistent="true"/>
+    <!--访问者总量计数缓存-->
+    <cache name="cmsVisitorTotalCache" maxElementsInMemory="500" eternal="false" timeToIdleSeconds="7200"
+           overflowToDisk="true" diskPersistent="true"/>
 
-	<!--访问者总量计数缓存-->
-	<cache name="cmsVisitorTotalCache" maxElementsInMemory="500" eternal="false" timeToIdleSeconds="7200" overflowToDisk="true" diskPersistent="true"/>
+    <!--今日pv总量计数缓存-->
+    <cache name="cmsDayPvTotalCache" maxElementsInMemory="500" eternal="false" timeToIdleSeconds="7200"
+           overflowToDisk="true" diskPersistent="true"/>
 
-	<!--今日pv总量计数缓存-->
-	<cache name="cmsDayPvTotalCache" maxElementsInMemory="500" eternal="false" timeToIdleSeconds="7200" overflowToDisk="true" diskPersistent="true"/>
+    <!--今日访问者总量计数缓存-->
+    <cache name="cmsDayVisitorTotalCache" maxElementsInMemory="500" eternal="false" timeToIdleSeconds="7200"
+           overflowToDisk="true" diskPersistent="true"/>
 
-	<!--今日访问者总量计数缓存-->
-	<cache name="cmsDayVisitorTotalCache" maxElementsInMemory="500" eternal="false" timeToIdleSeconds="7200" overflowToDisk="true" diskPersistent="true"/>
+    <!--搜索词汇缓存-->
+    <cache name="cmsSearchWords" maxElementsInMemory="500" eternal="false" timeToIdleSeconds="7200"
+           overflowToDisk="true" diskPersistent="true"/>
 
-	<!--搜索词汇缓存-->
-	<cache name="cmsSearchWords" maxElementsInMemory="500" eternal="false" timeToIdleSeconds="7200" overflowToDisk="true" diskPersistent="true"/>
+    <!--文章查询时间缓存-->
+    <cache name="contentQueryFreshTime" maxElementsInMemory="500" eternal="false" timeToIdleSeconds="7200"
+           overflowToDisk="true" diskPersistent="true"/>
 
-	<!--文章查询时间缓存-->
-	<cache name="contentQueryFreshTime" maxElementsInMemory="500" eternal="false" timeToIdleSeconds="7200" overflowToDisk="true" diskPersistent="true"/>
+    <!--临时文章订单缓存-->
+    <cache name="contentOrderTemp" maxElementsInMemory="500" eternal="false" timeToIdleSeconds="7200"
+           overflowToDisk="true" diskPersistent="true"/>
 
-	<!--临时文章订单缓存-->
-    <cache name="contentOrderTemp" maxElementsInMemory="500" eternal="false" timeToIdleSeconds="7200" overflowToDisk="true" diskPersistent="true"/>
 
-	<cache name="userRightCache" maxElementsInMemory="5000" eternal="false" timeToIdleSeconds="7200" overflowToDisk="true" diskPersistent="true"/>
+    <!--用到的缓存-->
+    <cache name="userRightCache" maxElementsInMemory="5000" eternal="false" timeToIdleSeconds="7200"
+           overflowToDisk="true" diskPersistent="true"/>
 
+    <!--站点一次会话访问缓存-->
+    <cache name="siteAccessCache" maxElementsInMemory="5000" eternal="false" timeToIdleSeconds="7200"
+           overflowToDisk="true" diskPersistent="true"/>
+
+
+    <!--每次访问页面缓存-->
+    <cache name="siteAccessPageCache" maxElementsInMemory="500" eternal="false" timeToIdleSeconds="7200"
+           overflowToDisk="true" diskPersistent="true"/>
+
+
+    <!--数据字典缓存-->
+    <cache name="dictionayCache" maxElementsInMemory="1000" eternal="false" timeToIdleSeconds="7200"
+           overflowToDisk="true" diskPersistent="true"/>
 </ehcache>

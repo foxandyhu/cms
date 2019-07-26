@@ -1,5 +1,8 @@
 package com.bfly.core.interceptor;
 
+import com.bfly.core.context.ContextUtil;
+import com.bfly.core.context.IpThreadLocal;
+import com.bfly.core.context.ServletRequestThreadLocal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -23,14 +26,15 @@ public class WebContextInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws ServletException {
-//        Subject subject = SecurityUtils.getSubject();
-//        if (subject.isAuthenticated() || subject.isRemembered()) {
-//            String username = (String) subject.getPrincipal();
-////            Member user = null;//cmsUserMng.findByUsername(username);
-////            request.setAttribute(Constants.USER_LOGIN_KEY, user);
-//        }
-//        checkEquipment(request);
+        IpThreadLocal.set(ContextUtil.getClientIp(request));
+        ServletRequestThreadLocal.set(request);
         return true;
+    }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+        IpThreadLocal.clear();
+        ServletRequestThreadLocal.clear();
     }
 
     /**

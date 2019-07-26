@@ -1,4 +1,4 @@
-//package com.bfly.web.staticpage.action;
+//package com.bfly.web.statistic.action;
 //
 //
 //import com.bfly.cms.content.entity.Content;

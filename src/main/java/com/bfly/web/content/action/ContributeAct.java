@@ -12,7 +12,7 @@
 //import com.bfly.cms.system.entity.Oss;
 //import com.bfly.cms.siteconfig.entity.Site;
 //import com.bfly.cms.system.entity.Ftp;
-//import com.bfly.cms.staticpage.ContentStatusChangeThread;
+//import com.bfly.cms.statistic.ContentStatusChangeThread;
 //import com.bfly.cms.member.entity.MemberConfig;
 //import com.bfly.cms.system.service.CmsConfigContentChargeMng;
 //import com.bfly.cms.system.service.CmsConfigMng;

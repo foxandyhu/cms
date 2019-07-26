@@ -1,18 +1,13 @@
-import com.bfly.common.DateUtil;
-import com.bfly.common.StringUtil;
-import com.bfly.core.context.IpThreadLocal;
-
-import java.io.File;
-import java.nio.file.Paths;
-import java.util.UUID;
+import com.bfly.common.ipseek.IPLocation;
+import com.bfly.common.ipseek.IpSeekerImpl;
 
 public class TT2 {
 
     public static void main(String[] args) {
+        IpSeekerImpl seeker = new IpSeekerImpl();
 
-        String root="G:\\test\\ftp\\src";
-        String target="app/pages";
-        root = Paths.get(root, target).toAbsolutePath().toString();
-        System.out.println(root);
+        IPLocation location = seeker.getIPLocation("125.73.220.18");
+        System.out.println(location.getCountry());
+        System.out.println(location.getArea());
     }
 }

@@ -44,7 +44,7 @@ public class FriendLinkController extends BaseManageController {
      * @date 2018/12/11 16:53
      */
     @GetMapping("/list")
-    @ActionModel(value = "友情链接列表")
+    @ActionModel(value = "友情链接列表",need = false)
     public void listFriendLink(HttpServletResponse response) {
         PagerThreadLocal.set(getRequest());
 
