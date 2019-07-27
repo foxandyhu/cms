@@ -15,6 +15,7 @@ import com.bfly.core.enums.SiteAccessSource;
 import com.bfly.core.enums.StatisticType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.ehcache.EhCacheCache;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,6 +50,7 @@ public class SiteAccessServiceImpl extends BaseServiceImpl<SiteAccess, Integer> 
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    @Async
     public void cacheToDb() {
         EhCacheCache siteCache = (EhCacheCache) EhCacheUtil.getCache(EhCacheUtil.SITE_ACCESS_CACHE);
         EhCacheCache pageCache = (EhCacheCache) EhCacheUtil.getCache(EhCacheUtil.SITE_ACCESS_PAGE_CACHE);
@@ -84,6 +86,7 @@ public class SiteAccessServiceImpl extends BaseServiceImpl<SiteAccess, Integer> 
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    @Async
     public void statisticToDb() {
         List<Date> days = siteAccessDao.findSiteAccessDateBefore(new Date());
         for (Date day : days) {

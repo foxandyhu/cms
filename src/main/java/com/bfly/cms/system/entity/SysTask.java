@@ -79,6 +79,14 @@ public class SysTask implements Serializable {
     private String period;
 
     /**
+     * 任务说明
+     * @author andy_hulibo@163.com
+     * @date 2019/7/27 21:01
+     */
+    @Column(name = "remark")
+    private String remark;
+
+    /**
      * 状态名称
      *
      * @author andy_hulibo@163.com
@@ -87,6 +95,14 @@ public class SysTask implements Serializable {
     public String getStatusName() {
         TaskStatus status = TaskStatus.getStatus(getStatus());
         return status == null ? null : status.getName();
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 
     public int getId() {

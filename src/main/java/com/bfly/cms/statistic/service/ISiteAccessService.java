@@ -19,6 +19,8 @@ public interface ISiteAccessService extends IBaseService<SiteAccess, Integer> {
     /**
      * 根据SessionID查找会话记录
      *
+     * @param sessionId SessionId
+     * @return 访问记录
      * @author andy_hulibo@163.com
      * @date 2019/7/23 18:09
      */
@@ -53,6 +55,7 @@ public interface ISiteAccessService extends IBaseService<SiteAccess, Integer> {
     /**
      * 统计当天的时实流量数据
      *
+     * @return Map数据
      * @author andy_hulibo@163.com
      * @date 2019/7/24 12:42
      */
@@ -61,6 +64,7 @@ public interface ISiteAccessService extends IBaseService<SiteAccess, Integer> {
     /**
      * 统计当天的访问来源数据汇总
      *
+     * @return Map数据
      * @author andy_hulibo@163.com
      * @date 2019/7/25 12:54
      */
@@ -69,6 +73,8 @@ public interface ISiteAccessService extends IBaseService<SiteAccess, Integer> {
     /**
      * 统计今天的某一个访问来源数据
      *
+     * @param source 来源
+     * @return Map数据
      * @author andy_hulibo@163.com
      * @date 2019/7/25 18:30
      */
@@ -77,6 +83,7 @@ public interface ISiteAccessService extends IBaseService<SiteAccess, Integer> {
     /**
      * 统计今天的浏览器访问数据
      *
+     * @return Map数据
      * @author andy_hulibo@163.com
      * @date 2019/7/25 18:51
      */
@@ -85,6 +92,7 @@ public interface ISiteAccessService extends IBaseService<SiteAccess, Integer> {
     /**
      * 统计今天的来访区域数据
      *
+     * @return Map数据
      * @author andy_hulibo@163.com
      * @date 2019/7/25 18:52
      */

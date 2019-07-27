@@ -1,8 +1,10 @@
 package com.bfly.cms.system.service.impl;
 
+import com.bfly.cms.system.dao.ISysTaskDao;
 import com.bfly.cms.system.entity.SysTask;
 import com.bfly.cms.system.service.ISysTaskService;
 import com.bfly.core.base.service.impl.BaseServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +17,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(propagation = Propagation.SUPPORTS, rollbackFor = Exception.class)
 public class SysTaskServiceImpl extends BaseServiceImpl<SysTask, Integer> implements ISysTaskService {
 
+    @Autowired
+    private ISysTaskDao taskDao;
+
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean startTask(String name) {
@@ -25,5 +30,10 @@ public class SysTaskServiceImpl extends BaseServiceImpl<SysTask, Integer> implem
     @Transactional(rollbackFor = Exception.class)
     public boolean stopTask(String name) {
         return false;
+    }
+
+    @Override
+    public SysTask getTask(String name) {
+        return taskDao.getTaskByName(name);
     }
 }

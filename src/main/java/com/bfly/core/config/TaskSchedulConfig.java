@@ -1,13 +1,30 @@
 package com.bfly.core.config;
 
+import com.bfly.cms.system.entity.SysTask;
+import com.bfly.cms.system.service.ISysTaskService;
+import com.bfly.common.reflect.ReflectUtils;
+import com.bfly.core.enums.TaskStatus;
+import com.bfly.core.tasks.IScheduled;
+import com.bfly.core.tasks.ScheduledInfo;
+import com.bfly.core.tasks.ScheduledTaskExecCompleteEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.event.EventListener;
+import org.springframework.core.MethodIntrospector;
+import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.core.task.TaskExecutor;
-import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.scheduling.annotation.SchedulingConfigurer;
+import org.springframework.scheduling.annotation.*;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
+import org.springframework.scheduling.support.CronSequenceGenerator;
+
+import java.lang.reflect.Method;
+import java.util.*;
 
 /**
  * 计划任务器配置
@@ -17,7 +34,12 @@ import org.springframework.scheduling.config.ScheduledTaskRegistrar;
  */
 @Configuration
 @EnableAsync
+@EnableScheduling
 public class TaskSchedulConfig implements SchedulingConfigurer {
+
+    private Logger logger = LoggerFactory.getLogger(TaskSchedulConfig.class);
+    @Autowired
+    private ISysTaskService taskService;
 
     /**
      * 任务执行器比如日志记录 在目标方法上加上注释@Async 自动使用
@@ -49,5 +71,113 @@ public class TaskSchedulConfig implements SchedulingConfigurer {
     @Override
     public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
         taskRegistrar.setTaskScheduler(taskScheduler());
+    }
+
+    /**
+     * 应用启动后执行把系统所有的计划任务同步到数据库
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/7/27 19:18
+     */
+    @EventListener
+    public void initScheduleTask(ApplicationStartedEvent context) {
+        //得到所有计划任务类
+        Map<String, IScheduled> beansMap = context.getApplicationContext().getBeansOfType(IScheduled.class);
+        beansMap.forEach((name, bean) -> {
+            //得到所有计划任务类中执行的方法
+            Map<Method, Set<Scheduled>> annotatedMethods = MethodIntrospector.selectMethods(bean.getClass(),
+                    (MethodIntrospector.MetadataLookup<Set<Scheduled>>) method -> {
+                        Set<Scheduled> scheduledMethods = AnnotatedElementUtils.getMergedRepeatableAnnotations(
+                                method, Scheduled.class, Schedules.class);
+                        return (!scheduledMethods.isEmpty() ? scheduledMethods : null);
+                    });
+
+            clearRedundantTask(annotatedMethods);
+
+            annotatedMethods.forEach((method, scheduleds) -> {
+                //每个方法就是每一个执行计划任务并把计划任务写入数据库
+                ScheduledInfo info = ReflectUtils.getActionAnnotationValue(method, ScheduledInfo.class);
+                if (info != null) {
+                    SysTask sysTask = taskService.getTask(info.name());
+                    Scheduled scheduled = scheduleds.iterator().next();
+                    Date nextExec = geteScheduledTaskNextExecDate(scheduled.cron());
+                    if (sysTask != null) {
+                        sysTask.setNextExecTime(nextExec);
+                        sysTask.setPeriod(scheduled.cron());
+                        sysTask.setRemark(info.remark());
+                        taskService.edit(sysTask);
+                    } else {
+                        sysTask = new SysTask();
+                        sysTask.setName(info.name());
+                        sysTask.setPeriod(scheduled.cron());
+                        sysTask.setNextExecTime(nextExec);
+                        sysTask.setStatus(TaskStatus.START.getId());
+                        taskService.save(sysTask);
+                    }
+                }
+            });
+        });
+    }
+
+    /**
+     * 移除数据库多余的任务记录
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/7/27 20:43
+     */
+    private void clearRedundantTask(Map<Method, Set<Scheduled>> annotatedMethods) {
+        List<SysTask> tasks = taskService.getList();
+        if (tasks == null) {
+            return;
+        }
+        tasks.forEach(sysTask -> {
+            boolean flag = false;
+            for (Method method : annotatedMethods.keySet()) {
+                ScheduledInfo info = ReflectUtils.getActionAnnotationValue(method, ScheduledInfo.class);
+                if (info != null) {
+                    if (sysTask.getName().equalsIgnoreCase(info.name())) {
+                        flag = true;
+                        break;
+                    }
+                }
+            }
+            //无效的任务记录
+            if (!flag) {
+                taskService.remove(sysTask.getId());
+                logger.warn("删除无效计划任务:" + sysTask.getName());
+            }
+        });
+    }
+
+    /**
+     * 获得计划任务下次执行的时间
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/7/27 19:32
+     */
+    private Date geteScheduledTaskNextExecDate(String cron) {
+        if (cron == null || CronSequenceGenerator.isValidExpression(cron)) {
+            throw new RuntimeException("Cron表达式无效!");
+        }
+        CronSequenceGenerator generator = new CronSequenceGenerator(cron);
+        return generator.next(Calendar.getInstance().getTime());
+    }
+
+    /**
+     * 计划任务执行完毕后调用监听器
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/7/27 20:30
+     */
+    @EventListener
+    public void scheduleTaskExecCompleteListenner(ScheduledTaskExecCompleteEvent event) {
+        Date date = geteScheduledTaskNextExecDate(event.getCron());
+        SysTask task = taskService.getTask(event.getTaskName());
+
+        task.setPreExecTime(event.getCompleteDate());
+        task.setNextExecTime(date);
+        task.setPeriod(event.getCron());
+        task.setCount(task.getCount() + 1);
+        taskService.edit(task);
     }
 }

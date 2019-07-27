@@ -26,4 +26,11 @@ public interface ISysTaskService extends IBaseService<SysTask, Integer> {
      * @date 2019/7/22 12:31
      */
     boolean stopTask(String name);
+
+    /**
+     * 根据名称得到任务
+     * @author andy_hulibo@163.com
+     * @date 2019/7/27 19:25
+     */
+    SysTask getTask(String name);
 }
