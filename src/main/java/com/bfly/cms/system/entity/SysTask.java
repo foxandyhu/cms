@@ -87,6 +87,14 @@ public class SysTask implements Serializable {
     private String remark;
 
     /**
+     * 上一次执行结果
+     * @author andy_hulibo@163.com
+     * @date 2019/7/28 9:00
+     */
+    @Column(name="pre_exec_result")
+    private String preExecResult;
+
+    /**
      * 状态名称
      *
      * @author andy_hulibo@163.com
@@ -99,6 +107,14 @@ public class SysTask implements Serializable {
 
     public String getRemark() {
         return remark;
+    }
+
+    public String getPreExecResult() {
+        return preExecResult;
+    }
+
+    public void setPreExecResult(String preExecResult) {
+        this.preExecResult = preExecResult;
     }
 
     public void setRemark(String remark) {

@@ -31,8 +31,14 @@ public class StatisticTask implements IScheduled {
     @Scheduled(cron = "0 0/10 * * * ?")
     @ScheduledInfo(name = "access_statistic_cache_to_db", remark = "访问流量缓存数据每10分钟执行同步到数据库")
     public void accessStatisticFlushCacheToDB() {
-        accessService.cacheToDb();
-        context.publishEvent(new ScheduledTaskExecCompleteEvent("access_statistic_cache_to_db", "0 0/10 * * * ?", Calendar.getInstance().getTime()));
+        String message = "执行成功!";
+        try {
+            accessService.cacheToDb();
+        } catch (Exception e) {
+            message = e.getMessage();
+        }
+        ScheduledTaskExecResult result = new ScheduledTaskExecResult("access_statistic_cache_to_db", "0 0/10 * * * ?", Calendar.getInstance().getTime(), message);
+        context.publishEvent(new ScheduledTaskExecCompleteEvent(result));
     }
 
     /**
@@ -44,7 +50,13 @@ public class StatisticTask implements IScheduled {
     @Scheduled(cron = "0 10 0 * * ?")
     @ScheduledInfo(name = "access_statistic_report_pre_days", remark = "每天凌晨10分根据不同维度统计今日之前的流量报表")
     public void accessStatisticReportForPreDays() {
-        accessService.statisticToDb();
-        context.publishEvent(new ScheduledTaskExecCompleteEvent("access_statistic_report_pre_days", "0 10 0 * * ?", Calendar.getInstance().getTime()));
+        String message = "执行成功!";
+        try {
+            accessService.statisticToDb();
+        } catch (Exception e) {
+            message = e.getMessage();
+        }
+        ScheduledTaskExecResult result = new ScheduledTaskExecResult("access_statistic_report_pre_days", "0 10 0 * * ?", Calendar.getInstance().getTime(), message);
+        context.publishEvent(new ScheduledTaskExecCompleteEvent(result));
     }
 }

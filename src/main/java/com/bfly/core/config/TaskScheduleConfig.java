@@ -7,6 +7,7 @@ import com.bfly.core.enums.TaskStatus;
 import com.bfly.core.tasks.IScheduled;
 import com.bfly.core.tasks.ScheduledInfo;
 import com.bfly.core.tasks.ScheduledTaskExecCompleteEvent;
+import com.bfly.core.tasks.ScheduledTaskExecResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,9 +36,10 @@ import java.util.*;
 @Configuration
 @EnableAsync
 @EnableScheduling
-public class TaskSchedulConfig implements SchedulingConfigurer {
+public class TaskScheduleConfig implements SchedulingConfigurer {
 
-    private Logger logger = LoggerFactory.getLogger(TaskSchedulConfig.class);
+    private Logger logger = LoggerFactory.getLogger(TaskScheduleConfig.class);
+
     @Autowired
     private ISysTaskService taskService;
 
@@ -62,7 +64,7 @@ public class TaskSchedulConfig implements SchedulingConfigurer {
     public ThreadPoolTaskScheduler taskScheduler() {
         ThreadPoolTaskScheduler pool = new ThreadPoolTaskScheduler();
         pool.setPoolSize(10);
-        pool.setThreadNamePrefix("TaskSchedul-");
+        pool.setThreadNamePrefix("TaskScheduler-");
         pool.setAwaitTerminationSeconds(60);
         pool.setWaitForTasksToCompleteOnShutdown(true);
         return pool;
@@ -100,7 +102,7 @@ public class TaskSchedulConfig implements SchedulingConfigurer {
                 if (info != null) {
                     SysTask sysTask = taskService.getTask(info.name());
                     Scheduled scheduled = scheduleds.iterator().next();
-                    Date nextExec = geteScheduledTaskNextExecDate(scheduled.cron());
+                    Date nextExec = getScheduledTaskNextExecDate(scheduled.cron());
                     if (sysTask != null) {
                         sysTask.setNextExecTime(nextExec);
                         sysTask.setPeriod(scheduled.cron());
@@ -155,7 +157,7 @@ public class TaskSchedulConfig implements SchedulingConfigurer {
      * @author andy_hulibo@163.com
      * @date 2019/7/27 19:32
      */
-    private Date geteScheduledTaskNextExecDate(String cron) {
+    private Date getScheduledTaskNextExecDate(String cron) {
         if (cron == null || CronSequenceGenerator.isValidExpression(cron)) {
             throw new RuntimeException("Cron表达式无效!");
         }
@@ -170,14 +172,16 @@ public class TaskSchedulConfig implements SchedulingConfigurer {
      * @date 2019/7/27 20:30
      */
     @EventListener
-    public void scheduleTaskExecCompleteListenner(ScheduledTaskExecCompleteEvent event) {
-        Date date = geteScheduledTaskNextExecDate(event.getCron());
-        SysTask task = taskService.getTask(event.getTaskName());
+    public void scheduleTaskExecCompleteListener(ScheduledTaskExecCompleteEvent event) {
+        ScheduledTaskExecResult result = event.getExecResult();
+        Date date = getScheduledTaskNextExecDate(result.getCron());
+        SysTask task = taskService.getTask(result.getTaskName());
 
-        task.setPreExecTime(event.getCompleteDate());
+        task.setPreExecTime(result.getCompleteDate());
         task.setNextExecTime(date);
-        task.setPeriod(event.getCron());
+        task.setPeriod(result.getCron());
         task.setCount(task.getCount() + 1);
+        task.setPreExecResult(result.getExecResult());
         taskService.edit(task);
     }
 }
