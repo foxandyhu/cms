@@ -10,4 +10,5 @@ import com.bfly.core.base.service.IBaseService;
  * @date 2018/12/12 14:30
  */
 public interface IJobResumeService extends IBaseService<JobResume, Integer> {
+
 }

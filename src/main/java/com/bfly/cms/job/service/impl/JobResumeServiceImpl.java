@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
  * @date 2018/12/12 14:32
  */
 @Service
-@Transactional(propagation= Propagation.SUPPORTS, rollbackFor = Exception.class)
+@Transactional(propagation = Propagation.SUPPORTS, rollbackFor = Exception.class)
 public class JobResumeServiceImpl extends BaseServiceImpl<JobResume, Integer> implements IJobResumeService {
+
+
 }

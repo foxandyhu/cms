@@ -16,7 +16,6 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "job_resume")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class JobResume implements Serializable {
 
     private static final long serialVersionUID = 2819972390662386634L;
@@ -28,56 +27,56 @@ public class JobResume implements Serializable {
     /**
      * 简历名称
      */
-    @Column(name = "resume_name")
-    private String resumeName;
+    @Column(name = "name")
+    private String name;
 
     /**
      * 期望工作性质
      */
-    @Column(name = "target_worknature")
-    private String targetWorknature;
+    @Column(name = "expect_work_nature")
+    private String expectWorkNature;
 
     /**
      * 期望工作地点
      */
-    @Column(name = "target_workplace")
-    private String targetWorkplace;
+    @Column(name = "expect_work_place")
+    private String expectWorkPlace;
 
     /**
      * 期望职位类别
      */
-    @Column(name = "target_category")
-    private String targetCategory;
+    @Column(name = "expect_category")
+    private String expectCategory;
 
     /**
      * 期望月薪
      */
-    @Column(name = "target_salary")
-    private String targetSalary;
+    @Column(name = "expect_salary")
+    private String expectSalary;
 
     /**
      * 毕业学校
      */
-    @Column(name = "edu_school")
-    private String eduSchool;
+    @Column(name = "school")
+    private String school;
 
     /**
      * 毕业时间
      */
-    @Column(name = "edu_graduation")
-    private Date eduGraduation;
+    @Column(name = "graduation")
+    private Date graduation;
 
     /**
      * 学历
      */
-    @Column(name = "edu_back")
-    private String eduBack;
+    @Column(name = "education")
+    private String education;
 
     /**
      * 专业
      */
-    @Column(name = "edu_discipline")
-    private String eduDiscipline;
+    @Column(name = "profession")
+    private String profession;
 
     /**
      * 最近工作公司名称
@@ -88,55 +87,61 @@ public class JobResume implements Serializable {
     /**
      * 最近公司所属行业
      */
-    @Column(name = "company_industry")
-    private String companyIndustry;
+    @Column(name = "recent_industry")
+    private String recentIndustry;
 
     /**
      * 公司规模
      */
-    @Column(name = "company_scale")
-    private String companyScale;
+    @Column(name = "recent_scale")
+    private String recentScale;
 
     /**
      * 职位名称
      */
-    @Column(name = "job_name")
-    private String jobName;
+    @Column(name = "recent_job_name")
+    private String recentJobName;
 
     /**
      * 职位类别
      */
-    @Column(name = "job_category")
-    private String jobCategory;
+    @Column(name = "recent_job_category")
+    private String recentJobCategory;
 
     /**
      * 工作起始时间
      */
-    @Column(name = "job_start")
-    private Date jobStart;
+    @Column(name = "recent_job_start")
+    private Date recentJobStart;
+
+    /**
+     * 工作起始时间
+     */
+    @Column(name = "recent_job_end")
+    private Date recentJobEnd;
 
     /**
      * 下属人数
      */
-    @Column(name = "subordinates")
-    private String subordinates;
+    @Column(name = "recent_subordinates")
+    private String recentSubordinates;
 
     /**
      * 工作描述
      */
-    @Column(name = "job_description")
-    private String jobDescription;
+    @Column(name = "remark")
+    private String remark;
 
     /**
      * 自我评价
      */
-    @Column(name = "self_evaluation")
-    private String selfEvaluation;
+    @Column(name = "self_introduction")
+    private String selfIntroduction;
 
     /**
      * 所属用户
      */
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @MapsId
     @JoinColumn(name = "member_id")
     private Member member;
@@ -149,76 +154,76 @@ public class JobResume implements Serializable {
         this.id = id;
     }
 
-    public String getResumeName() {
-        return resumeName;
+    public String getName() {
+        return name;
     }
 
-    public void setResumeName(String resumeName) {
-        this.resumeName = resumeName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getTargetWorknature() {
-        return targetWorknature;
+    public String getExpectWorkNature() {
+        return expectWorkNature;
     }
 
-    public void setTargetWorknature(String targetWorknature) {
-        this.targetWorknature = targetWorknature;
+    public void setExpectWorkNature(String expectWorkNature) {
+        this.expectWorkNature = expectWorkNature;
     }
 
-    public String getTargetWorkplace() {
-        return targetWorkplace;
+    public String getExpectWorkPlace() {
+        return expectWorkPlace;
     }
 
-    public void setTargetWorkplace(String targetWorkplace) {
-        this.targetWorkplace = targetWorkplace;
+    public void setExpectWorkPlace(String expectWorkPlace) {
+        this.expectWorkPlace = expectWorkPlace;
     }
 
-    public String getTargetCategory() {
-        return targetCategory;
+    public String getExpectCategory() {
+        return expectCategory;
     }
 
-    public void setTargetCategory(String targetCategory) {
-        this.targetCategory = targetCategory;
+    public void setExpectCategory(String expectCategory) {
+        this.expectCategory = expectCategory;
     }
 
-    public String getTargetSalary() {
-        return targetSalary;
+    public String getExpectSalary() {
+        return expectSalary;
     }
 
-    public void setTargetSalary(String targetSalary) {
-        this.targetSalary = targetSalary;
+    public void setExpectSalary(String expectSalary) {
+        this.expectSalary = expectSalary;
     }
 
-    public String getEduSchool() {
-        return eduSchool;
+    public String getSchool() {
+        return school;
     }
 
-    public void setEduSchool(String eduSchool) {
-        this.eduSchool = eduSchool;
+    public void setSchool(String school) {
+        this.school = school;
     }
 
-    public Date getEduGraduation() {
-        return eduGraduation;
+    public Date getGraduation() {
+        return graduation;
     }
 
-    public void setEduGraduation(Date eduGraduation) {
-        this.eduGraduation = eduGraduation;
+    public void setGraduation(Date graduation) {
+        this.graduation = graduation;
     }
 
-    public String getEduBack() {
-        return eduBack;
+    public String getEducation() {
+        return education;
     }
 
-    public void setEduBack(String eduBack) {
-        this.eduBack = eduBack;
+    public void setEducation(String education) {
+        this.education = education;
     }
 
-    public String getEduDiscipline() {
-        return eduDiscipline;
+    public String getProfession() {
+        return profession;
     }
 
-    public void setEduDiscipline(String eduDiscipline) {
-        this.eduDiscipline = eduDiscipline;
+    public void setProfession(String profession) {
+        this.profession = profession;
     }
 
     public String getRecentCompany() {
@@ -229,68 +234,76 @@ public class JobResume implements Serializable {
         this.recentCompany = recentCompany;
     }
 
-    public String getCompanyIndustry() {
-        return companyIndustry;
+    public String getRecentIndustry() {
+        return recentIndustry;
     }
 
-    public void setCompanyIndustry(String companyIndustry) {
-        this.companyIndustry = companyIndustry;
+    public void setRecentIndustry(String recentIndustry) {
+        this.recentIndustry = recentIndustry;
     }
 
-    public String getCompanyScale() {
-        return companyScale;
+    public String getRecentScale() {
+        return recentScale;
     }
 
-    public void setCompanyScale(String companyScale) {
-        this.companyScale = companyScale;
+    public void setRecentScale(String recentScale) {
+        this.recentScale = recentScale;
     }
 
-    public String getJobName() {
-        return jobName;
+    public String getRecentJobName() {
+        return recentJobName;
     }
 
-    public void setJobName(String jobName) {
-        this.jobName = jobName;
+    public void setRecentJobName(String recentJobName) {
+        this.recentJobName = recentJobName;
     }
 
-    public String getJobCategory() {
-        return jobCategory;
+    public String getRecentJobCategory() {
+        return recentJobCategory;
     }
 
-    public void setJobCategory(String jobCategory) {
-        this.jobCategory = jobCategory;
+    public void setRecentJobCategory(String recentJobCategory) {
+        this.recentJobCategory = recentJobCategory;
     }
 
-    public Date getJobStart() {
-        return jobStart;
+    public Date getRecentJobStart() {
+        return recentJobStart;
     }
 
-    public void setJobStart(Date jobStart) {
-        this.jobStart = jobStart;
+    public void setRecentJobStart(Date recentJobStart) {
+        this.recentJobStart = recentJobStart;
     }
 
-    public String getSubordinates() {
-        return subordinates;
+    public String getRecentSubordinates() {
+        return recentSubordinates;
     }
 
-    public void setSubordinates(String subordinates) {
-        this.subordinates = subordinates;
+    public void setRecentSubordinates(String recentSubordinates) {
+        this.recentSubordinates = recentSubordinates;
     }
 
-    public String getJobDescription() {
-        return jobDescription;
+    public String getRemark() {
+        return remark;
     }
 
-    public void setJobDescription(String jobDescription) {
-        this.jobDescription = jobDescription;
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 
-    public String getSelfEvaluation() {
-        return selfEvaluation;
+    public Date getRecentJobEnd() {
+        return recentJobEnd;
     }
 
-    public void setSelfEvaluation(String selfEvaluation) {
-        this.selfEvaluation = selfEvaluation;
+    public void setRecentJobEnd(Date recentJobEnd) {
+        this.recentJobEnd = recentJobEnd;
+    }
+
+    public String getSelfIntroduction() {
+        return selfIntroduction;
+    }
+
+    public void setSelfIntroduction(String selfIntroduction) {
+        this.selfIntroduction = selfIntroduction;
     }
 
     public Member getMember() {
