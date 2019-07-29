@@ -163,7 +163,7 @@ public class UserController extends BaseManageController {
         if (StringUtils.hasLength(user.getFace())) {
             user.setFace(ResourceConfig.getServer() + user.getFace());
         }
-        JSONObject json = JsonUtil.toJsonFilter(user, "password", "users","menus");
+        JSONObject json = JsonUtil.toJsonFilter(user, "password", "users", "menus");
         ResponseUtil.writeJson(response, ResponseData.getSuccess(json));
     }
 
@@ -190,6 +190,19 @@ public class UserController extends BaseManageController {
     @ActionModel(value = "回收用户角色")
     public void recycleUserRole(@PathVariable("userId") int userId, @PathVariable("roleId") int roleId, HttpServletResponse response) {
         userService.recyclingRole(userId, roleId);
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
+    }
+
+    /**
+     * 修改当前登录用户的密码
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/7/29 14:52
+     */
+    @PostMapping("/edit-pwd")
+    @ActionModel("修改密码")
+    public void editPwd(HttpServletResponse response, @RequestBody Map<String, String> params) {
+        userService.editPwd(getUser().getId(), params.get("oldPwd"), params.get("newPwd"));
         ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
     }
 }

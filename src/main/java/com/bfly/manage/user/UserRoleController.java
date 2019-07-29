@@ -104,7 +104,7 @@ public class UserRoleController extends BaseManageController {
     @ActionModel(value = "查看系统角色详情", need = false)
     public void viewUserRole(@PathVariable("roleId") int roleId, HttpServletResponse response) {
         UserRole role = userRoleService.get(roleId);
-        JSONObject json = JsonUtil.toJsonFilter(role, "users");
+        JSONObject json = JsonUtil.toJsonFilter(role, "users","menus");
         ResponseUtil.writeJson(response, ResponseData.getSuccess(json));
     }
 

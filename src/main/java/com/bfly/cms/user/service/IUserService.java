@@ -39,4 +39,11 @@ public interface IUserService extends IBaseService<User, Integer> {
      * @date 2018/12/10 16:02
      */
     void recyclingRole(int userId, int roleId);
+
+    /**
+     * 修改用户密码
+     * @author andy_hulibo@163.com
+     * @date 2019/7/29 14:54
+     */
+    boolean editPwd(int userId,String oldPwd,String newPwd);
 }

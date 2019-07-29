@@ -32,7 +32,7 @@ import java.util.*;
  * @date 2018/12/7 10:33
  */
 @Service
-@Transactional(propagation= Propagation.SUPPORTS, rollbackFor = Exception.class)
+@Transactional(propagation = Propagation.SUPPORTS, rollbackFor = Exception.class)
 public class UserServiceImpl extends BaseServiceImpl<User, Integer> implements IUserService {
 
     @Autowired
@@ -58,7 +58,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, Integer> implements I
         user.setStatus(User.AVAILABLE_STATUS);
         user.setPassword(new Md5PwdEncoder().encodePassword(user.getPassword()));
 
-        String face = ResourceConfig.getUploadTempFileToDestDirForRelativePath(user.getFace(),ResourceConfig.getFaceDir());
+        String face = ResourceConfig.getUploadTempFileToDestDirForRelativePath(user.getFace(), ResourceConfig.getFaceDir());
         user.setFace(face);
 
         List<UserRole> userRoles = checkRoles(user);
@@ -82,7 +82,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, Integer> implements I
         orUser.setStatus(user.getStatus());
         orUser.setSuperAdmin(user.isSuperAdmin());
 
-        String face = ResourceConfig.getUploadTempFileToDestDirForRelativePath(user.getFace(),ResourceConfig.getFaceDir());
+        String face = ResourceConfig.getUploadTempFileToDestDirForRelativePath(user.getFace(), ResourceConfig.getFaceDir());
         if (face != null) {
             orUser.setFace(face);
         }
@@ -201,5 +201,17 @@ public class UserServiceImpl extends BaseServiceImpl<User, Integer> implements I
             count++;
         }
         return count;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean editPwd(int userId, String oldPwd, String newPwd) {
+        User user = get(userId);
+        boolean flag = new Md5PwdEncoder().isPasswordValid(user.getPassword(), oldPwd);
+        Assert.isTrue(flag, "原始密码不正确!");
+
+        newPwd = new Md5PwdEncoder().encodePassword(newPwd);
+        user.setPassword(newPwd);
+        return userDao.editUserPassword(userId, newPwd) > 0;
     }
 }
