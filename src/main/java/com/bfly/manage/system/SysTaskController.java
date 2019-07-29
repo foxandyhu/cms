@@ -64,7 +64,7 @@ public class SysTaskController extends BaseManageController {
     @GetMapping(value = "/stop/{name}.html")
     @ActionModel("停止系统任务")
     public void stopTask(@PathVariable("name") String name, HttpServletResponse response) {
-        sysTaskService.startTask(name);
+        sysTaskService.stopTask(name);
         ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
     }
 }

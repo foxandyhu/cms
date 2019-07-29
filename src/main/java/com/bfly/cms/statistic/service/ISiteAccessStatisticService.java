@@ -19,6 +19,9 @@ public interface ISiteAccessStatisticService extends IBaseService<SiteAccessStat
     /**
      * 根据日期统计
      *
+     * @param end   结束时间
+     * @param begin 开始时间
+     * @return 统计结果
      * @author andy_hulibo@163.com
      * @date 2019/7/24 12:17
      */
@@ -27,9 +30,21 @@ public interface ISiteAccessStatisticService extends IBaseService<SiteAccessStat
     /**
      * 根据日期和统计类型统计
      *
+     * @param type  统计类型
+     * @param end   结束时间
+     * @param begin 开始时间
+     * @return 统计结果
      * @author andy_hulibo@163.com
      * @date 2019/7/24 12:21
      */
     List<StatisticDataDTO> statistic(Date begin, Date end, StatisticType type);
 
+    /**
+     * 分析数据并写入数据库该方法是定时任务每天凌晨时间调用
+     * 根据不同唯独统计数据
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/7/24 8:04
+     */
+    void statisticToDb();
 }

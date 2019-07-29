@@ -1,6 +1,7 @@
 package com.bfly.common.page;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 简单分页类
@@ -8,7 +9,7 @@ import java.io.Serializable;
  * @author 胡礼波-Andy
  * @2014年11月10日上午9:28:09
  */
-public class Pager implements Paginable, Serializable {
+public class Pager<T> implements Paginable, Serializable {
 
     private static final long serialVersionUID = 9084846050836791950L;
 
@@ -83,14 +84,14 @@ public class Pager implements Paginable, Serializable {
     private int totalPage = 0;
     protected int pageSize = DEF_COUNT;
 
-    protected Object data;
+    protected List<T> data;
 
 
-    public Object getData() {
+    public List<T> getData() {
         return data;
     }
 
-    public void setData(Object data) {
+    public void setData(List<T> data) {
         this.data = data;
     }
 

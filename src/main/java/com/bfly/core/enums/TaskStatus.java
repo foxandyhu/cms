@@ -8,7 +8,7 @@ package com.bfly.core.enums;
  */
 public enum TaskStatus {
 
-    START(1, "开启"), shutdown(2, "关闭"), RUNNING(3, "正在执行");
+    START(1, "开启"), shutdown(2, "关闭");
 
     private int id;
     private String name;

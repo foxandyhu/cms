@@ -1,5 +1,7 @@
 package com.bfly.common;
 
+import org.springframework.scheduling.support.CronSequenceGenerator;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -319,5 +321,19 @@ public class DateUtil {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DAY_OF_MONTH, -1);
         return calendar.getTime();
+    }
+
+    /**
+     * 获得计划任务下次执行的时间
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/7/27 19:32
+     */
+    public static Date getNextDateByCron(String cron) {
+        if (cron == null || !CronSequenceGenerator.isValidExpression(cron)) {
+            throw new RuntimeException("Cron表达式无效!");
+        }
+        CronSequenceGenerator generator = new CronSequenceGenerator(cron);
+        return generator.next(Calendar.getInstance().getTime());
     }
 }
