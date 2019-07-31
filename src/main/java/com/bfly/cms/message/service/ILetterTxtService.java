@@ -1,6 +1,6 @@
 package com.bfly.cms.message.service;
 
-import com.bfly.cms.message.entity.Message;
+import com.bfly.cms.message.entity.LetterTxt;
 import com.bfly.core.base.service.IBaseService;
 
 /**
@@ -9,5 +9,5 @@ import com.bfly.core.base.service.IBaseService;
  * @author andy_hulibo@163.com
  * @date 2018/12/11 15:54
  */
-public interface IMessageService extends IBaseService<Message, Integer> {
+public interface ILetterTxtService extends IBaseService<LetterTxt, Integer> {
 }

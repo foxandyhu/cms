@@ -1,6 +1,5 @@
 package com.bfly.cms.system.service.impl;
 
-import com.bfly.cms.message.entity.Message;
 import com.bfly.cms.system.dao.ISmsRecordDao;
 import com.bfly.cms.system.entity.SmsProvider;
 import com.bfly.cms.system.entity.SmsRecord;
@@ -62,7 +61,7 @@ public class SmsRecordServiceImpl extends BaseServiceImpl<SmsRecord, Integer> im
         } else {
             specification = getUnExactQuery(unExactQueryProperty);
         }
-        Page<Message> page = smsRecordDao.findAll(specification, getPageRequest(pager));
+        Page<SmsRecord> page = smsRecordDao.findAll(specification, getPageRequest(pager));
         pager = new Pager(page.getNumber(), page.getSize(), page.getTotalElements());
         pager.setData(page.getContent());
         return pager;
@@ -74,8 +73,8 @@ public class SmsRecordServiceImpl extends BaseServiceImpl<SmsRecord, Integer> im
         SmsRecord record = get(recordId);
         Assert.notNull(record, "短信记录不存在!");
 
-        SmsProvider provider=record.getProvider();
-        Assert.notNull(provider,"该记录没有对应的服务商信息!");
+        SmsProvider provider = record.getProvider();
+        Assert.notNull(provider, "该记录没有对应的服务商信息!");
         //此处应该调用服务商API发送短信
 
         //修改发送次数
