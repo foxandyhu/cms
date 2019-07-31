@@ -1,14 +1,12 @@
 package com.bfly.cms.vote.entity;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
+import com.bfly.core.enums.VoteStatus;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 /**
  * 投票主题
@@ -18,7 +16,6 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "vote_topic")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class VoteTopic implements Serializable {
 
     private static final long serialVersionUID = 1933383282291172967L;
@@ -33,31 +30,36 @@ public class VoteTopic implements Serializable {
      */
     @Column(name = "title")
     @NotBlank(message = "问卷标题不能为空!")
+    @Size(min = 1, max = 50, message = "问卷标题长度为1-50之间!")
     private String title;
 
     /**
      * 描述
      */
-    @Column(name = "description")
-    private String description;
+    @Column(name = "remark")
+    @Size(max = 250, message = "描述内容长度在0-250之间!")
+    private String remark;
 
     /**
      * 开始时间
      */
     @Column(name = "start_time")
+    @NotNull(message = "开始时间不能为空!")
     private Date startTime;
 
     /**
      * 结束时间
      */
     @Column(name = "end_time")
+    @NotNull(message = "结束时间不能为空!")
     private Date endTime;
 
     /**
-     * 重复投票限制时间，单位小时，为空不允许重复投票
+     * 重复投票限制时间，单位小时，0为禁止重复投票,-1为无限制重复投票
      */
-    @Column(name = "repeate_hour")
-    private int repeateHour;
+    @Column(name = "repeat_hour")
+    @Min(value = -1,message = "重复投票限制最小为-1")
+    private int repeatHour;
 
     /**
      * 总投票数
@@ -65,76 +67,53 @@ public class VoteTopic implements Serializable {
     @Column(name = "total_count")
     private int totalCount;
 
-    /**
-     * 最多可以选择几项
-     */
-    @Column(name = "multi_select")
-    private int multiSelect;
 
     /**
-     * 是否限制会员
+     * 是否需要登录
      */
-    @Column(name = "is_restrict_member")
-    private boolean restrictMember;
+    @Column(name = "is_need_login")
+    private boolean needLogin;
 
     /**
-     * 是否限制IP
+     * 是否启用
      */
-    @Column(name = "is_restrict_ip")
-    private boolean restrictIp;
+    @Column(name = "is_enabled")
+    private boolean enabled;
 
     /**
-     * 是否限制COOKIE
+     * 状态
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/7/29 15:59
      */
-    @Column(name = "is_restrict_cookie")
-    private boolean restrictCookie;
-
-    /**
-     * 是否禁用
-     */
-    @Column(name = "is_disabled")
-    private boolean disabled;
-
-    /**
-     * 是否默认主题
-     */
-    @Column(name = "is_def")
-    private boolean def;
-
-    /**
-     * 是否限制微信
-     */
-    @Column(name = "limit_weixin")
-    private boolean limitWeiXin;
-
-    /**
-     * 限定微信投票每个用户每日投票次数,为0时则投票期内限定投票一次
-     */
-    @Column(name = "vote_day")
-    private int voteDay;
-
-    /**
-     * 投票项
-     */
-    @OneToMany(mappedBy = "topic", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    @NotEmpty(message = "投票项不能为空!")
-    private Set<VoteItem> items;
+    private int status;
 
     /**
      * 子主题
      */
-    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true, mappedBy = "voteTopic")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @NotEmpty(message = "子主题项不能为空!")
-    private Set<VoteSubTopic> subtopics;
+    @JoinColumn(name = "vote_topic_id")
+    private List<VoteSubTopic> subtopics;
 
     /**
-     * 投票记录
+     * 状态名称
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/7/29 16:12
      */
-    @OneToMany(mappedBy = "topic", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
-    private Set<VoteRecord> records;
+    public String getStatusName() {
+        VoteStatus status = VoteStatus.getStatus(getStatus());
+        return status == null ? "" : status.getName();
+    }
 
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
     public int getId() {
         return id;
@@ -152,12 +131,12 @@ public class VoteTopic implements Serializable {
         this.title = title;
     }
 
-    public String getDescription() {
-        return description;
+    public String getRemark() {
+        return remark;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 
     public Date getStartTime() {
@@ -176,12 +155,12 @@ public class VoteTopic implements Serializable {
         this.endTime = endTime;
     }
 
-    public int getRepeateHour() {
-        return repeateHour;
+    public int getRepeatHour() {
+        return repeatHour;
     }
 
-    public void setRepeateHour(int repeateHour) {
-        this.repeateHour = repeateHour;
+    public void setRepeatHour(int repeatHour) {
+        this.repeatHour = repeatHour;
     }
 
     public int getTotalCount() {
@@ -192,91 +171,27 @@ public class VoteTopic implements Serializable {
         this.totalCount = totalCount;
     }
 
-    public int getMultiSelect() {
-        return multiSelect;
+    public boolean isNeedLogin() {
+        return needLogin;
     }
 
-    public void setMultiSelect(int multiSelect) {
-        this.multiSelect = multiSelect;
+    public void setNeedLogin(boolean needLogin) {
+        this.needLogin = needLogin;
     }
 
-    public boolean isRestrictMember() {
-        return restrictMember;
+    public boolean isEnabled() {
+        return enabled;
     }
 
-    public void setRestrictMember(boolean restrictMember) {
-        this.restrictMember = restrictMember;
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
-    public boolean isRestrictIp() {
-        return restrictIp;
-    }
-
-    public void setRestrictIp(boolean restrictIp) {
-        this.restrictIp = restrictIp;
-    }
-
-    public boolean isRestrictCookie() {
-        return restrictCookie;
-    }
-
-    public void setRestrictCookie(boolean restrictCookie) {
-        this.restrictCookie = restrictCookie;
-    }
-
-    public boolean isDisabled() {
-        return disabled;
-    }
-
-    public void setDisabled(boolean disabled) {
-        this.disabled = disabled;
-    }
-
-    public boolean isDef() {
-        return def;
-    }
-
-    public void setDef(boolean def) {
-        this.def = def;
-    }
-
-    public boolean isLimitWeiXin() {
-        return limitWeiXin;
-    }
-
-    public void setLimitWeiXin(boolean limitWeiXin) {
-        this.limitWeiXin = limitWeiXin;
-    }
-
-    public int getVoteDay() {
-        return voteDay;
-    }
-
-    public void setVoteDay(int voteDay) {
-        this.voteDay = voteDay;
-    }
-
-    public Set<VoteItem> getItems() {
-        return items;
-    }
-
-    public void setItems(Set<VoteItem> items) {
-        this.items = items;
-    }
-
-    public Set<VoteSubTopic> getSubtopics() {
+    public List<VoteSubTopic> getSubtopics() {
         return subtopics;
     }
 
-    public void setSubtopics(Set<VoteSubTopic> subtopics) {
+    public void setSubtopics(List<VoteSubTopic> subtopics) {
         this.subtopics = subtopics;
-    }
-
-    public Set<VoteRecord> getRecords() {
-        return records;
-    }
-
-    public void setRecords(Set<VoteRecord> records) {
-        this.records = records;
     }
 }

@@ -1,4 +1,6 @@
 import com.CmsApp;
+import com.bfly.cms.job.entity.JobResume;
+import com.bfly.cms.job.service.IJobResumeService;
 import com.bfly.cms.member.entity.Member;
 import com.bfly.cms.member.entity.MemberExt;
 import com.bfly.cms.member.entity.MemberGroup;
@@ -27,6 +29,8 @@ public class TT {
     private IUserService userService;
     @Autowired
     private IMemberService memberService;
+    @Autowired
+    private IJobResumeService resumeService;
 
     @Test
     @Transactional
@@ -88,7 +92,7 @@ public class TT {
         member.setUserName("23s4ssa2");
         member.setPassword("sssssss");
 
-        MemberGroup group=new MemberGroup();
+        MemberGroup group = new MemberGroup();
         group.setId(1);
         member.setGroup(group);
 
@@ -100,8 +104,8 @@ public class TT {
     }
 
     @Test
-    public void getMember(){
-        Member member=memberService.get(1025);
+    public void getMember() {
+        Member member = memberService.get(1025);
         System.out.println(member.getUserName());
         System.out.println(member.getGroup());
         System.out.println(member.getMemberExt());
@@ -109,15 +113,32 @@ public class TT {
 
     @Test
     @Transactional
-    public void updateMember(){
-        Member member=memberService.get(1016);
+    public void updateMember() {
+        Member member = memberService.get(1016);
         member.setEmail("aaaaa3333@c.com");
         member.getMemberExt().setFace("aaaaaaaaaaa");
         memberService.edit(member);
     }
 
     @Test
-    public void delMember(){
+    public void delMember() {
         memberService.remove(1016);
+    }
+
+    @Test
+    public void getResume() {
+        JobResume resume = resumeService.get(1);
+        System.out.println(resume.getName());
+    }
+
+
+    @Test
+    @Transactional
+    public void saveResume() {
+        JobResume resume = new JobResume();
+        resume.setName("IT工程师");
+        Member member = memberService.get(1021);
+        resume.setMember(member);
+        resumeService.save(resume);
     }
 }

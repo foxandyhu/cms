@@ -4,6 +4,9 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 /**
@@ -15,7 +18,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "vote_item")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
-public class VoteItem implements Serializable {
+public class VoteItem implements Serializable, Comparable<VoteItem> {
 
     private static final long serialVersionUID = -1360824589287347094L;
 
@@ -28,6 +31,7 @@ public class VoteItem implements Serializable {
      * 标题
      */
     @Column(name = "title")
+    @Size(min = 1, max = 100, message = "答案选项长度为1-100之间!")
     private String title;
 
     /**
@@ -39,8 +43,9 @@ public class VoteItem implements Serializable {
     /**
      * 排列顺序
      */
-    @Column(name = "priority")
-    private int priority;
+    @Column(name = "seq")
+    @Min(value = 0, message = "排序序号最小为0!")
+    private int seq;
 
     /**
      * 图片
@@ -49,19 +54,15 @@ public class VoteItem implements Serializable {
     private String picture;
 
     /**
-     * 所属投票主题
+     * 所属投票子主题Id
      */
-    @ManyToOne
-    @JoinColumn(name = "votetopic_id")
-    private VoteTopic topic;
+    @Column(name = "sub_topic_id")
+    private int subTopicId;
 
-    /**
-     * 所属投票子主题
-     */
-    @ManyToOne
-    @JoinColumn(name = "subtopic_id")
-    private VoteSubTopic subTopic;
-
+    @Override
+    public int compareTo(VoteItem o) {
+        return getSeq() - o.getSeq();
+    }
 
     public int getId() {
         return id;
@@ -87,12 +88,12 @@ public class VoteItem implements Serializable {
         this.voteCount = voteCount;
     }
 
-    public int getPriority() {
-        return priority;
+    public int getSeq() {
+        return seq;
     }
 
-    public void setPriority(int priority) {
-        this.priority = priority;
+    public void setSeq(int seq) {
+        this.seq = seq;
     }
 
     public String getPicture() {
@@ -103,19 +104,11 @@ public class VoteItem implements Serializable {
         this.picture = picture;
     }
 
-    public VoteTopic getTopic() {
-        return topic;
+    public int getSubTopicId() {
+        return subTopicId;
     }
 
-    public void setTopic(VoteTopic topic) {
-        this.topic = topic;
-    }
-
-    public VoteSubTopic getSubTopic() {
-        return subTopic;
-    }
-
-    public void setSubTopic(VoteSubTopic subTopic) {
-        this.subTopic = subTopic;
+    public void setSubTopicId(int subTopicId) {
+        this.subTopicId = subTopicId;
     }
 }

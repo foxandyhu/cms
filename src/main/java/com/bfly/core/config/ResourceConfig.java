@@ -105,6 +105,16 @@ public class ResourceConfig {
     }
 
     /**
+     * 调查问卷图片存放路径
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/7/30 15:47
+     */
+    public static String getVoteTopicDir() {
+        return getRootDir() + File.separator + "vote";
+    }
+
+    /**
      * 获得相对root路径的绝对路径,必须是root的子目录或文件
      *
      * @author andy_hulibo@163.com

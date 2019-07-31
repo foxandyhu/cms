@@ -1,6 +1,5 @@
 package com.bfly.cms.vote.entity;
 
-import com.bfly.cms.member.entity.Member;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -47,16 +46,14 @@ public class VoteRecord implements Serializable {
     /**
      * 投票者
      */
-    @ManyToOne
-    @JoinColumn(name = "member_id")
-    private Member user;
+    @Column(name = "member_id")
+    private Integer memberId;
 
     /**
-     * 投票主题
+     * 所属投票主题ID
      */
-    @ManyToOne
-    @JoinColumn(name = "votetopic_id")
-    private VoteTopic topic;
+    @Column(name = "vote_topic_id")
+    private int voteTopicId;
 
 
     public int getId() {
@@ -91,19 +88,19 @@ public class VoteRecord implements Serializable {
         this.cookie = cookie;
     }
 
-    public Member getUser() {
-        return user;
+    public int getMemberId() {
+        return memberId;
     }
 
-    public void setUser(Member user) {
-        this.user = user;
+    public void setMemberId(int memberId) {
+        this.memberId = memberId;
     }
 
-    public VoteTopic getTopic() {
-        return topic;
+    public int getVoteTopicId() {
+        return voteTopicId;
     }
 
-    public void setTopic(VoteTopic topic) {
-        this.topic = topic;
+    public void setVoteTopicId(int voteTopicId) {
+        this.voteTopicId = voteTopicId;
     }
 }

@@ -4,6 +4,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 /**
@@ -28,14 +29,14 @@ public class VoteReply implements Serializable {
      * 回复内容
      */
     @Column(name = "reply")
+    @Size(max = 200, message = "回复内容长度为0-200之间!")
     private String reply;
 
     /**
-     * 所属投票自主题
+     * 所属投票自主题Id
      */
-    @ManyToOne
-    @JoinColumn(name = "subtopic_id")
-    private VoteSubTopic subTopic;
+    @Column(name = "sub_topic_id")
+    private int subTopicId;
 
     public int getId() {
         return id;
@@ -53,11 +54,11 @@ public class VoteReply implements Serializable {
         this.reply = reply;
     }
 
-    public VoteSubTopic getSubTopic() {
-        return subTopic;
+    public int getSubTopicId() {
+        return subTopicId;
     }
 
-    public void setSubTopic(VoteSubTopic subTopic) {
-        this.subTopic = subTopic;
+    public void setSubTopicId(int subTopicId) {
+        this.subTopicId = subTopicId;
     }
 }

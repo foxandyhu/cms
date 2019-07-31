@@ -5,8 +5,11 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
 /**
  * 投票子题目
@@ -17,12 +20,9 @@ import java.util.Set;
 @Entity
 @Table(name = "vote_subtopic")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
-public class VoteSubTopic implements Serializable {
+public class VoteSubTopic implements Serializable, Comparable<VoteSubTopic> {
 
     private static final long serialVersionUID = 3345663970044453306L;
-
-    @Transient
-    private Integer voteIndex;
 
     @Id
     @Column(name = "id")
@@ -33,44 +33,45 @@ public class VoteSubTopic implements Serializable {
      * 标题
      */
     @Column(name = "title")
+    @NotEmpty(message = "子主题项标题不能为空!")
+    @Size(min = 1, max = 100, message = "子项标题长度为1-100之间!")
     private String title;
 
     /**
      * 类型（1单选，2多选，3文本）
+     *
+     * @see com.bfly.core.enums.VoteType
      */
-    @Column(name = "subtopic_type")
+    @Column(name = "type")
     private int type;
 
-    @Column(name = "priority")
-    private int priority;
+    @Column(name = "seq")
+    @Min(value = 0, message = "排序序号最小为0!")
+    private int seq;
 
     /**
-     * 投票（调查）
+     * 所属投票主题ID
      */
-    @ManyToOne
-    @JoinColumn(name = "votetopic_id")
-    private VoteTopic voteTopic;
+    @Column(name = "vote_topic_id")
+    private int voteTopicId;
 
     /**
      * 投票项
      */
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
-    @OneToMany(mappedBy = "subTopic", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private Set<VoteItem> voteItems;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "sub_topic_id")
+    private List<VoteItem> voteItems;
 
     /**
      * 投票回复
      */
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
-    @OneToMany(mappedBy = "subTopic", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private Set<VoteReply> voteReplys;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "sub_topic_id")
+    private List<VoteReply> voteReplys;
 
-    public Integer getVoteIndex() {
-        return voteIndex;
-    }
-
-    public void setVoteIndex(Integer voteIndex) {
-        this.voteIndex = voteIndex;
+    @Override
+    public int compareTo(VoteSubTopic o) {
+        return getSeq() - o.getSeq();
     }
 
     public int getId() {
@@ -97,35 +98,35 @@ public class VoteSubTopic implements Serializable {
         this.type = type;
     }
 
-    public int getPriority() {
-        return priority;
+    public int getSeq() {
+        return seq;
     }
 
-    public void setPriority(int priority) {
-        this.priority = priority;
+    public void setSeq(int seq) {
+        this.seq = seq;
     }
 
-    public VoteTopic getVoteTopic() {
-        return voteTopic;
+    public int getVoteTopicId() {
+        return voteTopicId;
     }
 
-    public void setVoteTopic(VoteTopic voteTopic) {
-        this.voteTopic = voteTopic;
+    public void setVoteTopicId(int voteTopicId) {
+        this.voteTopicId = voteTopicId;
     }
 
-    public Set<VoteItem> getVoteItems() {
+    public List<VoteItem> getVoteItems() {
         return voteItems;
     }
 
-    public void setVoteItems(Set<VoteItem> voteItems) {
+    public void setVoteItems(List<VoteItem> voteItems) {
         this.voteItems = voteItems;
     }
 
-    public Set<VoteReply> getVoteReplys() {
+    public List<VoteReply> getVoteReplys() {
         return voteReplys;
     }
 
-    public void setVoteReplys(Set<VoteReply> voteReplys) {
+    public void setVoteReplys(List<VoteReply> voteReplys) {
         this.voteReplys = voteReplys;
     }
 }
