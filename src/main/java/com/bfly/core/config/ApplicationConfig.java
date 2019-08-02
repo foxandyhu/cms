@@ -1,8 +1,6 @@
 package com.bfly.core.config;
 
 import com.alibaba.druid.support.http.StatViewServlet;
-import com.bfly.common.ipseek.IPSeeker;
-import com.bfly.common.ipseek.IpSeekerImpl;
 import com.octo.captcha.component.image.backgroundgenerator.UniColorBackgroundGenerator;
 import com.octo.captcha.component.image.color.SingleColorGenerator;
 import com.octo.captcha.component.image.fontgenerator.RandomFontGenerator;
@@ -51,18 +49,6 @@ public class ApplicationConfig {
         servletRegistrationBean.addInitParameter("resetEnable", "false");
         servletRegistrationBean.setLoadOnStartup(4);
         return servletRegistrationBean;
-    }
-
-    /**
-     * IP解析器
-     *
-     * @author andy_hulibo@163.com
-     * @date 2018/11/14 14:30
-     */
-    @Bean
-    public IPSeeker ipSeeker() {
-        IPSeeker ipSeeker = new IpSeekerImpl();
-        return ipSeeker;
     }
 
     /**

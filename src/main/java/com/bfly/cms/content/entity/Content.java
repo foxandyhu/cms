@@ -4,6 +4,7 @@ import com.bfly.cms.channel.entity.Channel;
 import com.bfly.cms.comment.entity.Comment;
 import com.bfly.cms.user.entity.User;
 import com.bfly.cms.member.entity.MemberGroup;
+import com.bfly.core.enums.ContentStatus;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -179,12 +180,6 @@ public class Content implements Serializable {
     private Map<String, String> attr;
 
     /**
-     * 文章相关评论
-     */
-    @OneToMany(mappedBy = "content", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private Set<Comment> comments;
-
-    /**
      * 文章内容评分
      */
     @OneToMany(mappedBy = "content", cascade = CascadeType.REMOVE, orphanRemoval = true)
@@ -195,6 +190,18 @@ public class Content implements Serializable {
      */
     @OneToMany(mappedBy = "content", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Set<ContentRecord> contentRecordSet;
+
+
+    /**
+     * 返回状态名称
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/8/1 13:51
+     */
+    public String getStatusName() {
+        ContentStatus status = ContentStatus.getStatus(getStatus());
+        return status == null ? "" : status.getName();
+    }
 
     public int getId() {
         return id;
@@ -370,14 +377,6 @@ public class Content implements Serializable {
 
     public void setAttr(Map<String, String> attr) {
         this.attr = attr;
-    }
-
-    public Set<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(Set<Comment> comments) {
-        this.comments = comments;
     }
 
     public Set<ScoreRecord> getScoreRecordSet() {

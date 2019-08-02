@@ -24,24 +24,32 @@ public class CommentExt implements Serializable {
     private int id;
 
     /**
+     * 所属评论
+     */
+    @OneToOne(mappedBy = "commentExt")
+    @MapsId
+    private Comment comment;
+
+    /**
      * IP地址
      */
     @Column(name = "ip")
     private String ip;
 
     /**
+     * 地址区域
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/8/2 12:10
+     */
+    @Column(name = "area")
+    private String area;
+
+    /**
      * 评论内容
      */
     @Column(name = "text")
     private String text;
-
-    /**
-     * 所属评论
-     */
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "comment_id")
-    private Comment comment;
 
 
     public int getId() {
@@ -50,6 +58,14 @@ public class CommentExt implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
     }
 
     public String getIp() {

@@ -1,9 +1,8 @@
 package com.bfly.cms.comment.service;
 
 import com.bfly.cms.comment.entity.GuestBook;
-import com.bfly.cms.member.entity.Member;
-import com.bfly.cms.user.entity.User;
 import com.bfly.core.base.service.IBaseService;
+import com.bfly.core.enums.GuestBookStatus;
 
 /**
  * 留言管理业务接口
@@ -21,7 +20,7 @@ public interface IGuestBookService extends IBaseService<GuestBook, Integer> {
      * @author andy_hulibo@163.com
      * @date 2018/12/12 11:44
      */
-    void verifyGuestBook(int status, int... guestBookId);
+    void verifyGuestBook(GuestBookStatus status, Integer... guestBookId);
 
     /**
      * 修改留言是否推荐
@@ -34,34 +33,13 @@ public interface IGuestBookService extends IBaseService<GuestBook, Integer> {
     void recommendGuestBook(int guestBookId, boolean recommend);
 
     /**
-     * 评论留言
+     * 回复留言
      *
-     * @param guestBookId 留言ID
-     * @param content     评论内容
-     * @param member   回复者ID
-     * @author andy_hulibo@163.com
-     * @date 2018/12/12 13:40
-     */
-    void replyGuestBook(int guestBookId, String content, Member member);
-
-    /**
-     * 评论留言
-     *
-     * @param guestBookId 留言ID
-     * @param content     评论内容
-     * @param user   回复者ID
-     * @author andy_hulibo@163.com
-     * @date 2018/12/12 13:40
-     */
-    void replyGuestBook(int guestBookId, String content, User user);
-
-    /**
-     * 修改留言
-     *
+     * @param userName    用户名(管理员)
      * @param content     内容
      * @param guestBookId 留言ID
      * @author andy_hulibo@163.com
-     * @date 2018/12/12 14:21
+     * @date 2018/12/12 13:40
      */
-    void edit(int guestBookId, String content);
+    void replyGuestBook(String userName, int guestBookId, String content);
 }

@@ -92,7 +92,7 @@ public class Channel implements Serializable {
     /**
      * 栏目扩展内容
      */
-    @OneToOne(cascade = CascadeType.REMOVE, orphanRemoval = true, mappedBy = "channel")
+    @OneToOne(cascade = CascadeType.REMOVE, orphanRemoval = true, mappedBy = "channel",fetch = FetchType.LAZY)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
     private ChannelTxt channelTxt;
 

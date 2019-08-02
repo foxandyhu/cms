@@ -1,16 +1,16 @@
 package com.bfly.cms.comment.service.impl;
 
-import com.bfly.cms.comment.entity.Comment;
+import com.bfly.cms.comment.dao.IGuestBookDao;
 import com.bfly.cms.comment.entity.GuestBook;
 import com.bfly.cms.comment.entity.GuestBookExt;
 import com.bfly.cms.comment.service.IGuestBookService;
-import com.bfly.cms.member.entity.Member;
-import com.bfly.cms.member.service.IMemberService;
-import com.bfly.cms.user.entity.User;
-import com.bfly.cms.user.service.IUserService;
-import com.bfly.core.context.ContextUtil;
+import com.bfly.common.page.Pager;
 import com.bfly.core.base.service.impl.BaseServiceImpl;
 import com.bfly.core.context.IpThreadLocal;
+import com.bfly.core.context.PagerThreadLocal;
+import com.bfly.core.enums.CommentStatus;
+import com.bfly.core.enums.GuestBookStatus;
+import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -18,6 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author andy_hulibo@163.com
@@ -28,21 +30,15 @@ import java.util.Date;
 public class GuestBookServiceImpl extends BaseServiceImpl<GuestBook, Integer> implements IGuestBookService {
 
     @Autowired
-    private IGuestBookService guestBookService;
-    @Autowired
-    private IMemberService memberService;
-    @Autowired
-    private IUserService userService;
+    private IGuestBookDao guestBookDao;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void verifyGuestBook(int status, int... guestBookId) {
-        Assert.notNull(guestBookId, "留言信息不存在!");
-        for (int id : guestBookId) {
+    public void verifyGuestBook(GuestBookStatus status, Integer... guestBookIds) {
+        for (int id : guestBookIds) {
             GuestBook guestBook = get(id);
             Assert.notNull(guestBook, "留言信息不存在!");
-            guestBook.setStatus(status);
-            guestBookService.save(guestBook);
+            guestBookDao.editGuestBookStatus(id, status.getId());
         }
     }
 
@@ -51,63 +47,71 @@ public class GuestBookServiceImpl extends BaseServiceImpl<GuestBook, Integer> im
     public void recommendGuestBook(int guestBookId, boolean recommend) {
         GuestBook guestBook = get(guestBookId);
         Assert.notNull(guestBook, "留言信息不存在!");
-        Assert.isTrue(guestBook.getStatus() != Comment.WAIT_CHECK, "该留言尚未审核不能推荐!");
-        Assert.isTrue(guestBook.getStatus() != Comment.UNPASSED, "审核不通过的留言不能推荐!");
-        guestBook.setRecommend(recommend);
-        guestBookService.save(guestBook);
+        Assert.isTrue(guestBook.getStatus() == CommentStatus.PASSED.getId(), guestBook.getStatusName() + "状态的留言不能推荐!");
+        guestBookDao.editGuestBookRecommend(guestBookId, recommend);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void replyGuestBook(int guestBookId, String content, Member member) {
+    public void replyGuestBook(String userName, int guestBookId, String content) {
         GuestBook guestBook = get(guestBookId);
         Assert.notNull(guestBook, "留言信息不存在!");
-        Assert.isTrue(guestBook.getStatus() != Comment.WAIT_CHECK, "该留言尚未审核不能回复!");
-        Assert.isTrue(guestBook.getStatus() != Comment.UNPASSED, "审核不通过的留言不能回复!");
+        Assert.isTrue(!guestBook.isReply(), "该留言已回复不允许再次回复!");
+        Assert.isTrue(guestBook.getStatus() == CommentStatus.PASSED.getId(), guestBook.getStatusName() + "状态的留言不能回复!");
 
-        GuestBook replyGuestBook = new GuestBook();
-        replyGuestBook.setCreateTime(new Date());
-        replyGuestBook.setIp(IpThreadLocal.get());
-        replyGuestBook.setParent(guestBook);
-        replyGuestBook.setType(guestBook.getType());
+        guestBook.setReplyDate(new Date());
+        guestBook.setReplyUserName(userName);
+        guestBook.setReply(true);
 
-        GuestBookExt replyExt = new GuestBookExt();
-        replyExt.setContent(content);
-        replyGuestBook.setExt(replyExt);
-        replyGuestBook.setStatus(Comment.WAIT_CHECK);
-        replyGuestBook.setMember(memberService.get(member.getId()));
-        guestBookService.save(replyGuestBook);
+        GuestBookExt ext = guestBook.getExt();
+        Assert.hasLength(content, "回复内容不能为空!");
+        ext.setReplyContent(content);
+        ext.setReplyIp(IpThreadLocal.get());
+        guestBookDao.save(guestBook);
     }
 
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void replyGuestBook(int guestBookId, String content, User user) {
-        GuestBook guestBook = get(guestBookId);
-        Assert.notNull(guestBook, "留言信息不存在!");
-        Assert.isTrue(guestBook.getStatus() != Comment.WAIT_CHECK, "该留言尚未审核不能回复!");
-        Assert.isTrue(guestBook.getStatus() != Comment.UNPASSED, "审核不通过的留言不能回复!");
-
-        GuestBook replyGuestBook = new GuestBook();
-        replyGuestBook.setCreateTime(new Date());
-        replyGuestBook.setIp(IpThreadLocal.get());
-        replyGuestBook.setParent(guestBook);
-        replyGuestBook.setType(guestBook.getType());
-
-        GuestBookExt replyExt = new GuestBookExt();
-        replyExt.setContent(content);
-        replyGuestBook.setExt(replyExt);
-        replyGuestBook.setStatus(Comment.PASSED);
-        replyGuestBook.setUser(userService.get(user.getId()));
-        guestBookService.save(replyGuestBook);
-    }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void edit(int guestBookId, String content) {
-        GuestBook guestBook = get(guestBookId);
-        Assert.notNull(guestBook, "留言信息不存在!");
+    public Pager getPage(Map<String, Object> property) {
+        Pager pager = PagerThreadLocal.get();
+        Assert.notNull(pager, "分页器没有实例化");
 
-        guestBook.getExt().setContent(content);
-        guestBookService.save(guestBook);
+        String sqlList = "SELECT gb.id,gb.post_user_name as postUserName,gb.reply_user_name as replyUserName,gb.post_date as postDate,gb.reply_date as replyDate,gb.`status`,gb.is_recommend as recommend,gb.is_reply as reply,gb_ext.ip,gb_ext.area,gb_ext.title,gb_ext.content,gb_ext.email,gb_ext.phone,gb_ext.qq,gb_ext.reply_content as replyContent,gb_ext.reply_ip as replyIp,dir.`name` as typeName";
+        String sqlCount = "SELECT COUNT(1)";
+        String sql = " FROM GUESTBOOK as gb LEFT JOIN GUESTBOOK_EXT as gb_ext ON gb.id=gb_ext.guest_book_id LEFT JOIN D_DICTIONARY as dir ON gb.type_id=dir.`value` WHERE dir.type='" + GuestBook.GUESTBOOK_TYPE_DIR + "'";
+
+        Object[] params = new Object[0];
+        String status = "status", recommend = "recommend", type = "type";
+        if (property != null) {
+            if (property.containsKey(status)) {
+                sql = sql.concat(" AND status=?");
+                params = ArrayUtils.add(params, property.get(status));
+            }
+            if (property.containsKey(recommend)) {
+                sql = sql.concat(" AND is_recommend=?");
+                params = ArrayUtils.add(params, property.get(recommend));
+            }
+            if (property.containsKey(type)) {
+                sql = sql.concat(" AND type_id=?");
+                params = ArrayUtils.add(params, property.get(type));
+            }
+        }
+        sql = sql.concat(" ORDER BY gb.post_date desc");
+        sqlList = sqlList.concat(sql).concat(" LIMIT " + (pager.getPageNo() - 1) * pager.getPageSize() + "," + pager.getPageSize());
+
+        List<Map<String, Object>> list = querySql(sqlList, params);
+        if (list != null) {
+            list.forEach(map -> {
+                if (map.containsKey(status)) {
+                    int statusId = (int) map.get(status);
+                    GuestBookStatus guestBookStatus = GuestBookStatus.getStatus(statusId);
+                    map.put("statusName", guestBookStatus == null ? "" : guestBookStatus.getName());
+                }
+            });
+        }
+        long total = getCountSql(sqlCount.concat(sql), params);
+        pager.setTotalCount(total);
+        pager.setData(list);
+        return pager;
     }
 }

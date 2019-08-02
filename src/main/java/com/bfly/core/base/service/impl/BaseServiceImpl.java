@@ -23,7 +23,7 @@ import java.util.*;
  */
 @Service
 @Transactional(rollbackFor = Exception.class, readOnly = true)
-public abstract class BaseServiceImpl<T, ID> implements IBaseService<T, ID> {
+public abstract class BaseServiceImpl<T, ID> extends BaseJdbcServiceImpl implements IBaseService<T, ID> {
 
     private IBaseDao<T, ID> baseDao;
 

@@ -1,16 +1,16 @@
 package com.bfly.cms.comment.entity;
 
-import com.bfly.cms.content.entity.Content;
-import com.bfly.cms.member.entity.Member;
-import com.bfly.cms.user.entity.User;
+import com.bfly.core.enums.CommentStatus;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 /**
  * 文章内容评论
@@ -25,19 +25,6 @@ public class Comment implements Serializable {
 
     private static final long serialVersionUID = 1036844320957193420L;
 
-    /**
-     * 等待审核
-     */
-    public static final int WAIT_CHECK = 0;
-    /**
-     * 审核不通过
-     */
-    public static final int UNPASSED = 1;
-    /**
-     * 审核通过
-     */
-    public static final int PASSED = 2;
-
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,8 +33,8 @@ public class Comment implements Serializable {
     /**
      * 评论时间
      */
-    @Column(name = "create_time")
-    private Date createTime;
+    @Column(name = "post_date")
+    private Date postDate;
 
     /**
      * 支持数
@@ -68,22 +55,11 @@ public class Comment implements Serializable {
     private boolean recommend;
 
     /**
-     * 评分
-     */
-    @Column(name = "score")
-    private int score;
-
-    /**
-     * 回复数
-     */
-    @Column(name = "reply_count")
-    private int replyCount;
-
-    /**
-     * 状态 1审核不通过 2审核通过
+     * 状态
      *
      * @author andy_hulibo@163.com
      * @date 2018/12/12 11:41
+     * @see com.bfly.core.enums.CommentStatus
      */
     @Column(name = "status")
     private int status;
@@ -91,50 +67,78 @@ public class Comment implements Serializable {
     /**
      * 主评论
      */
-    @ManyToOne
-    @JoinColumn(name = "parent_id")
-    private Comment parent;
+    @Column(name = "parent_id")
+    private int parentId;
 
     /**
      * 引用的回复子评论
      */
-    @OneToMany(mappedBy = "parent", cascade = CascadeType.REMOVE)
-    private Set<Comment> child;
+    @JoinColumn(name = "parent_id")
+    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Comment> child;
 
     /**
      * 评论扩展信息
      */
-    @OneToOne(cascade = {CascadeType.ALL}, mappedBy = "comment")
+    @OneToOne(cascade = {CascadeType.ALL})
+    @PrimaryKeyJoinColumn
     @NotNull(message = "回复信息不能为空!")
+    @NotFound(action = NotFoundAction.IGNORE)
     private CommentExt commentExt;
 
     /**
      * 评论发布/回复者
      */
-    @ManyToOne
-    @JoinColumn(name = "post_user_id")
-    private User postUser;
+    @Column(name = "user_name")
+    private String userName;
 
     /**
      * 评论发布/回复者
      */
-    @ManyToOne
-    @JoinColumn(name = "post_member_id")
-    private Member postMember;
+    @Column(name = "member_user_name")
+    private String memberUserName;
 
     /**
      * 所属文章
      */
-    @ManyToOne
-    @JoinColumn(name = "content_id")
-    private Content content;
+    @Column(name = "content_id")
+    private int contentId;
 
-    public User getPostUser() {
-        return postUser;
+    public String getStatusName() {
+        CommentStatus status = CommentStatus.getStatus(getStatus());
+        return status == null ? "" : status.getName();
     }
 
-    public void setPostUser(User postUser) {
-        this.postUser = postUser;
+    public int getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(int parentId) {
+        this.parentId = parentId;
+    }
+
+    public int getContentId() {
+        return contentId;
+    }
+
+    public void setContentId(int contentId) {
+        this.contentId = contentId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getMemberUserName() {
+        return memberUserName;
+    }
+
+    public void setMemberUserName(String memberUserName) {
+        this.memberUserName = memberUserName;
     }
 
     public int getId() {
@@ -145,12 +149,12 @@ public class Comment implements Serializable {
         this.id = id;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public Date getPostDate() {
+        return postDate;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setPostDate(Date postDate) {
+        this.postDate = postDate;
     }
 
     public int getStatus() {
@@ -185,35 +189,11 @@ public class Comment implements Serializable {
         this.recommend = recommend;
     }
 
-    public int getScore() {
-        return score;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
-    }
-
-    public int getReplyCount() {
-        return replyCount;
-    }
-
-    public void setReplyCount(int replyCount) {
-        this.replyCount = replyCount;
-    }
-
-    public Comment getParent() {
-        return parent;
-    }
-
-    public void setParent(Comment parent) {
-        this.parent = parent;
-    }
-
-    public Set<Comment> getChild() {
+    public List<Comment> getChild() {
         return child;
     }
 
-    public void setChild(Set<Comment> child) {
+    public void setChild(List<Comment> child) {
         this.child = child;
     }
 
@@ -223,21 +203,5 @@ public class Comment implements Serializable {
 
     public void setCommentExt(CommentExt commentExt) {
         this.commentExt = commentExt;
-    }
-
-    public Member getPostMember() {
-        return postMember;
-    }
-
-    public void setPostMember(Member postMember) {
-        this.postMember = postMember;
-    }
-
-    public Content getContent() {
-        return content;
-    }
-
-    public void setContent(Content content) {
-        this.content = content;
     }
 }

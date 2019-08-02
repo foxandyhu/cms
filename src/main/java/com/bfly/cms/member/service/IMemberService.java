@@ -38,4 +38,14 @@ public interface IMemberService extends IBaseService<Member, Integer> {
      * @date 2019/7/20 10:22
      */
     boolean editMemberPassword(int memberId, String password);
+
+    /**
+     * 根据用户名查找用户信息
+     *
+     * @param userName 用户名
+     * @return 用户对象
+     * @author andy_hulibo@163.com
+     * @date 2019/8/1 13:32
+     */
+    public Member getMember(String userName);
 }

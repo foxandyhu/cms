@@ -8,7 +8,7 @@ import com.bfly.cms.statistic.service.IStatisticService;
 import com.bfly.cms.words.entity.Dictionary;
 import com.bfly.cms.words.service.IDictionaryService;
 import com.bfly.common.ipseek.IPLocation;
-import com.bfly.common.ipseek.IPSeeker;
+import com.bfly.common.ipseek.IpSeekerUtil;
 import com.bfly.core.cache.EhCacheUtil;
 import com.bfly.core.context.ServletRequestDTO;
 import com.bfly.core.enums.SiteAccessSource;
@@ -42,8 +42,6 @@ public class StatisticServiceImpl implements IStatisticService {
     private ISiteAccessService siteAccessService;
     @Autowired
     private ISiteAccessPageService siteAccessPageService;
-    @Autowired
-    private IPSeeker ipSeeker;
     @Autowired
     private IDictionaryService dictionaryService;
 
@@ -191,7 +189,7 @@ public class StatisticServiceImpl implements IStatisticService {
      */
     private void analysisAccessLocation(SiteAccess access, ServletRequestDTO request) {
         access.setAccessIp(request.getRemoteAddr());
-        IPLocation location = ipSeeker.getIPLocation(access.getAccessIp());
+        IPLocation location = IpSeekerUtil.getIPLocation(access.getAccessIp());
         access.setAccessCountry(location == null ? null : location.getCountry());
         access.setAccessArea(location == null ? null : location.getArea());
     }

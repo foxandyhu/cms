@@ -43,6 +43,11 @@ public class UserServiceImpl extends BaseServiceImpl<User, Integer> implements I
     private IUserRoleService roleService;
 
     @Override
+    public User getUser(String userName) {
+        return userDao.getUserByUserName(userName);
+    }
+
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean save(User user) {
         Assert.notNull(user, "用户信息为空!");

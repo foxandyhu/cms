@@ -1,13 +1,17 @@
 package com.bfly.manage.comment;
 
+import com.alibaba.fastjson.JSONObject;
 import com.bfly.cms.comment.service.IGuestBookService;
 import com.bfly.common.DataConvertUtils;
+import com.bfly.common.ResponseData;
 import com.bfly.common.ResponseUtil;
+import com.bfly.common.json.JsonUtil;
 import com.bfly.common.page.Pager;
 import com.bfly.core.base.action.BaseManageController;
 import com.bfly.core.context.PagerThreadLocal;
+import com.bfly.core.enums.GuestBookStatus;
+import com.bfly.core.security.ActionModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,33 +39,26 @@ public class GuestBookController extends BaseManageController {
      * @date 2018/12/12 14:14
      */
     @GetMapping("/list")
+    @ActionModel(value = "留言列表", need = false)
     public void listGuestBook(HttpServletRequest request, HttpServletResponse response) {
         PagerThreadLocal.set(request);
-        Map<String, Object> property = new HashMap<String, Object>(3) {
-            private static final long serialVersionUID = -9126101626116724049L;
+        Map<String, Object> property = new HashMap(3);
+        String type = request.getParameter("type");
+        String recommend = request.getParameter("recommend");
+        String status = request.getParameter("status");
+        if (type != null) {
+            property.put("type", DataConvertUtils.convertToInteger(type));
+        }
+        if (recommend != null) {
+            property.put("recommend", DataConvertUtils.convertToBoolean(recommend));
+        }
+        if (status != null) {
+            property.put("status", DataConvertUtils.convertToInteger(status));
+        }
 
-            {
-                put("type.id", DataConvertUtils.convertToInteger(request.getParameter("type")));
-                put("recommend", DataConvertUtils.convertToBoolean(request.getParameter("recommend")));
-                put("status", DataConvertUtils.convertToBoolean(request.getParameter("status")));
-            }
-        };
         Pager pager = guestBookService.getPage(property);
-        ResponseUtil.writeJson(response, pager);
-    }
-
-    /**
-     * 管理员修改留言
-     *
-     * @author andy_hulibo@163.com
-     * @date 2018/12/12 14:19
-     */
-    @PostMapping(value = "/edit")
-    public void editGuestBook(HttpServletRequest request, HttpServletResponse response) {
-        int guestBookId = DataConvertUtils.convertToInteger(request.getParameter("guestBookId"));
-        String content = request.getParameter("content");
-        guestBookService.edit(guestBookId, content);
-        ResponseUtil.writeJson(response, "");
+        JSONObject json = JsonUtil.toJsonFilter(pager, "guestBook");
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(json));
     }
 
     /**
@@ -70,16 +67,11 @@ public class GuestBookController extends BaseManageController {
      * @author andy_hulibo@163.com
      * @date 2018/12/12 14:16
      */
-    @PostMapping(value = "/verify")
-    public void verifyGuestBook(HttpServletRequest request, HttpServletResponse response) {
-        String guestBookIdsStr = request.getParameter("guestBookIds");
-        Assert.notNull(guestBookIdsStr, "未选择要审核的留言!");
-        String[] cguestBookIds = guestBookIdsStr.split(",");
-        int status = DataConvertUtils.convertToInteger(request.getParameter("status"));
-        for (String id : cguestBookIds) {
-            guestBookService.verifyGuestBook(status, DataConvertUtils.convertToInteger(id));
-        }
-        ResponseUtil.writeJson(response, "");
+    @PostMapping(value = "/verify/{status}")
+    @ActionModel(value = "审核留言")
+    public void verifyGuestBook(HttpServletResponse response, @PathVariable("status") boolean status, @RequestBody Integer... ids) {
+        guestBookService.verifyGuestBook(status ? GuestBookStatus.PASSED : GuestBookStatus.UNPASSED, ids);
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
     }
 
     /**
@@ -89,11 +81,12 @@ public class GuestBookController extends BaseManageController {
      * @date 2018/12/12 14:16
      */
     @PostMapping(value = "/reply")
-    public void replyGuestBook(HttpServletRequest request, HttpServletResponse response) {
-        int guestBookId = DataConvertUtils.convertToInteger(request.getParameter("guestBookId"));
-        String content = request.getParameter("content");
-        guestBookService.replyGuestBook(guestBookId, content, getUser());
-        ResponseUtil.writeJson(response, "");
+    @ActionModel("回复留言")
+    public void replyGuestBook(HttpServletResponse response, @RequestBody Map<String, Object> params) {
+        int guestBookId = (Integer) params.get("guestBookId");
+        String content = String.valueOf(params.get("content"));
+        guestBookService.replyGuestBook(getUser().getUserName(), guestBookId, content);
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
     }
 
     /**
@@ -102,10 +95,11 @@ public class GuestBookController extends BaseManageController {
      * @author andy_hulibo@163.com
      * @date 2018/12/12 14:23
      */
-    @GetMapping(value = "/recommend/{guestBookId}")
-    public void viewGuestBook(@PathVariable("guestBookId") int guestBookId, HttpServletResponse response) {
-        guestBookService.recommendGuestBook(guestBookId, true);
-        ResponseUtil.writeJson(response, "");
+    @GetMapping(value = "/recommend/{guestBookId}-{recommend}")
+    @ActionModel("推荐留言")
+    public void viewGuestBook(@PathVariable("guestBookId") int guestBookId, @PathVariable("recommend") boolean recommend, HttpServletResponse response) {
+        guestBookService.recommendGuestBook(guestBookId, recommend);
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
     }
 
     /**
@@ -115,10 +109,9 @@ public class GuestBookController extends BaseManageController {
      * @date 2018/12/12 14:25
      */
     @PostMapping(value = "/del")
-    public void removeGuestBook(HttpServletRequest request, HttpServletResponse response) {
-        String guestBookStr = request.getParameter("ids");
-        Integer[] guestBookIds = DataConvertUtils.convertToIntegerArray(guestBookStr.split(","));
-        guestBookService.remove(guestBookIds);
-        ResponseUtil.writeJson(response, "");
+    @ActionModel("删除留言")
+    public void removeGuestBook(HttpServletResponse response, @RequestBody Integer... ids) {
+        guestBookService.remove(ids);
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
     }
 }

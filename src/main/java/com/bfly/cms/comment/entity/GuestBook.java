@@ -1,15 +1,15 @@
 package com.bfly.cms.comment.entity;
 
-import com.bfly.cms.member.entity.Member;
-import com.bfly.cms.user.entity.User;
+import com.bfly.core.enums.GuestBookStatus;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
 
 /**
  * 留言
@@ -25,17 +25,11 @@ public class GuestBook implements Serializable {
     private static final long serialVersionUID = 2355667069373530538L;
 
     /**
-     * 等待审核
+     * 数据字典类型名称
+     * @author andy_hulibo@163.com
+     * @date 2019/8/2 16:54
      */
-    public static final int WAIT_CHECK = 0;
-    /**
-     * 审核不通过
-     */
-    public static final int UNPASSED = 1;
-    /**
-     * 审核通过
-     */
-    public static final int PASSED = 2;
+    public static final String GUESTBOOK_TYPE_DIR="guestbook_type";
 
     @Id
     @Column(name = "id")
@@ -43,21 +37,17 @@ public class GuestBook implements Serializable {
     private int id;
 
     /**
-     * 留言IP
-     */
-    @Column(name = "ip")
-    private String ip;
-
-    /**
      * 留言/回复时间
      */
-    @Column(name = "create_time")
-    private Date createTime;
+    @Column(name = "post_date")
+    private Date postDate;
 
     /**
-     * 是否审核
+     * 状态
+     *
+     * @see com.bfly.core.enums.GuestBookStatus
      */
-    @Column(name = "statuc")
+    @Column(name = "status")
     private int status;
 
     /**
@@ -69,59 +59,67 @@ public class GuestBook implements Serializable {
     /**
      * 留言扩展信息
      */
-    @OneToOne(mappedBy = "guestbook", cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
     @NotNull(message = "留言信息不能为空!")
+    @NotFound(action = NotFoundAction.IGNORE)
     private GuestBookExt ext;
 
     /**
-     * 回复/留言会员ID
+     * 回复留言用户名
      */
-    @ManyToOne
-    @JoinColumn(name = "member_id")
-    private Member member;
+    @Column(name = "reply_user_name")
+    private String replyUserName;
 
     /**
-     * 回复/留言的管理员
+     * 留言的会员用户名
      */
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @Column(name = "post_user_name")
+    private String postUserName;
 
     /**
      * 留言所属类型
      */
-    @ManyToOne
-    @JoinColumn(name = "type_id")
-    @NotNull(message = "留言类型不能为空!")
-    private GuestBookType type;
+    @Column(name = "type_id")
+    private int type;
 
     /**
-     * 主评论
+     * 标识该条留言是否回复
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/8/2 15:49
      */
-    @ManyToOne
-    @JoinColumn(name = "parent_id")
-    private GuestBook parent;
+    @Column(name = "is_reply")
+    private boolean reply;
 
     /**
-     * 引用的回复子评论
+     * 回复时间
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/8/2 15:52
      */
-    @OneToMany(mappedBy = "parent", cascade = CascadeType.REMOVE)
-    private Set<GuestBook> child;
+    @Column(name = "reply_date")
+    private Date replyDate;
 
-    public Set<GuestBook> getChild() {
-        return child;
+    public String getStatusName() {
+        GuestBookStatus status = GuestBookStatus.getStatus(getStatus());
+        return status == null ? "" : status.getName();
     }
 
-    public void setChild(Set<GuestBook> child) {
-        this.child = child;
+    public Date getReplyDate() {
+        return replyDate;
     }
 
-    public GuestBook getParent() {
-        return parent;
+    public void setReplyDate(Date replyDate) {
+        this.replyDate = replyDate;
     }
 
-    public void setParent(GuestBook parent) {
-        this.parent = parent;
+    public boolean isReply() {
+        return reply;
+    }
+
+    public void setReply(boolean reply) {
+        this.reply = reply;
     }
 
     public int getId() {
@@ -132,20 +130,12 @@ public class GuestBook implements Serializable {
         this.id = id;
     }
 
-    public String getIp() {
-        return ip;
+    public Date getPostDate() {
+        return postDate;
     }
 
-    public void setIp(String ip) {
-        this.ip = ip;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setPostDate(Date postDate) {
+        this.postDate = postDate;
     }
 
     public int getStatus() {
@@ -172,27 +162,27 @@ public class GuestBook implements Serializable {
         this.ext = ext;
     }
 
-    public Member getMember() {
-        return member;
+    public String getReplyUserName() {
+        return replyUserName;
     }
 
-    public void setMember(Member member) {
-        this.member = member;
+    public void setReplyUserName(String replyUserName) {
+        this.replyUserName = replyUserName;
     }
 
-    public User getUser() {
-        return user;
+    public String getPostUserName() {
+        return postUserName;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setPostUserName(String postUserName) {
+        this.postUserName = postUserName;
     }
 
-    public GuestBookType getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(GuestBookType type) {
+    public void setType(int type) {
         this.type = type;
     }
 }

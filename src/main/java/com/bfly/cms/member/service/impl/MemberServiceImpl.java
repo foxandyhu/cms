@@ -35,6 +35,12 @@ public class MemberServiceImpl extends BaseServiceImpl<Member, Integer> implemen
     private IMemberDao memberDao;
 
     @Override
+    public Member getMember(String userName) {
+        return memberDao.getMember(userName);
+    }
+
+
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public Member login(String username, String password) {
         Member member = null;
@@ -66,7 +72,7 @@ public class MemberServiceImpl extends BaseServiceImpl<Member, Integer> implemen
 
         String salt = StringUtil.getRandomString(6);
         String encodePassword = new Md5PwdEncoder().encodePassword(password, salt);
-        memberDao.editMemberPassword(memberId,encodePassword,salt);
+        memberDao.editMemberPassword(memberId, encodePassword, salt);
         return true;
     }
 

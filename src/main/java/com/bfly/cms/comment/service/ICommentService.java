@@ -1,9 +1,8 @@
 package com.bfly.cms.comment.service;
 
 import com.bfly.cms.comment.entity.Comment;
-import com.bfly.cms.member.entity.Member;
-import com.bfly.cms.user.entity.User;
 import com.bfly.core.base.service.IBaseService;
+import com.bfly.core.enums.CommentStatus;
 
 /**
  * 评论管理业务接口
@@ -21,7 +20,7 @@ public interface ICommentService extends IBaseService<Comment, Integer> {
      * @author andy_hulibo@163.com
      * @date 2018/12/12 11:44
      */
-    void verifyComment(int status, int... commentId);
+    void verifyComment(CommentStatus status, Integer... commentId);
 
     /**
      * 修改帖子是否推荐
@@ -32,34 +31,4 @@ public interface ICommentService extends IBaseService<Comment, Integer> {
      * @date 2018/12/12 11:46
      */
     void recommendComment(int commentId, boolean recommend);
-
-    /**
-     * 评论回复
-     *
-     * @param commentId 评论ID
-     * @param content   评论内容
-     * @param member 回复者ID
-     * @author andy_hulibo@163.com
-     * @date 2018/12/12 13:40
-     */
-    void replyComment(int commentId, String content, Member member);
-
-    /**
-     * 评论回复
-     *
-     * @param commentId 评论ID
-     * @param content   评论内容
-     * @param user 回复者ID
-     * @author andy_hulibo@163.com
-     * @date 2018/12/12 13:40
-     */
-    void replyComment(int commentId, String content, User user);
-
-    /**
-     * 修改评论
-     *
-     * @author andy_hulibo@163.com
-     * @date 2018/12/12 14:21
-     */
-    void edit(int commentId, String content);
 }

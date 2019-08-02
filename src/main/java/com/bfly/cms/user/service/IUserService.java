@@ -12,6 +12,16 @@ import com.bfly.core.base.service.IBaseService;
 public interface IUserService extends IBaseService<User, Integer> {
 
     /**
+     * 根据用户名查找用户对象
+     *
+     * @param userName 用户名
+     * @return 用户对象
+     * @author andy_hulibo@163.com
+     * @date 2019/8/1 13:26
+     */
+    User getUser(String userName);
+
+    /**
      * 用户登录
      *
      * @param password 明文密码
@@ -42,8 +52,9 @@ public interface IUserService extends IBaseService<User, Integer> {
 
     /**
      * 修改用户密码
+     *
      * @author andy_hulibo@163.com
      * @date 2019/7/29 14:54
      */
-    boolean editPwd(int userId,String oldPwd,String newPwd);
+    boolean editPwd(int userId, String oldPwd, String newPwd);
 }

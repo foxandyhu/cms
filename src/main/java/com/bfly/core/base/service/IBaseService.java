@@ -14,7 +14,7 @@ import java.util.Map;
  * @author andy_hulibo@163.com
  * @date 2018/12/7 11:28
  */
-public interface IBaseService<T, ID> {
+public interface IBaseService<T, ID> extends IBaseJdbcService {
 
     /**
      * 根据主键ID获得对应的对象

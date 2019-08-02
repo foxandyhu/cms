@@ -21,4 +21,13 @@ public interface IUserDao extends IBaseDao<User, Integer> {
     @Modifying
     @Query("update User set password=:password where id=:userId")
     int editUserPassword(@Param("userId") int userId, @Param("password") String password);
+
+    /**
+     * 根据用户名查找用户
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/8/1 13:29
+     */
+    @Query("select user  from User as user where user.userName=:userName")
+    User getUserByUserName(@Param("userName") String userName);
 }
