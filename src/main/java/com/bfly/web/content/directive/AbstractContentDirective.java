@@ -1,6 +1,6 @@
 //package com.bfly.web.content.directive;
 //
-//import com.bfly.cms.channel.entity.Channel;
+//import com.bfly.cms.content.entity.Channel;
 //import com.bfly.cms.channel.service.ChannelMng;
 //import com.bfly.cms.content.service.ContentMng;
 //import com.bfly.cms.siteconfig.entity.Site;

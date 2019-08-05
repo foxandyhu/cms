@@ -5,7 +5,7 @@
 //import javax.servlet.http.HttpServletRequest;
 //import javax.servlet.http.HttpServletResponse;
 //
-//import com.bfly.cms.comment.entity.GuestBook;
+//import com.bfly.cms.message.entity.GuestBook;
 //import com.bfly.cms.comment.entity.GuestBookType;
 //import org.json.JSONArray;
 //import org.json.JSONException;

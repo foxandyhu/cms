@@ -115,6 +115,18 @@ public class ResourceConfig {
     }
 
     /**
+     * 获得模板相对路径
+     * "/template/"
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/8/5 11:29
+     */
+    public static String getTemplateRelativePath() {
+        String path = "/template/";
+        return path;
+    }
+
+    /**
      * 获得相对root路径的绝对路径,必须是root的子目录或文件
      *
      * @author andy_hulibo@163.com

@@ -1,16 +1,15 @@
 package com.bfly.cms.content.entity;
 
-import com.bfly.cms.channel.entity.Channel;
-import com.bfly.cms.comment.entity.Comment;
-import com.bfly.cms.user.entity.User;
 import com.bfly.cms.member.entity.MemberGroup;
+import com.bfly.cms.user.entity.User;
 import com.bfly.core.enums.ContentStatus;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -33,14 +32,9 @@ public class Content implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    /**
-     * 排序日期
-     */
-    @Column(name = "sort_date")
-    private Date sortDate;
 
     /**
-     * 固顶级别
+     * 置顶级别
      */
     @Column(name = "top_level")
     private int topLevel;
@@ -52,40 +46,12 @@ public class Content implements Serializable {
     private boolean recommend;
 
     /**
-     * 状态(0:草稿;1:审核中;2:审核通过;3:回收站;4:投稿;5:归档)
+     * 状态
+     *
+     * @see ContentStatus
      */
     @Column(name = "status")
     private int status;
-
-    /**
-     * 日访问数
-     */
-    @Column(name = "views_day")
-    private int viewsDay;
-
-    /**
-     * 日评论数
-     */
-    @Column(name = "comments_day")
-    private int commentsDay;
-
-    /**
-     * 日下载数
-     */
-    @Column(name = "downloads_day")
-    private int downloadsDay;
-
-    /**
-     * 日顶数
-     */
-    @Column(name = "ups_day")
-    private int upsDay;
-
-    /**
-     * 得分
-     */
-    @Column(name = "score")
-    private int score;
 
     /**
      * 推荐级别
@@ -94,60 +60,87 @@ public class Content implements Serializable {
     private int recommendLevel;
 
     /**
-     * 文章内容扩展信息
+     * 总访问数
      */
-    @OneToOne(cascade = CascadeType.REMOVE, mappedBy = "content")
-    private ContentExt contentExt;
+    @Column(name = "views")
+    private int views;
 
     /**
-     * 文章内容统计数据
+     * 总评论数
      */
-    @OneToOne(cascade = CascadeType.REMOVE, mappedBy = "content")
-    private ContentCount contentCount;
+    @Column(name = "comments")
+    private int comments;
+
+
+    /**
+     * 总下载数
+     */
+    @Column(name = "downloads")
+    private int downloads;
+
+
+    /**
+     * 总顶数
+     */
+    @Column(name = "ups")
+    private int ups;
+
+    /**
+     * 总踩数
+     */
+    @Column(name = "downs")
+    private int downs;
 
     /**
      * 文章内容类型
+     *
+     * @see com.bfly.core.enums.ContentType
      */
-    @ManyToOne
-    @JoinColumn(name = "type_id")
-    private ContentType type;
+    @Column(name = "type_id")
+    private int type;
+
+    /**
+     * 文章内容所属频道
+     */
+    @Column(name = "channel_id")
+    private int channelId;
+
+    /**
+     * 文章内容扩展信息
+     */
+    @OneToOne(mappedBy = "content", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    @NotFound(action = NotFoundAction.IGNORE)
+    private ContentExt contentExt;
+
+    /**
+     * 文章具体内容及扩展内容
+     */
+    @OneToOne(mappedBy = "content", cascade = CascadeType.ALL, orphanRemoval = true)
+    @PrimaryKeyJoinColumn
+    @NotFound(action = NotFoundAction.IGNORE)
+    private ContentTxt contentTxt;
 
     /**
      * 文章内容发布者
      */
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @NotFound(action = NotFoundAction.IGNORE)
     private User publisher;
-
-    /**
-     * 文章内容所属频道
-     */
-    @ManyToOne
-    @JoinColumn(name = "channel_id")
-    private Channel channel;
-
-    /**
-     * 文章内容关联的专题
-     */
-    @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
-    @JoinTable(name = "content_topic", joinColumns = @JoinColumn(name = "content_id"), inverseJoinColumns = @JoinColumn(name = "topic_id"))
-    private Set<Topic> topics;
 
     /**
      * 文章内容浏览权限组
      */
-    @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "content_group_view", joinColumns = @JoinColumn(name = "content_id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
     private Set<MemberGroup> viewGroups;
 
     /**
      * 文章内容图片集
      */
-    @ElementCollection
-    @OrderColumn(name = "priority")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
+    @ElementCollection(fetch = FetchType.LAZY)
+    @OrderColumn(name = "seq")
     @CollectionTable(name = "content_picture", joinColumns = @JoinColumn(name = "content_id"))
     private List<ContentPicture> pictures;
 
@@ -155,42 +148,26 @@ public class Content implements Serializable {
     /**
      * 文章内容附件
      */
-    @ElementCollection
-    @OrderColumn(name = "priority")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
+    @ElementCollection(fetch = FetchType.LAZY)
+    @OrderColumn(name = "seq")
     @CollectionTable(name = "content_attachment", joinColumns = @JoinColumn(name = "content_id"))
     private List<ContentAttachment> attachments;
 
-
     /**
-     * 文章具体内容及扩展内容
+     * 文章内容评分
      */
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
-    @OneToOne(mappedBy = "content", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private ContentTxt contentTxt;
+    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "content_id")
+    private List<ContentScore> scoreRecordSet;
 
     /**
      * 文章内容扩展属性表
      */
     @ElementCollection
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
     @CollectionTable(name = "content_attr", joinColumns = @JoinColumn(name = "content_id"))
     @MapKeyColumn(name = "attr_name")
     @Column(name = "attr_value")
     private Map<String, String> attr;
-
-    /**
-     * 文章内容评分
-     */
-    @OneToMany(mappedBy = "content", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private Set<ScoreRecord> scoreRecordSet;
-
-    /**
-     * 文章操作日志
-     */
-    @OneToMany(mappedBy = "content", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private Set<ContentRecord> contentRecordSet;
-
 
     /**
      * 返回状态名称
@@ -209,14 +186,6 @@ public class Content implements Serializable {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public Date getSortDate() {
-        return sortDate;
-    }
-
-    public void setSortDate(Date sortDate) {
-        this.sortDate = sortDate;
     }
 
     public int getTopLevel() {
@@ -243,52 +212,68 @@ public class Content implements Serializable {
         this.status = status;
     }
 
-    public int getViewsDay() {
-        return viewsDay;
-    }
-
-    public void setViewsDay(int viewsDay) {
-        this.viewsDay = viewsDay;
-    }
-
-    public int getCommentsDay() {
-        return commentsDay;
-    }
-
-    public void setCommentsDay(int commentsDay) {
-        this.commentsDay = commentsDay;
-    }
-
-    public int getDownloadsDay() {
-        return downloadsDay;
-    }
-
-    public void setDownloadsDay(int downloadsDay) {
-        this.downloadsDay = downloadsDay;
-    }
-
-    public int getUpsDay() {
-        return upsDay;
-    }
-
-    public void setUpsDay(int upsDay) {
-        this.upsDay = upsDay;
-    }
-
-    public int getScore() {
-        return score;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
-    }
-
     public int getRecommendLevel() {
         return recommendLevel;
     }
 
     public void setRecommendLevel(int recommendLevel) {
         this.recommendLevel = recommendLevel;
+    }
+
+    public int getViews() {
+        return views;
+    }
+
+    public void setViews(int views) {
+        this.views = views;
+    }
+
+    public int getComments() {
+        return comments;
+    }
+
+    public void setComments(int comments) {
+        this.comments = comments;
+    }
+
+    public int getDownloads() {
+        return downloads;
+    }
+
+    public void setDownloads(int downloads) {
+        this.downloads = downloads;
+    }
+
+    public int getUps() {
+        return ups;
+    }
+
+    public void setUps(int ups) {
+        this.ups = ups;
+    }
+
+    public int getDowns() {
+        return downs;
+    }
+
+    public void setDowns(int downs) {
+        this.downs = downs;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public int getChannelId() {
+        return channelId;
+    }
+
+    public void setChannelId(int channelId) {
+        this.channelId = channelId;
     }
 
     public ContentExt getContentExt() {
@@ -299,20 +284,12 @@ public class Content implements Serializable {
         this.contentExt = contentExt;
     }
 
-    public ContentCount getContentCount() {
-        return contentCount;
+    public ContentTxt getContentTxt() {
+        return contentTxt;
     }
 
-    public void setContentCount(ContentCount contentCount) {
-        this.contentCount = contentCount;
-    }
-
-    public ContentType getType() {
-        return type;
-    }
-
-    public void setType(ContentType type) {
-        this.type = type;
+    public void setContentTxt(ContentTxt contentTxt) {
+        this.contentTxt = contentTxt;
     }
 
     public User getPublisher() {
@@ -321,22 +298,6 @@ public class Content implements Serializable {
 
     public void setPublisher(User publisher) {
         this.publisher = publisher;
-    }
-
-    public Channel getChannel() {
-        return channel;
-    }
-
-    public void setChannel(Channel channel) {
-        this.channel = channel;
-    }
-
-    public Set<Topic> getTopics() {
-        return topics;
-    }
-
-    public void setTopics(Set<Topic> topics) {
-        this.topics = topics;
     }
 
     public Set<MemberGroup> getViewGroups() {
@@ -363,12 +324,12 @@ public class Content implements Serializable {
         this.attachments = attachments;
     }
 
-    public ContentTxt getContentTxt() {
-        return contentTxt;
+    public List<ContentScore> getScoreRecordSet() {
+        return scoreRecordSet;
     }
 
-    public void setContentTxt(ContentTxt contentTxt) {
-        this.contentTxt = contentTxt;
+    public void setScoreRecordSet(List<ContentScore> scoreRecordSet) {
+        this.scoreRecordSet = scoreRecordSet;
     }
 
     public Map<String, String> getAttr() {
@@ -377,21 +338,5 @@ public class Content implements Serializable {
 
     public void setAttr(Map<String, String> attr) {
         this.attr = attr;
-    }
-
-    public Set<ScoreRecord> getScoreRecordSet() {
-        return scoreRecordSet;
-    }
-
-    public void setScoreRecordSet(Set<ScoreRecord> scoreRecordSet) {
-        this.scoreRecordSet = scoreRecordSet;
-    }
-
-    public Set<ContentRecord> getContentRecordSet() {
-        return contentRecordSet;
-    }
-
-    public void setContentRecordSet(Set<ContentRecord> contentRecordSet) {
-        this.contentRecordSet = contentRecordSet;
     }
 }

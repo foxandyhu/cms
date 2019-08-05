@@ -86,12 +86,12 @@ public class FileUtil {
             //如果是临时文件则需要修改文件名
             if (srcFile.getName().endsWith(Constants.TEMP_RESOURCE_SUFFIX)) {
                 int index = srcFile.getName().lastIndexOf(Constants.TEMP_RESOURCE_SUFFIX);
-                destination = destination + File.separator + srcFile.getName().substring(0,index);
+                destination = destination + File.separator + srcFile.getName().substring(0, index);
             }
             File destDir = new File(destination);
-            if(destDir.isDirectory()){
-                FileUtils.copyFileToDirectory(srcFile,destDir);
-            }else {
+            if (destDir.isDirectory()) {
+                FileUtils.copyFileToDirectory(srcFile, destDir);
+            } else {
                 FileUtils.copyFile(srcFile, destDir);
             }
         } catch (IOException e) {
@@ -124,5 +124,18 @@ public class FileUtil {
      */
     public static String getRandomName() {
         return System.currentTimeMillis() + StringUtil.getRandomString(10);
+    }
+
+    /**
+     * 创建文件夹
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/8/5 11:38
+     */
+    public static void mkdir(String path) {
+        File file = new File(path);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
     }
 }

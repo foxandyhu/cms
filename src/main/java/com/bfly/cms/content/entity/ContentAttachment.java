@@ -36,7 +36,7 @@ public class ContentAttachment implements Serializable {
      * 下载次数
      */
     @Column(name = "download_count")
-    private Integer count;
+    private int count;
 
     public String getPath() {
         return path;
@@ -65,12 +65,12 @@ public class ContentAttachment implements Serializable {
     }
 
 
-    public Integer getCount() {
+    public int getCount() {
         return count;
     }
 
 
-    public void setCount(Integer count) {
+    public void setCount(int count) {
         this.count = count;
     }
 

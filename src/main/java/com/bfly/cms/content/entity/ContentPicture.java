@@ -23,8 +23,8 @@ public class ContentPicture implements Serializable {
     /**
      * 图片描述
      */
-    @Column(name = "description")
-    private String description;
+    @Column(name = "remark")
+    private String remark;
 
 
     public String getImgPath() {
@@ -37,13 +37,11 @@ public class ContentPicture implements Serializable {
     }
 
 
-    public String getDescription() {
-        return description;
+    public String getRemark() {
+        return remark;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
-
-
 }

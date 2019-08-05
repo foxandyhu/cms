@@ -6,7 +6,7 @@
 //import javax.servlet.http.HttpServletRequest;
 //import javax.servlet.http.HttpServletResponse;
 //
-//import com.bfly.cms.comment.entity.Comment;
+//import com.bfly.cms.message.entity.Comment;
 //import org.json.JSONArray;
 //import org.json.JSONException;
 //import org.springframework.beans.factory.annotation.Autowired;

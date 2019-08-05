@@ -24,6 +24,9 @@ public class ContentExt implements Serializable {
     @Column(name = "content_id", unique = true, nullable = false)
     private int id;
 
+    @OneToOne
+    @MapsId
+    private Content content;
     /**
      * 标题
      */
@@ -116,15 +119,17 @@ public class ContentExt implements Serializable {
 
     /**
      * 指定模板
+     * 为空时将采用所属栏目指定的模板
      */
-    @Column(name = "tpl_content")
-    private String tplContent;
+    @Column(name = "tpl_pc")
+    private String tplPc;
 
     /**
      * 手机内容页模板
+     * 为空时将采用所属栏目指定的模板
      */
-    @Column(name = "tpl_mobile_content")
-    private String tplMobileContent;
+    @Column(name = "tpl_mobile")
+    private String tplMobile;
 
     /**
      * 需要重新生成静态页
@@ -143,11 +148,6 @@ public class ContentExt implements Serializable {
      */
     @Column(name = "pigeonhole_date")
     private Date pigeonholeDate;
-
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "content_id")
-    private Content content;
 
 
     public int getId() {
@@ -278,20 +278,20 @@ public class ContentExt implements Serializable {
         this.link = link;
     }
 
-    public String getTplContent() {
-        return tplContent;
+    public String getTplPc() {
+        return tplPc;
     }
 
-    public void setTplContent(String tplContent) {
-        this.tplContent = tplContent;
+    public void setTplPc(String tplPc) {
+        this.tplPc = tplPc;
     }
 
-    public String getTplMobileContent() {
-        return tplMobileContent;
+    public String getTplMobile() {
+        return tplMobile;
     }
 
-    public void setTplMobileContent(String tplMobileContent) {
-        this.tplMobileContent = tplMobileContent;
+    public void setTplMobile(String tplMobile) {
+        this.tplMobile = tplMobile;
     }
 
     public boolean isNeedRegenerate() {

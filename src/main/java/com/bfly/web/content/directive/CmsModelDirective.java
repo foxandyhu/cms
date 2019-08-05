@@ -6,7 +6,7 @@
 //import java.util.HashMap;
 //import java.util.Map;
 //
-//import com.bfly.cms.channel.entity.Model;
+//import com.bfly.cms.content.entity.Model;
 //import org.apache.commons.lang.StringUtils;
 //import org.springframework.beans.factory.annotation.Autowired;
 //

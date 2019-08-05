@@ -11,7 +11,7 @@
 //import java.util.List;
 //import java.util.Map;
 //
-//import com.bfly.cms.comment.entity.Comment;
+//import com.bfly.cms.message.entity.Comment;
 //import com.bfly.cms.siteconfig.entity.Site;
 //import org.apache.commons.lang.StringUtils;
 //

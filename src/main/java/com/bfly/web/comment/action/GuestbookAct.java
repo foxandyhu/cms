@@ -1,6 +1,6 @@
 //package com.bfly.web.comment.action;
 //
-//import com.bfly.cms.comment.entity.GuestBook;
+//import com.bfly.cms.message.entity.GuestBook;
 //import com.bfly.cms.comment.entity.GuestBookType;
 //import com.bfly.cms.comment.service.CmsGuestbookCtgMng;
 //import com.bfly.cms.comment.service.CmsGuestbookMng;

@@ -1,7 +1,7 @@
 import com.CmsApp;
-import com.bfly.cms.comment.entity.Comment;
-import com.bfly.cms.comment.entity.CommentExt;
-import com.bfly.cms.comment.service.ICommentService;
+import com.bfly.cms.message.entity.Comment;
+import com.bfly.cms.message.entity.CommentExt;
+import com.bfly.cms.message.service.ICommentService;
 import com.bfly.cms.content.entity.Content;
 import com.bfly.cms.job.entity.JobResume;
 import com.bfly.cms.job.service.IJobResumeService;

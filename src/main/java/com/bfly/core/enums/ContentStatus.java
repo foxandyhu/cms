@@ -21,7 +21,7 @@ public enum ContentStatus {
     }
 
     /**
-     * 获得评论状态
+     * 获得内容状态
      *
      * @author andy_hulibo@163.com
      * @date 2019/8/1 11:17

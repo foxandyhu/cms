@@ -1,6 +1,6 @@
 //package com.bfly.web.content.action;
 //
-//import com.bfly.cms.channel.entity.Channel;
+//import com.bfly.cms.content.entity.Channel;
 //import com.bfly.cms.channel.service.ChannelCountCache;
 //import com.bfly.cms.content.entity.Content;
 //import com.bfly.cms.content.entity.ContentCount;

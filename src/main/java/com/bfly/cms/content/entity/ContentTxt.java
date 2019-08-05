@@ -52,7 +52,6 @@ public class ContentTxt implements Serializable {
      */
     @OneToOne
     @MapsId
-    @JoinColumn(name = "content_id")
     private Content content;
 
 

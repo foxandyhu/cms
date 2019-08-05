@@ -1,6 +1,6 @@
 //package com.bfly.web;
 //
-//import com.bfly.cms.channel.entity.Channel;
+//import com.bfly.cms.content.entity.Channel;
 //import com.bfly.cms.channel.service.ChannelMng;
 //import com.bfly.cms.content.entity.Content;
 //import com.bfly.cms.content.entity.ContentCheck;

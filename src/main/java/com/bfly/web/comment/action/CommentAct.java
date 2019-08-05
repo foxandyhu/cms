@@ -1,7 +1,7 @@
 //package com.bfly.web.comment.action;
 //
-//import com.bfly.cms.channel.entity.ChannelExt;
-//import com.bfly.cms.comment.entity.Comment;
+//import com.bfly.cms.content.entity.ChannelExt;
+//import com.bfly.cms.message.entity.Comment;
 //import com.bfly.cms.comment.service.CmsCommentMng;
 //import com.bfly.cms.content.entity.Content;
 //import com.bfly.cms.content.service.ContentMng;
