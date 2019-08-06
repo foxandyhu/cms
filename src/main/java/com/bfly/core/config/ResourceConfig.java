@@ -2,11 +2,13 @@ package com.bfly.core.config;
 
 import com.bfly.common.FileUtil;
 import com.bfly.core.Constants;
+import com.bfly.core.context.ServletRequestThreadLocal;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -127,6 +129,18 @@ public class ResourceConfig {
     }
 
     /**
+     * 获得模板路径
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/8/6 12:49
+     */
+    public static String getTemplatePath() {
+        HttpServletRequest request = ServletRequestThreadLocal.get();
+        String path = request.getServletContext().getRealPath(ResourceConfig.getTemplateRelativePath());
+        return path;
+    }
+
+    /**
      * 获得相对root路径的绝对路径,必须是root的子目录或文件
      *
      * @author andy_hulibo@163.com
@@ -134,6 +148,16 @@ public class ResourceConfig {
      */
     public static String getRelativePathForRoot(String path) {
         Path p = Paths.get(getRootDir()).relativize(Paths.get(path));
+        return "/" + p.toString().replaceAll("\\\\", "/");
+    }
+
+    /**
+     * 获得相对template路径的绝对路径,必须是template的子目录或文件
+     * @author andy_hulibo@163.com
+     * @date 2019/8/6 12:57
+     */
+    public static String getRelativePathForTemplate(String path) {
+        Path p = Paths.get(getTemplatePath()).relativize(Paths.get(path));
         return "/" + p.toString().replaceAll("\\\\", "/");
     }
 
