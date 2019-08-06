@@ -1,13 +1,9 @@
 package com.bfly.cms.content.entity;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
-import java.util.Set;
 
 /**
  * 评分项
@@ -17,7 +13,6 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "score_item")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class ScoreItem implements Serializable, Comparable<ScoreItem> {
     private static final long serialVersionUID = 1L;
 

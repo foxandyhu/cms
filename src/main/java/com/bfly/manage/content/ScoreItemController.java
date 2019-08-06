@@ -5,13 +5,11 @@ import com.bfly.cms.content.entity.ScoreGroup;
 import com.bfly.cms.content.entity.ScoreItem;
 import com.bfly.cms.content.service.IScoreItemService;
 import com.bfly.common.ResponseData;
-import com.bfly.common.json.JsonUtil;
-import com.bfly.core.config.ResourceConfig;
-import com.bfly.core.context.ContextUtil;
-import com.bfly.common.DataConvertUtils;
 import com.bfly.common.ResponseUtil;
+import com.bfly.common.json.JsonUtil;
 import com.bfly.common.page.Pager;
 import com.bfly.core.base.action.BaseManageController;
+import com.bfly.core.config.ResourceConfig;
 import com.bfly.core.context.PagerThreadLocal;
 import com.bfly.core.security.ActionModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -131,6 +129,19 @@ public class ScoreItemController extends BaseManageController {
     @ActionModel(value = "删除评分项")
     public void delScoreItem(HttpServletResponse response, @RequestBody Integer... ids) {
         scoreItemService.remove(ids);
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
+    }
+
+    /**
+     * 评分项排序
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/8/4 14:54
+     */
+    @GetMapping(value = "/sort/{upItemId}-{downItemId}")
+    @ActionModel("评分项排序")
+    public void sortScoreIte(HttpServletResponse response, @PathVariable("upItemId") int upItemId, @PathVariable("downItemId") int downItemId) {
+        scoreItemService.sortScoreItem(upItemId, downItemId);
         ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
     }
 }

@@ -1,6 +1,7 @@
 package com.bfly.cms.content.service.impl;
 
 import com.bfly.cms.content.dao.IScoreItemDao;
+import com.bfly.cms.content.entity.Channel;
 import com.bfly.cms.content.entity.ScoreGroup;
 import com.bfly.cms.content.entity.ScoreItem;
 import com.bfly.cms.content.service.IScoreGroupService;
@@ -35,6 +36,9 @@ public class ScoreItemServiceImpl extends BaseServiceImpl<ScoreItem, Integer> im
 
         String img = ResourceConfig.getUploadTempFileToDestDirForRelativePath(scoreItem.getUrl(), ResourceConfig.getScoreDir());
         scoreItem.setUrl(img);
+
+        int maxSeq = scoreItemDao.getMaxSeq(group.getId());
+        scoreItem.setSeq(++maxSeq);
         return super.save(scoreItem);
     }
 
@@ -50,11 +54,12 @@ public class ScoreItemServiceImpl extends BaseServiceImpl<ScoreItem, Integer> im
         Assert.isTrue(item.getGroup().getId().equals(group.getId()), "评分项和评分组不对应!");
 
         scoreItem.setGroup(group);
+        scoreItem.setSeq(item.getSeq());
 
         String img = ResourceConfig.getUploadTempFileToDestDirForRelativePath(scoreItem.getUrl(), ResourceConfig.getScoreDir());
         if (img != null) {
             scoreItem.setUrl(img);
-        }else{
+        } else {
             scoreItem.setUrl(item.getUrl());
         }
         return super.edit(scoreItem);
@@ -64,5 +69,18 @@ public class ScoreItemServiceImpl extends BaseServiceImpl<ScoreItem, Integer> im
     @Transactional(rollbackFor = Exception.class)
     public int removeScoreItem(int groupId) {
         return scoreItemDao.removeScoreItems(groupId);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void sortScoreItem(int upId, int downId) {
+        ScoreItem upItem = get(upId);
+        Assert.notNull(upItem, "不存在的栏目信息!");
+
+        ScoreItem downItem = get(downId);
+        Assert.notNull(downItem, "不存在的栏目信息!");
+
+        scoreItemDao.editScoreItemSeq(upId, downItem.getSeq());
+        scoreItemDao.editScoreItemSeq(downId, upItem.getSeq());
     }
 }
