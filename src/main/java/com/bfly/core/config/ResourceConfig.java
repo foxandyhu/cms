@@ -87,6 +87,16 @@ public class ResourceConfig {
     }
 
     /**
+     * 获得内容图片存放路径
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/8/6 15:24
+     */
+    public static String getContentDir() {
+        return getRootDir() + File.separator + "content";
+    }
+
+    /**
      * 广告图片存放路径
      *
      * @author andy_hulibo@163.com
@@ -141,6 +151,26 @@ public class ResourceConfig {
     }
 
     /**
+     * 获得指定文件夹的PC模板路径
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/8/6 16:52
+     */
+    public static String getTemplateForPcPath(String dirName) {
+        return getTemplatePath() + File.separator + dirName + File.separator + "pc";
+    }
+
+    /**
+     * 获得指定文件夹的手机模板路径
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/8/6 16:54
+     */
+    public static String getTemplateForMobilePath(String dirName) {
+        return getTemplatePath() + File.separator + dirName + File.separator + "mobile";
+    }
+
+    /**
      * 获得相对root路径的绝对路径,必须是root的子目录或文件
      *
      * @author andy_hulibo@163.com
@@ -153,6 +183,7 @@ public class ResourceConfig {
 
     /**
      * 获得相对template路径的绝对路径,必须是template的子目录或文件
+     *
      * @author andy_hulibo@163.com
      * @date 2019/8/6 12:57
      */

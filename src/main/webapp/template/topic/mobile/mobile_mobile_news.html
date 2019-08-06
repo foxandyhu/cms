@@ -1,0 +1,1255 @@
+
+<!DOCTYPE html>
+<html data-code-prettify="" data-info-popups="" xmlns="http://www.w3.org/1999/xhtml" data-mobile-support="" data-search="">
+<head>
+<title>Spring Cloud</title>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1, minimum-scale=1, user-scalable=no" id="Viewport" name="viewport" />
+<link rel="shortcut icon" type="image/x-icon" href="/img/favicon-ca31b78daf0dd9a106bbf3c6d87d4ec7.png" />
+<link href="https://fonts.googleapis.com/css?family=Varela+Round|Montserrat:400,700" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="/css/main-bc256dba5f9d253d6425441ccfb82576.css" />
+<script src="/jspm_packages/system-eccc019329febb5a1b06bde008ca5614.js"></script>
+<script>
+    System.config({baseURL: "/3ddfbb5"});
+  </script>
+<script src="/config-5a675c9cddea3a5f55b71416e67d47d6.js"></script>
+<script>
+      System.import('app/main.js')
+  </script>
+<meta content="7qGntFPD9lWAVCtUu5U77v4l68PsTHf6xpzgjQv2j2M" name="google-site-verification" />
+
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-KZM7GF6');</script>
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flexboxgrid/6.3.1/flexboxgrid.min.css" rel="stylesheet" type="text/css" />
+<link href="/css/project-72915542cf8e440956787dbf984385df.css" rel="stylesheet" type="text/css" />
+
+<meta content="Spring Projects" property="og:title" />
+<meta property="og:image" content="/img/spring-by-pivotal-9066b55828deb3c10e27e609af322c40.png" />
+<meta content="The Spring portfolio has many projects, including Spring Framework,
+    Spring IO Platform, Spring Cloud, Spring Boot, Spring Data, Spring Security..." property="og:description" />
+<script>
+        System.import('app/pages/projects/show.js')
+    </script>
+</head>
+<body>
+
+<noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-KZM7GF6" style="display:none;visibility:hidden" width="0"></iframe></noscript>
+
+<script type="text/javascript">
+    // Work around Google font rendering issues in webkit browsers on Windows 7
+    if (navigator.userAgent.indexOf("NT 6.1") != -1) {
+      document.body.style.WebkitTextStroke = "0.5px";
+    }
+  </script>
+<div class="viewport">
+<header class="navbar header--navbar desktop-only">
+<div class="navbar-inner">
+<div class="container-fluid">
+<div class="spring-logo--container">
+<a class="spring-logo" href="/"><span></span></a>
+</div>
+<ul class="nav pull-right">
+<li class="navbar-link active">
+<a href="/projects">Projects</a>
+</li>
+<li class="navbar-link">
+<a href="/guides">Guides</a>
+</li>
+<li class="navbar-link">
+<a href="/blog">Blog</a>
+</li>
+<li class="navbar-link">
+<a href="/services">Training & Certification</a>
+</li>
+<li class="navbar-link nav-search js-nav-search">
+<a>
+<i class="icon-search navbar-search--icon js-search-input-open"></i>
+<span class="search-input-close js-search-input-close">
+<i class="icon-remove"></i>
+</span>
+</a>
+</li>
+</ul>
+</div>
+</div>
+<div class="search-dropdown--container js-search-dropdown">
+<div class="container-fluid">
+<div class="search-form--container">
+<form action="/search" class="form-inline form-search" method="get">
+<input class="search-query search-form--form js-search-input" name="q" placeholder="Search for documentation, guides, and posts..." type="text" value="" />
+<button class="search-form--submit" type="submit"><i class="icon-search"></i></button>
+</form>
+</div>
+</div>
+</div>
+</header>
+<div>
+<div class="mobile-navigation--wrapper mobile-only">
+<div class="navigation-drawer--container">
+<div class="mobile-search--container">
+<form action="/search" class="form-inline form-search" method="get">
+<button class="search-form--submit" type="submit"><i class="icon-search"></i></button>
+<input class="search-query search-form--form js-search-input" name="q" placeholder="Search..." type="text" value="" />
+</form>
+</div>
+<div class="navigation-item-list">
+<div class="navbar-link">
+<a href="/">
+Home
+<i class="icon-chevron-right pull-right"></i>
+</a>
+</div>
+<div class="navbar-link active">
+<a href="/projects">
+Projects
+<i class="icon-chevron-right pull-right"></i>
+</a>
+</div>
+<div class="navbar-link">
+<a href="/guides">
+Guides
+<i class="icon-chevron-right pull-right"></i>
+</a>
+</div>
+<div class="navbar-link">
+<a href="/blog">
+Blog
+<i class="icon-chevron-right pull-right"></i>
+</a>
+</div>
+<div class="navbar-link">
+<a href="/services">
+Training & Certification
+<i class="icon-chevron-right pull-right"></i>
+</a>
+</div>
+</div>
+</div>
+<div class="mobile-nav">
+<div class="nav-icon js-open-nav-drawer">
+<i class="icon-reorder"></i>
+</div>
+<div class="header-center-icon">
+<a href="/">
+<div class="icon icon-spring-logo-mobile"></div>
+</a>
+</div>
+</div>
+</div>
+</div>
+<div class="header--container"></div>
+<div class="container-fluid"></div>
+<div></div>
+<div class="compass body--container container-fluid">
+<div class="row">
+<div class="sidebar hide-sm col-md-3">
+<ul class="sidebar_main">
+<li class="sidebar_head">Projects</li>
+<li class="sidebar_project child-inactive">
+<div>
+<a href="https://spring.io/projects/spring-boot">Spring Boot</a>
+</div>
+</li>
+<li class="sidebar_project child-inactive">
+<div>
+<a href="https://spring.io/projects/spring-framework">Spring Framework</a>
+</div>
+</li>
+<li class="sidebar_project child-inactive">
+<div>
+<a href="https://spring.io/projects/spring-data">Spring Data</a>
+<i aria-hidden="true" class="icon-chevron-right"></i>
+</div>
+</li>
+<li class="sidebar_project active">
+<div>
+<a href="https://spring.io/projects/spring-cloud">Spring Cloud</a>
+<i aria-hidden="true" class="icon-chevron-down"></i>
+</div>
+<ul class="sidebar_children">
+<li class="sidebar_child">
+<a href="https://cloud.spring.io/spring-cloud-stream">
+<i class="icon-circle"></i>
+<span>Spring Cloud Stream</span>
+</a>
+</li>
+<li class="sidebar_child">
+ <a href="https://cloud.spring.io/spring-cloud-azure/">
+<i class="icon-circle"></i>
+<span>Spring Cloud Azure</span>
+</a>
+</li>
+<li class="sidebar_child">
+<a href="https://cloud.spring.io/spring-cloud-aws">
+<i class="icon-circle"></i>
+<span>Spring Cloud for Amazon Web Services</span>
+</a>
+</li>
+<li class="sidebar_child">
+<a href="https://cloud.spring.io/spring-cloud-bus">
+<i class="icon-circle"></i>
+<span>Spring Cloud Bus</span>
+</a>
+</li>
+<li class="sidebar_child">
+<a href="https://cloud.spring.io/spring-cloud-cli">
+<i class="icon-circle"></i>
+<span>Spring Cloud CLI</span>
+</a>
+</li>
+<li class="sidebar_child">
+<a href="https://cloud.spring.io/spring-cloud-cloudfoundry">
+<i class="icon-circle"></i>
+<span>Spring Cloud for Cloud Foundry</span>
+</a>
+</li>
+<li class="sidebar_child">
+<a href="https://spring.io/projects/spring-cloud-cloudfoundry-service-broker">
+<i class="icon-circle"></i>
+<span>Spring Cloud - Cloud Foundry Service Broker</span>
+</a>
+</li>
+<li class="sidebar_child">
+<a href="https://cloud.spring.io/spring-cloud-cluster">
+<i class="icon-circle"></i>
+<span>Spring Cloud Cluster</span>
+</a>
+</li>
+<li class="sidebar_child">
+<a href="https://cloud.spring.io/spring-cloud-commons">
+<i class="icon-circle"></i>
+<span>Spring Cloud Commons</span>
+</a>
+</li>
+<li class="sidebar_child">
+<a href="https://cloud.spring.io/spring-cloud-config">
+<i class="icon-circle"></i>
+<span>Spring Cloud Config</span>
+</a>
+</li>
+<li class="sidebar_child">
+<a href="https://spring.io/projects/spring-cloud-connectors">
+<i class="icon-circle"></i>
+<span>Spring Cloud Connectors</span>
+</a>
+</li>
+<li class="sidebar_child">
+<a href="https://cloud.spring.io/spring-cloud-consul">
+<i class="icon-circle"></i>
+<span>Spring Cloud Consul</span>
+</a>
+</li>
+<li class="sidebar_child">
+<a href=" https://spring.io/projects/spring-cloud-contract">
+<i class="icon-circle"></i>
+<span>Spring Cloud Contract</span>
+</a>
+</li>
+<li class="sidebar_child">
+<a href="https://cloud.spring.io/spring-cloud-function">
+<i class="icon-circle"></i>
+<span>Spring Cloud Function</span>
+</a>
+</li>
+<li class="sidebar_child">
+<a href="https://cloud.spring.io/spring-cloud-gateway/">
+<i class="icon-circle"></i>
+<span>Spring Cloud Gateway</span>
+</a>
+</li>
+<li class="sidebar_child">
+<a href="https://cloud.spring.io/spring-cloud-gcp">
+<i class="icon-circle"></i>
+<span>Spring Cloud GCP</span>
+</a>
+</li>
+<li class="sidebar_child">
+<a href="https://cloud.spring.io/spring-cloud-netflix">
+<i class="icon-circle"></i>
+<span>Spring Cloud Netflix</span>
+</a>
+</li>
+<li class="sidebar_child">
+<a href="https://spring.io/projects/spring-cloud-open-service-broker">
+<i class="icon-circle"></i>
+<span>Spring Cloud Open Service Broker</span>
+</a>
+</li>
+<li class="sidebar_child">
+<a href=" https://spring.io/projects/spring-cloud-pipelines">
+<i class="icon-circle"></i>
+<span>Spring Cloud Pipelines</span>
+</a>
+</li>
+<li class="sidebar_child">
+<a href="https://cloud.spring.io/spring-cloud-security">
+<i class="icon-circle"></i>
+<span>Spring Cloud Security</span>
+</a>
+</li>
+<li class="sidebar_child">
+<a href=" https://spring.io/projects/spring-cloud-sleuth">
+<i class="icon-circle"></i>
+<span>Spring Cloud Sleuth</span>
+</a>
+</li>
+<li class="sidebar_child">
+<a href="https://cloud.spring.io/spring-cloud-stream-app-starters">
+<i class="icon-circle"></i>
+<span>Spring Cloud Stream App Starters</span>
+</a>
+</li>
+<li class="sidebar_child">
+<a href="https://cloud.spring.io/spring-cloud-task">
+<i class="icon-circle"></i>
+<span>Spring Cloud Task</span>
+</a>
+</li>
+<li class="sidebar_child">
+<a href=" http://cloud.spring.io/spring-cloud-task-app-starters">
+<i class="icon-circle"></i>
+<span>Spring Cloud Task App Starters</span>
+</a>
+</li>
+<li class="sidebar_child">
+<a href="https://cloud.spring.io/spring-cloud-vault/">
+<i class="icon-circle"></i>
+<span>Spring Cloud Vault</span>
+</a>
+</li>
+<li class="sidebar_child">
+<a href="https://cloud.spring.io/spring-cloud-zookeeper">
+<i class="icon-circle"></i>
+<span>Spring Cloud Zookeeper</span>
+</a>
+</li>
+<li class="sidebar_child">
+<a href="https://spring.io/projects/spring-cloud-app-broker">
+<i class="icon-circle"></i>
+<span>Spring Cloud App Broker</span>
+</a>
+</li>
+<li class="sidebar_child">
+<a href="https://spring.io/projects/spring-cloud-kubernetes">
+<i class="icon-circle"></i>
+<span>Spring Cloud Kubernetes</span>
+</a>
+</li>
+<li class="sidebar_child">
+<a href="https://spring.io/projects/spring-cloud-openfeign">
+<i class="icon-circle"></i>
+<span>Spring Cloud OpenFeign</span>
+</a>
+</li>
+</ul>
+</li>
+<li class="sidebar_project child-inactive">
+<div>
+<a href="https://spring.io/projects/spring-cloud-dataflow">Spring Cloud Data Flow</a>
+</div>
+</li>
+<li class="sidebar_project child-inactive">
+<div>
+<a href="https://spring.io/projects/spring-security">Spring Security</a>
+<i aria-hidden="true" class="icon-chevron-right"></i>
+</div>
+</li>
+<li class="sidebar_project child-inactive">
+<div>
+<a href="https://spring.io/projects/spring-session">Spring Session</a>
+<i aria-hidden="true" class="icon-chevron-right"></i>
+</div>
+</li>
+<li class="sidebar_project child-inactive">
+<div>
+<a href="https://spring.io/projects/spring-integration">Spring Integration</a>
+</div>
+</li>
+<li class="sidebar_project child-inactive">
+<div>
+<a href="https://spring.io/projects/spring-hateoas">Spring HATEOAS</a>
+</div>
+</li>
+<li class="sidebar_project child-inactive">
+<div>
+<a href="https://spring.io/projects/spring-restdocs">Spring REST Docs</a>
+</div>
+</li>
+<li class="sidebar_project child-inactive">
+<div>
+<a href="https://spring.io/projects/spring-batch">Spring Batch</a>
+</div>
+</li>
+<li class="sidebar_project child-inactive">
+<div>
+<a href="https://spring.io/projects/platform">Spring IO Platform</a>
+</div>
+</li>
+<li class="sidebar_project child-inactive">
+<div>
+<a href="https://projects.spring.io/spring-amqp">Spring AMQP</a>
+</div>
+</li>
+<li class="sidebar_project child-inactive">
+<div>
+<a href="https://projects.spring.io/spring-android">Spring for Android</a>
+</div>
+</li>
+<li class="sidebar_project child-inactive">
+<div>
+<a href="https://cloud.spring.io/spring-cloud-skipper">Spring Cloud Skipper</a>
+</div>
+</li>
+<li class="sidebar_project child-inactive">
+<div>
+<a href="https://spring.io/projects/spring-credhub">Spring CredHub</a>
+</div>
+</li>
+<li class="sidebar_project child-inactive">
+<div>
+<a href="https://spring.io/projects/spring-flo">Spring Flo</a>
+</div>
+</li>
+<li class="sidebar_project child-inactive">
+<div>
+<a href="https://spring.io/projects/spring-kafka">Spring for Apache Kafka</a>
+</div>
+</li>
+<li class="sidebar_project child-inactive">
+<div>
+<a href="https://spring.io/projects/spring-ldap">Spring LDAP</a>
+</div>
+</li>
+<li class="sidebar_project child-inactive">
+<div>
+<a href="https://projects.spring.io/spring-mobile">Spring Mobile</a>
+</div>
+</li>
+<li class="sidebar_project child-inactive">
+<div>
+<a href="https://projects.spring.io/spring-roo">Spring Roo</a>
+</div>
+</li>
+<li class="sidebar_project child-inactive">
+<div>
+<a href="https://projects.spring.io/spring-shell">Spring Shell</a>
+</div>
+</li>
+<li class="sidebar_project child-inactive">
+<div>
+<a href="https://projects.spring.io/spring-statemachine">Spring Statemachine</a>
+</div>
+</li>
+<li class="sidebar_project child-inactive">
+<div>
+<a href="https://projects.spring.io/spring-test-htmlunit">Spring Test HtmlUnit</a>
+</div>
+</li>
+<li class="sidebar_project child-inactive">
+<div>
+<a href="https://spring.io/projects/spring-vault">Spring Vault</a>
+</div>
+</li>
+<li class="sidebar_project child-inactive">
+<div>
+<a href="https://projects.spring.io/spring-webflow">Spring Web Flow</a>
+</div>
+</li>
+<li class="sidebar_project child-inactive">
+<div>
+<a href="https://spring.io/projects/spring-ws">Spring Web Services</a>
+</div>
+</li>
+</ul>
+</div>
+<article class="col-xs-12 col-md-9">
+<div class="box">
+<div class="">
+<div class="project--header">
+<h1>Spring Cloud</h1>
+<span class="version label current">Greenwich SR2</span>
+<div class="social-links">
+<a class="link--github" target="_blank" href="https://github.com/spring-projects/spring-cloud">
+<img class="svg" src="/img/github-icon-1229267e5ff6b8d5370eab9de45011f0.svg" />
+</a>
+<a class="link--stackoverflow" target="_blank" href="https://stackoverflow.com/questions/tagged/spring-cloud">
+<img class="svg" src="/img/stackoverflow-icon-f3d3ef3c860576e2ce0d40bbaceb1b10.svg" />
+</a>
+</div>
+</div>
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#overview">
+<i class="icon-eye-open"></i>
+<span class="hide-sm">Overview</span>
+</a>
+</li>
+<li class="">
+<a data-toggle="tab" href="#learn">
+<i class="icon-file-text-alt"></i>
+<span class="hide-sm">Learn</span>
+</a>
+</li>
+<li class="">
+<a data-toggle="tab" href="#samples">
+<i class="icon-code"></i>
+<span class="hide-sm">Samples</span>
+</a>
+</li>
+</ul>
+</div>
+<div class="tab-content">
+<div class="tab-pane active" id="overview">
+<div class="compass-section">
+<div class="project-overview">
+<div><div class="paragraph">
+<p>Spring Cloud provides tools for developers to quickly build some of the common patterns in distributed systems (e.g. configuration management, service discovery, circuit breakers, intelligent routing, micro-proxy, control bus, one-time tokens, global locks, leadership election, distributed sessions, cluster state). Coordination of distributed systems leads to boiler plate patterns, and using Spring Cloud developers can quickly stand up services and applications that implement those patterns. They will work well in any distributed environment, including the developer&#8217;s own laptop, bare metal data centres, and managed platforms such as Cloud Foundry.</p>
+</div>
+<div class="sect1">
+<h2 id="features"><a class="anchor" href="#features"></a>Features</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Spring Cloud focuses on providing good out of box experience for typical use cases and extensibility mechanism to cover others.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Distributed/versioned configuration</p>
+</li>
+<li>
+<p>Service registration and discovery</p>
+</li>
+<li>
+<p>Routing</p>
+</li>
+<li>
+<p>Service-to-service calls</p>
+</li>
+<li>
+<p>Load balancing</p>
+</li>
+<li>
+<p>Circuit Breakers</p>
+</li>
+<li>
+<p>Global locks</p>
+</li>
+<li>
+<p>Leadership election and cluster state</p>
+</li>
+<li>
+<p>Distributed messaging</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Spring Cloud takes a very declarative approach, and often you get a
+lot of features with just a classpath change and/or an
+annotation. Example application that is a discovery client:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">@SpringBootApplication
+@EnableDiscoveryClient
+public class Application {
+	public static void main(String[] args) {
+		SpringApplication.run(Application.class, args);
+	}
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="main-projects"><a class="anchor" href="#main-projects"></a>Main Projects</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="spring-cloud-config"><a class="anchor" href="#spring-cloud-config"></a><a href="https://cloud.spring.io/spring-cloud-config">Spring Cloud Config</a></h3>
+<div class="paragraph">
+<p>Centralized external configuration management backed by a git repository. The configuration resources map directly to Spring <code>Environment</code> but could be used by non-Spring applications if desired.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="spring-cloud-netflix"><a class="anchor" href="#spring-cloud-netflix"></a><a href="https://cloud.spring.io/spring-cloud-netflix">Spring Cloud Netflix</a></h3>
+<div class="paragraph">
+<p>Integration with various Netflix OSS components (Eureka, Hystrix, Zuul, Archaius, etc.).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="spring-cloud-bus"><a class="anchor" href="#spring-cloud-bus"></a><a href="https://cloud.spring.io/spring-cloud-bus">Spring Cloud Bus</a></h3>
+<div class="paragraph">
+<p>An event bus for linking services and service instances together with distributed messaging. Useful for propagating state changes across a cluster (e.g. config change events).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="spring-cloud-cloudfoundry"><a class="anchor" href="#spring-cloud-cloudfoundry"></a><a href="https://cloud.spring.io/spring-cloud-cloudfoundry">Spring Cloud Cloudfoundry</a></h3>
+<div class="paragraph">
+<p>Integrates your application with Pivotal Cloud Foundry. Provides a service discovery implementation and also makes it easy to implement SSO and OAuth2 protected resources.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="spring-cloud-open-service-broker"><a class="anchor" href="#spring-cloud-open-service-broker"></a><a href="https://cloud.spring.io/spring-cloud-open-service-broker">Spring Cloud Open Service Broker</a></h3>
+<div class="paragraph">
+<p>Provides a starting point for building a service broker that implements the Open Service Broker API.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="spring-cloud-cluster"><a class="anchor" href="#spring-cloud-cluster"></a><a href="https://github.com/spring-cloud/spring-cloud-cluster">Spring Cloud Cluster</a></h3>
+<div class="paragraph">
+<p>Leadership election and common stateful patterns with an abstraction and implementation for Zookeeper, Redis, Hazelcast, Consul.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="spring-cloud-consul"><a class="anchor" href="#spring-cloud-consul"></a><a href="https://cloud.spring.io/spring-cloud-consul">Spring Cloud Consul</a></h3>
+<div class="paragraph">
+<p>Service discovery and configuration management with Hashicorp Consul.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="spring-cloud-security"><a class="anchor" href="#spring-cloud-security"></a><a href="https://cloud.spring.io/spring-cloud-security">Spring Cloud Security</a></h3>
+<div class="paragraph">
+<p>Provides support for load-balanced OAuth2 rest client and authentication header relays in a Zuul proxy.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="spring-cloud-sleuth"><a class="anchor" href="#spring-cloud-sleuth"></a><a href="https://cloud.spring.io/spring-cloud-sleuth">Spring Cloud Sleuth</a></h3>
+<div class="paragraph">
+<p>Distributed tracing for Spring Cloud applications, compatible with Zipkin, HTrace and log-based (e.g. ELK) tracing.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="spring-cloud-data-flow"><a class="anchor" href="#spring-cloud-data-flow"></a><a href="https://cloud.spring.io/spring-cloud-dataflow">Spring Cloud Data Flow</a></h3>
+<div class="paragraph">
+<p>A cloud-native orchestration service for composable microservice applications on modern runtimes. Easy-to-use DSL, drag-and-drop GUI, and REST-APIs together simplifies the overall orchestration of microservice based data pipelines.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="spring-cloud-stream"><a class="anchor" href="#spring-cloud-stream"></a><a href="https://cloud.spring.io/spring-cloud-stream">Spring Cloud Stream</a></h3>
+<div class="paragraph">
+<p>A lightweight event-driven microservices framework to quickly build applications that can connect to external systems. Simple declarative model to send and receive messages using Apache Kafka or RabbitMQ between Spring Boot apps.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="spring-cloud-stream-app-starters"><a class="anchor" href="#spring-cloud-stream-app-starters"></a><a href="https://cloud.spring.io/spring-cloud-stream-app-starters">Spring Cloud Stream App Starters</a></h3>
+<div class="paragraph">
+<p>Spring Cloud Stream App Starters are Spring Boot based Spring Integration applications that provide integration with external systems.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="spring-cloud-task"><a class="anchor" href="#spring-cloud-task"></a><a href="https://cloud.spring.io/spring-cloud-task">Spring Cloud Task</a></h3>
+<div class="paragraph">
+<p>A short-lived microservices framework to quickly build applications that perform finite amounts of data processing. Simple declarative for adding both functional and non-functional features to Spring Boot apps.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="spring-cloud-task-app-starters"><a class="anchor" href="#spring-cloud-task-app-starters"></a><a href="https://cloud.spring.io/spring-cloud-task-app-starters">Spring Cloud Task App Starters</a></h3>
+<div class="paragraph">
+<p>Spring Cloud Task App Starters are Spring Boot applications that may be any process including Spring Batch jobs that do not run forever, and they end/stop after a finite period of data processing.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="spring-cloud-zookeeper"><a class="anchor" href="#spring-cloud-zookeeper"></a><a href="https://cloud.spring.io/spring-cloud-zookeeper">Spring Cloud Zookeeper</a></h3>
+<div class="paragraph">
+<p>Service discovery and configuration management with Apache Zookeeper.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="spring-cloud-aws"><a class="anchor" href="#spring-cloud-aws"></a><a href="https://github.com/spring-cloud/spring-cloud-aws">Spring Cloud AWS</a></h3>
+<div class="paragraph">
+<p>Easy integration with hosted Amazon Web Services. It offers a convenient way to interact with AWS provided services using well-known Spring idioms and APIs, such as the messaging or caching API. Developers can build their application around the hosted services without having to care about infrastructure or maintenance.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="spring-cloud-connectors"><a class="anchor" href="#spring-cloud-connectors"></a><a href="https://github.com/spring-cloud/spring-cloud-connectors">Spring Cloud Connectors</a></h3>
+<div class="paragraph">
+<p>Makes it easy for PaaS applications in a variety of platforms to connect to backend services like
+databases and message brokers (the project formerly known as "Spring Cloud").</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="spring-cloud-starters"><a class="anchor" href="#spring-cloud-starters"></a><a href="https://github.com/spring-cloud/spring-cloud-starters">Spring Cloud Starters</a></h3>
+<div class="paragraph">
+<p>Spring Boot-style starter projects to ease dependency management for consumers of Spring Cloud. (Discontinued as a project and merged with the other projects after Angel.SR2.)</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="spring-cloud-cli"><a class="anchor" href="#spring-cloud-cli"></a><a href="https://github.com/spring-cloud/spring-cloud-cli">Spring Cloud CLI</a></h3>
+<div class="paragraph">
+<p>Spring Boot CLI plugin for creating Spring Cloud component applications quickly in Groovy</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="spring-cloud-contract"><a class="anchor" href="#spring-cloud-contract"></a><a href="https://cloud.spring.io/spring-cloud-contract">Spring Cloud Contract</a></h3>
+<div class="paragraph">
+<p>Spring Cloud Contract is an umbrella project holding solutions that help users in successfully implementing the Consumer Driven Contracts approach.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="spring-cloud-gateway"><a class="anchor" href="#spring-cloud-gateway"></a><a href="https://cloud.spring.io/spring-cloud-gateway">Spring Cloud Gateway</a></h3>
+<div class="paragraph">
+<p>Spring Cloud Gateway is an intelligent and programmable router based on Project Reactor.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="spring-cloud-openfeign"><a class="anchor" href="#spring-cloud-openfeign"></a><a href="https://cloud.spring.io/spring-cloud-openfeign">Spring Cloud OpenFeign</a></h3>
+<div class="paragraph">
+<p>Spring Cloud OpenFeign provides integrations for Spring Boot apps through autoconfiguration and binding to the Spring Environment and other Spring programming model idioms.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="spring-cloud-pipelines"><a class="anchor" href="#spring-cloud-pipelines"></a><a href="https://cloud.spring.io/spring-cloud-pipelines">Spring Cloud Pipelines</a></h3>
+<div class="paragraph">
+<p>Spring Cloud Pipelines provides an opinionated deployment pipeline with steps to ensure that your application can be deployed in zero downtime fashion and easilly rolled back of something goes wrong.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="spring-cloud-function"><a class="anchor" href="#spring-cloud-function"></a><a href="https://github.com/spring-cloud/spring-cloud-function">Spring Cloud Function</a></h3>
+<div class="paragraph">
+<p>Spring Cloud Function promotes the implementation of business logic via functions. It supports a uniform programming model across serverless providers, as well as the ability to run standalone (locally or in a PaaS).</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="release-trains"><a class="anchor" href="#release-trains"></a>Release Trains</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Spring Cloud is an umbrella project consisting of independent projects with, in principle, different
+release cadences. To manage the portfolio a BOM (Bill of Materials) is published with a curated
+set of dependencies on the individual project (see below). The release trains have names, not
+versions, to avoid confusion with the sub-projects. The names are an alphabetic sequence (so
+you can sort them chronologically) with names of London Tube stations ("Angel" is the first
+release, "Brixton" is the second). When point releases of the individual projects accumulate to
+a critical mass, or if there is a critical bug in one of them that needs to be available to everyone,
+the release train will push out "service releases" with names ending ".SRX", where "X"
+is a number.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Release train Spring Boot compatibility</caption>
+<colgroup>
+<col style="width: 60%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Release Train</th>
+<th class="tableblock halign-left valign-top">Boot Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Greenwich</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.1.x</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Finchley</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.0.x</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Edgware</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.5.x</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dalston</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.5.x</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 2. Release train contents</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Component</th>
+<th class="tableblock halign-left valign-top">Edgware.SR6</th>
+<th class="tableblock halign-left valign-top">Finchley.SR2</th>
+<th class="tableblock halign-left valign-top">Finchley.BUILD-SNAPSHOT</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">spring-cloud-aws</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.2.4.RELEASE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.0.1.RELEASE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.0.1.BUILD-SNAPSHOT</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">spring-cloud-bus</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.3.4.RELEASE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.0.0.RELEASE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.0.1.BUILD-SNAPSHOT</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">spring-cloud-cli</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.4.1.RELEASE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.0.0.RELEASE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.0.1.BUILD-SNAPSHOT</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">spring-cloud-commons</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.3.6.RELEASE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.0.2.RELEASE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.0.2.BUILD-SNAPSHOT</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">spring-cloud-contract</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.2.7.RELEASE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.0.2.RELEASE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.0.2.BUILD-SNAPSHOT</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">spring-cloud-config</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.4.7.RELEASE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.0.2.RELEASE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.0.2.BUILD-SNAPSHOT</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">spring-cloud-netflix</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.4.7.RELEASE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.0.2.RELEASE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.0.2.BUILD-SNAPSHOT</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">spring-cloud-security</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.2.4.RELEASE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.0.1.RELEASE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.0.1.BUILD-SNAPSHOT</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">spring-cloud-cloudfoundry</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.1.3.RELEASE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.0.1.RELEASE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.0.1.BUILD-SNAPSHOT</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">spring-cloud-consul</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.3.6.RELEASE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.0.1.RELEASE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.0.2.BUILD-SNAPSHOT</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">spring-cloud-sleuth</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.3.6.RELEASE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.0.2.RELEASE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.0.2.BUILD-SNAPSHOT</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">spring-cloud-stream</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ditmars.SR5</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Elmhurst.SR1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Elmhurst.BUILD-SNAPSHOT</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">spring-cloud-zookeeper</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.2.3.RELEASE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.0.0.RELEASE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.0.1.BUILD-SNAPSHOT</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">spring-boot</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.5.21.RELEASE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.0.6.RELEASE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.0.7.BUILD-SNAPSHOT</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">spring-cloud-task</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.2.4.RELEASE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.0.0.RELEASE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.0.1.BUILD-SNAPSHOT</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">spring-cloud-vault</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.1.3.RELEASE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.0.2.RELEASE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.0.2.BUILD-SNAPSHOT</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">spring-cloud-gateway</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0.3.RELEASE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.0.2.RELEASE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.0.2.BUILD-SNAPSHOT</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">spring-cloud-openfeign</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.0.2.RELEASE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.0.2.BUILD-SNAPSHOT</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">spring-cloud-function</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0.2.RELEASE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0.0.RELEASE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0.1.BUILD-SNAPSHOT</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Finchley builds and works with Spring Boot 2.0.x, and is not expected
+to work with Spring Boot 1.5.x.</p>
+</div>
+<div class="paragraph">
+<p>Note: The Dalston release train will <a href="https://spring.io/blog/2018/06/19/spring-cloud-finchley-release-is-available">reach end-of-life</a> in December 2018. Edgware will follow the end-of-life cycle of Spring Boot 1.5.x.</p>
+</div>
+<div class="paragraph">
+<p>The Dalston and Edgware release trains build on Spring Boot 1.5.x, and
+are not expected to work with Spring Boot 2.0.x.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+The Camden release train was <a href="https://spring.io/blog/2018/06/19/spring-cloud-finchley-release-is-available">marked end-of-life</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The Camden release train builds on Spring Boot 1.4.x, but is also
+tested with 1.5.x.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+The Brixton and Angel release trains were <a href="https://spring.io/blog/2017/07/21/spring-cloud-dalston-sr2-is-available-now#end-of-life-for-angel-and-brixton-release-trains">marked end-of-life</a>
+(EOL) in July 2017.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The Brixton release train builds on Spring Boot 1.3.x, but is also
+tested with 1.4.x.</p>
+</div>
+<div class="paragraph">
+<p>The Angel release train builds on Spring Boot 1.2.x, and is
+incompatible in some areas with Spring Boot 1.3.x. Brixton builds on
+Spring Boot 1.3.x and is similarly incompatible with 1.2.x. Some
+libraries and most apps built on Angel will run fine on Brixton, but
+changes will be required anywhere that the OAuth2 features from
+spring-cloud-security 1.0.x are used (they were mostly moved to Spring
+Boot in 1.3.0).</p>
+</div>
+<div class="paragraph">
+<p>Use your dependency management tools to control the version. If you
+are using Maven remember that the first version declared wins, so
+declare the BOMs in order, with the first one usually being the most
+recent (e.g. if you want to use Spring Boot 1.3.6 with Brixton.RELEASE, put
+the Boot BOM first). The same rule applies to Gradle if you use the
+Spring dependency management plugin.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+The release train contains a
+<code>spring-cloud-dependencies</code> as well as the
+<code>spring-cloud-starter-parent</code>. You can use the parent as you would
+the <code>spring-boot-starter-parent</code> (if you are using Maven).
+If you only need dependency management, the "dependencies"
+version is a BOM-only version of the same thing (it just
+contains dependency management and no plugin declarations
+or direct references to Spring or Spring Boot). If you are
+using the Spring Boot parent POM, then you can use the BOM from
+Spring Cloud. The opposite is not true: using the Cloud parent
+makes it impossible, or at least unreliable, to also use the
+Boot BOM to change the version of Spring Boot and its dependencies.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="talks-and-videos"><a class="anchor" href="#talks-and-videos"></a>Talks and Videos</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.youtube.com/watch?v=aO3W-lYnw-o">Beginner&#8217;s Guide To Spring Cloud</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="quickstart">
+<h2>Quick start</h2>
+<div>
+Bootstrap your application with
+<a class="quickstart--button" href="https://start.spring.io/" target="_blank">
+Spring Initializr</a>.
+</div>
+</div>
+</div>
+</div>
+<div class="tab-pane" id="learn">
+<div class="project--documentation compass-section">
+<h2>Documentation</h2>
+<div class="project--documentation--subtitle compass-subtitle">
+Each <strong>Spring project</strong> has its own; it explains in great details how
+you can use <strong>project features</strong> and what you can achieve with them.
+</div>
+<table class="table table--documentation">
+<tbody>
+<tr>
+<td>
+<span class="release-display-name">Greenwich SR2</span>
+<span class="label current">CURRENT</span>
+<span class="label ga">GA</span>
+</td>
+<td>
+<a href="https://cloud.spring.io/spring-cloud-static/Greenwich.SR2/">
+<i class="icon-file-text"></i>
+Reference Doc.
+</a>
+</td>
+<td>
+<a href="">
+<i class="icon-file-text"></i>
+API Doc.
+</a>
+</td>
+</tr>
+<tr>
+<td>
+<span class="release-display-name">Hoxton</span>
+<span class="label snapshot">SNAPSHOT</span>
+</td>
+<td>
+<a href="https://cloud.spring.io/spring-cloud-static/Hoxton.BUILD-SNAPSHOT/">
+<i class="icon-file-text"></i>
+Reference Doc.
+</a>
+</td>
+<td>
+<a href="">
+<i class="icon-file-text"></i>
+API Doc.
+</a>
+</td>
+</tr>
+<tr>
+<td>
+<span class="release-display-name">Greenwich</span>
+<span class="label snapshot">SNAPSHOT</span>
+</td>
+<td>
+<a href="">
+<i class="icon-file-text"></i>
+Reference Doc.
+</a>
+</td>
+<td>
+<a href="">
+<i class="icon-file-text"></i>
+API Doc.
+</a>
+</td>
+</tr>
+<tr>
+<td>
+<span class="release-display-name">Finchley SR4</span>
+<span class="label ga">GA</span>
+</td>
+<td>
+<a href="https://cloud.spring.io/spring-cloud-static/Finchley.SR4/">
+<i class="icon-file-text"></i>
+Reference Doc.
+</a>
+</td>
+<td>
+ <a href="">
+<i class="icon-file-text"></i>
+API Doc.
+</a>
+</td>
+</tr>
+<tr>
+<td>
+<span class="release-display-name">Finchley</span>
+<span class="label snapshot">SNAPSHOT</span>
+</td>
+<td>
+<a href="">
+<i class="icon-file-text"></i>
+Reference Doc.
+</a>
+</td>
+<td>
+<a href="">
+<i class="icon-file-text"></i>
+API Doc.
+</a>
+</td>
+</tr>
+<tr>
+<td>
+<span class="release-display-name">Edgware SR6</span>
+<span class="label ga">GA</span>
+</td>
+<td>
+<a href="https://cloud.spring.io/spring-cloud-static/Edgware.SR6/index.html">
+<i class="icon-file-text"></i>
+Reference Doc.
+</a>
+</td>
+<td>
+<a href="">
+<i class="icon-file-text"></i>
+API Doc.
+</a>
+</td>
+</tr>
+<tr>
+<td>
+<span class="release-display-name">Edgware</span>
+<span class="label snapshot">SNAPSHOT</span>
+</td>
+<td>
+<a href="">
+<i class="icon-file-text"></i>
+Reference Doc.
+</a>
+</td>
+<td>
+<a href="">
+<i class="icon-file-text"></i>
+API Doc.
+</a>
+</td>
+</tr>
+<tr>
+<td>
+<span class="release-display-name">Dalston SR5</span>
+<span class="label ga">GA</span>
+</td>
+<td>
+<a href="https://cloud.spring.io/spring-cloud-static/Dalston.SR5/">
+<i class="icon-file-text"></i>
+Reference Doc.
+</a>
+</td>
+<td>
+<a href="">
+<i class="icon-file-text"></i>
+API Doc.
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="tab-pane" id="samples">
+<div class="project--samples compass-section">
+<h2>A few examples to try out:</h2>
+<ul>
+<li>
+<a target="_blank" href="https://github.com/spring-cloud-samples/configserver">
+<i class="icon-file-text"></i>
+<strong class="project--sample--title">Config Server</strong>
+<span class="project--sample--description"></span>
+</a>
+</li>
+<li>
+<a target="_blank" href="https://github.com/spring-cloud-samples/eureka">
+<i class="icon-file-text"></i>
+<strong class="project--sample--title">Service Registry</strong>
+<span class="project--sample--description"></span>
+</a>
+</li>
+<li>
+<a target="_blank" href="https://github.com/spring-cloud-samples/hystrix-dashboard">
+<i class="icon-file-text"></i>
+<strong class="project--sample--title">Circuit Breaker Dashboard</strong>
+<span class="project--sample--description"></span>
+</a>
+</li>
+<li>
+<a target="_blank" href="https://github.com/spring-cloud-samples/customers-stores">
+<i class="icon-file-text"></i>
+<strong class="project--sample--title">Business Application</strong>
+<span class="project--sample--description">(Customers and Stores)</span>
+</a>
+</li>
+<li>
+<a target="_blank" href="https://github.com/spring-cloud-samples/authserver">
+<i class="icon-file-text"></i>
+<strong class="project--sample--title">OAuth2 Authorization Server</strong>
+<span class="project--sample--description"></span>
+</a>
+</li>
+<li>
+<a target="_blank" href="https://github.com/spring-cloud-samples/sso">
+<i class="icon-file-text"></i>
+<strong class="project--sample--title">OAuth2 SSO Client</strong>
+<span class="project--sample--description"></span>
+</a>
+</li>
+<li>
+<a target="_blank" href="https://github.com/spring-cloud-samples/tests">
+<i class="icon-file-text"></i>
+<strong class="project--sample--title">Integration Test Samples</strong>
+<span class="project--sample--description"></span>
+</a>
+</li>
+<li>
+<a target="_blank" href="https://github.com/spring-cloud-samples/spring-cloud-contract-samples">
+<i class="icon-file-text"></i>
+<strong class="project--sample--title">Spring Cloud Contract Samples</strong>
+<span class="project--sample--description"></span>
+</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</article>
+</div>
+</div>
+<footer class="footer">
+<div class="container-fluid">
+<div class="row-fluid">
+<div class="span12">
+<div class="navbar">
+<div class="container">
+<ul class="nav">
+<li><a href="/team">Team</a></li>
+<li><a href="/tools">Tools</a></li>
+<li><a href="https://store.pivotal.io/">Store</a></li>
+<li><a href="/blog">Newsletter</a></li>
+</ul>
+</div>
+</div>
+&copy; <span>2019</span> <a href="https://www.pivotal.io/">Pivotal Software</a>, Inc. All Rights Reserved.
+<a href="https://pivotal.io/terms-of-use">Terms of Use</a> &bullet;
+<a href="https://pivotal.io/privacy-policy">Privacy</a> &bullet;
+<a href="/trademarks">Trademark Guidelines</a>
+<div id="teconsent" style="display:inline-block;"></div>
+</div>
+</div>
+</div>
+</footer>
+<div id="scrim"></div>
+</div>
+</body></html>

@@ -9,6 +9,7 @@ import com.bfly.common.ResponseUtil;
 import com.bfly.common.json.JsonUtil;
 import com.bfly.common.page.Pager;
 import com.bfly.core.base.action.BaseManageController;
+import com.bfly.core.config.ResourceConfig;
 import com.bfly.core.context.PagerThreadLocal;
 import com.bfly.core.security.ActionModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -166,16 +167,15 @@ public class ModelController extends BaseManageController {
      */
     @GetMapping(value = "/template/{modelId}")
     @ActionModel(value = "得到模型默认模板集合", need = false)
-    public void getDefaultTpls(@PathVariable("modelId") int modelId, HttpServletResponse response) {
+    public void getDefaultTpl(@PathVariable("modelId") int modelId, HttpServletResponse response) {
         Model model = modelService.get(modelId);
-        String path = getRequest().getServletContext().getRealPath(model.getTplPath());
 
         JSONObject json = new JSONObject();
-        String pcPath = path + File.separator + "pc";
+        String pcPath = ResourceConfig.getTemplateForPcPath(model.getTplPath());
         Object[] pcTpl = getTpl(pcPath);
         json.put("pc", pcTpl);
 
-        String mobilePath = path + File.separator + "mobile";
+        String mobilePath = ResourceConfig.getTemplateForMobilePath(model.getTplPath());
         Object[] mobileTpl = getTpl(mobilePath);
         json.put("mobile", mobileTpl);
         ResponseUtil.writeJson(response, ResponseData.getSuccess(json));

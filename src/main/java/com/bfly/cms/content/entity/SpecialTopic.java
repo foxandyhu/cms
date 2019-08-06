@@ -1,11 +1,8 @@
 package com.bfly.cms.content.entity;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
-import java.util.Set;
 
 /**
  * CMS专题类
@@ -15,7 +12,6 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "special_topic")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class SpecialTopic implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -28,6 +24,7 @@ public class SpecialTopic implements Serializable {
      * 名称
      */
     @Column(name = "topic_name")
+    @NotBlank(message = "专题名称不能为空!")
     private String name;
 
     /**
@@ -45,8 +42,8 @@ public class SpecialTopic implements Serializable {
     /**
      * 描述
      */
-    @Column(name = "description")
-    private String description;
+    @Column(name = "remark")
+    private String remark;
 
     /**
      * 标题图
@@ -61,42 +58,31 @@ public class SpecialTopic implements Serializable {
     private String contentImg;
 
     /**
-     * 专题模板
+     * PC专题模板
      */
-    @Column(name = "tpl_content")
-    private String tplContent;
+    @Column(name = "tpl_pc")
+    private String tplPc;
+
+    /**
+     * Mobile专题模板
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/8/6 16:42
+     */
+    @Column(name = "tpl_mobile")
+    private String tplMobile;
 
     /**
      * 排列顺序
      */
-    @Column(name = "priority")
-    private int priority;
+    @Column(name = "seq")
+    private int seq;
 
     /**
      * 是否推荐
      */
     @Column(name = "is_recommend")
     private boolean recommend;
-
-    /**
-     * 首字母拼音简写
-     */
-    @Column(name = "initials")
-    private String initials;
-
-    /**
-     * 所属频道
-     */
-    @ManyToOne
-    @JoinColumn(name = "channel_id")
-    private Channel channel;
-
-    /**
-     * 专题关联的文章
-     */
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "special_topic_content_ship", joinColumns = @JoinColumn(name = "topic_id"), inverseJoinColumns = @JoinColumn(name = "content_id"))
-    private Set<Content> contents;
 
     public int getId() {
         return id;
@@ -130,12 +116,20 @@ public class SpecialTopic implements Serializable {
         this.keywords = keywords;
     }
 
-    public String getDescription() {
-        return description;
+    public String getRemark() {
+        return remark;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public int getSeq() {
+        return seq;
+    }
+
+    public void setSeq(int seq) {
+        this.seq = seq;
     }
 
     public String getTitleImg() {
@@ -154,20 +148,20 @@ public class SpecialTopic implements Serializable {
         this.contentImg = contentImg;
     }
 
-    public String getTplContent() {
-        return tplContent;
+    public String getTplPc() {
+        return tplPc;
     }
 
-    public void setTplContent(String tplContent) {
-        this.tplContent = tplContent;
+    public void setTplPc(String tplPc) {
+        this.tplPc = tplPc;
     }
 
-    public int getPriority() {
-        return priority;
+    public String getTplMobile() {
+        return tplMobile;
     }
 
-    public void setPriority(int priority) {
-        this.priority = priority;
+    public void setTplMobile(String tplMobile) {
+        this.tplMobile = tplMobile;
     }
 
     public boolean isRecommend() {
@@ -176,29 +170,5 @@ public class SpecialTopic implements Serializable {
 
     public void setRecommend(boolean recommend) {
         this.recommend = recommend;
-    }
-
-    public String getInitials() {
-        return initials;
-    }
-
-    public void setInitials(String initials) {
-        this.initials = initials;
-    }
-
-    public Channel getChannel() {
-        return channel;
-    }
-
-    public void setChannel(Channel channel) {
-        this.channel = channel;
-    }
-
-    public Set<Content> getContents() {
-        return contents;
-    }
-
-    public void setContents(Set<Content> contents) {
-        this.contents = contents;
     }
 }

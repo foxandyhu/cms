@@ -3,8 +3,6 @@ package com.bfly.manage.friendlink;
 import com.bfly.cms.friendlink.entity.FriendLinkType;
 import com.bfly.cms.friendlink.service.IFriendLinkTypeService;
 import com.bfly.common.ResponseData;
-import com.bfly.core.context.ContextUtil;
-import com.bfly.common.DataConvertUtils;
 import com.bfly.common.ResponseUtil;
 import com.bfly.common.page.Pager;
 import com.bfly.core.base.action.BaseManageController;
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -126,6 +123,19 @@ public class FriendLinkTypeController extends BaseManageController {
     @ActionModel(value = "删除友情链接类型")
     public void removeFriendLinkType(HttpServletResponse response, @RequestBody Integer... ids) {
         friendLinkTypeService.remove(ids);
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
+    }
+
+    /**
+     * 友情链接类型排序
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/8/4 14:54
+     */
+    @GetMapping(value = "/sort/{upItemId}-{downItemId}")
+    @ActionModel("友情链接类型排序")
+    public void sortFriendLinkType(HttpServletResponse response, @PathVariable("upItemId") int upItemId, @PathVariable("downItemId") int downItemId) {
+        friendLinkTypeService.sortFriendLinkType(upItemId, downItemId);
         ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
     }
 }
