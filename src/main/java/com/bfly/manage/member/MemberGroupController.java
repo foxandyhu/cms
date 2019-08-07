@@ -7,6 +7,8 @@ import com.bfly.cms.member.service.IMemberGroupService;
 import com.bfly.common.DataConvertUtils;
 import com.bfly.common.ResponseData;
 import com.bfly.common.ResponseUtil;
+import com.bfly.common.StringUtil;
+import com.bfly.common.json.JsonUtil;
 import com.bfly.common.page.Pager;
 import com.bfly.core.base.action.BaseManageController;
 import com.bfly.core.context.PagerThreadLocal;
@@ -50,7 +52,22 @@ public class MemberGroupController extends BaseManageController {
         Map<String, Sort.Direction> sortMap = new HashMap<>(1);
         sortMap.put("seq", Sort.Direction.ASC);
         Pager pager = groupService.getPage(null, null, sortMap);
-        ResponseUtil.writeJson(response, ResponseData.getSuccess(pager));
+        JSONObject json = JsonUtil.toJsonFilter(pager);
+        JSONArray array = json.getJSONArray("data");
+        if (array != null) {
+            array.forEach(item -> {
+                JSONObject jsonObject = (JSONObject) item;
+                String allowUploadPerDay = "allowUploadPerDay";
+                if (jsonObject.containsKey(allowUploadPerDay)) {
+                    jsonObject.put("allowUploadPerDayHuman", StringUtil.getHumanSize(jsonObject.getInteger(allowUploadPerDay)*1024));
+                }
+                String allowUploadMaxFile = "allowUploadMaxFile";
+                if (jsonObject.containsKey(allowUploadMaxFile)) {
+                    jsonObject.put("allowUploadMaxFileHuman", StringUtil.getHumanSize(jsonObject.getInteger(allowUploadMaxFile)*1024));
+                }
+            });
+        }
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(json));
     }
 
     /**
@@ -66,12 +83,12 @@ public class MemberGroupController extends BaseManageController {
         sortMap.put("seq", Sort.Direction.ASC);
         List<MemberGroup> list = groupService.getList(null, null, sortMap);
 
-        JSONArray array=new JSONArray();
-        if(list!=null){
-            for(MemberGroup group:list){
-                JSONObject json=new JSONObject();
-                json.put("id",group.getId());
-                json.put("name",group.getName());
+        JSONArray array = new JSONArray();
+        if (list != null) {
+            for (MemberGroup group : list) {
+                JSONObject json = new JSONObject();
+                json.put("id", group.getId());
+                json.put("name", group.getName());
                 array.add(json);
             }
         }

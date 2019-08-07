@@ -143,16 +143,16 @@ public class StringUtil {
      * @date 2019/7/22 15:20
      */
     public static String getHumanSize(long size) {
-        DecimalFormat df = new DecimalFormat("#.00");
+        DecimalFormat df = new DecimalFormat("0.##");
         if (size < 1024) {
             return df.format(size) + "B";
         }
         if (size < 1048576) {
-            return df.format(size / 1024) + "K";
+            return df.format((float)size / 1024) + "K";
         }
         if (size < 1073741824) {
-            return df.format(size / 1048576) + "M";
+            return df.format((float)size / 1048576) + "M";
         }
-        return df.format(size / 1073741824) + "G";
+        return df.format((float)size / 1073741824) + "G";
     }
 }
