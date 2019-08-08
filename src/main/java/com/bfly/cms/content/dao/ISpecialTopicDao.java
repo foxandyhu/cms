@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 /**
  * @author andy_hulibo@163.com
  * @date 2019/8/6 15:16
@@ -44,6 +46,17 @@ public interface ISpecialTopicDao extends IBaseDao<SpecialTopic, Integer> {
      * @date 2019/8/5 21:47
      */
     @Modifying
-    @Query(value = "delete from special_topic_content_ship where topic_id=:topicId", nativeQuery = true)
-    int removeSpecialTopicContentShip(@Param("topicId") int topicId);
+    @Query(value = "delete from special_topic_article_ship where topic_id=:topicId", nativeQuery = true)
+    int clearSpecialTopicArticleShip(@Param("topicId") int topicId);
+
+    /**
+     * 获得文章关联的专题
+     *
+     * @param articleId 文章ID
+     * @return 专题集合
+     * @author andy_hulibo@163.com
+     * @date 2019/8/8 20:18
+     */
+    @Query(value = "SELECT id,topic_name,short_name,keywords,remark,title_img,content_img,tpl_pc,tpl_mobile,seq,is_recommend FROM special_topic as st WHERE EXISTS (select topic_id from special_topic_article_ship where article_id=:articleId and st.id=topic_id)", nativeQuery = true)
+    List<SpecialTopic> getSpecialTopicForArticle(@Param("articleId") int articleId);
 }

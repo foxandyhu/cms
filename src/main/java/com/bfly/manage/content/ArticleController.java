@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -83,6 +83,7 @@ public class ArticleController extends BaseManageController {
     @ActionModel("添加文章")
     public void addArticle(@RequestBody @Valid Article article, BindingResult result, HttpServletResponse response) {
         validData(result);
+        article.setUserId(getUser().getId());
         articleService.save(article);
         ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
     }
@@ -98,6 +99,7 @@ public class ArticleController extends BaseManageController {
     @ActionModel("修改文章")
     public void editArticle(@RequestBody @Valid Article article, BindingResult result, HttpServletResponse response) {
         validData(result);
+        article.setUserId(getUser().getId());
         articleService.edit(article);
         ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
     }
@@ -165,6 +167,34 @@ public class ArticleController extends BaseManageController {
     public void topArticle(@PathVariable("articleId") int articleId, @PathVariable("level") int level, @RequestBody Map<String, Object> data, HttpServletResponse response) {
         String expired = (String) data.get("expired");
         articleService.editArticleTop(articleId, level, DateUtil.parseStrDate(expired));
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
+    }
+
+    /**
+     * 文章关联专题
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/8/8 15:59
+     */
+    @PostMapping(value = "/related/topic")
+    @ActionModel(value = "关联专题")
+    public void addArticleShipSpecialTopic(HttpServletResponse response, @RequestBody Map<String, List<Integer>> params) {
+        List<Integer> articleIds = params.get("article");
+        List<Integer> topicIds = params.get("topic");
+        articleService.saveRelatedSpecialTopic(articleIds, topicIds);
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
+    }
+
+    /**
+     * 删除文章关联专题关系
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/8/8 15:59
+     */
+    @GetMapping(value = "/del/{articleId}-{topicId}")
+    @ActionModel(value = "删除文章专题关联")
+    public void removeArticleShipSpecialTopic(HttpServletResponse response, @PathVariable("articleId") int articleId, @PathVariable("topicId") int topicId) {
+        articleService.removeRelatedSpecialTopic(articleId, topicId);
         ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
     }
 }

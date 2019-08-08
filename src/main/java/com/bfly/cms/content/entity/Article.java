@@ -38,6 +38,7 @@ public class Article implements Serializable {
 
     /**
      * 置顶失效期--指定日期到期自动失效 不指定长期置顶
+     *
      * @author andy_hulibo@163.com
      * @date 2019/8/7 16:31
      */
@@ -141,18 +142,16 @@ public class Article implements Serializable {
     /**
      * 文章内容图片集
      */
-    @ElementCollection(fetch = FetchType.LAZY)
-    @OrderColumn(name = "seq")
-    @CollectionTable(name = "article_picture", joinColumns = @JoinColumn(name = "article_id"))
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "article_id")
     private List<ArticlePicture> pictures;
 
 
     /**
      * 文章内容附件
      */
-    @ElementCollection(fetch = FetchType.LAZY)
-    @OrderColumn(name = "seq")
-    @CollectionTable(name = "article_attachment", joinColumns = @JoinColumn(name = "article_id"))
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name = "article_id")
     private List<ArticleAttachment> attachments;
 
     /**

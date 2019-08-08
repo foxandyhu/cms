@@ -87,13 +87,43 @@ public class ResourceConfig {
     }
 
     /**
-     * 获得内容图片存放路径
+     * 获得文章内容图片存放路径
      *
      * @author andy_hulibo@163.com
      * @date 2019/8/6 15:24
      */
     public static String getContentDir() {
         return getRootDir() + File.separator + "content";
+    }
+
+    /**
+     * 获得多媒体存放路径
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/8/8 13:46
+     */
+    public static String getMediaDir() {
+        return getRootDir() + File.separator + "media";
+    }
+
+    /**
+     * 获得文档存放路径
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/8/8 13:46
+     */
+    public static String getDocDir() {
+        return getRootDir() + File.separator + "doc";
+    }
+
+    /**
+     * 获得附件存放路径
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/8/8 13:48
+     */
+    public static String getAttachmentDir() {
+        return getRootDir() + File.separator + "attachment";
     }
 
     /**

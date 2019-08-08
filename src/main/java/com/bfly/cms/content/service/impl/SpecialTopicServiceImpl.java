@@ -13,6 +13,7 @@ import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 import java.io.File;
+import java.util.List;
 
 /**
  * @author andy_hulibo@163.com
@@ -88,9 +89,14 @@ public class SpecialTopicServiceImpl extends BaseServiceImpl<SpecialTopic, Integ
     public int remove(Integer... ids) {
         for (Integer id : ids) {
             if (id != null) {
-                topicDao.removeSpecialTopicContentShip(id);
+                topicDao.clearSpecialTopicArticleShip(id);
             }
         }
         return super.remove(ids);
+    }
+
+    @Override
+    public List<SpecialTopic> getSpecialTopicForArticle(int articleId) {
+        return topicDao.getSpecialTopicForArticle(articleId);
     }
 }

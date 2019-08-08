@@ -131,12 +131,6 @@ public class ArticleExt implements Serializable {
     @Column(name = "tpl_mobile")
     private String tplMobile;
 
-    /**
-     * 固顶到期日期
-     */
-    @Column(name = "toplevel_date")
-    private Date topLevelDate;
-
     public int getId() {
         return id;
     }
@@ -279,14 +273,6 @@ public class ArticleExt implements Serializable {
 
     public void setTplMobile(String tplMobile) {
         this.tplMobile = tplMobile;
-    }
-
-    public Date getTopLevelDate() {
-        return topLevelDate;
-    }
-
-    public void setTopLevelDate(Date topLevelDate) {
-        this.topLevelDate = topLevelDate;
     }
 
     public Article getArticle() {

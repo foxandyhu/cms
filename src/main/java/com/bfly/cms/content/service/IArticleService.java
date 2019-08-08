@@ -4,6 +4,7 @@ import com.bfly.cms.content.entity.Article;
 import com.bfly.core.base.service.IBaseService;
 import com.bfly.core.enums.ArticleStatus;
 
+import java.util.Collection;
 import java.util.Date;
 
 /**
@@ -38,9 +39,29 @@ public interface IArticleService extends IBaseService<Article, Integer> {
      *
      * @param articleId 文章Id
      * @param topLevel  置顶级别
-     * @param expired 置顶失效期
+     * @param expired   置顶失效期
      * @author andy_hulibo@163.com
      * @date 2019/8/7 16:13
      */
     void editArticleTop(int articleId, int topLevel, Date expired);
+
+    /**
+     * 文章和专题关联
+     *
+     * @param articleIds 文章ID集合
+     * @param topicIds   专题ID集合
+     * @author andy_hulibo@163.com
+     * @date 2019/8/8 16:11
+     */
+    void saveRelatedSpecialTopic(Collection<? extends Integer> articleIds, Collection<? extends Integer> topicIds);
+
+    /**
+     * 删除文章和专题的关联
+     *
+     * @param articleId 文章ID
+     * @param topicId   专题ID
+     * @author andy_hulibo@163.com
+     * @date 2019/8/8 16:12
+     */
+    void removeRelatedSpecialTopic(Integer articleId, Integer topicId);
 }

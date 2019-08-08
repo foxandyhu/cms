@@ -1,9 +1,6 @@
 package com.bfly.manage.content;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.bfly.cms.content.entity.Channel;
-import com.bfly.cms.content.entity.Model;
 import com.bfly.cms.content.entity.SpecialTopic;
 import com.bfly.cms.content.service.ISpecialTopicService;
 import com.bfly.common.ResponseData;
@@ -69,30 +66,6 @@ public class SpecialTopicController extends BaseManageController {
         }
         JSONObject json = JsonUtil.toJsonFilter(pager);
         ResponseUtil.writeJson(response, ResponseData.getSuccess(json));
-    }
-
-    /**
-     * 所有专题
-     *
-     * @author andy_hulibo@163.com
-     * @date 2019/8/6 15:36
-     */
-    @GetMapping(value = "/all")
-    @ActionModel(value = "所有专题", need = false)
-    public void getAllSpecialTopic(HttpServletResponse response) {
-        Map<String, Sort.Direction> sortMap = new HashMap<>(1);
-        sortMap.put("seq", Sort.Direction.ASC);
-        List<SpecialTopic> list = topicService.getList(null, null, sortMap);
-        JSONArray array = new JSONArray();
-        if (list != null) {
-            list.forEach(topic -> {
-                JSONObject json = new JSONObject();
-                json.put("id", topic.getId());
-                json.put("title", topic.getName());
-                array.add(json);
-            });
-        }
-        ResponseUtil.writeJson(response, ResponseData.getSuccess(array));
     }
 
     /**
@@ -207,5 +180,18 @@ public class SpecialTopicController extends BaseManageController {
             return streamFileName.toArray();
         }
         return null;
+    }
+
+    /**
+     * 获得文章关联的专题
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/8/8 20:04
+     */
+    @GetMapping(value = "/article/{articleId}")
+    @ActionModel(value = "获得文章关联的专题", need = false)
+    public void getSpecialTopicForArticle(HttpServletResponse response, @PathVariable("articleId") int articleId) {
+        List<SpecialTopic> topics = topicService.getSpecialTopicForArticle(articleId);
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(topics));
     }
 }

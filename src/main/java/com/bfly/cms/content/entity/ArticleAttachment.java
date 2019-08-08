@@ -1,7 +1,6 @@
 package com.bfly.cms.content.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -10,9 +9,15 @@ import java.io.Serializable;
  * @author andy_hulibo@163.com
  * @date 2018/11/27 11:28
  */
-@Embeddable
+@Entity
+@Table(name = "article_attachment")
 public class ArticleAttachment implements Serializable {
     private static final long serialVersionUID = 1L;
+
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     /**
      * 附件路径
@@ -37,6 +42,14 @@ public class ArticleAttachment implements Serializable {
      */
     @Column(name = "download_count")
     private int count;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getPath() {
         return path;

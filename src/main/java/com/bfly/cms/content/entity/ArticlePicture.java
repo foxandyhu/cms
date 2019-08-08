@@ -1,7 +1,6 @@
 package com.bfly.cms.content.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -10,9 +9,15 @@ import java.io.Serializable;
  * @author andy_hulibo@163.com
  * @date 2018/12/5 15:56
  */
-@Embeddable
+@Entity
+@Table(name = "article_picture")
 public class ArticlePicture implements Serializable {
     private static final long serialVersionUID = 1L;
+
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     /**
      * 图片地址
@@ -26,6 +31,14 @@ public class ArticlePicture implements Serializable {
     @Column(name = "remark")
     private String remark;
 
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getImgPath() {
         return imgPath;
