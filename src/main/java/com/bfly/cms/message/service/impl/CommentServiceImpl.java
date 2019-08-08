@@ -1,7 +1,7 @@
 package com.bfly.cms.message.service.impl;
 
-import com.bfly.cms.content.entity.Content;
-import com.bfly.cms.content.service.IContentService;
+import com.bfly.cms.content.entity.Article;
+import com.bfly.cms.content.service.IArticleService;
 import com.bfly.cms.member.entity.Member;
 import com.bfly.cms.member.service.IMemberService;
 import com.bfly.cms.message.dao.ICommentDao;
@@ -17,7 +17,8 @@ import com.bfly.core.base.service.impl.BaseServiceImpl;
 import com.bfly.core.context.IpThreadLocal;
 import com.bfly.core.context.PagerThreadLocal;
 import com.bfly.core.enums.CommentStatus;
-import com.bfly.core.enums.ContentStatus;
+import com.bfly.core.enums.ArticleStatus;
+import com.bfly.core.enums.ContentType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -44,7 +45,7 @@ public class CommentServiceImpl extends BaseServiceImpl<Comment, Integer> implem
     @Autowired
     private IUserService userService;
     @Autowired
-    private IContentService contentService;
+    private IArticleService contentService;
 
     @Override
     public Pager getPage(Map<String, Object> property) {
@@ -52,10 +53,11 @@ public class CommentServiceImpl extends BaseServiceImpl<Comment, Integer> implem
         Assert.notNull(pager, "分页器没有实例化");
 
         Pageable pageable = getPageRequest(pager);
-        Page<Map<String, Object>> page = commentDao.getCommentPage((Integer) property.get("status"), (Boolean) property.get("recommend"), (Integer) property.get("contentId"), pageable);
+        Page<Map<String, Object>> page = commentDao.getCommentPage((Integer) property.get("status"), (Boolean) property.get("recommend"), (Integer) property.get("articleId"), pageable);
         List<Map<String, Object>> list = new ArrayList<>();
         if (page.getContent() != null) {
             String status = "status";
+            String typeId = "typeId";
             page.getContent().forEach(map -> {
                 Map<String, Object> dataMap = new HashMap<>(map.size());
                 dataMap.putAll(map);
@@ -63,6 +65,11 @@ public class CommentServiceImpl extends BaseServiceImpl<Comment, Integer> implem
                     int statusId = (int) map.get(status);
                     CommentStatus commentStatus = CommentStatus.getStatus(statusId);
                     dataMap.put("statusName", commentStatus == null ? "" : commentStatus.getName());
+                }
+                if (map.containsKey(typeId)) {
+                    int type = (int) map.get(typeId);
+                    ContentType contentType = ContentType.getType(type);
+                    dataMap.put("typeName", contentType == null ? "" : contentType.getName());
                 }
                 list.add(dataMap);
             });
@@ -118,12 +125,12 @@ public class CommentServiceImpl extends BaseServiceImpl<Comment, Integer> implem
             Assert.notNull(parent, "不存在的引用评论!");
             Assert.isTrue(parent.getStatus() != CommentStatus.WAIT_CHECK.getId(), "未审核的评论不允许回复!");
             Assert.isTrue(parent.getStatus() != CommentStatus.UNPASSED.getId(), "审核不通过的评论不允许回复!");
-            Assert.isTrue(parent.getContentId() == comment.getContentId(), "评论所属内容ID错误!");
+            Assert.isTrue(parent.getArticleId() == comment.getArticleId(), "评论所属内容ID错误!");
         }
 
-        Content content = contentService.get(comment.getContentId());
-        Assert.notNull(content, "评论文章不存在!");
-        Assert.isTrue(content.getStatus() == ContentStatus.PASSED.getId(), content.getStatusName() + "状态的文章不允许评论!");
+        Article article = contentService.get(comment.getArticleId());
+        Assert.notNull(article, "评论文章不存在!");
+        Assert.isTrue(article.getStatus() == ArticleStatus.PASSED.getId(), article.getStatusName() + "状态的文章不允许评论!");
 
         comment.setPostDate(new Date());
         comment.setRecommend(false);

@@ -14,19 +14,19 @@ import java.util.Date;
  * @date 2018/11/16 13:23
  */
 @Entity
-@Table(name = "content_ext")
+@Table(name = "article_ext")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
-public class ContentExt implements Serializable {
+public class ArticleExt implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "content_id", unique = true, nullable = false)
+    @Column(name = "article", unique = true, nullable = false)
     private int id;
 
     @OneToOne
     @MapsId
-    private Content content;
+    private Article article;
     /**
      * 标题
      */
@@ -42,8 +42,8 @@ public class ContentExt implements Serializable {
     /**
      * 描述
      */
-    @Column(name = "description")
-    private String description;
+    @Column(name = "remark")
+    private String remark;
 
     /**
      * 作者
@@ -66,8 +66,8 @@ public class ContentExt implements Serializable {
     /**
      * 发布日期
      */
-    @Column(name = "release_date")
-    private Date releaseDate;
+    @Column(name = "post_date")
+    private Date postDate;
 
     /**
      * 媒体路径
@@ -132,23 +132,10 @@ public class ContentExt implements Serializable {
     private String tplMobile;
 
     /**
-     * 需要重新生成静态页
-     */
-    @Column(name = "need_regenerate")
-    private boolean needRegenerate;
-
-    /**
      * 固顶到期日期
      */
     @Column(name = "toplevel_date")
     private Date topLevelDate;
-
-    /**
-     * 归档日期
-     */
-    @Column(name = "pigeonhole_date")
-    private Date pigeonholeDate;
-
 
     public int getId() {
         return id;
@@ -174,12 +161,12 @@ public class ContentExt implements Serializable {
         this.shortTitle = shortTitle;
     }
 
-    public String getDescription() {
-        return description;
+    public String getRemark() {
+        return remark;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 
     public String getAuthor() {
@@ -206,12 +193,12 @@ public class ContentExt implements Serializable {
         this.originUrl = originUrl;
     }
 
-    public Date getReleaseDate() {
-        return releaseDate;
+    public Date getPostDate() {
+        return postDate;
     }
 
-    public void setReleaseDate(Date releaseDate) {
-        this.releaseDate = releaseDate;
+    public void setPostDate(Date postDate) {
+        this.postDate = postDate;
     }
 
     public String getMediaPath() {
@@ -294,14 +281,6 @@ public class ContentExt implements Serializable {
         this.tplMobile = tplMobile;
     }
 
-    public boolean isNeedRegenerate() {
-        return needRegenerate;
-    }
-
-    public void setNeedRegenerate(boolean needRegenerate) {
-        this.needRegenerate = needRegenerate;
-    }
-
     public Date getTopLevelDate() {
         return topLevelDate;
     }
@@ -310,19 +289,11 @@ public class ContentExt implements Serializable {
         this.topLevelDate = topLevelDate;
     }
 
-    public Date getPigeonholeDate() {
-        return pigeonholeDate;
+    public Article getArticle() {
+        return article;
     }
 
-    public void setPigeonholeDate(Date pigeonholeDate) {
-        this.pigeonholeDate = pigeonholeDate;
-    }
-
-    public Content getContent() {
-        return content;
-    }
-
-    public void setContent(Content content) {
-        this.content = content;
+    public void setArticle(Article article) {
+        this.article = article;
     }
 }

@@ -101,8 +101,8 @@ public class Comment implements Serializable {
     /**
      * 所属文章
      */
-    @Column(name = "content_id")
-    private int contentId;
+    @Column(name = "article_id")
+    private int articleId;
 
     public String getStatusName() {
         CommentStatus status = CommentStatus.getStatus(getStatus());
@@ -117,12 +117,12 @@ public class Comment implements Serializable {
         this.parentId = parentId;
     }
 
-    public int getContentId() {
-        return contentId;
+    public int getArticleId() {
+        return articleId;
     }
 
-    public void setContentId(int contentId) {
-        this.contentId = contentId;
+    public void setArticleId(int articleId) {
+        this.articleId = articleId;
     }
 
     public String getUserName() {

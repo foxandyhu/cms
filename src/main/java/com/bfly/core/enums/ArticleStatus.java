@@ -1,12 +1,12 @@
 package com.bfly.core.enums;
 
 /**
- * 内容状态
+ * 文章状态
  *
  * @author andy_hulibo@163.com
  * @date 2019/8/1 13:46
  */
-public enum ContentStatus {
+public enum ArticleStatus {
 
     DRAFT(0, "草稿"),
     WAIT_CHECK(1, "待审核"), PASSED(2, "审核通过"),
@@ -15,7 +15,7 @@ public enum ContentStatus {
     private int id;
     private String name;
 
-    ContentStatus(int id, String name) {
+    ArticleStatus(int id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -26,8 +26,8 @@ public enum ContentStatus {
      * @author andy_hulibo@163.com
      * @date 2019/8/1 11:17
      */
-    public static ContentStatus getStatus(int id) {
-        for (ContentStatus status : ContentStatus.values()) {
+    public static ArticleStatus getStatus(int id) {
+        for (ArticleStatus status : ArticleStatus.values()) {
             if (status.getId() == id) {
                 return status;
             }

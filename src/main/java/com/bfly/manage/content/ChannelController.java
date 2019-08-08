@@ -1,6 +1,5 @@
 package com.bfly.manage.content;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.bfly.cms.content.entity.Channel;
 import com.bfly.cms.content.service.IChannelService;
@@ -62,19 +61,8 @@ public class ChannelController extends BaseManageController {
     @GetMapping(value = "/all")
     @ActionModel(value = "所有栏目信息", need = false)
     public void getAllChannel(HttpServletResponse response) {
-        Map<String, Sort.Direction> sortMap = new HashMap<>(1);
-        sortMap.put("seq", Sort.Direction.ASC);
-        List<Channel> list = channelService.getList(null, null, sortMap);
-        JSONArray array = new JSONArray();
-        if (list != null) {
-            list.forEach(channel -> {
-                JSONObject json = new JSONObject();
-                json.put("id", channel.getId());
-                json.put("name", channel.getName());
-                array.add(json);
-            });
-        }
-        ResponseUtil.writeJson(response, ResponseData.getSuccess(array));
+        List<Map<String, Object>> list = channelService.getAllChannel();
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(list));
     }
 
     /**

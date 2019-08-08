@@ -2,7 +2,7 @@ import com.CmsApp;
 import com.bfly.cms.message.entity.Comment;
 import com.bfly.cms.message.entity.CommentExt;
 import com.bfly.cms.message.service.ICommentService;
-import com.bfly.cms.content.entity.Content;
+import com.bfly.cms.content.entity.Article;
 import com.bfly.cms.job.entity.JobResume;
 import com.bfly.cms.job.service.IJobResumeService;
 import com.bfly.cms.member.entity.Member;
@@ -188,8 +188,8 @@ public class TT {
         comment.setMemberUserName("test");
         comment.setUserName("admin");
 
-        Content content=new Content();
-        content.setId(11);
+        Article article =new Article();
+        article.setId(11);
 
         CommentExt ext=new CommentExt();
         ext.setIp("127.0.0.1");

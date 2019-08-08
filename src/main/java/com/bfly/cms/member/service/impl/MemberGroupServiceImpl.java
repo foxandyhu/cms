@@ -1,6 +1,5 @@
 package com.bfly.cms.member.service.impl;
 
-import com.bfly.cms.member.dao.IMemberDao;
 import com.bfly.cms.member.dao.IMemberGroupDao;
 import com.bfly.cms.member.entity.MemberGroup;
 import com.bfly.cms.member.service.IMemberGroupService;
@@ -25,9 +24,8 @@ public class MemberGroupServiceImpl extends BaseServiceImpl<MemberGroup, Integer
     @Transactional(rollbackFor = Exception.class)
     public int remove(Integer... integers) {
         for (Integer id : integers) {
-            memberGroupDao.resetMembersGroup(id, 0);
-            memberGroupDao.clearChannelGroupContriShip(id);
-            memberGroupDao.clearChannelGroupViewShip(id);
+            memberGroupDao.editMembersGroup(id, 0);
+            memberGroupDao.clearArticleGroupViewShip(id);
         }
         return super.remove(integers);
     }

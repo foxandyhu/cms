@@ -1,15 +1,13 @@
 package com.bfly.cms.content.entity;
 
 import com.bfly.cms.member.entity.MemberGroup;
-import com.bfly.cms.user.entity.User;
-import com.bfly.core.enums.ContentStatus;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
+import com.bfly.core.enums.ArticleStatus;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -21,9 +19,8 @@ import java.util.Set;
  * @date 2018/11/16 12:02
  */
 @Entity
-@Table(name = "content")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
-public class Content implements Serializable {
+@Table(name = "article")
+public class Article implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -34,10 +31,18 @@ public class Content implements Serializable {
 
 
     /**
-     * 置顶级别
+     * 置顶级别---级别越高越靠前
      */
     @Column(name = "top_level")
     private int topLevel;
+
+    /**
+     * 置顶失效期--指定日期到期自动失效 不指定长期置顶
+     * @author andy_hulibo@163.com
+     * @date 2019/8/7 16:31
+     */
+    @Column(name = "top_expired")
+    private Date topExpired;
 
     /**
      * 是否推荐
@@ -48,13 +53,13 @@ public class Content implements Serializable {
     /**
      * 状态
      *
-     * @see ContentStatus
+     * @see ArticleStatus
      */
     @Column(name = "status")
     private int status;
 
     /**
-     * 推荐级别
+     * 推荐级别-----级别越高越靠前
      */
     @Column(name = "recommend_level")
     private int recommendLevel;
@@ -108,32 +113,29 @@ public class Content implements Serializable {
     /**
      * 文章内容扩展信息
      */
-    @OneToOne(mappedBy = "content", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "article", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     @NotFound(action = NotFoundAction.IGNORE)
-    private ContentExt contentExt;
+    private ArticleExt articleExt;
 
     /**
      * 文章具体内容及扩展内容
      */
-    @OneToOne(mappedBy = "content", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(mappedBy = "article", cascade = CascadeType.ALL, orphanRemoval = true)
     @PrimaryKeyJoinColumn
     @NotFound(action = NotFoundAction.IGNORE)
-    private ContentTxt contentTxt;
+    private ArticleTxt articleTxt;
 
     /**
      * 文章内容发布者
      */
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    @NotFound(action = NotFoundAction.IGNORE)
-    private User publisher;
+    private Integer userId;
 
     /**
      * 文章内容浏览权限组
      */
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "content_group_view", joinColumns = @JoinColumn(name = "content_id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+    @JoinTable(name = "article_group_view", joinColumns = @JoinColumn(name = "article_id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
     private Set<MemberGroup> viewGroups;
 
     /**
@@ -141,8 +143,8 @@ public class Content implements Serializable {
      */
     @ElementCollection(fetch = FetchType.LAZY)
     @OrderColumn(name = "seq")
-    @CollectionTable(name = "content_picture", joinColumns = @JoinColumn(name = "content_id"))
-    private List<ContentPicture> pictures;
+    @CollectionTable(name = "article_picture", joinColumns = @JoinColumn(name = "article_id"))
+    private List<ArticlePicture> pictures;
 
 
     /**
@@ -150,21 +152,14 @@ public class Content implements Serializable {
      */
     @ElementCollection(fetch = FetchType.LAZY)
     @OrderColumn(name = "seq")
-    @CollectionTable(name = "content_attachment", joinColumns = @JoinColumn(name = "content_id"))
-    private List<ContentAttachment> attachments;
-
-    /**
-     * 文章内容评分
-     */
-    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
-    @JoinColumn(name = "content_id")
-    private List<ContentScore> scoreRecordSet;
+    @CollectionTable(name = "article_attachment", joinColumns = @JoinColumn(name = "article_id"))
+    private List<ArticleAttachment> attachments;
 
     /**
      * 文章内容扩展属性表
      */
     @ElementCollection
-    @CollectionTable(name = "content_attr", joinColumns = @JoinColumn(name = "content_id"))
+    @CollectionTable(name = "article_attr", joinColumns = @JoinColumn(name = "article_id"))
     @MapKeyColumn(name = "attr_name")
     @Column(name = "attr_value")
     private Map<String, String> attr;
@@ -176,8 +171,16 @@ public class Content implements Serializable {
      * @date 2019/8/1 13:51
      */
     public String getStatusName() {
-        ContentStatus status = ContentStatus.getStatus(getStatus());
+        ArticleStatus status = ArticleStatus.getStatus(getStatus());
         return status == null ? "" : status.getName();
+    }
+
+    public Date getTopExpired() {
+        return topExpired;
+    }
+
+    public void setTopExpired(Date topExpired) {
+        this.topExpired = topExpired;
     }
 
     public int getId() {
@@ -276,28 +279,28 @@ public class Content implements Serializable {
         this.channelId = channelId;
     }
 
-    public ContentExt getContentExt() {
-        return contentExt;
+    public ArticleExt getArticleExt() {
+        return articleExt;
     }
 
-    public void setContentExt(ContentExt contentExt) {
-        this.contentExt = contentExt;
+    public void setArticleExt(ArticleExt articleExt) {
+        this.articleExt = articleExt;
     }
 
-    public ContentTxt getContentTxt() {
-        return contentTxt;
+    public ArticleTxt getArticleTxt() {
+        return articleTxt;
     }
 
-    public void setContentTxt(ContentTxt contentTxt) {
-        this.contentTxt = contentTxt;
+    public void setArticleTxt(ArticleTxt articleTxt) {
+        this.articleTxt = articleTxt;
     }
 
-    public User getPublisher() {
-        return publisher;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setPublisher(User publisher) {
-        this.publisher = publisher;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public Set<MemberGroup> getViewGroups() {
@@ -308,28 +311,20 @@ public class Content implements Serializable {
         this.viewGroups = viewGroups;
     }
 
-    public List<ContentPicture> getPictures() {
+    public List<ArticlePicture> getPictures() {
         return pictures;
     }
 
-    public void setPictures(List<ContentPicture> pictures) {
+    public void setPictures(List<ArticlePicture> pictures) {
         this.pictures = pictures;
     }
 
-    public List<ContentAttachment> getAttachments() {
+    public List<ArticleAttachment> getAttachments() {
         return attachments;
     }
 
-    public void setAttachments(List<ContentAttachment> attachments) {
+    public void setAttachments(List<ArticleAttachment> attachments) {
         this.attachments = attachments;
-    }
-
-    public List<ContentScore> getScoreRecordSet() {
-        return scoreRecordSet;
-    }
-
-    public void setScoreRecordSet(List<ContentScore> scoreRecordSet) {
-        this.scoreRecordSet = scoreRecordSet;
     }
 
     public Map<String, String> getAttr() {

@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @date 2018/11/27 11:28
  */
 @Embeddable
-public class ContentAttachment implements Serializable {
+public class ArticleAttachment implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**

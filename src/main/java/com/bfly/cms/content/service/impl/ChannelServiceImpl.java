@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author andy_hulibo@163.com
@@ -26,6 +27,11 @@ public class ChannelServiceImpl extends BaseServiceImpl<Channel, Integer> implem
     private IChannelDao channelDao;
     @Autowired
     private IModelService modelService;
+
+    @Override
+    public List<Map<String, Object>> getAllChannel() {
+        return channelDao.getAllChannel();
+    }
 
     @Override
     @Transactional(rollbackFor = Exception.class)

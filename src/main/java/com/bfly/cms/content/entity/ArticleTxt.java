@@ -13,14 +13,14 @@ import java.io.Serializable;
  * @date 2018/11/16 13:39
  */
 @Entity
-@Table(name = "content_txt")
+@Table(name = "article_txt")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
-public class ContentTxt implements Serializable {
+public class ArticleTxt implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "content_id", unique = true, nullable = false)
+    @Column(name = "article_id", unique = true, nullable = false)
     private int id;
 
     /**
@@ -52,7 +52,7 @@ public class ContentTxt implements Serializable {
      */
     @OneToOne
     @MapsId
-    private Content content;
+    private Article article;
 
 
     public int getId() {
@@ -95,11 +95,11 @@ public class ContentTxt implements Serializable {
         this.txt3 = txt3;
     }
 
-    public Content getContent() {
-        return content;
+    public Article getArticle() {
+        return article;
     }
 
-    public void setContent(Content content) {
-        this.content = content;
+    public void setArticle(Article article) {
+        this.article = article;
     }
 }

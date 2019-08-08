@@ -1,8 +1,6 @@
 package com.bfly.cms.job.entity;
 
 import com.bfly.cms.member.entity.Member;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
@@ -45,8 +43,8 @@ public class JobApply implements Serializable {
     /**
      * 所属文章
      */
-    @Column(name = "content_id")
-    private int contentId;
+    @Column(name = "article_id")
+    private int articleId;
 
     /**
      * 所属用户
@@ -85,12 +83,12 @@ public class JobApply implements Serializable {
         this.applyTime = applyTime;
     }
 
-    public int getContentId() {
-        return contentId;
+    public int getArticleId() {
+        return articleId;
     }
 
-    public void setContentId(int contentId) {
-        this.contentId = contentId;
+    public void setArticleId(int articleId) {
+        this.articleId = articleId;
     }
 
     public Member getMember() {

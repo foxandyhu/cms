@@ -15,32 +15,26 @@ import org.springframework.data.repository.query.Param;
 public interface IMemberGroupDao extends IBaseDao<MemberGroup, Integer> {
 
     /**
-     * 重置会员组ID
+     * 更新会员的组Id
+     * 把所属sourceGroupId 的会员组ID更新为targetGroupId
      *
+     * @param sourceGroupId 原组ID
+     * @param targetGroupId 要修改的组ID
+     * @return 受影响行数
      * @author andy_hulibo@163.com
      * @date 2019/7/19 15:08
      */
     @Modifying
     @Query(value = "UPDATE member set group_id=:targetGroupId where group_id=:sourceGroupId", nativeQuery = true)
-    int resetMembersGroup(@Param("sourceGroupId") int sourceGroupId, @Param("targetGroupId") int targetGroupId);
+    int editMembersGroup(@Param("sourceGroupId") int sourceGroupId, @Param("targetGroupId") int targetGroupId);
 
     /**
-     * 清除栏目浏览权限和会员组之间的关系
-     *
-     * @author andy_hulibo@163.com
-     * @date 2019/7/19 15:16
-     */
-    @Modifying
-    @Query(value = "delete from channel_member_group_view_ship where group_id=:groupId", nativeQuery = true)
-    int clearChannelGroupViewShip(@Param("groupId") int groupId);
-
-    /**
-     * 清除栏目投稿权限和会员组之间的管理
-     *
+     * 清除文章浏览权限和会员组之间的管理
+     * @param groupId 会员组ID
      * @author andy_hulibo@163.com
      * @date 2019/7/19 15:22
      */
     @Modifying
-    @Query(value = "delete from channel_member_group_contri_ship where group_id=:groupId", nativeQuery = true)
-    int clearChannelGroupContriShip(@Param("groupId") int groupId);
+    @Query(value = "delete from article_group_view where group_id=:groupId", nativeQuery = true)
+    int clearArticleGroupViewShip(@Param("groupId") int groupId);
 }

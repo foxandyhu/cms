@@ -44,15 +44,15 @@ public class CommentController extends BaseManageController {
         Map<String, Object> property = new HashMap(2);
         String status = request.getParameter("status");
         String recommend = request.getParameter("recommend");
-        String contentId = request.getParameter("contentId");
+        String articleId = request.getParameter("articleId");
         if (status != null) {
             property.put("status", DataConvertUtils.convertToInteger(status));
         }
         if (recommend != null) {
             property.put("recommend", DataConvertUtils.convertToBoolean(recommend));
         }
-        if (contentId != null) {
-            property.put("contentId", DataConvertUtils.convertToInteger(contentId));
+        if (articleId != null) {
+            property.put("articleId", DataConvertUtils.convertToInteger(articleId));
         }
         Pager pager = commentService.getPage(property);
         ResponseUtil.writeJson(response, ResponseData.getSuccess(pager));

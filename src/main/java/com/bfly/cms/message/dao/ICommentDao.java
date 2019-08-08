@@ -48,13 +48,13 @@ public interface ICommentDao extends IBaseDao<Comment, Integer> {
      *
      * @param recommend 是否推荐
      * @param status    状态
-     * @param contentId 内容ID
+     * @param articleId 内容ID
      * @param pageable  分页信息 JPA会自动识别 不需要在sql中写分页语句
      * @return 分页对象
      * @author andy_hulibo@163.com
      * @date 2019/8/4 17:15
      */
-    @Query(value = "SELECT cmt.id,cmt.content_id as contentId,cmt.member_user_name as memberUserName,cmt.user_name as userName,cmt.post_date as postDate,cmt.is_recommend as recommend,cmt.`status`,cmt_ext.ip,cmt_ext.area,cmt_ext.text,cnt_ext.title,cnt_type.`name` as typeName FROM `comment` AS cmt LEFT JOIN comment_ext AS cmt_ext ON cmt.id=cmt_ext.comment_id LEFT JOIN content AS cnt ON cmt.content_id=cnt.id LEFT JOIN content_ext AS cnt_ext ON cnt.id=cnt_ext.content_id LEFT JOIN content_type AS cnt_type ON cnt.type_id=cnt_type.id where (cmt.status=:status or :status is null) and (cmt.is_recommend=:recommend or :recommend is null) and (cmt.content_id=:contentId or :contentId is null) ORDER BY cmt.post_date desc", nativeQuery = true,
-            countQuery = "SELECT count(1) FROM `comment` AS cmt LEFT JOIN comment_ext AS cmt_ext ON cmt.id=cmt_ext.comment_id LEFT JOIN content AS cnt ON cmt.content_id=cnt.id LEFT JOIN content_ext AS cnt_ext ON cnt.id=cnt_ext.content_id LEFT JOIN content_type AS cnt_type ON cnt.type_id=cnt_type.id where (cmt.status=:status or :status is null) and (cmt.is_recommend=:recommend or :recommend is null) and (cmt.content_id=:contentId or :contentId is null)")
-    Page<Map<String, Object>> getCommentPage(@Param("status") Integer status, @Param("recommend") Boolean recommend, @Param("contentId") Integer contentId, Pageable pageable);
+    @Query(value = "SELECT cmt.id,cmt.article_id as articleId,cmt.member_user_name as memberUserName,cmt.user_name as userName,cmt.post_date as postDate,cmt.is_recommend as recommend,cmt.`status`,cmt_ext.ip,cmt_ext.area,cmt_ext.text,cnt_ext.title,cnt.type_id as typeId FROM `comment` AS cmt LEFT JOIN comment_ext AS cmt_ext ON cmt.id=cmt_ext.comment_id LEFT JOIN article AS cnt ON cmt.article_id=cnt.id LEFT JOIN article_ext AS cnt_ext ON cnt.id=cnt_ext.article_id where (cmt.status=:status or :status is null) and (cmt.is_recommend=:recommend or :recommend is null) and (cmt.article_id=:articleId or :articleId is null) ORDER BY cmt.post_date desc", nativeQuery = true,
+            countQuery = "SELECT count(1) FROM `comment` AS cmt LEFT JOIN comment_ext AS cmt_ext ON cmt.id=cmt_ext.comment_id LEFT JOIN article AS cnt ON cmt.article_id=cnt.id LEFT JOIN article_ext AS cnt_ext ON cnt.id=cnt_ext.article_id where (cmt.status=:status or :status is null) and (cmt.is_recommend=:recommend or :recommend is null) and (cmt.article_id=:articleId or :articleId is null)")
+    Page<Map<String, Object>> getCommentPage(@Param("status") Integer status, @Param("recommend") Boolean recommend, @Param("articleId") Integer articleId, Pageable pageable);
 }

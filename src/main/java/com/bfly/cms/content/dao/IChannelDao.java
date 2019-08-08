@@ -6,6 +6,9 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @author andy_hulibo@163.com
  * @date 2018/12/19 10:32
@@ -46,4 +49,13 @@ public interface IChannelDao extends IBaseDao<Channel, Integer> {
     @Modifying
     @Query("update Channel set parentId=0 where parentId=:channelParentId")
     int editChannelParent(@Param("channelParentId") int channelParentId);
+
+    /**
+     * 查询栏目所有相关信息
+     * 包括所属模型名称,是否有内容
+     * @author andy_hulibo@163.com
+     * @date 2019/8/7 14:58
+     */
+    @Query(value = "SELECT ch.id,ch.channel_name as channelName,ch.parent_id as parentId,m.has_content as hasContent,m.`name` FROM channel as ch left join model as m on ch.model_id=m.id ORDER BY ch.seq ASC", nativeQuery = true)
+    List<Map<String, Object>> getAllChannel();
 }

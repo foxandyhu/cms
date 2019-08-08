@@ -13,9 +13,9 @@ import java.io.Serializable;
  * @date 2018/11/17 9:49
  */
 @Entity
-@Table(name = "content_score")
+@Table(name = "article_score")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
-public class ContentScore implements Serializable {
+public class ArticleScore implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -31,8 +31,8 @@ public class ContentScore implements Serializable {
     /**
      * 所属文章内容
      */
-    @Column(name = "content_id")
-    private int contentId;
+    @Column(name = "article_id")
+    private int articleId;
 
     public int getId() {
         return id;
@@ -50,11 +50,11 @@ public class ContentScore implements Serializable {
         this.count = count;
     }
 
-    public int getContentId() {
-        return contentId;
+    public int getArticleId() {
+        return articleId;
     }
 
-    public void setContentId(int contentId) {
-        this.contentId = contentId;
+    public void setArticleId(int articleId) {
+        this.articleId = articleId;
     }
 }
