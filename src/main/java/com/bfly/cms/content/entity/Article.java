@@ -112,6 +112,30 @@ public class Article implements Serializable {
     private int channelId;
 
     /**
+     * 是否运行分享
+     * @author andy_hulibo@163.com
+     * @date 2019/8/10 9:02
+     */
+    @Column(name = "is_share")
+    private boolean share;
+
+    /**
+     * 是否运行评论
+     * @author andy_hulibo@163.com
+     * @date 2019/8/10 9:02
+     */
+    @Column(name = "is_comment")
+    private boolean comment;
+
+    /**
+     * 是否允许顶踩
+     * @author andy_hulibo@163.com
+     * @date 2019/8/10 9:03
+     */
+    @Column(name = "is_updown")
+    private boolean updown;
+
+    /**
      * 文章内容扩展信息
      */
     @OneToOne(mappedBy = "article", cascade = CascadeType.ALL)
@@ -172,6 +196,30 @@ public class Article implements Serializable {
     public String getStatusName() {
         ArticleStatus status = ArticleStatus.getStatus(getStatus());
         return status == null ? "" : status.getName();
+    }
+
+    public boolean isShare() {
+        return share;
+    }
+
+    public void setShare(boolean share) {
+        this.share = share;
+    }
+
+    public boolean isComment() {
+        return comment;
+    }
+
+    public void setComment(boolean comment) {
+        this.comment = comment;
+    }
+
+    public boolean isUpdown() {
+        return updown;
+    }
+
+    public void setUpdown(boolean updown) {
+        this.updown = updown;
     }
 
     public Date getTopExpired() {

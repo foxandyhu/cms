@@ -171,11 +171,11 @@ public class ModelController extends BaseManageController {
         Model model = modelService.get(modelId);
 
         JSONObject json = new JSONObject();
-        String pcPath = ResourceConfig.getTemplateForPcPath(model.getTplPath());
+        String pcPath = ResourceConfig.getTemplateForPcPath(model.getTplDir());
         Object[] pcTpl = getTpl(pcPath);
         json.put("pc", pcTpl);
 
-        String mobilePath = ResourceConfig.getTemplateForMobilePath(model.getTplPath());
+        String mobilePath = ResourceConfig.getTemplateForMobilePath(model.getTplDir());
         Object[] mobileTpl = getTpl(mobilePath);
         json.put("mobile", mobileTpl);
         ResponseUtil.writeJson(response, ResponseData.getSuccess(json));

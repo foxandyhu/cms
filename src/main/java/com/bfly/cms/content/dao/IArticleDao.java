@@ -133,12 +133,35 @@ public interface IArticleDao extends IBaseDao<Article, Integer> {
 
     /**
      * 查询是否存在关联
-     * @return true存在关联 反之
+     *
      * @param articleId 文章ID
      * @param topicId   专题ID
+     * @return true存在关联 反之
      * @author andy_hulibo@163.com
      * @date 2019/8/8 16:53
      */
     @Query(value = "select CAST(count(1)>0 AS CHAR)as flag from special_topic_article_ship where article_id=:articleId and topic_id=:topicId ", nativeQuery = true)
     boolean isExistSpecialTopicArticleShip(@Param("articleId") int articleId, @Param("topicId") int topicId);
+
+    /**
+     * 删除文章图片集
+     *
+     * @param picId 图片ID
+     * @author andy_hulibo@163.com
+     * @date 2019/8/13 10:36
+     */
+    @Modifying
+    @Query(value = "delete from article_picture where id=:picId", nativeQuery = true)
+    void delArticlePicture(@Param("picId") int picId);
+
+    /**
+     * 删除文章附件集
+     *
+     * @param attachmentId 附件ID
+     * @author andy_hulibo@163.com
+     * @date 2019/8/13 10:37
+     */
+    @Modifying
+    @Query(value = "delete from article_attachment where id=:attachmentId", nativeQuery = true)
+    void delArticleAttachment(@Param("attachmentId") int attachmentId);
 }

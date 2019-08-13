@@ -17,28 +17,12 @@ public enum DataType {
     STRING(1, "字符串文本"),
 
     /**
-     * 整型文本
-     *
-     * @author andy_hulibo@163.com
-     * @date 2019/8/3 16:38
-     */
-    INTEGER(2, "整型文本"),
-
-    /**
-     * 浮点型文本
-     *
-     * @author andy_hulibo@163.com
-     * @date 2019/8/3 16:38
-     */
-    FLOAT(3, "浮点型文本"),
-
-    /**
      * 文本区
      *
      * @author andy_hulibo@163.com
      * @date 2019/8/3 16:38
      */
-    TEXTAREA(4, "文本域"),
+    TEXTAREA(2, "文本域"),
 
 
     /**
@@ -47,7 +31,7 @@ public enum DataType {
      * @author andy_hulibo@163.com
      * @date 2019/8/3 16:39
      */
-    DATETIME(5, "日期"),
+    DATETIME(3, "日期"),
 
 
     /**
@@ -56,15 +40,15 @@ public enum DataType {
      * @author andy_hulibo@163.com
      * @date 2019/8/3 16:39
      */
-    SELECT(6, "下拉列表"),
+    SELECT(4, "下拉列表"),
 
     /**
-     * 复选框
+     * 多选框
      *
      * @author andy_hulibo@163.com
      * @date 2019/8/3 16:39
      */
-    CHECKBOX(7, "复选框"),
+    CHECKBOX(5, "多选框"),
 
     /**
      * 单选框
@@ -72,30 +56,31 @@ public enum DataType {
      * @author andy_hulibo@163.com
      * @date 2019/8/3 16:39
      */
-    SINGLEBOX(8, "单选框"),
+    SINGLEBOX(6, "单选框"),
 
     /**
-     * 附件
+     * 附件集
      *
      * @author andy_hulibo@163.com
      * @date 2019/8/3 16:39
      */
-    ATTACHMENTS(9, "附件"),
+    ATTACHMENTS(7, "附件集"),
 
     /**
-     * 图片
+     * 图片集
      *
      * @author andy_hulibo@163.com
      * @date 2019/8/3 16:39
      */
-    PICTURES(10, "图片"),
+    PICTURES(8, "图片集"),
 
     /**
-     * 多媒体
+     * 富文本
+     *
      * @author andy_hulibo@163.com
-     * @date 2019/8/3 19:41
+     * @date 2019/8/9 20:26
      */
-    MEDIAS(11,"多媒体");
+    EDITOR(9, "富文本");
 
     private int id;
     private String name;

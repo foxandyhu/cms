@@ -11,7 +11,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "article_picture")
-public class ArticlePicture implements Serializable {
+public class ArticlePicture implements Serializable, Comparable<ArticlePicture> {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -31,6 +31,44 @@ public class ArticlePicture implements Serializable {
     @Column(name = "remark")
     private String remark;
 
+    /**
+     * 自定义图片集属性 属性名称
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/8/12 15:41
+     */
+    @Column(name = "field")
+    private String field;
+
+    /**
+     * 排序
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/8/12 19:09
+     */
+    @Column(name = "seq")
+    private int seq;
+
+    @Override
+    public int compareTo(ArticlePicture o) {
+        return this.getSeq() - o.getSeq();
+    }
+
+    public int getSeq() {
+        return seq;
+    }
+
+    public void setSeq(int seq) {
+        this.seq = seq;
+    }
+
+    public String getField() {
+        return field;
+    }
+
+    public void setField(String field) {
+        this.field = field;
+    }
 
     public int getId() {
         return id;

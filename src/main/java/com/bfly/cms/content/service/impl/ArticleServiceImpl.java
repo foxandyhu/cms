@@ -144,11 +144,20 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article, Integer> implem
         article.setDowns(0);
         article.setComments(0);
 
-        article = doAttachments(article);
-        article = doPictures(article);
         article = doMedia(article, null);
+        article = doDoc(article, null);
         article = doArticlePic(article, null);
+        article = doAttachments(article,null);
+        article = doPictures(article,null);
 
+        ArticleExt ext = article.getArticleExt();
+        if (ext != null) {
+            ext.setArticle(article);
+        }
+        ArticleTxt txt = article.getArticleTxt();
+        if (txt != null) {
+            txt.setArticle(article);
+        }
 
         return super.save(article);
     }
@@ -156,14 +165,18 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article, Integer> implem
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean edit(Article article) {
-        Article ar = get(article.getId());
-        Assert.notNull(ar, "不存在的文章对象!");
+        Article dbArticle = get(article.getId());
+        Assert.notNull(dbArticle, "不存在的文章对象!");
         verify(article);
 
-        article = doAttachments(article);
-        article = doPictures(article);
-        article = doMedia(article, ar);
-        article = doArticlePic(article, ar);
+        article = doMedia(article, dbArticle);
+        article = doDoc(article, dbArticle);
+        article = doArticlePic(article, dbArticle);
+        article = doAttachments(article, dbArticle);
+        article = doPictures(article, dbArticle);
+
+        article.setStatus(dbArticle.getStatus());
+        article.setChannelId(dbArticle.getChannelId());
 
         return super.edit(article);
     }
@@ -213,7 +226,7 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article, Integer> implem
      */
     private Article doArticlePic(Article article, Article dbArticle) {
         ArticleExt ext = article.getArticleExt();
-        if (ext == null) {
+        if (ext != null) {
             String img = ResourceConfig.getUploadTempFileToDestDirForRelativePath(ext.getTitleImg(), ResourceConfig.getContentDir());
             if (img != null) {
                 //新增
@@ -221,7 +234,7 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article, Integer> implem
             } else {
                 //与数据库比较
                 if (dbArticle != null) {
-                    ArticleExt dbExt = article.getArticleExt();
+                    ArticleExt dbExt = dbArticle.getArticleExt();
                     if (dbExt != null) {
                         ext.setTitleImg(dbExt.getTitleImg());
                     }
@@ -234,7 +247,7 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article, Integer> implem
             } else {
                 //与数据库比较
                 if (dbArticle != null) {
-                    ArticleExt dbExt = article.getArticleExt();
+                    ArticleExt dbExt = dbArticle.getArticleExt();
                     if (dbExt != null) {
                         ext.setContentImg(dbExt.getContentImg());
                     }
@@ -247,7 +260,7 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article, Integer> implem
             } else {
                 //与数据库比较
                 if (dbArticle != null) {
-                    ArticleExt dbExt = article.getArticleExt();
+                    ArticleExt dbExt = dbArticle.getArticleExt();
                     if (dbExt != null) {
                         ext.setTypeImg(dbExt.getTypeImg());
                     }
@@ -273,9 +286,35 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article, Integer> implem
             } else {
                 //与数据库比较
                 if (dbArticle != null) {
-                    ArticleExt dbExt = article.getArticleExt();
+                    ArticleExt dbExt = dbArticle.getArticleExt();
                     if (dbExt != null) {
                         article.getArticleExt().setMediaPath(dbExt.getMediaPath());
+                    }
+                }
+            }
+        }
+        return article;
+    }
+
+    /**
+     * 处理文档
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/8/9 20:44
+     */
+    private Article doDoc(Article article, Article dbArticle) {
+        if (article.getArticleExt() != null) {
+            String doc = article.getArticleExt().getDocPath();
+            doc = ResourceConfig.getUploadTempFileToDestDirForRelativePath(doc, ResourceConfig.getDocDir());
+            if (doc != null) {
+                //新上传的多媒体
+                article.getArticleExt().setDocPath(doc);
+            } else {
+                //与数据库比较
+                if (dbArticle != null) {
+                    ArticleExt dbExt = dbArticle.getArticleExt();
+                    if (dbExt != null) {
+                        article.getArticleExt().setDocPath(dbExt.getDocPath());
                     }
                 }
             }
@@ -289,9 +328,9 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article, Integer> implem
      * @author andy_hulibo@163.com
      * @date 2019/8/8 13:55
      */
-    private Article doAttachments(Article article) {
+    private Article doAttachments(Article article, Article dbArticle) {
         List<ArticleAttachment> attachments = article.getAttachments();
-        if (attachments == null) {
+        if (attachments != null) {
             attachments.forEach(item -> {
                 String path = ResourceConfig.getUploadTempFileToDestDirForRelativePath(item.getPath(), ResourceConfig.getAttachmentDir());
                 //新增的附件
@@ -301,6 +340,18 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article, Integer> implem
 
                     File file = new File(ResourceConfig.getRootDir() + path);
                     item.setName(file.getName());
+                } else {
+                    //与数据库比较
+                    if (dbArticle != null) {
+                        List<ArticleAttachment> attachmentList = dbArticle.getAttachments();
+                        if (attachmentList != null) {
+                            attachmentList.forEach(dbAtt -> {
+                                if (dbAtt.getId() == item.getId()) {
+                                    item.setPath(dbAtt.getPath());
+                                }
+                            });
+                        }
+                    }
                 }
             });
         }
@@ -313,17 +364,41 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article, Integer> implem
      * @author andy_hulibo@163.com
      * @date 2019/8/8 13:55
      */
-    private Article doPictures(Article article) {
+    private Article doPictures(Article article, Article dbArticle) {
         List<ArticlePicture> pictures = article.getPictures();
-        if (pictures == null) {
+        if (pictures != null) {
             pictures.forEach(item -> {
                 String path = ResourceConfig.getUploadTempFileToDestDirForRelativePath(item.getImgPath(), ResourceConfig.getContentDir());
                 //新增的图片
                 if (path != null) {
                     item.setImgPath(path);
+                } else {
+                    //与数据库比较
+                    if (dbArticle != null) {
+                        List<ArticlePicture> pictureList = dbArticle.getPictures();
+                        if (pictureList != null) {
+                            pictureList.forEach(dbPic -> {
+                                if (dbPic.getId() == item.getId()) {
+                                    item.setImgPath(dbPic.getImgPath());
+                                }
+                            });
+                        }
+                    }
                 }
             });
         }
         return article;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void delArticlePicture(int picId) {
+        articleDao.delArticlePicture(picId);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void delArticleAttachment(int attachmentId) {
+        articleDao.delArticleAttachment(attachmentId);
     }
 }

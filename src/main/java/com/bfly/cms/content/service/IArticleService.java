@@ -64,4 +64,20 @@ public interface IArticleService extends IBaseService<Article, Integer> {
      * @date 2019/8/8 16:12
      */
     void removeRelatedSpecialTopic(Integer articleId, Integer topicId);
+
+    /**
+     * 删除文章图片集
+     * @param picId 图片ID
+     * @author andy_hulibo@163.com
+     * @date 2019/8/13 10:36
+     */
+    void delArticlePicture(int picId);
+
+    /**
+     * 删除文章附件集
+     * @param attachmentId 附件ID
+     * @author andy_hulibo@163.com
+     * @date 2019/8/13 10:37
+     */
+    void delArticleAttachment(int attachmentId);
 }

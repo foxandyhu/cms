@@ -253,50 +253,43 @@ public class ModelItem implements Serializable {
     static {
         addSysModelItem("title", "标题", "", "", "", DataType.STRING, true, false);
         addSysModelItem("shorttitle", "简短标题", "", "", "", DataType.STRING, false, false);
-        addSysModelItem("titlecolor", "标题颜色", "", "", "", DataType.STRING, false, false);
-        addSysModelItem("bold", "是否加粗", "", "", "", DataType.SINGLEBOX, false, false);
 
-        addSysModelItem("tagstr", "Tag标签", "", "", "", DataType.STRING, true, false);
+        addSysModelItem("tags", "Tag标签", "", "", "", DataType.STRING, true, false);
         addSysModelItem("summary", "摘要", "", "", "", DataType.TEXTAREA, true, false);
         addSysModelItem("keywords", "meta关键字", "", "", "", DataType.STRING, true, false);
         addSysModelItem("description", "meta描述", "", "", "", DataType.STRING, true, false);
 
         addSysModelItem("author", "作者", "", "", "", DataType.STRING, false, false);
-        addSysModelItem("releasedate", "发布时间", "", "", "", DataType.DATETIME, false, false);
+        addSysModelItem("postdate", "发布时间", "", "", "", DataType.DATETIME, false, false);
 
         addSysModelItem("origin", "来源", "", "", "", DataType.STRING, false, false);
         addSysModelItem("originurl", "来源地址", "", "", "", DataType.STRING, false, false);
         addSysModelItem("link", "外部链接", "", "", "", DataType.STRING, false, false);
 
-        addSysModelItem("top", "是否固顶", "", "", "", DataType.SINGLEBOX, false, false);
-        addSysModelItem("toplevel", "固顶级别", "", "", "", DataType.INTEGER, false, false);
-
-        addSysModelItem("tplcontent", "指定模板", "", "", "", DataType.SELECT, false, false);
-        addSysModelItem("tplmobilecontent", "指定手机模板", "", "", "", DataType.SELECT, false, false);
-
-        addSysModelItem("typeid", "内容类型", "", "", "", DataType.SELECT, false, false);
-        addSysModelItem("typeimg", "类型图", "", "", "", DataType.SELECT, true, false);
-        addSysModelItem("titleimg", "标题图", "", "", "", DataType.STRING, true, false);
-        addSysModelItem("contentimg", "内容图", "", "", "", DataType.STRING, true, false);
-
-        addSysModelItem("txt", "内容", "", "", "", DataType.TEXTAREA, true, false);
-        addSysModelItem("txt1", "内容1", "", "", "", DataType.TEXTAREA, true, false);
-        addSysModelItem("txt2", "内容2", "", "", "", DataType.TEXTAREA, true, false);
-        addSysModelItem("txt3", "内容3", "", "", "", DataType.TEXTAREA, true, false);
-
+        addSysModelItem("top", "置顶", "", "", "级别越高置顶越靠前", DataType.SINGLEBOX, false, false);
         addSysModelItem("recommend", "推荐", "", "", "", DataType.SINGLEBOX, true, false);
-        addSysModelItem("recommendlevel", "推荐等级", "", "", "", DataType.INTEGER, true, false);
 
-        addSysModelItem("docpath", "文档路径", "", "", "", DataType.STRING, true, false);
+        addSysModelItem("tplpc", "PC模板", "", "", "", DataType.SELECT, false, false);
+        addSysModelItem("tplmobile", "手机模板", "", "", "", DataType.SELECT, false, false);
+
+        addSysModelItem("type", "内容类型", "", "", "", DataType.SELECT, true, false);
+        addSysModelItem("titleimg", "标题图", "", "", "", DataType.STRING, false, false);
+        addSysModelItem("contentimg", "内容图", "", "", "", DataType.STRING, false, false);
+
+        addSysModelItem("viewgroup", "浏览权限", "", "", "", DataType.CHECKBOX, true, false);
+        addSysModelItem("share", "分享", "", "", "", DataType.SINGLEBOX, false, false);
+        addSysModelItem("updown", "顶踩", "", "", "", DataType.SINGLEBOX, false, false);
+        addSysModelItem("comment", "评论", "", "", "", DataType.SINGLEBOX, false, false);
+
+        addSysModelItem("txt", "内容", "", "", "", DataType.EDITOR, true, false);
+        addSysModelItem("txt1", "内容1", "", "", "", DataType.EDITOR, true, false);
+        addSysModelItem("txt2", "内容2", "", "", "", DataType.EDITOR, true, false);
+        addSysModelItem("txt3", "内容3", "", "", "", DataType.EDITOR, true, false);
+
+        addSysModelItem("doc", "文档", "", "", "", DataType.ATTACHMENTS, true, false);
+        addSysModelItem("media", "多媒体", "", "", "", DataType.ATTACHMENTS, true, false);
         addSysModelItem("pictures", "图片集", "", "", "", DataType.PICTURES, true, false);
-        addSysModelItem("media", "多媒体", "", "", "", DataType.MEDIAS, true, false);
         addSysModelItem("attachments", "附件", "", "", "", DataType.ATTACHMENTS, true, false);
-
-        addSysModelItem("viewgroupids", "浏览权限", "", "", "", DataType.CHECKBOX, true, false);
-        addSysModelItem("allowshare", "分享", "", "", "", DataType.SINGLEBOX, false, false);
-        addSysModelItem("allowupdown", "顶踩", "", "", "", DataType.SINGLEBOX, false, false);
-        addSysModelItem("commentcontrol", "评论", "", "", "", DataType.SINGLEBOX, false, false);
-        addSysModelItem("seq", "排列顺序", "", "", "", DataType.INTEGER, false, false);
     }
 
     /**

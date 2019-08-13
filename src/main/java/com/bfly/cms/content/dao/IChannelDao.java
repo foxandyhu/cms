@@ -53,9 +53,10 @@ public interface IChannelDao extends IBaseDao<Channel, Integer> {
     /**
      * 查询栏目所有相关信息
      * 包括所属模型名称,是否有内容
+     * @return 栏目相关信息
      * @author andy_hulibo@163.com
      * @date 2019/8/7 14:58
      */
-    @Query(value = "SELECT ch.id,ch.channel_name as channelName,ch.parent_id as parentId,m.has_content as hasContent,m.`name` FROM channel as ch left join model as m on ch.model_id=m.id ORDER BY ch.seq ASC", nativeQuery = true)
+    @Query(value = "SELECT ch.id,ch.channel_name as name,ch.parent_id as parentId,m.has_content as hasContent,m.`name` as modelName,ch.model_id as modelId FROM channel as ch left join model as m on ch.model_id=m.id ORDER BY ch.seq ASC", nativeQuery = true)
     List<Map<String, Object>> getAllChannel();
 }

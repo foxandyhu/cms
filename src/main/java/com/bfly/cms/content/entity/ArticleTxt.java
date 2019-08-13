@@ -1,5 +1,6 @@
 package com.bfly.cms.content.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -52,6 +53,7 @@ public class ArticleTxt implements Serializable {
      */
     @OneToOne
     @MapsId
+    @JSONField(serialize = false)
     private Article article;
 
 

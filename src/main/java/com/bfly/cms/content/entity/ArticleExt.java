@@ -1,5 +1,6 @@
 package com.bfly.cms.content.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -26,6 +27,7 @@ public class ArticleExt implements Serializable {
 
     @OneToOne
     @MapsId
+    @JSONField(serialize = false)
     private Article article;
     /**
      * 标题
@@ -40,10 +42,28 @@ public class ArticleExt implements Serializable {
     private String shortTitle;
 
     /**
-     * 描述
+     * 摘要
      */
-    @Column(name = "remark")
-    private String remark;
+    @Column(name = "summary")
+    private String summary;
+
+    /**
+     * SEO KEYWORDS
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/8/9 15:42
+     */
+    @Column(name = "keywords")
+    private String keywords;
+
+    /**
+     * SEO DESCRIPTION
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/8/9 15:59
+     */
+    @Column(name = "description")
+    private String description;
 
     /**
      * 作者
@@ -80,6 +100,18 @@ public class ArticleExt implements Serializable {
      */
     @Column(name = "media_type")
     private String mediaType;
+
+    /**
+     * 文档路径
+     */
+    @Column(name = "doc_path")
+    private String docPath;
+
+    /**
+     * 文档类型
+     */
+    @Column(name = "doc_type")
+    private String docType;
 
     /**
      * 标题颜色
@@ -131,6 +163,23 @@ public class ArticleExt implements Serializable {
     @Column(name = "tpl_mobile")
     private String tplMobile;
 
+    /**
+     * 标签
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/8/10 9:49
+     */
+    @Column(name = "tags")
+    private String tags;
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
     public int getId() {
         return id;
     }
@@ -147,6 +196,30 @@ public class ArticleExt implements Serializable {
         this.title = title;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getDocPath() {
+        return docPath;
+    }
+
+    public void setDocPath(String docPath) {
+        this.docPath = docPath;
+    }
+
+    public String getDocType() {
+        return docType;
+    }
+
+    public void setDocType(String docType) {
+        this.docType = docType;
+    }
+
     public String getShortTitle() {
         return shortTitle;
     }
@@ -155,12 +228,20 @@ public class ArticleExt implements Serializable {
         this.shortTitle = shortTitle;
     }
 
-    public String getRemark() {
-        return remark;
+    public String getSummary() {
+        return summary;
     }
 
-    public void setRemark(String remark) {
-        this.remark = remark;
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    public String getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(String keywords) {
+        this.keywords = keywords;
     }
 
     public String getAuthor() {
