@@ -4,6 +4,10 @@ import com.bfly.cms.message.entity.GuestBook;
 import com.bfly.core.base.service.IBaseService;
 import com.bfly.core.enums.GuestBookStatus;
 
+import java.math.BigInteger;
+import java.util.List;
+import java.util.Map;
+
 /**
  * 留言管理业务接口
  *
@@ -42,4 +46,22 @@ public interface IGuestBookService extends IBaseService<GuestBook, Integer> {
      * @date 2018/12/12 13:40
      */
     void replyGuestBook(String userName, int guestBookId, String content);
+
+    /**
+     * 统计当天留言总数和总留言数
+     * @return Map
+     * @author andy_hulibo@163.com
+     * @date 2019/8/14 19:47
+     */
+    Map<String, BigInteger> getTodayAndTotalGuestBook();
+
+    /**
+     * 获得最新的前几条评论
+     *
+     * @param limit 返回最大条数
+     * @return Map
+     * @author andy_hulibo@163.com
+     * @date 2019/8/15 12:21
+     */
+    List<Map<String, Object>> getLatestGuestBook(int limit);
 }

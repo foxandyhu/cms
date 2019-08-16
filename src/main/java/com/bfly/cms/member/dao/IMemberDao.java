@@ -6,6 +6,10 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.math.BigInteger;
+import java.util.List;
+import java.util.Map;
+
 /**
  * 会员数据接口
  *
@@ -51,4 +55,25 @@ public interface IMemberDao extends IBaseDao<Member, Integer> {
      */
     @Query("select m from Member as m where m.userName=:userName")
     Member getMember(@Param("userName") String userName);
+
+    /**
+     * 统计当天会员注册总数和总会员数
+     *
+     * @return Map
+     * @author andy_hulibo@163.com
+     * @date 2019/8/14 19:47
+     */
+    @Query(value = "select count(1) as total,temp.today FROM member,(select count(1) as today from member where date_format(register_time, '%Y-%m-%d')=date_format(NOW(), '%Y-%m-%d')) as temp", nativeQuery = true)
+    Map<String, BigInteger> getTodayAndTotalMember();
+
+    /**
+     * 获得最新注册的前几名会员
+     *
+     * @param limit
+     * @return Map
+     * @author andy_hulibo@163.com
+     * @date 2019/8/15 12:17
+     */
+    @Query(value = "select m_ext.face,user_name as userName,register_time as registerTime,register_ip as registerIp,`status` from member as m LEFT JOIN member_ext as m_ext on m.id=m_ext.member_id order by register_time DESC LIMIT 0,:limit", nativeQuery = true)
+    List<Map<String, Object>> getLatestMember(@Param("limit") int limit);
 }

@@ -152,7 +152,7 @@ public class SpecialTopicController extends BaseManageController {
      * @date 2019/8/6 16:36
      */
     @GetMapping(value = "/template")
-    @ActionModel("获得专题模板")
+    @ActionModel(value = "获得专题模板",need = false)
     public void getSpecialTopicTemplate(HttpServletResponse response) {
         JSONObject json = new JSONObject();
 

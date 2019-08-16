@@ -4,6 +4,10 @@ import com.bfly.cms.member.entity.Member;
 import com.bfly.core.base.service.IBaseService;
 import com.bfly.core.enums.MemberStatus;
 
+import java.math.BigInteger;
+import java.util.List;
+import java.util.Map;
+
 /**
  * 系统会员业务接口
  *
@@ -47,5 +51,20 @@ public interface IMemberService extends IBaseService<Member, Integer> {
      * @author andy_hulibo@163.com
      * @date 2019/8/1 13:32
      */
-    public Member getMember(String userName);
+    Member getMember(String userName);
+
+    /**
+     * 统计当天会员注册总数和总会员数
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/8/14 19:47
+     */
+    Map<String, BigInteger> getTodayAndTotalMember();
+
+    /**
+     * 获得最新注册的前几名会员
+     * @author andy_hulibo@163.com
+     * @date 2019/8/15 12:17
+     */
+    List<Map<String, Object>> getLatestMember(int limit);
 }

@@ -99,7 +99,7 @@ public class SiteAccessStatisticController extends BaseManageController {
      */
     @GetMapping("/site")
     @ActionModel(value = "外部站点来源统计", need = false)
-    public void staticsticExternalSite(HttpServletResponse response) {
+    public void statisticExternalSite(HttpServletResponse response) {
         DateParam param = getDateParam();
         List<StatisticDataDTO> list = statisticService.statistic(param.getBegin(), param.getEnd(), StatisticType.LINK);
         ResponseUtil.writeJson(response, ResponseData.getSuccess(list));
@@ -114,7 +114,7 @@ public class SiteAccessStatisticController extends BaseManageController {
      */
     @GetMapping("/browser")
     @ActionModel(value = "浏览器来源统计", need = false)
-    public void staticsticBrowser(HttpServletResponse response) {
+    public void statisticBrowser(HttpServletResponse response) {
         DateParam param = getDateParam();
         List<StatisticDataDTO> list = statisticService.statistic(param.getBegin(), param.getEnd(), StatisticType.BROWSER);
         ResponseUtil.writeJson(response, ResponseData.getSuccess(list));
@@ -128,7 +128,7 @@ public class SiteAccessStatisticController extends BaseManageController {
      */
     @GetMapping("/area")
     @ActionModel(value = "区域来源统计", need = false)
-    public void staticsticArea(HttpServletResponse response) {
+    public void statisticArea(HttpServletResponse response) {
         DateParam param = getDateParam();
         List<StatisticDataDTO> list = statisticService.statistic(param.getBegin(), param.getEnd(), StatisticType.AREA);
         ResponseUtil.writeJson(response, ResponseData.getSuccess(list));

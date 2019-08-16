@@ -3,11 +3,11 @@ package com.bfly.cms.system.service.impl;
 import com.bfly.cms.system.dao.ISmsRecordDao;
 import com.bfly.cms.system.entity.SmsProvider;
 import com.bfly.cms.system.entity.SmsRecord;
-import com.bfly.cms.system.service.ISmsProviderService;
 import com.bfly.cms.system.service.ISmsRecordService;
 import com.bfly.common.page.Pager;
 import com.bfly.core.base.service.impl.BaseServiceImpl;
 import com.bfly.core.context.PagerThreadLocal;
+import org.apache.commons.collections.MapUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
@@ -34,9 +34,6 @@ public class SmsRecordServiceImpl extends BaseServiceImpl<SmsRecord, Integer> im
     @Autowired
     private ISmsRecordDao smsRecordDao;
 
-    @Autowired
-    private ISmsProviderService smsProviderService;
-
     @Override
     public Pager getPage(Map<String, Object> exactQueryProperty, Map<String, String> unExactQueryProperty, Map<String, Sort.Direction> sortQueryProperty) {
         Pager pager = PagerThreadLocal.get();
@@ -56,8 +53,12 @@ public class SmsRecordServiceImpl extends BaseServiceImpl<SmsRecord, Integer> im
                 if (endTime != null) {
                     predicates.add(criteriaBuilder.lessThanOrEqualTo(root.<Date>get("sendTime"), (Date) endTime));
                 }
+                if (predicates.size() == 0) {
+                    return null;
+                }
                 return criteriaBuilder.and(predicates.stream().toArray(Predicate[]::new));
-            }).and(getUnExactQuery(unExactQueryProperty));
+            });
+            specification = specification.and(getUnExactQuery(unExactQueryProperty));
         } else {
             specification = getUnExactQuery(unExactQueryProperty);
         }

@@ -29,7 +29,10 @@ import org.springframework.web.servlet.resource.DefaultServletHttpRequestHandler
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
 import javax.servlet.ServletContext;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Servlet系统上下文配置

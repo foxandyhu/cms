@@ -4,6 +4,7 @@ import com.bfly.common.page.Pager;
 import com.bfly.core.base.dao.IBaseDao;
 import com.bfly.core.base.service.IBaseService;
 import com.bfly.core.context.PagerThreadLocal;
+import org.apache.commons.collections.MapUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
@@ -236,7 +237,7 @@ public abstract class BaseServiceImpl<T, ID> extends BaseJdbcServiceImpl impleme
      * @date 2019/6/28 20:13
      */
     protected Specification getExactQuery(Map<String, Object> queryProperty) {
-        if (queryProperty == null) {
+        if (MapUtils.isEmpty(queryProperty)) {
             return null;
         }
         return (root, criteriaQuery, criteriaBuilder) -> {
@@ -272,7 +273,7 @@ public abstract class BaseServiceImpl<T, ID> extends BaseJdbcServiceImpl impleme
      * @date 2019/6/28 20:09
      */
     protected Specification getUnExactQuery(Map<String, String> queryProperty) {
-        if (queryProperty == null) {
+        if (MapUtils.isEmpty(queryProperty)) {
             return null;
         }
         return (root, criteriaQuery, criteriaBuilder) -> {
@@ -296,7 +297,7 @@ public abstract class BaseServiceImpl<T, ID> extends BaseJdbcServiceImpl impleme
      * @date 2019/6/28 20:14
      */
     protected Specification getSortQuery(Map<String, Sort.Direction> sortProperty) {
-        if (sortProperty == null) {
+        if (MapUtils.isEmpty(sortProperty)) {
             return null;
         }
         return (root, criteriaQuery, criteriaBuilder) -> {
@@ -325,7 +326,7 @@ public abstract class BaseServiceImpl<T, ID> extends BaseJdbcServiceImpl impleme
      * @date 2019/6/28 20:14
      */
     protected Specification getGroupQuery(Map<String, String> groupProperty) {
-        if (groupProperty == null) {
+        if (MapUtils.isEmpty(groupProperty)) {
             return null;
         }
         return (root, criteriaQuery, criteriaBuilder) -> {

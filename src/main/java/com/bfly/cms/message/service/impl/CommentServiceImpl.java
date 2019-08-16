@@ -14,10 +14,11 @@ import com.bfly.common.ipseek.IPLocation;
 import com.bfly.common.ipseek.IpSeekerUtil;
 import com.bfly.common.page.Pager;
 import com.bfly.core.base.service.impl.BaseServiceImpl;
+import com.bfly.core.config.ResourceConfig;
 import com.bfly.core.context.IpThreadLocal;
 import com.bfly.core.context.PagerThreadLocal;
-import com.bfly.core.enums.CommentStatus;
 import com.bfly.core.enums.ArticleStatus;
+import com.bfly.core.enums.CommentStatus;
 import com.bfly.core.enums.ContentType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,6 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
+import java.math.BigInteger;
 import java.util.*;
 
 /**
@@ -149,5 +151,34 @@ public class CommentServiceImpl extends BaseServiceImpl<Comment, Integer> implem
 
         commentDao.save(comment);
         return true;
+    }
+
+    @Override
+    public Map<String, BigInteger> getTodayAndTotalComment() {
+        return commentDao.getTodayAndTotalComment();
+    }
+
+    @Override
+    public List<Map<String, Object>> getLatestComment(int limit) {
+        List<Map<String, Object>> list = commentDao.getLatestRegistComment(limit);
+        if (list != null) {
+            String status = "status",face="face";
+            for (int i = 0; i < list.size(); i++) {
+                Map<String, Object> map = list.get(i);
+                Map<String, Object> m = new HashMap<>(map.size());
+                m.putAll(map);
+                if (m.containsKey(status)) {
+                    CommentStatus commentStatus=CommentStatus.getStatus((Integer) m.get(status));
+                    m.put("statusName",commentStatus==null?"":commentStatus.getName() );
+                }
+                if (m.containsKey(face)) {
+                    if (StringUtils.hasLength((String) m.get(face))) {
+                        m.put("face", ResourceConfig.getServer() + m.get(face));
+                    }
+                }
+                list.set(i, m);
+            }
+        }
+        return list;
     }
 }

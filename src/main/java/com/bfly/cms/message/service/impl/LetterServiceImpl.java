@@ -84,7 +84,9 @@ public class LetterServiceImpl extends BaseServiceImpl<Letter, Integer> implemen
         } else {
             specification = getUnExactQuery(unExactQueryProperty);
         }
-        if (sortQueryProperty != null) {
+        if (specification == null) {
+            specification = getSortQuery(sortQueryProperty);
+        } else {
             specification = specification.and(getSortQuery(sortQueryProperty));
         }
         Page<Letter> page = letterDao.findAll(specification, getPageRequest(pager));

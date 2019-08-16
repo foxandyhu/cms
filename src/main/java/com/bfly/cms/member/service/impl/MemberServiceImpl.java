@@ -6,6 +6,8 @@ import com.bfly.cms.member.entity.MemberGroup;
 import com.bfly.cms.member.service.IMemberGroupService;
 import com.bfly.cms.member.service.IMemberService;
 import com.bfly.common.StringUtil;
+import com.bfly.common.ipseek.IPLocation;
+import com.bfly.common.ipseek.IpSeekerUtil;
 import com.bfly.core.base.service.impl.BaseServiceImpl;
 import com.bfly.core.config.ResourceConfig;
 import com.bfly.core.context.IpThreadLocal;
@@ -18,8 +20,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author andy_hulibo@163.com
@@ -180,5 +185,38 @@ public class MemberServiceImpl extends BaseServiceImpl<Member, Integer> implemen
         }
         orMember.setMemberExt(member.getMemberExt());
         return super.edit(orMember);
+    }
+
+    @Override
+    public Map<String, BigInteger> getTodayAndTotalMember() {
+        return memberDao.getTodayAndTotalMember();
+    }
+
+    @Override
+    public List<Map<String, Object>> getLatestMember(int limit) {
+        List<Map<String, Object>> list = memberDao.getLatestMember(limit);
+        if (list != null) {
+            String registerIp = "registerIp", status = "status", face = "face";
+            for (int i = 0; i < list.size(); i++) {
+                Map<String, Object> map = list.get(i);
+                Map<String, Object> m = new HashMap<>(map.size());
+                m.putAll(map);
+                if (m.containsKey(registerIp)) {
+                    IPLocation location = IpSeekerUtil.getIPLocation(String.valueOf(m.get(registerIp)));
+                    m.put("area", location == null ? "" : location.getArea());
+                }
+                if (m.containsKey(status)) {
+                    MemberStatus memberStatus = MemberStatus.getStatus((Integer) m.get(status));
+                    m.put("statusName", memberStatus == null ? "" : memberStatus.getName());
+                }
+                if (m.containsKey(face)) {
+                    if (StringUtils.hasLength((String) m.get(face))) {
+                        m.put("face", ResourceConfig.getServer() + m.get(face));
+                    }
+                }
+                list.set(i, m);
+            }
+        }
+        return list;
     }
 }

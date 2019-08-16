@@ -1,6 +1,5 @@
 package com.bfly.core.config;
 
-import com.alibaba.druid.support.http.StatViewServlet;
 import com.octo.captcha.component.image.backgroundgenerator.UniColorBackgroundGenerator;
 import com.octo.captcha.component.image.color.SingleColorGenerator;
 import com.octo.captcha.component.image.fontgenerator.RandomFontGenerator;
@@ -13,7 +12,6 @@ import com.octo.captcha.engine.GenericCaptchaEngine;
 import com.octo.captcha.image.gimpy.GimpyFactory;
 import com.octo.captcha.service.multitype.GenericManageableCaptchaService;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
-import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,18 +35,6 @@ public class ApplicationConfig {
     @Bean
     public ServletListenerRegistrationBean<EventListener> introSpecTorCleanupListener() {
         return new ServletListenerRegistrationBean<>(new IntrospectorCleanupListener());
-    }
-
-    @Bean
-    public ServletRegistrationBean druidStatViewServlet() {
-        ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean(new StatViewServlet(), "/druid/*");
-        servletRegistrationBean.addInitParameter("allow", "127.0.0.1");
-        servletRegistrationBean.addInitParameter("deny", "192.168.1.73");
-        servletRegistrationBean.addInitParameter("loginUsername", "admin");
-        servletRegistrationBean.addInitParameter("loginPassword", "123456");
-        servletRegistrationBean.addInitParameter("resetEnable", "false");
-        servletRegistrationBean.setLoadOnStartup(4);
-        return servletRegistrationBean;
     }
 
     /**

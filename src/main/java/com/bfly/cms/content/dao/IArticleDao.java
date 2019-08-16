@@ -8,7 +8,9 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.math.BigInteger;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -164,4 +166,36 @@ public interface IArticleDao extends IBaseDao<Article, Integer> {
     @Modifying
     @Query(value = "delete from article_attachment where id=:attachmentId", nativeQuery = true)
     void delArticleAttachment(@Param("attachmentId") int attachmentId);
+
+    /**
+     * 统计今天发布和总数的文章
+     *
+     * @return Map today 今日发布数 total 发布总数
+     * @author andy_hulibo@163.com
+     * @date 2019/8/14 19:26
+     */
+    @Query(value = "select count(1) as total,temp.today FROM article,(select count(1) as today from article_ext as ar_ext INNER JOIN article as ar on ar.id=ar_ext.article_id  where date_format(post_date, '%Y-%m-%d')=date_format(NOW(), '%Y-%m-%d') AND ar.status!=0) as temp where status!=0", nativeQuery = true)
+    Map<String, BigInteger> getTodayAndTotalArticle();
+
+    /**
+     * 点击率头几名的文章信息
+     *
+     * @param limit
+     * @return Map
+     * @author andy_hulibo@163.com
+     * @date 2019/8/15 12:46
+     */
+    @Query(value = "select a.id,a_ext.title,a.views from article as a LEFT JOIN article_ext as a_ext on a.id=a_ext.article_id WHERE a.`status`=2 order by views desc limit 0,:limit", nativeQuery = true)
+    List<Map<String, Object>> getClickTopArticle(@Param("limit") int limit);
+
+    /**
+     * 评论数头几名的文章信息
+     *
+     * @param limit
+     * @return Map
+     * @author andy_hulibo@163.com
+     * @date 2019/8/15 12:47
+     */
+    @Query(value = "select a.id,a_ext.title,a.comments from article as a LEFT JOIN article_ext as a_ext on a.id=a_ext.article_id WHERE a.`status`=2 order by comments desc limit 0,:limit", nativeQuery = true)
+    List<Map<String, Object>> getCommentsTopArticle(@Param("limit") int limit);
 }

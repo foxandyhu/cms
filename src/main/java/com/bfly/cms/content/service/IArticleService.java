@@ -4,8 +4,11 @@ import com.bfly.cms.content.entity.Article;
 import com.bfly.core.base.service.IBaseService;
 import com.bfly.core.enums.ArticleStatus;
 
+import java.math.BigInteger;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author andy_hulibo@163.com
@@ -67,6 +70,7 @@ public interface IArticleService extends IBaseService<Article, Integer> {
 
     /**
      * 删除文章图片集
+     *
      * @param picId 图片ID
      * @author andy_hulibo@163.com
      * @date 2019/8/13 10:36
@@ -75,9 +79,39 @@ public interface IArticleService extends IBaseService<Article, Integer> {
 
     /**
      * 删除文章附件集
+     *
      * @param attachmentId 附件ID
      * @author andy_hulibo@163.com
      * @date 2019/8/13 10:37
      */
     void delArticleAttachment(int attachmentId);
+
+    /**
+     * 获得今日发布的文章总数和总文章数
+     *
+     * @return Map对象 total 文章总数  today 今日文章数
+     * @author andy_hulibo@163.com
+     * @date 2019/8/14 19:18
+     */
+    Map<String, BigInteger> getTodayAndTotalArticle();
+
+    /**
+     * 点击率头几名的文章信息
+     *
+     * @param limit
+     * @return Map
+     * @author andy_hulibo@163.com
+     * @date 2019/8/15 12:46
+     */
+    List<Map<String, Object>> getClickTopArticle(int limit);
+
+    /**
+     * 评论数头几名的文章信息
+     *
+     * @param limit
+     * @return Map
+     * @author andy_hulibo@163.com
+     * @date 2019/8/15 12:47
+     */
+    List<Map<String, Object>> getCommentsTopArticle(int limit);
 }

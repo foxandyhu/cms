@@ -6,6 +6,7 @@ import com.bfly.cms.message.entity.GuestBookExt;
 import com.bfly.cms.message.service.IGuestBookService;
 import com.bfly.common.page.Pager;
 import com.bfly.core.base.service.impl.BaseServiceImpl;
+import com.bfly.core.config.ResourceConfig;
 import com.bfly.core.context.IpThreadLocal;
 import com.bfly.core.context.PagerThreadLocal;
 import com.bfly.core.enums.CommentStatus;
@@ -17,7 +18,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 
+import java.math.BigInteger;
 import java.util.*;
 
 /**
@@ -94,5 +97,34 @@ public class GuestBookServiceImpl extends BaseServiceImpl<GuestBook, Integer> im
         pager.setTotalCount(page.getTotalElements());
         pager.setData(list);
         return pager;
+    }
+
+    @Override
+    public Map<String, BigInteger> getTodayAndTotalGuestBook() {
+        return guestBookDao.getTodayAndTotalGuestBook();
+    }
+
+    @Override
+    public List<Map<String, Object>> getLatestGuestBook(int limit) {
+        List<Map<String, Object>> list = guestBookDao.getLatestGuestBook(limit);
+        if (list != null) {
+            String status = "status",face="face";
+            for (int i = 0; i < list.size(); i++) {
+                Map<String, Object> map = list.get(i);
+                Map<String, Object> m = new HashMap<>(map.size());
+                m.putAll(map);
+                if (m.containsKey(status)) {
+                    GuestBookStatus guestBookStatus=GuestBookStatus.getStatus((Integer) m.get(status));
+                    m.put("statusName", guestBookStatus==null?"":guestBookStatus.getName());
+                }
+                if (m.containsKey(face)) {
+                    if (StringUtils.hasLength((String) m.get(face))) {
+                        m.put("face", ResourceConfig.getServer() + m.get(face));
+                    }
+                }
+                list.set(i, m);
+            }
+        }
+        return list;
     }
 }

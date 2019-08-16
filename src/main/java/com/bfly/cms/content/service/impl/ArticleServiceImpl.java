@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.io.File;
+import java.math.BigInteger;
 import java.util.*;
 
 /**
@@ -400,5 +401,20 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article, Integer> implem
     @Transactional(rollbackFor = Exception.class)
     public void delArticleAttachment(int attachmentId) {
         articleDao.delArticleAttachment(attachmentId);
+    }
+
+    @Override
+    public Map<String, BigInteger> getTodayAndTotalArticle() {
+        return articleDao.getTodayAndTotalArticle();
+    }
+
+    @Override
+    public List<Map<String, Object>> getClickTopArticle(int limit) {
+        return articleDao.getClickTopArticle(limit);
+    }
+
+    @Override
+    public List<Map<String, Object>> getCommentsTopArticle(int limit) {
+        return articleDao.getCommentsTopArticle(limit);
     }
 }
