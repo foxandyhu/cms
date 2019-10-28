@@ -5,6 +5,8 @@ import com.bfly.cms.words.entity.Dictionary;
 import com.bfly.cms.words.service.IDictionaryService;
 import com.bfly.core.base.service.impl.BaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +26,14 @@ public class DictionaryServiceImpl extends BaseServiceImpl<Dictionary, Integer> 
     private IDictionaryDao dictionaryDao;
 
     @Override
+    @Cacheable(value = "beanCache",key = "'dictionary_list'")
+    public List<Dictionary> getList(Map<String, Object> exactQueryProperty) {
+        return super.getList(exactQueryProperty);
+    }
+
+    @Override
     @Transactional(rollbackFor = Exception.class)
+    @CacheEvict(value = "beanCache",key = "'dictionary_list'")
     public boolean save(Dictionary dictionary) {
         boolean exist = checkExist(dictionary);
         Assert.isTrue(!exist, "该数据字典数据已重复!");
@@ -33,6 +42,7 @@ public class DictionaryServiceImpl extends BaseServiceImpl<Dictionary, Integer> 
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    @CacheEvict(value = "beanCache",key = "'dictionary_list'")
     public boolean edit(Dictionary dictionary) {
         boolean exist = checkExist(dictionary);
         Assert.isTrue(!exist, "该数据字典数据已重复!");

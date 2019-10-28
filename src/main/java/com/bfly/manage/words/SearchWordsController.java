@@ -1,5 +1,6 @@
 package com.bfly.manage.words;
 
+import com.bfly.cms.words.entity.SearchWords;
 import com.bfly.cms.words.service.ISearchWordsService;
 import com.bfly.common.ResponseData;
 import com.bfly.common.ResponseUtil;
@@ -75,5 +76,44 @@ public class SearchWordsController extends BaseManageController {
     public void recommendSearchWords(HttpServletResponse response, @PathVariable("searchId") int searchId, @PathVariable("status") boolean status) {
         searchWordsService.editRecommend(searchId, status);
         ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
+    }
+
+    /**
+     * 新增搜索词
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/9/16 11:31
+     */
+    @PostMapping(value = "/add")
+    @ActionModel(value = "新增搜索词")
+    public void addSearchWords(HttpServletResponse response, @RequestBody SearchWords word) {
+        searchWordsService.save(word);
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
+    }
+
+    /**
+     * 编辑搜索词
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/9/16 11:32
+     */
+    @PostMapping(value = "/edit")
+    @ActionModel(value = "编辑搜索词")
+    public void editSearchWords(HttpServletResponse response, @RequestBody SearchWords word) {
+        searchWordsService.edit(word);
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
+    }
+
+    /**
+     * 搜索词详情
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/9/16 11:34
+     */
+    @GetMapping(value = "/{wordId}")
+    @ActionModel(value = "搜索词详情", need = false)
+    public void viewSearchWords(HttpServletResponse response, @PathVariable("wordId") int wordId) {
+        SearchWords words = searchWordsService.get(wordId);
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(words));
     }
 }

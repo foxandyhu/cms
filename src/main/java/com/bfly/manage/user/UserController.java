@@ -54,7 +54,6 @@ public class UserController extends BaseManageController {
     public void login(HttpServletResponse response, @RequestBody User user) {
         user = userService.login(user.getUserName(), user.getPassword());
         String appAuth = StringUtil.getRandomString(32);
-        getSession().setAttribute(Constants.USER_LOGIN_KEY, user);
         getSession().setAttribute(Constants.APP_AUTH, appAuth);
 
         JSONObject json = new JSONObject();
@@ -79,7 +78,6 @@ public class UserController extends BaseManageController {
     @ActionModel(value = "用户登出", need = false)
     public void logout(HttpServletResponse response) {
         User user = getUser();
-        getSession().invalidate();
         if (user != null) {
             String userName = user.getUserName();
             userService.logout(userName);

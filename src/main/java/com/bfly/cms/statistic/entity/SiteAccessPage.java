@@ -15,7 +15,6 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "site_access_pages")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class SiteAccessPage implements Serializable {
 
     private static final long serialVersionUID = -3382722684352955406L;

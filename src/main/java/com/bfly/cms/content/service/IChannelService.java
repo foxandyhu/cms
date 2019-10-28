@@ -31,4 +31,12 @@ public interface IChannelService extends IBaseService<Channel, Integer> {
      * @date 2019/8/7 14:54
      */
     List<Map<String, Object>> getAllChannel();
+
+    /**
+     * 根据栏目路径查询栏目对象
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/8/19 16:43
+     */
+    Channel getChannelByPath(String path);
 }

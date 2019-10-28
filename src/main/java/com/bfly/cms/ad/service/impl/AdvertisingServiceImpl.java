@@ -5,6 +5,7 @@ import com.bfly.cms.ad.service.IAdvertisingService;
 import com.bfly.core.base.service.impl.BaseServiceImpl;
 import com.bfly.core.config.ResourceConfig;
 import com.bfly.core.enums.AdvertisingType;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +18,12 @@ import org.springframework.util.Assert;
 @Service
 @Transactional(propagation = Propagation.SUPPORTS, rollbackFor = Exception.class)
 public class AdvertisingServiceImpl extends BaseServiceImpl<Advertising, Integer> implements IAdvertisingService {
+
+    @Override
+    @Cacheable(value = "beanCache", key = "'ad_'+#integer")
+    public Advertising get(Integer integer) {
+        return super.get(integer);
+    }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -36,6 +43,7 @@ public class AdvertisingServiceImpl extends BaseServiceImpl<Advertising, Integer
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    @Cacheable(value = "beanCache", key = "'ad_'+#advertising.id")
     public boolean edit(Advertising advertising) {
         checkAdvertising(advertising);
 
@@ -54,7 +62,7 @@ public class AdvertisingServiceImpl extends BaseServiceImpl<Advertising, Integer
                 //没有修改广告
                 advertising.getAttr().put("pic_url", ad.getAttr().get("pic_url"));
             }
-        }else{
+        } else {
             advertising.getAttr().put("pic_url", ad.getAttr().get("pic_url"));
         }
         return super.edit(advertising);
@@ -68,6 +76,8 @@ public class AdvertisingServiceImpl extends BaseServiceImpl<Advertising, Integer
      * @date 2019/7/18 10:42
      */
     private void checkAdvertising(Advertising advertising) {
+        Assert.isTrue(advertising.getStartTime() != null, "开始时间不能为空!");
+        Assert.isTrue(advertising.getEndTime() != null, "结束时间不能为空!");
         AdvertisingType type = AdvertisingType.getType(advertising.getType());
         switch (type) {
             case PIC:

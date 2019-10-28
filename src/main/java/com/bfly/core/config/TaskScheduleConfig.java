@@ -25,10 +25,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 
 import java.lang.reflect.Method;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * 计划任务器配置
@@ -59,6 +56,7 @@ public class TaskScheduleConfig implements SchedulingConfigurer {
         executor.setMaxPoolSize(20);
         executor.setQueueCapacity(20);
         executor.setThreadNamePrefix("TaskExecutor-");
+        executor.setWaitForTasksToCompleteOnShutdown(false);
         executor.initialize();
         return executor;
     }
@@ -69,7 +67,7 @@ public class TaskScheduleConfig implements SchedulingConfigurer {
         pool.setPoolSize(10);
         pool.setThreadNamePrefix("TaskScheduler-");
         pool.setAwaitTerminationSeconds(60);
-        pool.setWaitForTasksToCompleteOnShutdown(true);
+        pool.setWaitForTasksToCompleteOnShutdown(false);
         return pool;
     }
 
@@ -88,6 +86,7 @@ public class TaskScheduleConfig implements SchedulingConfigurer {
     public void initScheduleTask(ApplicationStartedEvent context) {
         //得到所有计划任务类
         Map<String, IScheduled> beansMap = context.getApplicationContext().getBeansOfType(IScheduled.class);
+        Map<Method,Set<Scheduled>> taskMethods=new HashMap<>(8);
         beansMap.forEach((name, bean) -> {
             //得到所有计划任务类中执行的方法
             Map<Method, Set<Scheduled>> annotatedMethods = MethodIntrospector.selectMethods(bean.getClass(),
@@ -97,32 +96,35 @@ public class TaskScheduleConfig implements SchedulingConfigurer {
                         return (!scheduledMethods.isEmpty() ? scheduledMethods : null);
                     });
 
-            clearRedundantTask(annotatedMethods);
+            taskMethods.putAll(annotatedMethods);
+        });
 
-            annotatedMethods.forEach((method, scheduleds) -> {
-                //每个方法就是每一个执行计划任务并把计划任务写入数据库
-                ScheduledInfo info = ReflectUtils.getActionAnnotationValue(method, ScheduledInfo.class);
-                if (info != null) {
-                    SysTask sysTask = taskService.getTask(info.name());
-                    Scheduled scheduled = scheduleds.iterator().next();
-                    Date nextExec = DateUtil.getNextDateByCron(scheduled.cron());
-                    if (sysTask != null) {
-                        if (sysTask.getStatus() == TaskStatus.START.getId()) {
-                            sysTask.setNextExecTime(nextExec);
-                        }
-                        sysTask.setPeriod(scheduled.cron());
-                        sysTask.setRemark(info.remark());
-                        taskService.edit(sysTask);
-                    } else {
-                        sysTask = new SysTask();
-                        sysTask.setName(info.name());
-                        sysTask.setPeriod(scheduled.cron());
+        clearRedundantTask(taskMethods);
+
+        taskMethods.forEach((method, schedules) -> {
+            //每个方法就是每一个执行计划任务并把计划任务写入数据库
+            ScheduledInfo info = ReflectUtils.getActionAnnotationValue(method, ScheduledInfo.class);
+            if (info != null) {
+                SysTask sysTask = taskService.getTask(info.name());
+                Scheduled scheduled = schedules.iterator().next();
+                Date nextExec = DateUtil.getNextDateByCron(scheduled.cron());
+                if (sysTask != null) {
+                    if (sysTask.getStatus() == TaskStatus.START.getId()) {
                         sysTask.setNextExecTime(nextExec);
-                        sysTask.setStatus(TaskStatus.START.getId());
-                        taskService.save(sysTask);
                     }
+                    sysTask.setPeriod(scheduled.cron());
+                    sysTask.setRemark(info.remark());
+                    taskService.edit(sysTask);
+                } else {
+                    sysTask = new SysTask();
+                    sysTask.setName(info.name());
+                    sysTask.setPeriod(scheduled.cron());
+                    sysTask.setNextExecTime(nextExec);
+                    sysTask.setStatus(TaskStatus.START.getId());
+                    sysTask.setRemark(info.remark());
+                    taskService.save(sysTask);
                 }
-            });
+            }
         });
     }
 

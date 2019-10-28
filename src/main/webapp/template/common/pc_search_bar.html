@@ -1,0 +1,22 @@
+<div class="header mt15 w1200 ma clearfix">
+    <h1 class="fl logo">
+        <a href="" title="默默分享吧手机教程"></a>
+    </h1>
+    <div class="fr clearfix">
+        <div class="search_wrap clearfix">
+            <form action="/search.html" method="get">
+                <input class="search_text fl" name="word" type="text" placeholder="请输入关键字" autocomplete="off">
+                <a class="search_btn fl" onclick="document.forms[0].submit()">搜索</a>
+                <input id="index_search_item" value="" type="hidden">
+            </form>
+        </div>
+    </div>
+    <div class="fr hot_key">
+        热门搜索：　
+        <@searchWordsDirective pageSize="3" hitCountSort="false">
+            <#list list as item>
+                <a href="/search.html?word=${item.name}">${item.name}</a>&nbsp;
+            </#list>
+        </@searchWordsDirective>
+    </div>
+</div>

@@ -38,6 +38,7 @@ public interface ICommentService extends IBaseService<Comment, Integer> {
 
     /**
      * 统计当天评论总数和总评论数
+     *
      * @return Map
      * @author andy_hulibo@163.com
      * @date 2019/8/14 19:47
@@ -47,10 +48,21 @@ public interface ICommentService extends IBaseService<Comment, Integer> {
     /**
      * 获得最新的前几条评论
      *
-     * @param limit 返回最大条数
+     * @param limit  返回最大条数
+     * @param status
      * @return Map
      * @author andy_hulibo@163.com
      * @date 2019/8/15 12:21
      */
-    List<Map<String, Object>> getLatestComment(int limit);
+    List<Map<String, Object>> getLatestComment(int limit, Integer status);
+
+    /**
+     * 评论顶和踩
+     *
+     * @param commentId 评论ID
+     * @param isUp      顶或踩
+     * @author andy_hulibo@163.com
+     * @date 2019/9/6 18:16
+     */
+    void upDownComment(int commentId, boolean isUp);
 }

@@ -15,7 +15,6 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "friendlink_type")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class FriendLinkType implements Serializable, Comparable<FriendLinkType> {
 
     private static final long serialVersionUID = 7919307427987468685L;

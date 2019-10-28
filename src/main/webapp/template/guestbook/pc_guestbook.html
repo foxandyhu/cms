@@ -1,0 +1,39 @@
+<section class="w850 fl">
+    <h1>给我们留言</h1>
+    <form id="guestbookForm">
+        <div class="message_inf">
+            <div class="line"></div>
+            <div class="mt20">
+                <p>
+                    <span>类别</span>
+                    <select name="type">
+                        <@dictionaryDirective type="guestbook_type">
+                            <#list list as item>
+                                <option value="${item.value}">${item.name}</option>
+                            </#list>
+                        </@dictionaryDirective>
+                    </select>
+                </p>
+                <p>
+                    <span><i class="red">*</i>邮箱</span><input autocomplete="off" type="text" name="ext.email" class="message_email" maxlength="30">
+                    <span><i class="red">*</i>手机号</span><input autocomplete="off" type="text" name="ext.phone" maxlength="11" class="message_phone">
+                    <span style="width:auto;">QQ</span><input autocomplete="off" type="text" name="ext.qq" class="message_qq" maxlength="15">
+                </p>
+                <p><span><i class="red">*</i>标题</span><input autocomplete="off" type="text" name="ext.title" class="message_title" maxlength="100"></p>
+                <p><span><i class="red">*</i>内容</span><textarea name="ext.content" cols="55" rows="4" class="message_txt" maxlength="500"></textarea></p>
+                <p>
+                    <span><i class="red">*</i>验证码</span><input autocomplete="off" type="text" name="captcha" maxlength="8" class="message_code">
+                    <img id="guestbookCaptcha" src="/captcha.svl" onclick="this.src='/captcha.svl?d='+new Date()*1">
+                </p>
+                <p><input type="button" id="submit" class="message_btn" value="发表留言" onclick="Cms.guestbook.post()"></p>
+            </div>
+        </div>
+    </form>
+    <section class="comments-list">
+        <h1><span>留言</span></h1>
+        <div id="guestbooksContainer"></div>
+        <div class="open-more">
+            <a id="moreGuestBooks" href="javascript:void(0)" onclick="Cms.guestbook.load()">更多评论</a>
+        </div>
+    </section>
+</section>

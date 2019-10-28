@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>${article.articleExt.title}--${site.name}</title>
+    <meta name="keywords" content="${article.articleExt.keywords???then(article.articleExt.keywords,site.keywords)}">
+    <meta name="description" content="${article.articleExt.description???then(article.articleExt.description,site.remark)}">
+    <link href="${resServer}/style/default/css/video.css" type="text/css" rel="stylesheet" media="screen">
+</head>
+<body>
+<header>
+    <#include "/common/pc_header_bar.html">
+    <#include "/common/pc_search_bar.html">
+    <#include "/common/pc_nav_bar.html">
+</header>
+<section class="main w1200 ma clearfix">
+    <section class="w850 fl">
+        <div class="playerContainer">
+            <div id="player" class="player"></div>
+            <div class="player__videoTitle">
+                <#if article.articleExt.origin??>
+                    <#if article.articleExt.originUrl??>
+                        <a href="${article.articleExt.originUrl}" target="_blank">
+                            <span class="player__videoSource videoSource--original">${article.articleExt.origin}</span>
+                        </a>
+                        <#else>
+                            <span class="player__videoSource videoSource--original">${article.articleExt.origin}</span>
+                    </#if>
+                </#if>
+                <h1>${article.articleExt.title}</h1>
+            </div>
+        </div>
+        <div class="content-inf">
+            发布时间：${article.articleExt.postDate?string("yyyy-MM-dd")}&nbsp;&nbsp;作者：${article.articleExt.author}&nbsp;&nbsp;播放量：${article.views}
+            <div class="content-action fr">
+                <#if article.share>
+                    <span class="ml10 fr bdsharebuttonbox" data-tag="share_1">
+                        <a class="bds_weixin" data-cmd="weixin">微信朋友圈</a>
+                        <a class="bds_sqq" data-cmd="sqq">QQ好友</a>
+                        <a class="bds_qzone" data-cmd="qzone">QQ空间</a>
+                        <a class="bds_tsina" data-cmd="tsina">新浪微博</a>
+                    </span>
+                </#if>
+            </div>
+        </div>
+        <div class="videoDesc mt25">
+            <p>${article.articleTxt.txt}</p>
+        </div>
+        <#if article.comment>
+            <#include "/common/pc_comment.html">
+        </#if>
+
+    </section>
+    <section class="w310 fr">
+        <section class="tag issue clearfix">
+            <div class="tag-nav"><h1>热门视频</h1></div>
+            <@articleDirective pageSize="5" channelId="108" viewsSort="false" status="2">
+                <#list list as item>
+                <div class="card-container  left-right-layout ">
+                    <div class="card-cont">
+                        <a href="/${item.channelPath}/id_${item.idStr}.html" title="${item.title}">
+                            <div class="card-cont__bg-wrap">
+                                <div class="card-cont__bg" style="background-image: url('${resServer}${item.titleImg}');">
+                                    <noscript></noscript>
+                                </div>
+                                <span class="black">${item.fileLength}</span>
+                            </div>
+                        </a>
+                        <div class="card-cont__title">
+                            <a class="" href="/${item.channelPath}/id_${item.idStr}.html" title="${item.title}">
+                                <p class="title" title="${item.title}">${item.title}</p>
+                            </a>
+                            <div class="buttom">
+                                <span class="text-icon ">
+                                    <i class="fa fa-play-circle-o"></i>
+                                    <i class="text-icon__txt">${item.views}</i>
+                                </span>
+                                <span class="text-icon">
+                                    <i class="fa fa-commenting-o"></i>
+                                    <i class="text-icon__txt">${item.comments}</i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </#list>
+            </@articleDirective>
+        </section>
+    </section>
+</section>
+
+<!-- 底部 begin -->
+<footer>
+    <#include "/common/pc_footer.html">
+    <#include "/common/pc_to_top.html">
+</footer>
+<!-- 底部 end -->
+</body>
+<#include "/common/script-res.html">
+<script src="${resServer}/style/default/player/player.js" charset="utf-8"></script>
+<script type="text/javascript" src="${resServer}/style/default/js/video.js"></script>
+<script type="text/javascript" src="${resServer}/style/default/js/comment.js"></script>
+<#if article.comment>
+    <script>
+        var pageNo=1;
+        Cms.comment.load("${article.idStr}",pageNo);
+    </script>
+</#if>
+<#if article.share>
+    <script>
+        with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+    </script>
+</#if>
+<script type="text/javascript">
+    Cms.video.play("${resServer}${article.articleExt.filePath}","${resServer}${article.articleExt.titleImg}");
+</script>
+</html>

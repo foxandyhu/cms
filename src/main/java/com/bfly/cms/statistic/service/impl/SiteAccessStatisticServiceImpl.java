@@ -164,9 +164,9 @@ public class SiteAccessStatisticServiceImpl extends BaseServiceImpl<SiteAccessSt
     private void statisticByHour(Date day) {
         List<Map<String, Object>> result = siteAccessDao.statisticByHour(day);
         for (Map<String, Object> item : result) {
-            long ip = (long) item.get("ip");
-            long uv = (long) item.get("uv");
-            long pv = (long) item.get("pv");
+            long ip = ((Number) item.get("ip")).longValue();
+            long uv = ((Number) item.get("uv")).longValue();
+            long pv = ((Number) item.get("pv")).longValue();
             int value = (int) item.get("value");
 
             SiteAccessStatisticHour statisticHour = new SiteAccessStatisticHour();
@@ -211,24 +211,24 @@ public class SiteAccessStatisticServiceImpl extends BaseServiceImpl<SiteAccessSt
         }
 
         for (Map<String, Object> item : result) {
-            long ip = (long) item.get("ip");
-            long uv = (long) item.get("uv");
-            long pv = (long) item.get("pv");
-            long st = (long) item.get("st");
+            long ip = ((Number) item.get("ip")).longValue();
+            long uv = ((Number) item.get("uv")).longValue();
+            long pv = ((Number) item.get("pv")).longValue();
+            long st = ((Number) item.get("st")).longValue();
             String value = String.valueOf(item.get("value"));
 
             long pagesAvg = pv / uv;
-            long vistSecondAvg = st / uv;
+            long visitSecondAvg = st / uv;
 
             SiteAccessStatistic statistic = new SiteAccessStatistic();
             statistic.setIp(ip);
             statistic.setPagesAvg(pagesAvg);
             statistic.setPv(pv);
-            statistic.setStatisitcKey(type.getName());
+            statistic.setStatisticKey(type.getName());
             statistic.setStatisticDate(day);
             statistic.setStatisticValue(value);
             statistic.setVisitors(uv);
-            statistic.setVisitSecondAvg(vistSecondAvg);
+            statistic.setVisitSecondAvg(visitSecondAvg);
             save(statistic);
         }
     }

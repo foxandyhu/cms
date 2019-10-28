@@ -1,7 +1,6 @@
 package com.bfly.cms.content.service.impl;
 
 import com.bfly.cms.content.dao.IScoreItemDao;
-import com.bfly.cms.content.entity.Channel;
 import com.bfly.cms.content.entity.ScoreGroup;
 import com.bfly.cms.content.entity.ScoreItem;
 import com.bfly.cms.content.service.IScoreGroupService;
@@ -13,6 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author andy_hulibo@163.com
@@ -82,5 +84,10 @@ public class ScoreItemServiceImpl extends BaseServiceImpl<ScoreItem, Integer> im
 
         scoreItemDao.editScoreItemSeq(upId, downItem.getSeq());
         scoreItemDao.editScoreItemSeq(downId, upItem.getSeq());
+    }
+
+    @Override
+    public List<Map<String, Object>> getArticleScoreItems(int articleId, int scoreGroupId) {
+        return scoreItemDao.getArticleScoreItems(articleId,scoreGroupId);
     }
 }

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>用户信息--${site.name}</title>
+    <meta name="keywords" content="${site.keywords}">
+    <meta name="description" content="${site.remark}">
+    <link href="${resServer}/style/default/css/member.css" type="text/css" rel="stylesheet" media="screen">
+</head>
+<body>
+<header>
+    <#include "/common/pc_search_bar.html">
+    <#include "/common/pc_nav_bar.html">
+
+    <section class="now_positionm">
+        <span>当前位置：</span><a href="/member/index.html">首页&gt;</a><a href="/member/info">用户信息</a>
+    </section>
+
+    <section class="centers_m">
+        <div class="clear_sm"></div>
+        <#include "/member/pc_left.html">
+        <div class="centers_mr">
+            <div class="public_m1">
+                <div class="public_m2">资料管理</div>
+                <div class="zp_nrm">
+                    <div class="zp_nrm_l">
+                        <img src="${resServer}${memberInfo.memberExt.face???then(memberInfo.memberExt.face,"/system/images/default.jpg")}">
+                        <a href="javascript:void(0)" onclick="Cms.member.showEditFace()">更换头像</a>
+                    </div>
+                    <div class="zp_nrm_r info_cc" >
+                        <p><em>姓名:&nbsp;</em><i>${memberInfo.memberExt.realName?html}</i></p>
+                        <p><em>会员组别:&nbsp;</em><i>${memberInfo.group.name?html}</i></p>
+                        <p><em>性别:&nbsp;</em><i>${memberInfo.memberExt.girl?then("女","男")}</i></p>
+                        <p><em>出生日期:&nbsp;</em><i>${memberInfo.memberExt.birthday???then(memberInfo.memberExt.birthday?string("yyyy-MM-dd"),"")}</i></p>
+                        <p><em>邮箱:&nbsp;</em><i>${memberInfo.memberExt.email?html}</i></p>
+                        <p><em>手机:&nbsp;</em><i>${memberInfo.memberExt.mobile?html}</i></p>
+                        <p><em>固定电话:&nbsp;</em><i>${memberInfo.memberExt.phone?html}</i></p>
+                        <p><em>QQ:&nbsp;</em><i>${memberInfo.memberExt.qq?html}</i></p>
+                        <p><em>微信:&nbsp;</em><i>${memberInfo.memberExt.weiXin?html}</i></p>
+                        <p><em>来自:&nbsp;</em><i>${memberInfo.memberExt.comeFrom?html}</i></p>
+                        <p style="height: auto;width: auto;border-bottom:0px"><em>自我介绍:&nbsp;</em>
+                            <i>${memberInfo.memberExt.signature?html}</i>
+                        </p>
+                        <div class="cls"></div>
+                        <button class="edit_btn" onclick="Cms.member.showEditInfo()">修改资料</button>
+                    </div>
+                    <div class="zp_nrm_r form_cc hidden">
+                        <form action="/member/info/edit.html" method="post">
+                            <p><em>姓名:&nbsp;</em><i><input autocomplete="off" type="text" name="realName" value="${memberInfo.memberExt.realName}" maxlength="10"></i></p>
+                            <p><em>会员组别:&nbsp;</em><i>${memberInfo.group.name}</i></p>
+                            <p>
+                                <em>性别:&nbsp;</em>
+                                <i>
+                                    <label><input type="radio" ${memberInfo.memberExt.girl?then("checked='checked'","")}  name="girl" value="true"/>女</label>
+                                    <label><input type="radio" ${memberInfo.memberExt.girl?then("","checked='checked'")} name="girl" value="false"/>男</label>
+                                </i>
+                            </p>
+                            <p><em>出生日期:&nbsp;</em><i><input class="Wdate" autocomplete="off" type="text" name="birthday" value="${memberInfo.memberExt.birthday???then(memberInfo.memberExt.birthday?string("yyyy-MM-dd"),"")}" readonly="readonly"></i></p>
+                            <p><em>邮箱:&nbsp;</em><i><input autocomplete="off" type="text" name="email" value="${memberInfo.memberExt.email}" maxlength="30"></i></p>
+                            <p><em>手机:&nbsp;</em><i><input autocomplete="off" type="text" name="mobile" value="${memberInfo.memberExt.mobile}" maxlength="15"></i></p>
+                            <p><em>固定电话:&nbsp;</em><i><input autocomplete="off" type="text" name="phone" value="${memberInfo.memberExt.phone}" maxlength="15"></i></p>
+                            <p><em>QQ:&nbsp;</em><i><input autocomplete="off" type="text" name="qq" value="${memberInfo.memberExt.qq}" maxlength="15"></i></p>
+                            <p><em>微信:&nbsp;</em><i><input autocomplete="off" type="text" name="weiXin" value="${memberInfo.memberExt.weiXin}" maxlength="30"></i></p>
+                            <p><em>来自:&nbsp;</em><i><input autocomplete="off" type="text" name="comeFrom" value="${memberInfo.memberExt.comeFrom}" maxlength="10"></i></p>
+                            <p style="margin-top:5px;height: auto;width: auto;border-bottom:0px"><em>自我介绍:&nbsp;</em>
+                                <i><textarea rows="10" cols="100" name="signature" maxlength="200">${memberInfo.memberExt.signature}</textarea></i>
+                            </p>
+                            <div class="cls"></div>
+                            <button type="submit" class="edit_btn">保存资料</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</header>
+
+<!-- 底部 begin -->
+<footer>
+    <#include "/common/pc_footer.html">
+
+    <!-- 返回顶部 begin -->
+    <#include "/common/pc_to_top.html">
+    <!-- 返回顶部 end -->
+</footer>
+<!-- 底部 end -->
+</body>
+<#include "/common/script-res.html">
+<script type="text/javascript" src="${resServer}/style/default/js/member.js"></script>
+</html>

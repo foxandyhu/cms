@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>${article.articleExt.title}--${site.name}</title>
+    <meta name="keywords" content="${article.articleExt.keywords???then(article.articleExt.keywords,site.keywords)}">
+    <meta name="description" content="${article.articleExt.description???then(article.articleExt.description,site.remark)}">
+    <link href="${resServer}/style/default/css/picture.css" type="text/css" rel="stylesheet" media="screen">
+    <link href="${resServer}/style/default/gallery/gallery.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+<header>
+    <#include "/common/pc_header_bar.html">
+    <#include "/common/pc_search_bar.html">
+    <#include "/common/pc_nav_bar.html">
+</header>
+<section class="main w1200 ma clearfix">
+    <div class="piccontext">
+        <h2>${article.articleExt.title}</h2>
+        <div class="content-inf mt25">
+            发布时间：${article.articleExt.postDate?string("yyyy-MM-dd")}&nbsp;&nbsp;作者：${article.articleExt.author}&nbsp;&nbsp;来源：${article.articleExt.origin}&nbsp;&nbsp;浏览次数：${article.views}
+            <div class="content-action">
+                <div class="support">支持<img src="${resServer}/style/default/jiantou1.jpg">键翻阅图片| </div>
+                <#if article.comment>
+                    <a class="content-comment" href="#comments"><i class="fa fa-comments"></i> 我有话说|</a>
+                </#if>
+                <#if article.share>
+                    <span class="ml10 fr bdsharebuttonbox" data-tag="share_1">
+                        <a class="bds_weixin" data-cmd="weixin">微信朋友圈</a>
+                        <a class="bds_sqq" data-cmd="sqq">QQ好友</a>
+                        <a class="bds_qzone" data-cmd="qzone">QQ空间</a>
+                        <a class="bds_tsina" data-cmd="tsina">新浪微博</a>
+                    </span>
+                </#if>
+            </div>
+        </div>
+    </div>
+
+    <div class="photo-warp-inner ad-gallery">
+        <div class="mainArea ad-image-wrapper"></div>
+        <div class="photo-info">
+            <div class="picInfo">
+                <div class="fl ad-controls"></div>
+                <div id="descriptions"></div>
+            </div>
+        </div>
+
+        <div class="photoList-wrap cf" style=" height:120px;">
+            <div class="nph_set_pre fl">
+                <@nextArticleDirective currentArticleId="${article.idStr}" channelId="${article.channelId}" next="false">
+                    <span>
+                        <#if nextArticle??>
+                            <a href="/${nextArticle.path}/id_${nextArticle.idStr}.html" class="prevSet"><img title="${nextArticle.title}" alt="${nextArticle.title}" src="${resServer}${nextArticle.titleImg}"></a>
+                            <#else>
+                            <a href="/${channelPath}/index.html"><img alt="更多图片" src="${resServer}/system/images/no-picture.png"></a>
+                        </#if>
+                    </span>
+                    <p><a href="/${nextArticle.path}/id_${nextArticle.idStr}.html">< 上一图集</a></p>
+                </@nextArticleDirective>
+            </div>
+            <div class="ad-nav" style="width:600px;display:inline;margin:0 10px;float:left;">
+                <div id="photo-List" class="photo-List ad-thumbs" style="width:528px;">
+                    <ul class="ad-thumb-list">
+                        <#list article.pictures as item>
+                            <#if item.field?length > 0>
+                                <li>
+                                    <a href="${resServer}${item.imgPath}" rel="${resServer}${item.imgPath}">
+                                        <img src="${resServer}${item.imgPath}" title="${item.remark}"/>
+                                    </a>
+                                </li>
+                            </#if>
+                        </#list>
+                    </ul>
+                </div>
+            </div>
+            <div class="nph_set_next fl">
+                <@nextArticleDirective currentArticleId="${article.idStr}" channelId="${article.channelId}" next="true">
+                    <span>
+                        <#if nextArticle??>
+                            <a href="/${nextArticle.path}/id_${nextArticle.idStr}.html" class="prevSet"><img title="${nextArticle.title}" alt="${nextArticle.title}" src="${resServer}${nextArticle.titleImg}"></a>
+                            <#else>
+                            <a href="/${channelPath}/index.html"><img alt="更多图片" src="${resServer}/system/images/no-picture.png"></a>
+                        </#if>
+                    </span>
+                    <p><a href="/${nextArticle.path}/id_${nextArticle.idStr}.html">下一图集 ></a></p>
+                </@nextArticleDirective>
+            </div>
+        </div>
+        <div class="scrollbar-box">
+            <div id="scrollbar" bossZone="photoShowBar" style=" width:528px" class="scrollbar">
+                <a class="nph_btn_scrl scroolbar-handle" href="javascript:void(0)" onfocus="this.blur()" title="拖动工具条以快速查看图片" style="width:100px;">
+                    <b class="nph_btn_lt"></b>
+                    <b class="nph_btn_rt"></b>
+                    <span class="nph_btn_bd">
+                        <span><b class="nph_btn_ct"></b></span>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <#if article.comment>
+        <#include "/common/pc_comment.html">
+    </#if>
+</section>
+
+<!-- 底部 begin -->
+<footer>
+    <#include "/common/pc_footer.html">
+    <#include "/common/pc_to_top.html">
+</footer>
+<!-- 底部 end -->
+</body>
+<#include "/common/script-res.html">
+<script type="text/javascript" src="${resServer}/style/default/gallery/jquery.ad-gallery.new.min.js"></script>
+<script type="text/javascript" src="${resServer}/style/default/js/picture.js"></script>
+<script type="text/javascript" src="${resServer}/style/default/js/comment.js"></script>
+<script type="text/javascript">
+ Cms.picture.gallery("${resServer}/style/default/ajax-loader.gif");
+</script>
+<#if article.comment>
+    <script>
+        var pageNo=1;
+        Cms.comment.load("${article.idStr}",pageNo);
+    </script>
+</#if>
+<#if article.share>
+    <script>
+        with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+    </script>
+</#if>
+</html>

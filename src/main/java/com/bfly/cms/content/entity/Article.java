@@ -1,6 +1,7 @@
 package com.bfly.cms.content.entity;
 
 import com.bfly.cms.member.entity.MemberGroup;
+import com.bfly.common.IDEncrypt;
 import com.bfly.core.enums.ArticleStatus;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
@@ -22,7 +23,14 @@ import java.util.Set;
 @Table(name = "article")
 public class Article implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -5818575667316876719L;
+    /**
+     * 根据扩展属性搜索key前缀
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/9/10 17:01
+     */
+    public static String ATTR_SEARCH_PREFIX = "attr_";
 
     @Id
     @Column(name = "id")
@@ -98,6 +106,15 @@ public class Article implements Serializable {
     private int downs;
 
     /**
+     * 评分数
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/9/7 16:20
+     */
+    @Column(name = "scores")
+    private float scores;
+
+    /**
      * 文章内容类型
      *
      * @see com.bfly.core.enums.ContentType
@@ -113,6 +130,7 @@ public class Article implements Serializable {
 
     /**
      * 是否运行分享
+     *
      * @author andy_hulibo@163.com
      * @date 2019/8/10 9:02
      */
@@ -121,6 +139,7 @@ public class Article implements Serializable {
 
     /**
      * 是否运行评论
+     *
      * @author andy_hulibo@163.com
      * @date 2019/8/10 9:02
      */
@@ -129,11 +148,21 @@ public class Article implements Serializable {
 
     /**
      * 是否允许顶踩
-     * @author andy_hulibo@163.com
-     * @date 2019/8/10 9:03
      */
     @Column(name = "is_updown")
     private boolean updown;
+
+    /**
+     * 是否评分
+     */
+    @Column(name = "is_score")
+    private boolean score;
+
+    /**
+     * 评分组ID
+     */
+    @Column(name = "score_group_id")
+    private int scoreGroupId;
 
     /**
      * 文章内容扩展信息
@@ -168,13 +197,14 @@ public class Article implements Serializable {
      */
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "article_id")
+    @OrderBy("seq")
     private List<ArticlePicture> pictures;
 
 
     /**
      * 文章内容附件
      */
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "article_id")
     private List<ArticleAttachment> attachments;
 
@@ -196,6 +226,31 @@ public class Article implements Serializable {
     public String getStatusName() {
         ArticleStatus status = ArticleStatus.getStatus(getStatus());
         return status == null ? "" : status.getName();
+    }
+
+
+    public float getScores() {
+        return scores;
+    }
+
+    public void setScores(float scores) {
+        this.scores = scores;
+    }
+
+    public int getScoreGroupId() {
+        return scoreGroupId;
+    }
+
+    public void setScoreGroupId(int scoreGroupId) {
+        this.scoreGroupId = scoreGroupId;
+    }
+
+    public boolean isScore() {
+        return score;
+    }
+
+    public void setScore(boolean score) {
+        this.score = score;
     }
 
     public boolean isShare() {
@@ -228,6 +283,16 @@ public class Article implements Serializable {
 
     public void setTopExpired(Date topExpired) {
         this.topExpired = topExpired;
+    }
+
+    /**
+     * 加密后的ID字符串
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/9/4 11:43
+     */
+    public String getIdStr() {
+        return IDEncrypt.encode(getId());
     }
 
     public int getId() {

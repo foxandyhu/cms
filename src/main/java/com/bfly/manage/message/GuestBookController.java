@@ -1,6 +1,9 @@
 package com.bfly.manage.message;
 
 import com.alibaba.fastjson.JSONObject;
+import com.bfly.cms.message.entity.CommentConfig;
+import com.bfly.cms.message.entity.GuestBookConfig;
+import com.bfly.cms.message.service.IGuestBookConfigService;
 import com.bfly.cms.message.service.IGuestBookService;
 import com.bfly.common.DataConvertUtils;
 import com.bfly.common.ResponseData;
@@ -31,6 +34,8 @@ public class GuestBookController extends BaseManageController {
 
     @Autowired
     private IGuestBookService guestBookService;
+    @Autowired
+    private IGuestBookConfigService configService;
 
     /**
      * 留言列表
@@ -112,6 +117,32 @@ public class GuestBookController extends BaseManageController {
     @ActionModel("删除留言")
     public void removeGuestBook(HttpServletResponse response, @RequestBody Integer... ids) {
         guestBookService.remove(ids);
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
+    }
+
+    /**
+     * 得到留言配置
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/9/15 13:38
+     */
+    @GetMapping(value = "/config")
+    @ActionModel(value = "留言配置", need = false)
+    public void getConfig(HttpServletResponse response) {
+        GuestBookConfig config = configService.getConfig();
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(config));
+    }
+
+    /**
+     * 编辑配置
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/9/15 13:39
+     */
+    @PostMapping(value = "/config/edit")
+    @ActionModel(value = "编辑留言配置")
+    public void editConfig(HttpServletResponse response, @RequestBody GuestBookConfig config) {
+        configService.save(config);
         ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
     }
 }

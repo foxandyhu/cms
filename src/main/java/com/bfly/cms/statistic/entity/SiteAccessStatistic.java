@@ -1,8 +1,5 @@
 package com.bfly.cms.statistic.entity;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -15,10 +12,9 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "site_access_statistic")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class SiteAccessStatistic implements Serializable {
 
-    public static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 3370754342472097130L;
 
     @Id
     @Column(name = "id")
@@ -64,8 +60,8 @@ public class SiteAccessStatistic implements Serializable {
     /**
      * 统计分类（all代表当天所有访问量的统计）
      */
-    @Column(name = "statisitc_key")
-    private String statisitcKey;
+    @Column(name = "statistic_key")
+    private String statisticKey;
 
     /**
      * 统计列值
@@ -129,12 +125,12 @@ public class SiteAccessStatistic implements Serializable {
         this.visitSecondAvg = visitSecondAvg;
     }
 
-    public String getStatisitcKey() {
-        return statisitcKey;
+    public String getStatisticKey() {
+        return statisticKey;
     }
 
-    public void setStatisitcKey(String statisitcKey) {
-        this.statisitcKey = statisitcKey;
+    public void setStatisticKey(String statisticKey) {
+        this.statisticKey = statisticKey;
     }
 
     public String getStatisticValue() {

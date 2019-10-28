@@ -8,7 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.PrintWriter;
+import java.io.*;
+import java.net.URLEncoder;
 
 /**
  * HttpServletResponse响应工具类
@@ -86,6 +87,30 @@ public class ResponseUtil {
             dataStr = JsonUtil.toJsonFilter(data).toJSONString();
         }
         writeData(response, dataStr, "application/json");
+    }
+
+    /**
+     * 文件下载
+     * @author andy_hulibo@163.com
+     * @date 2019/9/7 17:36
+     */
+    public static void writeDownload(HttpServletResponse response, File file){
+        response.setCharacterEncoding(Constants.ENCODEING_UTF8);
+        response.setHeader("Content-Disposition", "attachment;filename=" + file.getName());
+        response.setHeader("Content-Length", "" + file.length());
+        response.setHeader("Content-Type", "application/octet-stream");
+        response.setContentType("application/octet-stream");
+        try(OutputStream toClient = new BufferedOutputStream(response.getOutputStream())){
+            InputStream fis = new BufferedInputStream(new FileInputStream(file));
+            byte[] buffer = new byte[fis.available()];
+            fis.read(buffer);
+            fis.close();
+
+            toClient.write(buffer);
+            toClient.flush();
+        }catch(Exception e){
+            logger.error("下载文件异常",e);
+        }
     }
 
     /**

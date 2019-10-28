@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>账户激活--${site.name}</title>
+    <meta name="keywords" content="${site.keywords}">
+    <meta name="description" content="${site.remark}">
+    <link href="${resServer}/style/default/css/xieyi.css" type="text/css" rel="stylesheet" media="screen">
+</head>
+<body>
+<#include "/common/pc_header_bar.html">
+<#include "/common/pc_search_bar.html">
+<#include "/common/pc_nav_bar.html">
+<div class="mt10 w1200 ma oh clearfix">
+    <section class="register_txt mt50 mb15">
+        <span>
+            <#if isActivated>
+                <p class="oh fl"><img align="left" src="${resServer}/style/default/success_icon.gif"/></p>
+                <p class="fl mt20">恭喜您,您的账户已激活成功!<br>系统将在<i class="red" id="seconds">0</i>秒后自动返回<a class="red" href="/index.html">主页</a></p>
+                <#else>
+                <p class="oh fl"><img src="${resServer}/style/default/error.gif" width="60"/></p>
+                <p class="fl ml20"><i class="red">激活失败,${error}<br><br></i>系统将在<i class="red" id="seconds">0</i>秒后自动返回<a class="red" href="/index.html">主页</a></p>
+            </#if>
+        </span>
+    </section>
+</div>
+<!-- 底部 begin -->
+<footer>
+    <#include "/common/pc_footer.html">
+
+    <!-- 返回顶部 begin -->
+    <#include "/common/pc_to_top.html">
+    <!-- 返回顶部 end -->
+</footer>
+<!-- 底部 end -->
+</body>
+<#include "/common/script-res.html">
+<script type="text/javascript" src="${resServer}/style/default/js/login.js"></script>
+<script>Cms.login.activeSuccessToIndex(5);</script>
+</html>

@@ -69,7 +69,7 @@ public class StatisticContentController extends BaseManageController {
     @ActionModel(value = "最新内容统计", need = false)
     public void statisticLatest(HttpServletResponse response) {
         List<Map<String, Object>> members = memberService.getLatestMember(5);
-        List<Map<String, Object>> comments = commentService.getLatestComment(5);
+        List<Map<String, Object>> comments = commentService.getLatestComment(5,null);
         List<Map<String, Object>> guestBooks = guestBookService.getLatestGuestBook(5);
         List<Map<String, Object>> clickTops = articleService.getClickTopArticle(10);
         List<Map<String, Object>> commentsTops = articleService.getCommentsTopArticle(10);

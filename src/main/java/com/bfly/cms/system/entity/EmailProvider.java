@@ -13,14 +13,15 @@ import java.io.Serializable;
 @Entity
 @Table(name = "email_provider")
 public class EmailProvider implements Serializable {
-    private static final long serialVersionUID = 1L;
 
+    private static final long serialVersionUID = 953963861888241541L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     /**
      * 邮件服务商名称
+     *
      * @author andy_hulibo@163.com
      * @date 2019/7/16 17:45
      */
@@ -34,6 +35,23 @@ public class EmailProvider implements Serializable {
     @Column(name = "host")
     @NotBlank(message = "邮件服务器地址不能为空!")
     private String host;
+
+    /**
+     * 邮件服务器端口
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/9/23 21:05
+     */
+    @Column(name = "port")
+    private int port;
+
+    /**
+     * 协议
+     * @author andy_hulibo@163.com
+     * @date 2019/9/23 21:08
+     */
+    @Column(name = "protocol")
+    private String protocol;
 
     /**
      * 邮件发送编码
@@ -64,6 +82,7 @@ public class EmailProvider implements Serializable {
 
     /**
      * 是否启用
+     *
      * @author andy_hulibo@163.com
      * @date 2019/7/16 17:46
      */
@@ -72,11 +91,28 @@ public class EmailProvider implements Serializable {
 
     /**
      * 备注
+     *
      * @author andy_hulibo@163.com
      * @date 2019/7/16 17:47
      */
     @Column(name = "remark")
     private String remark;
+
+    public String getProtocol() {
+        return protocol;
+    }
+
+    public void setProtocol(String protocol) {
+        this.protocol = protocol;
+    }
+
+    public int getPort() {
+        return port;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
+    }
 
     public String getName() {
         return name;

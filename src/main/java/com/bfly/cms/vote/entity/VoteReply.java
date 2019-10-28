@@ -15,7 +15,6 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "vote_reply")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class VoteReply implements Serializable {
 
     private static final long serialVersionUID = -9219522160983208978L;

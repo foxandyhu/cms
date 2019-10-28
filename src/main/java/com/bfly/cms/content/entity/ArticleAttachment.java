@@ -12,7 +12,8 @@ import java.io.Serializable;
 @Entity
 @Table(name = "article_attachment")
 public class ArticleAttachment implements Serializable {
-    private static final long serialVersionUID = 1L;
+
+    private static final long serialVersionUID = 89441064569935173L;
 
     @Id
     @Column(name = "id")

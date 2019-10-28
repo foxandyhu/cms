@@ -3,6 +3,7 @@ package com.bfly.cms.member.entity;
 import com.bfly.cms.system.entity.EmailProvider;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * 登录配置类
@@ -10,8 +11,17 @@ import javax.persistence.*;
  * @author andy_hulibo@163.com
  * @date 2019/7/21 12:14
  */
-@Embeddable
-public class LoginConfig {
+@Entity
+@Table(name = "member_login_config")
+public class LoginConfig implements Serializable {
+
+    private static final long serialVersionUID = -3351712723103191847L;
+
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
     /**
      * 是否开启会员功能
      */
@@ -40,7 +50,7 @@ public class LoginConfig {
      * @author andy_hulibo@163.com
      * @date 2019/7/21 12:23
      */
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "login_email_id")
     private EmailProvider emailProvider;
 
@@ -55,6 +65,14 @@ public class LoginConfig {
      */
     @Column(name = "retrieve_pwd_text")
     private String retrievePwdText;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public boolean isOpenLogin() {
         return openLogin;

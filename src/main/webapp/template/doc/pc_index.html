@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>文库--${site.name}</title>
+    <meta name="keywords" content="${channel.keywords???then(channel.keywords,site.keywords)}">
+    <meta name="description" content="${channel.summary???then(channel.summary,site.remark)}">
+    <link href="${resServer}/style/default/css/doc.css" type="text/css" rel="stylesheet" media="screen">
+</head>
+<body>
+<header>
+    <#include "/common/pc_header_bar.html">
+    <#include "/common/pc_search_bar.html">
+    <#include "/common/pc_nav_bar.html">
+</header>
+<section class="main w1200 ma clearfix">
+    <section class="w850 fl">
+        <div class="doc_con">
+            <#include "/doc/pc_search_form.html">
+        </div>
+        <!--最新文章-->
+        <@articleDirective status="2" pageSize="10" channelId="${channel.id}" pageable="true">
+            <#list pager.data as item>
+                <div class="doc_item clearfix">
+                    <a href="/${item.channelPath}/id_${item.idStr}.html">
+                        <div class="doc_item_img">
+                            <img src="${resServer}${item.titleImg???then(item.titleImg,'/style/default/nopic_middle.png')}">
+                        </div>
+                        <div class="oh">
+                            <div class="wt">${item.title}
+                                <img src="${resServer}/style/default/${item.fileType}.gif">
+                            </div>
+                            <div class="wc">下载量：<span>${item.downloads}</span><em>${item.postDate?string('yyyy-MM-dd')}</em></div>
+                            <div class="wd">${item.summary}</div>
+                        </div>
+                    </a>
+                </div>
+            </#list>
+            <div class="text-center">
+                <@pagerMacro pager=pager url="/doc/search.html?channelId=${channel.id}&pageNo=:pageNo"></@pagerMacro>
+            </div>
+        </@articleDirective>
+    </section>
+
+    <section class="w310 fr">
+        <section class="tag issue clearfix">
+            <div class="tag-nav"><h1>热门文档</h1></div>
+            <!--点击率排行文章-->
+            <@articleDirective status="2" pageSize="10" viewsSort="false" channelId="${channel.id}">
+                <#list list as item>
+                    <div class="doc_hot_list">
+                        <ul>
+                            <li><a href="/${item.channelPath}/id_${item.idStr}.html">${item.title}</a></li>
+                        </ul>
+                    </div>
+                </#list>
+            </@articleDirective>
+        </section>
+    </section>
+</section>
+
+<!-- 底部 begin -->
+<footer>
+    <#include "/common/pc_footer.html">
+    <#include "/common/pc_to_top.html">
+</footer>
+<!-- 底部 end -->
+</body>
+<#include "/common/script-res.html">
+</html>

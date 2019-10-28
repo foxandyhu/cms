@@ -1,0 +1,17 @@
+<#list guestBookPager.data as item>
+    <div class="comments-item">
+        <div class="tx">
+            <img class="lazyimg" src="${resServer}/style/default/blank_1x1.gif"
+                 original="${resServer}${item.face???then(item.face,'/system/images/default.jpg')}">
+        </div>
+        <div class="rig">
+            <div class="rig-top"><a class="username">${item.postUserName???then(item.postUserName,'匿名网友')}</a><em> ${item.postDate?string('yyyy-MM-dd HH:mm:ss')} </em></div>
+            <div class="rig-txt">${sensitiveFilterMethod(item.content)?html}</div>
+            <div class="rig-bottom">
+                <#if item.reply>
+                    管理员回复:&nbsp;${item.replyContent?html}
+                </#if>
+            </div>
+        </div>
+    </div>
+</#list>

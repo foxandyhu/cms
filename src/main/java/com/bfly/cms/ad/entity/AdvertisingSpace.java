@@ -14,7 +14,6 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "ad_space")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class AdvertisingSpace implements Serializable {
 
     private static final long serialVersionUID = 2304185058497496977L;

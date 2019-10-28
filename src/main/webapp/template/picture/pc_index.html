@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>图库--${site.name}</title>
+    <meta name="keywords" content="${channel.keywords???then(channel.keywords,site.keywords)}">
+    <meta name="description" content="${channel.summary???then(channel.summary,site.remark)}">
+    <link href="${resServer}/style/default/css/picture.css" type="text/css" rel="stylesheet" media="screen">
+    <link href="${resServer}/style/default/sider/sider.css" type="text/css" rel="stylesheet" media="screen">
+</head>
+<body>
+<header>
+    <#include "/common/pc_header_bar.html">
+    <#include "/common/pc_search_bar.html">
+    <#include "/common/pc_nav_bar.html">
+</header>
+<section class="main w1200 ma clearfix">
+    <section id="sider" class="lof-slidecontent">
+        <div class="preload">
+            <div></div>
+        </div>
+        <!--图文置顶排序文章-->
+        <@articleDirective status="2" pageSize="6" topLevelSort="false" channelId="${channel.id}">
+            <div class="lof-main-outer">
+                <ul class="lof-main-wapper">
+                        <#list list as item>
+                        <li>
+                            <img src="${resServer}${item.titleImg}" title="${item.title}" height="300">
+                            <div class="lof-main-item-desc">
+                                <h3>
+                                    <a target="_parent" title="${item.title}" href="/${item.channelPath}/id_${item.idStr}.html">${item.title}</a>
+                                </h3>
+                                <p>${item.summary}</p>
+                            </div>
+                        </li>
+                    </#list>
+                </ul>
+            </div>
+            <div class="lof-navigator-outer">
+            <ul class="lof-navigator">
+                <#list list as item>
+                    <li>
+                        <div>
+                            <img src="${resServer}${item.titleImg}"/>
+                            <h3> ${item.shortTitle???then(item.shortTitle,item.title)} </h3>
+                            <span>${item.postDate?string('yyyy-MM-dd')}</span>
+                            ${item.summary}
+                        </div>
+                    </li>
+                </#list>
+            </ul>
+        </div>
+        </@articleDirective>
+    </section>
+
+    <section class="oh w1200 ma">
+        <ul class="mt10 content_cn_tit">
+            <li class="picture">图片专区</li>
+            <li class="picture">|</li>
+            <li class="picture_E">PICTURE</li>
+            <li class="fr"><a href="/${channel.path}/list.html">更多</a></li>
+        </ul>
+        <ul id="content_cn_picture" class="content_cn_picture">
+            <!--推荐级别排序文章-->
+            <@articleDirective status="2" pageSize="20" channelId="${channel.id}" recommendLevelSort="false">
+                <#list list as item>
+                    <li class="pic_midd">
+                        <a href="/${item.channelPath}/id_${item.idStr}.html" target="_blank">
+                            <img class="lazyimg" src="${resServer}/style/default/blank_1x1.gif" original="${resServer}${item.titleImg}" width="290" height="205">
+                        </a>
+                        <a style="display: block;" href="/${item.channelPath}/id_${item.idStr}.html">${item.title}</a>
+                    </li>
+                </#list>
+            </@articleDirective>
+        </ul>
+    </section>
+</section>
+
+<!-- 底部 begin -->
+<footer>
+    <#include "/common/pc_footer.html">
+    <#include "/common/pc_to_top.html">
+</footer>
+<!-- 底部 end -->
+</body>
+<#include "/common/script-res.html">
+<script type="text/javascript" src="${resServer}/style/default/sider/sider.min.js"></script>
+<script type="text/javascript" src="${resServer}/style/default/pager/pager.js"></script>
+<script type="text/javascript" src="${resServer}/style/default/js/picture.js"></script>
+<script type="text/javascript">Cms.picture.slide();Cms.picture.hover();</script>
+</html>

@@ -82,7 +82,7 @@ public class StringUtil {
      * 2012-6-6 下午02:49:42
      */
     public static String getRandom(int maxNum) {
-        int num = 1 + new Random().nextInt(maxNum - 1);
+        int num = 1 + new Random().nextInt(maxNum);
         return String.valueOf(num);
     }
 

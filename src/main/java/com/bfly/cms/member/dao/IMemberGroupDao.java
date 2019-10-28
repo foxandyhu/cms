@@ -31,10 +31,30 @@ public interface IMemberGroupDao extends IBaseDao<MemberGroup, Integer> {
     /**
      * 清除文章浏览权限和会员组之间的管理
      * @param groupId 会员组ID
+     * @return
      * @author andy_hulibo@163.com
      * @date 2019/7/19 15:22
      */
     @Modifying
     @Query(value = "delete from article_group_view where group_id=:groupId", nativeQuery = true)
     int clearArticleGroupViewShip(@Param("groupId") int groupId);
+
+    /**
+     * 获得默认的会员组
+     * @return
+     * @author andy_hulibo@163.com
+     * @date 2019/9/6 10:43
+     */
+    @Query("select group from MemberGroup as group where defaults=true")
+    MemberGroup getDefaultMemberGroup();
+
+    /**
+     * 清空所有默认会员组
+     * @return
+     * @author andy_hulibo@163.com
+     * @date 2019/9/6 10:46
+     */
+    @Modifying
+    @Query("update MemberGroup set defaults=false where defaults=true")
+    int clearDefaultMemberGroup();
 }

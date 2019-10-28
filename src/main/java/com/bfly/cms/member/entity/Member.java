@@ -2,6 +2,7 @@ package com.bfly.cms.member.entity;
 
 
 import com.bfly.core.enums.MemberStatus;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
@@ -35,12 +36,6 @@ public class Member implements Serializable {
     @Column(name = "user_name")
     @NotBlank(message = "用户名不能为空!")
     private String userName;
-
-    /**
-     * 电子邮箱
-     */
-    @Column(name = "email")
-    private String email;
 
     /**
      * 密码
@@ -112,6 +107,24 @@ public class Member implements Serializable {
     private int status;
 
     /**
+     * 用户是否激活
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/9/25 11:54
+     */
+    @Column(name = "is_activated")
+    private boolean activated;
+
+    /**
+     * SessionId
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/9/18 12:36
+     */
+    @Column(name = "session_id")
+    private String sessionId;
+
+    /**
      * 所在组
      */
     @ManyToOne(fetch = FetchType.LAZY)
@@ -123,14 +136,15 @@ public class Member implements Serializable {
     /**
      * 用户扩展信息
      */
-    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "member")
     @PrimaryKeyJoinColumn
     private MemberExt memberExt;
 
     /**
      * 用户绑定的第三方账号
      */
-    @OneToMany(cascade = CascadeType.MERGE, orphanRemoval = true, mappedBy = "user",fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.MERGE, orphanRemoval = true, mappedBy = "user", fetch = FetchType.LAZY)
+    @org.hibernate.annotations.Cache(region = "beanCache", usage = CacheConcurrencyStrategy.READ_WRITE)
     private List<MemberThirdAccount> thirdAccounts;
 
     /**
@@ -142,6 +156,22 @@ public class Member implements Serializable {
     public String getStatusName() {
         MemberStatus status = MemberStatus.getStatus(getStatus());
         return status == null ? "" : status.getName();
+    }
+
+    public boolean isActivated() {
+        return activated;
+    }
+
+    public void setActivated(boolean activated) {
+        this.activated = activated;
+    }
+
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
     }
 
     public int getId() {
@@ -158,14 +188,6 @@ public class Member implements Serializable {
 
     public void setUserName(String userName) {
         this.userName = userName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getPassword() {

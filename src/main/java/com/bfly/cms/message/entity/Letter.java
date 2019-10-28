@@ -20,7 +20,6 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "msg_letter")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class Letter implements Serializable {
 
     private static final long serialVersionUID = -5170317442780762695L;

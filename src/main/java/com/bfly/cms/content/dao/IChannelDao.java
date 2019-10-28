@@ -59,4 +59,14 @@ public interface IChannelDao extends IBaseDao<Channel, Integer> {
      */
     @Query(value = "SELECT ch.id,ch.channel_name as name,ch.parent_id as parentId,m.has_content as hasContent,m.`name` as modelName,ch.model_id as modelId FROM channel as ch left join model as m on ch.model_id=m.id ORDER BY ch.seq ASC", nativeQuery = true)
     List<Map<String, Object>> getAllChannel();
+
+    /**
+     * 根据栏目路径查找栏目
+     * @author andy_hulibo@163.com
+     * @date 2019/8/19 16:37
+     * @param path 路径名称
+     * @return 栏目对象
+     */
+    @Query("select c from Channel as c where path=:path")
+    Channel getChannelByPath(@Param("path")String path);
 }

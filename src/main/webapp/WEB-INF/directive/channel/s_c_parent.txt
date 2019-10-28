@@ -1,1 +1,0 @@
-<a href="${channel.parent.url}" target="_blank">${channel.parent.name}</a>

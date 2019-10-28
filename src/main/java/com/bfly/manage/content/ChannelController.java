@@ -100,10 +100,10 @@ public class ChannelController extends BaseManageController {
      * @author andy_hulibo@163.com
      * @date 2019/8/4 15:12
      */
-    @GetMapping(value = "/{channleId}")
+    @GetMapping(value = "/{channelId}")
     @ActionModel(value = "栏目详情", need = false)
-    public void viewChannel(@PathVariable("channleId") int channleId, HttpServletResponse response) {
-        Channel channel = channelService.get(channleId);
+    public void viewChannel(@PathVariable("channelId") int channelId, HttpServletResponse response) {
+        Channel channel = channelService.get(channelId);
         JSONObject json = JsonUtil.toJsonFilter(channel, "child");
         ResponseUtil.writeJson(response, ResponseData.getSuccess(json));
     }

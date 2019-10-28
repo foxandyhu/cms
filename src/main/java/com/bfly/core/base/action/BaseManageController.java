@@ -3,7 +3,7 @@ package com.bfly.core.base.action;
 import com.bfly.cms.user.entity.User;
 import com.bfly.common.ResponseData;
 import com.bfly.common.ResponseUtil;
-import com.bfly.core.Constants;
+import com.bfly.core.context.ContextUtil;
 import com.bfly.core.enums.SysError;
 import com.bfly.core.exception.UnAuthException;
 import com.bfly.core.exception.UnRightException;
@@ -33,7 +33,7 @@ public class BaseManageController extends AbstractController {
      * @date 2018/12/3 20:36
      */
     public User getUser() {
-        return (User) getSession().getAttribute(Constants.USER_LOGIN_KEY);
+        return ContextUtil.getLoginUser();
     }
 
     /**
@@ -45,21 +45,20 @@ public class BaseManageController extends AbstractController {
     @ExceptionHandler
     public void exceptionHandler(HttpServletResponse response, Exception e) {
         logger.error("", e);
-        String message=e.getMessage();
+        String message = e.getMessage();
         SysError error = SysError.ERROR;
         response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
         if (e instanceof WsResponseException) {
             WsResponseException exception = (WsResponseException) e;
             error = SysError.get(exception.getCode());
-        }else if(e instanceof UnAuthException){
+        } else if (e instanceof UnAuthException) {
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
-        }else if(e instanceof UnRightException){
+        } else if (e instanceof UnRightException) {
             response.setStatus(HttpStatus.FORBIDDEN.value());
+        } else if (e instanceof NullPointerException) {
+            message = "不存在的数据对象!";
         }
-        else if(e instanceof NullPointerException){
-            message="不存在的数据对象!";
-        }
-        String data = ResponseData.getFail(error,message);
+        String data = ResponseData.getFail(error, message);
         ResponseUtil.writeJson(response, data);
     }
 

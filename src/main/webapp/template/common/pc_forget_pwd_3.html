@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>找回密码--修改密码--${site.name}</title>
+    <meta name="keywords" content="${site.keywords}">
+    <meta name="description" content="${site.remark}">
+    <link href="${resServer}/style/default/css/xieyi.css" type="text/css" rel="stylesheet" media="screen">
+</head>
+<body>
+<#include "/common/pc_header_bar.html">
+<#include "/common/pc_search_bar.html">
+<#include "/common/pc_nav_bar.html">
+<div class="mt10 w1200 ma oh clearfix">
+    <section class="register_txt mt50 mb15">
+        <form action="/forget/reset.html" method="post" onsubmit="return Cms.login.validateForgetRestPwd()">
+            <input type="hidden" name="email" value="${email}"/>
+            <input type="hidden" name="certifyId" value="${certifyId}"/>
+            <dl>
+                <dd><input name="password" type="password" id="pwd1" autocomplete="off" placeholder="请输入您的新密码!"></dd>
+            </dl>
+            <dl>
+                <dd><input name="passwordConfirm" type="password" id="pwd2" autocomplete="off" placeholder="请输入确认密码!"></dd>
+            </dl>
+            <dl>
+                <dd>
+                    <input type="text" class="code_input" name="captcha" id="forgetPwdCode" maxlength="10"
+                           autocomplete="off" placeholder="请输入验证码" style="width: 126px;">
+                    <img align="top" style="cursor: pointer;" src="/captcha.svl"
+                         onclick="this.src='/captcha.svl?d='+new Date()*1">
+                </dd>
+            </dl>
+            <dl>
+                <dd>
+                    <small class="red">${error}</small>
+                </dd>
+            </dl>
+            <dl>
+                <dd>
+                    <button type="submit" class="forgetPwdBtn">修改密码</button>
+                </dd>
+            </dl>
+        </form>
+    </section>
+</div>
+<!-- 底部 begin -->
+<footer>
+    <#include "/common/pc_footer.html">
+
+    <!-- 返回顶部 begin -->
+    <#include "/common/pc_to_top.html">
+    <!-- 返回顶部 end -->
+</footer>
+<!-- 底部 end -->
+</body>
+<#include "/common/script-res.html">
+<script type="text/javascript" src="${resServer}/style/default/js/login.js"></script>
+</html>

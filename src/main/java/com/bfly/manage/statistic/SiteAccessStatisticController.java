@@ -160,7 +160,7 @@ public class SiteAccessStatisticController extends BaseManageController {
                 break;
             //今天
             case 1:
-                begin = DateUtil.formatterStrDate(new Date());
+                begin = DateUtil.formatterDate(new Date());
                 end = begin;
                 break;
             //昨天

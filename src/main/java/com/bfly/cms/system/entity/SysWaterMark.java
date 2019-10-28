@@ -14,10 +14,9 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "sys_watermark")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class SysWaterMark implements Serializable {
-    private static final long serialVersionUID = 1L;
 
+    private static final long serialVersionUID = 1829000898683026041L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

@@ -1,0 +1,35 @@
+<div class="centers_ml">
+    <div class="center_header">
+        <@loginMemberDirective>
+            <a><img src="${resServer}${loginMember.memberExt.face???then(loginMember.memberExt.face,"/system/images/default.jpg")}"></a>
+            <em>您好，${loginMember.userName}</em>
+        </@loginMemberDirective>
+    </div>
+    <div class="centers_listm">
+        <div class="centers_listm_one">
+            <img src="${resServer}/style/default/zshy.png">
+            <em>会员中心</em>
+        </div>
+        <div class="centers_listm_one_in">
+            <img src="${resServer}/style/default/shezhi.png">
+            <em>个人资料</em>
+            <b></b>
+        </div>
+        <span class="gjszmdm">
+            <a href="/member/info.html" class="center_in_self"><i>用户信息</i></a>
+            <a href="/member/password.html" class="center_in_self"><i>修改密码</i></a>
+            <a href="/member/logout.html" class="center_in_self"><i>安全退出</i></a>
+        </span>
+        <!--
+        <div class="centers_listm_one_in">
+            <img src="${resServer}/style/default/ddgl.png">
+            <em>我的消息</em>
+            <b></b>
+        </div>
+        <span class="gjszmdm">
+                <a href="/member/comment.html" class="center_in_self"><i>我的评论</i></a>
+                <a href="/member/guestbook.html" class="center_in_self"><i>我的留言</i></a>
+            </span>
+            -->
+    </div>
+</div>

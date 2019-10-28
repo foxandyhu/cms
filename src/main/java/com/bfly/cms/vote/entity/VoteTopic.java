@@ -1,5 +1,6 @@
 package com.bfly.cms.vote.entity;
 
+import com.bfly.common.IDEncrypt;
 import com.bfly.core.enums.VoteStatus;
 
 import javax.persistence.*;
@@ -58,7 +59,7 @@ public class VoteTopic implements Serializable {
      * 重复投票限制时间，单位小时，0为禁止重复投票,-1为无限制重复投票
      */
     @Column(name = "repeat_hour")
-    @Min(value = -1,message = "重复投票限制最小为-1")
+    @Min(value = -1, message = "重复投票限制最小为-1")
     private int repeatHour;
 
     /**
@@ -85,6 +86,7 @@ public class VoteTopic implements Serializable {
      *
      * @author andy_hulibo@163.com
      * @date 2019/7/29 15:59
+     * @see VoteStatus
      */
     private int status;
 
@@ -94,6 +96,7 @@ public class VoteTopic implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @NotEmpty(message = "子主题项不能为空!")
     @JoinColumn(name = "vote_topic_id")
+    @OrderBy("seq")
     private List<VoteSubTopic> subtopics;
 
     /**
@@ -105,6 +108,15 @@ public class VoteTopic implements Serializable {
     public String getStatusName() {
         VoteStatus status = VoteStatus.getStatus(getStatus());
         return status == null ? "" : status.getName();
+    }
+
+    /**
+     * 加密后ID
+     * @author andy_hulibo@163.com
+     * @date 2019/9/11 17:56
+     */
+    public String getIdStr(){
+        return IDEncrypt.encode(getId());
     }
 
     public int getStatus() {

@@ -208,7 +208,7 @@ public class StatisticServiceImpl implements IStatisticService {
             access.setAccessValue(access.getStopPage());
             return;
         }
-        List<Dictionary> dictionaries = EhCacheUtil.getData(EhCacheUtil.DICTIONAY_CACHE, SITE_ACCESS_SOURCE, List.class);
+        List<Dictionary> dictionaries = EhCacheUtil.getData(EhCacheUtil.DICTIONARY_CACHE, SITE_ACCESS_SOURCE, List.class);
         if (dictionaries == null) {
             Map<String, Object> exactMap = new HashMap<>(1);
             exactMap.put("type", SITE_ACCESS_SOURCE);

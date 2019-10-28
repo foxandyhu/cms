@@ -1,6 +1,8 @@
 package com.bfly.manage.message;
 
 import com.bfly.cms.message.entity.Comment;
+import com.bfly.cms.message.entity.CommentConfig;
+import com.bfly.cms.message.service.ICommentConfigService;
 import com.bfly.cms.message.service.ICommentService;
 import com.bfly.common.DataConvertUtils;
 import com.bfly.common.ResponseData;
@@ -30,6 +32,8 @@ public class CommentController extends BaseManageController {
 
     @Autowired
     private ICommentService commentService;
+    @Autowired
+    private ICommentConfigService configService;
 
     /**
      * 评论列表
@@ -108,6 +112,32 @@ public class CommentController extends BaseManageController {
     @ActionModel(value = "删除评论")
     public void removeComment(HttpServletResponse response, @RequestBody Integer... ids) {
         commentService.remove(ids);
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
+    }
+
+    /**
+     * 得到评论配置
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/9/15 13:38
+     */
+    @GetMapping(value = "/config")
+    @ActionModel(value = "评论配置", need = false)
+    public void getConfig(HttpServletResponse response) {
+        CommentConfig config = configService.getConfig();
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(config));
+    }
+
+    /**
+     * 编辑配置
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/9/15 13:39
+     */
+    @PostMapping(value = "/config/edit")
+    @ActionModel(value = "编辑评论配置")
+    public void editConfig(HttpServletResponse response, @RequestBody CommentConfig config) {
+        configService.save(config);
         ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
     }
 }

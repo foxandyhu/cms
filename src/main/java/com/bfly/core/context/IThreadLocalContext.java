@@ -16,6 +16,8 @@ public interface IThreadLocalContext {
     /**
      * 默认方法从threadlocal获取数据,并从threadlocal删除且返回数据
      *
+     * @param
+     * @return
      * @author andy_hulibo@163.com
      * @date 2019/6/26 19:02
      */

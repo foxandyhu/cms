@@ -19,11 +19,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
 
 /**
  * 专题Controller
@@ -152,34 +150,13 @@ public class SpecialTopicController extends BaseManageController {
      * @date 2019/8/6 16:36
      */
     @GetMapping(value = "/template")
-    @ActionModel(value = "获得专题模板",need = false)
+    @ActionModel(value = "获得专题模板", need = false)
     public void getSpecialTopicTemplate(HttpServletResponse response) {
         JSONObject json = new JSONObject();
 
-        String pcPath = ResourceConfig.getTemplateForPcPath("topic");
-        Object[] pcTpl = getTpl(pcPath);
-        json.put("pc", pcTpl);
-
-        String mobilePath = ResourceConfig.getTemplateForMobilePath("topic");
-        Object[] mobileTpl = getTpl(mobilePath);
-        json.put("mobile", mobileTpl);
+        json.put("pc", ResourceConfig.getTemplateNames("topic", true));
+        json.put("mobile", ResourceConfig.getTemplateNames("topic", false));
         ResponseUtil.writeJson(response, ResponseData.getSuccess(json));
-    }
-
-    /**
-     * 读取目录模板文件名称
-     *
-     * @author andy_hulibo@163.com
-     * @date 2019/8/5 19:50
-     */
-    private Object[] getTpl(String path) {
-        File mobileFile = new File(path);
-        if (mobileFile.exists()) {
-            Stream<File> stream = Stream.of(mobileFile.listFiles());
-            Stream<String> streamFileName = stream.filter(file -> !file.isDirectory()).map(file -> file.getName());
-            return streamFileName.toArray();
-        }
-        return null;
     }
 
     /**

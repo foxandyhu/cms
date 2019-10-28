@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>视频--${site.name}</title>
+    <meta name="keywords" content="${channel.keywords???then(channel.keywords,site.keywords)}">
+    <meta name="description" content="${channel.summary???then(channel.summary,site.remark)}">
+    <link href="${resServer}/style/default/css/video.css" type="text/css" rel="stylesheet" media="screen">
+</head>
+<body>
+<header>
+    <#include "/common/pc_header_bar.html">
+    <#include "/common/pc_search_bar.html">
+    <#include "/common/pc_nav_bar.html">
+</header>
+<section class="main w1200 ma clearfix">
+
+    <section class="video_banner">
+        <!--置顶排序文章-->
+        <@articleDirective status="2" pageSize="3" topLevelSort="false" channelId="${channel.id}">
+            <div class="bd">
+                    <#list list as item>
+                        <div class="v_item">
+                            <div class="v_item_img">
+                                <a href="/${item.channelPath}/id_${item.idStr}.html"><img src="${resServer}/${item.titleImg}"></a></div>
+                            <div class="v_item_txt">
+                                <h1><a href="/${item.channelPath}/id_${item.idStr}.html" style="color:${item.titleColor}">${item.title}</a></h1>
+                                <p>${item.postDate} | 播放：${item.views}次</p>
+                                <div class="video_dis">${item.summary}</div>
+                            </div>
+                        </div>
+                    </#list>
+            </div>
+            <div class="hd">
+                <ul>
+                    <#list list as item>
+                        <li style="background:url(${resServer}${item.titleImg}) no-repeat;"></li>
+                    </#list>
+                </ul>
+            </div>
+        </@articleDirective>
+    </section>
+
+    <section class="oh w1200 ma">
+        <ul class="mt10 content_cn_tit">
+            <li class="video">视频专区</li>
+            <li class="video">|</li>
+            <li class="video_E">VIDEO</li>
+            <li class="fr"><a href="/${channel.path}/list.html">更多</a></li>
+        </ul>
+        <ul id="content_cn_video" class="content_cn_video">
+            <!--推荐级别排序文章-->
+            <@articleDirective status="2" pageSize="20" channelId="${channel.id}" recommendLevelSort="false">
+                <#list list as item>
+                    <li class="pic_midd">
+                        <a target="_blank" href="/${item.channelPath}/id_${item.idStr}.html">
+                            <img class="lazyimg" src="${resServer}/style/default/blank_1x1.gif" original="${resServer}/${item.titleImg}" width="290" height="205">
+                            <i></i>
+                        </a>
+                        <a target="_blank" style="display: block;" href="/${item.channelPath}/id_${item.idStr}.html">${item.title}</a>
+                    </li>
+                </#list>
+            </@articleDirective>
+        </ul>
+    </section>
+</section>
+
+<!-- 底部 begin -->
+<footer>
+    <#include "/common/pc_footer.html">
+    <#include "/common/pc_to_top.html">
+</footer>
+<!-- 底部 end -->
+</body>
+<#include "/common/script-res.html">
+<script type="text/javascript" src="${resServer}/style/default/slide/jquery.SuperSlide.js"></script>
+<script type="text/javascript" src="${resServer}/style/default/pager/pager.js"></script>
+<script type="text/javascript" src="${resServer}/style/default/js/video.js"></script>
+<script type="text/javascript">Cms.video.slide();</script>
+</html>

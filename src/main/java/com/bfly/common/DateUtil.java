@@ -7,7 +7,12 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-
+/**
+ * 时间工具类
+ *
+ * @author andy_hulibo@163.com
+ * @date 2019/9/14 12:42
+ */
 public class DateUtil {
 
     /**
@@ -19,7 +24,7 @@ public class DateUtil {
      * @author 胡礼波-Andy
      * @2015年8月4日上午11:53:40
      */
-    public static String formatterDateTime(Date date, String format) {
+    public static String formatter(Date date, String format) {
         SimpleDateFormat sf = new SimpleDateFormat(format);
         return sf.format(date);
     }
@@ -31,9 +36,8 @@ public class DateUtil {
      * @author 胡礼波
      * 2012-5-22 下午04:00:42
      */
-    public static String formatterDateTime(Date date) {
-        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        return sf.format(date);
+    public static String formatterDateTimeStr(Date date) {
+        return date == null ? null : formatter(date, "yyyy-MM-dd HH:mm:ss");
     }
 
     /**
@@ -43,9 +47,8 @@ public class DateUtil {
      * @author 胡礼波
      * 2012-5-22 下午04:00:42
      */
-    public static String formatterDate(Date date) {
-        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
-        return date == null ? null : sf.format(date);
+    public static String formatterDateStr(Date date) {
+        return date == null ? null : formatter(date, "yyyy-MM-dd");
     }
 
     /**
@@ -55,10 +58,10 @@ public class DateUtil {
      * @author 胡礼波
      * 2012-5-22 下午04:00:42
      */
-    public static Date formatterStrDate(Date date) {
+    public static Date formatterDate(Date date) {
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
         try {
-            return sf.parse(sf.format(date));
+            return date == null ? null : sf.parse(formatterDateStr(date));
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -72,10 +75,10 @@ public class DateUtil {
      * @author 胡礼波
      * 2012-5-22 下午04:00:42
      */
-    public static Date formatterStrDateTime(Date date) {
+    public static Date formatterDateTime(Date date) {
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
-            return sf.parse(sf.format(date));
+            return date == null ? null : sf.parse(formatterDateTimeStr(date));
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -165,7 +168,7 @@ public class DateUtil {
         sub = subTime / (24 * 60 * 60);
         //大于1天
         if (sub > 0) {
-            return formatterDateTime(date);
+            return formatterDateTimeStr(date);
         }
         sub = subTime % (24 * 60 * 60) / (60 * 60);
         if (sub > 0) {

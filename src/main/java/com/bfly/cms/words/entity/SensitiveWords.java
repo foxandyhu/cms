@@ -1,8 +1,5 @@
 package com.bfly.cms.words.entity;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
@@ -15,7 +12,6 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "d_sensitive_words")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class SensitiveWords implements Serializable {
 
     private static final long serialVersionUID = 5007411776086094322L;

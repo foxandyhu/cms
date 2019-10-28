@@ -21,10 +21,9 @@ import java.util.Map;
  */
 @Entity
 @Table(name = "ad")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class Advertising implements Serializable {
-    private static final long serialVersionUID = 1L;
 
+    private static final long serialVersionUID = 71159170989050961L;
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -89,7 +88,6 @@ public class Advertising implements Serializable {
      * 广告其他属性
      */
     @ElementCollection
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
     @CollectionTable(name = "ad_attr", joinColumns = @JoinColumn(name = "ad_id"))
     @MapKeyColumn(name = "attr_name")
     @Column(name = "attr_value")

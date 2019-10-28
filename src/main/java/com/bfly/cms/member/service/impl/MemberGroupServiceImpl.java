@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 /**
  * @author andy_hulibo@163.com
@@ -28,5 +29,42 @@ public class MemberGroupServiceImpl extends BaseServiceImpl<MemberGroup, Integer
             memberGroupDao.clearArticleGroupViewShip(id);
         }
         return super.remove(integers);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public MemberGroup getDefaultMemberGroup() {
+        return memberGroupDao.getDefaultMemberGroup();
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean setDefaultMemberGroup(int groupId) {
+        memberGroupDao.clearDefaultMemberGroup();
+        MemberGroup group = get(groupId);
+        Assert.notNull(group, "不存在的会员组!");
+        group.setDefaults(true);
+        return edit(group);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean save(MemberGroup group) {
+        if (group.isDefaults()) {
+            // 如果新增的会员组设为默认会员组则先重置默认的会员组
+            memberGroupDao.clearDefaultMemberGroup();
+        }
+        return super.save(group);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean edit(MemberGroup group) {
+        MemberGroup defaultGroup = getDefaultMemberGroup();
+        if (group.isDefaults() && defaultGroup.getId() != group.getId()) {
+            // 如果编辑的会员组设为默认会员组则先重置默认的会员组
+            memberGroupDao.clearDefaultMemberGroup();
+        }
+        return super.edit(group);
     }
 }

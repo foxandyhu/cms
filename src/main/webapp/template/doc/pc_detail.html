@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>${article.articleExt.title}--${site.name}</title>
+    <meta name="keywords" content="${article.articleExt.keywords???then(article.articleExt.keywords,site.keywords)}">
+    <meta name="description" content="${article.articleExt.description???then(article.articleExt.description,site.remark)}">
+    <link href="${resServer}/style/default/css/doc.css" type="text/css" rel="stylesheet" media="screen">
+    <link rel="resource" type="application/l10n" href="${resServer}/style/default/pdfjs/web/locale/locale.properties">
+    <link rel="stylesheet" href="${resServer}/style/default/pdfjs/web/viewer.min.css">
+</head>
+<body>
+<header>
+    <#include "/common/pc_header_bar.html">
+    <#include "/common/pc_search_bar.html">
+    <#include "/common/pc_nav_bar.html">
+</header>
+<section class="main w1200 ma clearfix" style="position:unset">
+    <section class="w850 fl">
+        <h1 class="doc_title">
+            <img src="${resServer}/style/default/${article.articleExt.fileType}.gif">
+            ${article.articleExt.title}
+        </h1>
+        <div class="doc_inf">
+            上传于 ${article.articleExt.postDate?string("yyyy-MM-dd")}<i>|</i>
+            评分 ${article.scores}<i>|</i>
+            <span id="views">${article.views}</span>
+            人阅读<i>|</i>
+            <span id="downloads">${article.downloads}</span>次下载
+            <span class="content-action">
+                <#if article.share>
+                    <span class="ml10 fr bdsharebuttonbox" data-tag="share_1">
+                        <a class="bds_weixin" data-cmd="weixin">微信朋友圈</a>
+                        <a class="bds_sqq" data-cmd="sqq">QQ好友</a>
+                        <a class="bds_qzone" data-cmd="qzone">QQ空间</a>
+                        <a class="bds_tsina" data-cmd="tsina">新浪微博</a>
+                    </span>
+                </#if>
+                <#if article.comment>
+                    <span class="fr"><a class="content-comment" href="#comments"><em class="fa fa-comments"></em> 我有话说 |</a></span>
+                </#if>
+            </span>
+        </div>
+        <div class="doc_des">${article.articleExt.summary}</div>
+        <div class="doc_content">
+            <#include "/doc/pc_pdf_viewer.html">
+        </div>
+        <div class="doc_bottom">
+            <div class="doc_btn">
+                <a class="doc_download" target="_blank" href="/download/file_${article.idStr}.html">下载</a>
+            </div>
+        </div>
+        <#include "/common/pc_comment.html">
+    </section>
+    <section class="w310 fr">
+        <section class="tag issue clearfix">
+            <div class="tag-nav"><h1>热门文档</h1></div>
+            <@articleDirective pageSize="10" status="2" channelId="94" viewsSort="false">
+                <#list list as item>
+                    <div class="doc_hot_list">
+                        <ul>
+                            <li><a href="/${item.channelPath}/id_${item.idStr}.html">${item.title}</a></li>
+                        </ul>
+                    </div>
+                </#list>
+            </@articleDirective>
+        </section>
+    </section>
+</section>
+
+<!-- 底部 begin -->
+<footer>
+    <#include "/common/pc_footer.html">
+    <#include "/common/pc_to_top.html">
+</footer>
+<!-- 底部 end -->
+</body>
+<#include "/common/script-res.html">
+<script src="${resServer}/style/default/pdfjs/build/pdf.min.js"></script>
+<script type="text/javascript" src="${resServer}/style/default/js/doc.js"></script>
+<script type="text/javascript" src="${resServer}/style/default/js/comment.js"></script>
+<script type="text/javascript">
+    Cms.doc.load("${article.articleExt.filePath}");
+</script>
+<#if article.comment>
+    <script>
+        var pageNo=1;
+        Cms.comment.load("${article.idStr}",pageNo);
+    </script>
+</#if>
+<#if article.share>
+    <script>
+        with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+    </script>
+</#if>
+</html>

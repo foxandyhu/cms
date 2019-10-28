@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>${channel.name}--${site.name}</title>
+    <meta name="keywords" content="${channel.keywords???then(channel.keywords,site.keywords)}">
+    <meta name="description" content="${channel.summary???then(channel.summary,site.remark)}">
+    <link href="${resServer}/style/default/css/search.css" type="text/css" rel="stylesheet" media="screen">
+</head>
+<body>
+<header>
+    <#include "/common/pc_header_bar.html">
+    <#include "/common/pc_search_bar.html">
+    <#include "/common/pc_nav_bar.html">
+</header>
+<section class="main w1200 ma clearfix">
+    <section class="w850 fl">
+        <div class="nav-block">
+            <div class="nav-search">
+                <h1>${channel.name}</h1>
+            </div>
+        </div>
+        <@articleDirective status="2" pageSize="10" channelId="${channel.id}" pageable="true">
+            <div class="main-block">
+                    <#list pager.data as item>
+                    <div class="res-item">
+                        <div class="res-item-ttl">
+                            <a href="/${item.channelPath}/id_${item.idStr}.html" target="_blank">${item.title}</a>
+                        </div>
+                        <div class="res-item-img">
+                            <#if item.titleImg>
+                                <a href="/${item.channelPath}/id_${item.idStr}.html" target="_blank">
+                                    <img class="lazyimg" src="${resServer}/style/default/blank_1x1.gif" original="${resServer}${item.titleImg}" height="114">
+                                </a>
+                            </#if>
+                        </div>
+                        <div class="res-item-desc">${item.summary}</div>
+                        <div class="res-item-info">
+                            <ul>
+                                <li>${item.postDate?string('yyyy-MM-dd')}</li>
+                            </ul>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="clear"></div>
+                </#list>
+            </div>
+            <div class="text-center">
+                <@pagerMacro pager=pager url="/${channel.path}/list.html?pageNo=:pageNo"></@pagerMacro>
+            </div>
+        </@articleDirective>
+    </section>
+    <section class="w310 fr">
+        <#include "/common/pc_right_1.html">
+    </section>
+</section>
+
+<!-- 底部 begin -->
+<footer>
+    <#include "/common/pc_footer.html">
+    <#include "/common/pc_to_top.html">
+</footer>
+<!-- 底部 end -->
+</body>
+<#include "/common/script-res.html">
+</html>

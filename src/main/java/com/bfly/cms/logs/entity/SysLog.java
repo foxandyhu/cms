@@ -72,9 +72,25 @@ public class SysLog implements Serializable {
     @Column(name = "category")
     private int category;
 
+    /**
+     * 是否会员操作
+     * @author andy_hulibo@163.com
+     * @date 2019/9/6 8:44
+     */
+    @Column(name = "is_member")
+    private boolean member;
+
     public String getCategoryName() {
         LogsType type = LogsType.get(getCategory());
         return type == null ? "" : type.getType();
+    }
+
+    public boolean isMember() {
+        return member;
+    }
+
+    public void setMember(boolean member) {
+        this.member = member;
     }
 
     public int getId() {

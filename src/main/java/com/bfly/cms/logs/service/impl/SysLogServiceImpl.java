@@ -33,7 +33,7 @@ public class SysLogServiceImpl extends BaseServiceImpl<SysLog, Integer> implemen
     @Override
     @Async
     @Transactional(rollbackFor = Exception.class)
-    public void save(LogsType category, String userName, String ip, String url, String title, String content, boolean success) {
+    public void save(LogsType category, String userName, String ip, String url, String title, String content, boolean success,boolean isMember) {
         SysLog sysLog = new SysLog();
         sysLog.setTime(new Date());
         sysLog.setIp(ip);
@@ -43,6 +43,7 @@ public class SysLogServiceImpl extends BaseServiceImpl<SysLog, Integer> implemen
         sysLog.setContent(content);
         sysLog.setUserName(userName);
         sysLog.setCategory(category.getId());
+        sysLog.setMember(isMember);
         sysLogDao.save(sysLog);
     }
 }

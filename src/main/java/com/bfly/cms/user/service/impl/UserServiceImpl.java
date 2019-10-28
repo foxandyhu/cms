@@ -7,24 +7,25 @@ import com.bfly.cms.user.entity.User;
 import com.bfly.cms.user.entity.UserRole;
 import com.bfly.cms.user.service.IUserRoleService;
 import com.bfly.cms.user.service.IUserService;
-import com.bfly.common.FileUtil;
-import com.bfly.core.Constants;
 import com.bfly.core.base.service.impl.BaseServiceImpl;
 import com.bfly.core.config.ResourceConfig;
 import com.bfly.core.context.IpThreadLocal;
 import com.bfly.core.context.ServletRequestThreadLocal;
 import com.bfly.core.context.UserThreadLocal;
 import com.bfly.core.enums.LogsType;
+import com.bfly.core.security.LoginToken;
 import com.bfly.core.security.Md5PwdEncoder;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
-import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
 import java.util.*;
 
 /**
@@ -119,15 +120,22 @@ public class UserServiceImpl extends BaseServiceImpl<User, Integer> implements I
     public User login(String userName, String password) {
         Assert.hasText(userName, "用户名不能为空!");
         Assert.hasText(password, "密码不能为空!");
-        User user = get(new HashMap<String, Object>(1) {{
-            put("userName", userName);
-        }});
-        Assert.notNull(user, "用户名或密码错误!");
 
-        boolean flag = new Md5PwdEncoder().isPasswordValid(user.getPassword(), password);
-        Assert.isTrue(flag, "用户名或密码错误!");
-        Assert.isTrue(User.UNCHECK_STATUS != user.getStatus(), "此账号正在审核中!");
-        Assert.isTrue(User.DISABLE_STATUS != user.getStatus(), "此账号已被禁用!");
+        Subject subject = SecurityUtils.getSubject();
+        LoginToken token = new LoginToken(userName, password, false, true);
+        try {
+            subject.login(token);
+        } catch (UnknownAccountException e) {
+            throw new RuntimeException("用户名或密码错误!");
+        } catch (IncorrectCredentialsException e) {
+            throw new RuntimeException("用户名或密码错误!");
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        } finally {
+
+        }
+
+        User user = (User) subject.getPrincipal();
         updateLoginInfo(user);
         saveLoginLogs(userName, "用户登录", LogsType.LOGIN_LOG);
         return user;
@@ -136,6 +144,8 @@ public class UserServiceImpl extends BaseServiceImpl<User, Integer> implements I
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void logout(String userName) {
+        Subject subject = SecurityUtils.getSubject();
+        subject.logout();
         saveLoginLogs(userName, "用户登出", LogsType.LOGOUT_LOG);
     }
 

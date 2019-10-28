@@ -1,0 +1,37 @@
+<#macro comments item>
+    <div class="comments-item">
+        <div class="tx">
+            <img class="lazyimg" src="${resServer}/style/default/blank_1x1.gif"
+                 original="${resServer}${item.member.memberExt.face???then(item.member.memberExt.face,'/system/images/default.jpg')}">
+        </div>
+        <div class="rig">
+            <div class="rig-top">
+                <a class="username">${item.memberUserName}</a><em> ${item.postDate?string("yyyy-MM-dd HH:mm:ss")} </em>
+            </div>
+            <div class="rig-txt">${sensitiveFilterMethod(item.commentExt.text)?html}</div>
+            <div class="rig-bottom">
+                <a class="comments-zan" onclick="Cms.comment.updown('${item.id}',1)">
+                    <i class="fa fa-thumbs-o-up"></i> <span id="updown${item.id}">${item.ups}</span>
+                    <span class="raise-num" id="add-num${item.id}"><em>+1</em></span>
+                </a>
+                <a class="comments-hf" onclick="Cms.comment.showCmtReply('${item.id}')"><i class="fa fa-commenting-o"></i></a>
+            </div>
+            <div class="reply" id="reply${item.id}">
+                <textarea id="textarea${item.id}" rows="10" placeholder="留下您的留言！" spellcheck="false"></textarea>
+                <div>
+                    <button type="button" class="btn-reply" onclick="Cms.comment.reply('${item.articleIdStr}','${item.id}',$('#textarea${item.id}').val())">回复</button>
+                </div>
+            </div>
+            <#if item.child??>
+                <#list item.child as subItem>
+                    <#if subItem.status==2>
+                        <@comments subItem></@comments>
+                    </#if>
+                </#list>
+            </#if>
+        </div>
+    </div>
+</#macro>
+<#list commentPager.data as item>
+    <@comments item></@comments>
+</#list>

@@ -1,0 +1,13 @@
+<div class="nav">
+    <ul class="nav_list w1200 ma clearfix">
+        <@channelListDirect display="true" parentId="0">
+            <#assign channelPath=channelActiveMethod(springMacroRequestContext.requestUri)>
+            <#list list as item>
+                <li>
+                    <a href="${item.link???then(item.link,'/'+item.path+'/index.html')}" target="${item.target}"
+                       class="${(item.path==channelPath)?then('on', '')}">${item.name}</a>
+                </li>
+            </#list>
+        </@channelListDirect>
+    </ul>
+</div>

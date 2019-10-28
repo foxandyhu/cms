@@ -1,0 +1,64 @@
+﻿@charset "utf-8";
+@import "common.css";
+@import "header.css";
+@import "footer.css";
+button, input, select, textarea {font: 12px/1.5 tahoma,Verdana,arial,"microsoft yahei","sim sun";*line-height: 1.5;color: #333;-ms-overflow-style: scrollbar;}
+.login_wrapper {width: 960px;    margin: 0 auto;font-family: 'Microsoft YaHei';}
+.log_head {height: 80px;overflow: hidden;}
+.log_logo {height: 80px;width: 220px;}
+.log_logo a {position: relative;width: 400px;height: 80px;display: block;background: url(../logo.jpg) no-repeat center left;}
+.log_logo span {text-decoration: none;color: #ff6700;font-weight: normal;font-size: 24px;position: absolute;top: 23px;left: 180px;line-height: 36px;border-left: 2px solid #d6d6d6;padding-left: 20px;}
+.login_wrap {margin-bottom: 20px;background: #fff url(../20161209115754_5628.jpg) no-repeat center top;padding: 40px 0;    overflow: hidden;}
+.log_ad {width: 600px;float: left;overflow: hidden;height: 370px;}
+.log_ad a {display: block;width: 600px;height: 370px;}
+.login_border {float: right;background: rgba(255,255,255,.6);}
+.login {width: 330px;min-height: 334px;padding-bottom: 20px;background: #fff;position: relative;}
+.login ul {overflow: hidden;width: 310px;padding-left: 20px;border-bottom: 1px solid #e7e7e7;height: 46px;}
+.login ul li {float: left;width: 60px;text-align: center;height: 45px;margin: 0 10px;line-height: 46px;border-bottom: 1px solid #fff;cursor: pointer;}
+.login ul li.register{margin-left:15%;}
+.login em{position: absolute;top: 11px;right: 25px;width:16px; height:16px; background:#999; float:right; color:#fff; border-radius:100%; text-align:center; line-height:16px; margin:4px 0 0 5px;font-weight:bold;}
+.login-on {color: #f60;font-size: 14px;border-bottom: 1px solid #f60 !important;}
+.login-body {padding: 5px 30px 0;overflow: hidden;}
+.login_wrapper input[type=text], .login_wrapper input[type=password],.register_wrapper input[type=text], .register_wrapper input[type=password] {border: solid 1px #d6d6d6;height: 34px;line-height: 28px\9;width: 233px;padding-left: 35px;border-radius: 3px;}
+.login_wrapper input:focus,.register_wrapper input:focus{outline: none;border: 1px solid orange;box-shadow: 0 0 10px orange;}
+.login_wrapper {font-family: 'Microsoft YaHei';outline: none;}
+.login dl {margin-top: 20px;}
+.register_wrapper input[type=text], .register_wrapper input[type=password]{padding-left:10px !important;}
+#txtUser {background: url(../iconfont-yonghu.png) no-repeat 7px center;background-size: 20px;}
+#txtPwd {background: url(../iconfont-psw.png) no-repeat 7px center;background-size: 20px;}
+#txtPhone {background: url(../iconfont-shouji.png) no-repeat 6px center;background-size: 22px;}
+#txtDynamicPwd {background: url(../iconfont-duanxin.png) no-repeat 6px center;background-size: 22px;}
+#txtCaptcha{width:40%;}
+#captchaImg{vertical-align: bottom;}
+.remember {margin-top: 15px;}
+.remember input[type=checkbox] {vertical-align: middle;margin-right: 5px;}
+.remember label {color: #999;}
+.psword a{color:#999;}
+.tishi {line-height: 26px;color: #f60;margin-top: 10px;}
+.login button {width: 270px;border: 0;background: #f60;border-radius: 3px;height: 40px;color: #fff;cursor: pointer;margin-top: 10px;font-size: 16px;font-family: 'Microsoft YaHei';}
+.login-style {font: 12px/1.5 tahoma,Verdana,arial,"microsoft yahei","sim sun";}
+.btn_mfyzm {width:90px;color:#999;margin-left: 10px;height: 36px;background: #f0f0f0;border: 1px solid #d6d6d6;border-radius: 3px;cursor: pointer;}
+.app_login {position: relative;padding: 35px 50px 0;}
+.app_login h1 {text-align: center;background: #ffebeb;color: #e4393c;border: 1px solid #FFAEAF;padding-left: 25px;line-height: 32px;display: none;}
+.app_login h1 i {width: 16px;height: 16px;background: #e4393c;color: #fff;font-weight: bold;line-height: 16px;text-align: center;border-radius: 100%;position: absolute;margin: 8px 0 0 -25px;font-size: 17px;}
+.app_login h2 {text-align: center;font-size: 16px;font-family: 'Microsoft YaHei';color: #888;line-height: 32px;}
+.app_code {border: 1px solid #e1e1e1;padding: 10px;width: 150px;height: 150px;margin: 15px auto;font-size: 0;}
+.app_code img {width: 100%;height: 100%;}
+.shuaxin {text-align: center;}
+.shuaxin span {padding: 0 10px;width: 155px;line-height: 30px;display: inline-block;border-radius: 3px;cursor: pointer;background: #f60;color: #fff;margin-bottom: 8px;}
+.hezuo {margin-top: 15px;padding: 0 30px;}
+.hezuo h3 {color: #999;margin-bottom: 10px;font-weight: normal;    font-size: 12px;}
+.hezuo p a {display: inline-block;padding: 0 10px;height: 25px;line-height: 25px;background: #f3f3f3;border: solid 1px #e3e3e3;border-radius: 3px;margin-right: 10px;text-shadow: 0 1px 0 #fff;}
+.hezuo p a i.wx {background-position: 0 0;}
+.hezuo p a i.qq {background-position: -16px 0;}
+.hezuo p a i {display: inline-block;width: 16px;height: 16px;vertical-align: middle;margin-right: 5px;background: url(../log_icon.png) no-repeat;}
+.qiehuan {width: 60px;height: 60px;position: absolute;right: 0;bottom: 0;background: url(../login-code.png) no-repeat right top;cursor: pointer;}
+
+.register_wrapper{overflow: hidden;width: 300px;}
+.register_wrapper dl{margin-top: 10px;}
+.register_wrapper .btn_buttom{}
+.tp_txt {line-height: 16px;margin-top: 5px;color: #999;font-size: 12px;}
+.register_wrapper li{margin:10px;}
+.register_wrapper li b{color: red;}
+.xieyi{padding-left:0px;}
+.code_input{width:170px !important;}

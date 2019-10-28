@@ -3,12 +3,16 @@ package com.bfly.cms.words.service.impl;
 import com.bfly.cms.words.entity.SearchWords;
 import com.bfly.cms.words.service.ISearchWordsService;
 import com.bfly.core.base.service.impl.BaseServiceImpl;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author andy_hulibo@163.com
@@ -17,6 +21,12 @@ import java.util.HashMap;
 @Service
 @Transactional(propagation = Propagation.SUPPORTS, rollbackFor = Exception.class)
 public class SearchWordsServiceImpl extends BaseServiceImpl<SearchWords, Integer> implements ISearchWordsService {
+
+    @Override
+    @Cacheable(value = "beanCache")
+    public List<SearchWords> getList(Map<String, Object> exactQueryProperty, Map<String, String> unExactQueryProperty, Map<String, Sort.Direction> sortQueryProperty) {
+        return super.getList(exactQueryProperty, unExactQueryProperty, sortQueryProperty);
+    }
 
     @Override
     @Transactional(rollbackFor = Exception.class)

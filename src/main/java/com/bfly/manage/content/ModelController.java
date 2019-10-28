@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.bfly.cms.content.entity.Model;
 import com.bfly.cms.content.service.IModelService;
+import com.bfly.common.FileUtil;
 import com.bfly.common.ResponseData;
 import com.bfly.common.ResponseUtil;
 import com.bfly.common.json.JsonUtil;
@@ -19,10 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.io.File;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Stream;
 
 /**
@@ -171,29 +169,8 @@ public class ModelController extends BaseManageController {
         Model model = modelService.get(modelId);
 
         JSONObject json = new JSONObject();
-        String pcPath = ResourceConfig.getTemplateForPcPath(model.getTplDir());
-        Object[] pcTpl = getTpl(pcPath);
-        json.put("pc", pcTpl);
-
-        String mobilePath = ResourceConfig.getTemplateForMobilePath(model.getTplDir());
-        Object[] mobileTpl = getTpl(mobilePath);
-        json.put("mobile", mobileTpl);
+        json.put("pc", ResourceConfig.getTemplateNames(model.getTplDir(), true));
+        json.put("mobile", ResourceConfig.getTemplateNames(model.getTplDir(), false));
         ResponseUtil.writeJson(response, ResponseData.getSuccess(json));
-    }
-
-    /**
-     * 读取目录模板文件名称
-     *
-     * @author andy_hulibo@163.com
-     * @date 2019/8/5 19:50
-     */
-    private Object[] getTpl(String path) {
-        File mobileFile = new File(path);
-        if (mobileFile.exists()) {
-            Stream<File> stream = Stream.of(mobileFile.listFiles());
-            Stream<String> streamFileName = stream.filter(file -> !file.isDirectory()).map(file -> file.getName());
-            return streamFileName.toArray();
-        }
-        return null;
     }
 }

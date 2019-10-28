@@ -1,11 +1,12 @@
 package com.bfly.manage.member;
 
 import com.alibaba.fastjson.JSONObject;
+import com.bfly.cms.member.entity.LoginConfig;
 import com.bfly.cms.member.entity.Member;
-import com.bfly.cms.member.entity.MemberConfig;
-import com.bfly.cms.member.service.IMemberConfigService;
+import com.bfly.cms.member.entity.RegistConfig;
+import com.bfly.cms.member.service.IMemberLoginConfigService;
+import com.bfly.cms.member.service.IMemberRegistConfigService;
 import com.bfly.cms.member.service.IMemberService;
-import com.bfly.cms.system.entity.EmailProvider;
 import com.bfly.common.DataConvertUtils;
 import com.bfly.common.ResponseData;
 import com.bfly.common.ResponseUtil;
@@ -42,7 +43,9 @@ public class MemberController extends BaseManageController {
     @Autowired
     private IMemberService memberService;
     @Autowired
-    private IMemberConfigService configService;
+    private IMemberLoginConfigService loginConfigService;
+    @Autowired
+    private IMemberRegistConfigService registConfigService;
 
     /**
      * 会员列表
@@ -176,7 +179,7 @@ public class MemberController extends BaseManageController {
      */
     @PostMapping(value = "/editpwd")
     @ActionModel("修改会员账户密码")
-    public void editMemberPasswor(HttpServletResponse response, @RequestBody Map<String, String> params) {
+    public void editMemberPassword(HttpServletResponse response, @RequestBody Map<String, String> params) {
         int memberId = DataConvertUtils.convertToInteger(params.get("memberId"));
         String password = params.get("password");
         memberService.editMemberPassword(memberId, password);
@@ -189,27 +192,26 @@ public class MemberController extends BaseManageController {
      * @author andy_hulibo@163.com
      * @date 2018/12/20 10:44
      */
-    @GetMapping(value = "/config/info")
-    @ActionModel(value = "会员配置详情", need = false)
-    public void getMemberConfig(HttpServletResponse response) {
-        MemberConfig config = configService.getMemberConfig();
-        if(config!=null){
-            if(config.getRegistConfig()!=null && config.getRegistConfig().getEmailProvider()!=null)
-            {
-                EmailProvider provider=new EmailProvider();
-                provider.setId(config.getRegistConfig().getEmailProvider().getId());
-                provider.setName(config.getRegistConfig().getEmailProvider().getName());
-                config.getRegistConfig().setEmailProvider(provider);
-            }
-            if(config.getLoginConfig()!=null && config.getLoginConfig().getEmailProvider()!=null)
-            {
-                EmailProvider provider=new EmailProvider();
-                provider.setId(config.getLoginConfig().getEmailProvider().getId());
-                provider.setName(config.getLoginConfig().getEmailProvider().getName());
-                config.getLoginConfig().setEmailProvider(provider);
-            }
-        }
-        ResponseUtil.writeJson(response, ResponseData.getSuccess(config));
+    @GetMapping(value = "/config/login")
+    @ActionModel(value = "会员登录配置详情", need = false)
+    public void getMemberLoginConfig(HttpServletResponse response) {
+        LoginConfig config = loginConfigService.getLoginConfig();
+        JSONObject json = JsonUtil.toJsonFilter(config, "userName", "password", "host");
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(json));
+    }
+
+    /**
+     * 获得会员注册配置信息
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/9/14 22:58
+     */
+    @GetMapping(value = "/config/register")
+    @ActionModel(value = "会员注册配置详情", need = false)
+    public void getMemberRegisterConfig(HttpServletResponse response) {
+        RegistConfig config = registConfigService.getRegistConfig();
+        JSONObject json = JsonUtil.toJsonFilter(config, "userName", "password", "host");
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(json));
     }
 
     /**
@@ -220,9 +222,9 @@ public class MemberController extends BaseManageController {
      */
     @PostMapping(value = "/config/login/edit")
     @ActionModel("修改会员登录配置信息")
-    public void editMemberLoginConfig(@RequestBody MemberConfig config, BindingResult result, HttpServletResponse response) {
+    public void editMemberLoginConfig(@RequestBody LoginConfig config, BindingResult result, HttpServletResponse response) {
         validData(result);
-        configService.editMemberLoginConfig(config);
+        loginConfigService.editMemberLoginConfig(config);
         ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
     }
 
@@ -234,10 +236,10 @@ public class MemberController extends BaseManageController {
      * @date 2018/12/20 10:46
      */
     @PostMapping(value = "/config/regist/edit")
-    @ActionModel("修改会员登录配置信息")
-    public void editMemberRegistConfig(@RequestBody MemberConfig config, BindingResult result, HttpServletResponse response) {
+    @ActionModel("修改会员注册配置信息")
+    public void editMemberRegisterConfig(@RequestBody RegistConfig config, BindingResult result, HttpServletResponse response) {
         validData(result);
-        configService.editMemberRegistConfig(config);
+        registConfigService.editMemberRegisterConfig(config);
         ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
     }
 }

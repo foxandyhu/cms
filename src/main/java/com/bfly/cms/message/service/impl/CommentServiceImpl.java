@@ -10,17 +10,22 @@ import com.bfly.cms.message.entity.CommentExt;
 import com.bfly.cms.message.service.ICommentService;
 import com.bfly.cms.user.entity.User;
 import com.bfly.cms.user.service.IUserService;
+import com.bfly.common.IDEncrypt;
 import com.bfly.common.ipseek.IPLocation;
 import com.bfly.common.ipseek.IpSeekerUtil;
 import com.bfly.common.page.Pager;
 import com.bfly.core.base.service.impl.BaseServiceImpl;
+import com.bfly.core.cache.EhCacheUtil;
 import com.bfly.core.config.ResourceConfig;
 import com.bfly.core.context.IpThreadLocal;
+import com.bfly.core.context.MemberThreadLocal;
 import com.bfly.core.context.PagerThreadLocal;
 import com.bfly.core.enums.ArticleStatus;
 import com.bfly.core.enums.CommentStatus;
 import com.bfly.core.enums.ContentType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -43,11 +48,13 @@ public class CommentServiceImpl extends BaseServiceImpl<Comment, Integer> implem
     @Autowired
     private ICommentDao commentDao;
     @Autowired
-    private IMemberService memberService;
-    @Autowired
-    private IUserService userService;
-    @Autowired
-    private IArticleService contentService;
+    private IArticleService articleService;
+
+    @Override
+    @Cacheable(value = "beanCache",key = "'comment_'+#integer")
+    public Comment get(Integer integer) {
+        return super.get(integer);
+    }
 
     @Override
     public Pager getPage(Map<String, Object> property) {
@@ -95,6 +102,7 @@ public class CommentServiceImpl extends BaseServiceImpl<Comment, Integer> implem
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    @CacheEvict(value = "beanCache",key = "'comment_'+#commentId")
     public void recommendComment(int commentId, boolean recommend) {
         Comment comment = get(commentId);
         Assert.notNull(comment, "评论信息不存在!");
@@ -113,12 +121,8 @@ public class CommentServiceImpl extends BaseServiceImpl<Comment, Integer> implem
     public boolean save(Comment comment) {
         //管理员回复或评论
         if (StringUtils.hasLength(comment.getUserName())) {
-            User user = userService.getUser(comment.getUserName());
-            Assert.notNull(user, "用户信息不存在!");
             comment.setStatus(CommentStatus.PASSED.getId());
         } else if (StringUtils.hasLength(comment.getMemberUserName())) {
-            Member member = memberService.getMember(comment.getMemberUserName());
-            Assert.notNull(member, "用户信息不存在!");
             comment.setStatus(CommentStatus.WAIT_CHECK.getId());
         }
         //评论回复
@@ -130,7 +134,7 @@ public class CommentServiceImpl extends BaseServiceImpl<Comment, Integer> implem
             Assert.isTrue(parent.getArticleId() == comment.getArticleId(), "评论所属内容ID错误!");
         }
 
-        Article article = contentService.get(comment.getArticleId());
+        Article article = articleService.get(comment.getArticleId());
         Assert.notNull(article, "评论文章不存在!");
         Assert.isTrue(article.getStatus() == ArticleStatus.PASSED.getId(), article.getStatusName() + "状态的文章不允许评论!");
 
@@ -150,7 +154,27 @@ public class CommentServiceImpl extends BaseServiceImpl<Comment, Integer> implem
         ext.setComment(comment);
 
         commentDao.save(comment);
+        articleService.incrementArticleComments(article.getId(), 1);
         return true;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int remove(Integer... integers) {
+        int count = 0;
+        if (integers != null) {
+            Comment comment;
+            for (int id : integers) {
+                comment = get(id);
+                if (comment != null) {
+                    // 删除对应文章的评论数
+                    articleService.incrementArticleComments(comment.getArticleId(), -1);
+                    commentDao.delete(comment);
+                    ++count;
+                }
+            }
+        }
+        return count;
     }
 
     @Override
@@ -159,26 +183,50 @@ public class CommentServiceImpl extends BaseServiceImpl<Comment, Integer> implem
     }
 
     @Override
-    public List<Map<String, Object>> getLatestComment(int limit) {
-        List<Map<String, Object>> list = commentDao.getLatestRegistComment(limit);
+    public List<Map<String, Object>> getLatestComment(int limit, Integer status) {
+        List<Map<String, Object>> list = commentDao.getLatestComment(limit, status);
         if (list != null) {
-            String status = "status",face="face";
+            String statusStr = "status", face = "face", articleId = "articleId";
             for (int i = 0; i < list.size(); i++) {
                 Map<String, Object> map = list.get(i);
                 Map<String, Object> m = new HashMap<>(map.size());
                 m.putAll(map);
-                if (m.containsKey(status)) {
-                    CommentStatus commentStatus=CommentStatus.getStatus((Integer) m.get(status));
-                    m.put("statusName",commentStatus==null?"":commentStatus.getName() );
+                if (m.containsKey(statusStr)) {
+                    CommentStatus commentStatus = CommentStatus.getStatus((Integer) m.get(statusStr));
+                    m.put("statusName", commentStatus == null ? "" : commentStatus.getName());
                 }
                 if (m.containsKey(face)) {
                     if (StringUtils.hasLength((String) m.get(face))) {
                         m.put("face", ResourceConfig.getServer() + m.get(face));
                     }
                 }
+                if (m.containsKey(articleId)) {
+                    Integer aId = (Integer) m.get(articleId);
+                    if (aId != null) {
+                        m.put("articleIdStr", IDEncrypt.encode(aId.intValue()));
+                    }
+                }
                 list.set(i, m);
             }
         }
         return list;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    @CacheEvict(value = "beanCache",key = "'comment_'+#commentId")
+    public void upDownComment(int commentId, boolean isUp) {
+        Member member = MemberThreadLocal.get();
+        String key = member.getId() + "-" + commentId;
+        if (EhCacheUtil.isExist(EhCacheUtil.COMMENT_UPDOWN_CACHE, key)) {
+            //在缓存时间内再次操作无效
+            return;
+        }
+        EhCacheUtil.setData(EhCacheUtil.COMMENT_UPDOWN_CACHE, key, 1);
+        if (isUp) {
+            commentDao.upComment(commentId);
+        } else {
+            commentDao.downComment(commentId);
+        }
     }
 }

@@ -15,7 +15,6 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "sms_provider")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class SmsProvider implements Serializable {
 
     private static final long serialVersionUID = 900667721702404931L;

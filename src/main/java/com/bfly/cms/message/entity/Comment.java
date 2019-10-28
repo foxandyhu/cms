@@ -1,5 +1,7 @@
 package com.bfly.cms.message.entity;
 
+import com.bfly.cms.member.entity.Member;
+import com.bfly.common.IDEncrypt;
 import com.bfly.core.enums.CommentStatus;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -20,7 +22,6 @@ import java.util.List;
  */
 @Entity
 @Table(name = "comment")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class Comment implements Serializable {
 
     private static final long serialVersionUID = 1036844320957193420L;
@@ -75,6 +76,7 @@ public class Comment implements Serializable {
      */
     @JoinColumn(name = "parent_id")
     @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+    @Cache(region = "beanCache", usage = CacheConcurrencyStrategy.READ_WRITE)
     private List<Comment> child;
 
     /**
@@ -98,6 +100,11 @@ public class Comment implements Serializable {
     @Column(name = "member_user_name")
     private String memberUserName;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_user_name", insertable = false, updatable = false, referencedColumnName = "user_name")
+    @NotFound(action = NotFoundAction.IGNORE)
+    private Member member;
+
     /**
      * 所属文章
      */
@@ -107,6 +114,24 @@ public class Comment implements Serializable {
     public String getStatusName() {
         CommentStatus status = CommentStatus.getStatus(getStatus());
         return status == null ? "" : status.getName();
+    }
+
+    /**
+     * 加密后的文章ID字符串
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/9/6 11:58
+     */
+    public String getArticleIdStr() {
+        return IDEncrypt.encode(getArticleId());
+    }
+
+    public Member getMember() {
+        return member;
+    }
+
+    public void setMember(Member member) {
+        this.member = member;
     }
 
     public int getParentId() {

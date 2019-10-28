@@ -17,10 +17,9 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "score_group")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class ScoreGroup implements Serializable {
-    private static final long serialVersionUID = 1L;
 
+    private static final long serialVersionUID = 5630185372905096874L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

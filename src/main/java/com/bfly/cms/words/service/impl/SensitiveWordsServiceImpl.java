@@ -3,6 +3,8 @@ package com.bfly.cms.words.service.impl;
 import com.bfly.cms.words.entity.SensitiveWords;
 import com.bfly.cms.words.service.ISensitiveWordsService;
 import com.bfly.core.base.service.impl.BaseServiceImpl;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,6 +13,7 @@ import org.springframework.util.StringUtils;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author andy_hulibo@163.com
@@ -24,6 +27,7 @@ public class SensitiveWordsServiceImpl extends BaseServiceImpl<SensitiveWords, I
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    @CacheEvict(value = "beanCache", key = "'sensitive_words_list'")
     public boolean save(SensitiveWords sensitiveWords) {
         long count = getCount(new HashMap<String, Object>(1) {
             private static final long serialVersionUID = 620804106478527857L;
@@ -41,6 +45,7 @@ public class SensitiveWordsServiceImpl extends BaseServiceImpl<SensitiveWords, I
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    @CacheEvict(value = "beanCache", key = "'sensitive_words_list'")
     public boolean edit(SensitiveWords sensitiveWords) {
         SensitiveWords ssw = get(new HashMap<String, Object>(1) {
             private static final long serialVersionUID = 620804106478527857L;
@@ -55,5 +60,11 @@ public class SensitiveWordsServiceImpl extends BaseServiceImpl<SensitiveWords, I
             sensitiveWords.setReplace(String.join("", Collections.nCopies(sensitiveWords.getWord().length(), REPLACE_CHAR)));
         }
         return super.edit(sensitiveWords);
+    }
+
+    @Override
+    @Cacheable(value = "beanCache", key = "'sensitive_words_list'")
+    public List<SensitiveWords> getList() {
+        return super.getList();
     }
 }

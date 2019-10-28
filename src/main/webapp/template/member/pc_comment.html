@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>个人中心--我的评论</title>
+    <meta name="keywords" content="${site.keywords}">
+    <meta name="description" content="${site.remark}">
+    <link href="${resServer}/style/default/css/member.css" type="text/css" rel="stylesheet" media="screen">
+</head>
+<body>
+<header>
+    <#include "/common/pc_search_bar.html">
+    <#include "/common/pc_nav_bar.html">
+
+    <section class="now_positionm">
+        <span>当前位置：</span><a href="#">首页&gt;</a><a href="#">个人中心</a>
+    </section>
+
+    <section class="centers_m">
+        <div class="clear_sm"></div>
+        <#include "/member/pc_left.html">
+        <div class="centers_mr">
+            <section>
+                <div class="public_m2">我的评论</div>
+            </section>
+            <div class="chice_allm">
+                <input type="checkbox">
+                <i>全选</i>
+                <span>删除</span>
+            </div>
+            <div class="public_m5">
+                <table border="0" cellspacing="0" cellpadding="0">
+                    <thead>
+                        <tr style=" border-bottom:1px solid #000">
+                            <th class="olist1">文章</th>
+                            <th class="olist2">评论时间</th>
+                            <th class="olist3">评论内容</th>
+                            <th class="olist4">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <#list [1,2,3,4,5,6,7,5,4,3,2] as item>
+                        <tr>
+                            <td><a href="#">木木小店</a></td>
+                            <td>2016/06/06 20:30</td>
+                            <td>吃饭了么...</td>
+                            <td><a href="#">删除</a></td>
+                        </tr>
+                    </#list>
+                    </tbody>
+                </table>
+            </div>
+            <section>
+                <img src="${resServer}/style/default/danmgydxm.png">
+            </section>
+            <section class="mt50 text-center"><div id="page" class="page_div"></div></section>
+        </div>
+    </section>
+</header>
+
+<!-- 底部 begin -->
+<footer>
+    <#include "/common/pc_footer.html">
+
+    <!-- 返回顶部 begin -->
+    <#include "/common/pc_to_top.html">
+    <!-- 返回顶部 end -->
+</footer>
+<!-- 底部 end -->
+</body>
+<#include "/common/script-res.html">
+<script type="text/javascript" src="${resServer}/style/default/pager/pager.js"></script>
+<script type="text/javascript" src="${resServer}/style/default/js/member.js"></script>
+<script type="text/javascript">Cms.util.page("page",5,14,300,function(num){});</script>
+</html>

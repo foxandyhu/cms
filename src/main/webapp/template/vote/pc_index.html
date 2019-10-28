@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>问卷调查--${site.name}</title>
+    <meta name="keywords" content="${channel.keywords???then(channel.keywords,site.keywords)}">
+    <meta name="description" content="${channel.summary???then(channel.summary,site.remark)}">
+    <link href="${resServer}/style/default/css/vote.css" type="text/css" rel="stylesheet" media="screen">
+    <link href="${resServer}/style/default/spider-poll/jquery.spider.poll.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+<header>
+    <#include "/common/pc_header_bar.html">
+    <#include "/common/pc_search_bar.html">
+    <#include "/common/pc_nav_bar.html">
+</header>
+<section class="main w1200 ma clearfix">
+    <section class="w850 fl">
+        <h1 class="vote_h1">网络调查</h1>
+        <div class="vote_con">
+            <!--最新的一条网络调查-->
+            <@voteDirective pageSize="1" enabled="true" status="2">
+                <#list list as item>
+                    <#assign voteTopic=item />
+                    <h1>${item.title}</h1>
+                    <h3>${item.remark}</h3>
+                    <div class="vote_list">
+                        <#list item.subtopics as subTopic>
+                            <div class="item">
+                                <p>${subTopic_index+1}.&nbsp;${subTopic.title}</p>
+                                <input type="hidden" class="subTopic" value="${subTopic.id}">
+                                <div class="answer">
+                                    <#if subTopic.type==3>
+                                        <textarea class="answerItem${subTopic.id}" name="reply" type="text" name="itemId${subTopic.id}" data-id="${subTopic.id}"></textarea>
+                                        <#else>
+                                            <#list subTopic.voteItems as voteItem>
+                                                <#if subTopic.type==1>
+                                                    <label><input class="answerItem${subTopic.id}" type="radio" name="itemId${subTopic.id}" data-id="${voteItem.id}">${voteItem.title}</label>
+                                                <#elseif subTopic.type==2>
+                                                    <label><input class="answerItem${subTopic.id}" type="checkbox" name="itemId${subTopic.id}" data-id="${voteItem.id}">${voteItem.title}</label>
+                                                </#if>
+                                            </#list>
+                                    </#if>
+                                </div>
+                                <div class="vote_result" id="result_vote_${subTopic.id}"></div>
+                            </div>
+                        </#list>
+                    </div>
+                    <div class="vote_btn">
+                        <input id="submitVoteBtn" type="submit" value="提交投票">
+                        <a href="javascript:void(0)" class="result">查看投票结果</a>
+                    </div>
+                </#list>
+            </@voteDirective>
+        </div>
+    </section>
+    <section class="w310 fr">
+        <section class="tag issue clearfix">
+            <div class="tag-nav"><h1>进行中调查</h1></div>
+            <@voteDirective pageSize="5" enabled="true" status="2">
+                <#list list as item>
+                    <div class="item clearfix">
+                        <a href="/vote/id_${item.idStr}.html" target="_blank">${item.title}</a>
+                    </div>
+                </#list>
+            </@voteDirective>
+        </section>
+        <section class="tag issue clearfix mt50">
+            <div class="tag-nav"><h1>往期调查</h1></div>
+            <@voteDirective pageSize="10" enabled="true" status="3">
+                <#list list as item>
+                    <div class="item clearfix">
+                        <a href="/vote/id_${item.idStr}.html" target="_blank">${item.title}</a>
+                    </div>
+                </#list>
+            </@voteDirective>
+        </section>
+    </section>
+</section>
+
+<!-- 底部 begin -->
+<footer>
+    <#include "/common/pc_footer.html">
+    <#include "/common/pc_to_top.html">
+</footer>
+<!-- 底部 end -->
+</body>
+<#include "/common/script-res.html">
+<script type="text/javascript" src="${resServer}/style/default/spider-poll/jquery.spider.poll.min.js"></script>
+<script type="text/javascript" src="${resServer}/style/default/json/json2.min.js"></script>
+<script type="text/javascript" src="${resServer}/style/default/js/vote.js"></script>
+<script>Cms.vote.init('${voteTopic.idStr}');</script>
+</html>

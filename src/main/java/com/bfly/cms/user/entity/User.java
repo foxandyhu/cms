@@ -21,7 +21,6 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "user")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class User implements Serializable {
 
     private static final long serialVersionUID = -8442645414265352114L;

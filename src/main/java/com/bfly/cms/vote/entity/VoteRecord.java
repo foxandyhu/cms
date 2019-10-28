@@ -15,7 +15,6 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "vote_record")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class VoteRecord implements Serializable {
 
     private static final long serialVersionUID = 532019969124825612L;

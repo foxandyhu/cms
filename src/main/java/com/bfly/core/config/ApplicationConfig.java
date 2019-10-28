@@ -17,6 +17,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.util.IntrospectorCleanupListener;
+import org.springframework.web.util.WebAppRootListener;
 
 import java.awt.*;
 import java.util.EventListener;
@@ -38,6 +39,17 @@ public class ApplicationConfig {
     }
 
     /**
+     * 注册WebApp监听器可以方便获取webapp相关信息
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/8/20 14:21
+     */
+    @Bean
+    public ServletListenerRegistrationBean<WebAppRootListener> webAppRootListener() {
+        return new ServletListenerRegistrationBean<>(new WebAppRootListener());
+    }
+
+    /**
      * 验证码配置Bean
      *
      * @author andy_hulibo@163.com
@@ -49,11 +61,11 @@ public class ApplicationConfig {
 
         RandomWordGenerator wordGen = new RandomWordGenerator(acceptedChars);
 
-        RandomFontGenerator fontGenRandom = new RandomFontGenerator(26, 34, new Font[]{new Font("Arial", Font.PLAIN, 32)});
+        RandomFontGenerator fontGenRandom = new RandomFontGenerator(20, 30, new Font[]{new Font("Arial", Font.PLAIN, 30)});
 
-        UniColorBackgroundGenerator background = new UniColorBackgroundGenerator(110, 60);
+        UniColorBackgroundGenerator background = new UniColorBackgroundGenerator(100, 40);
 
-        SingleColorGenerator colorGen = new SingleColorGenerator(new Color(50, 50, 50));
+        SingleColorGenerator colorGen = new SingleColorGenerator(new Color(53, 130, 16));
         BaffleTextDecorator baffleDecorator = new BaffleTextDecorator(1, new Color(255, 255, 255));
         DecoratedRandomTextPaster textPaster = new DecoratedRandomTextPaster(4, 4, colorGen, new TextDecorator[]{baffleDecorator});
 

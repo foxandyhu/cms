@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>${site.name}</title>
+    <meta name="keywords" content="${site.keywords}">
+    <meta name="description" content="${site.remark}">
+    <link href="${resServer}/style/default/css/index.css" type="text/css" rel="stylesheet" media="screen">
+</head>
+<body>
+<header>
+    <#include "/common/pc_header_bar.html">
+    <!-- 顶部广告 begin -->
+    <div class="mt5 top_a  w1200 ma clearfix">
+        <span class="fl">
+            <@adDirective adId="1">
+                <a href="${advertising.attr.pic_href}" target="${advertising.attr.pic_target}"
+                   title="${advertising.attr.pic_tip}">
+                    <img src="${advertising.attr.pic_url}" width="${advertising.attr.pic_width}"
+                         height="${advertising.attr.pic_height}" border="0">
+                </a>
+            </@adDirective>
+        </span>
+    </div>
+    <!-- 顶部广告 end -->
+
+    <!--顶部搜索 begin-->
+    <#include "/common/pc_search_bar.html">
+    <!--顶部搜索 end-->
+
+    <!--导航 begin-->
+    <#include "/common/pc_nav_bar.html">
+    <!--导航 end-->
+</header>
+
+<section class="full_bg">
+    <div class="w1200 ma">
+        <div class="main_wrap mt20 clearfix">
+            <!--焦点文章 begin-->
+            <div class="fl tFocus clearfix" id="tFocus">
+                <div class="tFocus_btn">
+                    <a href="javascript:void(0);" id="prev" class="prev"></a>
+                    <a href="javascript:void(0);" id="next" class="next"></a>
+                </div>
+                <ul class="tFocus-pic zoom" id="tFocus-pic">
+                    <@articleDirective type="3" status="2" pageSize="5">
+                        <#list list as item>
+                            <li>
+                                <div class="s_tit_wrap">
+                                    <a class="s_pic_tit" href="/${item.channelPath}/id_${item.idStr}.html" target="_blank" title="${item.title}">${item.title}</a>
+                                </div>
+                                <span class="slide_num">
+                                    <em></em>
+                                    <b>${item_index+1}</b>
+                                    <i>${list?size}</i>
+                                </span>
+                                <p class="s_info">
+                                    <a class="tp_block tb_4" href="/${item.channelPath}/list.html" target="_blank">${item.channelName}</a>
+                                    ${item.summary}
+                                </p>
+                                <a class="s_pic" target="_blank" title="${item.title}" href="/${item.channelPath}/id_${item.idStr}.html">
+                                    <img src="${resServer}${item.titleImg}" width="450" height="267" alt="${item.title}">
+                                </a>
+                            </li>
+                        </#list>
+                    </@articleDirective>
+                </ul>
+                <div class="tFocusBtn hidden" id="tFocusBtn">
+                    <a class="tFocus-leftbtn hidden" id="tFocus-leftbtn" href="javascript:void(0);">&lsaquo;</a>
+                    <div class="tFocus-btn clearfix" id="tFocus-btn">
+                        <ul>
+                            <#list list as item>
+                                <li class=""></li>
+                            </#list>
+                        </ul>
+                    </div>
+                    <a class="tFocus-rightbtn fr hidden" id="tFocus-rightbtn" href="javascript:void(0);">&rsaquo;</a>
+                </div>
+            </div>
+            <!--焦点文章 end-->
+
+            <!--头条文章 begin-->
+            <div class="fl col_mod_0 ml30 w430">
+                <div class="col_tit_wrap">
+                    <h3 class="col_tit">
+                        今日头条
+                    </h3>
+                </div>
+                <div class="col_con mt10">
+                    <@articleDirective type="4" status="2" pageSize="5">
+                        <#list list as item>
+                            <#if item_index==0>
+                                <div class="news_mod">
+                                    <div class="news_tit">
+                                        <a class="tp_block tb_1" href="/${item.channelPath}/list.html" target="_blank">${item.channelName}</a>
+                                        <a href="/${item.channelPath}/id_${item.idStr}.html" target="_blank" title="${item.title}">${item.title}</a>
+                                    </div>
+                                    <p class="news_dis">${item.summary}</p>
+                                </div>
+                                <#elseif item_index==1>
+                                    <div class="news_mod mt20">
+                                        <div class="news_tit">
+                                            <a class="tp_block tb_7" href="/${item.channelPath}/list.html" target="_blank">${item.channelName}</a>
+                                            <a href="/${item.channelPath}/id_${item.idStr}.html" target="_blank" title="${item.title}">${item.title}</a>
+                                        </div>
+                                        <p class="news_dis">${item.summary}</p>
+                                    </div>
+                                <#else>
+                                    <#if item_index==2>
+                                        <ul class="t_n_list mt15">
+                                    </#if>
+                                       <li><a href="/${item.channelPath}/id_${item.idStr}.html" target="_blank" title="${item.title}">${item.title}</a></li>
+                                    <#if (item_index+1)==list?size>
+                                        </ul>
+                                    </#if>
+                            </#if>
+                        </#list>
+                    </@articleDirective>
+                </div>
+            </div>
+            <!--头条文章 end-->
+
+            <!--置顶文章begin-->
+            <div class="fr col_mod w270">
+                <div class="col_tit_wrap clearfix">
+                    <h3 class="fl col_tit"><a href="javascript:;">热点资讯</a></h3>
+                </div>
+                <div class="col_con">
+                    <@articleDirective status="2" pageSize="8" topLevelSort="false">
+                    <#list list as item>
+                        <#if item_index==0>
+                            <div class="n_p_mod_0 clearfix">
+                                <a class="n_pic fl" href="/${item.channelPath}/id_${item.idStr}.html" target="_blank" title="${item.title}">
+                                    <img src="${resServer}${item.titleImg}" width="125" height="94" alt="${item.title}">
+                                </a>
+                                <a class="n_tit" href="/${item.channelPath}/id_${item.idStr}.html" target="_blank" title="${item.title}">${item.title}</a>
+                            </div>
+                            <#else>
+                                <#if item_index=1>
+                                    <ul class="news_list_dot mt25 clearfix">
+                                </#if>
+                                <li>
+                                    <a href="/${item.channelPath}/id_${item.idStr}.html" title="${item.title}" target="_blank">${item.title}</a>
+                                </li>
+                                <#if (item_index+1)==list?size>
+                                    </ul>
+                                </#if>
+                        </#if>
+                    </#list>
+                    </@articleDirective>
+                </div>
+            </div>
+            <!--置顶文章end-->
+        </div>
+
+        <!--广告 begin-->
+        <div class="top_a clearfix mt15">
+            <@adDirective adId="10">
+                <span class="fl mr10">
+                    <a href="${advertising.attr.pic_href}" target="${advertising.attr.pic_target}"
+                       title="${advertising.attr.pic_tip}">
+                        <img class="lazyimg" src="${resServer}/style/default/blank_1x1.gif"
+                             original="${advertising.attr.pic_url}" width="${advertising.attr.pic_width}"
+                             height="${advertising.attr.pic_height}" border="0">
+                    </a>
+                </span>
+            </@adDirective>
+            <@adDirective adId="11">${advertising.attr.pic_url}
+                <span class="fl ml10">
+                    <a href="${advertising.attr.pic_href}" target="${advertising.attr.pic_target}"
+                       title="${advertising.attr.pic_tip}">
+                        <img class="lazyimg" src="${resServer}/style/default/blank_1x1.gif"
+                             original="${advertising.attr.pic_url}" width="${advertising.attr.pic_width}"
+                             height="${advertising.attr.pic_height}" border="0">
+                    </a>
+                </span>
+            </@adDirective>
+        </div>
+        <!--广告 end-->
+
+        <div class="main_news_wrap mt20 bt3bd clearfix">
+            <div class="main_news_list_wrap fl mt10 w930 oh">
+                <!-- 推荐文章 begin-->
+                <ul class="main_news_list clearfix">
+                    <@articleDirective recommendLevelSort="false" recommend="true" status="2" pageSize="8">
+                        <#list list as item>
+                            <li class="mn_one">
+                                <div class="mn_tit_wrap">
+                                    <a class="tp_block tb_7" href="/${item.channelPath}/list.html" target="_blank">${item.channelName}</a>
+                                    <a class="mn_tit" href="/${item.channelPath}/id_${item.idStr}.html" target="_blank" title="${item.title}">${item.title}</a>
+                                </div>
+                                <div class="clearfix">
+                                    <a class="mn_pic" href="/${item.channelPath}/id_${item.idStr}.html" target="_blank" title="${item.title}">
+                                        <#if item.titleImg??>
+                                            <img class="lazyimg" src="${resServer}/style/default/blank_1x1.gif" original="${resServer}${item.titleImg}" width="178" height="134" alt="${item.title}">
+                                        </#if>
+                                    </a>
+                                    <p class="mn_info">
+                                        <#if item.summary?length gte 50>
+                                            ${item.summary?substring(0,50)}
+                                            <#else>
+                                                ${item.summary}
+                                        </#if>
+                                        <a class="more_info" href="/${item.channelPath}/id_${item.idStr}.html" target="_blank">[详细]</a>
+                                    </p>
+                                    <p class="mn_time">${item.postDate?string("yyyy-MM-dd")}</p>
+                                    <p class="mn_tags">
+                                        <#assign tags=item.tags?split(",")/>
+                                        <#if tags?size gt 1 >
+                                            标签:
+                                            <#list item.tags?split(",") as tag>
+                                                <a target="_blank" href='/search.html?word=${tag}'>${tag}</a>
+                                            </#list>
+                                        </#if>
+                                    </p>
+                                </div>
+                            </li>
+                        </#list>
+                    </@articleDirective>
+                </ul>
+                <!-- 推荐文章 end-->
+
+                <!-- 最新文章 begin-->
+                <div class="col_mod_3 w430 fl">
+                    <@articleDirective recommend="true" status="2" pageSize="6" channelId="75">
+                        <div class="col_tit_wrap">
+                            <strong><a class="col_tit" href="/${channel.path}/list.html" target="_blank">${channel.name}</a></strong>
+                            <div class="right_wrap">
+                                <a class="more_btn" href="/${channel.path}/list.html" target="_blank">更多</a>
+                            </div>
+                            <span class="col_line"></span>
+                        </div>
+                        <div class="col_con">
+                            <ul class="mt10 news_list_dot news_list_dot_1 clearfix">
+                                <#list list as item>
+                                    <li>
+                                        <a href="/${item.channelPath}/id_${item.idStr}.html" target="_blank" title="${item.title}">${item.title}</a>
+                                    </li>
+                                </#list>
+                            </ul>
+                        </div>
+                    </@articleDirective>
+                </div>
+                <div class="col_mod_3 ml20 w430 fl">
+                    <@articleDirective recommend="true" status="2" pageSize="6" channelId="76">
+                        <div class="col_tit_wrap">
+                            <strong><a class="col_tit" href="/${channel.path}/list.html" target="_blank">${channel.name}</a></strong>
+                            <div class="right_wrap">
+                                <a class="more_btn" href="/${channel.path}/list.html" target="_blank">更多</a>
+                            </div>
+                            <span class="col_line"></span>
+                        </div>
+                        <div class="col_con">
+                        <ul class="mt10 news_list_dot news_list_dot_1 clearfix">
+                            <#list list as item>
+                                <li>
+                                    <a href="/${item.channelPath}/id_${item.idStr}.html" target="_blank" title="${item.title}">${item.title}</a>
+                                </li>
+                            </#list>
+                        </ul>
+                    </div>
+                    </@articleDirective>
+                </div>
+                <!-- 最新文章 begin-->
+            </div>
+
+            <div class="fr side_col mt25 w270">
+                <!-- 推荐图文文章 begin -->
+                <div class="fl col_mod w270">
+                    <div class="col_tit_wrap clearfix">
+                        <h3 class="fl col_tit"><a href="/picture/index.html">热评图文</a></h3>
+                    </div>
+                    <div class="col_con mt10">
+                        <ul class="pic_show_list">
+                            <@articleDirective status="2" pageSize="8" type="2" commentsSort="false">
+                                <#list list as item>
+                                    <li class="ps_one clearfix ${(item_index==0)?then('on','')}">
+                                <div class="ps_line">
+                                    <span class="ps_m_type">${item.postDate?string("MM月dd日")}</span><span class="ps_m_tit">${item.title}</span>
+                                </div>
+                                <div class="ps_line_on">
+                                    <span class="ps_type" target="_blank">06月05日</span>
+                                    <a class="ps_tit" href="/${item.channelPath}/id_${item.idStr}.html" target="_blank">${item.title}</a>
+                                    <p class="ps_info">${item.summary}</p>
+                                    <a class="ps_pic" href="/${item.channelPath}/id_${item.idStr}.html" target="_blank" title="${item.title}">
+                                        <img class="lazyimg" src="${resServer}/style/default/blank_1x1.gif" original="${resServer}${item.titleImg}" width="280" height="129" alt="${item.title}">
+                                    </a>
+                                </div>
+                            </li>
+                                </#list>
+                            </@articleDirective>
+                        </ul>
+                    </div>
+                </div>
+                <!-- 推荐图文文章 end -->
+
+                <!--广告 begin-->
+                <div class="fl s_a mt10">
+                    <@adDirective adId="12">
+                        <a href="${advertising.attr.pic_href}" target="${advertising.attr.pic_target}"
+                           title="${advertising.attr.pic_tip}">
+                            <img class="lazyimg" src="${resServer}/style/default/blank_1x1.gif"
+                            original="${advertising.attr.pic_url}" width="${advertising.attr.pic_width}"
+                            height="${advertising.attr.pic_height}">
+                        </a>
+                    </@adDirective>
+                </div>
+                <!--广告 end-->
+
+                <!--文章点击率排行 begin-->
+                <div class="fl col_mod w270 mt20">
+                    <div class="col_tit_wrap clearfix">
+                        <h3 class="fl col_tit">文章排行</h3>
+                    </div>
+                    <div class="col_con mt10">
+                        <ul class="rank_list">
+                            <@articleDirective status="2" pageSize="9" viewsSort="false">
+                                <#list list as item>
+                                    <li>
+                                        <span class="r_num num_1">${item_index+1}</span>
+                                        <a href="/${item.channelPath}/id_${item.idStr}.html" target="_blank" title="${item.title}">${item.title}</a>
+                                    </li>
+                                </#list>
+                            </@articleDirective>
+                        </ul>
+                    </div>
+                </div>
+                <!--文章点击率排行 end-->
+
+            </div>
+        </div>
+
+        <!-- 广告 begin -->
+        <div class="top_a clearfix mt15">
+            <@adDirective adId="10">
+                <span class="fl mr10">
+                    <a href="${advertising.attr.pic_href}" target="${advertising.attr.pic_target}"
+                       title="${advertising.attr.pic_tip}">
+                        <img class="lazyimg" src="${resServer}/style/default/blank_1x1.gif"
+                             original="${advertising.attr.pic_url}" width="${advertising.attr.pic_width}"
+                             height="${advertising.attr.pic_height}" border="0">
+                    </a>
+                </span>
+            </@adDirective>
+            <@adDirective adId="11">
+                <span class="fl ml10">
+                    <a href="${advertising.attr.pic_href}" target="${advertising.attr.pic_target}"
+                       title="${advertising.attr.pic_tip}">
+                        <img class="lazyimg" src="${resServer}/style/default/blank_1x1.gif"
+                             original="${advertising.attr.pic_url}" width="${advertising.attr.pic_width}"
+                             height="${advertising.attr.pic_height}" border="0">
+                    </a>
+                </span>
+            </@adDirective>
+        </div>
+        <!-- 广告 end -->
+
+        <div class="main_news_wrap mt20 bt3bd clearfix">
+            <div class="col_tit_wrap mt10">
+                <h3 class="col_tit">
+                    <a href="/picture/index.html">精彩图库</a>
+                </h3>
+                <div class="right_wrap">
+                    <span class="c_more_wrap"><a class="c_more_btn" href="/picture/index.html" target="_blank">更多</a></span>
+                </div>
+            </div>
+            <div class="mt10 box">
+                <div class="picbox">
+                    <ul class="piclist mainlist">
+                        <!--推荐文章-->
+                        <@articleDirective status="2" pageSize="10" channelId="76" recommend="true">
+                            <#list list as item>
+                                <li>
+                                    <a href="/${item.channelPath}/id_${item.idStr}.html" target="_blank">
+                                        <img src="${resServer}/style/default/blank_1x1.gif" original="${resServer}${item.titleImg}" width="220" height="105"/>
+                                    </a>
+                                </li>
+                            </#list>
+                        </@articleDirective>
+                    </ul>
+                    <ul class="piclist swaplist"></ul>
+                </div>
+                <div class="og_prev"></div>
+                <div class="og_next"></div>
+            </div>
+        </div>
+        <div class="mt20 clearfix">
+            <div class="col_mod_2 w900 fl">
+                <div class="col_tit_wrap bt3bd">
+                    <h3 class="col_tit">
+                        <a href="/video/index.html" target="_blank">精彩视频</a>
+                    </h3>
+                    <div class="right_wrap">
+                        <span class="c_more_wrap">
+                            <a class="c_more_btn" href="/video/index.html" target="_blank">更多</a>
+                        </span>
+                    </div>
+                </div>
+                <div class="col_con oh">
+                    <!--推荐视频 begin-->
+                    <ul class="pic_news_list mt10 clearfix">
+                        <@articleDirective status="2" pageSize="10" channelId="108" recommend="true">
+                            <#list list as item>
+                                <li class="pic_one">
+                                    <a class="pic_one_p" href="/${item.channelPath}/id_${item.idStr}.html" target="_blank" title="${item.title}">
+                                        <img class="lazyimg" src="${resServer}/style/default/blank_1x1.gif" original="${resServer}${item.titleImg}" width="160" height="120" alt="${item.title}">
+                                    </a>
+                                    <a class="pic_one_tit" href="/${item.channelPath}/id_${item.idStr}.html" target="_blank">${item.title}</a>
+                                </li>
+                            </#list>
+                        </@articleDirective>
+                    </ul>
+                    <!--推荐视频 end-->
+
+                    <!-- 最新文章 begin-->
+                    <div class="col_mod_3 w430 fl">
+                        <@articleDirective recommend="true" status="2" pageSize="6" channelId="75">
+                            <div class="col_tit_wrap">
+                                <strong><a class="col_tit" href="/${channel.path}/list.html" target="_blank">${channel.name}</a></strong>
+                                <div class="right_wrap">
+                                    <a class="more_btn" href="/${channel.path}/list.html" target="_blank">更多</a>
+                                </div>
+                                <span class="col_line"></span>
+                            </div>
+                            <div class="col_con">
+                                <ul class="mt10 news_list_dot news_list_dot_1 clearfix">
+                                    <#list list as item>
+                                        <li>
+                                            <a href="/${item.channelPath}/id_${item.idStr}.html" target="_blank" title="${item.title}">${item.title}</a>
+                                        </li>
+                                    </#list>
+                                </ul>
+                            </div>
+                        </@articleDirective>
+                    </div>
+                    <div class="col_mod_3 ml20 w430 fl">
+                        <@articleDirective recommend="true" status="2" pageSize="6" channelId="76">
+                            <div class="col_tit_wrap">
+                                <strong><a class="col_tit" href="/${channel.path}/list.html" target="_blank">${channel.name}</a></strong>
+                                <div class="right_wrap">
+                                    <a class="more_btn" href="/${channel.path}/list.html" target="_blank">更多</a>
+                                </div>
+                                <span class="col_line"></span>
+                            </div>
+                            <div class="col_con">
+                                <ul class="mt10 news_list_dot news_list_dot_1 clearfix">
+                                    <#list list as item>
+                                        <li>
+                                            <a href="/${item.channelPath}/id_${item.idStr}.html" target="_blank" title="${item.title}">${item.title}</a>
+                                        </li>
+                                    </#list>
+                                </ul>
+                            </div>
+                        </@articleDirective>
+                    </div>
+                    <!-- 最新文章 end-->
+                </div>
+            </div>
+
+            <!--专题推荐 begin-->
+            <div class="col_mod_2 w270 fr">
+                <div class="col_tit_wrap bt3bd">
+                    <h3 class="col_tit">专题推荐</h3>
+                    <div class="right_wrap">
+                        <span class="c_more_wrap">
+                            <a class="c_more_btn" href="/video/index.html" target="_blank">更多</a>
+                        </span>
+                    </div>
+                </div>
+                <div class="col_con w270 oh">
+                    <ul class="pic_news_1 mt10">
+                        <@specialTopicDirective pageSize="5" recommend="true" seqSort="true">
+                            <#list list as item>
+                                <li class="pic_one_1">
+                                    <a class="pic_one_1_pic" href="/topic/id_${item.idStr}.html" target="_blank" title="${item.name}">
+                                        <img class="lazyimg" src="${resServer}/style/default/blank_1x1.gif"
+                                             original="${resServer}${item.titleImg}" width="125" height="94"
+                                             alt="${item.name}"></a>
+                                    <strong class="pic_one_1_tit">
+                                        <a href="/topic/id_${item.idStr}.html" title="${item.name}" target="_blank">${item.name}</a></strong>
+                                    <span class="pic_one_1_info">${item.summary}</span>
+                                </li>
+                            </#list>
+                        </@specialTopicDirective>
+                    </ul>
+                </div>
+            </div>
+            <!--专题推荐 end-->
+        </div>
+        <!-- 广告 begin -->
+        <div class="top_a clearfix mt15">
+            <@adDirective adId="10">
+                <span class="fl mr10">
+                    <a href="${advertising.attr.pic_href}" target="${advertising.attr.pic_target}"
+                       title="${advertising.attr.pic_tip}">
+                        <img class="lazyimg" src="${resServer}/style/default/blank_1x1.gif"
+                             original="${advertising.attr.pic_url}" width="${advertising.attr.pic_width}"
+                             height="${advertising.attr.pic_height}" border="0">
+                    </a>
+                </span>
+            </@adDirective>
+            <@adDirective adId="11">
+                <span class="fl ml10">
+                    <a href="${advertising.attr.pic_href}" target="${advertising.attr.pic_target}"
+                       title="${advertising.attr.pic_tip}">
+                        <img class="lazyimg" src="${resServer}/style/default/blank_1x1.gif"
+                             original="${advertising.attr.pic_url}" width="${advertising.attr.pic_width}"
+                             height="${advertising.attr.pic_height}" border="0">
+                    </a>
+                </span>
+            </@adDirective>
+        </div>
+        <!-- 广告 end -->
+    </div>
+</section>
+
+<!-- 底部 begin -->
+<footer>
+    <#include "/common/pc_footer.html">
+
+    <!-- 返回顶部 begin -->
+    <#include "/common/pc_to_top.html">
+    <!-- 返回顶部 end -->
+</footer>
+<!-- 底部 end -->
+</body>
+<#include "/common/script-res.html">
+<script type="text/javascript" src="${resServer}/style/default/js/index.js"></script>
+</html>

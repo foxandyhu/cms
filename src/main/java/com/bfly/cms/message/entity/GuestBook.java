@@ -1,5 +1,6 @@
 package com.bfly.cms.message.entity;
 
+import com.bfly.cms.member.entity.Member;
 import com.bfly.core.enums.GuestBookStatus;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -19,10 +20,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "guestbook")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class GuestBook implements Serializable {
-
-    private static final long serialVersionUID = 2355667069373530538L;
 
     /**
      * 数据字典类型名称
@@ -30,6 +28,7 @@ public class GuestBook implements Serializable {
      * @date 2019/8/2 16:54
      */
     public static final String GUESTBOOK_TYPE_DIR="guestbook_type";
+    private static final long serialVersionUID = -4237675121045605032L;
 
     @Id
     @Column(name = "id")
@@ -37,7 +36,7 @@ public class GuestBook implements Serializable {
     private int id;
 
     /**
-     * 留言/回复时间
+     * 留言时间
      */
     @Column(name = "post_date")
     private Date postDate;
@@ -77,6 +76,11 @@ public class GuestBook implements Serializable {
     @Column(name = "post_user_name")
     private String postUserName;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_user_name",insertable = false,updatable = false,referencedColumnName="user_name")
+    @NotFound(action = NotFoundAction.IGNORE)
+    private Member member;
+
     /**
      * 留言所属类型
      */
@@ -100,6 +104,14 @@ public class GuestBook implements Serializable {
      */
     @Column(name = "reply_date")
     private Date replyDate;
+
+    public Member getMember() {
+        return member;
+    }
+
+    public void setMember(Member member) {
+        this.member = member;
+    }
 
     public String getStatusName() {
         GuestBookStatus status = GuestBookStatus.getStatus(getStatus());

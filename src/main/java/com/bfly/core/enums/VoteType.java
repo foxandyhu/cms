@@ -8,7 +8,7 @@ package com.bfly.core.enums;
  */
 public enum VoteType {
 
-    SINGLE(1, "单选题"), MUTIL(2, "多选题"), TEXT(3, "问答题");
+    SINGLE(1, "单选题"), MULTI(2, "多选题"), TEXT(3, "问答题");
 
     private int id;
     private String name;

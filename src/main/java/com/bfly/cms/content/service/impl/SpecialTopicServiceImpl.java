@@ -3,6 +3,7 @@ package com.bfly.cms.content.service.impl;
 import com.bfly.cms.content.dao.ISpecialTopicDao;
 import com.bfly.cms.content.entity.SpecialTopic;
 import com.bfly.cms.content.service.ISpecialTopicService;
+import com.bfly.cms.system.service.ISysWaterMarkService;
 import com.bfly.core.base.service.impl.BaseServiceImpl;
 import com.bfly.core.config.ResourceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ public class SpecialTopicServiceImpl extends BaseServiceImpl<SpecialTopic, Integ
 
     @Autowired
     private ISpecialTopicDao topicDao;
+    @Autowired
+    private ISysWaterMarkService waterMarkService;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -32,9 +35,11 @@ public class SpecialTopicServiceImpl extends BaseServiceImpl<SpecialTopic, Integ
         int maxSeq = topicDao.getMaxSeq();
         topic.setSeq(++maxSeq);
         String titleImg = ResourceConfig.getUploadTempFileToDestDirForRelativePath(topic.getTitleImg(), ResourceConfig.getContentDir());
+        waterMarkService.waterMarkFile(titleImg);
         topic.setTitleImg(titleImg);
 
         String contentImg = ResourceConfig.getUploadTempFileToDestDirForRelativePath(topic.getContentImg(), ResourceConfig.getContentDir());
+        waterMarkService.waterMarkFile(contentImg);
         topic.setContentImg(contentImg);
 
         String path = ResourceConfig.getTemplatePath() + File.separator + "topic/pc";
@@ -59,11 +64,15 @@ public class SpecialTopicServiceImpl extends BaseServiceImpl<SpecialTopic, Integ
         String titleImg = ResourceConfig.getUploadTempFileToDestDirForRelativePath(topic.getTitleImg(), ResourceConfig.getContentDir());
         if (!StringUtils.hasLength(titleImg)) {
             titleImg = st.getTitleImg();
+        } else {
+            waterMarkService.waterMarkFile(titleImg);
         }
         topic.setTitleImg(titleImg);
         String contentImg = ResourceConfig.getUploadTempFileToDestDirForRelativePath(topic.getContentImg(), ResourceConfig.getContentDir());
         if (!StringUtils.hasLength(contentImg)) {
             contentImg = st.getContentImg();
+        } else {
+            waterMarkService.waterMarkFile(contentImg);
         }
         topic.setContentImg(contentImg);
 

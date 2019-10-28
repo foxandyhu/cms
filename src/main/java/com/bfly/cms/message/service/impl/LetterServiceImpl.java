@@ -90,7 +90,7 @@ public class LetterServiceImpl extends BaseServiceImpl<Letter, Integer> implemen
             specification = specification.and(getSortQuery(sortQueryProperty));
         }
         Page<Letter> page = letterDao.findAll(specification, getPageRequest(pager));
-        pager = new Pager(page.getNumber(), page.getSize(), page.getTotalElements());
+        pager = new Pager(pager.getPageNo(), pager.getPageSize(), page.getTotalElements());
         pager.setData(page.getContent());
         return pager;
     }

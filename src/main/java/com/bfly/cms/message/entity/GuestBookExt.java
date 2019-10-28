@@ -14,7 +14,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "guestbook_ext")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
+@Cache(region = "beanCache", usage = CacheConcurrencyStrategy.READ_WRITE)
 public class GuestBookExt implements Serializable {
 
     private static final long serialVersionUID = 147714682278906191L;

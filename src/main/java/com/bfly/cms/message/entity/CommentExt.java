@@ -14,7 +14,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "comment_ext")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
+@Cache(region = "beanCache", usage = CacheConcurrencyStrategy.READ_WRITE)
 public class CommentExt implements Serializable {
 
     private static final long serialVersionUID = 3035819854676694933L;

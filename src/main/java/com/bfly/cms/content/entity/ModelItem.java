@@ -17,8 +17,8 @@ import java.util.List;
 @Entity
 @Table(name = "model_item")
 public class ModelItem implements Serializable {
-    private static final long serialVersionUID = 1L;
 
+    private static final long serialVersionUID = -3327080382085312989L;
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -280,14 +280,11 @@ public class ModelItem implements Serializable {
         addSysModelItem("share", "分享", "", "", "", DataType.SINGLEBOX, false, false);
         addSysModelItem("updown", "顶踩", "", "", "", DataType.SINGLEBOX, false, false);
         addSysModelItem("comment", "评论", "", "", "", DataType.SINGLEBOX, false, false);
+        addSysModelItem("score", "评分", "", "", "", DataType.SINGLEBOX, true, false);
 
         addSysModelItem("txt", "内容", "", "", "", DataType.EDITOR, true, false);
-        addSysModelItem("txt1", "内容1", "", "", "", DataType.EDITOR, true, false);
-        addSysModelItem("txt2", "内容2", "", "", "", DataType.EDITOR, true, false);
-        addSysModelItem("txt3", "内容3", "", "", "", DataType.EDITOR, true, false);
 
-        addSysModelItem("doc", "文档", "", "", "", DataType.ATTACHMENTS, true, false);
-        addSysModelItem("media", "多媒体", "", "", "", DataType.ATTACHMENTS, true, false);
+        addSysModelItem("file", "文件", "", "", "", DataType.ATTACHMENTS, true, false);
         addSysModelItem("pictures", "图片集", "", "", "", DataType.PICTURES, true, false);
         addSysModelItem("attachments", "附件", "", "", "", DataType.ATTACHMENTS, true, false);
     }

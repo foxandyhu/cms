@@ -1,0 +1,28 @@
+<section class="tag clearfix">
+    <div class="tag-nav"><h1>大家都在搜</h1></div>
+    <div class="tagList">
+        <div style="" class="cTag">
+            <!--推荐搜索词-->
+            <@searchWordsDirective pageSize="10" recommend="true">
+                <#list list as item>
+                    <a href="/search.html?word=${item.name}">${item.name}</a>
+                </#list>
+            </@searchWordsDirective>
+        </div>
+    </div>
+</section>
+<section class="tag issue clearfix">
+    <div class="tag-nav"><h1>热门话题</h1></div>
+    <!--评论量排行文章-->
+    <@articleDirective status="2" pageSize="5" commentsSort="false">
+        <#list list as item>
+            <div class="item clearfix">
+                <a href="/${item.channelPath}/id_${item.idStr}.html" target="_blank" class="img">
+                    <img class="lazyimg" src="${resServer}/style/default/blank_1x1.gif" original="${resServer}${item.titleImg}">
+                </a>
+                <h2><a href="/${item.channelPath}/id_${item.idStr}.html" target="_blank">${item.title}</a></h2>
+                <div class="issue-comment">评论 (${item.comments})</div>
+            </div>
+        </#list>
+    </@articleDirective>
+</section>

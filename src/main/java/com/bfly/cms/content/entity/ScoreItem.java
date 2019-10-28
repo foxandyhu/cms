@@ -14,8 +14,8 @@ import java.io.Serializable;
 @Entity
 @Table(name = "score_item")
 public class ScoreItem implements Serializable, Comparable<ScoreItem> {
-    private static final long serialVersionUID = 1L;
 
+    private static final long serialVersionUID = -4901096609694109527L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

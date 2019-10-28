@@ -2,16 +2,26 @@ package com.bfly.core.config;
 
 import com.bfly.common.FileUtil;
 import com.bfly.core.Constants;
+import com.bfly.core.context.ContextUtil;
 import com.bfly.core.context.ServletRequestThreadLocal;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * 资源配置
@@ -55,6 +65,19 @@ public class ResourceConfig {
      */
     @Value("${spring.res.server}")
     private String server;
+
+    @Value("${spring.res.tempServer}")
+    private String tempServer;
+
+    /**
+     * 获得文章索引库文件绝对路径
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/10/25 14:46
+     */
+    public static String getArticleIndexDir() {
+        return getRootDir() + File.separator + "index/article";
+    }
 
     /**
      * 用户头像图片存放路径文件夹
@@ -169,7 +192,7 @@ public class ResourceConfig {
     }
 
     /**
-     * 获得模板路径
+     * 获得模板文件夹路径
      *
      * @author andy_hulibo@163.com
      * @date 2019/8/6 12:49
@@ -181,23 +204,49 @@ public class ResourceConfig {
     }
 
     /**
-     * 获得指定文件夹的PC模板路径
+     * 获得模板文件夹路径
      *
      * @author andy_hulibo@163.com
-     * @date 2019/8/6 16:52
+     * @date 2019/8/20 11:38
      */
-    public static String getTemplateForPcPath(String dirName) {
-        return getTemplatePath() + File.separator + dirName + File.separator + "pc";
+    public static String getTemplatePath(String childDirName) {
+        return getTemplatePath() + File.separator + childDirName;
     }
 
     /**
-     * 获得指定文件夹的手机模板路径
+     * 获得模板绝对路径
+     *
+     * @param relativeTplPath 模板相对template目录路径
+     * @author andy_hulibo@163.com
+     * @date 2019/8/20 13:45
+     */
+    public static String getTemplateAbsolutePath(String relativeTplPath) {
+        String path = ContextUtil.getWebApp() + File.separator + getTemplateRelativePath() + relativeTplPath;
+        return path;
+    }
+
+    /**
+     * 获得模板路径下的模板名称集合
      *
      * @author andy_hulibo@163.com
-     * @date 2019/8/6 16:54
+     * @date 2019/8/20 11:52
      */
-    public static String getTemplateForMobilePath(String dirName) {
-        return getTemplatePath() + File.separator + dirName + File.separator + "mobile";
+    public static List<String> getTemplateNames(String childDirName, boolean isPcTpl) {
+        String path = getTemplatePath(childDirName);
+        String[] names = FileUtil.getFileNames(path);
+        List<String> list = new ArrayList<>();
+        if (names != null) {
+            String html = ".html", pc = "pc_", mobile = "mobile_";
+            Stream<String> stream = Arrays.stream(names);
+            stream = stream.filter(s -> {
+                if (!s.endsWith(html)) {
+                    return false;
+                }
+                return isPcTpl ? s.startsWith(pc) : s.startsWith(mobile);
+            });
+            list = stream.collect(Collectors.toList());
+        }
+        return list;
     }
 
     /**
@@ -209,6 +258,17 @@ public class ResourceConfig {
     public static String getRelativePathForRoot(String path) {
         Path p = Paths.get(getRootDir()).relativize(Paths.get(path));
         return "/" + p.toString().replaceAll("\\\\", "/");
+    }
+
+    /**
+     * 获得相对root路径的绝对路径
+     *
+     * @param path 相对路径
+     * @author andy_hulibo@163.com
+     * @date 2019/8/25 14:35
+     */
+    public static String getAbsolutePathForRoot(String path) {
+        return getRootDir() + File.separator + path;
     }
 
     /**
@@ -224,6 +284,10 @@ public class ResourceConfig {
 
     public static String getServer() {
         return config.server;
+    }
+
+    public static String getTempServer() {
+        return config.tempServer;
     }
 
     public static String getTempDir() {

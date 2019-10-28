@@ -20,7 +20,6 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "sms_record")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class SmsRecord implements Serializable {
 
     private static final long serialVersionUID = 7701008436692805236L;

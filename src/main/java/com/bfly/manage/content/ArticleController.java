@@ -19,6 +19,7 @@ import com.bfly.core.context.PagerThreadLocal;
 import com.bfly.core.enums.ArticleStatus;
 import com.bfly.core.security.ActionModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -50,7 +51,7 @@ public class ArticleController extends BaseManageController {
      * @author andy_hulibo@163.com
      * @date 2019/8/7 13:43
      */
-    @GetMapping(value = "/list")
+    @PostMapping(value = "/list")
     @ActionModel(value = "文章列表", need = false)
     public void listArticle(HttpServletRequest request, HttpServletResponse response) {
         PagerThreadLocal.set(request);
@@ -75,7 +76,10 @@ public class ArticleController extends BaseManageController {
         if (title != null) {
             unExactMap.put("title", title);
         }
-        Pager pager = articleService.getPage(exactMap, unExactMap, null);
+
+        Map<String, Sort.Direction> sortMap = new HashMap<>(1);
+        sortMap.put("topLevelSort", Sort.Direction.DESC);
+        Pager pager = articleService.getPage(exactMap, unExactMap, sortMap);
         JSONObject json = JsonUtil.toJsonFilter(pager);
         ResponseUtil.writeJson(response, ResponseData.getSuccess(json));
     }
@@ -132,11 +136,8 @@ public class ArticleController extends BaseManageController {
             if (StringUtils.hasLength(ext.getContentImg())) {
                 ext.setContentImg(ResourceConfig.getServer() + ext.getContentImg());
             }
-            if (StringUtils.hasLength(ext.getDocPath())) {
-                ext.setDocPath(ResourceConfig.getServer() + ext.getDocPath());
-            }
-            if (StringUtils.hasLength(ext.getMediaPath())) {
-                ext.setMediaPath(ResourceConfig.getServer() + ext.getMediaPath());
+            if (StringUtils.hasLength(ext.getFilePath())) {
+                ext.setFilePath(ResourceConfig.getServer() + ext.getFilePath());
             }
         }
 
@@ -309,5 +310,17 @@ public class ArticleController extends BaseManageController {
     public void delAttachment(HttpServletResponse response, @PathVariable("attachmentId") int attachmentId) {
         articleService.delArticleAttachment(attachmentId);
         ResponseUtil.writeJson(response, ResponseData.getSuccess(""));
+    }
+
+    /**
+     * 重构索引库
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/10/25 14:41
+     */
+    @GetMapping(value = "/reset/index")
+    @ActionModel("重构文章索引库")
+    public void resetIndex() {
+        articleService.resetArticleIndex();
     }
 }

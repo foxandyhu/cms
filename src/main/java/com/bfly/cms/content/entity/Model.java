@@ -17,10 +17,9 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "model")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class Model implements Serializable {
-    private static final long serialVersionUID = 1L;
 
+    private static final long serialVersionUID = 8862206214016015186L;
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

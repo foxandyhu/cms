@@ -12,8 +12,9 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "channel")
-public class Channel implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class Channel implements Serializable, Comparable<Channel> {
+
+    private static final long serialVersionUID = -8682983792421664015L;
 
     @Id
     @Column(name = "id")
@@ -112,6 +113,11 @@ public class Channel implements Serializable {
      */
     @Column(name = "parent_id")
     private int parentId;
+
+    @Override
+    public int compareTo(Channel o) {
+        return this.getSeq()-o.getSeq();
+    }
 
     public int getId() {
         return id;

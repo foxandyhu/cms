@@ -16,7 +16,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "member_group")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
+@Cache(region = "beanCache", usage = CacheConcurrencyStrategy.READ_WRITE)
 public class MemberGroup implements Serializable, Comparable<MemberGroup> {
 
     private static final long serialVersionUID = 6614006354622383908L;

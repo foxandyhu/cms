@@ -1,0 +1,32 @@
+﻿@charset "utf-8";
+@import "common.css";
+@import "header.css";
+@import "footer.css";
+
+.vote_h1 {color: #1f1f1f;font-size: 24px;font-weight: normal;}
+.vote_con {padding: 30px 30px 50px 30px;min-height: 430px;margin-top: 23px;border: 1px solid #e2e2e2;border-radius: 7px;-moz-border-radius: 7px;-o-border-radius: 7px;-webkit-border-radius: 7px;}
+.vote_con h1 {color: #1160b2;text-align: center;font-size: 2rem;}
+.vote_con h3 {color: #444444;line-height: 26px;font-weight: normal;margin-top: 20px;}
+.vote_list {margin-top: 40px;}
+.vote_list .item {margin-bottom: 30px;}
+.vote_list .item p {color: #3161b2;font-size: 1.2rem;}
+.vote_list .item label {margin-right: 20px;color: #1e1e1e;font-size: 1.1rem;display: inline-block;}
+.vote_list .item div.answer {text-indent: 13px;margin-top: 20px;}
+.vote_list .item label input {margin-right: 5px;width: 20px;height: 20px;vertical-align: middle;margin-bottom: 5px;}
+.vote_list .item textarea {padding: 5px;width: 90%;margin: 0 auto;margin-left: 25px;border: 1px solid #a9a9a9;height: 100px;}
+.vote_btn {text-align: center;}
+.vote_btn input {color: #fff;font-size: 18px;padding: 10px 60px;background-color: #1160b2;border-radius: 3px;border: 0px;-moz-border-radius: 3px;-o-border-radius: 3px;-webkit-border-radius: 3px;margin-right: 10px;cursor: pointer;outline: none;}
+.vote_btn a {color: #202020;font-size: 16px;text-decoration: underline;}
+.vote_btn a:hover{color: #f60;}
+.vote_result{margin-top:10px;}
+.vote_result td{font-size:.8rem;color: #444444;vertical-align: bottom;}
+
+.tag .tag-nav{width:100%; border-bottom:2px solid #e7e7e7; padding-bottom:10px; position:relative;}
+.tag .tag-nav h1{font-size: 18px;color:#1a1a1a; font-weight:normal; position:relative; display:inline-block;}
+.tag .tag-nav h1:after{content:""; height:2px; width:100%; position:absolute; left:0; bottom:-12px; background-color:#ef3838;}
+.issue div.item{padding:10px 0 10px;}
+.issue div.item:first-child{border-top:1px solid red;}
+.issue div.item:nth-child(n+3){border-top:1px dashed #e0e0e0;}
+.issue .item:hover{background-color:rgba(240,240,240,0.4);}
+.issue .item a{line-height:24px; font-weight:normal;font-size: 14px;}
+.issue .item .issue-comment{color:#c7c7c7; font-size:12px; margin-top:8px;}

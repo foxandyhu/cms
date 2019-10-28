@@ -8,6 +8,9 @@ import com.bfly.core.base.service.impl.BaseServiceImpl;
 import com.bfly.core.config.ResourceConfig;
 import com.bfly.core.context.ServletRequestThreadLocal;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,7 +50,14 @@ public class ModelServiceImpl extends BaseServiceImpl<Model, Integer> implements
     }
 
     @Override
+    @Cacheable(value = "beanCache", key = "'model_'+#integer")
+    public Model get(Integer integer) {
+        return super.get(integer);
+    }
+
+    @Override
     @Transactional(rollbackFor = Exception.class)
+    @CacheEvict(value = "beanCache", key = "'model_'+#model.id")
     public boolean edit(Model model) {
         Model m = get(model.getId());
         Assert.notNull(m, "不存在的模型信息!");
@@ -67,6 +77,7 @@ public class ModelServiceImpl extends BaseServiceImpl<Model, Integer> implements
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    @Caching(evict ={@CacheEvict(value = "beanCache", key = "'model_'+#upItemId"),@CacheEvict(value = "beanCache", key = "'model_'+#downItemId")} )
     public void sortModel(int upItemId, int downItemId) {
         Model upItem = get(upItemId);
         Assert.notNull(upItem, "不存在的模型!");
@@ -82,6 +93,7 @@ public class ModelServiceImpl extends BaseServiceImpl<Model, Integer> implements
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    @CacheEvict(value = "beanCache", key = "'model_'+#modelId")
     public boolean editModelEnabled(int modelId, boolean enabled) {
         return modelDao.editModelEnabled(modelId, enabled) > 0;
     }

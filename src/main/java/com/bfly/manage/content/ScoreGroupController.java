@@ -1,5 +1,6 @@
 package com.bfly.manage.content;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.bfly.cms.content.entity.ScoreGroup;
 import com.bfly.cms.content.service.IScoreGroupService;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * 评分组Controller
@@ -45,6 +47,20 @@ public class ScoreGroupController extends BaseManageController {
         Pager pager = scoreGroupService.getPage(null);
         JSONObject json = JsonUtil.toJsonFilter(pager, "items");
         ResponseUtil.writeJson(response, ResponseData.getSuccess(json));
+    }
+
+    /**
+     * 获得所有评分组集合
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/9/14 18:54
+     */
+    @GetMapping(value = "/all")
+    @ActionModel(value = "所有评分组", need = false)
+    public void getAllScoreGroup(HttpServletResponse response) {
+        List<ScoreGroup> list = scoreGroupService.getList();
+        JSONArray array = JsonUtil.toJsonFilterForArray(list, "items");
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(array));
     }
 
     /**

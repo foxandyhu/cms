@@ -19,7 +19,6 @@ import java.util.List;
  */
 @Entity
 @Table(name = "vote_subtopic")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class VoteSubTopic implements Serializable, Comparable<VoteSubTopic> {
 
     private static final long serialVersionUID = 3345663970044453306L;
@@ -60,6 +59,7 @@ public class VoteSubTopic implements Serializable, Comparable<VoteSubTopic> {
      */
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "sub_topic_id")
+    @OrderBy("seq")
     private List<VoteItem> voteItems;
 
     /**

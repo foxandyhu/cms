@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>个人中心--修改密码--${site.name}</title>
+    <meta name="keywords" content="${site.keywords}">
+    <meta name="description" content="${site.remark}">
+    <link href="${resServer}/style/default/css/member.css" type="text/css" rel="stylesheet" media="screen">
+</head>
+<body>
+<header>
+    <#include "/common/pc_search_bar.html">
+    <#include "/common/pc_nav_bar.html">
+
+    <section class="now_positionm">
+        <span>当前位置：</span><a href="#">首页&gt;</a><a href="#">个人中心</a>
+    </section>
+
+    <section class="centers_m">
+        <div class="clear_sm"></div>
+        <#include "/member/pc_left.html">
+        <div class="centers_mr">
+            <section>
+                <div class="public_m2">密码修改</div>
+                <div class="tip_notem">
+                    <ul>
+                        <li>1.请牢记登录密码</li>
+                        <li>2.如果丢失密码，可以通过绑定的手机或邮箱找到</li>
+                    </ul>
+                </div>
+            </section>
+            <div class="public_m4 form_cc">
+                <form id="pwdForm" onsubmit="return false">
+                    <p>
+                        <em>原密码：</em>
+                        <input type="password" name="password">
+                    </p>
+                    <p>
+                        <em>新的密码：</em>
+                        <input type="password" name="newPwd">
+                    </p>
+                    <p>
+                        <em>确认密码：</em>
+                        <input type="password" name="confirmPwd">
+                    </p>
+                </form>
+                <button class="edit_btn" onclick="Cms.member.editPwd()">修改密码</button>
+            </div>
+        </div>
+    </section>
+</header>
+
+<!-- 底部 begin -->
+<footer>
+    <#include "/common/pc_footer.html">
+
+    <!-- 返回顶部 begin -->
+    <#include "/common/pc_to_top.html">
+    <!-- 返回顶部 end -->
+</footer>
+<!-- 底部 end -->
+</body>
+<#include "/common/script-res.html">
+<script type="text/javascript" src="${resServer}/style/default/js/member.js"></script>
+</html>

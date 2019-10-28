@@ -1,0 +1,56 @@
+<#macro pagerMacro pager url>
+    <div id="page" class="page_div">
+        <#if (pager.totalPage>1)>
+            <a id='firstPage' href="${url?replace(':pageNo',1)}">首页</a>
+            <a id='prePage' href="${url?replace(':pageNo',pager.prePage)}">上一页</a>
+            <#if (pager.totalPage >6) >
+            <#if pager.pageNo < 5 >
+                <#list 1..6 as i>
+                    <#if pager.pageNo != i>
+                        <a href="${url?replace(':pageNo',i)}">${i}</a>
+                        <#else>
+                            <a class='current' href="${url?replace(':pageNo',i)}">${i}</a>
+                    </#if>
+                </#list>
+                <span>. . .</span>
+                <a href="${url?replace(':pageNo',pager.totalPage)}">${pager.totalPage}</a>
+                <#else>
+                    <#if pager.pageNo < (pager.totalPage - 3)>
+                        <#list (pager.pageNo - 2)..(pager.pageNo + 3) as i>
+                            <#if pager.pageNo != i>
+                                <a href="${url?replace(':pageNo',i)}">${i}</a>
+                                <#else>
+                                    <a class='current' href="${url?replace(':pageNo',i)}">${i}</a>
+                            </#if>
+                        </#list>
+                        <span>. . .</span>
+                        <a href="${url?replace(':pageNo',pager.totalPage)}">${pager.totalPage}</a>
+                        <#else>
+                            <a href="${url?replace(':pageNo',i)}">1</a>
+                            <span>. . .</span>
+                            <#list (pager.totalPage - 4)..(pager.totalPage) as i>
+                                <#if pager.pageNo != i>
+                                    <a href="${url?replace(':pageNo',i)}">${i}</a>
+                                    <#else>
+                                        <a class='current' href="${url?replace(':pageNo',i)}">${i}</a>
+                                </#if>
+                            </#list>
+                    </#if>
+            </#if>
+            <#else>
+                <#list 1..(pager.totalPage) as i>
+                    <#if pager.pageNo != i>
+                        <a href="${url?replace(':pageNo',i)}">${i}</a>
+                        <#else>
+                            <a class='current' href="${url?replace(':pageNo',i)}">${i}</a>
+                    </#if>
+                </#list>
+        </#if>
+        </#if>
+        <#if (pager.totalPage>1)>
+            <a id='lastPage' href="${url?replace(':pageNo',pager.totalPage)}">尾页</a><a id='nextPage' href="${url?replace(':pageNo',pager.nextPage)}">下一页</a>
+        </#if>
+        <span class='totalPage'> 共 ${pager.totalPage} 页 </span>
+        <span class='totalList'> 共 ${pager.totalCount} 条记录 </span>
+    </div>
+</#macro>

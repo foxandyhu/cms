@@ -34,7 +34,7 @@ public interface IBaseJdbcService {
     long getCountSql(String sql, Object... params);
 
     /**
-     * 原生sql查询
+     * 原生sql查询 参数占位符是?
      *
      * @param rowMapper 行映射对象 可为不可null
      * @param params    sql参数 可为null

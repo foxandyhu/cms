@@ -1,0 +1,29 @@
+<form action="/doc/search.html" method="get">
+    <input type="hidden" name="attrName" value="industry"/>
+    <input type="hidden" name="channelId" value="${channel???then(channel.id,channelId)}"/>
+    <div class="doc_con_list clearfix">
+        <span>文档类型：</span>
+        <@dictionaryDirective type="doc_type">
+            <#list list as item>
+                <#if item.value==category>
+                    <label><input name="category" value="${item.value}" type="radio" checked="checked">${item.name}</label>
+                    <#else>
+                        <label><input name="category" value="${item.value}" type="radio">${item.name}</label>
+                </#if>
+            </#list>
+        </@dictionaryDirective>
+    </div>
+    <div class="doc_con_list clearfix">
+        <span>所属行业：</span>
+        <@dictionaryDirective type="industry">
+            <#list list as item>
+                <#if item.value==attrDTO.value>
+                    <label><input name="attrValue" value="${item.value}" type="radio" checked="checked">${item.name}</label>
+                <#else>
+                    <label><input name="attrValue" value="${item.value}" type="radio">${item.name}</label>
+                </#if>
+            </#list>
+        </@dictionaryDirective>
+    </div>
+    <input type="submit" value="搜索" class="doc_con_btn">
+</form>

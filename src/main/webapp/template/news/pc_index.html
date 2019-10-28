@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>资讯--${site.name}</title>
+    <meta name="keywords" content="${channel.keywords???then(channel.keywords,site.keywords)}">
+    <meta name="description" content="${channel.summary???then(channel.summary,site.remark)}">
+    <link href="${resServer}/style/default/css/news.css" type="text/css" rel="stylesheet" media="screen">
+    <link href="${resServer}/style/default/glide/glide.css" type="text/css" rel="stylesheet" media="screen">
+</head>
+<body>
+<header>
+    <#include "/common/pc_header_bar.html">
+    <#include "/common/pc_search_bar.html">
+    <#include "/common/pc_nav_bar.html">
+</header>
+<section class="main w1200 ma clearfix">
+    <section class="w850 fl">
+        <div class="topNews">
+            <!--头条文章-->
+            <@articleDirective type="4" status="2" pageSize="1" channelId="${channel.id}">
+                <#list list as item>
+                    <a href="/${item.channelPath}/id_${item.idStr}.html" target="_blank">${item.title}</a>
+                </#list>
+            </@articleDirective>
+        </div>
+        <section class="news">
+            <div class="banner">
+                <div id="slideBox">
+                    <!--焦点文章-->
+                    <@articleDirective type="3" status="2" pageSize="3" channelId="${channel.id}">
+                        <ul id="show_pic" style="left:0px">
+                            <#list list as item>
+                                <li>
+                                    <a href="/${item.channelPath}/id_${item.idStr}.html" target="_blank">
+                                        <img alt="${item.title}" title="${item.title}" height="300" width="510"
+                                             src="${resServer}${item.titleImg}"/>
+                                    </a>
+                                </li>
+                            </#list>
+                        </ul>
+                        <div id="slideText"></div>
+                        <ul id="iconBall">
+                            <#list list as item>
+                                <li class="${(item_index==0)?then('active','')}">${item_index+1}</li>
+                            </#list>
+                        </ul>
+                        <ul id="textBall">
+                            <#list list as item>
+                                <li class="${(item_index==0)?then('active','')}">
+                                    <a href="/${item.channelPath}/id_${item.idStr}.html">${item.shortTitle???then(item.shortTitle,item.title)}</a>
+                                </li>
+                            </#list>
+                        </ul>
+                    </@articleDirective>
+                </div>
+            </div>
+            <div class="newsList">
+                <!--置顶文章-->
+                <@articleDirective topLevelSort="false" status="2" pageSize="3" channelId="${channel.id}">
+                    <#list list as item>
+                        <div class="item">
+                            <h1><a href="/${item.channelPath}/id_${item.idStr}.html" target="_blank">${item.title}</a>
+                            </h1>
+                            <div class="des">${item.summary}</div>
+                            <span>
+                                <a target="_blank" href="/${item.channelPath}/list.html">${item.channelName}</a>
+                                <em>${item.postDate?string('yyyy-MM-dd')}</em>
+                            </span>
+                        </div>
+                    </#list>
+                </@articleDirective>
+            </div>
+        </section>
+        <section class="hot">
+            <div class="hot-nav"><h1>热点聚焦</h1></div>
+            <!--推荐文章-->
+            <@articleDirective status="2" pageSize="20" channelId="${channel.id}" recommendLevelSort="false">
+                <#list list as item>
+                    <div class="item clearfix">
+                        <a href="/${item.channelPath}/id_${item.idStr}.html" target="_blank" class="img">
+                            <img class="lazyimg" src="${resServer}/style/default/blank_1x1.gif"
+                                 original="${resServer}${item.titleImg???then(item.titleImg,'/style/default/nopic_middle.png')}">
+                        </a>
+                        <div class="text">
+                            <h2><a href="/${item.channelPath}/id_${item.idStr}.html" target="_blank">${item.title}</a>
+                            </h2>
+                            <div class="des">${item.summary}</div>
+                            <div class="fl"><span class="ch"><a href="/${item.channelPath}/list.html"
+                                                                target="_blank">新闻</a><em>${item.postDate?string('yyyy-MM-dd')}</em></span>
+                            </div>
+                            <div class="data">
+                                <span class="view"><i class="fa fa-eye"></i>&nbsp;${item.views}</span>
+                                <span class="comment"><i class="fa fa-commenting-o"></i>&nbsp;${item.comments}</span>
+                            </div>
+                        </div>
+                    </div>
+                </#list>
+            </@articleDirective>
+        </section>
+    </section>
+    <section class="w310 fr">
+        <#include "/common/pc_right_1.html">
+
+        <section class="tag topic clearfix">
+            <div class="tag-nav"><h1>专题专栏</h1></div>
+            <div class="topicList">
+                <!--推荐专栏-->
+                <@specialTopicDirective pageSize="3" recommend="true" seqSort="false">
+                    <#list list as item>
+                        <a href="/topic/id_${item.idStr}.html" target="_blank">
+                            <img alt="${item.name}" title="${item.name}" class="lazyimg"
+                                 src="${resServer}/style/default/blank_1x1.gif" original="${resServer}${item.titleImg}"
+                                 width="310" height="100">
+                        </a>
+                    </#list>
+                </@specialTopicDirective>
+            </div>
+        </section>
+
+        <section class="tag wcom clearfix">
+            <div class="tag-nav"><h1>大家正在说</h1></div>
+            <div id="con">
+                <div class="bottomcover" style="z-index:2;"></div>
+                <ul>
+                    <@commentLatestDirective size="20">
+                        <#list list as item>
+                            <li>
+                                <div class="div_left">
+                                    <a target="_blank" href="/${item.channelPath}/id_${item.articleIdStr}.html">
+                                        <img class="lazyimg" src="${resServer}/style/default/blank_1x1.gif" original="${item.face???then(item.face,resServer+'/system/images/defalt.jpg')}" title="${item.userName}">
+                                    </a>
+                                </div>
+                                <div class="div_right">
+                                    <a href="/${item.channelPath}/id_${item.articleIdStr}.html" target="_blank">${item.userName}</a>
+                                    ：<a class="comment" target="_blank" href="/${item.channelPath}/id_${item.articleIdStr}.html">${item.text}</a>
+                                    <div class="twit_item_time">${item.postDate?string('HH:mm')}</div>
+                                </div>
+                            </li>
+                        </#list>
+                    </@commentLatestDirective>
+                </ul>
+            </div>
+        </section>
+    </section>
+</section>
+
+<!-- 底部 begin -->
+<footer>
+    <#include "/common/pc_footer.html">
+    <#include "/common/pc_to_top.html">
+</footer>
+<!-- 底部 end -->
+</body>
+<#include "/common/script-res.html">
+<script type="text/javascript" src="${resServer}/style/default/glide/glide.js"></script>
+<script type="text/javascript" src="${resServer}/style/default/pause/jquery.pause.min.js"></script>
+<script type="text/javascript" src="${resServer}/style/default/js/news.js"></script>
+<script type="text/javascript">
+    Cms.news.glide();
+    Cms.news.commentsSlide();
+</script>
+</html>

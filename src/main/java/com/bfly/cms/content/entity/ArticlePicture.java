@@ -12,7 +12,8 @@ import java.io.Serializable;
 @Entity
 @Table(name = "article_picture")
 public class ArticlePicture implements Serializable, Comparable<ArticlePicture> {
-    private static final long serialVersionUID = 1L;
+
+    private static final long serialVersionUID = 2803506705412726166L;
 
     @Id
     @Column(name = "id")

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>搜索页--${site.name}</title>
+    <meta name="keywords" content="${site.keywords}">
+    <meta name="description" content="${site.remark}">
+    <link href="${resServer}/style/default/css/search.css" type="text/css" rel="stylesheet" media="screen">
+</head>
+<body>
+<header>
+    <#include "/common/pc_header_bar.html">
+    <#include "/common/pc_search_bar.html">
+    <#include "/common/pc_nav_bar.html">
+</header>
+<section class="main w1200 ma clearfix">
+    <section class="w850 fl">
+        <div class="nav-block">
+            <div class="nav-search">
+                <h1>搜索 <strong>${word}</strong> 的结果</h1>
+            </div>
+            <div class="nav-child">
+                共找到${pager.totalCount}条记录
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="main-block">
+            <#list pager.data as item>
+                <div class="res-item">
+                    <div class="res-item-ttl">
+                        <a href="/${item.channelPath}/id_${item.idStr}.html" target="_blank">${item.title}</a>
+                    </div>
+                    <div class="res-item-img">
+                        <#if item.titleImg?length gt 1>
+                            <a href="/${item.channelPath}/id_${item.idStr}.html" target="_blank">
+                                <img class="lazyimg" src="${resServer}/style/default/blank_1x1.gif"
+                                     original="${resServer}${item.titleImg}" height="114">
+                            </a>
+                        </#if>
+                    </div>
+                    <div class="res-item-desc">${item.txt}</div>
+                    <div class="res-item-info">
+                        <#if item.postDate??>
+                            <ul>
+                                <li>${item.postDate?string("yyyy-MM-dd")}</li>
+                            </ul>
+                        </#if>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="clear"></div>
+            </#list>
+        </div>
+        <div class="text-center">
+            <@pagerMacro pager=pager url="/search.html?word=${word}&pageNo=:pageNo"></@pagerMacro>
+        </div>
+    </section>
+    <section class="w310 fr">
+        <#include "/common/pc_right_1.html">
+    </section>
+</section>
+
+<!-- 底部 begin -->
+<footer>
+    <#include "/common/pc_footer.html">
+    <#include "/common/pc_to_top.html">
+</footer>
+<!-- 底部 end -->
+</body>
+<#include "/common/script-res.html">
+</html>

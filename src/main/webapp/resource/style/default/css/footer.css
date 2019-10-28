@@ -1,0 +1,21 @@
+﻿@charset "utf-8";
+footer{width:100%; background:#fff; padding-top:20px;}
+.footerTop{background: #272525;height: 190px;min-width: 1200px;}
+.footer_two {width: 1200px;margin: 0 auto;}
+.footer_two_ft {float: left;padding: 36px 0 0 0;}
+.footer_two_ft li.ljxs a {display: inline-block;width: 91px;text-align: left;color: #888888;line-height: 14px;border-right: 1px solid #888888;margin-right: 36px;}
+.footer_two_ft li.sm {padding: 14px 0 0 0;}
+.footer_two_ft li.sm span {font-size: 14px;color: #575555;line-height:36px;display: block;}
+.footer_two_ft li.tubai {padding-top: 10px;}
+.footer_two_rig {float: right;width: 310px;height: 160px;background: url(../fo.jpg) no-repeat left;margin-top: 29px;}
+.two_rig {width: 260px;height: 160px;margin-left: 54px;padding-top: 8px;}
+.two_rig span {display: block;text-align: left;color: #888888;margin-bottom: 10px;}
+.two_rig b {display: block;font-size: 22px;color: #9d070f;font-weight: normal;margin-bottom: 10px;}
+.footerBottom{text-align:center; letter-spacing:1px;}
+.footerBottom ul{overflow: hidden;display: inline-block;}
+.footerBottom ul li {overflow: hidden;float: left;margin-right: 30px;}
+.footerBottom ul li a{color:#666;font-size: 12px;}
+
+.float_btn{position:fixed;_position:absolute;bottom:50px;_bottom:auto;_top:expression(eval(document.documentElement.scrollTop+document.documentElement.clientHeight-this.offsetHeight-90));right:20px;z-index:9999;width:52px}
+.top_btn{display:none;width:52px;height:52px;overflow:hidden;border:1px solid #dcdcdc;background:url(../zx_sprite_01.png) #f9f9f9 0 -260px no-repeat}
+.top_btn:hover{background-color:#e1e1e1}

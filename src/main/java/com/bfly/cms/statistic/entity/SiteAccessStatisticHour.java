@@ -15,7 +15,6 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "site_access_statistic_hour")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class SiteAccessStatisticHour implements Serializable {
 
     private static final long serialVersionUID = 3236085379679188622L;

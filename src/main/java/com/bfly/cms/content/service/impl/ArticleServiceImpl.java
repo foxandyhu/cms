@@ -2,22 +2,41 @@ package com.bfly.cms.content.service.impl;
 
 import com.bfly.cms.content.dao.IArticleDao;
 import com.bfly.cms.content.entity.*;
+import com.bfly.cms.content.entity.dto.ArticleAttrDTO;
+import com.bfly.cms.content.entity.dto.ArticleLuceneDTO;
 import com.bfly.cms.content.service.IArticleService;
 import com.bfly.cms.content.service.IChannelService;
+import com.bfly.cms.content.service.ILuceneService;
+import com.bfly.cms.content.service.IScoreRecordService;
+import com.bfly.cms.member.entity.Member;
+import com.bfly.cms.system.service.ISysWaterMarkService;
+import com.bfly.common.DateUtil;
+import com.bfly.common.IDEncrypt;
+import com.bfly.common.StringUtil;
+import com.bfly.common.ValidateUtil;
 import com.bfly.common.page.Pager;
 import com.bfly.core.base.service.impl.BaseServiceImpl;
+import com.bfly.core.cache.EhCacheUtil;
 import com.bfly.core.config.ResourceConfig;
+import com.bfly.core.context.MemberThreadLocal;
 import com.bfly.core.context.PagerThreadLocal;
 import com.bfly.core.enums.ArticleStatus;
 import com.bfly.core.enums.ContentType;
+import it.sauronsoftware.jave.Encoder;
+import it.sauronsoftware.jave.MultimediaInfo;
+import jdk.nashorn.internal.ir.ReturnNode;
+import org.apache.commons.collections.MapUtils;
+import org.apache.commons.lang3.ArrayUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 
 import java.io.File;
 import java.math.BigInteger;
@@ -31,22 +50,148 @@ import java.util.*;
 @Transactional(propagation = Propagation.SUPPORTS, rollbackFor = Exception.class)
 public class ArticleServiceImpl extends BaseServiceImpl<Article, Integer> implements IArticleService {
 
+    private Logger logger = LoggerFactory.getLogger(ArticleServiceImpl.class);
+
     @Autowired
     private IArticleDao articleDao;
     @Autowired
     private IChannelService channelService;
+    @Autowired
+    private IScoreRecordService scoreRecordService;
+    @Autowired
+    private ISysWaterMarkService waterMarkService;
+    @Autowired
+    private ILuceneService luceneService;
+
+    /**
+     * 条件SQL
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/9/4 8:15
+     */
+    private Sqler getConditionSql(Map<String, Object> exactQueryProperty, Map<String, String> unExactQueryProperty) {
+        Integer sId = exactQueryProperty != null && exactQueryProperty.containsKey("status") ? (Integer) exactQueryProperty.get("status") : null;
+        Integer tId = exactQueryProperty != null && exactQueryProperty.containsKey("type") ? (Integer) exactQueryProperty.get("type") : null;
+        Integer cId = exactQueryProperty != null && exactQueryProperty.containsKey("channelId") ? (Integer) exactQueryProperty.get("channelId") : null;
+        Boolean recommend = exactQueryProperty != null && exactQueryProperty.containsKey("recommend") ? (Boolean) exactQueryProperty.get("recommend") : null;
+        String title = (unExactQueryProperty != null && unExactQueryProperty.containsKey("title")) ? unExactQueryProperty.get("title") : null;
+        String fileType = exactQueryProperty != null && exactQueryProperty.containsKey("fileType") ? String.valueOf(exactQueryProperty.get("fileType")) : null;
+
+        List<String> params = new ArrayList<>();
+        StringBuffer conditionSql = new StringBuffer();
+        if (sId != null) {
+            conditionSql.append(" and ar.status=" + sId);
+        }
+        if (tId != null) {
+            conditionSql.append(" and ar.type_id=" + tId);
+        }
+        if (cId != null) {
+            conditionSql.append(" and ar.channel_id=" + cId);
+        }
+        if (recommend != null) {
+            conditionSql.append(" and ar.is_recommend=" + recommend);
+        }
+        if (title != null) {
+            conditionSql.append(" and ar_ext.title like CONCAT('%',?,'%')");
+            params.add(title);
+        }
+        if (fileType != null) {
+            conditionSql.append(" and file_type=?");
+            params.add(fileType);
+        }
+
+        // 扩展属性搜索
+        if (exactQueryProperty != null) {
+            exactQueryProperty.forEach((key, value) -> {
+                if (key.startsWith(Article.ATTR_SEARCH_PREFIX)) {
+                    if (value instanceof ArticleAttrDTO) {
+                        conditionSql.append(" and attr.attr_name=?");
+                        conditionSql.append(" and attr.attr_value=?");
+                        ArticleAttrDTO attrDTO = (ArticleAttrDTO) value;
+                        params.add(attrDTO.getName());
+                        params.add(attrDTO.getValue());
+                    }
+                }
+            });
+        }
+
+        Sqler sqler = new Sqler();
+        sqler.setSql(conditionSql.toString());
+        sqler.setParams(params);
+        return sqler;
+    }
+
+    /**
+     * 关联表SQL
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/9/9 22:30
+     */
+    private String getTableSql() {
+        StringBuffer sql = new StringBuffer(" FROM article as ar");
+        sql.append(" LEFT JOIN channel as ch on ar.channel_id=ch.id");
+        sql.append(" LEFT JOIN `user` as u on ar.user_id=u.id");
+        sql.append(" LEFT JOIN article_ext as ar_ext on ar.id=ar_ext.article_id");
+        sql.append(" LEFT JOIN (select article_id,attr_name,attr_value from article_attr GROUP BY article_id) as attr ON ar.id=attr.article_id ");
+        return sql.toString();
+    }
 
     @Override
-    public Pager getPage(Map<String, Object> exactQueryProperty, Map<String, String> unExactQueryProperty, Map<String, Sort.Direction> sortQueryProperty) {
+    public long getCount(Map<String, Object> exactQueryProperty, Map<String, String> unExactQueryProperty) {
+        return getCount(exactQueryProperty, unExactQueryProperty, null);
+    }
+
+    @Override
+    public long getCount(Map<String, Object> exactQueryProperty, Map<String, String> unExactQueryProperty, Map<String, String> groupProperty) {
+        String countSql = "SELECT count(1) as count".concat(getTableSql()).concat("where 1=1");
+        Sqler sqler = getConditionSql(exactQueryProperty, unExactQueryProperty);
+        countSql = countSql.concat(sqler.getSql());
+
+        long total = getCountSql(countSql, sqler.getParams().toArray());
+        return total;
+    }
+
+    @Override
+    public List getList(Map<String, Object> exactQueryProperty, Map<String, String> unExactQueryProperty, Map<String, Sort.Direction> sortQueryProperty) {
         Pager pager = PagerThreadLocal.get();
         Assert.notNull(pager, "分页器没有实例化");
 
-        Pageable pageable = getPageRequest(pager);
-        Page<Map<String, Object>> page = articleDao.getArticlePager((Integer) exactQueryProperty.get("status"),
-                (Integer) exactQueryProperty.get("type"), (Integer) exactQueryProperty.get("channelId"), unExactQueryProperty.get("title"), pageable);
+        String selectSql = "SELECT ar.id,ar.channel_id as channelId,ch.channel_name as channelName,ch.channel_path as channelPath,ar.user_id as userId,u.username as userName,";
+        selectSql = selectSql.concat("ar.type_id as typeId,ar.is_recommend as recommend,ar.recommend_level as recommendLevel,ar.top_level as topLevel,ar.views,ar.comments,ar.downloads,");
+        selectSql = selectSql.concat("ar.`status`,ar_ext.post_date as postDate,ar_ext.title,ar_ext.short_title as shortTitle,ar_ext.summary,ar_ext.title_img as titleImg,ar_ext.title_color as titleColor,");
+        selectSql = selectSql.concat("ar_ext.file_type as fileType, ar_ext.file_length as fileLength,ar.top_expired as topExpired,ar_ext.tags");
+        selectSql = selectSql.concat(getTableSql());
+
+        Sqler sqler = getConditionSql(exactQueryProperty, unExactQueryProperty);
+        StringBuffer conditionSql = new StringBuffer(" where 1=1").append(sqler.getSql());
+
+        conditionSql.append(" ORDER BY ");
+        if (sortQueryProperty != null) {
+            String topLevel = "top_level", recommendLevel = "recommend_level", views = "views", comments = "comments";
+            String topLevelSort = "topLevelSort", recommendLevelSort = "recommendLevelSort", viewsSort = "viewsSort", commentsSort = "commentsSort";
+            if (sortQueryProperty.containsKey(topLevelSort)) {
+                // 置顶排序
+                sort(conditionSql, topLevel, sortQueryProperty.get(topLevelSort));
+            }
+            if (sortQueryProperty.containsKey(recommendLevelSort)) {
+                // 推荐排序
+                sort(conditionSql, recommendLevel, sortQueryProperty.get(recommendLevelSort));
+            }
+            if (sortQueryProperty.containsKey(viewsSort)) {
+                // 点击率排序
+                sort(conditionSql, views, sortQueryProperty.get(viewsSort));
+            }
+            if (sortQueryProperty.containsKey(commentsSort)) {
+                // 评论排序
+                sort(conditionSql, comments, sortQueryProperty.get(commentsSort));
+            }
+        }
+        conditionSql.append("ID DESC");
+        selectSql = selectSql.concat(conditionSql.toString()).concat(" LIMIT ").concat((pager.getPageNo() - 1) * pager.getPageSize() + ",").concat(pager.getPageSize() + "");
+        List<Map<String, Object>> data = querySql(selectSql, sqler.getParams().toArray());
+
         List<Map<String, Object>> list = new ArrayList<>();
 
-        List<Map<String, Object>> data = page.getContent();
         if (data != null) {
             data.forEach(itemMap -> {
                 Map<String, Object> item = new HashMap<>(itemMap.size() + 2);
@@ -61,10 +206,30 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article, Integer> implem
                 list.add(item);
             });
         }
+        return list;
+    }
 
-        pager.setTotalCount(page.getTotalElements());
+    @Override
+    public Pager getPage(Map<String, Object> exactQueryProperty, Map<String, String> unExactQueryProperty, Map<String, Sort.Direction> sortQueryProperty) {
+        Pager pager = PagerThreadLocal.get();
+        Assert.notNull(pager, "分页器没有实例化");
+
+        long total = getCount(exactQueryProperty, unExactQueryProperty);
+        List list = getList(exactQueryProperty, unExactQueryProperty, sortQueryProperty);
+
+        pager.setTotalCount(total);
         pager.setData(list);
         return pager;
+    }
+
+    /**
+     * 根据指定列排序
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/9/3 15:13
+     */
+    private void sort(StringBuffer sql, String column, Sort.Direction sort) {
+        sql.append(column + (sort == Sort.Direction.ASC ? " ASC" : " DESC")).append(",");
     }
 
     @Override
@@ -101,6 +266,9 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article, Integer> implem
                     articleDao.removeArticleScore(id);
                     //清除文章和专题的关联
                     articleDao.clearSpecialTopicArticleShip(id);
+
+                    //删除索引库
+                    luceneService.deleteIndex(id);
                 }
             }
         }
@@ -110,7 +278,25 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article, Integer> implem
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void verifyArticle(ArticleStatus status, Integer... articleIds) {
-        articleDao.verifyArticle(status.getId(), articleIds);
+        if (articleIds == null || articleIds.length == 0) {
+            return;
+        }
+        Integer[] ids = new Integer[0];
+        if (status == ArticleStatus.PASSED) {
+            // 发布日期大于当前日期的文章 审核通过状态 会重置为发布中状态
+            Article article;
+            Integer[] passingIds = new Integer[0];
+            for (Integer articleId : articleIds) {
+                article = get(articleId);
+                if (article != null && DateUtil.formatterDate(article.getArticleExt().getPostDate()).after(DateUtil.formatterDate(new Date()))) {
+                    passingIds = ArrayUtils.add(passingIds, articleId);
+                } else {
+                    ids = ArrayUtils.add(ids, articleId);
+                }
+            }
+            articleDao.verifyArticle(ArticleStatus.PASSING.getId(), passingIds);
+        }
+        articleDao.verifyArticle(status.getId(), ids);
     }
 
     @Override
@@ -145,11 +331,10 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article, Integer> implem
         article.setDowns(0);
         article.setComments(0);
 
-        article = doMedia(article, null);
-        article = doDoc(article, null);
+        article = doFile(article, null);
         article = doArticlePic(article, null);
-        article = doAttachments(article,null);
-        article = doPictures(article,null);
+        article = doAttachments(article, null);
+        article = doPictures(article, null);
 
         ArticleExt ext = article.getArticleExt();
         if (ext != null) {
@@ -160,7 +345,11 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article, Integer> implem
             txt.setArticle(article);
         }
 
-        return super.save(article);
+        boolean flag = super.save(article);
+        if (flag) {
+            luceneService.createIndex(article);
+        }
+        return flag;
     }
 
     @Override
@@ -170,8 +359,7 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article, Integer> implem
         Assert.notNull(dbArticle, "不存在的文章对象!");
         verify(article);
 
-        article = doMedia(article, dbArticle);
-        article = doDoc(article, dbArticle);
+        article = doFile(article, dbArticle);
         article = doArticlePic(article, dbArticle);
         article = doAttachments(article, dbArticle);
         article = doPictures(article, dbArticle);
@@ -179,7 +367,11 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article, Integer> implem
         article.setStatus(dbArticle.getStatus());
         article.setChannelId(dbArticle.getChannelId());
 
-        return super.edit(article);
+        boolean flag = super.edit(article);
+        if (flag) {
+            luceneService.createIndex(article);
+        }
+        return flag;
     }
 
     /**
@@ -195,12 +387,6 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article, Integer> implem
             article.setType(ContentType.NORMAL.getId());
         }
 
-        ArticleStatus status = ArticleStatus.getStatus(article.getStatus());
-        if (status == null) {
-            //默认为审核通过状态
-            article.setStatus(ArticleStatus.PASSED.getId());
-        }
-
         ArticleExt ext = article.getArticleExt();
         if (ext != null) {
             //如果发布日期没有指定则默认为当前日期
@@ -208,6 +394,20 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article, Integer> implem
                 ext.setPostDate(new Date());
             }
         }
+
+        ArticleStatus status = ArticleStatus.getStatus(article.getStatus());
+        if (status == null) {
+            //默认为审核通过状态
+            article.setStatus(ArticleStatus.PASSED.getId());
+        }
+
+        if (article.getStatus() == ArticleStatus.PASSED.getId()) {
+            if (DateUtil.formatterDate(ext.getPostDate()).after(DateUtil.formatterDate(new Date()))) {
+                //  发布日期大于当前日期并且状态是审核通过状态 则重置为发布中状态,系统会根据发布日期自动发布文章
+                article.setStatus(ArticleStatus.PASSING.getId());
+            }
+        }
+
         if (article.getTopLevel() <= 0) {
             //如果置顶等级为0 则设置失效日期无效
             article.setTopLevel(0);
@@ -231,6 +431,7 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article, Integer> implem
             String img = ResourceConfig.getUploadTempFileToDestDirForRelativePath(ext.getTitleImg(), ResourceConfig.getContentDir());
             if (img != null) {
                 //新增
+                waterMarkService.waterMarkFile(img);
                 ext.setTitleImg(img);
             } else {
                 //与数据库比较
@@ -244,6 +445,7 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article, Integer> implem
             img = ResourceConfig.getUploadTempFileToDestDirForRelativePath(ext.getContentImg(), ResourceConfig.getContentDir());
             if (img != null) {
                 //新增
+                waterMarkService.waterMarkFile(img);
                 ext.setContentImg(img);
             } else {
                 //与数据库比较
@@ -257,6 +459,7 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article, Integer> implem
             img = ResourceConfig.getUploadTempFileToDestDirForRelativePath(ext.getTypeImg(), ResourceConfig.getContentDir());
             if (img != null) {
                 //新增
+                waterMarkService.waterMarkFile(img);
                 ext.setTypeImg(img);
             } else {
                 //与数据库比较
@@ -272,24 +475,40 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article, Integer> implem
     }
 
     /**
-     * 处理多媒体
+     * 处理文件
      *
      * @author andy_hulibo@163.com
      * @date 2019/8/8 14:14
      */
-    private Article doMedia(Article article, Article dbArticle) {
+    private Article doFile(Article article, Article dbArticle) {
         if (article.getArticleExt() != null) {
-            String media = article.getArticleExt().getMediaPath();
-            media = ResourceConfig.getUploadTempFileToDestDirForRelativePath(media, ResourceConfig.getMediaDir());
-            if (media != null) {
-                //新上传的多媒体
-                article.getArticleExt().setMediaPath(media);
+            String filePath = article.getArticleExt().getFilePath();
+            if (!StringUtils.hasLength(filePath)) {
+                article.getArticleExt().setFilePath(null);
+                article.getArticleExt().setFileType(null);
+                article.getArticleExt().setFileLength(null);
+                return article;
+            }
+            filePath = ResourceConfig.getUploadTempFileToDestDirForRelativePath(filePath, ValidateUtil.isMedia(filePath) ? ResourceConfig.getMediaDir() : ResourceConfig.getDocDir());
+            if (filePath != null) {
+                //新上传的文件
+                article.getArticleExt().setFilePath(filePath);
+                String fullPath = ResourceConfig.getAbsolutePathForRoot(filePath);
+                File file = new File(fullPath);
+                String fileLength;
+                if (ValidateUtil.isMedia(file)) {
+                    fileLength = getMediaLength(file);
+                } else {
+                    fileLength = StringUtil.getHumanSize(file.length());
+                }
+                article.getArticleExt().setFileLength(fileLength);
             } else {
                 //与数据库比较
                 if (dbArticle != null) {
                     ArticleExt dbExt = dbArticle.getArticleExt();
                     if (dbExt != null) {
-                        article.getArticleExt().setMediaPath(dbExt.getMediaPath());
+                        article.getArticleExt().setFilePath(dbExt.getFilePath());
+                        article.getArticleExt().setFileLength(dbExt.getFileLength());
                     }
                 }
             }
@@ -298,29 +517,31 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article, Integer> implem
     }
 
     /**
-     * 处理文档
+     * 得到多媒体播放时长
      *
      * @author andy_hulibo@163.com
-     * @date 2019/8/9 20:44
+     * @date 2019/9/8 12:29
      */
-    private Article doDoc(Article article, Article dbArticle) {
-        if (article.getArticleExt() != null) {
-            String doc = article.getArticleExt().getDocPath();
-            doc = ResourceConfig.getUploadTempFileToDestDirForRelativePath(doc, ResourceConfig.getDocDir());
-            if (doc != null) {
-                //新上传的多媒体
-                article.getArticleExt().setDocPath(doc);
+    private String getMediaLength(File file) {
+        Encoder encoder = new Encoder();
+        String timeStr = "";
+        try {
+            MultimediaInfo m = encoder.getInfo(file);
+            long time = m.getDuration();
+            long hD = 1000 * 60 * 60, mD = 1000 * 60, lD = 10;
+            long hours = time / hD;
+            long minutes = (time - hours * hD) / mD;
+            long seconds = (time - hours * hD - minutes * mD) / 1000;
+            if (minutes < lD) {
+                timeStr = hours + ":0" + minutes;
             } else {
-                //与数据库比较
-                if (dbArticle != null) {
-                    ArticleExt dbExt = dbArticle.getArticleExt();
-                    if (dbExt != null) {
-                        article.getArticleExt().setDocPath(dbExt.getDocPath());
-                    }
-                }
+                timeStr = hours + ":" + minutes;
             }
+            timeStr = timeStr + ":" + (seconds < lD ? "0" : "") + seconds;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return article;
+        return timeStr;
     }
 
     /**
@@ -372,6 +593,7 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article, Integer> implem
                 String path = ResourceConfig.getUploadTempFileToDestDirForRelativePath(item.getImgPath(), ResourceConfig.getContentDir());
                 //新增的图片
                 if (path != null) {
+                    waterMarkService.waterMarkFile(path);
                     item.setImgPath(path);
                 } else {
                     //与数据库比较
@@ -416,5 +638,177 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article, Integer> implem
     @Override
     public List<Map<String, Object>> getCommentsTopArticle(int limit) {
         return articleDao.getCommentsTopArticle(limit);
+    }
+
+    @Override
+    public Map<String, Object> getNext(int currentArticleId, Integer channelId) {
+        Map<String, Object> map = articleDao.getNext(currentArticleId, channelId, ArticleStatus.PASSED.getId());
+        return mapConvert(map);
+    }
+
+    @Override
+    public Map<String, Object> getPrev(int currentArticleId, Integer channelId) {
+        Map<String, Object> map = articleDao.getPrev(currentArticleId, channelId, ArticleStatus.PASSED.getId());
+        return mapConvert(map);
+    }
+
+    private Map<String, Object> mapConvert(Map<String, Object> map) {
+        Map<String, Object> result = null;
+        if (MapUtils.isNotEmpty(map)) {
+            result = new HashMap<>(map.size());
+            result.putAll(map);
+            result.put("idStr", IDEncrypt.encode((int) map.get("id")));
+            result.remove("id");
+        }
+        return result;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void incrementArticleComments(int articleId, int setup) {
+        Article article = get(articleId);
+        Assert.isTrue(article != null && article.isComment(), "该文章禁止评论!");
+        articleDao.editArticleComments(articleId, setup);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void incrementArticleViews(int articleId, int setup) {
+        articleDao.editArticleViews(articleId, setup);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void incrementArticleDownloads(int articleId, int setup) {
+        articleDao.editArticleDownloads(articleId, setup);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void incrementArticleUpDowns(int articleId, boolean isUp) {
+        Member member = MemberThreadLocal.get();
+        String key = member.getId() + "-UPDOWN-" + articleId;
+        if (EhCacheUtil.isExist(EhCacheUtil.ARTICLE_UPDOWN_SCORE_CACHE, key)) {
+            //在缓存时间内再次操作无效
+            return;
+        }
+        Article article = get(articleId);
+        Assert.isTrue(article != null && article.isUpdown(), "该文章禁止顶踩!");
+        EhCacheUtil.setData(EhCacheUtil.ARTICLE_UPDOWN_SCORE_CACHE, key, 1);
+        if (isUp) {
+            articleDao.editArticleUps(articleId);
+        } else {
+            articleDao.editArticleDowns(articleId);
+        }
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void incrementArticleScores(int articleId, int scoreItemId) {
+        Member member = MemberThreadLocal.get();
+        String key = member.getId() + "-SCORE-" + articleId;
+        if (EhCacheUtil.isExist(EhCacheUtil.ARTICLE_UPDOWN_SCORE_CACHE, key)) {
+            //在缓存时间内再次操作无效
+            return;
+        }
+        Article article = get(articleId);
+        Assert.isTrue(article != null && article.isScore(), "该文章禁止评分!");
+        EhCacheUtil.setData(EhCacheUtil.ARTICLE_UPDOWN_SCORE_CACHE, key, 1);
+        scoreRecordService.saveScoreRecord(articleId, scoreItemId);
+        articleDao.editArticleScores(articleId, scoreItemId);
+    }
+
+    /**
+     * SQL类 封装了查询sql和查询参数
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/9/10 17:22
+     */
+    class Sqler {
+        private String sql;
+        private List<String> params;
+
+        public String getSql() {
+            return sql;
+        }
+
+        public void setSql(String sql) {
+            this.sql = sql;
+        }
+
+        public List<String> getParams() {
+            return params;
+        }
+
+        public void setParams(List<String> params) {
+            this.params = params;
+        }
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int resetArticleTopLevelForExpired(Date date) {
+        return articleDao.resetArticleTopLevelForExpired(date);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int autoPublishArticle() {
+        return articleDao.autoPublishArticle(ArticleStatus.PASSED.getId(), ArticleStatus.PASSING.getId());
+    }
+
+    @Override
+    @Async
+    public void resetArticleIndex() {
+        boolean flag = luceneService.deleteAll();
+        if (flag) {
+            long total = getCount();
+            int pageSize = 100;
+            long totalPage = (total + pageSize - 1) / pageSize;
+            logger.info("开始重构索引库!");
+            for (int i = 0; i < totalPage; i++) {
+                List<Map<String, Object>> list = articleDao.getArticleLuceneDTO(i * pageSize, pageSize);
+                ArticleLuceneDTO[] articles = convertToArticleLucene(list);
+
+                long begin = System.currentTimeMillis();
+                flag = luceneService.createIndex(articles);
+                long end = System.currentTimeMillis();
+                if (flag) {
+                    logger.info("成功建立索引" + articles.length + "条,耗时" + (end - begin) / 1000 + "秒!");
+                } else {
+                    logger.warn("重构索引库失败!");
+                }
+            }
+            logger.info("结束重构索引库!");
+        }
+    }
+
+    private ArticleLuceneDTO[] convertToArticleLucene(List<Map<String, Object>> list) {
+        if (list == null) {
+            return new ArticleLuceneDTO[0];
+        }
+        ArticleLuceneDTO[] articles = new ArticleLuceneDTO[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            ArticleLuceneDTO dto = new ArticleLuceneDTO();
+            Map<String, Object> map = list.get(i);
+            dto.setId((int) map.get("id"));
+            dto.setStatus((int) map.get("status"));
+            dto.setTitle((String) map.get("title"));
+            dto.setTitleImg((String) map.get("titleImg"));
+            dto.setChannelPath((String) map.get("channelPath"));
+            dto.setTxt((String) map.get("txt"));
+            dto.setSummary((String) map.get("summary"));
+            dto.setPostDate((Date) map.get("postDate"));
+            articles[i] = dto;
+        }
+        return articles;
+    }
+
+    @Override
+    public Pager<ArticleLuceneDTO> searchFromIndex(String keyWord) {
+        if (!StringUtils.hasLength(keyWord)) {
+            return null;
+        }
+        return luceneService.query(keyWord);
     }
 }

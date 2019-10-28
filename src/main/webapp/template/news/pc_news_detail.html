@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>${article.articleExt.title}--${site.name}</title>
+    <meta name="keywords" content="${article.articleExt.keywords???then(article.articleExt.keywords,site.keywords)}">
+    <meta name="description" content="${article.articleExt.description???then(article.articleExt.description,site.remark)}">
+    <link href="${resServer}/style/default/css/news.css" type="text/css" rel="stylesheet" media="screen">
+</head>
+<body>
+<header>
+    <#include "/common/pc_header_bar.html">
+    <#include "/common/pc_search_bar.html">
+    <#include "/common/pc_nav_bar.html">
+</header>
+<section class="main w1200 ma clearfix">
+    <section class="w850 fl">
+        <h1 class="text-center">${article.articleExt.title}</h1>
+        <div class="content-inf mt25">
+            发布时间：${article.articleExt.postDate?string("yyyy-MM-dd")}&nbsp;&nbsp;作者：${article.articleExt.author}&nbsp;&nbsp;来源：${article.articleExt.origin}&nbsp;&nbsp;浏览次数：${article.views}
+            <div class="content-action">
+                <#if article.comment>
+                    <a class="content-comment" href="#comments"><i class="fa fa-comments"></i> 我有话说|</a>
+                </#if>
+                <#if article.share>
+                    <span class="ml10 fr bdsharebuttonbox" data-tag="share_1">
+                        <a class="bds_weixin" data-cmd="weixin">微信朋友圈</a>
+                        <a class="bds_sqq" data-cmd="sqq">QQ好友</a>
+                        <a class="bds_qzone" data-cmd="qzone">QQ空间</a>
+                        <a class="bds_tsina" data-cmd="tsina">新浪微博</a>
+                    </span>
+                </#if>
+            </div>
+        </div>
+        <div class="content-txt">${article.articleTxt.txt}</div>
+        <div class="reward hidden"><a href=""></a></div>
+
+        <div class="inter clearfix">
+            <#if article.updown>
+                <div class="ups" data-type="1"><i class="fa fa-thumbs-o-up"></i><span id="ups">${article.ups}</span></div>
+                <div class="downs ml30" data-type="0"><i class="fa fa-thumbs-o-down"></i><span id="downs">${article.downs}</span></div>
+            </#if>
+            <#if article.score>
+                <div class="score">
+                    <ul>
+                        <@articleScoreDirective articleId="${article.idStr}" groupId="${article.scoreGroupId}">
+                            <#list list as item>
+                                <li data-type="${item.id}">
+                                    <p class="text-center"><span id="score-item-${item.id}">${item.scoreCount}</span>票</p>
+                                    <p><img src="${resServer}${item.url}"></p>
+                                    <p class="text-center">${item.name}</p>
+                                </li>
+                            </#list>
+                        </@articleScoreDirective>
+                    </ul>
+                </div>
+            </#if>
+        </div>
+        <div class="content-link clearfix">
+            <span class="prev-content"><i class="fa fa-angle-double-left"></i>&nbsp;上一篇：
+                <@nextArticleDirective currentArticleId="${article.idStr}" channelId="${article.channelId}" next="false">
+                    <#if nextArticle??>
+                        <a href="/${nextArticle.path}/id_${nextArticle.idStr}.html">${nextArticle.title}</a>
+                    <#else>
+                        没有了
+                    </#if>
+                </@nextArticleDirective>
+
+            </span>
+            <span class="next-content">下一篇：
+                <@nextArticleDirective currentArticleId="${article.idStr}" channelId="${article.channelId}" next="true">
+                    <#if nextArticle??>
+                        <a href="/${nextArticle.path}/id_${nextArticle.idStr}.html">${nextArticle.title}</a>
+                    <#else>
+                        没有了
+                    </#if>
+                </@nextArticleDirective>
+                &nbsp;<i class="fa fa-angle-double-right"></i>
+            </span>
+        </div>
+        <#if article.comment>
+            <#include "/common/pc_comment.html">
+        </#if>
+    </section>
+    <section class="w310 fr">
+        <#include "/common/pc_right_1.html">
+    </section>
+</section>
+
+<!-- 底部 begin -->
+<footer>
+    <#include "/common/pc_footer.html">
+    <#include "/common/pc_to_top.html">
+</footer>
+<!-- 底部 end -->
+</body>
+<#include "/common/script-res.html">
+<script type="text/javascript" src="${resServer}/style/default/js/comment.js"></script>
+<#if article.updown || article.score>
+<script type="text/javascript" src="${resServer}/style/default/js/news.js"></script>
+</#if>
+
+<#if article.updown>
+    <script>Cms.news.updown("${article.idStr}")</script>
+</#if>
+<#if article.score>
+    <script>Cms.news.score("${article.idStr}");</script>
+</#if>
+<#if article.comment>
+    <script>
+        var pageNo=1;
+        Cms.comment.load("${article.idStr}",pageNo);
+    </script>
+</#if>
+<#if article.share>
+    <script>
+        with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+    </script>
+</#if>
+</html>

@@ -24,16 +24,6 @@ public class Constants {
     public static final String USER_AGENT_KEY = "user_agent";
 
     /**
-     * 管理员登录Key
-     */
-    public static final String USER_LOGIN_KEY = "_user_key_";
-
-    /**
-     * 会员登录KEY
-     */
-    public static final String MEMBER_LOGIN_KEY = "_member_key_";
-
-    /**
      * 后台登录返回给客户端的标识
      *
      * @author andy_hulibo@163.com
@@ -43,8 +33,33 @@ public class Constants {
 
     /**
      * 临时资源后缀名
+     *
      * @author andy_hulibo@163.com
      * @date 2019/7/4 11:55
      */
-    public static final String TEMP_RESOURCE_SUFFIX=".tmp";
+    public static final String TEMP_RESOURCE_SUFFIX = ".tmp";
+
+    /**
+     * 问卷调查Cookie
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/9/11 22:54
+     */
+    public static final String VOTE_COOKIE_NAME = "cms_vote_cookie";
+
+    /**
+     * 会员登录Cookie名称
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/9/17 15:27
+     */
+    public static final String MEMBER_LOGIN_COOKIE_NAME = "cms_member_login_cookie";
+
+    /**
+     * 站点关闭URI
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/9/20 15:42
+     */
+    public static final String SITE_CLOSE_URI = "/close.html";
 }

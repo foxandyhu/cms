@@ -1,8 +1,5 @@
 package com.bfly.cms.statistic.entity;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -17,10 +14,9 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "site_access")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class SiteAccess implements Serializable {
-    private static final long serialVersionUID = 1L;
 
+    private static final long serialVersionUID = -6168907348425662698L;
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

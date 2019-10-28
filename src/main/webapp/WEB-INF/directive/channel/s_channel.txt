@@ -1,3 +1,0 @@
-[@cms_channel id='#{id}']
-<a href="${tag_bean.url}" target="_blank">${tag_bean.name}</a>
-[/@cms_channel]

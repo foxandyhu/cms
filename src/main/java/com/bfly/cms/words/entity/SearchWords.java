@@ -15,7 +15,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "d_search_words")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
+@Cache(region = "beanCache", usage = CacheConcurrencyStrategy.READ_WRITE)
 public class SearchWords implements Serializable {
 
     private static final long serialVersionUID = 4755704910893942895L;

@@ -48,12 +48,14 @@ public class ManageInterceptor extends HandlerInterceptorAdapter {
                     throw new UnAuthException("未授权!");
                 }
                 Object appAuthObj = request.getSession().getAttribute(Constants.APP_AUTH);
-                appAuth = appAuthObj == null ? null : appAuthObj.toString();
-                if (appAuth == null || appAuth.length() < APP_AUTH_LENGTH) {
+                String sessionAppAuth = appAuthObj == null ? null : appAuthObj.toString();
+                if (sessionAppAuth == null || sessionAppAuth.length() < APP_AUTH_LENGTH) {
                     throw new UnAuthException("未授权!");
                 }
-                User admin = (User) request.getSession().getAttribute(Constants.USER_LOGIN_KEY);
-                UserThreadLocal.set(admin);
+                if(!sessionAppAuth.equals(appAuth)){
+                    throw new UnAuthException("未授权!");
+                }
+                User admin = ContextUtil.getLoginUser();
                 if (admin == null) {
                     throw new UnAuthException("未授权!");
                 }
@@ -63,6 +65,7 @@ public class ManageInterceptor extends HandlerInterceptorAdapter {
                 if (!hasRight(admin, request)) {
                     throw new UnRightException("没有权限访问!");
                 }
+                UserThreadLocal.set(admin);
             }
         }
         return true;
@@ -96,7 +99,7 @@ public class ManageInterceptor extends HandlerInterceptorAdapter {
      * @date 2019/7/13 18:18
      */
     private boolean hasRight(User admin, HttpServletRequest request) {
-        if(admin.isSuperAdmin()){
+        if (admin.isSuperAdmin()) {
             return true;
         }
         String url = String.valueOf(request.getAttribute("org.springframework.web.servlet.HandlerMapping.pathWithinHandlerMapping"));

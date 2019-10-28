@@ -1,0 +1,55 @@
+﻿@charset "utf-8";
+@import "../awesome/css/font-awesome.min.css";
+body{position:relative;padding:0;margin:0;color:#777;font:normal 14px/180% "microsoft yahei",simhei;background-color:#fff}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td{padding:0;margin:0}
+img{border:none;-ms-interpolation-mode:bicubic}
+dl,dt,dd{padding:0;margin:0}
+ul,li{padding:0;margin:0;list-style:none}
+em,i{font-style:normal}
+u{text-decoration:none}
+a {color:#222;text-decoration:none}
+a:hover{color:#800;text-decoration:none;}
+.cls{line-height: 5px;height: 5px;clear: both;}
+.pointer{cursor: pointer;}
+.clearfix:after,
+.ps_line_on:after,
+.m_one:after{content:".";display:block;height:0;font-size:0;line-height:0;clear:both;visibility:hidden}
+.clearfix{display:block;zoom:1}
+.fl{float:left}
+.fr{float:right}
+.ma{margin:0 auto}
+.w270{width:270px}
+.w310 {width: 310px;}
+.w430{width: 430px;}
+.w850 {width: 850px;}
+.w900{width: 900px;}
+.w930{width: 930px;}
+.w1200{width:1200px;}
+.mt5{margin-top:5px}
+.mb15{margin-bottom:15px}
+.mt10{margin-top:10px}
+.mt15{margin-top:15px}
+.mt20{margin-top:20px}
+.mt25{margin-top:25px}
+.mt35{margin-top:35px}
+.mt50{margin-top:50px}
+.ml20{margin-left:20px}
+.ml30{margin-left: 30px;}
+.mr10{margin-right:10px}
+.ml10{margin-left:10px}
+.oh{overflow:hidden}
+.hidden{display:none}
+.text-center{text-align: center;}
+.main {padding: 32px 0 50px;border-bottom: 5px solid #ef3838;position: relative;}
+.red{color:#ef3838;}
+.lazyimg{opacity:0.2;filter:alpha(opacity=20);background:url(../lazyloading.gif) no-repeat center center;}
+
+/****************分页*****************/
+.page_div{margin:20px 10px 20px 0;color:#666}
+.page_div a{display:inline-block;min-width:30px;height:28px;cursor:pointer;color:#666;font-size:13px;line-height:28px;background-color:#f9f9f9;border:1px solid #dce0e0;text-align:center;margin:0 4px;-webkit-appearance: none;-moz-appearance: none;appearance: none;}
+#firstPage,#lastPage,#nextPage,#prePage{width:50px;color:#0073A9;border:1px solid #0073A9}
+#nextPage,#prePage{width:70px}
+.page_div .current{background-color:#0073A9;border-color:#0073A9;color:#FFF}
+.totalPages{margin:0 10px}
+.totalPages span,.totalSize span{color:#0073A9;margin:0 5px}
+.page_div button:disabled{opacity:.5;cursor:no-drop}

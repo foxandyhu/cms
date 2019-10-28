@@ -72,12 +72,30 @@ public interface ICommentDao extends IBaseDao<Comment, Integer> {
 
     /**
      * 获得最新的前几条评论
-     *
+     * @param status
      * @param limit 返回最大条数
      * @return Map
      * @author andy_hulibo@163.com
      * @date 2019/8/15 12:21
      */
-    @Query(value = "select m_ext.face,c.member_user_name as userName,c.post_date as postDate,c_ext.ip,c_ext.text,c_ext.area,c.`status` from `comment` as c LEFT JOIN comment_ext as c_ext on c.id=c_ext.comment_id LEFT JOIN member as m on m.user_name=c.member_user_name LEFT JOIN member_ext as m_ext on m.id=m_ext.member_id WHERE c.member_user_name is not NULL order by c.post_date DESC LIMIT 0,:limit", nativeQuery = true)
-    List<Map<String, Object>> getLatestRegistComment(@Param("limit") int limit);
+    @Query(value = "select c.article_id as articleId,ch.channel_path as channelPath,m_ext.face,c.member_user_name as userName,c.post_date as postDate,c_ext.ip,c_ext.text,c_ext.area,c.`status` from `comment` as c LEFT JOIN comment_ext as c_ext on c.id=c_ext.comment_id LEFT JOIN member as m on m.user_name=c.member_user_name LEFT JOIN member_ext as m_ext on m.id=m_ext.member_id LEFT JOIN article as ar on c.article_id=ar.id LEFT JOIN channel as ch on ar.channel_id=ch.id WHERE (c.`status`=:status or :status is null) and c.member_user_name is not NULL order by c.post_date DESC LIMIT 0,:limit", nativeQuery = true)
+    List<Map<String, Object>> getLatestComment(@Param("limit") int limit,@Param("status")Integer status);
+
+    /**
+     * 顶评论
+     * @author andy_hulibo@163.com
+     * @date 2019/9/6 18:18
+     */
+    @Modifying
+    @Query("update Comment set ups=ups+1 where id=:commendId")
+    int upComment(@Param("commendId") int commendId);
+
+    /**
+     * 踩评论
+     * @author andy_hulibo@163.com
+     * @date 2019/9/6 18:18
+     */
+    @Modifying
+    @Query("update Comment set downs=downs+1 where id=:commendId")
+    int downComment(@Param("commendId") int commendId);
 }

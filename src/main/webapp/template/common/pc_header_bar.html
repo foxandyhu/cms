@@ -1,0 +1,20 @@
+<div class="headbar">
+    <div class="bar_container">
+        <@loginMemberDirective>
+            <ul>
+                <li id="currentuserwelcome">${loginMember.userName} 您好，欢迎光临${site.shortName}！</li>
+                <#if !loginMember??>
+                    <li class="item" id="currentuserbar">
+                        <a class="left" href="/login.html">[请登录]</a>
+                        &nbsp;<span class="red">您是新用户？</span>
+                        <a href="/login.html?op=register">[会员注册]</a>
+                    </li>
+                <#else>
+                    <li><a href="/member/index.html">会员中心</a></li>
+                    <li><a href="/member/logout.html">安全退出</a></li>
+                </#if>
+            </ul>
+        </@loginMemberDirective>
+        <span class="clr"></span>
+    </div>
+</div>

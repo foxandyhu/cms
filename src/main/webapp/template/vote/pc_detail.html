@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>${vote.title}--${site.name}</title>
+    <meta name="keywords" content="${site.keywords}">
+    <meta name="description" content="${site.remark}">
+    <link href="${resServer}/style/default/css/vote.css" type="text/css" rel="stylesheet" media="screen">
+    <link href="${resServer}/style/default/spider-poll/jquery.spider.poll.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+<header>
+    <#include "/common/pc_header_bar.html">
+    <#include "/common/pc_search_bar.html">
+    <#include "/common/pc_nav_bar.html">
+</header>
+<section class="main w1200 ma clearfix">
+    <section>
+        <h1 class="vote_h1">网络调查</h1>
+        <div class="vote_con">
+            <!--最新的一条网络调查-->
+            <h1>${vote.title}</h1>
+            <h3>${vote.remark}</h3>
+            <div class="vote_list">
+                <#list vote.subtopics as subTopic>
+                    <div class="item">
+                        <p>${subTopic_index+1}.&nbsp;${subTopic.title}</p>
+                        <input type="hidden" class="subTopic" value="${subTopic.id}">
+                        <div class="answer">
+                            <#if subTopic.type==3>
+                                <textarea class="answerItem${subTopic.id}" name="reply" type="text" name="itemId${subTopic.id}" data-id="${subTopic.id}"></textarea>                            <#else>
+                                <#list subTopic.voteItems as voteItem>
+                                    <#if subTopic.type==1>
+                                        <label><input class="answerItem${subTopic.id}" type="radio" name="itemId${subTopic.id}" data-id="${voteItem.id}">${voteItem.title}</label>
+                                    <#elseif subTopic.type==2>
+                                        <label><input class="answerItem${subTopic.id}" type="checkbox" name="itemId${subTopic.id}" data-id="${voteItem.id}">${voteItem.title}</label>
+                                    </#if>
+                                </#list>
+                            </#if>
+                        </div>
+                        <div class="vote_result" id="result_vote_${subTopic.id}"></div>
+                    </div>
+                </#list>
+            </div>
+            <div class="vote_btn">
+                <#if vote.enabled && vote.status==2>
+                    <input id="submitVoteBtn" type="submit" value="提交投票">
+                    <a href="javascript:void(0)" onclick="Cms.vote.showResult('${vote.idStr}')" class="result">查看投票结果</a>
+                </#if>
+            </div>
+        </div>
+    </section>
+</section>
+
+<!-- 底部 begin -->
+<footer>
+    <#include "/common/pc_footer.html">
+    <#include "/common/pc_to_top.html">
+</footer>
+<!-- 底部 end -->
+</body>
+<#include "/common/script-res.html">
+<script type="text/javascript" src="${resServer}/style/default/spider-poll/jquery.spider.poll.min.js"></script>
+<script type="text/javascript" src="${resServer}/style/default/json/json2.min.js"></script>
+<script type="text/javascript" src="${resServer}/style/default/js/vote.js"></script>
+<script>
+    <#if vote.enabled && vote.status==2>
+        Cms.vote.init('${vote.idStr}');
+        <#else>
+        Cms.vote.showResult('${vote.idStr}');
+    </#if>
+</script>
+</html>

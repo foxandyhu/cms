@@ -86,7 +86,7 @@ public class ReflectUtils {
      */
     public static boolean getModelNeedLog(Object obj) {
         ActionModel model = getModel(obj);
-        return model == null ? true : model.need();
+        return model == null ? false : model.need();
     }
 
     /**

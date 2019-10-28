@@ -3,6 +3,7 @@ package com.bfly.cms.member.entity;
 import com.bfly.cms.system.entity.EmailProvider;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * 注册配置类
@@ -10,8 +11,16 @@ import javax.persistence.*;
  * @author andy_hulibo@163.com
  * @date 2019/7/21 12:17
  */
-@Embeddable
-public class RegistConfig {
+@Entity
+@Table(name = "member_regist_config")
+public class RegistConfig implements Serializable {
+
+    private static final long serialVersionUID = -678795927954283134L;
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
     /**
      * 是否开启注册功能
      */
@@ -42,7 +51,7 @@ public class RegistConfig {
      * @author andy_hulibo@163.com
      * @date 2019/7/21 12:29
      */
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "regist_email_id")
     private EmailProvider emailProvider;
 
@@ -72,6 +81,14 @@ public class RegistConfig {
      */
     @Column(name = "min_length_password")
     private int minLengthPassword;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public boolean isOpenRegiste() {
         return openRegiste;

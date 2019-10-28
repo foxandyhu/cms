@@ -4,7 +4,6 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
@@ -16,7 +15,6 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "site_config")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class SiteConfig implements Serializable {
 
     private static final long serialVersionUID = 277028697339118850L;
@@ -74,60 +72,100 @@ public class SiteConfig implements Serializable {
     private boolean openFlow;
 
     /**
-     * 是否开启评论
-     *
-     * @author andy_hulibo@163.com
-     * @date 2019/7/21 18:13
+     * 指定首页PC模板
      */
-    @Column(name = "is_open_comment")
-    private boolean openComment;
+    @Column(name = "tpl_pc")
+    private String tplPc;
 
     /**
-     * 评论是否登录
-     *
-     * @author andy_hulibo@163.com
-     * @date 2019/7/21 18:15
+     * 手机首页模板
      */
-    @Column(name = "is_need_login_comment")
-    private boolean needLoginComment;
+    @Column(name = "tpl_mobile")
+    private String tplMobile;
 
     /**
-     * 是否开启留言
+     * 备案号
      *
      * @author andy_hulibo@163.com
-     * @date 2019/7/21 18:14
+     * @date 2019/9/4 15:25
      */
-    @Column(name = "is_open_guest_book")
-    private boolean openGuestBook;
+    @Column(name = "filling_code")
+    private String filingCode;
 
     /**
-     * 留言是否登录
+     * 版权说明
      *
      * @author andy_hulibo@163.com
-     * @date 2019/7/21 18:14
+     * @date 2019/9/4 15:25
      */
-    @Column(name = "is_need_login_guest_book")
-    private boolean needLoginGuestBook;
+    @Column(name = "copy_right")
+    private String copyRight;
 
     /**
-     * 评论日最高限制数
+     * 版权所有
      *
      * @author andy_hulibo@163.com
-     * @date 2019/7/21 18:16
+     * @date 2019/9/4 15:27
      */
-    @Column(name = "max_comment_limit")
-    @Min(value = 0, message = "日评论数最小为0!")
-    private int maxCommentLimit;
+    @Column(name = "copy_right_owner")
+    private String copyRightOwner;
 
     /**
-     * 留言日最高限制数
+     * 主办单位
      *
      * @author andy_hulibo@163.com
-     * @date 2019/7/21 18:17
+     * @date 2019/9/4 15:26
      */
-    @Column(name = "max_guest_book_limit")
-    @Min(value = 0, message = "日留言数最小为0!")
-    private int maxGuestBookLimit;
+    @Column(name = "organizer")
+    private String organizer;
+
+    public String getFilingCode() {
+        return filingCode;
+    }
+
+    public void setFilingCode(String filingCode) {
+        this.filingCode = filingCode;
+    }
+
+    public String getCopyRight() {
+        return copyRight;
+    }
+
+    public void setCopyRight(String copyRight) {
+        this.copyRight = copyRight;
+    }
+
+    public String getCopyRightOwner() {
+        return copyRightOwner;
+    }
+
+    public void setCopyRightOwner(String copyRightOwner) {
+        this.copyRightOwner = copyRightOwner;
+    }
+
+    public String getOrganizer() {
+        return organizer;
+    }
+
+    public void setOrganizer(String organizer) {
+        this.organizer = organizer;
+    }
+
+    public String getTplPc() {
+        return tplPc;
+    }
+
+    public void setTplPc(String tplPc) {
+        this.tplPc = tplPc;
+    }
+
+    public String getTplMobile() {
+        return tplMobile;
+    }
+
+    public void setTplMobile(String tplMobile) {
+        this.tplMobile = tplMobile;
+    }
 
     public int getId() {
         return id;
@@ -191,53 +229,5 @@ public class SiteConfig implements Serializable {
 
     public void setOpenFlow(boolean openFlow) {
         this.openFlow = openFlow;
-    }
-
-    public boolean isOpenComment() {
-        return openComment;
-    }
-
-    public void setOpenComment(boolean openComment) {
-        this.openComment = openComment;
-    }
-
-    public boolean isNeedLoginComment() {
-        return needLoginComment;
-    }
-
-    public void setNeedLoginComment(boolean needLoginComment) {
-        this.needLoginComment = needLoginComment;
-    }
-
-    public boolean isOpenGuestBook() {
-        return openGuestBook;
-    }
-
-    public void setOpenGuestBook(boolean openGuestBook) {
-        this.openGuestBook = openGuestBook;
-    }
-
-    public boolean isNeedLoginGuestBook() {
-        return needLoginGuestBook;
-    }
-
-    public void setNeedLoginGuestBook(boolean needLoginGuestBook) {
-        this.needLoginGuestBook = needLoginGuestBook;
-    }
-
-    public int getMaxCommentLimit() {
-        return maxCommentLimit;
-    }
-
-    public void setMaxCommentLimit(int maxCommentLimit) {
-        this.maxCommentLimit = maxCommentLimit;
-    }
-
-    public int getMaxGuestBookLimit() {
-        return maxGuestBookLimit;
-    }
-
-    public void setMaxGuestBookLimit(int maxGuestBookLimit) {
-        this.maxGuestBookLimit = maxGuestBookLimit;
     }
 }

@@ -43,7 +43,22 @@ public class EhCacheUtil implements Serializable {
      * @author andy_hulibo@163.com
      * @date 2019/7/23 18:42
      */
-    public static final String DICTIONAY_CACHE = "dictionayCache";
+    public static final String DICTIONARY_CACHE = "dictionaryCache";
+
+    /**
+     * 评论顶踩缓存
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/9/6 20:19
+     */
+    public static final String COMMENT_UPDOWN_CACHE = "commentUpDownCache";
+
+    /**
+     * 文章踩顶评分缓存
+     * @author andy_hulibo@163.com
+     * @date 2019/9/8 13:48
+     */
+    public static final String ARTICLE_UPDOWN_SCORE_CACHE="articleUpDownScoreCache";
 
     private static CacheManager cacheManager;
 
@@ -89,5 +104,17 @@ public class EhCacheUtil implements Serializable {
         }
         Cache cache = cacheManager.getCache(cacheName);
         return cache;
+    }
+
+    /**
+     * 判断是否存在缓存中
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/9/6 20:38
+     */
+    public static boolean isExist(String cacheName, String key) {
+        Cache cache = getCache(cacheName);
+        Cache.ValueWrapper valueWrapper = cache.get(key);
+        return valueWrapper!=null && valueWrapper.get() != null;
     }
 }

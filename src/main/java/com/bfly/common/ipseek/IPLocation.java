@@ -25,6 +25,11 @@ public class IPLocation {
         return ret;
     }
 
+    @Override
+    public String toString() {
+        return getCountry()+" "+getArea();
+    }
+
     public String getCountry() {
         return country;
     }

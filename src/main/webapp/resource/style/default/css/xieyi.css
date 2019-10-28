@@ -1,0 +1,12 @@
+﻿@charset "utf-8";
+@import "common.css";
+@import "header.css";
+@import "footer.css";
+.xieyi_txt{color:#090909}
+.register_txt{color: #090909;text-align:center;font-size: 1.2rem;}
+.register_txt span{display: inline-block;width: 600px;}
+.register_txt  dl {margin-top: 10px;text-align:left;margin-left: 30%;}
+.register_txt  dl input{padding-left: 10px !important;border: solid 1px #d6d6d6;height: 34px;line-height: 28px;width: 233px;border-radius: 3px;}
+.register_txt dl input:focus{outline: none;border: 1px solid orange;box-shadow: 0 0 10px orange;}
+.forgetPwdBtn{width: 270px;border: 0;background: #f60;border-radius: 3px;height: 40px;color: #fff;cursor: pointer;margin-top: 10px;font-size: 16px;outline:none;}
+

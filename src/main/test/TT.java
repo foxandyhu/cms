@@ -1,4 +1,6 @@
 import com.CmsApp;
+import com.bfly.cms.content.entity.dto.ArticleLuceneDTO;
+import com.bfly.cms.content.service.IArticleService;
 import com.bfly.cms.message.entity.Comment;
 import com.bfly.cms.message.entity.CommentExt;
 import com.bfly.cms.message.service.ICommentService;
@@ -19,14 +21,20 @@ import com.bfly.common.page.Pager;
 import com.bfly.core.context.PagerThreadLocal;
 import com.bfly.core.enums.CommentStatus;
 import com.bfly.core.enums.LetterBox;
+import org.apache.commons.io.FilenameUtils;
+import org.jodconverter.DocumentConverter;
+import org.jodconverter.document.DefaultDocumentFormatRegistry;
+import org.jodconverter.document.DocumentFormat;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.File;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -45,6 +53,8 @@ public class TT {
     private IJobResumeService resumeService;
     @Autowired
     private ILetterService letterService;
+    @Autowired
+    private IArticleService articleService;
 
     @Test
     @Transactional
@@ -129,7 +139,6 @@ public class TT {
     @Transactional
     public void updateMember() {
         Member member = memberService.get(1016);
-        member.setEmail("aaaaa3333@c.com");
         member.getMemberExt().setFace("aaaaaaaaaaa");
         memberService.edit(member);
     }
@@ -180,18 +189,18 @@ public class TT {
 
     @Test
     @Transactional
-    public void saveComment(){
-        Comment comment=new Comment();
+    public void saveComment() {
+        Comment comment = new Comment();
         comment.setPostDate(new Date());
         comment.setStatus(CommentStatus.PASSED.getId());
 
         comment.setMemberUserName("test");
         comment.setUserName("admin");
 
-        Article article =new Article();
+        Article article = new Article();
         article.setId(11);
 
-        CommentExt ext=new CommentExt();
+        CommentExt ext = new CommentExt();
         ext.setIp("127.0.0.1");
         ext.setText("十六客服经理迪斯科飞机数量的开发建设了");
         ext.setComment(comment);
@@ -201,21 +210,52 @@ public class TT {
     }
 
     @Test
-    public void getComment(){
-        Comment comment=commentService.get(22);
+    public void getComment() {
+        Comment comment = commentService.get(22);
         System.out.println(comment.getUserName());
         System.out.println(comment.getCommentExt().getText());
     }
 
     @Test
-    public void getPagerComment(){
-        Pager pager=new Pager(1,10,1000);
+    public void getPagerComment() {
+        Pager pager = new Pager(1, 10, 1000);
         PagerThreadLocal.set(pager);
 
-        Map<String,Object> params=new HashMap<>(2);
-        params.put("status",1);
-        params.put("recommend",true);
-        pager=commentService.getPage(params);
+        Map<String, Object> params = new HashMap<>(2);
+        params.put("status", 1);
+        params.put("recommend", true);
+        pager = commentService.getPage(params);
         System.out.println(pager.getData());
+    }
+
+    @Autowired
+    private DocumentConverter converter;
+
+    @Test
+    public void convertPdf() throws Exception {
+        File file = new File("C:\\1.pptx");
+        File target = new File("C:\\tmp\\a.pdf");
+        converter.convert(file).as(DefaultDocumentFormatRegistry.getFormatByExtension(FilenameUtils.getExtension(file.getName())))
+                .to(target).as(DefaultDocumentFormatRegistry.getFormatByMediaType(MediaType.APPLICATION_PDF_VALUE)).execute();
+    }
+
+    @Test
+    public void luceneIndexReset() {
+        articleService.resetArticleIndex();
+    }
+
+    @Test
+    public void searchIndex() {
+        Pager pager = articleService.searchFromIndex("视角黄金周");
+        System.out.println("总记录数:" + pager.getTotalCount());
+        List<ArticleLuceneDTO> list = pager.getData();
+        list.forEach(article -> {
+            System.out.print("ID:" + article.getId() + "  ");
+            System.out.print("status:" + article.getStatus() + "  ");
+            System.out.print("title:" + article.getTitle() + "  ");
+            System.out.print("summary:" + article.getSummary() + "  ");
+            System.out.print("txt:" + article.getTxt());
+            System.out.println();
+        });
     }
 }

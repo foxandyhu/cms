@@ -119,7 +119,7 @@ public class JobApplyController extends BaseManageController {
             if (ext != null) {
                 json.put("realName", ext.getRealName());
                 json.put("sex", ext.isGirl());
-                json.put("birthday", DateUtil.formatterDate(ext.getBirthday()));
+                json.put("birthday", DateUtil.formatterDateStr(ext.getBirthday()));
                 json.put("comeFrom", ext.getComeFrom());
                 json.put("mobile", ext.getMobile());
                 json.put("phone", ext.getPhone());

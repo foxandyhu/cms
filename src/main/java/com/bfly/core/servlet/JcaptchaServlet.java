@@ -1,21 +1,20 @@
 package com.bfly.core.servlet;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import com.octo.captcha.service.CaptchaServiceException;
+import com.octo.captcha.service.image.ImageCaptchaService;
+import org.springframework.beans.factory.BeanFactoryUtils;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import javax.imageio.ImageIO;
-import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.BeanFactoryUtils;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
-import com.octo.captcha.service.CaptchaServiceException;
-import com.octo.captcha.service.image.ImageCaptchaService;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 /**
  * 提供验证码图片的Servlet
@@ -30,14 +29,14 @@ public class JcaptchaServlet extends HttpServlet {
     private ImageCaptchaService captchaService;
 
     @Override
-    public void init() throws ServletException {
+    public void init() {
         WebApplicationContext appCtx = WebApplicationContextUtils
                 .getWebApplicationContext(getServletContext());
         captchaService = BeanFactoryUtils.beanOfTypeIncludingAncestors(appCtx, ImageCaptchaService.class);
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         byte[] captchaChallengeAsJpeg;
         ByteArrayOutputStream jpegOutputStream = new ByteArrayOutputStream();
         try {

@@ -1,13 +1,18 @@
 package com.bfly.cms.message.service.impl;
 
+import com.bfly.cms.member.entity.Member;
 import com.bfly.cms.message.dao.IGuestBookDao;
 import com.bfly.cms.message.entity.GuestBook;
 import com.bfly.cms.message.entity.GuestBookExt;
 import com.bfly.cms.message.service.IGuestBookService;
+import com.bfly.common.ValidateUtil;
+import com.bfly.common.ipseek.IPLocation;
+import com.bfly.common.ipseek.IpSeekerUtil;
 import com.bfly.common.page.Pager;
 import com.bfly.core.base.service.impl.BaseServiceImpl;
 import com.bfly.core.config.ResourceConfig;
 import com.bfly.core.context.IpThreadLocal;
+import com.bfly.core.context.MemberThreadLocal;
 import com.bfly.core.context.PagerThreadLocal;
 import com.bfly.core.enums.CommentStatus;
 import com.bfly.core.enums.GuestBookStatus;
@@ -33,6 +38,38 @@ public class GuestBookServiceImpl extends BaseServiceImpl<GuestBook, Integer> im
 
     @Autowired
     private IGuestBookDao guestBookDao;
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean save(GuestBook book) {
+        Assert.isTrue(book.getType() > 0, "留言类型不正确!");
+        Assert.isTrue(StringUtils.hasLength(book.getExt().getEmail()) || StringUtils.hasLength(book.getExt().getPhone()), "邮箱或手机号不填一项!");
+        if(StringUtils.hasLength(book.getExt().getEmail())){
+            Assert.isTrue(ValidateUtil.isEmail(book.getExt().getEmail()),"邮箱格式不正确!");
+        }
+        if(StringUtils.hasLength(book.getExt().getPhone())){
+            Assert.isTrue(ValidateUtil.isCellPhone(book.getExt().getPhone()),"手机号码格式不正确!");
+        }
+        Assert.hasLength(book.getExt().getTitle(), "留言标题不能为空!");
+        Assert.hasLength(book.getExt().getContent(), "留言内容不能为空!");
+        book.setPostDate(new Date());
+        book.setReply(false);
+        book.setReplyDate(null);
+        book.setReplyUserName(null);
+        book.setRecommend(false);
+        book.setStatus(GuestBookStatus.WAIT_CHECK.getId());
+        Member member = MemberThreadLocal.get();
+        if (member != null) {
+            book.setPostUserName(member.getUserName());
+        }
+        book.getExt().setIp(IpThreadLocal.get());
+        IPLocation location = IpSeekerUtil.getIPLocation(book.getExt().getIp());
+        if (location != null) {
+            book.getExt().setArea(location.toString());
+        }
+        book.getExt().setGuestBook(book);
+        return super.save(book);
+    }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -108,14 +145,14 @@ public class GuestBookServiceImpl extends BaseServiceImpl<GuestBook, Integer> im
     public List<Map<String, Object>> getLatestGuestBook(int limit) {
         List<Map<String, Object>> list = guestBookDao.getLatestGuestBook(limit);
         if (list != null) {
-            String status = "status",face="face";
+            String status = "status", face = "face";
             for (int i = 0; i < list.size(); i++) {
                 Map<String, Object> map = list.get(i);
                 Map<String, Object> m = new HashMap<>(map.size());
                 m.putAll(map);
                 if (m.containsKey(status)) {
-                    GuestBookStatus guestBookStatus=GuestBookStatus.getStatus((Integer) m.get(status));
-                    m.put("statusName", guestBookStatus==null?"":guestBookStatus.getName());
+                    GuestBookStatus guestBookStatus = GuestBookStatus.getStatus((Integer) m.get(status));
+                    m.put("statusName", guestBookStatus == null ? "" : guestBookStatus.getName());
                 }
                 if (m.containsKey(face)) {
                     if (StringUtils.hasLength((String) m.get(face))) {

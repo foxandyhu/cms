@@ -63,7 +63,7 @@ public class SmsRecordServiceImpl extends BaseServiceImpl<SmsRecord, Integer> im
             specification = getUnExactQuery(unExactQueryProperty);
         }
         Page<SmsRecord> page = smsRecordDao.findAll(specification, getPageRequest(pager));
-        pager = new Pager(page.getNumber(), page.getSize(), page.getTotalElements());
+        pager = new Pager(pager.getPageNo(), pager.getPageSize(), page.getTotalElements());
         pager.setData(page.getContent());
         return pager;
     }

@@ -18,7 +18,6 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "user_role")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class UserRole implements Serializable {
 
     private static final long serialVersionUID = 3196950629688102618L;
@@ -39,7 +38,6 @@ public class UserRole implements Serializable {
      * 用户角色关系维护
      */
     @ManyToMany(mappedBy = "roles")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
     private Set<User> users;
 
     /**

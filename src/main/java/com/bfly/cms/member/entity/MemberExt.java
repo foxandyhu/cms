@@ -15,16 +15,16 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "member_ext")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
+@Cache(region = "beanCache", usage = CacheConcurrencyStrategy.READ_WRITE)
 public class MemberExt implements Serializable {
-    private static final long serialVersionUID = 1L;
 
+    private static final long serialVersionUID = -5389448150141085150L;
     @Id
     @Column(name = "member_id")
     private int id;
 
     @MapsId
-    @OneToOne(mappedBy = "memberExt")
+    @OneToOne
     private Member member;
 
     /**
@@ -82,6 +82,12 @@ public class MemberExt implements Serializable {
     private String mobile;
 
     /**
+     * 电子邮箱
+     */
+    @Column(name = "email")
+    private String email;
+
+    /**
      * 用户头像
      */
     @Column(name = "face")
@@ -99,6 +105,14 @@ public class MemberExt implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override

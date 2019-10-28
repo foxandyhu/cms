@@ -16,10 +16,9 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "msg_letter_txt")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class LetterTxt implements Serializable {
 
-    private static final long serialVersionUID = -5170317442780762695L;
+    private static final long serialVersionUID = 1226339231345987908L;
 
     @Id
     @Column(name = "id")

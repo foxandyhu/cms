@@ -7,11 +7,14 @@ import com.bfly.cms.content.service.IChannelService;
 import com.bfly.cms.content.service.IModelService;
 import com.bfly.core.base.service.impl.BaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -29,15 +32,26 @@ public class ChannelServiceImpl extends BaseServiceImpl<Channel, Integer> implem
     private IModelService modelService;
 
     @Override
+    @Cacheable(value = "beanCache", key = "'channel_list'")
+    public List<Channel> getList(Map<String, Object> exactQueryProperty) {
+        //  此处返回一个线程安全的集合 由于list可能会被写入缓存 造成读写冲突
+        return Collections.synchronizedList(super.getList(exactQueryProperty));
+    }
+
+    @Override
     public List<Map<String, Object>> getAllChannel() {
         return channelDao.getAllChannel();
     }
 
     @Override
+    @CacheEvict(value = "beanCache", key = "'channel_list'")
     @Transactional(rollbackFor = Exception.class)
     public boolean save(Channel channel) {
         Model model = modelService.get(channel.getModelId());
         Assert.notNull(model, "不存在的模型!");
+
+        Channel channelDb = channelDao.getChannelByPath(channel.getPath());
+        Assert.isTrue(channelDb == null, "栏目路径已存在!");
 
         int maxSeq = channelDao.getMaxSeq();
         channel.setSeq(++maxSeq);
@@ -45,10 +59,17 @@ public class ChannelServiceImpl extends BaseServiceImpl<Channel, Integer> implem
     }
 
     @Override
+    @CacheEvict(value = "beanCache", key = "'channel_list'")
     @Transactional(rollbackFor = Exception.class)
     public boolean edit(Channel channel) {
         Channel cl = get(channel.getId());
         Assert.notNull(cl, "不存在的栏目信息!");
+
+        //修改了栏目路径
+        if (!cl.getPath().equals(channel.getPath())) {
+            Channel clDb = channelDao.getChannelByPath(channel.getPath());
+            Assert.isTrue(clDb == null, "栏目路径已存在!");
+        }
 
         channel.setModelId(cl.getModelId());
         channel.setSeq(cl.getSeq());
@@ -57,6 +78,7 @@ public class ChannelServiceImpl extends BaseServiceImpl<Channel, Integer> implem
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    @CacheEvict(value = "beanCache", key = "'channel_list'")
     public void sortChannel(int upChannelId, int downChannelId) {
         Channel upChannel = get(upChannelId);
         Assert.notNull(upChannel, "不存在的栏目信息!");
@@ -70,6 +92,7 @@ public class ChannelServiceImpl extends BaseServiceImpl<Channel, Integer> implem
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    @CacheEvict(value = "beanCache", key = "'channel_list'")
     public int remove(Integer... ids) {
         for (Integer id : ids) {
             if (id != null) {
@@ -77,5 +100,11 @@ public class ChannelServiceImpl extends BaseServiceImpl<Channel, Integer> implem
             }
         }
         return super.remove(ids);
+    }
+
+    @Override
+    @Cacheable(value = "beanCache", key = "'channel_by_'+#path")
+    public Channel getChannelByPath(String path) {
+        return channelDao.getChannelByPath(path);
     }
 }

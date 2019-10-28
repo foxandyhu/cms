@@ -1,8 +1,0 @@
-[@cms_friendlink_list ctgId='#{id}']
-        [#list tag_list as link]
-        <div style="margin-left:1.5%; float:left;">
-        <a href="${link.webSite}" onclick="$.get('${base}/friendlink_view.html?id=${link.id}')" target="_blank">${link.name}</a>
-        </div>
-        [/#list]
-[/@cms_friendlink_list]
-

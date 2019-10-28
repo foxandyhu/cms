@@ -19,6 +19,15 @@ public enum WaterMarkPos {
         this.name = name;
     }
 
+    public static WaterMarkPos getPos(int id) {
+        for (WaterMarkPos pos : WaterMarkPos.values()) {
+            if (pos.getId() == id) {
+                return pos;
+            }
+        }
+        return null;
+    }
+
     public int getId() {
         return id;
     }
@@ -33,4 +42,5 @@ public enum WaterMarkPos {
 
     public void setName(String name) {
         this.name = name;
-    }}
+    }
+}

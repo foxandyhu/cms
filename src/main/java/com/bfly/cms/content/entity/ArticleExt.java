@@ -1,8 +1,6 @@
 package com.bfly.cms.content.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,10 +14,9 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "article_ext")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "beanCache")
 public class ArticleExt implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -1718867062465298590L;
 
     @Id
     @Column(name = "article", unique = true, nullable = false)
@@ -90,28 +87,22 @@ public class ArticleExt implements Serializable {
     private Date postDate;
 
     /**
-     * 媒体路径
+     * 文件路径
      */
-    @Column(name = "media_path")
-    private String mediaPath;
+    @Column(name = "file_path")
+    private String filePath;
 
     /**
-     * 媒体类型
+     * 文件类型
      */
-    @Column(name = "media_type")
-    private String mediaType;
+    @Column(name = "file_type")
+    private String fileType;
 
     /**
-     * 文档路径
+     * 文件大小--媒体类型的是时长
      */
-    @Column(name = "doc_path")
-    private String docPath;
-
-    /**
-     * 文档类型
-     */
-    @Column(name = "doc_type")
-    private String docType;
+    @Column(name = "file_length")
+    private String fileLength;
 
     /**
      * 标题颜色
@@ -172,6 +163,14 @@ public class ArticleExt implements Serializable {
     @Column(name = "tags")
     private String tags;
 
+    public String getFileLength() {
+        return fileLength;
+    }
+
+    public void setFileLength(String fileLength) {
+        this.fileLength = fileLength;
+    }
+
     public String getTags() {
         return tags;
     }
@@ -202,22 +201,6 @@ public class ArticleExt implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getDocPath() {
-        return docPath;
-    }
-
-    public void setDocPath(String docPath) {
-        this.docPath = docPath;
-    }
-
-    public String getDocType() {
-        return docType;
-    }
-
-    public void setDocType(String docType) {
-        this.docType = docType;
     }
 
     public String getShortTitle() {
@@ -276,20 +259,20 @@ public class ArticleExt implements Serializable {
         this.postDate = postDate;
     }
 
-    public String getMediaPath() {
-        return mediaPath;
+    public String getFilePath() {
+        return filePath;
     }
 
-    public void setMediaPath(String mediaPath) {
-        this.mediaPath = mediaPath;
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 
-    public String getMediaType() {
-        return mediaType;
+    public String getFileType() {
+        return fileType;
     }
 
-    public void setMediaType(String mediaType) {
-        this.mediaType = mediaType;
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
     }
 
     public String getTitleColor() {

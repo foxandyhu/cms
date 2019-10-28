@@ -1,5 +1,7 @@
 package com.bfly.cms.content.entity;
 
+import com.bfly.common.IDEncrypt;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
@@ -13,8 +15,8 @@ import java.io.Serializable;
 @Entity
 @Table(name = "special_topic")
 public class SpecialTopic implements Serializable {
-    private static final long serialVersionUID = 1L;
 
+    private static final long serialVersionUID = -8593361071613028570L;
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,6 +46,12 @@ public class SpecialTopic implements Serializable {
      */
     @Column(name = "remark")
     private String remark;
+
+    /**
+     * 简要
+     */
+    @Column(name = "summary")
+    private String summary;
 
     /**
      * 标题图
@@ -84,8 +92,25 @@ public class SpecialTopic implements Serializable {
     @Column(name = "is_recommend")
     private boolean recommend;
 
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
     public int getId() {
         return id;
+    }
+
+    /**
+     * 加密后的ID字符串
+     * @author andy_hulibo@163.com
+     * @date 2019/9/4 11:43
+     */
+    public String getIdStr(){
+        return IDEncrypt.encode(getId());
     }
 
     public void setId(int id) {
