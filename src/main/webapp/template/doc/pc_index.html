@@ -6,6 +6,7 @@
     <meta name="keywords" content="${channel.keywords???then(channel.keywords,site.keywords)}">
     <meta name="description" content="${channel.summary???then(channel.summary,site.remark)}">
     <link href="${resServer}/style/default/css/doc.css" type="text/css" rel="stylesheet" media="screen">
+    <link href="${resServer}/style/default/glide/glide.css" type="text/css" rel="stylesheet" media="screen">
 </head>
 <body>
 <header>
@@ -15,10 +16,56 @@
 </header>
 <section class="main w1200 ma clearfix">
     <section class="w850 fl">
-        <div class="doc_con">
-            <#include "/doc/pc_search_form.html">
-        </div>
+        <section class="docs oh">
+            <div class="banner">
+                <div id="slideBox">
+                    <!--焦点文档-->
+                    <@articleDirective type="3" status="2" pageSize="4" channelId="${channel.id}">
+                        <ul id="show_pic" style="left:0px">
+                            <#list list as item>
+                                <li>
+                                    <a href="/${item.channelPath}/id_${item.idStr}.html" target="_blank">
+                                        <img alt="${item.title}" title="${item.title}" height="300" width="610"
+                                             src="${resServer}${item.titleImg}"/>
+                                    </a>
+                                </li>
+                            </#list>
+                        </ul>
+                        <div id="slideText"></div>
+                        <ul id="iconBall">
+                            <#list list as item>
+                                <li class="${(item_index==0)?then('active','')}">${item_index+1}</li>
+                            </#list>
+                        </ul>
+                        <ul id="textBall">
+                            <#list list as item>
+                                <li class="${(item_index==0)?then('active','')}">
+                                    <a href="/${item.channelPath}/id_${item.idStr}.html">${item.shortTitle???then(item.shortTitle,item.title)}</a>
+                                </li>
+                            </#list>
+                        </ul>
+                    </@articleDirective>
+                </div>
+            </div>
+            <div class="busi">
+                <@articleDirective topLevelSort="false" type="3" status="2" pageSize="3" channelId="${channel.id}">
+                    <#list list as item>
+                        <a href="/${item.channelPath}/id_${item.idStr}.html" target="_blank">
+                            <img alt="${item.title}" title="${item.title}" src="${resServer}${item.titleImg}"><span>${item.title}</span>
+                        </a>
+                    </#list>
+                </@articleDirective>
+            </div>
+        </section>
+
+        <div class="cls"></div>
         <!--最新文章-->
+        <ul class="mt10 content_cn_tit">
+            <li class="doc">文库专区</li>
+            <li class="doc">|</li>
+            <li class="doc_E">DOC</li>
+            <li class="fr"><a href="/doc/list.html">更多</a></li>
+        </ul>
         <@articleDirective status="2" pageSize="10" channelId="${channel.id}" pageable="true">
             <#list pager.data as item>
                 <div class="doc_item clearfix">
@@ -30,7 +77,8 @@
                             <div class="wt">${item.title}
                                 <img src="${resServer}/style/default/${item.fileType}.gif">
                             </div>
-                            <div class="wc">下载量：<span>${item.downloads}</span><em>${item.postDate?string('yyyy-MM-dd')}</em></div>
+                            <div class="wc">
+                                下载量：<span>${item.downloads}</span><em>${item.postDate?string('yyyy-MM-dd')}</em></div>
                             <div class="wd">${item.summary}</div>
                         </div>
                     </a>
@@ -47,13 +95,13 @@
             <div class="tag-nav"><h1>热门文档</h1></div>
             <!--点击率排行文章-->
             <@articleDirective status="2" pageSize="10" viewsSort="false" channelId="${channel.id}">
-                <#list list as item>
-                    <div class="doc_hot_list">
-                        <ul>
+                <div class="doc_hot_list">
+                    <ul>
+                        <#list list as item>
                             <li><a href="/${item.channelPath}/id_${item.idStr}.html">${item.title}</a></li>
-                        </ul>
-                    </div>
-                </#list>
+                        </#list>
+                    </ul>
+                </div>
             </@articleDirective>
         </section>
     </section>
@@ -67,4 +115,10 @@
 <!-- 底部 end -->
 </body>
 <#include "/common/script-res.html">
+<script type="text/javascript" src="${resServer}/style/default/glide/glide.js"></script>
+<script type="text/javascript" src="${resServer}/style/default/pause/jquery.pause.min.js"></script>
+<script type="text/javascript" src="${resServer}/style/default/js/doc.js"></script>
+<script type="text/javascript">
+    Cms.doc.glide();
+</script>
 </html>

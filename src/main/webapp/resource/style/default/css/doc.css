@@ -5,15 +5,37 @@
 @import "comment.css";
 
 .w850 h1{color:#1f1f1f; font-size:24px; font-weight:normal;}
+#slideBox{width:610px !important;}
+.docs .banner {float: left;width: 610px;height: 300px;position: relative;}
+.busi {width: 200px;margin-left: 10px;height: 100px;float: right;}
+.busi a {display: block;border-radius: 5px;overflow: hidden;margin-bottom: 10px;position: relative;}
+.busi img {width: 200px;height: 87px;}
+.busi a:hover img {
+    transform: scale(1.03);
+    -webkit-transform: scale(1.03);
+    transition: transform .3s ease-in-out;
+    -webkit-transition: transform .3s ease-in-out;
+}
+.busi a span {position: absolute;bottom: 0;left: 0;width: 170px;line-height: 30px;padding-right: 30px;text-indent: 1em;background-image: linear-gradient(-180deg,transparent,rgba(0,0,0,.7) 86%);padding-top: 15px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;color: #fff;}
 
-.doc_con{padding: 6px 24px;border: 1px solid #e7e7e7;background-color: #fff;position: relative;margin-bottom: 20px;}
-.doc_con_list {margin: 18px 0;}
-.doc_con_list span {font-weight: bold;color: #777777;font-size: 14px;margin-right: 10px;}
-.doc_con_list label {color: #1a1a1a;font-size: 14px;margin-right: 20px;}
-.doc_con_btn {position: absolute;width: 50px;height: 26px;color: #fff;background-color: #3489d0;border-radius: 3px;-moz-border-radius: 3px;-o-border-radius: 3px;-webkit-border-radius: 3px;font-size: 13px;bottom: 22px;right: 24px;cursor: pointer;border:0px;}
-.doc_con_btn:hover {background-color: #3894e2;}
+.doc{color: black;
+    font-weight: bold;}
+.doc, .doc_E {
+    font-size: 20px;
+}
+.content_cn_tit {
+    padding: 10px 2px;
+    border-bottom: 1px solid #e3e3e3;
+}
+.content_cn_tit li {
+    margin-left: 7px;
+    height: 30px;
+    display: inline-block;
+}
+
+
 .doc_item {padding: 20px 24px;border: 1px solid #e7e7e7;background-color: #fff;margin-bottom: 12px;cursor: pointer;}
-.doc_item:hover {border: 1px solid #a4c8e7;transition-duration: 400ms;-moz-transition-duration: 400ms;-webkit-transition-duration: 400ms;-o-transition-duration: 400ms;}
+.doc_item:hover {border:1px solid #ff6c00;transition-duration: 400ms;-moz-transition-duration: 400ms;-webkit-transition-duration: 400ms;-o-transition-duration: 400ms;}
 .doc_item .doc_item_img {float: left;margin-right: 18px;}
 .doc_item .doc_item_img img {width: 136px;height: 106px;}
 .doc_item .wt {color: #1a1a1a;font-size: 14px;margin-top: 6px;font-weight: 600;}
@@ -42,7 +64,6 @@
 .tag .tag-nav .change{right:0; bottom:7px; position:absolute; color:#999999; font-size:12px; line-height:14px;}
 .tag .tag-nav .change:hover i{-webkit-transform: rotateZ(180deg); -moz-transform: rotateZ(180deg); -o-transform: rotateZ(180deg);-ms-transform: rotateZ(180deg); transform: rotateZ(180deg);}
 
-.issue{margin-top:24px;}
 .doc_hot_list {padding: 20px 10px 0px;}
 .doc_hot_list li {padding-left: 12px;line-height: 20px;position: relative;}
 .doc_hot_list li:before {content: "";position: absolute;left: 0;top: 7px;width: 4px;height: 4px;background-color: #3489d0;border-radius: 100%;-moz-border-radius: 100%;-o-border-radius: 100%;-webkit-border-radius: 100%;}

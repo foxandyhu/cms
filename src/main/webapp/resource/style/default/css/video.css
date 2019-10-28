@@ -4,7 +4,7 @@
 @import "footer.css";
 @import "comment.css";
 
-.video_banner {width: 100%;height: 400px;background-color: #333639;margin-bottom: 30px;position: relative;overflow: hidden;}
+.video_banner {width: 100%;height: 400px;background-color: #333639;margin-bottom: 20px;position: relative;overflow: hidden;}
 .v_item{width:100%; height:100%; overflow:hidden;}
 .v_item_img{width:716px; float:left; height:400px;}
 .v_item_img img{width:100%; height:100%;}
