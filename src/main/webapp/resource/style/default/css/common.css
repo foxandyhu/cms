@@ -53,3 +53,7 @@ a:hover{color:#800;text-decoration:none;}
 .totalPages{margin:0 10px}
 .totalPages span,.totalSize span{color:#0073A9;margin:0 5px}
 .page_div button:disabled{opacity:.5;cursor:no-drop}
+
+/**************新闻详情声明条*****************/
+.avow {margin-top: 30px;min-height: 40px;padding: 15px 10px;background-color: #f2f2f270;border: 1px solid #E8E8E8;margin-top: 30px;}
+.avow .title {float: left;background: url(../avow.png) no-repeat;width: 22px;height: 42px;display: inline;margin-right: 10px;}
