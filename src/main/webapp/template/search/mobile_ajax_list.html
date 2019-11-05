@@ -1,0 +1,21 @@
+<@articleDirective status="2" pageSize="10" channelId="${channel.id}" pageable="true">
+    <#list pager.data as item>
+        <section class="aui-middle-dome">
+            <a href="/${item.channelPath}/id_${item.idStr}.html" class="aui-middle-dome-a">
+                <div class="aui-middle-dome-title">
+                    <h3>${item.title}</h3>
+                    <div class="aui-middle-dome-text">
+                        <div class="clearfix">
+                            <span class="aui-top box-line">${item.typeName}</span>
+                            <span class="aui-title">${item.channelName}</span>
+                            <span class="aui-comment">评论 ${item.comments}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="aui-middle-dome-img">
+                    <img src="${resServer}${item.titleImg???then(item.titleImg,'/style/default/nopic_middle.png')}">
+                </div>
+            </a>
+        </section>
+    </#list>
+</@articleDirective>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>${article.articleExt.title}--${site.name}</title>
+    <meta name="keywords" content="${article.articleExt.keywords???then(article.articleExt.keywords,site.keywords)}">
+    <meta name="description"
+          content="${article.articleExt.description???then(article.articleExt.description,site.remark)}">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"/>
+    <link rel="stylesheet" href="${resServer}/style/default/css/mobile.css"/>
+    <link rel="stylesheet" href="${resServer}/style/default/photoswipe/photoswipe.css"/>
+    <link rel="stylesheet" href="${resServer}/style/default/photoswipe/default-skin/default-skin.css"/>
+</head>
+<body>
+<#include "/common/mobile_header_bar.html"/>
+<article>
+    <h1 class="title">${article.articleExt.title}</h1>
+    <div class="times">
+        <span>${article.articleExt.postDate?string("yyyy-MM-dd")}</span><span>${article.articleExt.origin} </span><span>编辑：${article.articleExt.author}</span>
+    </div>
+    <div class="article-content gallery" data-pswp-uid="1">
+        <#list article.pictures as item>
+            <figure>
+                <p>${item.remark}</p>
+                <p>
+                    <a href="${resServer}${item.imgPath}">
+                        <img src="${resServer}${item.imgPath}" title="${item.remark}">
+                    </a>
+                </p>
+                <p class="text-center">图${item_index+1}</p>
+            </figure>
+        </#list>
+    </div>
+</article>
+
+<!--弹框浏览begin-->
+<section>
+    <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="pswp__bg"></div>
+        <div class="pswp__scroll-wrap">
+            <div class="pswp__container">
+                <div class="pswp__item"></div>
+                <div class="pswp__item"></div>
+                <div class="pswp__item"></div>
+            </div>
+            <div class="pswp__ui pswp__ui--hidden">
+                <div class="pswp__top-bar">
+                    <div class="pswp__counter"></div>
+                    <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                    <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                    <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                    <div class="pswp__preloader">
+                        <div class="pswp__preloader__icn">
+                            <div class="pswp__preloader__cut">
+                                <div class="pswp__preloader__donut"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                    <div class="pswp__share-tooltip"></div>
+                </div>
+                <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+                </button>
+                <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+                </button>
+                <div class="pswp__caption">
+                    <div class="pswp__caption__center"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--弹框浏览end-->
+<#include "/common/mobile_avow_bar.html">
+<#if article.comment>
+    <#include "/common/mobile_comment.html">
+</#if>
+<#include "/common/script-res.html">
+<script type="text/javascript" src="${resServer}/style/default/js/mobile.js"></script>
+<script type="text/javascript" src="${resServer}/style/default/photoswipe/photoswipe.min.js"></script>
+<script type="text/javascript" src="${resServer}/style/default/photoswipe/photoswipe-ui-default.min.js"></script>
+<#if article.comment>
+    <script type="text/javascript">
+        var pageNo = 1;
+        Cms.mobile.loadComments("${article.idStr}", pageNo);
+    </script>
+</#if>
+<script type="text/javascript">
+    Cms.mobile.initPhotoSwipe('.gallery');
+</script>
+</body>
+</html>

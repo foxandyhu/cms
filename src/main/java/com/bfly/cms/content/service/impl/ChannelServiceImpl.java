@@ -32,13 +32,14 @@ public class ChannelServiceImpl extends BaseServiceImpl<Channel, Integer> implem
     private IModelService modelService;
 
     @Override
-    @Cacheable(value = "beanCache", key = "'channel_list'")
+    @Cacheable(value = "beanCache", key = "'channel_by_map_'+#exactQueryProperty.hashCode()")
     public List<Channel> getList(Map<String, Object> exactQueryProperty) {
         //  此处返回一个线程安全的集合 由于list可能会被写入缓存 造成读写冲突
         return Collections.synchronizedList(super.getList(exactQueryProperty));
     }
 
     @Override
+    @Cacheable(value = "beanCache", key = "'channel_list'")
     public List<Map<String, Object>> getAllChannel() {
         return channelDao.getAllChannel();
     }

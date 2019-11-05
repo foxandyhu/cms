@@ -140,6 +140,15 @@ public class ResourceConfig {
     }
 
     /**
+     * 获得文档转换后的文件夹路径
+     * @author andy_hulibo@163.com
+     * @date 2019/11/4 22:33
+     */
+    public static String getDocHtmlDir(){
+        return getRootDir() + File.separator + "doc"+File.separator+"html";
+    }
+
+    /**
      * 获得附件存放路径
      *
      * @author andy_hulibo@163.com

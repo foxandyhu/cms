@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>资讯--${site.name}</title>
+    <meta name="keywords" content="${channel.keywords???then(channel.keywords,site.keywords)}">
+    <meta name="description" content="${channel.summary???then(channel.summary,site.remark)}">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"/>
+    <link rel="stylesheet" href="${resServer}/style/default/swiper/swiper.min.css"/>
+    <link rel="stylesheet" href="${resServer}/style/default/css/mobile.css"/>
+</head>
+<body>
+<div class="container">
+    <!-- 头部信息 begin -->
+    <#include "/common/mobile_search_bar.html"/>
+    <div class="swiper-container swiper1 b-line" style="padding-top: 44px;position: fixed;z-index: 998;">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"><a href="/${channel.path}/index.html" class="selected">推荐</a></div>
+            <@channelListDirect display="true" parentId="${channel.id}">
+                <#list list as c>
+                    <div class="swiper-slide"><a href="/${c.path}/list.html">${c.name}</a></div>
+                </#list>
+            </@channelListDirect>
+        </div>
+    </div>
+    <!-- 头部信息 end -->
+
+    <!-- 内容信息 begin -->
+    <section style="padding-top:84px;padding-bottom:49px;">
+        <!--头条文章 begin-->
+        <@articleDirective type="4" status="2" pageSize="1" channelId="${channel.id}">
+            <#list list as item>
+                <div class="aui-card-list">
+                    <div class="aui-card-list-header">
+                        <div><a href="/${item.channelPath}/id_${item.idStr}.html">${item.title}</a></div>
+                    </div>
+                    <div class="aui-card-list-content-padded aui-padded-t-5 aui-padded-b-5">${item.summary}</div>
+                    <div class="aui-card-list-content" style="padding:0 10px;">
+                        <div class="aui-row aui-row-padded">
+                            <div class="aui-col-xs-12">
+                                <a href="/${item.channelPath}/id_${item.idStr}.html">
+                                    <img alt="${item.title}" title="${item.title}" src="${resServer}${item.titleImg}"/>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="aui-card-list-footer text-light size-color">
+                        <div>
+                            <i class="aui-iconfont aui-icon-display"></i> ${item.views}
+                        </div>
+                        <div>
+                            <i class="aui-iconfont aui-icon-comment"></i> ${item.comments}
+                        </div>
+                        <div>
+                            <i class="aui-iconfont aui-icon-laud"></i> ${item.ups}
+                        </div>
+                    </div>
+                </div>
+            </#list>
+        </@articleDirective>
+        <!--头条文章 begin-->
+
+        <!--推荐文章-->
+        <@articleDirective status="2" pageSize="20" channelId="${channel.id}" recommendLevelSort="false">
+            <#list list as item>
+                <section class="aui-middle-dome">
+                    <a href="/${item.channelPath}/id_${item.idStr}.html" class="aui-middle-dome-a">
+                        <div class="aui-middle-dome-title">
+                            <h3>${item.title}</h3>
+                            <div class="aui-middle-dome-text">
+                                <div class="clearfix">
+                                    <span class="aui-top box-line">${item.typeName}</span>
+                                    <span class="aui-title">${item.channelName}</span>
+                                    <span class="aui-comment">评论 ${item.comments}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="aui-middle-dome-img">
+                            <img src="${resServer}${item.titleImg???then(item.titleImg,'/style/default/nopic_middle.png')}">
+                        </div>
+                    </a>
+                </section>
+            </#list>
+        </@articleDirective>
+    </section>
+    <!-- 内容信息 end -->
+</div>
+
+<#include "/common/mobile_footer.html"/>
+<#include "/common/script-res.html">
+<script type="text/javascript" src="${resServer}/style/default/swiper/swiper.min.js"></script>
+<script type="text/javascript" src="${resServer}/style/default/js/mobile.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var swiper1 = new Swiper('.swiper1', {
+            slidesPerView: 5,
+            paginationClickable: true,
+            spaceBetween: 1,
+            freeMode: true,
+            loop: false
+        });
+    });
+</script>
+</body>
+</html>

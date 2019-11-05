@@ -157,7 +157,7 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article, Integer> implem
         Assert.notNull(pager, "分页器没有实例化");
 
         String selectSql = "SELECT ar.id,ar.channel_id as channelId,ch.channel_name as channelName,ch.channel_path as channelPath,ar.user_id as userId,u.username as userName,";
-        selectSql = selectSql.concat("ar.type_id as typeId,ar.is_recommend as recommend,ar.recommend_level as recommendLevel,ar.top_level as topLevel,ar.views,ar.comments,ar.downloads,");
+        selectSql = selectSql.concat("ar.type_id as typeId,ar.is_recommend as recommend,ar.recommend_level as recommendLevel,ar.top_level as topLevel,ar.views,ar.comments,ar.downloads,ar.ups,");
         selectSql = selectSql.concat("ar.`status`,ar_ext.post_date as postDate,ar_ext.title,ar_ext.short_title as shortTitle,ar_ext.summary,ar_ext.title_img as titleImg,ar_ext.title_color as titleColor,");
         selectSql = selectSql.concat("ar_ext.file_type as fileType, ar_ext.file_length as fileLength,ar.top_expired as topExpired,ar_ext.tags");
         selectSql = selectSql.concat(getTableSql());

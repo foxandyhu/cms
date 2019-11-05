@@ -6,8 +6,6 @@
     <meta name="keywords" content="${article.articleExt.keywords???then(article.articleExt.keywords,site.keywords)}">
     <meta name="description" content="${article.articleExt.description???then(article.articleExt.description,site.remark)}">
     <link href="${resServer}/style/default/css/doc.css" type="text/css" rel="stylesheet" media="screen">
-    <link rel="resource" type="application/l10n" href="${resServer}/style/default/pdfjs/web/locale/locale.properties">
-    <link rel="stylesheet" href="${resServer}/style/default/pdfjs/web/viewer.min.css">
 </head>
 <body>
 <header>
@@ -18,7 +16,7 @@
 <section class="main w1200 ma clearfix" style="position:unset">
     <section class="w850 fl">
         <h1 class="doc_title">
-            <img src="${resServer}/style/default/${article.articleExt.fileType}.gif">
+            <img src="${resServer}/style/default/${article.articleExt.fileType}.png">
             ${article.articleExt.title}
         </h1>
         <div class="doc_inf">
@@ -43,7 +41,7 @@
         </div>
         <div class="doc_des">${article.articleExt.summary}</div>
         <div class="doc_content">
-            <#include "/doc/pc_pdf_viewer.html">
+            <iframe frameborder="0" src="${article.articleExt.filePath}" style="width:100%;height:100%;"></iframe>
         </div>
         <div class="doc_bottom">
             <div class="doc_btn">
@@ -77,12 +75,8 @@
 <!-- 底部 end -->
 </body>
 <#include "/common/script-res.html">
-<script src="${resServer}/style/default/pdfjs/build/pdf.min.js"></script>
 <script type="text/javascript" src="${resServer}/style/default/js/doc.js"></script>
 <script type="text/javascript" src="${resServer}/style/default/js/comment.js"></script>
-<script type="text/javascript">
-    Cms.doc.load("${article.articleExt.filePath}");
-</script>
 <#if article.comment>
     <script>
         var pageNo=1;

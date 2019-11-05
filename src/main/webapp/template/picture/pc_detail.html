@@ -62,13 +62,11 @@
                 <div id="photo-List" class="photo-List ad-thumbs" style="width:528px;">
                     <ul class="ad-thumb-list">
                         <#list article.pictures as item>
-                            <#if item.field?length > 0>
-                                <li>
-                                    <a href="${resServer}${item.imgPath}" rel="${resServer}${item.imgPath}">
-                                        <img src="${resServer}${item.imgPath}" title="${item.remark}"/>
-                                    </a>
-                                </li>
-                            </#if>
+                            <li>
+                                <a href="${resServer}${item.imgPath}" rel="${resServer}${item.imgPath}">
+                                    <img src="${resServer}${item.imgPath}" title="${item.remark}"/>
+                                </a>
+                            </li>
                         </#list>
                     </ul>
                 </div>

@@ -1,0 +1,19 @@
+<#list pager.data as item>
+    <section class="searchitem aui-middle-dome">
+        <a href="/${item.channelPath}/id_${item.idStr}.html" class="aui-middle-dome-a">
+            <div class="aui-middle-dome-title" style="${(item.titleImg?length gt 1)?then('','width:100%')}">
+                <h3>${item.title}</h3>
+                <div class="aui-middle-dome-text">
+                    <div class="clearfix">
+                        <span class="date">${item.postDate?string("yyyy-MM-dd")}</span>
+                    </div>
+                </div>
+            </div>
+            <#if item.titleImg?length gt 1>
+                <div class="aui-middle-dome-img">
+                    <img src="${resServer}${item.titleImg}">
+                </div>
+            </#if>
+        </a>
+    </section>
+</#list>

@@ -372,7 +372,7 @@
                             <#list list as item>
                                 <li>
                                     <a href="/${item.channelPath}/id_${item.idStr}.html" target="_blank">
-                                        <img src="${resServer}/style/default/blank_1x1.gif" original="${resServer}${item.titleImg}" width="220" height="105"/>
+                                        <img src="${resServer}/style/default/blank_1x1.gif" original="${resServer}${item.titleImg???then(item.titleImg,'/style/default/nopic_middle.png')}" width="220" height="105"/>
                                     </a>
                                 </li>
                             </#list>
@@ -403,7 +403,7 @@
                             <#list list as item>
                                 <li class="pic_one">
                                     <a class="pic_one_p" href="/${item.channelPath}/id_${item.idStr}.html" target="_blank" title="${item.title}">
-                                        <img class="lazyimg" src="${resServer}/style/default/blank_1x1.gif" original="${resServer}${item.titleImg}" width="160" height="120" alt="${item.title}">
+                                        <img class="lazyimg" src="${resServer}/style/default/blank_1x1.gif" original="${resServer}${item.titleImg???then(item.titleImg,'/style/default/nopic_middle.png')}" width="160" height="120" alt="${item.title}">
                                     </a>
                                     <a class="pic_one_tit" href="/${item.channelPath}/id_${item.idStr}.html" target="_blank">${item.title}</a>
                                 </li>
@@ -474,7 +474,7 @@
                                 <li class="pic_one_1">
                                     <a class="pic_one_1_pic" href="/topic/id_${item.idStr}.html" target="_blank" title="${item.name}">
                                         <img class="lazyimg" src="${resServer}/style/default/blank_1x1.gif"
-                                             original="${resServer}${item.titleImg}" width="125" height="94"
+                                             original="${resServer}${item.titleImg???then(item.titleImg,'/style/default/nopic_middle.png')}" width="125" height="94"
                                              alt="${item.name}"></a>
                                     <strong class="pic_one_1_tit">
                                         <a href="/topic/id_${item.idStr}.html" title="${item.name}" target="_blank">${item.name}</a></strong>

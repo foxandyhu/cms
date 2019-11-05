@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>${site.name}</title>
+    <meta name="keywords" content="${site.keywords}">
+    <meta name="description" content="${site.remark}">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"/>
+    <link rel="stylesheet" href="${resServer}/style/default/css/mobile.css"/>
+</head>
+<body>
+<div class="aui-searchbar" id="search">
+    <a href="javascript:" onclick="history.back(); " class="aui-pull-left aui-btn"
+       style="background:none; padding-right:0">
+        <span class="aui-iconfont aui-icon-left" style="font-weight:600;">  </span>
+    </a>
+    <div class="aui-searchbar-input aui-border-radius">
+        <i class="aui-iconfont aui-icon-search"></i>
+        <form action="search.html" id="searchForm">
+            <input type="search" name="word" value="${word}" placeholder="请输入关键字..." id="search-input">
+        </form>
+    </div>
+    <div class="aui-searchbar-cancel search_btn" onclick="searchForm.submit()">搜索</div>
+</div>
+<#if word??>
+    <div id="searchContainer">
+        <#include "/search/mobile_ajax_search.html">
+        <#if pager.data?size<1>
+            <div class="blankcontent">没有`<i>${word}</i>`相关内容</div>
+        </#if>
+    </div>
+<#else>
+    <div class="aui-search">
+        <div class="aui-search-box">
+            <h3 class="b-line">热门搜索</h3>
+            <ul>
+                <@searchWordsDirective pageSize="10" recommend="true">
+                    <#list list as item>
+                        <#switch item_index>
+                            <#case 0>
+                                <li class="b-line"><em style="color:#FF5E53">${item_index+1}.</em><a
+                                            href="/search.html?word=${item.name}">${item.name}</a></li>
+                                <#break>
+                            <#case 1>
+                                <li class="b-line"><em style="color:#FF8D20">${item_index+1}.</em><a
+                                            href="/search.html?word=${item.name}">${item.name}</a></li>
+                                <#break>
+                            <#case 2>
+                                <li class="b-line"><em style="color:#3CC51E">${item_index+1}.</em><a
+                                            href="/search.html?word=${item.name}">${item.name}</a></li>
+                                <#break>
+                            <#default >
+                                <li class="b-line"><em>${item_index+1}.</em><a
+                                            href="/search.html?word=${item.name}">${item.name}</a></li>
+                        </#switch>
+                    </#list>
+                </@searchWordsDirective>
+            </ul>
+        </div>
+    </div>
+</#if>
+<div class="loading">
+    <img src="${resServer}/style/default/ajax-loader.gif">
+    正在努力加载 ..
+</div>
+<#include "/common/mobile_footer.html"/>
+<#include "/common/script-res.html">
+<script type="text/javascript" src="${resServer}/style/default/js/mobile.js"></script>
+<script type="text/javascript">
+    $(function () {
+        Cms.mobile.loadMoreSearch("${word}");
+    });
+</script>
+</body>
+</html>

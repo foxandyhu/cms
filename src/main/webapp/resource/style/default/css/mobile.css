@@ -1,0 +1,47 @@
+@import "../aui/aui.css";
+.none{display: none;}
+.white{color:#fff;}
+.left{float: left;}
+.right{float: right;}
+.red{color:#eb413d;}
+.text-center{text-align: center;}
+.cls{line-height: 5px;height: 5px;clear: both;}
+.loading {height: 60px;line-height: 60px;text-align: center;display: none;margin-bottom: 80px;}
+.loading img {vertical-align: middle;display: unset !important;}
+#slideBox{width:auto !important;height: 200px !important;}
+.aui-middle-dome .aui-title{color:#999 !important;padding-left: 30px;}
+.container {width: 100%;}
+.swiper1 {width: 100%;background: #efefef;padding-top: 44px;position: fixed;z-index: 998;}
+.swiper1 .selected {color: #ec5566;}
+.swiper1 .swiper-slide {text-align: center;font-size: 14px;height: 40px;display: -webkit-box;display: -ms-flexbox;display: -webkit-flex;display: flex;-webkit-box-pack: center;-ms-flex-pack: center;-webkit-justify-content: center;justify-content: center;-webkit-box-align: center;-ms-flex-align: center;-webkit-align-items: center;align-items: center;cursor: pointer;}
+.swiper-slide a{color:#212121;}
+.aui-card-list-header div {font-size: 1rem;color: #666;width: 100%;height: 30px;background: url(../topNews.png) left top no-repeat #f0f0f0;background-size:contain;-webkit-border-radius: 4px;line-height: 30px;text-indent: 4rem;overflow: hidden;}
+
+.aui-searchbar{border-bottom:1px solid #ddd;}
+.search_btn{color:#FF5E53; font-size:14px; padding-right:10px;}
+.searchitem .date{font-size: 12px;color: #008000;float: left;}
+.blankcontent{text-align: center;margin-top:1rem;}
+.blankcontent i{color:red;}
+
+/******************详情***********************/
+article {overflow: hidden;padding:60px 15px 20px;text-align: justify;}
+article .title{color: #000;line-height: 1.45;font-weight: 600;}
+article .times{border-bottom: 1px solid #e9e9ea;padding:10px 0;margin-bottom: 10px;}
+article .times span{margin-right: 10px;font-size:.6rem;color: #828282;}
+.comments h2{margin-left: 10px;}
+.comments h2 span {display: inline-block;line-height: 30px;border-bottom: 2px solid #ef3838;}
+.comment_form{padding:10px;}
+.comment_form textarea{height:5rem;}
+.comment_form textarea,.comment_form input[type='text']{border:1px solid #b2b3ad;padding-left:5px;}
+.comment_form .captcha{width:8rem;}
+.comment_form .ca img{margin-left:5px;}
+.comment_form .submit{background-color: #eb413d;font-size: 14px;color: #fff;border-radius: 8px;    display: block;width: 100%;padding-left: 0;padding-right: 0;    height: 2rem;}
+.comments .aui-list-item-text{font-size:unset}
+
+.avow {min-height: 40px;padding: 10px 10px;background-color: #f2f2f270;}
+.avow small{color:#7c7c7c;font-size: .6em;top: -6px;position: relative;}
+.avow .title {float: left;background: url(../avow.png) no-repeat;background-size: 15px;width: 22px;height: 42px;display: inline;margin-right:1px;}
+.open-more{margin-top:40px;margin-bottom: 40px; text-align:center;}
+.open-more a{padding:5px 20px; border:1px solid #c7c7c7; font-size:12px; color:#333; display:inline-block;}
+
+.doc_content{height:600px;}

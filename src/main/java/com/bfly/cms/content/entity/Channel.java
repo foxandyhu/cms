@@ -1,5 +1,8 @@
 package com.bfly.cms.content.entity;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
@@ -114,9 +117,22 @@ public class Channel implements Serializable, Comparable<Channel> {
     @Column(name = "parent_id")
     private int parentId;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_id",insertable = false,updatable = false,referencedColumnName="id")
+    @NotFound(action = NotFoundAction.IGNORE)
+    private Channel parent;
+
     @Override
     public int compareTo(Channel o) {
         return this.getSeq()-o.getSeq();
+    }
+
+    public Channel getParent() {
+        return parent;
+    }
+
+    public void setParent(Channel parent) {
+        this.parent = parent;
     }
 
     public int getId() {

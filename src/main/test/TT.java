@@ -22,9 +22,6 @@ import com.bfly.core.context.PagerThreadLocal;
 import com.bfly.core.enums.CommentStatus;
 import com.bfly.core.enums.LetterBox;
 import org.apache.commons.io.FilenameUtils;
-import org.jodconverter.DocumentConverter;
-import org.jodconverter.document.DefaultDocumentFormatRegistry;
-import org.jodconverter.document.DocumentFormat;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -226,17 +223,6 @@ public class TT {
         params.put("recommend", true);
         pager = commentService.getPage(params);
         System.out.println(pager.getData());
-    }
-
-    @Autowired
-    private DocumentConverter converter;
-
-    @Test
-    public void convertPdf() throws Exception {
-        File file = new File("C:\\1.pptx");
-        File target = new File("C:\\tmp\\a.pdf");
-        converter.convert(file).as(DefaultDocumentFormatRegistry.getFormatByExtension(FilenameUtils.getExtension(file.getName())))
-                .to(target).as(DefaultDocumentFormatRegistry.getFormatByMediaType(MediaType.APPLICATION_PDF_VALUE)).execute();
     }
 
     @Test

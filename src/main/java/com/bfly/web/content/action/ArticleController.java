@@ -9,6 +9,7 @@ import com.bfly.cms.content.service.IArticleService;
 import com.bfly.cms.content.service.IChannelService;
 import com.bfly.cms.content.service.IModelService;
 import com.bfly.common.*;
+import com.bfly.common.microsoft.MicroSoftConvert;
 import com.bfly.common.page.Pager;
 import com.bfly.core.base.action.RenderController;
 import com.bfly.core.config.ResourceConfig;
@@ -17,12 +18,9 @@ import com.bfly.core.enums.ArticleStatus;
 import com.bfly.core.security.ActionModel;
 import com.bfly.core.security.Login;
 import org.apache.commons.io.FilenameUtils;
-import org.jodconverter.DocumentConverter;
-import org.jodconverter.document.DefaultDocumentFormatRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
@@ -49,8 +47,6 @@ public class ArticleController extends RenderController {
 
     @Autowired
     private IArticleService articleService;
-    @Autowired
-    private DocumentConverter documentConverter;
     @Autowired
     private IChannelService channelService;
     @Autowired
@@ -115,32 +111,27 @@ public class ArticleController extends RenderController {
             return;
         }
         String filePath = article.getArticleExt().getFilePath();
-        String fileType = article.getArticleExt().getFileType();
         if (StringUtils.hasLength(filePath)) {
             File file = new File(ResourceConfig.getAbsolutePathForRoot(filePath));
             if (!ValidateUtil.isConvertPDF(file)) {
                 return;
             }
-            if (!StringUtils.hasLength(fileType)) {
-                return;
-            }
-            final String pdf = "PDF";
-            if (!fileType.equalsIgnoreCase(pdf)) {
-                String fileName = file.getName() + ".pdf";
-                File target = new File(ResourceConfig.getTempDir() + File.separator + fileName);
-                if (!target.exists()) {
+            if (file.exists()) {
+                String sourcePath=file.getAbsolutePath();
+                String dirName= FilenameUtils.getBaseName(sourcePath).concat("_").concat(FilenameUtils.getExtension(sourcePath));
+                String htmlPath = ResourceConfig.getDocHtmlDir().concat(File.separator).concat(dirName).concat("//index.html");
+                file=new File(htmlPath);
+                if(!file.exists()) {
                     try {
-                        // 转换文件写入临时目录
-                        documentConverter.convert(file).as(DefaultDocumentFormatRegistry.getFormatByExtension(FilenameUtils.getExtension(file.getName())))
-                                .to(target).as(DefaultDocumentFormatRegistry.getFormatByMediaType(MediaType.APPLICATION_PDF_VALUE)).execute();
+                        // 如果没有转换 则转换文件写入临时目录
+                        MicroSoftConvert.convert(sourcePath, ResourceConfig.getDocHtmlDir());
                     } catch (Exception ex) {
                         logger.error("文档转换失败", ex);
                     }
                 }
-                article.getArticleExt().setFilePath(ResourceConfig.getTempServer() + "/" + fileName);
-            } else {
-                article.getArticleExt().setFilePath(ResourceConfig.getServer() + filePath);
+                filePath = ResourceConfig.getRelativePathForRoot(htmlPath);
             }
+            article.getArticleExt().setFilePath(ResourceConfig.getServer() + filePath);
         }
     }
 
@@ -155,6 +146,11 @@ public class ArticleController extends RenderController {
         Channel channel = channelService.getChannelByPath(channelPath);
         verifyChannel(channel);
         getRequest().setAttribute("channel", channel);
+        boolean fromMobileAjax = DataConvertUtils.convertToBoolean(getRequest().getParameter("mobileAjax"));
+        if (fromMobileAjax) {
+            // 移动端分页操作
+            return "/search/mobile_ajax_list.html";
+        }
         return renderTplPath("list.html", "search");
     }
 
@@ -267,6 +263,11 @@ public class ArticleController extends RenderController {
         Pager<ArticleLuceneDTO> pager = articleService.searchFromIndex(word);
         getRequest().setAttribute("pager", pager);
         getRequest().setAttribute("word", word);
+        boolean fromMobileAjax = DataConvertUtils.convertToBoolean(getRequest().getParameter("mobileAjax"));
+        if (fromMobileAjax) {
+            // 移动端分页操作
+            return "/search/mobile_ajax_search.html";
+        }
         return renderTplPath("search.html", "search");
     }
 }

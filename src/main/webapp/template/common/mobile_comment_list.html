@@ -1,0 +1,31 @@
+<#macro comments item>
+    <li class="aui-list-item aui-list-item-middle">
+        <div class="aui-media-list-item-inner">
+            <div class="aui-list-item-media">
+                <img class="lazyimg aui-img-round aui-list-img-sm" src="${resServer}/style/default/blank_1x1.gif"
+                     original="${resServer}${item.member.memberExt.face???then(item.member.memberExt.face,'/system/images/default.jpg')}">
+            </div>
+            <div class="aui-list-item-inner ">
+                <div class="aui-list-item-text">
+                    <div class="aui-list-item-title">${item.memberUserName}</div>
+                    <div class="aui-list-item-right"><i class="aui-iconfont aui-icon-laud"></i>${item.ups}</div>
+                </div>
+                <div class="aui-list-item-text">
+                    ${sensitiveFilterMethod(item.commentExt.text)?html}
+                </div>
+                <#if item.child??>
+                    <ul class="aui-list aui-media-list">
+                    <#list item.child as subItem>
+                        <#if subItem.status==2>
+                            <@comments subItem></@comments>
+                        </#if>
+                    </#list>
+                    </ul>
+                </#if>
+            </div>
+        </div>
+    </li>
+</#macro>
+<#list commentPager.data as item>
+    <@comments item></@comments>
+</#list>

@@ -1,0 +1,27 @@
+<section class="comment_form">
+    <h3>评论<span>已有<i class="red">556 </i>条</span></h3>
+    <div class="cls"></div><div class="cls"></div>
+    <textarea name="text" placeholder="发表你此时的观点和想法 ……" class="comments-text" id="commentText"></textarea>
+    <div class="cls"></div><div class="cls"></div><div class="cls"></div><div class="cls"></div>
+    <div class="ca">
+        <div class="left">
+            <input name="captcha" type="text" placeholder="验证码" id="captcha" class="captcha">
+        </div>
+        <div class="left">
+            <img id="captchaImg" src="/captcha.svl" onclick="this.src='/captcha.svl?d='+new Date()*1">
+        </div>
+    </div>
+    <div class="cls"></div><div class="cls"></div><div class="cls"></div><div class="cls"></div>
+    <input type="button" value="提交评论" class="submit"
+           onclick="Cms.mobile.postComment('${article.idStr}',$('#commentText').val(),$('#captcha').val())">
+</section>
+<div class="cls"></div><div class="cls"></div><div class="cls"></div><div class="cls"></div>
+<div class="cls"></div><div class="cls"></div><div class="cls"></div><div class="cls"></div>
+<section class="comments">
+    <h2><span>热门评论</span></h2>
+    <div class="cls"></div>
+    <ul id="commentsContainer" class="aui-list aui-media-list"></ul>
+    <div class="open-more">
+        <a id="moreComments" href="javascript:void(0)" onclick="Cms.mobile.loadComments('${article.idStr}',++pageNo)">更多评论</a>
+    </div>
+</section>

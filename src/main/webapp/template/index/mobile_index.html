@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>${site.name}</title>
+    <meta name="keywords" content="${site.keywords}">
+    <meta name="description" content="${site.remark}">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"/>
+    <link rel="stylesheet" href="${resServer}/style/default/css/mobile.css"/>
+    <link href="${resServer}/style/default/glide/glide.css" type="text/css" rel="stylesheet" media="screen">
+</head>
+<body>
+
+<div class="container">
+
+    <#include "/common/mobile_search_bar.html"/>
+
+    <!-- 内容信息 begin -->
+    <div class="swiper-container swiper2" style="padding-bottom:49px;">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide swiper-no-swiping">
+                <!--焦点文章 begin-->
+                <div id="slideBox">
+                    <@articleDirective type="3" status="2" pageSize="3">
+                        <ul id="show_pic" style="left:0px">
+                            <#list list as item>
+                                <li>
+                                    <a href="/${item.channelPath}/id_${item.idStr}.html" target="_blank">
+                                        <img alt="${item.title}" title="${item.title}" height="300" width="100%"
+                                             src="${resServer}${item.titleImg}"/>
+                                    </a>
+                                </li>
+                            </#list>
+                        </ul>
+                        <div id="slideText"></div>
+                        <ul id="iconBall">
+                            <#list list as item>
+                                <li class="${(item_index==0)?then('active','')}">${item_index+1}</li>
+                            </#list>
+                        </ul>
+                        <ul id="textBall">
+                            <#list list as item>
+                                <li class="${(item_index==0)?then('active','')}">
+                                    <a href="/${item.channelPath}/id_${item.idStr}.html">${item.shortTitle???then(item.shortTitle,item.title)}</a>
+                                </li>
+                            </#list>
+                        </ul>
+                    </@articleDirective>
+                </div>
+                <!--焦点文章 end-->
+
+                <!--头条文章begin-->
+                <@articleDirective type="4" status="2" pageSize="2">
+                    <#list list as item>
+                        <section class="aui-middle-dome">
+                            <a href="/${item.channelPath}/id_${item.idStr}.html" class="aui-middle-dome-a">
+                                <div class="aui-middle-dome-title">
+                                    <h3>${item.title}</h3>
+                                    <div class="aui-middle-dome-text">
+                                        <div class="clearfix">
+                                            <span class="aui-top box-line">${item.typeName}</span>
+                                            <span class="aui-title">${item.channelName}</span>
+                                            <span class="aui-comment">评论 ${item.comments}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="aui-middle-dome-img">
+                                    <img src="${resServer}${item.titleImg???then(item.titleImg,'/style/default/nopic_middle.png')}"
+                                         alt="${item.title}">
+                                </div>
+                            </a>
+                        </section>
+                    </#list>
+                </@articleDirective>
+                <!--头条文章end-->
+
+                <!-- 推荐文章 begin-->
+                <@articleDirective recommend="true" status="2" pageSize="20">
+                    <#list list as item>
+                        <section class="aui-middle-dome">
+                            <a href="/${item.channelPath}/id_${item.idStr}.html" class="aui-middle-dome-a">
+                                <div class="aui-middle-dome-title">
+                                    <h3>${item.title}</h3>
+                                    <div class="aui-middle-dome-text">
+                                        <div class="clearfix">
+                                            <span class="aui-top box-line">${item.typeName}</span>
+                                            <span class="aui-title">${item.channelName}</span>
+                                            <span class="aui-comment">评论 ${item.comments}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="aui-middle-dome-img">
+                                    <img src="${resServer}${item.titleImg???then(item.titleImg,'/style/default/nopic_middle.png')}"
+                                         alt="${item.title}">
+                                </div>
+                            </a>
+                        </section>
+                    </#list>
+                </@articleDirective>
+                <!-- 推荐文章 end-->
+            </div>
+        </div>
+    </div>
+    <!-- 内容信息 end -->
+</div>
+<#include "/common/mobile_footer.html"/>
+<#include "/common/script-res.html">
+<script type="text/javascript" src="${resServer}/style/default/glide/glide.js"></script>
+<script type="text/javascript" src="${resServer}/style/default/pause/jquery.pause.min.js"></script>
+<script type="text/javascript" src="${resServer}/style/default/js/mobile.js"></script>
+<script type="text/javascript">
+    Cms.mobile.glide();
+</script>
+</body>
+</html>
