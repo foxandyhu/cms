@@ -154,7 +154,7 @@ Cms.dialog = {
             var d=dialog({
                 id: id, fixed: true, title: title, content: content
             });
-            d.show();
+            d.showModal();
             if(time){
                 setTimeout(function () {
                     d.close().remove();
