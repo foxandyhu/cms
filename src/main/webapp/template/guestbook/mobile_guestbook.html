@@ -1,0 +1,36 @@
+<section style="padding-top:70px;">
+    <h2 style="padding-left:1rem">给我们留言</h2>
+    <section style="margin-bottom:2rem;">
+        <form id="guestbookForm">
+        <div class="message_inf comment_form">
+            <div class="line"></div>
+            <div class="mt20">
+                <p>
+                    <span>类别</span>
+                    <select name="type">
+                        <@dictionaryDirective type="guestbook_type">
+                            <#list list as item>
+                                <option value="${item.value}">${item.name}</option>
+                            </#list>
+                        </@dictionaryDirective>
+                    </select>
+                </p>
+                <p><span><i class="red">*</i>邮箱</span><input autocomplete="off" type="text" name="ext.email" class="message_email" maxlength="30"></p>
+                <p><span><i class="red">*</i>手机号</span><input autocomplete="off" type="text" name="ext.phone" maxlength="11" class="message_phone"></p>
+                <p><span><i class="red">*</i>标题</span><input autocomplete="off" type="text" name="ext.title" class="message_title" maxlength="100"></p>
+                <p><span><i class="red">*</i>内容</span><textarea name="ext.content" cols="55" rows="4" class="message_txt" maxlength="500"></textarea></p>
+                <p><span><i class="red">*</i>验证码</span><input autocomplete="off" type="text" name="captcha" maxlength="8" class="message_code"></p>
+                <p><img id="guestbookCaptcha" src="/captcha.svl" onclick="this.src='/captcha.svl?d='+new Date()*1"></p>
+                <p><input type="button" id="submit" class="submit" value="发表留言" onclick="Cms.mobile.postGuestBook()"></p>
+            </div>
+        </div>
+    </form>
+    </section>
+    <section class="comments">
+        <h2><span>留言</span></h2>
+        <div id="guestbooksContainer" class="aui-list aui-media-list"></div>
+        <div class="open-more">
+            <a id="moreGuestBooks" href="javascript:void(0)" onclick="Cms.mobile.loadGuestBooks()">更多评论</a>
+        </div>
+    </section>
+</section>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>给我们留言--${site.name}</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"/>
+    <meta name="keywords" content="${channel.keywords???then(channel.keywords,site.keywords)}">
+    <meta name="description" content="${channel.summary???then(channel.summary,site.remark)}">
+    <link href="${resServer}/style/default/css/mobile.css" type="text/css" rel="stylesheet" media="screen">
+</head>
+<body>
+<#include "/common/mobile_header_bar.html"/>
+<#include "/guestbook/mobile_guestbook.html">
+</body>
+<#include "/common/mobile_script-res.html">
+<script type="text/javascript" src="${resServer}/style/default/js/mobile.js"></script>
+<script>var guestBookPageNo = 0;
+    Cms.mobile.loadGuestBooks()</script>
+</html>

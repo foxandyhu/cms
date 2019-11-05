@@ -1,4 +1,16 @@
 @import "../aui/aui.css";
+.mt5{margin-top:5px}
+.mb15{margin-bottom:15px}
+.mt10{margin-top:10px}
+.mt15{margin-top:15px}
+.mt20{margin-top:20px}
+.mt25{margin-top:25px}
+.mt35{margin-top:35px}
+.mt50{margin-top:50px}
+.ml20{margin-left:20px}
+.ml30{margin-left: 30px;}
+.mr10{margin-right:10px}
+.ml10{margin-left:10px}
 .none{display: none;}
 .white{color:#fff;}
 .left{float: left;}
@@ -6,6 +18,7 @@
 .red{color:#eb413d;}
 .text-center{text-align: center;}
 .cls{line-height: 5px;height: 5px;clear: both;}
+.z-index1000{z-index:1000;}
 .loading {height: 60px;line-height: 60px;text-align: center;display: none;margin-bottom: 80px;}
 .loading img {vertical-align: middle;display: unset !important;}
 #slideBox{width:auto !important;height: 200px !important;}
@@ -32,7 +45,7 @@ article .times span{margin-right: 10px;font-size:.6rem;color: #828282;}
 .comments h2 span {display: inline-block;line-height: 30px;border-bottom: 2px solid #ef3838;}
 .comment_form{padding:10px;}
 .comment_form textarea{height:5rem;}
-.comment_form textarea,.comment_form input[type='text']{border:1px solid #b2b3ad;padding-left:5px;}
+.comment_form textarea,.comment_form input[type='text'],.comment_form select{border:1px solid #b2b3ad;padding-left:5px;}
 .comment_form .captcha{width:8rem;}
 .comment_form .ca img{margin-left:5px;}
 .comment_form .submit{background-color: #eb413d;font-size: 14px;color: #fff;border-radius: 8px;    display: block;width: 100%;padding-left: 0;padding-right: 0;    height: 2rem;}
@@ -45,3 +58,7 @@ article .times span{margin-right: 10px;font-size:.6rem;color: #828282;}
 .open-more a{padding:5px 20px; border:1px solid #c7c7c7; font-size:12px; color:#333; display:inline-block;}
 
 .doc_content{height:600px;}
+
+.message_inf p{margin-bottom: .5rem;}
+.message_inf .line {background-color: #ef3838;height: 2px;}
+.reply_admin_txt{margin: 10px 0;color: #ccc;font-size:small;}

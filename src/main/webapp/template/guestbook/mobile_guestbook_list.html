@@ -1,0 +1,22 @@
+<#list guestBookPager.data as item>
+    <li class="aui-list-item aui-list-item-middle">
+        <div class="aui-media-list-item-inner">
+            <div class="aui-list-item-media">
+                <img class="lazyimg aui-img-round aui-list-img-sm" src="${resServer}/style/default/blank_1x1.gif"
+                     original="${resServer}${item.face???then(item.face,'/system/images/default.jpg')}">
+            </div>
+            <div class="aui-list-item-inner ">
+                <div class="aui-list-item-text">
+                    <div class="aui-list-item-title">${item.postUserName???then(item.postUserName,'匿名网友')}</div>
+                    <div class="aui-list-item-right">${item.postDate?string('yyyy-MM-dd HH:mm:ss')}</div>
+                </div>
+                <div class="aui-list-item-text">${sensitiveFilterMethod(item.content)?html}</div>
+                <div class="reply_admin_txt">
+                    <#if item.reply>
+                        管理员回复:&nbsp;${item.replyContent?html}
+                    </#if>
+                </div>
+            </div>
+        </div>
+    </li>
+</#list>
