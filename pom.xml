@@ -157,34 +157,49 @@
             <artifactId>hashids</artifactId>
             <version>1.0.3</version>
         </dependency>
+
+        <!--微软文档转换html begin-->
         <dependency>
-            <groupId>org.jodconverter</groupId>
-            <artifactId>jodconverter-spring-boot-starter</artifactId>
-            <version>4.2.2</version>
+            <groupId>net.sf.cssbox</groupId>
+            <artifactId>pdf2dom</artifactId>
+            <version>1.8</version>
         </dependency>
         <dependency>
-            <groupId>org.jodconverter</groupId>
-            <artifactId>jodconverter-spring</artifactId>
-            <version>4.2.2</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-log4j12</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-io</groupId>
-                    <artifactId>commons-io</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.apache.commons</groupId>
-                    <artifactId>commons-lang3</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>pdfbox-tools</artifactId>
+            <version>2.0.17</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-scratchpad</artifactId>
+            <version>3.14</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>3.14</version>
+        </dependency>
+
+        <dependency>
+            <groupId>fr.opensagres.xdocreport</groupId>
+            <artifactId>xdocreport</artifactId>
+            <version>1.0.6</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml-schemas</artifactId>
+            <version>3.14</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>ooxml-schemas</artifactId>
+            <version>1.3</version>
+        </dependency>
+        <!--微软文档转换html end-->
 
         <dependency>
             <groupId>org.apache.shiro</groupId>
