@@ -3,6 +3,7 @@ package com.bfly.manage.content;
 import com.alibaba.fastjson.JSONObject;
 import com.bfly.cms.content.entity.Channel;
 import com.bfly.cms.content.service.IChannelService;
+import com.bfly.common.DataConvertUtils;
 import com.bfly.common.ResponseData;
 import com.bfly.common.ResponseUtil;
 import com.bfly.common.json.JsonUtil;
@@ -43,12 +44,17 @@ public class ChannelController extends BaseManageController {
     @GetMapping(value = "/list")
     @ActionModel(value = "栏目列表", need = false)
     public void listChannel(HttpServletResponse response) {
-        PagerThreadLocal.set(getRequest());
+        PagerThreadLocal.set(getRequest(),100);
 
+        Map<String, Object> exactMap = new HashMap<>(1);
+        String parentId = getRequest().getParameter("parentId");
+        if (parentId != null) {
+            exactMap.put("parentId", DataConvertUtils.convertToInteger(parentId));
+        }
         Map<String, Sort.Direction> sortMap = new HashMap<>(1);
         sortMap.put("seq", Sort.Direction.ASC);
-        Pager pager = channelService.getPage(null, null, sortMap);
-        JSONObject json = JsonUtil.toJsonFilter(pager, "child");
+        Pager pager = channelService.getPage(exactMap, null, sortMap);
+        JSONObject json = JsonUtil.toJsonFilter(pager);
         ResponseUtil.writeJson(response, ResponseData.getSuccess(json));
     }
 

@@ -104,6 +104,6 @@ public class WebInterceptor extends HandlerInterceptorAdapter {
      */
     private boolean siteClosed(HttpServletRequest request) {
         SiteConfig config = ContextUtil.getSiteConfig(request.getServletContext());
-        return !config.isOpenSite();
+        return config != null ? !config.isOpenSite() : true;
     }
 }

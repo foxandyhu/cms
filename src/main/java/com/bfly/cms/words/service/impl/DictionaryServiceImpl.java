@@ -12,28 +12,30 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author andy_hulibo@163.com
  * @date 2018/12/14 11:11
  */
 @Service
-@Transactional(propagation= Propagation.SUPPORTS, rollbackFor = Exception.class)
+@Transactional(propagation = Propagation.SUPPORTS, rollbackFor = Exception.class)
 public class DictionaryServiceImpl extends BaseServiceImpl<Dictionary, Integer> implements IDictionaryService {
 
     @Autowired
     private IDictionaryDao dictionaryDao;
 
     @Override
-    @Cacheable(value = "beanCache",key = "'dictionary_list'")
+    @Cacheable(value = "beanCache", key = "#exactQueryProperty.containsKey('type')?'dictionary_by_map_'+#exactQueryProperty.get('type'):'dictionary_list'")
     public List<Dictionary> getList(Map<String, Object> exactQueryProperty) {
         return super.getList(exactQueryProperty);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    @CacheEvict(value = "beanCache",key = "'dictionary_list'")
+    @CacheEvict(value = "beanCache", key = "'dictionary_list'")
     public boolean save(Dictionary dictionary) {
         boolean exist = checkExist(dictionary);
         Assert.isTrue(!exist, "该数据字典数据已重复!");
@@ -42,7 +44,7 @@ public class DictionaryServiceImpl extends BaseServiceImpl<Dictionary, Integer> 
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    @CacheEvict(value = "beanCache",key = "'dictionary_list'")
+    @CacheEvict(value = "beanCache", key = "'dictionary_list'")
     public boolean edit(Dictionary dictionary) {
         boolean exist = checkExist(dictionary);
         Assert.isTrue(!exist, "该数据字典数据已重复!");
@@ -69,6 +71,7 @@ public class DictionaryServiceImpl extends BaseServiceImpl<Dictionary, Integer> 
     }
 
     @Override
+    @Cacheable(value = "beanCache", key = "'dictionary_type_list'")
     public List<String> getTypes() {
         return dictionaryDao.getTypes();
     }
