@@ -6,6 +6,7 @@ import com.bfly.cms.content.entity.Model;
 import com.bfly.cms.content.service.IChannelService;
 import com.bfly.cms.content.service.IModelService;
 import com.bfly.core.base.service.impl.BaseServiceImpl;
+import org.apache.commons.collections.MapUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -14,9 +15,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author andy_hulibo@163.com
@@ -34,14 +33,23 @@ public class ChannelServiceImpl extends BaseServiceImpl<Channel, Integer> implem
     @Override
     @Cacheable(value = "beanCache", key = "'channel_by_map_'+#exactQueryProperty.hashCode()")
     public List<Channel> getList(Map<String, Object> exactQueryProperty) {
-        //  此处返回一个线程安全的集合 由于list可能会被写入缓存 造成读写冲突
         return Collections.synchronizedList(super.getList(exactQueryProperty));
     }
 
     @Override
     @Cacheable(value = "beanCache", key = "'channel_list'")
     public List<Map<String, Object>> getAllChannel() {
-        return channelDao.getAllChannel();
+        List<Map<String, Object>> list = channelDao.getAllChannel();
+        List<Map<String, Object>> array = new ArrayList<>();
+        if (list != null) {
+            list.forEach(map -> {
+                Map<String, Object> hashMap = new HashMap<>(map.size());
+                hashMap.putAll(map);
+                array.add(hashMap);
+            });
+        }
+        //  此处返回一个线程安全的集合 由于list可能会被写入缓存 造成读写冲突
+        return Collections.synchronizedList(array);
     }
 
     @Override

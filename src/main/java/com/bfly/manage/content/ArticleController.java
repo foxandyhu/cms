@@ -64,16 +64,16 @@ public class ArticleController extends BaseManageController {
         String title = request.getParameter("title");
         String channelId = request.getParameter("channelId");
 
-        if (channelId != null) {
+        if (StringUtils.hasText(channelId)) {
             exactMap.put("channelId", DataConvertUtils.convertToInteger(channelId));
         }
-        if (type != null) {
+        if (StringUtils.hasText(type)) {
             exactMap.put("type", DataConvertUtils.convertToInteger(type));
         }
-        if (status != null) {
+        if (StringUtils.hasText(status)) {
             exactMap.put("status", DataConvertUtils.convertToInteger(status));
         }
-        if (title != null) {
+        if (StringUtils.hasText(title)) {
             unExactMap.put("title", title);
         }
 

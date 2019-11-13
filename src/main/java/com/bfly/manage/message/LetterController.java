@@ -11,6 +11,7 @@ import com.bfly.common.page.Pager;
 import com.bfly.core.base.action.BaseManageController;
 import com.bfly.core.context.PagerThreadLocal;
 import com.bfly.core.security.ActionModel;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.validation.BindingResult;
@@ -50,14 +51,14 @@ public class LetterController extends BaseManageController {
         String endSendTime = request.getParameter("endSendTime");
         String box = request.getParameter("box");
         String read = request.getParameter("read");
-        if (beginSendTime != null && endSendTime != null) {
+        if (StringUtils.isNotBlank(beginSendTime) && StringUtils.isNotBlank(endSendTime)) {
             exactMap.put("beginSendTime", DateUtil.parseStrDate(beginSendTime));
             exactMap.put("endSendTime", DateUtil.parseStrDate(endSendTime));
         }
-        if (box != null) {
+        if (StringUtils.isNotBlank(box)) {
             exactMap.put("box", Integer.parseInt(box));
         }
-        if (read != null) {
+        if (StringUtils.isNotBlank(read)) {
             exactMap.put("read", Boolean.parseBoolean(read));
         }
 

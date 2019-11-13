@@ -35,11 +35,11 @@ public class SysWaterMarkController extends BaseManageController {
      * @date 2018/12/20 9:35
      */
     @GetMapping(value = "/info")
-    @ActionModel(value = "查看谁赢设置",need = false)
+    @ActionModel(value = "查看水印设置", need = false)
     public void getWaterMark(HttpServletResponse response) {
         SysWaterMark waterMark = waterMarkService.getWaterMark();
-        if(StringUtils.hasLength(waterMark.getImg())){
-            waterMark.setImg(ResourceConfig.getServer()+waterMark.getImg());
+        if (StringUtils.hasLength(waterMark == null ? null : waterMark.getImg())) {
+            waterMark.setImg(ResourceConfig.getServer() + waterMark.getImg());
         }
         ResponseUtil.writeJson(response, ResponseData.getSuccess(waterMark));
     }

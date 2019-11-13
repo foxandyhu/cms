@@ -35,11 +35,11 @@ public class CompanyController extends BaseManageController {
      * @date 2019/7/22 11:15
      */
     @GetMapping(value = "/info")
-    @ActionModel(value = "查看企业信息",need = false)
+    @ActionModel(value = "查看企业信息", need = false)
     public void viewCompany(HttpServletResponse response) {
         Company company = companyService.getCompany();
-        if (StringUtils.hasLength(company.getWeixin())) {
-            company.setWeixin(ResourceConfig.getServer()+company.getWeixin());
+        if (StringUtils.hasLength(company == null ? null : company.getWeixin())) {
+            company.setWeixin(ResourceConfig.getServer() + company.getWeixin());
         }
         ResponseUtil.writeJson(response, ResponseData.getSuccess(company));
     }

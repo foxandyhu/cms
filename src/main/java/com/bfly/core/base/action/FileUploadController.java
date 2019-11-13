@@ -1,5 +1,6 @@
 package com.bfly.core.base.action;
 
+import com.alibaba.fastjson.JSONObject;
 import com.bfly.common.FileUtil;
 import com.bfly.common.ResponseData;
 import com.bfly.common.ResponseUtil;
@@ -27,7 +28,7 @@ import java.io.File;
 public class FileUploadController extends BaseManageController {
 
     /**
-     * 公共的文件上传
+     * 公共的文件上传----上传到临时目录
      *
      * @return 返回上传文件的文件名
      * @author 胡礼波
@@ -44,5 +45,28 @@ public class FileUploadController extends BaseManageController {
             throw new RuntimeException("文件上传失败!");
         }
         ResponseUtil.writeJson(response, ResponseData.getSuccess(fileName));
+    }
+
+    /**
+     * 富文本编辑器的文件上传
+     *
+     * @author andy_hulibo@163.com
+     * @date 2019/11/13 16:42
+     */
+    @PostMapping(value = "/content/upload")
+    @ActionModel(value = "文件上传")
+    public void uploadContentImageForEditor(@RequestPart MultipartFile file, HttpServletResponse response) throws Exception {
+        String targetPath = ResourceConfig.getContentDir();
+        String fileName = FileUtil.getRandomName() + FileUtil.getFileSuffix(file.getOriginalFilename());
+        targetPath = targetPath + File.separator + fileName;
+        boolean result = FileUtil.writeFile(file.getInputStream(), targetPath);
+        if (!result) {
+            throw new RuntimeException("文件上传失败!");
+        }
+        targetPath = ResourceConfig.getRelativePathForRoot(targetPath);
+        JSONObject json = new JSONObject();
+        json.put("url", ResourceConfig.getServer().concat(targetPath));
+        json.put("path", targetPath);
+        ResponseUtil.writeJson(response, ResponseData.getSuccess(json));
     }
 }
