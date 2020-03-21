@@ -53,6 +53,7 @@ public interface IChannelDao extends IBaseDao<Channel, Integer> {
     /**
      * 查询栏目所有相关信息
      * 包括所属模型名称,是否有内容
+     *
      * @return 栏目相关信息
      * @author andy_hulibo@163.com
      * @date 2019/8/7 14:58
@@ -62,11 +63,24 @@ public interface IChannelDao extends IBaseDao<Channel, Integer> {
 
     /**
      * 根据栏目路径查找栏目
-     * @author andy_hulibo@163.com
-     * @date 2019/8/19 16:37
+     *
      * @param path 路径名称
      * @return 栏目对象
+     * @author andy_hulibo@163.com
+     * @date 2019/8/19 16:37
      */
     @Query("select c from Channel as c where path=:path")
-    Channel getChannelByPath(@Param("path")String path);
+    Channel getChannelByPath(@Param("path") String path);
+
+    /**
+     * 获得所有的子栏目
+     * 调用了存储过程 getChannelChildren
+     *
+     * @param parentId
+     * @return
+     * @author andy_hulibo@163.com
+     * @date 2019/11/19 15:41
+     */
+    @Query(value = "SELECT * from channel where FIND_IN_SET(parent_Id,getChannelChildren(:parentId))", nativeQuery = true)
+    List<Channel> getChildren(int parentId);
 }

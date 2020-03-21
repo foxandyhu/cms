@@ -116,4 +116,10 @@ public class ChannelServiceImpl extends BaseServiceImpl<Channel, Integer> implem
     public Channel getChannelByPath(String path) {
         return channelDao.getChannelByPath(path);
     }
+
+    @Override
+    @Cacheable(value = "beanCache", key = "'channel_by_parent_'+#parentId")
+    public List<Channel> getChildren(int parentId) {
+        return channelDao.getChildren(parentId);
+    }
 }

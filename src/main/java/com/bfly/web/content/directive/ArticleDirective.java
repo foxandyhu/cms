@@ -36,18 +36,19 @@ public class ArticleDirective extends BaseTemplateDirective implements TemplateD
     private IChannelService channelService;
 
     /**
-     * 查询条件 limit 返回条数 recommend 是否推荐  type 内容类型  channelId 栏目ID pageable 是否分页
+     * 查询条件 limit 返回条数 recommend 是否推荐  type 内容类型  channelId 栏目ID pId 父栏目ID pageable 是否分页
      * topLevelSort 置顶排序 true升序 false降序 status状态 fileType文件类型
      * recommendLevelSort 推荐级别 true升序 false降序
      * viewsSort 点击率排序 true升序 false降序
      * commentsSort 评论数排序 true升序 false降序
+     * pId和channelId一般不能同时出现,如果同时出现则channelId有效pid无效
      *
      * @author andy_hulibo@163.com
      * @date 2019/9/3 12:29
      */
     @Override
     public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
-        String pageSize = "pageSize", status = "status", recommend = "recommend", type = "type",fileType="fileType", channelId = "channelId", pageable = "pageable";
+        String pageSize = "pageSize", status = "status", recommend = "recommend", type = "type", fileType = "fileType", channelId = "channelId", pId = "pId", pageable = "pageable";
         String topLevelSort = "topLevelSort", recommendLevelSort = "recommendLevelSort", viewsSort = "viewsSort", commentsSort = "commentsSort";
         Map<String, Object> map = new HashMap<>(4);
         int size = 0;
@@ -69,8 +70,13 @@ public class ArticleDirective extends BaseTemplateDirective implements TemplateD
             Integer cId = getData(channelId, params, Integer.class);
             map.put(channelId, cId);
         }
-        if(params.containsKey(fileType)){
-            map.put(fileType,getData(fileType,params,String.class));
+        if (!params.containsKey(channelId) && params.containsKey(pId)) {
+            //pId和channelId一般不能同时出现,如果同时出现则channelId有效pid无效
+            Integer cId = getData(pId, params, Integer.class);
+            map.put(pId, cId);
+        }
+        if (params.containsKey(fileType)) {
+            map.put(fileType, getData(fileType, params, String.class));
         }
 
         Map<String, Sort.Direction> sort = new HashMap<>(4);
@@ -89,7 +95,7 @@ public class ArticleDirective extends BaseTemplateDirective implements TemplateD
 
         List list;
         if (params.containsKey(pageable) && getData(pageable, params, Boolean.class)) {
-            PagerThreadLocal.set(getRequest(),size);
+            PagerThreadLocal.set(getRequest(), size);
             Pager pager = articleService.getPage(map, null, sort);
             list = pager.getData();
             idConvert(list);
@@ -125,7 +131,7 @@ public class ArticleDirective extends BaseTemplateDirective implements TemplateD
         sort.put(column, getData(column, params, Boolean.class) ? Sort.Direction.ASC : Sort.Direction.DESC);
     }
 
-    private void idConvert(List list){
+    private void idConvert(List list) {
         if (list != null) {
             list.forEach(item -> {
                 Map<String, Object> m = (Map<String, Object>) item;

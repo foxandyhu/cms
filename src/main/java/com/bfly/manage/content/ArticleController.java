@@ -65,7 +65,7 @@ public class ArticleController extends BaseManageController {
         String channelId = request.getParameter("channelId");
 
         if (StringUtils.hasText(channelId)) {
-            exactMap.put("channelId", DataConvertUtils.convertToInteger(channelId));
+            exactMap.put("pId", DataConvertUtils.convertToInteger(channelId));
         }
         if (StringUtils.hasText(type)) {
             exactMap.put("type", DataConvertUtils.convertToInteger(type));

@@ -15,6 +15,7 @@ import com.bfly.common.IDEncrypt;
 import com.bfly.common.StringUtil;
 import com.bfly.common.ValidateUtil;
 import com.bfly.common.page.Pager;
+import com.bfly.core.Constants;
 import com.bfly.core.base.service.impl.BaseServiceImpl;
 import com.bfly.core.cache.EhCacheUtil;
 import com.bfly.core.config.ResourceConfig;
@@ -24,7 +25,6 @@ import com.bfly.core.enums.ArticleStatus;
 import com.bfly.core.enums.ContentType;
 import it.sauronsoftware.jave.Encoder;
 import it.sauronsoftware.jave.MultimediaInfo;
-import jdk.nashorn.internal.ir.ReturnNode;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
@@ -73,6 +73,7 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article, Integer> implem
         Integer sId = exactQueryProperty != null && exactQueryProperty.containsKey("status") ? (Integer) exactQueryProperty.get("status") : null;
         Integer tId = exactQueryProperty != null && exactQueryProperty.containsKey("type") ? (Integer) exactQueryProperty.get("type") : null;
         Integer cId = exactQueryProperty != null && exactQueryProperty.containsKey("channelId") ? (Integer) exactQueryProperty.get("channelId") : null;
+        Integer pId = exactQueryProperty != null && exactQueryProperty.containsKey("pId") ? (Integer) exactQueryProperty.get("pId") : null;
         Boolean recommend = exactQueryProperty != null && exactQueryProperty.containsKey("recommend") ? (Boolean) exactQueryProperty.get("recommend") : null;
         String title = (unExactQueryProperty != null && unExactQueryProperty.containsKey("title")) ? unExactQueryProperty.get("title") : null;
         String fileType = exactQueryProperty != null && exactQueryProperty.containsKey("fileType") ? String.valueOf(exactQueryProperty.get("fileType")) : null;
@@ -87,6 +88,15 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article, Integer> implem
         }
         if (cId != null) {
             conditionSql.append(" and ar.channel_id=" + cId);
+        }
+        if (pId != null) {
+            List<Channel> channels = channelService.getChildren(pId);
+            List<Integer> children = new ArrayList<>();
+            children.add(pId);
+            if (channels != null) {
+                channels.forEach(channel -> children.add(channel.getId()));
+            }
+            conditionSql.append(" and ar.channel_id in(" + StringUtils.collectionToDelimitedString(children, ",") + ")");
         }
         if (recommend != null) {
             conditionSql.append(" and ar.is_recommend=" + recommend);
@@ -489,7 +499,8 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article, Integer> implem
                 article.getArticleExt().setFileLength(null);
                 return article;
             }
-            filePath = ResourceConfig.getUploadTempFileToDestDirForRelativePath(filePath, ValidateUtil.isMedia(filePath) ? ResourceConfig.getMediaDir() : ResourceConfig.getDocDir());
+            String reallyFile= org.apache.commons.lang3.StringUtils.substring(filePath,0, org.apache.commons.lang3.StringUtils.indexOf(filePath, Constants.TEMP_RESOURCE_SUFFIX,0));
+            filePath = ResourceConfig.getUploadTempFileToDestDirForRelativePath(filePath, ValidateUtil.isMedia(reallyFile) ? ResourceConfig.getMediaDir() : ResourceConfig.getDocDir());
             if (filePath != null) {
                 //新上传的文件
                 article.getArticleExt().setFilePath(filePath);
@@ -811,4 +822,6 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article, Integer> implem
         }
         return luceneService.query(keyWord);
     }
+
+
 }

@@ -100,8 +100,7 @@ public class ValidateUtil {
         if (file == null || !file.exists()) {
             return false;
         }
-        String suffix = FileUtil.getFileSuffix(file.getName());
-        return isMedia(suffix);
+        return isMedia(file.getAbsolutePath());
     }
 
     /**
