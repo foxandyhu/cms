@@ -23,7 +23,7 @@
         <druid.version>1.1.18</druid.version>
         <jcaptcha.version>1.0</jcaptcha.version>
         <mysql.version>5.1.47</mysql.version>
-        <fastjson.version>1.2.54</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
     </properties>
 
     <dependencies>
